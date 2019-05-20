@@ -81,7 +81,7 @@ def process_operations(data):
             if op_params:
                 data["parameters"] = op_params
 
-            print("Dumping operation: %s" % op_id)
+            print("  Operation: %s %s %s" % (op_id, op, path))
             fn = os.path.join(basedir, "ops", op_id + ".json")
             with open(fn, "w") as f:
                 f.write(json.dumps(data, indent=2))
@@ -104,10 +104,25 @@ def process_security(data):
 def process_parameters(data):
     prepare_dir("parameters")
 
-    data = data.get('parameters', [])
+    params = data.get('parameters', [])
     fn = os.path.join(basedir, "parameters", "parameters.json")
     with open(fn, "w") as f:
-        f.write(json.dumps(data, indent=2, sort_keys=True))
+        f.write(json.dumps(params, indent=2, sort_keys=True))
+
+
+def process_basic(data):
+    prepare_dir("basic")
+
+    version = data.get('swagger', "2.0")
+    info = data.get("info", {})
+    basic = {
+        "swagger": version
+    }
+    if info:
+        basic["info"] = info
+    fn = os.path.join(basedir, "basic", "basic.json")
+    with open(fn, "w") as f:
+        f.write(json.dumps(basic, indent=2, sort_keys=True))
 
 
 def cross_compare(existing, check):
@@ -232,9 +247,7 @@ def main():
     with open(newfile, "w") as f:
         f.write(json.dumps(data, indent=2))
 
-    for k in data.keys():
-        print(k)
-
+    process_basic(data)
     process_definitions(data)
     process_operations(data)
     process_security(data)
