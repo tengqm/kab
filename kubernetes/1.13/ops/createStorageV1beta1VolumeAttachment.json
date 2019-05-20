@@ -1,0 +1,68 @@
+{
+  "description": "create a VolumeAttachment",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1beta1"
+  ],
+  "operationId": "createStorageV1beta1VolumeAttachment",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.VolumeAttachment"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.VolumeAttachment"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.VolumeAttachment"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.VolumeAttachment"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "storage.k8s.io",
+    "kind": "VolumeAttachment",
+    "version": "v1beta1"
+  },
+  "verb": "post",
+  "path": "/apis/storage.k8s.io/v1beta1/volumeattachments"
+}

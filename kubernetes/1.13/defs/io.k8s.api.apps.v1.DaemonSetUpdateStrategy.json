@@ -1,0 +1,19 @@
+{
+  "description": "DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.",
+  "properties": {
+    "rollingUpdate": {
+      "description": "Spec to control the desired behavior of daemon set rolling update.",
+      "properties": {
+        "maxUnavailable": {
+          "description": "IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.",
+          "type": "string",
+          "format": "int-or-string"
+        }
+      }
+    },
+    "type": {
+      "description": "Type of daemon set update. Can be \"RollingUpdate\" or \"OnDelete\". Default is RollingUpdate.",
+      "type": "string"
+    }
+  }
+}

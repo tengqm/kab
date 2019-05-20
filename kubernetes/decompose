@@ -1,0 +1,203 @@
+#!/usr/bin/env python3
+
+import copy
+import json
+import jsonref
+import os
+import shutil
+import sys
+
+basedir = "."
+
+
+def prepare_dir(name):
+    """"""
+    global basedir
+    subdir = os.path.join(basedir, name)
+    shutil.rmtree(subdir, ignore_errors=True)
+    os.mkdir(subdir)
+    return
+
+
+def process_definitions(data):
+    """Dump definitions.
+
+    Dump definitions into the /defs/ subdirectory with definition key as the
+    file name.
+    """
+    prepare_dir("defs")
+    definitions = data['definitions']
+    for k, v in data['definitions'].items():
+        fn = os.path.join(basedir, "defs", k + ".json")
+        print("Dumping definition: %s" % k)
+        with open(fn, "w") as f:
+            f.write(json.dumps(v, indent=2))
+
+
+def print_operation_params(target_op):
+    paths = swagger['paths']
+    for path, pathd in paths.items():
+        # print(path)
+        for op, opd in pathd.items():
+            if 'operationId' in opd:
+                op_id = opd['operationId']
+                if op_id == target_op:
+                    # sch = json.dumps(opd, indent=2)
+                    params = opd['parameters']
+                    break
+            elif op != 'parameters':
+                print("   " + op + ": no operation ID")
+
+
+    for p in params:
+        if 'schema' in p:
+            schema = p['schema']
+            with open("{0}_{1}.json".format(target_op, p['name']), "w+") as f:
+                f.write(json.dumps(schema, indent=2))
+
+
+def process_operations(data):
+    prepare_dir("ops")
+    paths = data['paths']
+    for path, pathd in paths.items():
+        print("Processing path: %s" % path)
+        path_params = pathd.get("parameters", [])
+        for op, opd in pathd.items():
+            if op == "parameters":
+                continue
+            op_id = opd['operationId']
+
+            data = copy.deepcopy(opd)
+            # 'params' is the parameters defined solely for this operation.
+            op_params = opd.get('parameters', [])
+            if path_params:
+                op_params.extend(path_params)
+            data["verb"] = op
+            data["path"] = path
+            if op_params:
+                data["parameters"] = op_params
+
+            print("Dumping operation: %s" % op_id)
+            fn = os.path.join(basedir, "ops", op_id + ".json")
+            with open(fn, "w") as f:
+                f.write(json.dumps(data, indent=2))
+
+
+def cross_compare(existing, check):
+    c = copy.deepcopy(check)
+    c["required"] = False
+    if c != existing:
+        print("\033[31mDeviated param definition: %r \033[0m" % check)
+        print("\033[31m    %r \033[0m" % existing)
+    return
+
+def extract_parameters(data):
+    common_params = [
+        "continue",
+        "fieldSelector",
+        "includeUninitialized",
+        "labelSelector",
+        "limit",
+        "pretty",
+        "timeoutSeconds",
+        "resourceVersion",
+        "watch",
+        "namespace",
+        "dryRun",
+        "gracePeriodSeconds",
+        "orphanDependents",
+        "propagationPolicy",
+        "exact",
+        "export",
+    ]
+    param_spec = {}
+    paths = data['paths']
+    
+    for path, pathd in paths.items():
+        print("Processing path: %s" % path)
+        for op, opd in pathd.items():
+            if op == "parameters":
+                params = []
+                # opd is the list of parameters
+                for p in opd:
+                    p_name = p["name"]
+                    if p_name in common_params:
+                        # accumulate the top leve list
+                        if p_name not in param_spec:
+                            p_copy = copy.deepcopy(p)
+                            if p.get("required", False):
+                                print("\033[31m Whoops, required?\033[0m")
+                            p_copy["required"] = False
+                            param_spec[p_name] = p_copy
+                        else:
+                            cross_compare(param_spec[p_name], p)
+
+                        # make it a reference
+                        params.append({"$ref": "#/parameters/" + p_name})
+                    else:
+                        p_copy = copy.deepcopy(p)
+                        params.append(p_copy)
+                data["paths"][path]["parameters"] = params
+            else:
+                param_list = opd.get("parameters", [])
+                if len(param_list) == 0:
+                    continue
+                params = []
+                for p in param_list:
+                    p_name = p["name"]
+                    if p_name in common_params:
+                        # accumulate the top leve list
+                        if p_name not in param_spec:
+                            p_copy = copy.deepcopy(p)
+                            p_copy["required"] = False
+                            param_spec[p_name] = p_copy
+                            if p.get("required", False):
+                                print("\033[31m Whoops, required?\033[0m")
+                        else:
+                            cross_compare(param_spec[p_name], p)
+
+                        # make it a reference
+                        params.append({"$ref": "#/parameters/" + p_name})
+                    else:
+                        p_copy = copy.deepcopy(p)
+                        params.append(p_copy)
+                data["paths"][path][op]["parameters"] = params
+
+    return data
+
+
+def main():
+    global basedir
+
+    if len(sys.argv) < 2:
+        print("Usage: decompose <swagger.json>")
+        sys.exit(-1)
+
+    try:
+        f = open(sys.argv[1])
+    except Exception:
+        print("ERROR: Cannot find or open the input file %s" % sys.argv[1])
+        sys.exit(-2)
+
+    basedir = os.path.dirname(sys.argv[1])
+    basename, ext = os.path.splitext(sys.argv[1])
+    try:
+        data = json.load(f)
+    finally:
+        f.close()
+
+    # remove circular reference
+    data["definitions"].pop("io.k8s.apiextensions-apiserver.pkg.apis."
+                            "apiextensions.v1beta1.JSONSchemaProps", None)
+
+    # extract parameters into spec level
+    data = extract_parameters(data)
+    newfile = basename + "_p2" + ext
+    with open(newfile, "w") as f:
+        f.write(json.dumps(data, indent=2))
+
+    # process_definitions(data)
+    process_operations(data)
+
+if __name__ == "__main__":
+    main()

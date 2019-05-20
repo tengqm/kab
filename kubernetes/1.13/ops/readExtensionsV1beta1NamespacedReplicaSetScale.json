@@ -1,0 +1,53 @@
+{
+  "description": "read scale of the specified ReplicaSet",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "operationId": "readExtensionsV1beta1NamespacedReplicaSetScale",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "Scale",
+    "version": "v1beta1"
+  },
+  "verb": "get",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}/scale",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Scale",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ]
+}

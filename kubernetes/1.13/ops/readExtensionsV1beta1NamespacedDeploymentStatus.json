@@ -1,0 +1,53 @@
+{
+  "description": "read status of the specified Deployment",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "operationId": "readExtensionsV1beta1NamespacedDeploymentStatus",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "Deployment",
+    "version": "v1beta1"
+  },
+  "verb": "get",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/status",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Deployment",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ]
+}
