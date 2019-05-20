@@ -60,28 +60,6 @@ def process_definitions(data):
             f.write(json.dumps(v, indent=2))
 
 
-def print_operation_params(target_op):
-    paths = swagger['paths']
-    for path, pathd in paths.items():
-        # print(path)
-        for op, opd in pathd.items():
-            if 'operationId' in opd:
-                op_id = opd['operationId']
-                if op_id == target_op:
-                    # sch = json.dumps(opd, indent=2)
-                    params = opd['parameters']
-                    break
-            elif op != 'parameters':
-                print("   " + op + ": no operation ID")
-
-
-    for p in params:
-        if 'schema' in p:
-            schema = p['schema']
-            with open("{0}_{1}.json".format(target_op, p['name']), "w+") as f:
-                f.write(json.dumps(schema, indent=2))
-
-
 def process_operations(data):
     prepare_dir("ops")
     paths = data['paths']
@@ -107,6 +85,29 @@ def process_operations(data):
             fn = os.path.join(basedir, "ops", op_id + ".json")
             with open(fn, "w") as f:
                 f.write(json.dumps(data, indent=2))
+
+
+def process_security(data):
+    prepare_dir("security")
+
+    security = data.get('security', [])
+    fn = os.path.join(basedir, "security", "security.json")
+    with open(fn, "w") as f:
+        f.write(json.dumps(security, indent=2))
+
+    securityDefs = data.get('securityDefinitions', {})
+    fn = os.path.join(basedir, "security", "securityDefinitions.json")
+    with open(fn, "w") as f:
+        f.write(json.dumps(securityDefs, indent=2))
+
+
+def process_parameters(data):
+    prepare_dir("parameters")
+
+    data = data.get('parameters', [])
+    fn = os.path.join(basedir, "parameters", "parameters.json")
+    with open(fn, "w") as f:
+        f.write(json.dumps(data, indent=2, sort_keys=True))
 
 
 def cross_compare(existing, check):
@@ -189,6 +190,7 @@ def extract_parameters(data):
                         params.append(p_copy)
                 data["paths"][path][op]["parameters"] = params
 
+    data["parameters"] = param_spec
     return data
 
 
@@ -222,8 +224,13 @@ def main():
     with open(newfile, "w") as f:
         f.write(json.dumps(data, indent=2))
 
+    for k in data.keys():
+        print(k)
+
     process_definitions(data)
     process_operations(data)
+    process_security(data)
+    process_parameters(data)
 
 if __name__ == "__main__":
     main()
