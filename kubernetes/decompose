@@ -217,6 +217,14 @@ def main():
     # remove circular reference
     data["definitions"].pop("io.k8s.apiextensions-apiserver.pkg.apis."
                             "apiextensions.v1beta1.JSONSchemaProps", None)
+    data["definitions"][
+        "io.k8s.apiextensions-apiserver.pkg.apis."
+        "apiextensions.v1beta1.CustomResourceValidation"
+    ]["properties"]["openAPIV3Schema"]["type"] = "object"
+    data["definitions"][
+        "io.k8s.apiextensions-apiserver.pkg.apis."
+        "apiextensions.v1beta1.CustomResourceValidation"
+    ]["properties"]["openAPIV3Schema"].pop("$ref", None)
 
     # extract parameters into spec level
     data = extract_parameters(data)
