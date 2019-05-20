@@ -35,6 +35,8 @@ def process_definitions(data):
             continue
 
         print("Dumping definition: %s" % k)
+
+        # inject group version kind
         gvk = v.get("x-kubernetes-group-version-kind", [])
         if len(gvk) > 1:
             print("\033[31m    GVK=%s \033[0m" % len(gvk))
@@ -47,6 +49,11 @@ def process_definitions(data):
             else:
                 v["properties"]["apiVersion"]["enum"] = [group + "/" + version]
             v["properties"]["kind"]["enum"] = [kind]
+
+        # make 'apiVersion', 'kind' required.
+        required = v.get("required", [])
+        required.extend(["apiVersion", "kind"])
+        v["required"] = required
 
         fn = os.path.join(basedir, "defs", k + ".json")
         with open(fn, "w") as f:
