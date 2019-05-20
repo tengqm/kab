@@ -22,33 +22,14 @@
       "description": "allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the \"volumes\" field.",
       "type": "array",
       "items": {
-        "description": "AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use AllowedFlexVolume from policy API Group instead.",
-        "required": [
-          "driver"
-        ],
-        "properties": {
-          "driver": {
-            "description": "driver is the name of the Flexvolume driver.",
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.AllowedFlexVolume"
       }
     },
     "allowedHostPaths": {
       "description": "allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.",
       "type": "array",
       "items": {
-        "description": "AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined. Deprecated: use AllowedHostPath from policy API Group instead.",
-        "properties": {
-          "pathPrefix": {
-            "description": "pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.\n\nExamples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`",
-            "type": "string"
-          },
-          "readOnly": {
-            "description": "when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.",
-            "type": "boolean"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.AllowedHostPath"
       }
     },
     "allowedProcMountTypes": {
@@ -84,36 +65,8 @@
       }
     },
     "fsGroup": {
-      "description": "FSGroupStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use FSGroupStrategyOptions from policy API Group instead.",
-      "properties": {
-        "ranges": {
-          "description": "ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.",
-          "type": "array",
-          "items": {
-            "description": "IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.",
-            "required": [
-              "min",
-              "max"
-            ],
-            "properties": {
-              "max": {
-                "description": "max is the end of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              },
-              "min": {
-                "description": "min is the start of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        },
-        "rule": {
-          "description": "rule is the strategy that will dictate what FSGroup is used in the SecurityContext.",
-          "type": "string"
-        }
-      }
+      "description": "fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.",
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.FSGroupStrategyOptions"
     },
     "hostIPC": {
       "description": "hostIPC determines if the policy allows the use of HostIPC in the pod spec.",
@@ -131,23 +84,7 @@
       "description": "hostPorts determines which host port ranges are allowed to be exposed.",
       "type": "array",
       "items": {
-        "description": "HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.",
-        "required": [
-          "min",
-          "max"
-        ],
-        "properties": {
-          "max": {
-            "description": "max is the end of the range, inclusive.",
-            "type": "integer",
-            "format": "int32"
-          },
-          "min": {
-            "description": "min is the start of the range, inclusive.",
-            "type": "integer",
-            "format": "int32"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.HostPortRange"
       }
     },
     "privileged": {
@@ -166,139 +103,20 @@
       }
     },
     "runAsGroup": {
-      "description": "RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.",
-      "required": [
-        "rule"
-      ],
-      "properties": {
-        "ranges": {
-          "description": "ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.",
-          "type": "array",
-          "items": {
-            "description": "IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.",
-            "required": [
-              "min",
-              "max"
-            ],
-            "properties": {
-              "max": {
-                "description": "max is the end of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              },
-              "min": {
-                "description": "min is the start of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        },
-        "rule": {
-          "description": "rule is the strategy that will dictate the allowable RunAsGroup values that may be set.",
-          "type": "string"
-        }
-      }
+      "description": "RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.",
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.RunAsGroupStrategyOptions"
     },
     "runAsUser": {
-      "description": "RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.",
-      "required": [
-        "rule"
-      ],
-      "properties": {
-        "ranges": {
-          "description": "ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.",
-          "type": "array",
-          "items": {
-            "description": "IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.",
-            "required": [
-              "min",
-              "max"
-            ],
-            "properties": {
-              "max": {
-                "description": "max is the end of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              },
-              "min": {
-                "description": "min is the start of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        },
-        "rule": {
-          "description": "rule is the strategy that will dictate the allowable RunAsUser values that may be set.",
-          "type": "string"
-        }
-      }
+      "description": "runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.",
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.RunAsUserStrategyOptions"
     },
     "seLinux": {
-      "description": "SELinuxStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use SELinuxStrategyOptions from policy API Group instead.",
-      "required": [
-        "rule"
-      ],
-      "properties": {
-        "rule": {
-          "description": "rule is the strategy that will dictate the allowable labels that may be set.",
-          "type": "string"
-        },
-        "seLinuxOptions": {
-          "description": "SELinuxOptions are the labels to be applied to the container",
-          "properties": {
-            "level": {
-              "description": "Level is SELinux level label that applies to the container.",
-              "type": "string"
-            },
-            "role": {
-              "description": "Role is a SELinux role label that applies to the container.",
-              "type": "string"
-            },
-            "type": {
-              "description": "Type is a SELinux type label that applies to the container.",
-              "type": "string"
-            },
-            "user": {
-              "description": "User is a SELinux user label that applies to the container.",
-              "type": "string"
-            }
-          }
-        }
-      }
+      "description": "seLinux is the strategy that will dictate the allowable labels that may be set.",
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.SELinuxStrategyOptions"
     },
     "supplementalGroups": {
-      "description": "SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.",
-      "properties": {
-        "ranges": {
-          "description": "ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.",
-          "type": "array",
-          "items": {
-            "description": "IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.",
-            "required": [
-              "min",
-              "max"
-            ],
-            "properties": {
-              "max": {
-                "description": "max is the end of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              },
-              "min": {
-                "description": "min is the start of the range, inclusive.",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        },
-        "rule": {
-          "description": "rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.",
-          "type": "string"
-        }
-      }
+      "description": "supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.",
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.SupplementalGroupsStrategyOptions"
     },
     "volumes": {
       "description": "volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.",

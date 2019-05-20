@@ -2,9 +2,8 @@
   "description": "LeaseSpec is a specification of a Lease.",
   "properties": {
     "acquireTime": {
-      "description": "MicroTime is version of Time with microsecond level precision.",
-      "type": "string",
-      "format": "date-time"
+      "description": "acquireTime is a time when the current lease was acquired.",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
     },
     "holderIdentity": {
       "description": "holderIdentity contains the identity of the holder of a current lease.",
@@ -21,9 +20,8 @@
       "format": "int32"
     },
     "renewTime": {
-      "description": "MicroTime is version of Time with microsecond level precision.",
-      "type": "string",
-      "format": "date-time"
+      "description": "renewTime is a time when the current holder of a lease has last updated the lease.",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
     }
   }
 }

@@ -12,21 +12,7 @@
       "description": "Custom headers to set in the request. HTTP allows repeated headers.",
       "type": "array",
       "items": {
-        "description": "HTTPHeader describes a custom header to be used in HTTP probes",
-        "required": [
-          "name",
-          "value"
-        ],
-        "properties": {
-          "name": {
-            "description": "The header field name",
-            "type": "string"
-          },
-          "value": {
-            "description": "The header field value",
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.core.v1.HTTPHeader"
       }
     },
     "path": {
@@ -34,9 +20,8 @@
       "type": "string"
     },
     "port": {
-      "description": "IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.",
-      "type": "string",
-      "format": "int-or-string"
+      "description": "Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString"
     },
     "scheme": {
       "description": "Scheme to use for connecting to the host. Defaults to HTTP.",

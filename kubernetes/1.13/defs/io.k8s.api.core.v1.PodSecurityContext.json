@@ -21,25 +21,8 @@
       "format": "int64"
     },
     "seLinuxOptions": {
-      "description": "SELinuxOptions are the labels to be applied to the container",
-      "properties": {
-        "level": {
-          "description": "Level is SELinux level label that applies to the container.",
-          "type": "string"
-        },
-        "role": {
-          "description": "Role is a SELinux role label that applies to the container.",
-          "type": "string"
-        },
-        "type": {
-          "description": "Type is a SELinux type label that applies to the container.",
-          "type": "string"
-        },
-        "user": {
-          "description": "User is a SELinux user label that applies to the container.",
-          "type": "string"
-        }
-      }
+      "description": "The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.",
+      "$ref": "#/definitions/io.k8s.api.core.v1.SELinuxOptions"
     },
     "supplementalGroups": {
       "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.",
@@ -53,21 +36,7 @@
       "description": "Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.",
       "type": "array",
       "items": {
-        "description": "Sysctl defines a kernel parameter to be set",
-        "required": [
-          "name",
-          "value"
-        ],
-        "properties": {
-          "name": {
-            "description": "Name of a property to set",
-            "type": "string"
-          },
-          "value": {
-            "description": "Value of a property to set",
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.core.v1.Sysctl"
       }
     }
   }

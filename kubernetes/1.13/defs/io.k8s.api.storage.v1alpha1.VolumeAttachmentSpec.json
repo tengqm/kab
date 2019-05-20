@@ -15,13 +15,8 @@
       "type": "string"
     },
     "source": {
-      "description": "VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.",
-      "properties": {
-        "persistentVolumeName": {
-          "description": "Name of the persistent volume to attach.",
-          "type": "string"
-        }
-      }
+      "description": "Source represents the volume that should be attached.",
+      "$ref": "#/definitions/io.k8s.api.storage.v1alpha1.VolumeAttachmentSource"
     }
   }
 }

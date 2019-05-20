@@ -16,25 +16,8 @@
       "format": "int32"
     },
     "scaleTargetRef": {
-      "description": "CrossVersionObjectReference contains enough information to let you identify the referred resource.",
-      "required": [
-        "kind",
-        "name"
-      ],
-      "properties": {
-        "apiVersion": {
-          "description": "API version of the referent",
-          "type": "string"
-        },
-        "kind": {
-          "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds\"",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names",
-          "type": "string"
-        }
-      }
+      "description": "reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.",
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v1.CrossVersionObjectReference"
     },
     "targetCPUUtilizationPercentage": {
       "description": "target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.",

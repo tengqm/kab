@@ -5,24 +5,7 @@
       "description": "A list of topology selector requirements by labels.",
       "type": "array",
       "items": {
-        "description": "A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.",
-        "required": [
-          "key",
-          "values"
-        ],
-        "properties": {
-          "key": {
-            "description": "The label key that the selector applies to.",
-            "type": "string"
-          },
-          "values": {
-            "description": "An array of string values. One value must match the label to be selected. Each entry in Values is ORed.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.core.v1.TopologySelectorLabelRequirement"
       }
     }
   }

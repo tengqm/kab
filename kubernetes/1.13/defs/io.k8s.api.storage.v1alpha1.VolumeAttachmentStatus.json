@@ -5,18 +5,8 @@
   ],
   "properties": {
     "attachError": {
-      "description": "VolumeError captures an error encountered during a volume operation.",
-      "properties": {
-        "message": {
-          "description": "String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.",
-          "type": "string"
-        },
-        "time": {
-          "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-          "type": "string",
-          "format": "date-time"
-        }
-      }
+      "description": "The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.",
+      "$ref": "#/definitions/io.k8s.api.storage.v1alpha1.VolumeError"
     },
     "attached": {
       "description": "Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.",
@@ -30,18 +20,8 @@
       }
     },
     "detachError": {
-      "description": "VolumeError captures an error encountered during a volume operation.",
-      "properties": {
-        "message": {
-          "description": "String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.",
-          "type": "string"
-        },
-        "time": {
-          "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-          "type": "string",
-          "format": "date-time"
-        }
-      }
+      "description": "The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.",
+      "$ref": "#/definitions/io.k8s.api.storage.v1alpha1.VolumeError"
     }
   }
 }

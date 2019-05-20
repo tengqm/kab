@@ -25,17 +25,8 @@
       "type": "boolean"
     },
     "service": {
-      "description": "ServiceReference holds a reference to Service.legacy.k8s.io",
-      "properties": {
-        "name": {
-          "description": "Name is the name of the service",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Namespace is the namespace of the service",
-          "type": "string"
-        }
-      }
+      "description": "Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.",
+      "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.ServiceReference"
     },
     "version": {
       "description": "Version is the API version this server hosts.  For example, \"v1\"",

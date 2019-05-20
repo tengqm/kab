@@ -10,13 +10,8 @@
       "type": "boolean"
     },
     "secretRef": {
-      "description": "LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.",
-      "properties": {
-        "name": {
-          "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
-          "type": "string"
-        }
-      }
+      "description": "SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.",
+      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
     },
     "volumeName": {
       "description": "VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.",

@@ -14,9 +14,8 @@
       "type": "string"
     },
     "timeAdded": {
-      "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-      "type": "string",
-      "format": "date-time"
+      "description": "TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
     },
     "value": {
       "description": "Required. The taint value corresponding to the taint key.",

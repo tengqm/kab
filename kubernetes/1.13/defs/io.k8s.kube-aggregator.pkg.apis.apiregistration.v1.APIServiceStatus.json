@@ -5,33 +5,7 @@
       "description": "Current service state of apiService.",
       "type": "array",
       "items": {
-        "required": [
-          "type",
-          "status"
-        ],
-        "properties": {
-          "lastTransitionTime": {
-            "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-            "type": "string",
-            "format": "date-time"
-          },
-          "message": {
-            "description": "Human-readable message indicating details about last transition.",
-            "type": "string"
-          },
-          "reason": {
-            "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
-            "type": "string"
-          },
-          "status": {
-            "description": "Status is the status of the condition. Can be True, False, Unknown.",
-            "type": "string"
-          },
-          "type": {
-            "description": "Type is the type of the condition.",
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceCondition"
       },
       "x-kubernetes-patch-merge-key": "type",
       "x-kubernetes-patch-strategy": "merge"

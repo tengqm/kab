@@ -18,14 +18,8 @@
       "type": "string"
     },
     "rollbackTo": {
-      "description": "DEPRECATED.",
-      "properties": {
-        "revision": {
-          "description": "The revision to rollback to. If set to 0, rollback to the last revision.",
-          "type": "integer",
-          "format": "int64"
-        }
-      }
+      "description": "The config of this deployment rollback.",
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.RollbackConfig"
     },
     "updatedAnnotations": {
       "description": "The annotations to be updated to a deployment",

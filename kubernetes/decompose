@@ -28,6 +28,11 @@ def process_definitions(data):
     prepare_dir("defs")
     definitions = data['definitions']
     for k, v in data['definitions'].items():
+        # skip deprecated definitions
+        if k.startswith("io.k8s.kubernetes.pkg.apis."):
+            continue
+        if k.startswith("io.k8s.kubernetes.pkg.api.v1."):
+            continue
         fn = os.path.join(basedir, "defs", k + ".json")
         print("Dumping definition: %s" % k)
         with open(fn, "w") as f:
@@ -192,11 +197,11 @@ def main():
 
     # extract parameters into spec level
     data = extract_parameters(data)
-    newfile = basename + "_p2" + ext
+    newfile = basename + "_tailed" + ext
     with open(newfile, "w") as f:
         f.write(json.dumps(data, indent=2))
 
-    # process_definitions(data)
+    process_definitions(data)
     process_operations(data)
 
 if __name__ == "__main__":

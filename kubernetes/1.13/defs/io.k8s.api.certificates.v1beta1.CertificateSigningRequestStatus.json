@@ -9,28 +9,7 @@
       "description": "Conditions applied to the request, such as approval or denial.",
       "type": "array",
       "items": {
-        "required": [
-          "type"
-        ],
-        "properties": {
-          "lastUpdateTime": {
-            "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-            "type": "string",
-            "format": "date-time"
-          },
-          "message": {
-            "description": "human readable message with details about the request state",
-            "type": "string"
-          },
-          "reason": {
-            "description": "brief reason for the request state",
-            "type": "string"
-          },
-          "type": {
-            "description": "request approval state, currently Approved or Denied.",
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequestCondition"
       }
     }
   }

@@ -33,17 +33,8 @@
       "type": "boolean"
     },
     "secretRef": {
-      "description": "SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace",
-      "properties": {
-        "name": {
-          "description": "Name is unique within a namespace to reference a secret resource.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Namespace defines the space within which the secret name must be unique.",
-          "type": "string"
-        }
-      }
+      "description": "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference"
     },
     "user": {
       "description": "The rados user name. Default is admin. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",

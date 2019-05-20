@@ -23,17 +23,8 @@
       "type": "boolean"
     },
     "secretRef": {
-      "description": "SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace",
-      "properties": {
-        "name": {
-          "description": "Name is unique within a namespace to reference a secret resource.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Namespace defines the space within which the secret name must be unique.",
-          "type": "string"
-        }
-      }
+      "description": "SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.",
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference"
     },
     "sslEnabled": {
       "description": "Flag to enable/disable SSL communication with Gateway, default false",

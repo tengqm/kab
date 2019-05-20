@@ -13,17 +13,8 @@
       "type": "boolean"
     },
     "secretRef": {
-      "description": "SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace",
-      "properties": {
-        "name": {
-          "description": "Name is unique within a namespace to reference a secret resource.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Namespace defines the space within which the secret name must be unique.",
-          "type": "string"
-        }
-      }
+      "description": "Optional: points to a secret object containing parameters used to connect to OpenStack.",
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference"
     },
     "volumeID": {
       "description": "volume id used to identify the volume in cinder More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",

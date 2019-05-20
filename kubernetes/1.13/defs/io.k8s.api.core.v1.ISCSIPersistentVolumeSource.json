@@ -47,17 +47,8 @@
       "type": "boolean"
     },
     "secretRef": {
-      "description": "SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace",
-      "properties": {
-        "name": {
-          "description": "Name is unique within a namespace to reference a secret resource.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Namespace defines the space within which the secret name must be unique.",
-          "type": "string"
-        }
-      }
+      "description": "CHAP Secret for iSCSI target and initiator authentication",
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference"
     },
     "targetPortal": {
       "description": "iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).",

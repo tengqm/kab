@@ -6,14 +6,12 @@
   ],
   "properties": {
     "lastProbeTime": {
-      "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-      "type": "string",
-      "format": "date-time"
+      "description": "Last time the condition was checked.",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
     },
     "lastTransitionTime": {
-      "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
-      "type": "string",
-      "format": "date-time"
+      "description": "Last time the condition transit from one status to another.",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
     },
     "message": {
       "description": "Human readable message indicating details about last transition.",
