@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+
+import copy
+import json
+import jsonref
+import os
+import shutil
+import sys
+
+basedir = "."
+
+
+def process_basic():
+    global basedir
+
+    fn = os.path.join(basedir, "basic", "basic.json")
+    with open(fn, "r") as f:
+        data = json.load(f)
+
+    return data
+
+
+def process_definitions(data):
+    """Gather definitions.
+
+    Gather definitions from the /defs/ subdirectory with definition key as the
+    file name.
+    """
+    global basedir
+
+    defdir = os.path.join(basedir, "defs")
+    files = sorted(os.listdir(defdir))
+    defs = {}
+    for fn in files:
+        basename, ext = os.path.splitext(fn)
+        fullname = os.path.join(defdir, fn)
+        with open(fullname, "r") as f:
+            defs[basename] = json.loads(f.read())
+
+    data["definitions"] = defs
+    return
+
+
+def process_operations(data):
+    """Gather operations.
+
+    Gather operations from the /ops/ subdirectory.
+    """
+    global basedir
+
+    opdir = os.path.join(basedir, "ops")
+    files = sorted(os.listdir(opdir))
+    paths = {}
+
+    for fn in files:
+        op_id, ext = os.path.splitext(fn)
+        fullname = os.path.join(opdir, fn)
+        with open(fullname, "r") as f:
+            raw = f.read()
+        opdata = json.loads(raw)
+        path = opdata.pop("path", None)
+        verb = opdata.pop("verb", None)
+        if not path or not verb:
+            print("\033[31m  Failed reading op %s \033[0m" % op_id)
+            continue
+
+        if path not in paths:
+            paths[path] = {}
+        if verb not in paths[path]:
+            paths[path][verb] = opdata
+    data["paths"] = paths
+
+
+def process_security(data):
+    """Gather security and securityDefinitions"""
+    global basedir
+
+    securitydir = os.path.join(basedir, "security")
+    fullname = os.path.join(securitydir, "security.json")
+    with open(fullname, "r") as f:
+        sdata = f.read()
+        data["security"] = json.loads(sdata)
+
+    fullname = os.path.join(securitydir, "securityDefinitions.json")
+    with open(fullname, "r") as f:
+        sdata = f.read()
+        data["securityDefinitions"] = json.loads(sdata)
+
+
+def process_parameters(data):
+    """Gather parameters definitions"""
+    global basedir
+
+    fn = os.path.join(basedir, "parameters", "parameters.json")
+    with open(fn, "r") as f:
+        raw = f.read()
+        data["parameters"] = json.loads(raw)
+
+
+def main():
+    global basedir
+
+    if len(sys.argv) < 2:
+        print("Usage: compose <dir>")
+        sys.exit(-1)
+
+    if not os.path.isdir(sys.argv[1]):
+        print("The specified directory is invalid.")
+        print("Usage: compose <dir>")
+        sys.exit(-1)
+
+    basedir = sys.argv[1]
+
+    data = process_basic()
+    process_definitions(data)
+    process_operations(data)
+    process_parameters(data)
+    process_security(data)
+
+    print(json.dumps(data, indent=2))
+
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

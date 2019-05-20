@@ -50,10 +50,10 @@ def process_definitions(data):
                 v["properties"]["apiVersion"]["enum"] = [group + "/" + version]
             v["properties"]["kind"]["enum"] = [kind]
 
-        # make 'apiVersion', 'kind' required.
-        required = v.get("required", [])
-        required.extend(["apiVersion", "kind"])
-        v["required"] = required
+            # make 'apiVersion', 'kind' required.
+            required = v.get("required", [])
+            required.extend(["apiVersion", "kind"])
+            v["required"] = required
 
         fn = os.path.join(basedir, "defs", k + ".json")
         with open(fn, "w") as f:
