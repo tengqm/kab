@@ -54,6 +54,7 @@ def process_definitions(data):
             required = v.get("required", [])
             required.extend(["apiVersion", "kind"])
             v["required"] = required
+            v["type"] = "object"
 
         fn = os.path.join(basedir, "defs", k + ".json")
         with open(fn, "w") as f:
