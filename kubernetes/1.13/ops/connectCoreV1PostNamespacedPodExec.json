@@ -36,20 +36,6 @@
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "Command is the remote command to execute. argv array. Not executed within a shell.",
-      "name": "command",
-      "in": "query"
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "Container in which to execute the command. Defaults to only container if there is only one container in the pod.",
-      "name": "container",
-      "in": "query"
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the PodExecOptions",
       "name": "name",
       "in": "path",
@@ -57,34 +43,6 @@
     },
     {
       "$ref": "#/parameters/namespace"
-    },
-    {
-      "uniqueItems": true,
-      "type": "boolean",
-      "description": "Redirect the standard error stream of the pod for this call. Defaults to true.",
-      "name": "stderr",
-      "in": "query"
-    },
-    {
-      "uniqueItems": true,
-      "type": "boolean",
-      "description": "Redirect the standard input stream of the pod for this call. Defaults to false.",
-      "name": "stdin",
-      "in": "query"
-    },
-    {
-      "uniqueItems": true,
-      "type": "boolean",
-      "description": "Redirect the standard output stream of the pod for this call. Defaults to true.",
-      "name": "stdout",
-      "in": "query"
-    },
-    {
-      "uniqueItems": true,
-      "type": "boolean",
-      "description": "TTY if true indicates that a tty will be allocated for the exec call. Defaults to false.",
-      "name": "tty",
-      "in": "query"
     }
   ]
 }

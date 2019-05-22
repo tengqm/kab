@@ -72,20 +72,33 @@ def process_operations(data):
                 continue
             op_id = opd['operationId']
 
-            data = copy.deepcopy(opd)
-            # 'params' is the parameters defined solely for this operation.
+            opdata = copy.deepcopy(opd)
+            # 'op_params' is the parameters defined solely for this operation.
             op_params = opd.get('parameters', [])
-            if path_params:
-                op_params.extend(path_params)
-            data["verb"] = op
-            data["path"] = path
+            for p in path_params:
+                if "$ref" in p:
+                    # #/parameters/<name>
+                    ref = p["$ref"][13:]
+                    pd = data["parameters"][ref]
+                else:
+                    pd = p
+
+                # skip non-required query param for post requests
+                if pd["in"] == "query" and op == "post":
+                    required = pd.get("required", False)
+                    if not required:
+                        continue
+                op_params.append(p)
+
+            opdata["verb"] = op
+            opdata["path"] = path
             if op_params:
-                data["parameters"] = op_params
+                opdata["parameters"] = op_params
 
             print("  Operation: %s %s %s" % (op_id, op, path))
             fn = os.path.join(basedir, "ops", op_id + ".json")
             with open(fn, "w") as f:
-                f.write(json.dumps(data, indent=2))
+                f.write(json.dumps(opdata, indent=2))
 
 
 def process_security(data):
