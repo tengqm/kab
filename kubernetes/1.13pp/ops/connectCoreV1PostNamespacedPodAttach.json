@@ -1,0 +1,83 @@
+{
+  "description": "connect POST requests to attach of Pod",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "*/*"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "operationId": "connectCoreV1PostNamespacedPodAttach",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PodAttachOptions",
+    "version": "v1"
+  },
+  "verb": "post",
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/attach",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "The container in which to execute the command. Defaults to only container if there is only one container in the pod.",
+      "name": "container",
+      "in": "query"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the PodAttachOptions",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "uniqueItems": true,
+      "type": "boolean",
+      "description": "Stderr if true indicates that stderr is to be redirected for the attach call. Defaults to true.",
+      "name": "stderr",
+      "in": "query"
+    },
+    {
+      "uniqueItems": true,
+      "type": "boolean",
+      "description": "Stdin if true, redirects the standard input stream of the pod for this call. Defaults to false.",
+      "name": "stdin",
+      "in": "query"
+    },
+    {
+      "uniqueItems": true,
+      "type": "boolean",
+      "description": "Stdout if true indicates that stdout is to be redirected for the attach call. Defaults to true.",
+      "name": "stdout",
+      "in": "query"
+    },
+    {
+      "uniqueItems": true,
+      "type": "boolean",
+      "description": "TTY if true indicates that a tty will be allocated for the attach call. This is passed through the container runtime so the tty is allocated on the worker node by the container runtime. Defaults to false.",
+      "name": "tty",
+      "in": "query"
+    }
+  ]
+}

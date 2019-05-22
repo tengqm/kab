@@ -1,0 +1,70 @@
+{
+  "description": "replace scale of the specified ReplicationControllerDummy",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "operationId": "replaceExtensionsV1beta1NamespacedReplicationControllerDummyScale",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Scale",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "Scale",
+    "version": "v1beta1"
+  },
+  "verb": "put",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicationcontrollers/{name}/scale"
+}

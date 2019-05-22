@@ -1,0 +1,33 @@
+{
+  "description": "get available API versions",
+  "consumes": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apis"
+  ],
+  "operationId": "getAPIVersions",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroupList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "verb": "get",
+  "path": "/apis/"
+}

@@ -1,0 +1,53 @@
+{
+  "description": "read status of the specified Pod",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "operationId": "readCoreV1NamespacedPodStatus",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "Pod",
+    "version": "v1"
+  },
+  "verb": "get",
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/status",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Pod",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ]
+}

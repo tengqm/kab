@@ -1,0 +1,17 @@
+{
+  "description": "ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.",
+  "required": [
+    "metric",
+    "current"
+  ],
+  "properties": {
+    "current": {
+      "description": "current contains the current value for the given metric",
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricValueStatus"
+    },
+    "metric": {
+      "description": "metric identifies the target metric by name and selector",
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricIdentifier"
+    }
+  }
+}

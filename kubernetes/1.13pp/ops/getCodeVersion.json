@@ -1,0 +1,29 @@
+{
+  "description": "get the code version",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "version"
+  ],
+  "operationId": "getCodeVersion",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.version.Info"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "verb": "get",
+  "path": "/version/"
+}

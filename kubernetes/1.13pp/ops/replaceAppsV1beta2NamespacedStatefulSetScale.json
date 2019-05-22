@@ -1,0 +1,70 @@
+{
+  "description": "replace scale of the specified StatefulSet",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta2"
+  ],
+  "operationId": "replaceAppsV1beta2NamespacedStatefulSetScale",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.Scale"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Scale",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.Scale"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.Scale"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "Scale",
+    "version": "v1beta2"
+  },
+  "verb": "put",
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/statefulsets/{name}/scale"
+}

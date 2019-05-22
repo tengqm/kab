@@ -1,0 +1,68 @@
+{
+  "description": "create a SelfSubjectRulesReview",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "authorization_v1beta1"
+  ],
+  "operationId": "createAuthorizationV1beta1SelfSubjectRulesReview",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.SelfSubjectRulesReview"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.SelfSubjectRulesReview"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.SelfSubjectRulesReview"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.SelfSubjectRulesReview"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "authorization.k8s.io",
+    "kind": "SelfSubjectRulesReview",
+    "version": "v1beta1"
+  },
+  "verb": "post",
+  "path": "/apis/authorization.k8s.io/v1beta1/selfsubjectrulesreviews"
+}

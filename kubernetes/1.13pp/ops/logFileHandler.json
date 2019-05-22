@@ -1,0 +1,26 @@
+{
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "logs"
+  ],
+  "operationId": "logFileHandler",
+  "responses": {
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "verb": "get",
+  "path": "/logs/{logpath}",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "path to the log",
+      "name": "logpath",
+      "in": "path",
+      "required": true
+    }
+  ]
+}

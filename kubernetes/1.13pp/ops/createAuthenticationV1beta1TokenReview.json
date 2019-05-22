@@ -1,0 +1,68 @@
+{
+  "description": "create a TokenReview",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "authentication_v1beta1"
+  ],
+  "operationId": "createAuthenticationV1beta1TokenReview",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authentication.v1beta1.TokenReview"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authentication.v1beta1.TokenReview"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authentication.v1beta1.TokenReview"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.authentication.v1beta1.TokenReview"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "authentication.k8s.io",
+    "kind": "TokenReview",
+    "version": "v1beta1"
+  },
+  "verb": "post",
+  "path": "/apis/authentication.k8s.io/v1beta1/tokenreviews"
+}

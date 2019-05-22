@@ -1,0 +1,66 @@
+{
+  "description": "partially update the specified DaemonSet",
+  "consumes": [
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta2"
+  ],
+  "operationId": "patchAppsV1beta2NamespacedDaemonSet",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the DaemonSet",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.DaemonSet"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "patch",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "DaemonSet",
+    "version": "v1beta2"
+  },
+  "verb": "patch",
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/daemonsets/{name}"
+}
