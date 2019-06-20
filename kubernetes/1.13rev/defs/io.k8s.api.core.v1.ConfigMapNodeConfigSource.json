@@ -3,14 +3,17 @@
   "properties": {
     "kubeletConfigKey": {
       "description": "KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.",
+      "minLength": 1,
       "type": "string"
     },
     "name": {
       "description": "Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.",
+      "minLength": 1,
       "type": "string"
     },
     "namespace": {
       "description": "Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.",
+      "minLength": 1,
       "type": "string"
     },
     "resourceVersion": {
