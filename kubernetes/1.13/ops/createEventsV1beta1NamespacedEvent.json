@@ -1,24 +1,13 @@
 {
-  "description": "create an Event",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "events_v1beta1"
-  ],
+  "description": "create an Event",
   "operationId": "createEventsV1beta1NamespacedEvent",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event"
@@ -30,6 +19,12 @@
     {
       "$ref": "#/parameters/namespace"
     }
+  ],
+  "path": "/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -54,12 +49,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "events_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "events.k8s.io",
     "kind": "Event",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events"
+  }
 }

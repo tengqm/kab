@@ -1,10 +1,5 @@
 {
   "description": "Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.",
-  "required": [
-    "targetPortal",
-    "iqn",
-    "lun"
-  ],
   "properties": {
     "chapAuthDiscovery": {
       "description": "whether support iSCSI Discovery CHAP authentication",
@@ -32,27 +27,33 @@
     },
     "lun": {
       "description": "iSCSI Target Lun number.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "portals": {
       "description": "iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
     "readOnly": {
       "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.",
       "type": "boolean"
     },
     "secretRef": {
-      "description": "CHAP Secret for iSCSI target and initiator authentication",
-      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+      "description": "CHAP Secret for iSCSI target and initiator authentication"
     },
     "targetPortal": {
       "description": "iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "targetPortal",
+    "iqn",
+    "lun"
+  ],
+  "type": "object"
 }

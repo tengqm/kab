@@ -1,24 +1,13 @@
 {
-  "description": "replace the specified DaemonSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
+  "description": "replace the specified DaemonSet",
   "operationId": "replaceExtensionsV1beta1NamespacedDaemonSet",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DaemonSet"
@@ -28,12 +17,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the DaemonSet",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,6 +30,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,12 +54,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "DaemonSet",
     "version": "v1beta1"
-  },
-  "verb": "put",
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}"
+  }
 }

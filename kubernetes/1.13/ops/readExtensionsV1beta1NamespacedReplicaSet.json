@@ -1,19 +1,8 @@
 {
-  "description": "read the specified ReplicaSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
+  "description": "read the specified ReplicaSet",
   "operationId": "readExtensionsV1beta1NamespacedReplicaSet",
   "parameters": [
     {
@@ -23,12 +12,12 @@
       "$ref": "#/parameters/export"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the ReplicaSet",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -36,6 +25,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -48,12 +43,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "ReplicaSet",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}"
+  }
 }

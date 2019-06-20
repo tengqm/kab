@@ -1,19 +1,8 @@
 {
-  "description": "read the specified InitializerConfiguration",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "admissionregistration_v1alpha1"
-  ],
+  "description": "read the specified InitializerConfiguration",
   "operationId": "readAdmissionregistrationV1alpha1InitializerConfiguration",
   "parameters": [
     {
@@ -23,16 +12,22 @@
       "$ref": "#/parameters/export"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the InitializerConfiguration",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -45,12 +40,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1alpha1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "admissionregistration.k8s.io",
     "kind": "InitializerConfiguration",
     "version": "v1alpha1"
-  },
-  "verb": "get",
-  "path": "/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations/{name}"
+  }
 }

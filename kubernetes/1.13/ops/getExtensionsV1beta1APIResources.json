@@ -1,22 +1,17 @@
 {
-  "description": "get available resources",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "description": "get available resources",
+  "operationId": "getExtensionsV1beta1APIResources",
+  "path": "/apis/extensions/v1beta1/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
-  "operationId": "getExtensionsV1beta1APIResources",
   "responses": {
     "200": {
       "description": "OK",
@@ -28,6 +23,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/apis/extensions/v1beta1/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "get"
 }

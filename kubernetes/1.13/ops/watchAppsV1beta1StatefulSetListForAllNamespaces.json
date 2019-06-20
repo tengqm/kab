@@ -1,41 +1,9 @@
 {
-  "description": "watch individual changes to a list of StatefulSet. deprecated: use the 'watch' parameter with a list operation instead.",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta1"
-  ],
+  "description": "watch individual changes to a list of StatefulSet. deprecated: use the 'watch' parameter with a list operation instead.",
   "operationId": "watchAppsV1beta1StatefulSetListForAllNamespaces",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "watchlist",
-  "x-kubernetes-group-version-kind": {
-    "group": "apps",
-    "kind": "StatefulSet",
-    "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/apps/v1beta1/watch/statefulsets",
   "parameters": [
     {
       "$ref": "#/parameters/continue"
@@ -64,5 +32,37 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ]
+  ],
+  "path": "/apis/apps/v1beta1/watch/statefulsets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watchlist",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "StatefulSet",
+    "version": "v1beta1"
+  }
 }

@@ -1,13 +1,9 @@
 {
   "description": "HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.",
-  "required": [
-    "type",
-    "status"
-  ],
   "properties": {
     "lastTransitionTime": {
-      "description": "lastTransitionTime is the last time the condition transitioned from one status to another",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "lastTransitionTime is the last time the condition transitioned from one status to another"
     },
     "message": {
       "description": "message is a human-readable explanation containing details about the transition",
@@ -25,5 +21,10 @@
       "description": "type describes the current condition",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
 }

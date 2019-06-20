@@ -1,24 +1,13 @@
 {
-  "description": "replace the specified VolumeAttachment",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1alpha1"
-  ],
+  "description": "replace the specified VolumeAttachment",
   "operationId": "replaceStorageV1alpha1VolumeAttachment",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.storage.v1alpha1.VolumeAttachment"
@@ -28,16 +17,22 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the VolumeAttachment",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -56,12 +51,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1alpha1"
+  ],
+  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "VolumeAttachment",
     "version": "v1alpha1"
-  },
-  "verb": "put",
-  "path": "/apis/storage.k8s.io/v1alpha1/volumeattachments/{name}"
+  }
 }

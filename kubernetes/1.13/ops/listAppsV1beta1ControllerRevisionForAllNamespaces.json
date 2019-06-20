@@ -1,41 +1,9 @@
 {
-  "description": "list or watch objects of kind ControllerRevision",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta1"
-  ],
+  "description": "list or watch objects of kind ControllerRevision",
   "operationId": "listAppsV1beta1ControllerRevisionForAllNamespaces",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevisionList"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "list",
-  "x-kubernetes-group-version-kind": {
-    "group": "apps",
-    "kind": "ControllerRevision",
-    "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/apps/v1beta1/controllerrevisions",
   "parameters": [
     {
       "$ref": "#/parameters/continue"
@@ -64,5 +32,37 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ]
+  ],
+  "path": "/apis/apps/v1beta1/controllerrevisions",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevisionList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "ControllerRevision",
+    "version": "v1beta1"
+  }
 }

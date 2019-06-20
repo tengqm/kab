@@ -3,16 +3,17 @@
   "properties": {
     "count": {
       "description": "Number of occurrences in this series up to the last heartbeat time",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "lastObservedTime": {
-      "description": "Time of the last occurrence observed",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
+      "description": "Time of the last occurrence observed"
     },
     "state": {
       "description": "State of this Series: Ongoing or Finished",
       "type": "string"
     }
-  }
+  },
+  "type": "object"
 }

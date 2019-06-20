@@ -1,41 +1,9 @@
 {
-  "description": "watch changes to an object of kind PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
+  "description": "watch changes to an object of kind PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
   "operationId": "watchPolicyV1beta1NamespacedPodDisruptionBudget",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "watch",
-  "x-kubernetes-group-version-kind": {
-    "group": "policy",
-    "kind": "PodDisruptionBudget",
-    "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/policy/v1beta1/watch/namespaces/{namespace}/poddisruptionbudgets/{name}",
   "parameters": [
     {
       "$ref": "#/parameters/continue"
@@ -53,12 +21,12 @@
       "$ref": "#/parameters/limit"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the PodDisruptionBudget",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -75,5 +43,37 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ]
+  ],
+  "path": "/apis/policy/v1beta1/watch/namespaces/{namespace}/poddisruptionbudgets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watch",
+  "x-kubernetes-group-version-kind": {
+    "group": "policy",
+    "kind": "PodDisruptionBudget",
+    "version": "v1beta1"
+  }
 }

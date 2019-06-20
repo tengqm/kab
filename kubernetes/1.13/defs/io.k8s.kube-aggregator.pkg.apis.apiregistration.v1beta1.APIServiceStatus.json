@@ -3,12 +3,13 @@
   "properties": {
     "conditions": {
       "description": "Current service state of apiService.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceCondition"
       },
+      "type": "array",
       "x-kubernetes-patch-merge-key": "type",
       "x-kubernetes-patch-strategy": "merge"
     }
-  }
+  },
+  "type": "object"
 }

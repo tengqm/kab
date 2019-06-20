@@ -1,8 +1,5 @@
 {
   "description": "SubjectAccessReviewStatus",
-  "required": [
-    "allowed"
-  ],
   "properties": {
     "allowed": {
       "description": "Allowed is required. True if the action would be allowed, false otherwise.",
@@ -20,5 +17,9 @@
       "description": "Reason is optional.  It indicates why a request was allowed or denied.",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "allowed"
+  ],
+  "type": "object"
 }

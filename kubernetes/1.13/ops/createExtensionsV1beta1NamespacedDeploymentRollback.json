@@ -1,40 +1,35 @@
 {
-  "description": "create rollback of a Deployment",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
+  "description": "create rollback of a Deployment",
   "operationId": "createExtensionsV1beta1NamespacedDeploymentRollback",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DeploymentRollback"
       }
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the DeploymentRollback",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
     }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/rollback",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,12 +54,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "DeploymentRollback",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/rollback"
+  }
 }

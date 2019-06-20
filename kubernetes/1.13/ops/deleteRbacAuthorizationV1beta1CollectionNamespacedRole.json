@@ -1,19 +1,8 @@
 {
-  "description": "delete collection of Role",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "rbacAuthorization_v1beta1"
-  ],
+  "description": "delete collection of Role",
   "operationId": "deleteRbacAuthorizationV1beta1CollectionNamespacedRole",
   "parameters": [
     {
@@ -47,6 +36,12 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -58,12 +53,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1beta1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "Role",
     "version": "v1beta1"
-  },
-  "verb": "delete",
-  "path": "/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles"
+  }
 }

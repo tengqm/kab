@@ -1,22 +1,17 @@
 {
-  "description": "get information of a group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "description": "get information of a group",
+  "operationId": "getSettingsAPIGroup",
+  "path": "/apis/settings.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "settings"
-  ],
-  "operationId": "getSettingsAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -28,6 +23,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/apis/settings.k8s.io/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "settings"
+  ],
+  "verb": "get"
 }

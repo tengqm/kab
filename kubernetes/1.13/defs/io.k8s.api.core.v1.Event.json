@@ -1,11 +1,5 @@
 {
   "description": "Event is a report of an event somewhere in the cluster.",
-  "required": [
-    "metadata",
-    "involvedObject",
-    "apiVersion",
-    "kind"
-  ],
   "properties": {
     "action": {
       "description": "What action was taken/failed regarding to the Regarding object.",
@@ -13,54 +7,54 @@
     },
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
-      "type": "string",
       "enum": [
         "v1"
-      ]
+      ],
+      "type": "string"
     },
     "count": {
       "description": "The number of times this event has occurred.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "eventTime": {
-      "description": "Time when this Event was first observed.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
+      "description": "Time when this Event was first observed."
     },
     "firstTimestamp": {
-      "description": "The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)"
     },
     "involvedObject": {
-      "description": "The object that this event is about.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "The object that this event is about."
     },
     "kind": {
       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
-      "type": "string",
       "enum": [
         "Event"
-      ]
+      ],
+      "type": "string"
     },
     "lastTimestamp": {
-      "description": "The time at which the most recent occurrence of this event was recorded.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The time at which the most recent occurrence of this event was recorded."
     },
     "message": {
       "description": "A human-readable description of the status of this operation.",
       "type": "string"
     },
     "metadata": {
-      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
     },
     "reason": {
       "description": "This should be a short, machine understandable string that gives the reason for the transition into the object's current status.",
       "type": "string"
     },
     "related": {
-      "description": "Optional secondary object for more complex actions.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "Optional secondary object for more complex actions."
     },
     "reportingComponent": {
       "description": "Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.",
@@ -71,24 +65,30 @@
       "type": "string"
     },
     "series": {
-      "description": "Data about the Event series this event represents or nil if it's a singleton Event.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.EventSeries"
+      "$ref": "#/definitions/io.k8s.api.core.v1.EventSeries",
+      "description": "Data about the Event series this event represents or nil if it's a singleton Event."
     },
     "source": {
-      "description": "The component reporting this event. Should be a short machine understandable string.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.EventSource"
+      "$ref": "#/definitions/io.k8s.api.core.v1.EventSource",
+      "description": "The component reporting this event. Should be a short machine understandable string."
     },
     "type": {
       "description": "Type of this event (Normal, Warning), new types could be added in the future",
       "type": "string"
     }
   },
+  "required": [
+    "metadata",
+    "involvedObject",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
   "x-kubernetes-group-version-kind": [
     {
       "group": "",
       "kind": "Event",
       "version": "v1"
     }
-  ],
-  "type": "object"
+  ]
 }

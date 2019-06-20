@@ -2,12 +2,13 @@
   "description": "DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.",
   "properties": {
     "rollingUpdate": {
-      "description": "Rolling update config params. Present only if type = \"RollingUpdate\".",
-      "$ref": "#/definitions/io.k8s.api.apps.v1beta2.RollingUpdateDaemonSet"
+      "$ref": "#/definitions/io.k8s.api.apps.v1beta2.RollingUpdateDaemonSet",
+      "description": "Rolling update config params. Present only if type = \"RollingUpdate\"."
     },
     "type": {
       "description": "Type of daemon set update. Can be \"RollingUpdate\" or \"OnDelete\". Default is RollingUpdate.",
       "type": "string"
     }
-  }
+  },
+  "type": "object"
 }

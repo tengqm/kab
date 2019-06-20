@@ -1,19 +1,8 @@
 {
-  "description": "read the specified VolumeAttachment",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1beta1"
-  ],
+  "description": "read the specified VolumeAttachment",
   "operationId": "readStorageV1beta1VolumeAttachment",
   "parameters": [
     {
@@ -23,16 +12,22 @@
       "$ref": "#/parameters/export"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the VolumeAttachment",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/storage.k8s.io/v1beta1/volumeattachments/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -45,12 +40,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "VolumeAttachment",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/storage.k8s.io/v1beta1/volumeattachments/{name}"
+  }
 }

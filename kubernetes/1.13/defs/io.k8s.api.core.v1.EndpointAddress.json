@@ -1,8 +1,5 @@
 {
   "description": "EndpointAddress is a tuple that describes single IP address.",
-  "required": [
-    "ip"
-  ],
   "properties": {
     "hostname": {
       "description": "The Hostname of this endpoint",
@@ -17,8 +14,12 @@
       "type": "string"
     },
     "targetRef": {
-      "description": "Reference to object providing the endpoint.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "Reference to object providing the endpoint."
     }
-  }
+  },
+  "required": [
+    "ip"
+  ],
+  "type": "object"
 }

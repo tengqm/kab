@@ -1,24 +1,13 @@
 {
-  "description": "delete a PriorityClass",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "scheduling_v1beta1"
-  ],
+  "description": "delete a PriorityClass",
   "operationId": "deleteSchedulingV1beta1PriorityClass",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -36,16 +25,22 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the PriorityClass",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -64,12 +59,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "scheduling_v1beta1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "scheduling.k8s.io",
     "kind": "PriorityClass",
     "version": "v1beta1"
-  },
-  "verb": "delete",
-  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses/{name}"
+  }
 }

@@ -1,21 +1,8 @@
 {
-  "description": "list or watch objects of kind Deployment",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta2"
-  ],
+  "description": "list or watch objects of kind Deployment",
   "operationId": "listAppsV1beta2NamespacedDeployment",
   "parameters": [
     {
@@ -49,6 +36,14 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/deployments",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -60,12 +55,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta2"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "Deployment",
     "version": "v1beta2"
-  },
-  "verb": "get",
-  "path": "/apis/apps/v1beta2/namespaces/{namespace}/deployments"
+  }
 }

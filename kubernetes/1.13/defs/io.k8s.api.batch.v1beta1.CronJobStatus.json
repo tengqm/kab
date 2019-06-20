@@ -3,14 +3,15 @@
   "properties": {
     "active": {
       "description": "A list of pointers to currently running jobs.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
-      }
+      },
+      "type": "array"
     },
     "lastScheduleTime": {
-      "description": "Information when was the last time the job was successfully scheduled.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Information when was the last time the job was successfully scheduled."
     }
-  }
+  },
+  "type": "object"
 }

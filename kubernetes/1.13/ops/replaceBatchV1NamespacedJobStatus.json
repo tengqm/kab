@@ -1,24 +1,13 @@
 {
-  "description": "replace status of the specified Job",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1"
-  ],
+  "description": "replace status of the specified Job",
   "operationId": "replaceBatchV1NamespacedJobStatus",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
@@ -28,12 +17,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the Job",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,6 +30,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,12 +54,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
+  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
-  },
-  "verb": "put",
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status"
+  }
 }

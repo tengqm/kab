@@ -1,19 +1,8 @@
 {
-  "description": "delete collection of CronJob",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1beta1"
-  ],
+  "description": "delete collection of CronJob",
   "operationId": "deleteBatchV1beta1CollectionNamespacedCronJob",
   "parameters": [
     {
@@ -47,6 +36,12 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -58,12 +53,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1beta1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "CronJob",
     "version": "v1beta1"
-  },
-  "verb": "delete",
-  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs"
+  }
 }

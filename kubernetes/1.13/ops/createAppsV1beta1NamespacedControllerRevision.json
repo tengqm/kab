@@ -1,24 +1,13 @@
 {
-  "description": "create a ControllerRevision",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta1"
-  ],
+  "description": "create a ControllerRevision",
   "operationId": "createAppsV1beta1NamespacedControllerRevision",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
@@ -30,6 +19,12 @@
     {
       "$ref": "#/parameters/namespace"
     }
+  ],
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -54,12 +49,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "ControllerRevision",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions"
+  }
 }

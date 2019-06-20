@@ -1,26 +1,15 @@
 {
-  "description": "partially update the specified ClusterRoleBinding",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "rbacAuthorization_v1alpha1"
-  ],
+  "description": "partially update the specified ClusterRoleBinding",
   "operationId": "patchRbacAuthorizationV1alpha1ClusterRoleBinding",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -30,16 +19,22 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the ClusterRoleBinding",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -52,12 +47,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1alpha1"
+  ],
+  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRoleBinding",
     "version": "v1alpha1"
-  },
-  "verb": "patch",
-  "path": "/apis/rbac.authorization.k8s.io/v1alpha1/clusterrolebindings/{name}"
+  }
 }

@@ -1,9 +1,5 @@
 {
   "description": "NodeAddress contains information for the node's address.",
-  "required": [
-    "type",
-    "address"
-  ],
   "properties": {
     "address": {
       "description": "The node address.",
@@ -13,5 +9,10 @@
       "description": "Node address type, one of Hostname, ExternalIP or InternalIP.",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "address"
+  ],
+  "type": "object"
 }

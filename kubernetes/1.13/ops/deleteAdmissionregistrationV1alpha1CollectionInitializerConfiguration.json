@@ -1,19 +1,8 @@
 {
-  "description": "delete collection of InitializerConfiguration",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "admissionregistration_v1alpha1"
-  ],
+  "description": "delete collection of InitializerConfiguration",
   "operationId": "deleteAdmissionregistrationV1alpha1CollectionInitializerConfiguration",
   "parameters": [
     {
@@ -44,6 +33,12 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -55,12 +50,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1alpha1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "admissionregistration.k8s.io",
     "kind": "InitializerConfiguration",
     "version": "v1alpha1"
-  },
-  "verb": "delete",
-  "path": "/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations"
+  }
 }

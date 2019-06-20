@@ -1,21 +1,8 @@
 {
-  "description": "list or watch objects of kind DaemonSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
+  "description": "list or watch objects of kind DaemonSet",
   "operationId": "listExtensionsV1beta1NamespacedDaemonSet",
   "parameters": [
     {
@@ -49,6 +36,14 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -60,12 +55,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "DaemonSet",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets"
+  }
 }

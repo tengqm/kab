@@ -1,25 +1,26 @@
 {
   "description": "ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.",
-  "required": [
-    "metricName",
-    "currentValue"
-  ],
   "properties": {
     "currentAverageValue": {
-      "description": "currentAverageValue is the current value of metric averaged over autoscaled pods.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "currentAverageValue is the current value of metric averaged over autoscaled pods."
     },
     "currentValue": {
-      "description": "currentValue is the current value of the metric (as a quantity)",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "currentValue is the current value of the metric (as a quantity)"
     },
     "metricName": {
       "description": "metricName is the name of a metric used for autoscaling in metric system.",
       "type": "string"
     },
     "metricSelector": {
-      "description": "metricSelector is used to identify a specific time series within a given metric.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "metricSelector is used to identify a specific time series within a given metric."
     }
-  }
+  },
+  "required": [
+    "metricName",
+    "currentValue"
+  ],
+  "type": "object"
 }

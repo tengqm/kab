@@ -1,41 +1,9 @@
 {
-  "description": "list or watch objects of kind StatefulSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta2"
-  ],
+  "description": "list or watch objects of kind StatefulSet",
   "operationId": "listAppsV1beta2StatefulSetForAllNamespaces",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.StatefulSetList"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "list",
-  "x-kubernetes-group-version-kind": {
-    "group": "apps",
-    "kind": "StatefulSet",
-    "version": "v1beta2"
-  },
-  "verb": "get",
-  "path": "/apis/apps/v1beta2/statefulsets",
   "parameters": [
     {
       "$ref": "#/parameters/continue"
@@ -64,5 +32,37 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ]
+  ],
+  "path": "/apis/apps/v1beta2/statefulsets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.StatefulSetList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta2"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "StatefulSet",
+    "version": "v1beta2"
+  }
 }

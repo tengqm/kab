@@ -1,19 +1,8 @@
 {
-  "description": "read the specified HorizontalPodAutoscaler",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "autoscaling_v2beta1"
-  ],
+  "description": "read the specified HorizontalPodAutoscaler",
   "operationId": "readAutoscalingV2beta1NamespacedHorizontalPodAutoscaler",
   "parameters": [
     {
@@ -23,12 +12,12 @@
       "$ref": "#/parameters/export"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the HorizontalPodAutoscaler",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -36,6 +25,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -48,12 +43,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "autoscaling_v2beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "autoscaling",
     "kind": "HorizontalPodAutoscaler",
     "version": "v2beta1"
-  },
-  "verb": "get",
-  "path": "/apis/autoscaling/v2beta1/namespaces/{namespace}/horizontalpodautoscalers/{name}"
+  }
 }

@@ -1,41 +1,9 @@
 {
-  "description": "list or watch objects of kind Role",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "rbacAuthorization_v1beta1"
-  ],
+  "description": "list or watch objects of kind Role",
   "operationId": "listRbacAuthorizationV1beta1RoleForAllNamespaces",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.RoleList"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "list",
-  "x-kubernetes-group-version-kind": {
-    "group": "rbac.authorization.k8s.io",
-    "kind": "Role",
-    "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/rbac.authorization.k8s.io/v1beta1/roles",
   "parameters": [
     {
       "$ref": "#/parameters/continue"
@@ -64,5 +32,37 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ]
+  ],
+  "path": "/apis/rbac.authorization.k8s.io/v1beta1/roles",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.RoleList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "rbac.authorization.k8s.io",
+    "kind": "Role",
+    "version": "v1beta1"
+  }
 }

@@ -7,8 +7,8 @@
     },
     "lun": {
       "description": "Optional: FC target lun number",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "readOnly": {
       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
@@ -16,17 +16,18 @@
     },
     "targetWWNs": {
       "description": "Optional: FC target worldwide names (WWNs)",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
     "wwids": {
       "description": "Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     }
-  }
+  },
+  "type": "object"
 }

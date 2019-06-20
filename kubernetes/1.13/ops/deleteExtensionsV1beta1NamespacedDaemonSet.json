@@ -1,24 +1,13 @@
 {
-  "description": "delete a DaemonSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
+  "description": "delete a DaemonSet",
   "operationId": "deleteExtensionsV1beta1NamespacedDaemonSet",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -36,12 +25,12 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the DaemonSet",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -49,6 +38,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -67,12 +62,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "DaemonSet",
     "version": "v1beta1"
-  },
-  "verb": "delete",
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}"
+  }
 }

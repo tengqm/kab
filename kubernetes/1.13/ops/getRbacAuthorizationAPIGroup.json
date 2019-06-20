@@ -1,22 +1,17 @@
 {
-  "description": "get information of a group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "description": "get information of a group",
+  "operationId": "getRbacAuthorizationAPIGroup",
+  "path": "/apis/rbac.authorization.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "rbacAuthorization"
-  ],
-  "operationId": "getRbacAuthorizationAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -28,6 +23,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/apis/rbac.authorization.k8s.io/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization"
+  ],
+  "verb": "get"
 }

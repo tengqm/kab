@@ -1,17 +1,5 @@
 {
   "description": "NodeSystemInfo is a set of ids/uuids to uniquely identify the node.",
-  "required": [
-    "machineID",
-    "systemUUID",
-    "bootID",
-    "kernelVersion",
-    "osImage",
-    "containerRuntimeVersion",
-    "kubeletVersion",
-    "kubeProxyVersion",
-    "operatingSystem",
-    "architecture"
-  ],
   "properties": {
     "architecture": {
       "description": "The Architecture reported by the node",
@@ -53,5 +41,18 @@
       "description": "SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "machineID",
+    "systemUUID",
+    "bootID",
+    "kernelVersion",
+    "osImage",
+    "containerRuntimeVersion",
+    "kubeletVersion",
+    "kubeProxyVersion",
+    "operatingSystem",
+    "architecture"
+  ],
+  "type": "object"
 }

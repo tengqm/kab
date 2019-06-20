@@ -1,24 +1,13 @@
 {
-  "description": "create a StatefulSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta2"
-  ],
+  "description": "create a StatefulSet",
   "operationId": "createAppsV1beta2NamespacedStatefulSet",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.apps.v1beta2.StatefulSet"
@@ -30,6 +19,12 @@
     {
       "$ref": "#/parameters/namespace"
     }
+  ],
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/statefulsets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -54,12 +49,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta2"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "StatefulSet",
     "version": "v1beta2"
-  },
-  "verb": "post",
-  "path": "/apis/apps/v1beta2/namespaces/{namespace}/statefulsets"
+  }
 }

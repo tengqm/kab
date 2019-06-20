@@ -1,21 +1,8 @@
 {
-  "description": "list or watch objects of kind Job",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1"
-  ],
+  "description": "list or watch objects of kind Job",
   "operationId": "listBatchV1NamespacedJob",
   "parameters": [
     {
@@ -49,6 +36,14 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -60,12 +55,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
-  },
-  "verb": "get",
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs"
+  }
 }

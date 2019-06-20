@@ -1,19 +1,8 @@
 {
-  "description": "delete collection of ControllerRevision",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1beta1"
-  ],
+  "description": "delete collection of ControllerRevision",
   "operationId": "deleteAppsV1beta1CollectionNamespacedControllerRevision",
   "parameters": [
     {
@@ -47,6 +36,12 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -58,12 +53,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "ControllerRevision",
     "version": "v1beta1"
-  },
-  "verb": "delete",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions"
+  }
 }

@@ -3,35 +3,36 @@
   "properties": {
     "env": {
       "description": "Env defines the collection of EnvVar to inject into containers.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.EnvVar"
-      }
+      },
+      "type": "array"
     },
     "envFrom": {
       "description": "EnvFrom defines the collection of EnvFromSource to inject into containers.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.EnvFromSource"
-      }
+      },
+      "type": "array"
     },
     "selector": {
-      "description": "Selector is a label query over a set of resources, in this case pods. Required.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "Selector is a label query over a set of resources, in this case pods. Required."
     },
     "volumeMounts": {
       "description": "VolumeMounts defines the collection of VolumeMount to inject into containers.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount"
-      }
+      },
+      "type": "array"
     },
     "volumes": {
       "description": "Volumes defines the collection of Volume to inject into the pod.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.Volume"
-      }
+      },
+      "type": "array"
     }
-  }
+  },
+  "type": "object"
 }

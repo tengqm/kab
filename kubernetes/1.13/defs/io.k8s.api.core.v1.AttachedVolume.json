@@ -1,9 +1,5 @@
 {
   "description": "AttachedVolume describes a volume attached to a node",
-  "required": [
-    "name",
-    "devicePath"
-  ],
   "properties": {
     "devicePath": {
       "description": "DevicePath represents the device path where the volume should be available",
@@ -13,5 +9,10 @@
       "description": "Name of the attached volume",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "name",
+    "devicePath"
+  ],
+  "type": "object"
 }

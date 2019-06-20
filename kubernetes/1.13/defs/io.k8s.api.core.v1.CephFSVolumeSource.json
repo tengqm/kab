@@ -1,15 +1,12 @@
 {
   "description": "Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.",
-  "required": [
-    "monitors"
-  ],
   "properties": {
     "monitors": {
       "description": "Required: Monitors is a collection of Ceph monitors More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
     "path": {
       "description": "Optional: Used as the mounted root, rather than the full Ceph tree, default is /",
@@ -24,12 +21,16 @@
       "type": "string"
     },
     "secretRef": {
-      "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
-      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+      "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it"
     },
     "user": {
       "description": "Optional: User is the rados user name, default is admin More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "monitors"
+  ],
+  "type": "object"
 }

@@ -1,10 +1,5 @@
 {
   "description": "RoleRef contains information that points to the role being used",
-  "required": [
-    "apiGroup",
-    "kind",
-    "name"
-  ],
   "properties": {
     "apiGroup": {
       "description": "APIGroup is the group for the resource being referenced",
@@ -18,5 +13,11 @@
       "description": "Name is the name of resource being referenced",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "apiGroup",
+    "kind",
+    "name"
+  ],
+  "type": "object"
 }

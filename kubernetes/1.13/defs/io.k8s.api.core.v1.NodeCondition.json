@@ -1,17 +1,13 @@
 {
   "description": "NodeCondition contains condition information for a node.",
-  "required": [
-    "type",
-    "status"
-  ],
   "properties": {
     "lastHeartbeatTime": {
-      "description": "Last time we got an update on a given condition.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time we got an update on a given condition."
     },
     "lastTransitionTime": {
-      "description": "Last time the condition transit from one status to another.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transit from one status to another."
     },
     "message": {
       "description": "Human readable message indicating details about last transition.",
@@ -29,5 +25,10 @@
       "description": "Type of node condition.",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
 }

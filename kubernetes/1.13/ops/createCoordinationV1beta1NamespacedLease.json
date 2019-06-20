@@ -1,24 +1,13 @@
 {
-  "description": "create a Lease",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "coordination_v1beta1"
-  ],
+  "description": "create a Lease",
   "operationId": "createCoordinationV1beta1NamespacedLease",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
@@ -30,6 +19,12 @@
     {
       "$ref": "#/parameters/namespace"
     }
+  ],
+  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -54,12 +49,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "coordination_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases"
+  }
 }

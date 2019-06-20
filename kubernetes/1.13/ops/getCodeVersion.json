@@ -1,18 +1,13 @@
 {
-  "description": "get the code version",
   "consumes": [
     "application/json"
   ],
+  "description": "get the code version",
+  "operationId": "getCodeVersion",
+  "path": "/version/",
   "produces": [
     "application/json"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "version"
-  ],
-  "operationId": "getCodeVersion",
   "responses": {
     "200": {
       "description": "OK",
@@ -24,6 +19,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/version/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "version"
+  ],
+  "verb": "get"
 }
