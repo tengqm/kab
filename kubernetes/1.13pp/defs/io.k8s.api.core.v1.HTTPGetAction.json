@@ -2,7 +2,7 @@
   "description": "HTTPGetAction describes an action based on HTTP Get requests.",
   "properties": {
     "host": {
-      "description": "Host name to connect to, defaults to the pod IP. You probably want to set \"Host\" in httpHeaders instead.",
+      "description": "Host name to connect to, defaults to the pod IP. You probably want to set 'Host' in httpHeaders instead.",
       "type": "string"
     },
     "httpHeaders": {
@@ -21,6 +21,7 @@
       "description": "Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME."
     },
     "scheme": {
+      "default": "HTTP",
       "description": "Scheme to use for connecting to the host. Defaults to HTTP.",
       "type": "string"
     }
