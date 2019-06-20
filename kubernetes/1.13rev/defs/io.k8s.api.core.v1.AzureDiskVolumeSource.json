@@ -3,14 +3,21 @@
   "properties": {
     "cachingMode": {
       "description": "Host Caching mode: None, Read Only, Read Write.",
+      "enum": [
+        "None",
+        "Read Only",
+        "Read Write"
+      ],
       "type": "string"
     },
     "diskName": {
       "description": "The Name of the data disk in the blob storage",
+      "minLength": 1,
       "type": "string"
     },
     "diskURI": {
       "description": "The URI the data disk in the blob storage",
+      "minLength": 1,
       "type": "string"
     },
     "fsType": {
@@ -18,10 +25,17 @@
       "type": "string"
     },
     "kind": {
+      "default": "Shared",
       "description": "Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared",
+      "enum": [
+        "Dedicated",
+        "Managed",
+        "Shared"
+      ],
       "type": "string"
     },
     "readOnly": {
+      "default": false,
       "description": "Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
       "type": "boolean"
     }
