@@ -3,24 +3,24 @@
   "properties": {
     "accessModes": {
       "description": "AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
     "capacity": {
-      "description": "Represents the actual resources of the underlying volume.",
-      "type": "object",
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
-      }
+      },
+      "description": "Represents the actual resources of the underlying volume.",
+      "type": "object"
     },
     "conditions": {
       "description": "Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition"
       },
+      "type": "array",
       "x-kubernetes-patch-merge-key": "type",
       "x-kubernetes-patch-strategy": "merge"
     },
@@ -28,5 +28,6 @@
       "description": "Phase represents the current phase of PersistentVolumeClaim.",
       "type": "string"
     }
-  }
+  },
+  "type": "object"
 }

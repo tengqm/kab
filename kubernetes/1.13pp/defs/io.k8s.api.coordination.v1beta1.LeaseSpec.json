@@ -2,8 +2,8 @@
   "description": "LeaseSpec is a specification of a Lease.",
   "properties": {
     "acquireTime": {
-      "description": "acquireTime is a time when the current lease was acquired.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
+      "description": "acquireTime is a time when the current lease was acquired."
     },
     "holderIdentity": {
       "description": "holderIdentity contains the identity of the holder of a current lease.",
@@ -11,17 +11,18 @@
     },
     "leaseDurationSeconds": {
       "description": "leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "leaseTransitions": {
       "description": "leaseTransitions is the number of transitions of a lease between holders.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "renewTime": {
-      "description": "renewTime is a time when the current holder of a lease has last updated the lease.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
+      "description": "renewTime is a time when the current holder of a lease has last updated the lease."
     }
-  }
+  },
+  "type": "object"
 }

@@ -1,16 +1,12 @@
 {
   "description": "CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition",
-  "required": [
-    "plural",
-    "kind"
-  ],
   "properties": {
     "categories": {
       "description": "Categories is a list of grouped resources custom resources belong to (e.g. 'all')",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
     "kind": {
       "description": "Kind is the serialized kind of the resource.  It is normally CamelCase and singular.",
@@ -26,14 +22,19 @@
     },
     "shortNames": {
       "description": "ShortNames are short names for the resource.  It must be all lowercase.",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     },
     "singular": {
       "description": "Singular is the singular name of the resource.  It must be all lowercase  Defaults to lowercased <kind>",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "plural",
+    "kind"
+  ],
+  "type": "object"
 }

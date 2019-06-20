@@ -1,9 +1,5 @@
 {
   "description": "Information about the condition of a component.",
-  "required": [
-    "type",
-    "status"
-  ],
   "properties": {
     "error": {
       "description": "Condition error code for a component. For example, a health check error code.",
@@ -21,5 +17,10 @@
       "description": "Type of condition for a component. Valid value: \"Healthy\"",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
 }

@@ -2,20 +2,21 @@
   "description": "EnvVarSource represents a source for the value of an EnvVar.",
   "properties": {
     "configMapKeyRef": {
-      "description": "Selects a key of a ConfigMap.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector"
+      "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector",
+      "description": "Selects a key of a ConfigMap."
     },
     "fieldRef": {
-      "description": "Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectFieldSelector"
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectFieldSelector",
+      "description": "Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP."
     },
     "resourceFieldRef": {
-      "description": "Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.ResourceFieldSelector"
+      "$ref": "#/definitions/io.k8s.api.core.v1.ResourceFieldSelector",
+      "description": "Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported."
     },
     "secretKeyRef": {
-      "description": "Selects a key of a secret in the pod's namespace",
-      "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector"
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
+      "description": "Selects a key of a secret in the pod's namespace"
     }
-  }
+  },
+  "type": "object"
 }

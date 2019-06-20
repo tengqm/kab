@@ -1,8 +1,5 @@
 {
   "description": "EnvVar represents an environment variable present in a Container.",
-  "required": [
-    "name"
-  ],
   "properties": {
     "name": {
       "description": "Name of the environment variable. Must be a C_IDENTIFIER.",
@@ -13,8 +10,12 @@
       "type": "string"
     },
     "valueFrom": {
-      "description": "Source for the environment variable's value. Cannot be used if value is not empty.",
-      "$ref": "#/definitions/io.k8s.api.core.v1.EnvVarSource"
+      "$ref": "#/definitions/io.k8s.api.core.v1.EnvVarSource",
+      "description": "Source for the environment variable's value. Cannot be used if value is not empty."
     }
-  }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
 }

@@ -3,19 +3,19 @@
   "properties": {
     "conditions": {
       "description": "Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PodCondition"
       },
+      "type": "array",
       "x-kubernetes-patch-merge-key": "type",
       "x-kubernetes-patch-strategy": "merge"
     },
     "containerStatuses": {
       "description": "The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
-      }
+      },
+      "type": "array"
     },
     "hostIP": {
       "description": "IP address of the host to which the pod is assigned. Empty if not yet scheduled.",
@@ -23,10 +23,10 @@
     },
     "initContainerStatuses": {
       "description": "The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status",
-      "type": "array",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
-      }
+      },
+      "type": "array"
     },
     "message": {
       "description": "A human readable message indicating details about why the pod is in this condition.",
@@ -53,8 +53,9 @@
       "type": "string"
     },
     "startTime": {
-      "description": "RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod."
     }
-  }
+  },
+  "type": "object"
 }

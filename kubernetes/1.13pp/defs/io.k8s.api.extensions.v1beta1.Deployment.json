@@ -3,41 +3,41 @@
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
-      "type": "string",
       "enum": [
         "extensions/v1beta1"
-      ]
+      ],
+      "type": "string"
     },
     "kind": {
       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
-      "type": "string",
       "enum": [
         "Deployment"
-      ]
+      ],
+      "type": "string"
     },
     "metadata": {
-      "description": "Standard object metadata.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "description": "Standard object metadata."
     },
     "spec": {
-      "description": "Specification of the desired behavior of the Deployment.",
-      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DeploymentSpec"
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DeploymentSpec",
+      "description": "Specification of the desired behavior of the Deployment."
     },
     "status": {
-      "description": "Most recently observed status of the Deployment.",
-      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DeploymentStatus"
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DeploymentStatus",
+      "description": "Most recently observed status of the Deployment."
     }
   },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
   "x-kubernetes-group-version-kind": [
     {
       "group": "extensions",
       "kind": "Deployment",
       "version": "v1beta1"
     }
-  ],
-  "required": [
-    "apiVersion",
-    "kind"
-  ],
-  "type": "object"
+  ]
 }

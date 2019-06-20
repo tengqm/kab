@@ -1,9 +1,5 @@
 {
   "description": "VolumeMount describes a mounting of a Volume within a container.",
-  "required": [
-    "name",
-    "mountPath"
-  ],
   "properties": {
     "mountPath": {
       "description": "Path within the container at which the volume should be mounted.  Must not contain ':'.",
@@ -25,5 +21,10 @@
       "description": "Path within the volume from which the container's volume should be mounted. Defaults to \"\" (volume's root).",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "name",
+    "mountPath"
+  ],
+  "type": "object"
 }

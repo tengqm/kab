@@ -3,16 +3,17 @@
   "properties": {
     "averageUtilization": {
       "description": "currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "averageValue": {
-      "description": "averageValue is the current value of the average of the metric across all relevant pods (as a quantity)",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "averageValue is the current value of the average of the metric across all relevant pods (as a quantity)"
     },
     "value": {
-      "description": "value is the current value of the metric (as a quantity).",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "value is the current value of the metric (as a quantity)."
     }
-  }
+  },
+  "type": "object"
 }

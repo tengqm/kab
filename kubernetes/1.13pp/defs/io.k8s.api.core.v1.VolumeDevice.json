@@ -1,9 +1,5 @@
 {
   "description": "volumeDevice describes a mapping of a raw block device within a container.",
-  "required": [
-    "name",
-    "devicePath"
-  ],
   "properties": {
     "devicePath": {
       "description": "devicePath is the path inside of the container that the device will be mapped to.",
@@ -13,5 +9,10 @@
       "description": "name must match the name of a persistentVolumeClaim in the pod",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "name",
+    "devicePath"
+  ],
+  "type": "object"
 }

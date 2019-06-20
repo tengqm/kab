@@ -1,8 +1,5 @@
 {
   "description": "Policy defines the configuration of how audit events are logged",
-  "required": [
-    "level"
-  ],
   "properties": {
     "level": {
       "description": "The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required",
@@ -10,10 +7,14 @@
     },
     "stages": {
       "description": "Stages is a list of stages for which events are created.",
-      "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "type": "array"
     }
-  }
+  },
+  "required": [
+    "level"
+  ],
+  "type": "object"
 }

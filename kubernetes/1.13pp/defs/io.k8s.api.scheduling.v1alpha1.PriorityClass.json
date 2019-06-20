@@ -1,17 +1,12 @@
 {
   "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.",
-  "required": [
-    "value",
-    "apiVersion",
-    "kind"
-  ],
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
-      "type": "string",
       "enum": [
         "scheduling.k8s.io/v1alpha1"
-      ]
+      ],
+      "type": "string"
     },
     "description": {
       "description": "description is an arbitrary string that usually provides guidelines on when this priority class should be used.",
@@ -23,27 +18,32 @@
     },
     "kind": {
       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
-      "type": "string",
       "enum": [
         "PriorityClass"
-      ]
+      ],
+      "type": "string"
     },
     "metadata": {
-      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
     },
     "value": {
       "description": "The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     }
   },
+  "required": [
+    "value",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
   "x-kubernetes-group-version-kind": [
     {
       "group": "scheduling.k8s.io",
       "kind": "PriorityClass",
       "version": "v1alpha1"
     }
-  ],
-  "type": "object"
+  ]
 }

@@ -1,17 +1,13 @@
 {
   "description": "JobCondition describes current state of a job.",
-  "required": [
-    "type",
-    "status"
-  ],
   "properties": {
     "lastProbeTime": {
-      "description": "Last time the condition was checked.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition was checked."
     },
     "lastTransitionTime": {
-      "description": "Last time the condition transit from one status to another.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transit from one status to another."
     },
     "message": {
       "description": "Human readable message indicating details about last transition.",
@@ -29,5 +25,10 @@
       "description": "Type of job condition, Complete or Failed.",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
 }

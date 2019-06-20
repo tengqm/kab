@@ -1,8 +1,5 @@
 {
   "description": "EndpointPort is a tuple that describes a single port.",
-  "required": [
-    "port"
-  ],
   "properties": {
     "name": {
       "description": "The name of this port (corresponds to ServicePort.Name). Must be a DNS_LABEL. Optional only if one port is defined.",
@@ -10,12 +7,16 @@
     },
     "port": {
       "description": "The port number of the endpoint.",
-      "type": "integer",
-      "format": "int32"
+      "format": "int32",
+      "type": "integer"
     },
     "protocol": {
       "description": "The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "port"
+  ],
+  "type": "object"
 }

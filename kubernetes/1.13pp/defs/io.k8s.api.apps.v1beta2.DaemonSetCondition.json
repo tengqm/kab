@@ -1,13 +1,9 @@
 {
   "description": "DaemonSetCondition describes the state of a DaemonSet at a certain point.",
-  "required": [
-    "type",
-    "status"
-  ],
   "properties": {
     "lastTransitionTime": {
-      "description": "Last time the condition transitioned from one status to another.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transitioned from one status to another."
     },
     "message": {
       "description": "A human readable message indicating details about the transition.",
@@ -25,5 +21,10 @@
       "description": "Type of DaemonSet condition.",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
 }

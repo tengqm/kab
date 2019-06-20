@@ -1,17 +1,13 @@
 {
   "description": "PodCondition contains details for the current condition of this pod.",
-  "required": [
-    "type",
-    "status"
-  ],
   "properties": {
     "lastProbeTime": {
-      "description": "Last time we probed the condition.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time we probed the condition."
     },
     "lastTransitionTime": {
-      "description": "Last time the condition transitioned from one status to another.",
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transitioned from one status to another."
     },
     "message": {
       "description": "Human-readable message indicating details about last transition.",
@@ -29,5 +25,10 @@
       "description": "Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
 }
