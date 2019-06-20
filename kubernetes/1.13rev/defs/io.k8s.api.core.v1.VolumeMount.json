@@ -3,22 +3,29 @@
   "properties": {
     "mountPath": {
       "description": "Path within the container at which the volume should be mounted.  Must not contain ':'.",
+      "minLength": 1,
       "type": "string"
     },
     "mountPropagation": {
       "description": "mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.",
+      "enum": [
+        "MountPropagationNone"
+      ],
       "type": "string"
     },
     "name": {
       "description": "This must match the Name of a Volume.",
+      "minLength": 1,
       "type": "string"
     },
     "readOnly": {
+      "default": false,
       "description": "Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.",
       "type": "boolean"
     },
     "subPath": {
-      "description": "Path within the volume from which the container's volume should be mounted. Defaults to \"\" (volume's root).",
+      "default": "",
+      "description": "Path within the volume from which the container's volume should be mounted. Defaults to '' (volume's root).",
       "type": "string"
     }
   },
