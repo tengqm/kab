@@ -38,7 +38,11 @@
     },
     "status": {
       "description": "Status of the operation. One of: \"Success\" or \"Failure\". More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "Success",
+        "Failure"
+      ]
     }
   },
   "required": [
