@@ -30,8 +30,10 @@ def process_definitions(data):
     for k, v in data['definitions'].items():
         # skip deprecated definitions
         if k.startswith("io.k8s.kubernetes.pkg.apis."):
+            print("\033[31m skipping %s \033[0m" % k)
             continue
         if k.startswith("io.k8s.kubernetes.pkg.api.v1."):
+            print("\033[31m skipping %s \033[0m" % k)
             continue
 
         print("Dumping definition: %s" % k)
@@ -39,7 +41,7 @@ def process_definitions(data):
         # inject group version kind
         gvk = v.get("x-kubernetes-group-version-kind", [])
         if len(gvk) > 1:
-            print("\033[31m    GVK=%s \033[0m" % len(gvk))
+            print("\033[31m %s: %d GVKs \033[0m" % (k, len(gvk)))
         if len(gvk) == 1:
             group = gvk[0]["group"]
             version = gvk[0]["version"]
@@ -54,11 +56,13 @@ def process_definitions(data):
             required = v.get("required", [])
             required.extend(["apiVersion", "kind"])
             v["required"] = required
+
+        if "properties" in v:
             v["type"] = "object"
 
         fn = os.path.join(basedir, "defs", k + ".json")
         with open(fn, "w") as f:
-            f.write(json.dumps(v, indent=2))
+            f.write(json.dumps(v, indent=2, sort_keys=True))
 
 
 def process_operations(data):
@@ -98,7 +102,7 @@ def process_operations(data):
             print("  Operation: %s %s %s" % (op_id, op, path))
             fn = os.path.join(basedir, "ops", op_id + ".json")
             with open(fn, "w") as f:
-                f.write(json.dumps(opdata, indent=2))
+                f.write(json.dumps(opdata, indent=2, sort_keys=True))
 
 
 def process_security(data):
@@ -107,12 +111,12 @@ def process_security(data):
     security = data.get('security', [])
     fn = os.path.join(basedir, "security", "security.json")
     with open(fn, "w") as f:
-        f.write(json.dumps(security, indent=2))
+        f.write(json.dumps(security, indent=2, sort_keys=True))
 
     securityDefs = data.get('securityDefinitions', {})
     fn = os.path.join(basedir, "security", "securityDefinitions.json")
     with open(fn, "w") as f:
-        f.write(json.dumps(securityDefs, indent=2))
+        f.write(json.dumps(securityDefs, indent=2, sort_keys=True))
 
 
 def process_parameters(data):
@@ -149,22 +153,25 @@ def cross_compare(existing, check):
 
 def extract_parameters(data):
     common_params = [
+        "allowWatchBookmarks",
         "continue",
+        "dryRun",
+        "exact",
+        "export",
+        "fieldManager",  # since 1.14
         "fieldSelector",
+        "force",  # since 1.14
+        "gracePeriodSeconds",
         "includeUninitialized",
         "labelSelector",
         "limit",
-        "pretty",
-        "timeoutSeconds",
-        "resourceVersion",
-        "watch",
         "namespace",
-        "dryRun",
-        "gracePeriodSeconds",
         "orphanDependents",
+        "pretty",
         "propagationPolicy",
-        "exact",
-        "export",
+        "resourceVersion",
+        "timeoutSeconds",
+        "watch",
     ]
     param_spec = {}
     paths = data['paths']
@@ -259,7 +266,7 @@ def main():
     data = extract_parameters(data)
     newfile = basename + "_tailed" + ext
     with open(newfile, "w") as f:
-        f.write(json.dumps(data, indent=2))
+        f.write(json.dumps(data, indent=2, sort_keys=True))
 
     process_basic(data)
     process_definitions(data)
