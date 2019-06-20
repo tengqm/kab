@@ -7,10 +7,12 @@
     },
     "divisor": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "default": "1",
       "description": "Specifies the output format of the exposed resources, defaults to \"1\""
     },
     "resource": {
       "description": "Required: resource to select",
+      "minLength": 1,
       "type": "string"
     }
   },
