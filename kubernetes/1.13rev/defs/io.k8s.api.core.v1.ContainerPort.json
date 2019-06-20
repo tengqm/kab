@@ -4,6 +4,8 @@
     "containerPort": {
       "description": "Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.",
       "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
       "type": "integer"
     },
     "hostIP": {
@@ -13,6 +15,8 @@
     "hostPort": {
       "description": "Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.",
       "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
       "type": "integer"
     },
     "name": {
@@ -20,7 +24,13 @@
       "type": "string"
     },
     "protocol": {
-      "description": "Protocol for port. Must be UDP, TCP, or SCTP. Defaults to \"TCP\".",
+      "default": "TCP",
+      "description": "Protocol for port. Must be UDP, TCP, or SCTP. Defaults to 'TCP'.",
+      "enum": [
+        "SCTP",
+        "TCP",
+        "UDP"
+      ],
       "type": "string"
     }
   },
