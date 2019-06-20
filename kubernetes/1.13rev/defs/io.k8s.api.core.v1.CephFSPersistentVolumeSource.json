@@ -9,14 +9,17 @@
       "type": "array"
     },
     "path": {
+      "default": "/",
       "description": "Optional: Used as the mounted root, rather than the full Ceph tree, default is /",
       "type": "string"
     },
     "readOnly": {
+      "default": false,
       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
       "type": "boolean"
     },
     "secretFile": {
+      "default": "/etc/ceph/user.secret",
       "description": "Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
       "type": "string"
     },
@@ -25,6 +28,7 @@
       "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it"
     },
     "user": {
+      "default": "admin",
       "description": "Optional: User is the rados user name, default is admin More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
       "type": "string"
     }
