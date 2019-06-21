@@ -1,11 +1,11 @@
 {
-  "description": "ResourceQuotaSpec defines the desired hard limits to enforce for Quota.",
+  "description": "ResourceQuotaSpec defines the desired hard limits to enforce for Quota. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/",
   "properties": {
     "hard": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/",
+      "description": "hard is the set of desired hard limits for each named resource.",
       "type": "object"
     },
     "scopeSelector": {

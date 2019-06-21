@@ -3,10 +3,17 @@
   "properties": {
     "operator": {
       "description": "Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.",
+      "enum": [
+        "DoesNotExist",
+        "Exists",
+        "In",
+        "NotIn"
+      ],
       "type": "string"
     },
     "scopeName": {
       "description": "The name of the scope that the selector applies to.",
+      "minLength": 1,
       "type": "string"
     },
     "values": {
