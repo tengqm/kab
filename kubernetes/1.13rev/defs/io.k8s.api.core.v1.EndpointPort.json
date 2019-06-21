@@ -11,7 +11,13 @@
       "type": "integer"
     },
     "protocol": {
+      "default": "TCP",
       "description": "The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.",
+      "enum": [
+        "SCTP",
+        "TCP",
+        "UDP"
+      ],
       "type": "string"
     }
   },
