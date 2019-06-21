@@ -5,15 +5,20 @@
       "description": "timestamp for the last update to this condition"
     },
     "message": {
-      "description": "human readable message with details about the request state",
+      "description": "Human readable message with details about the request state",
       "type": "string"
     },
     "reason": {
-      "description": "brief reason for the request state",
+      "description": "Brief reason for the request state",
       "type": "string"
     },
     "type": {
-      "description": "request approval state, currently Approved or Denied.",
+      "description": "Request approval state",
+      "enum": [
+        "Approved",
+        "Denied"
+      ],
+      "minLength": 1,
       "type": "string"
     }
   },
