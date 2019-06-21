@@ -15,10 +15,16 @@
     },
     "status": {
       "description": "Status of the condition, one of True, False, Unknown.",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
       "description": "Type of replication controller condition.",
+      "minLength": 1,
       "type": "string"
     }
   },
