@@ -3,10 +3,15 @@
   "properties": {
     "rollingUpdate": {
       "$ref": "#/definitions/io.k8s.api.apps.v1.RollingUpdateDeployment",
-      "description": "Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate."
+      "description": "Rolling update config params. Present only if type is 'RollingUpdate'."
     },
     "type": {
-      "description": "Type of deployment. Can be \"Recreate\" or \"RollingUpdate\". Default is RollingUpdate.",
+      "default": "RollingUpdate",
+      "description": "Type of update strategy",
+      "enum": [
+        "Recreate",
+        "RollingUpdate"
+      ],
       "type": "string"
     }
   },

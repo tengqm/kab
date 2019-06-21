@@ -2,6 +2,7 @@
   "description": "DeploymentSpec is the specification of the desired behavior of the Deployment.",
   "properties": {
     "minReadySeconds": {
+      "default": 0,
       "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)",
       "format": "int32",
       "type": "integer"
@@ -11,17 +12,20 @@
       "type": "boolean"
     },
     "progressDeadlineSeconds": {
-      "description": "The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.",
+      "default": 600,
+      "description": "The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused.",
       "format": "int32",
       "type": "integer"
     },
     "replicas": {
-      "description": "Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.",
+      "default": 1,
+      "description": "Number of desired pods. This is a pointer to distinguish between explicit zero and not specified.",
       "format": "int32",
       "type": "integer"
     },
     "revisionHistoryLimit": {
-      "description": "The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.",
+      "default": 10,
+      "description": "The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified.",
       "format": "int32",
       "type": "integer"
     },
