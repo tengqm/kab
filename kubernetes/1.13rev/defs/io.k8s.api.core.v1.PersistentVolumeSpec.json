@@ -4,7 +4,12 @@
     "accessModes": {
       "description": "AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes",
       "items": {
-        "type": "string"
+        "type": "string",
+        "enum": [
+          "ReadOnlyMany",
+          "ReadWriteMany",
+          "ReadWriteOnce"
+        ]
       },
       "type": "array"
     },
@@ -130,6 +135,10 @@
     "volumeMode": {
       "default": "Filesystem",
       "description": "volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec. This is a beta feature.",
+      "enum": [
+        "device",
+        "filesystem"
+      ],
       "type": "string"
     },
     "vsphereVolume": {

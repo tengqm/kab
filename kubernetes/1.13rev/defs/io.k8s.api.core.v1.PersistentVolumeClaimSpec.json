@@ -30,7 +30,12 @@
       "type": "string"
     },
     "volumeMode": {
+      "default": "filesystem",
       "description": "volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec. This is a beta feature.",
+      "enum": [
+        "block",
+        "filesytem"
+      ],
       "type": "string"
     },
     "volumeName": {
