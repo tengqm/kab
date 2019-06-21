@@ -3,10 +3,16 @@
   "properties": {
     "address": {
       "description": "The node address.",
+      "minLength": 1,
       "type": "string"
     },
     "type": {
       "description": "Node address type, one of Hostname, ExternalIP or InternalIP.",
+      "enum": [
+        "ExternalIP",
+        "Hostname",
+        "InternalIP"
+      ],
       "type": "string"
     }
   },
