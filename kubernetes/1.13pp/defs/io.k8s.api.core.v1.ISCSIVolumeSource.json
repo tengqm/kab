@@ -10,6 +10,7 @@
       "type": "boolean"
     },
     "fsType": {
+      "default": "ext4",
       "description": "Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi",
       "type": "string"
     },
@@ -19,9 +20,11 @@
     },
     "iqn": {
       "description": "Target iSCSI Qualified Name.",
+      "minLength": 1,
       "type": "string"
     },
     "iscsiInterface": {
+      "default": "default",
       "description": "iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).",
       "type": "string"
     },
@@ -38,7 +41,8 @@
       "type": "array"
     },
     "readOnly": {
-      "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.",
+      "default": false,
+      "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts.",
       "type": "boolean"
     },
     "secretRef": {
@@ -47,6 +51,7 @@
     },
     "targetPortal": {
       "description": "iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).",
+      "minLength": 1,
       "type": "string"
     }
   },
