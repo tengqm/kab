@@ -1,5 +1,5 @@
 {
-  "description": "DaemonSetStatus represents the current status of a daemon set.",
+  "description": "DaemonSetStatus represents the current status of a daemon set. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
   "properties": {
     "collisionCount": {
       "description": "Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.",
@@ -16,12 +16,12 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "currentNumberScheduled": {
-      "description": "The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
+      "description": "The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod.",
       "format": "int32",
       "type": "integer"
     },
     "desiredNumberScheduled": {
-      "description": "The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
+      "description": "The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod).",
       "format": "int32",
       "type": "integer"
     },
@@ -31,7 +31,7 @@
       "type": "integer"
     },
     "numberMisscheduled": {
-      "description": "The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
+      "description": "The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod.",
       "format": "int32",
       "type": "integer"
     },
