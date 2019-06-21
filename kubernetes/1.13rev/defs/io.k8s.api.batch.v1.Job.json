@@ -1,0 +1,43 @@
+{
+  "description": "Job represents the configuration of a single job.",
+  "properties": {
+    "apiVersion": {
+      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "batch/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "Kind is a string value representing the REST resource this object represents.",
+      "enum": [
+        "Job"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec",
+      "description": "Specification of the desired behavior of a job"
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1.JobStatus",
+      "description": "Current status of a job"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "batch",
+      "kind": "Job",
+      "version": "v1"
+    }
+  ]
+}
