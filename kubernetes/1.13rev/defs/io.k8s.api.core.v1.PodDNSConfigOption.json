@@ -2,12 +2,15 @@
   "description": "PodDNSConfigOption defines DNS resolver options of a pod.",
   "properties": {
     "name": {
-      "description": "Required.",
+      "description": "Name of the host entry",
       "type": "string"
     },
     "value": {
       "type": "string"
     }
   },
+  "required": [
+    "name"
+  ],
   "type": "object"
 }
