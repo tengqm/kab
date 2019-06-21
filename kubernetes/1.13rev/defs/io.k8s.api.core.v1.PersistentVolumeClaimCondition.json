@@ -14,13 +14,15 @@
       "type": "string"
     },
     "reason": {
-      "description": "Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports \"ResizeStarted\" that means the underlying persistent volume is being resized.",
+      "description": "Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports 'ResizeStarted' that means the underlying persistent volume is being resized.",
       "type": "string"
     },
     "status": {
+      "minLength": 1,
       "type": "string"
     },
     "type": {
+      "minLength": 1,
       "type": "string"
     }
   },
