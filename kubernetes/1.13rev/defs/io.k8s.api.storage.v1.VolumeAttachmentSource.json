@@ -3,8 +3,12 @@
   "properties": {
     "persistentVolumeName": {
       "description": "Name of the persistent volume to attach.",
+      "minLength": 1,
       "type": "string"
     }
   },
+  "required": [
+    "persistentVolumeName"
+  ],
   "type": "object"
 }
