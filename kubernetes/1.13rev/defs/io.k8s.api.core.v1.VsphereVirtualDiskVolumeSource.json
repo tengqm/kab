@@ -2,7 +2,7 @@
   "description": "Represents a vSphere volume resource.",
   "properties": {
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified.",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Implicitly inferred to be 'ext4' if unspecified.",
       "type": "string"
     },
     "storagePolicyID": {
@@ -15,6 +15,7 @@
     },
     "volumePath": {
       "description": "Path that identifies vSphere volume vmdk",
+      "minLength": 1,
       "type": "string"
     }
   },
