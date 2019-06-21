@@ -18,11 +18,17 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition, one of True, False, Unknown.",
+      "description": "Status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
       "description": "Type of deployment condition.",
+      "minLength": 1,
       "type": "string"
     }
   },
