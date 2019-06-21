@@ -2,18 +2,20 @@
   "description": "PodSecurityPolicySpec defines the policy enforced.",
   "properties": {
     "allowPrivilegeEscalation": {
-      "description": "allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.",
+      "default": true,
+      "description": "allowPrivilegeEscalation determines if a pod can request to allow privilege escalation.",
       "type": "boolean"
     },
     "allowedCapabilities": {
       "description": "allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "type": "array"
     },
     "allowedFlexVolumes": {
-      "description": "allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the \"volumes\" field.",
+      "description": "allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used. This parameter is effective only when the usage of the Flexvolumes is allowed in the 'volumes' field.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.AllowedFlexVolume"
       },
