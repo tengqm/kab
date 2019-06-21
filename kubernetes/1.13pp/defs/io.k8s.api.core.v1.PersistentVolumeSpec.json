@@ -61,7 +61,7 @@
     },
     "glusterfs": {
       "$ref": "#/definitions/io.k8s.api.core.v1.GlusterfsPersistentVolumeSource",
-      "description": "Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md"
+      "description": "Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin."
     },
     "hostPath": {
       "$ref": "#/definitions/io.k8s.api.core.v1.HostPathVolumeSource",
@@ -76,7 +76,7 @@
       "description": "Local represents directly-attached storage with node affinity"
     },
     "mountOptions": {
-      "description": "A list of mount options, e.g. [\"ro\", \"soft\"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options",
+      "description": "A list of mount options, e.g. ['ro', 'soft']. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options",
       "items": {
         "type": "string"
       },
