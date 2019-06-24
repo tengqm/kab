@@ -2,14 +2,14 @@
   "description": "APIGroup contains the name, the supported versions, and the preferred version of a group.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+      "description": "APIVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "v1"
       ],
       "type": "string"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+      "description": "Kind is a string value representing the REST resource this object represents.",
       "enum": [
         "APIGroup"
       ],
@@ -17,6 +17,7 @@
     },
     "name": {
       "description": "name is the name of the group.",
+      "minLength": 1,
       "type": "string"
     },
     "preferredVersion": {
@@ -28,6 +29,7 @@
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ServerAddressByClientCIDR"
       },
+      "minItems": 1,
       "type": "array"
     },
     "versions": {
@@ -35,6 +37,7 @@
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.GroupVersionForDiscovery"
       },
+      "minItems": 1,
       "type": "array"
     }
   },
