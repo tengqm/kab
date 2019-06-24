@@ -12,6 +12,12 @@
     },
     "type": {
       "description": "type represents whether the metric type is Utilization, Value, or AverageValue",
+      "enum": [
+        "AverageValue",
+        "Utilization",
+        "Value"
+      ],
+      "minLength": 1,
       "type": "string"
     },
     "value": {
