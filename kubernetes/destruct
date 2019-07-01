@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+
+import copy
+import json
+import jsonref
+import os
+import shutil
+import sys
+
+basedir = "."
+
+
+def prepare_dir(name):
+    """"""
+    global basedir
+    subdir = os.path.join(basedir, name)
+    shutil.rmtree(subdir, ignore_errors=True)
+    os.mkdir(subdir)
+    return
+
+
+def process_deps(data, key, nodes, edges):
+
+    for k, v in data.items():
+        if k == "$ref":
+            dependent = data[k].split("/")[-1]
+            if dependent not in nodes:
+                nodes.append(dependent)
+
+            if (k, dependent) not in edges:
+                edges.append((key, dependent))
+            continue
+
+        if isinstance(v, dict):
+            process_deps(v, key, nodes, edges)
+
+
+def process_definitions(data):
+    """Dump definitions.
+
+    Dump definitions into the /defs/ subdirectory with definition key as the
+    file name.
+    """
+    prepare_dir("topo")
+    defs = []
+    deps = []
+    for k, v in data['definitions'].items():
+        # skip deprecated definitions
+        if k.startswith("io.k8s.kubernetes.pkg.apis."):
+            print("\033[31m skipping %s \033[0m" % k)
+            continue
+        if k.startswith("io.k8s.kubernetes.pkg.api.v1."):
+            print("\033[31m skipping %s \033[0m" % k)
+            continue
+
+        print("Parsing definition: %s" % k)
+
+        if k not in defs:
+            defs.append(k)
+
+        # inject group version kind
+        if "properties" in v:
+            v["type"] = "object"
+            process_deps(v["properties"], k, defs, deps)
+
+    result = {
+        "nodes": defs,
+        "edges": deps
+    }
+    fn = os.path.join(basedir, "topo", "result.json")
+    with open(fn, "w") as f:
+        f.write(json.dumps(result, indent=2, sort_keys=True))
+
+
+def main():
+    global basedir
+
+    if len(sys.argv) < 2:
+        print("Usage: destruct <swagger.json>")
+        sys.exit(-1)
+
+    try:
+        f = open(sys.argv[1])
+    except Exception:
+        print("ERROR: Cannot find or open the input file %s" % sys.argv[1])
+        sys.exit(-2)
+
+    basedir = os.path.dirname(sys.argv[1])
+    basename, ext = os.path.splitext(sys.argv[1])
+    try:
+        data = json.load(f)
+    finally:
+        f.close()
+
+    # remove circular reference
+    data["definitions"].pop("io.k8s.apiextensions-apiserver.pkg.apis."
+                            "apiextensions.v1beta1.JSONSchemaProps", None)
+    data["definitions"][
+        "io.k8s.apiextensions-apiserver.pkg.apis."
+        "apiextensions.v1beta1.CustomResourceValidation"
+    ]["properties"]["openAPIV3Schema"]["type"] = "object"
+    data["definitions"][
+        "io.k8s.apiextensions-apiserver.pkg.apis."
+        "apiextensions.v1beta1.CustomResourceValidation"
+    ]["properties"]["openAPIV3Schema"].pop("$ref", None)
+
+    process_definitions(data)
+
+
+if __name__ == "__main__":
+    main()

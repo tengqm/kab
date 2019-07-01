@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import sys
+
+import graphviz
+
+basedir = "."
+IGNORE_NODES = [
+    "ListMeta",
+    "ObjectMeta",
+    "Time",
+    "Quantity",
+    "IntOrString",
+    "LabelSelector",
+]
+
+
+def gen_svg(data):
+    g = graphviz.Digraph(name="topology", format='svg')
+    g.graph_attr['rankdir'] = 'LR'
+    g.attr('graph', center='true')
+    g.attr('node', shape='box', style="rounded,filled",
+           color='forestgreen', fillcolor='olivedrab2')
+    g.attr('edge', fontsize="10", fontname='helvetica')
+    for node in data["nodes"]:
+        parts = node.rsplit(".", 1)
+        pkg_name, res_name = parts[0], parts[1]
+        version = pkg_name.split(".")[-1]
+        if "alpha" in version:
+            g.node(node, label=res_name, tooltip=pkg_name,
+                   color="dimgray", fillcolor="lightgray")
+        elif "beta" in version:
+            g.node(node, label=res_name, tooltip=pkg_name,
+                   color="goldenrod", fillcolor="antiquewhite")
+        else:
+            g.node(node, label=res_name, tooltip=pkg_name)
+
+    for (res_from, res_to) in data["edges"]:
+        starts = res_from.rsplit(".", 1)
+        ends = res_to.rsplit(".", 1)
+        if ends[1] in IGNORE_NODES:
+            continue
+        pkg_name = starts[0]
+        # pkg_name, res_to = ends[0], ends[1]
+        version = pkg_name.split(".")[-1]
+        if "alpha" in version:
+            g.edge(res_from, res_to, color="gray", label=version)
+        elif "beta" in version:
+            g.edge(res_from, res_to, color="orange", label=version)
+        else:
+            g.edge(res_from, res_to, label=version)
+
+    svg = g.pipe(format="svg").decode("utf-8")
+
+    fn = os.path.join(basedir, "resource_topo.svg")
+    with open(fn, "w") as f:
+        f.write(svg)
+
+    return
+
+def main():
+    global basedir
+
+    if len(sys.argv) < 2:
+        print("Usage: decompose <swagger.json>")
+        sys.exit(-1)
+
+    try:
+        f = open(sys.argv[1])
+    except Exception:
+        print("ERROR: Cannot find or open the input file %s" % sys.argv[1])
+        sys.exit(-2)
+
+    basedir = os.path.dirname(sys.argv[1])
+    basename, _ = os.path.splitext(sys.argv[1])
+    try:
+        data = json.load(f)
+    finally:
+        f.close()
+
+    gen_svg(data)
+
+
+if __name__ == "__main__":
+    main()
