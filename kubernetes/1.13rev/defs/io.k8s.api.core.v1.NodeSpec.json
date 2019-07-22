@@ -5,10 +5,6 @@
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeConfigSource",
       "description": "If specified, the source to get node configuration from. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field"
     },
-    "externalID": {
-      "description": "Deprecated. Not all kubelets will set this field.",
-      "type": "string"
-    },
     "podCIDR": {
       "description": "PodCIDR represents the pod IP range assigned to the node.",
       "type": "string"
@@ -26,7 +22,7 @@
     },
     "unschedulable": {
       "default": false,
-      "description": "Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration",
+      "description": "Unschedulable controls node schedulability of new pods. By default, node is schedulable.",
       "type": "boolean"
     }
   },
