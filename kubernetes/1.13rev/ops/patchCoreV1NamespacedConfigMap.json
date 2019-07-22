@@ -23,7 +23,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap.PATCH"
       }
     },
     {
@@ -48,11 +48,23 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
+    },
+    "403": {
+      "description": "Forbidden",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "422": {
+      "description": "Unprocessable entity.",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
     }
   },
   "x-kubernetes-action": "patch",

@@ -1,5 +1,5 @@
 {
-  "description": "delete a ConfigMap",
+  "description": "read the specified ConfigMap",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,13 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "deleteCoreV1NamespacedConfigMap",
+  "operationId": "readCoreV1NamespacedConfigMap",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/gracePeriodSeconds"
-    },
-    {
-      "$ref": "#/parameters/orphanDependents"
-    },
-    {
-      "$ref": "#/parameters/propagationPolicy"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -54,25 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "delete",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "ConfigMap",
     "version": "v1"
   },
-  "verb": "delete",
+  "verb": "get",
   "path": "/api/v1/namespaces/{namespace}/configmaps/{name}"
 }

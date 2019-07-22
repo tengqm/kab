@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "description": "Patch data for ConfigMap",
+  "properties": {
+    "apiVersion": {
+      "description": "This field is ignored when patching.",
+      "type": "string"
+    },
+    "kind": {
+      "description": "This field is ignored when patching",
+      "type": "string"
+    },
+    "metadata": {
+      "description": "Metadata for patch operation",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.PATCH"
+    },
+    "binaryData": {
+      "description": "The binaryData field contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. binaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in binaryData must not overlap with the ones in the data field.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "format": "byte"
+      }
+    },
+    "data": {
+      "description": "The data field contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the binaryData field. The keys stored in data must not overlap with the keys in the binaryData field.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

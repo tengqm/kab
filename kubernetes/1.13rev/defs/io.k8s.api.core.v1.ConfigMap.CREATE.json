@@ -1,5 +1,5 @@
 {
-  "description": "ConfigMap holds configuration data for pods to consume.",
+  "description": "ConfigMap holds configuration data for pods to consume. The total size of data and binaryData must be less than 1 MB.",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.",
@@ -31,7 +31,7 @@
       ]
     },
     "metadata": {
-      "description": "Standard object's metadata.",
+      "description": "Standard object's metadata. The name of a ConfigMap must be a valid DNS subdomain.",
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
     }
   },
