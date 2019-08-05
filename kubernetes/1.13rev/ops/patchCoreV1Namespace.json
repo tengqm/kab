@@ -1,7 +1,9 @@
 {
-  "description": "read the specified Namespace",
+  "description": "partially update the specified Namespace",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,13 +16,18 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "readCoreV1Namespace",
+  "operationId": "patchCoreV1Namespace",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.CREATE"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -38,19 +45,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Namespace",
     "version": "v1"
   },
-  "verb": "get",
+  "verb": "patch",
   "path": "/api/v1/namespaces/{name}"
 }

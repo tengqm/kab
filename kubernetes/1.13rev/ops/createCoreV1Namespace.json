@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified Namespace",
+  "description": "create a Namespace",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,26 +14,21 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "patchCoreV1Namespace",
+  "operationId": "createCoreV1Namespace",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Namespace",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -45,19 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Namespace",
     "version": "v1"
   },
-  "verb": "patch",
-  "path": "/api/v1/namespaces/{name}"
+  "verb": "post",
+  "path": "/api/v1/namespaces"
 }
