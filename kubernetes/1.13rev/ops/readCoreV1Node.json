@@ -1,9 +1,7 @@
 {
-  "description": "partially update status of the specified Node",
+  "description": "read the specified Node",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,18 +14,13 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "patchCoreV1NodeStatus",
+  "operationId": "readCoreV1Node",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -45,19 +38,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Node",
     "version": "v1"
   },
-  "verb": "patch",
-  "path": "/api/v1/nodes/{name}/status"
+  "verb": "get",
+  "path": "/api/v1/nodes/{name}"
 }

@@ -1,5 +1,5 @@
 {
-  "description": "read the specified Node",
+  "description": "read status of the specified Node",
   "consumes": [
     "*/*"
   ],
@@ -14,31 +14,12 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "readCoreV1Node",
-  "parameters": [
-    {
-      "$ref": "#/parameters/exact"
-    },
-    {
-      "$ref": "#/parameters/export"
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Node",
-      "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ],
+  "operationId": "readCoreV1NodeStatus",
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.GET"
       }
     },
     "401": {
@@ -52,5 +33,18 @@
     "version": "v1"
   },
   "verb": "get",
-  "path": "/api/v1/nodes/{name}"
+  "path": "/api/v1/nodes/{name}/status",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Node",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ]
 }

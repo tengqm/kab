@@ -1,5 +1,5 @@
 {
-  "description": "replace status of the specified Node",
+  "description": "create a Node",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "replaceCoreV1NodeStatus",
+  "operationId": "createCoreV1Node",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Node",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -43,25 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Node",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/api/v1/nodes/{name}/status"
+  "verb": "post",
+  "path": "/api/v1/nodes"
 }

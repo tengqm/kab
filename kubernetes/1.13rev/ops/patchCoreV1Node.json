@@ -1,7 +1,9 @@
 {
-  "description": "replace the specified Node",
+  "description": "partially update the specified Node",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,14 +16,14 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "replaceCoreV1Node",
+  "operationId": "patchCoreV1Node",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.PATCH"
       }
     },
     {
@@ -43,25 +45,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Node"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Node.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Node",
     "version": "v1"
   },
-  "verb": "put",
+  "verb": "patch",
   "path": "/api/v1/nodes/{name}"
 }
