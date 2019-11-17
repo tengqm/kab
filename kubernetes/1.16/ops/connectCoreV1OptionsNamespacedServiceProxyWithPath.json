@@ -1,0 +1,63 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "connect OPTIONS requests to proxy of Service",
+  "operationId": "connectCoreV1OptionsNamespacedServiceProxyWithPath",
+  "parameters": [
+    {
+      "description": "name of the ServiceProxyOptions",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "description": "path to the resource",
+      "in": "path",
+      "name": "path",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+      "in": "query",
+      "name": "path",
+      "type": "string",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy/{path}",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "options",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "ServiceProxyOptions",
+    "version": "v1"
+  }
+}

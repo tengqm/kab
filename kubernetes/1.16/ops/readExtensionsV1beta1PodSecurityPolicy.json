@@ -1,0 +1,56 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified PodSecurityPolicy",
+  "operationId": "readExtensionsV1beta1PodSecurityPolicy",
+  "parameters": [
+    {
+      "$ref": "#/parameters/exact"
+    },
+    {
+      "$ref": "#/parameters/export"
+    },
+    {
+      "description": "name of the PodSecurityPolicy",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/extensions/v1beta1/podsecuritypolicies/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.PodSecurityPolicy"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "PodSecurityPolicy",
+    "version": "v1beta1"
+  }
+}
