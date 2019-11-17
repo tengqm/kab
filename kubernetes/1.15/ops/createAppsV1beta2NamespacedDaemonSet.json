@@ -1,0 +1,68 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a DaemonSet",
+  "operationId": "createAppsV1beta2NamespacedDaemonSet",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.DaemonSet"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/daemonsets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.DaemonSet"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.DaemonSet"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.DaemonSet"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta2"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "DaemonSet",
+    "version": "v1beta2"
+  }
+}

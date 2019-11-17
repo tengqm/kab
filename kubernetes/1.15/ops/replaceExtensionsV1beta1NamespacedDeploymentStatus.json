@@ -1,0 +1,73 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "replace status of the specified Deployment",
+  "operationId": "replaceExtensionsV1beta1NamespacedDeploymentStatus",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "description": "name of the Deployment",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "put",
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "Deployment",
+    "version": "v1beta1"
+  }
+}

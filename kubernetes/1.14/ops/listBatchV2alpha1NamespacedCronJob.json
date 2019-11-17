@@ -1,0 +1,68 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "list or watch objects of kind CronJob",
+  "operationId": "listBatchV2alpha1NamespacedCronJob",
+  "parameters": [
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/batch/v2alpha1/namespaces/{namespace}/cronjobs",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v2alpha1.CronJobList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v2alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "batch",
+    "kind": "CronJob",
+    "version": "v2alpha1"
+  }
+}

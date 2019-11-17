@@ -1,0 +1,78 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "delete a Deployment",
+  "operationId": "deleteAppsV1beta1NamespacedDeployment",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "description": "name of the Deployment",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1beta1"
+  ],
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "Deployment",
+    "version": "v1beta1"
+  }
+}

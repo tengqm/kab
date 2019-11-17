@@ -1,0 +1,65 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "watch individual changes to a list of PodPreset. deprecated: use the 'watch' parameter with a list operation instead.",
+  "operationId": "watchSettingsV1alpha1PodPresetListForAllNamespaces",
+  "parameters": [
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    }
+  ],
+  "path": "/apis/settings.k8s.io/v1alpha1/watch/podpresets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "settings_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watchlist",
+  "x-kubernetes-group-version-kind": {
+    "group": "settings.k8s.io",
+    "kind": "PodPreset",
+    "version": "v1alpha1"
+  }
+}

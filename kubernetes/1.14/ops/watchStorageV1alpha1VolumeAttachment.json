@@ -1,0 +1,73 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "watch changes to an object of kind VolumeAttachment. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
+  "operationId": "watchStorageV1alpha1VolumeAttachment",
+  "parameters": [
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "description": "name of the VolumeAttachment",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    }
+  ],
+  "path": "/apis/storage.k8s.io/v1alpha1/watch/volumeattachments/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watch",
+  "x-kubernetes-group-version-kind": {
+    "group": "storage.k8s.io",
+    "kind": "VolumeAttachment",
+    "version": "v1alpha1"
+  }
+}

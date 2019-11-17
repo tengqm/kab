@@ -1,0 +1,73 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "replace the specified ReplicaSet",
+  "operationId": "replaceExtensionsV1beta1NamespacedReplicaSet",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "description": "name of the ReplicaSet",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "put",
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "ReplicaSet",
+    "version": "v1beta1"
+  }
+}
