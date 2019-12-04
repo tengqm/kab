@@ -1,5 +1,5 @@
 {
-  "description": "read the specified Endpoints",
+  "description": "replace the specified Endpoints",
   "consumes": [
     "*/*"
   ],
@@ -14,13 +14,18 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "readCoreV1NamespacedEndpoints",
+  "operationId": "replaceCoreV1NamespacedEndpoints",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints.UPDATE"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -41,19 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Endpoints",
     "version": "v1"
   },
-  "verb": "get",
+  "verb": "put",
   "path": "/api/v1/namespaces/{namespace}/endpoints/{name}"
 }

@@ -1,13 +1,15 @@
 {
-  "description": "EndpointPort is a tuple that describes a single port.",
+  "description": "An object that describes a single port.",
   "properties": {
     "name": {
-      "description": "The name of this port (corresponds to ServicePort.Name). Must be a DNS_LABEL. Optional only if one port is defined.",
+      "description": "The name of this port. Must be a valid DNS-1123 label. Optional only if one port is defined, otherwise it is required.",
       "type": "string"
     },
     "port": {
       "description": "The port number of the endpoint.",
       "format": "int32",
+      "minimum": 1,
+      "maximum": 65535,
       "type": "integer"
     },
     "protocol": {
@@ -22,7 +24,8 @@
     }
   },
   "required": [
-    "port"
+    "port",
+    "protocol"
   ],
   "type": "object"
 }

@@ -1,7 +1,9 @@
 {
-  "description": "replace the specified Endpoints",
+  "description": "partially update the specified Endpoints",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,14 +16,14 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "replaceCoreV1NamespacedEndpoints",
+  "operationId": "patchCoreV1NamespacedEndpoints",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
@@ -46,25 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Endpoints",
     "version": "v1"
   },
-  "verb": "put",
+  "verb": "patch",
   "path": "/api/v1/namespaces/{namespace}/endpoints/{name}"
 }
