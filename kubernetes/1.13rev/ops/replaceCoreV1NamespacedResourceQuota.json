@@ -1,9 +1,7 @@
 {
-  "description": "partially update status of the specified ResourceQuota",
+  "description": "replace the specified ResourceQuota",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "patchCoreV1NamespacedResourceQuotaStatus",
+  "operationId": "replaceCoreV1NamespacedResourceQuota",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuota.UPDATE"
       }
     },
     {
@@ -48,19 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuota"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuota.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuota.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "ResourceQuota",
     "version": "v1"
   },
-  "verb": "patch",
-  "path": "/api/v1/namespaces/{namespace}/resourcequotas/{name}/status"
+  "verb": "put",
+  "path": "/api/v1/namespaces/{namespace}/resourcequotas/{name}"
 }

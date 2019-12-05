@@ -1,22 +1,22 @@
 {
-  "description": "ResourceQuotaList is a list of ResourceQuota items.",
+  "description": "A list of ResourceQuota items.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "v1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/",
+      "description": "A list of ResourceQuota objects.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuota"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuota.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "ResourceQuotaList"
       ],
