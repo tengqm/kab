@@ -1,5 +1,5 @@
 {
-  "description": "read the specified LimitRange",
+  "description": "replace the specified LimitRange",
   "consumes": [
     "*/*"
   ],
@@ -14,13 +14,18 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "readCoreV1NamespacedLimitRange",
+  "operationId": "replaceCoreV1NamespacedLimitRange",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.UPDATE"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -41,19 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "LimitRange",
     "version": "v1"
   },
-  "verb": "get",
+  "verb": "put",
   "path": "/api/v1/namespaces/{namespace}/limitranges/{name}"
 }
