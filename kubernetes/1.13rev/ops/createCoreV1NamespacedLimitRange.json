@@ -21,7 +21,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.CREATE"
       }
     },
     {
@@ -41,19 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.GET"
       }
     },
     "401": {
