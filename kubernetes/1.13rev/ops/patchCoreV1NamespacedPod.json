@@ -1,7 +1,9 @@
 {
-  "description": "read the specified Pod",
+  "description": "partially update the specified Pod",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,13 +16,18 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "readCoreV1NamespacedPod",
+  "operationId": "patchCoreV1NamespacedPod",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -41,19 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Pod"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Pod",
     "version": "v1"
   },
-  "verb": "get",
+  "verb": "patch",
   "path": "/api/v1/namespaces/{namespace}/pods/{name}"
 }

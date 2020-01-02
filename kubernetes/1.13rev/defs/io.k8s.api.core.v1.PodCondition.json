@@ -1,5 +1,5 @@
 {
-  "description": "PodCondition contains details for the current condition of this pod.",
+  "description": "The details for the current condition of this pod.",
   "properties": {
     "lastProbeTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -18,7 +18,7 @@
       "type": "string"
     },
     "status": {
-      "description": "Status is the status of the condition.",
+      "description": "The status of the condition.",
       "enum": [
         "False",
         "True",
@@ -28,7 +28,7 @@
       "type": "string"
     },
     "type": {
-      "description": "Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions",
+      "description": "The type of the condition.",
       "enum": [
         "ContainersReady",
         "Initialized",

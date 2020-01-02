@@ -15,16 +15,6 @@
       "description": "Flag indicating whether a service account token should be automatically mounted.",
       "type": "boolean"
     },
-    "containers": {
-      "description": "List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Container"
-      },
-      "minItems": 1,
-      "type": "array",
-      "x-kubernetes-patch-merge-key": "name",
-      "x-kubernetes-patch-strategy": "merge"
-    },
     "dnsConfig": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodDNSConfig",
       "description": "Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on dnsPolicy. If `dnsPolicy` is set to 'None', this must be provided."
@@ -77,15 +67,6 @@
       "description": "A list of references to secrets in the same namespace for pulling container images used by this Pod. If specified, these secrets will be passed to individual puller implementations. For example, in the case of docker, only DockerConfig type secrets are honored.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
-      },
-      "type": "array",
-      "x-kubernetes-patch-merge-key": "name",
-      "x-kubernetes-patch-strategy": "merge"
-    },
-    "initContainers": {
-      "description": "List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, or Liveness probes. The resource requirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. The name of an init container cannot conflict with other init containers or regular containers. Init containers cannot currently be added or removed. Cannot be updated.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Container"
       },
       "type": "array",
       "x-kubernetes-patch-merge-key": "name",
