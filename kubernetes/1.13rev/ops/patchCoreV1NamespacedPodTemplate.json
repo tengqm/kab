@@ -1,7 +1,9 @@
 {
-  "description": "create a PodTemplate",
+  "description": "partially update the specified PodTemplate",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,21 +16,26 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "createCoreV1NamespacedPodTemplate",
+  "operationId": "patchCoreV1NamespacedPodTemplate",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the PodTemplate",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,31 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PodTemplate",
     "version": "v1"
   },
-  "verb": "post",
-  "path": "/api/v1/namespaces/{namespace}/podtemplates"
+  "verb": "patch",
+  "path": "/api/v1/namespaces/{namespace}/podtemplates/{name}"
 }

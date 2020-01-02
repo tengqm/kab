@@ -1,5 +1,5 @@
 {
-  "description": "A list of PodTemplates.",
+  "description": "A template for creating copies of a predefined pod.",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,23 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "List of pod templates",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate.GET"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "PodTemplateList"
+        "PodTemplate"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata."
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata."
+    },
+    "template": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
+      "description": "Template defines the pods that will be created from this pod template."
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +32,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "",
-      "kind": "PodTemplateList",
+      "kind": "PodTemplate",
       "version": "v1"
     }
   ]
