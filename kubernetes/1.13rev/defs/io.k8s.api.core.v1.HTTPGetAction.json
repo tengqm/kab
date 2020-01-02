@@ -1,5 +1,5 @@
 {
-  "description": "HTTPGetAction describes an action based on HTTP Get requests.",
+  "description": "This describes an action based on HTTP GET requests.",
   "properties": {
     "host": {
       "description": "Host name to connect to, defaults to the pod IP. You probably want to set 'Host' in httpHeaders instead.",
@@ -14,6 +14,7 @@
     },
     "path": {
       "description": "Path to access on the HTTP server.",
+      "minLength": 1,
       "type": "string"
     },
     "port": {
@@ -22,11 +23,16 @@
     },
     "scheme": {
       "default": "HTTP",
-      "description": "Scheme to use for connecting to the host. Defaults to HTTP.",
+      "description": "Scheme to use for connecting to the host.",
+      "enum": [
+        "HTTP",
+        "HTTPS"
+      ],
       "type": "string"
     }
   },
   "required": [
+    "path",
     "port"
   ],
   "type": "object"

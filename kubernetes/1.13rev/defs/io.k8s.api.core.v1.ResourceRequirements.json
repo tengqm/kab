@@ -1,18 +1,18 @@
 {
-  "description": "ResourceRequirements describes the compute resource requirements.",
+  "description": "The resource requirements. Resources can be 'cpu', 'memory', 'ephemeral-storage' or prefixed with 'hugepages-'. Resource names prefixed with 'kubernetes.io/' are valid but reserved by Kubernetes. Extended resources can be specified if the name follows the standard: not prefixed with 'requests.'; can form quota if prefixed with 'requests.'. When hugepages resource is specified in requests of limits, CPU or memory resource must be specified in limits or requests.  If `requests` is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. For native resources other than huge pages, overcommit is allowed, the requests value must be lower or equal to that of the limits. For other resources, overcommit is disallowed, their limits must be set and the requests must equal to the limits.",
   "properties": {
     "limits": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+      "description": "The maximum amount of compute resources allowed.",
       "type": "object"
     },
     "requests": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+      "description": "The minimum amount of compute resources required.",
       "type": "object"
     }
   },

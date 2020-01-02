@@ -1,8 +1,8 @@
 {
-  "description": "ContainerPort represents a network port in a single container.",
+  "description": "A network port in a container.",
   "properties": {
     "containerPort": {
-      "description": "Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.",
+      "description": "Port to expose on the pod's IP address. This must be a valid port number between 1 and 65535.",
       "format": "int32",
       "maximum": 65535,
       "minimum": 1,
@@ -13,19 +13,20 @@
       "type": "string"
     },
     "hostPort": {
-      "description": "Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.",
+      "description": "Port to expose on the host. If specified, this must be a valid port number between 1 and 65535. If hostNetwork is specified, this must match containerPort. Most containers do not need this. The (protocol, hostIP, hostPort) tunple for all containers must be unique in a Pod.",
       "format": "int32",
       "maximum": 65535,
       "minimum": 1,
       "type": "integer"
     },
     "name": {
-      "description": "If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.",
+      "description": "Name for the port that can be referred to by services. If specified, the name must be unique within the pod. The port name can be no more than 15 characters long and it can only contain only [-a-z0-9] and must contain at least one letter [a-z]. It must not start or end with a hyphen, nor contain adjacent hyphens.",
+      "maxLength": 15,
       "type": "string"
     },
     "protocol": {
       "default": "TCP",
-      "description": "Protocol for port. Must be UDP, TCP, or SCTP. Defaults to 'TCP'.",
+      "description": "Protocol for port.",
       "enum": [
         "SCTP",
         "TCP",
@@ -35,7 +36,8 @@
     }
   },
   "required": [
-    "containerPort"
+    "containerPort",
+    "protocol"
   ],
   "type": "object"
 }

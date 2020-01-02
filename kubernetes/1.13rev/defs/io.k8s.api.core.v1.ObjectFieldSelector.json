@@ -1,9 +1,9 @@
 {
-  "description": "ObjectFieldSelector selects an APIVersioned field of an object.",
+  "description": "This selects an APIVersioned field of an object.",
   "properties": {
     "apiVersion": {
       "default": "v1",
-      "description": "Version of the schema the FieldPath is written in terms of, defaults to \"v1\".",
+      "description": "Version of the schema the fieldPath is written in terms of.",
       "type": "string"
     },
     "fieldPath": {
@@ -13,6 +13,7 @@
     }
   },
   "required": [
+    "apiVersion",
     "fieldPath"
   ],
   "type": "object"

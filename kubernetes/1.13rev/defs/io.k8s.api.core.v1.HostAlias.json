@@ -1,15 +1,15 @@
 {
-  "description": "HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.",
+  "description": "The mapping between an IP and some hostnames.",
   "properties": {
     "hostnames": {
-      "description": "Hostnames for the IP address.",
+      "description": "Hostnames for the IP address. Each value must be a valid DNS subdomain. Qiming wonders if this can be an empty array.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "ip": {
-      "description": "IP address of the host file entry.",
+      "description": "IP address of the host file entry. This value must be a valid IP address.",
       "type": "string"
     }
   },

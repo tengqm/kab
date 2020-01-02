@@ -1,0 +1,43 @@
+{
+  "description": "The configuration of a replication controller.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "ReplicationController"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object's metadata. If the labels of a ReplicationController are empty, they are defaulted to that of the Pod(s) the replication controller manages. The name must be a valid DNS subdomain name."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec",
+      "description": "The specification of the desired behavior of the replication controller."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerStatus",
+      "description": "The most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "ReplicationController",
+      "version": "v1"
+    }
+  ]
+}
