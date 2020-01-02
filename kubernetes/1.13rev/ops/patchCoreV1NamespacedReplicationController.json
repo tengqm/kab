@@ -1,7 +1,9 @@
 {
-  "description": "delete a ReplicationController",
+  "description": "partially update the specified ReplicationController",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,26 +16,18 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "deleteCoreV1NamespacedReplicationController",
+  "operationId": "patchCoreV1NamespacedReplicationController",
   "parameters": [
     {
       "name": "body",
       "in": "body",
+      "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/gracePeriodSeconds"
-    },
-    {
-      "$ref": "#/parameters/orphanDependents"
-    },
-    {
-      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "uniqueItems": true,
@@ -54,25 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+        "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationController.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "delete",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "ReplicationController",
     "version": "v1"
   },
-  "verb": "delete",
+  "verb": "patch",
   "path": "/api/v1/namespaces/{namespace}/replicationcontrollers/{name}"
 }
