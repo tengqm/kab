@@ -1,9 +1,10 @@
 {
-  "description": "ScaleSpec describes the attributes of a scale subresource.",
+  "description": "The attributes of a scale subresource.",
   "properties": {
     "replicas": {
       "description": "desired number of instances for the scaled object.",
       "format": "int32",
+      "minimum": 0,
       "type": "integer"
     }
   },
