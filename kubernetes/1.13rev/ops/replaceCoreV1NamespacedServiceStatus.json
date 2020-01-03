@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified Service",
+  "description": "replace status of the specified Service",
   "consumes": [
     "*/*"
   ],
@@ -14,14 +14,14 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "replaceCoreV1NamespacedService",
+  "operationId": "replaceCoreV1NamespacedServiceStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Service"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.UPDATE"
       }
     },
     {
@@ -46,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Service"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Service"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.GET"
       }
     },
     "401": {
@@ -66,5 +66,5 @@
     "version": "v1"
   },
   "verb": "put",
-  "path": "/api/v1/namespaces/{namespace}/services/{name}"
+  "path": "/api/v1/namespaces/{namespace}/services/{name}/status"
 }

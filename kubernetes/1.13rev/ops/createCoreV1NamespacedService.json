@@ -1,5 +1,5 @@
 {
-  "description": "replace status of the specified Service",
+  "description": "create a Service",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "replaceCoreV1NamespacedServiceStatus",
+  "operationId": "createCoreV1NamespacedService",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Service"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Service",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"
@@ -46,25 +41,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Service"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Service"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Service.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Service",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/api/v1/namespaces/{namespace}/services/{name}/status"
+  "verb": "post",
+  "path": "/api/v1/namespaces/{namespace}/services"
 }
