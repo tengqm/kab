@@ -1,9 +1,7 @@
 {
-  "description": "partially update status of the specified Namespace",
+  "description": "replace status of the specified Namespace",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "patchCoreV1NamespaceStatus",
+  "operationId": "replaceCoreV1NamespaceStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.UPDATE"
       }
     },
     {
@@ -45,19 +43,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Namespace",
     "version": "v1"
   },
-  "verb": "patch",
+  "verb": "put",
   "path": "/api/v1/namespaces/{name}/status"
 }

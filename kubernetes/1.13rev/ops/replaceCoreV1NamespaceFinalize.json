@@ -21,7 +21,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.UPDATE"
       }
     },
     {
@@ -43,13 +43,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       }
     },
     "401": {
