@@ -1,9 +1,7 @@
 {
-  "description": "partially update status of the specified PersistentVolumeClaim",
+  "description": "replace status of the specified PersistentVolumeClaim",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "patchCoreV1NamespacedPersistentVolumeClaimStatus",
+  "operationId": "replaceCoreV1NamespacedPersistentVolumeClaimStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.UPDATE"
       }
     },
     {
@@ -48,19 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PersistentVolumeClaim",
     "version": "v1"
   },
-  "verb": "patch",
+  "verb": "put",
   "path": "/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status"
 }
