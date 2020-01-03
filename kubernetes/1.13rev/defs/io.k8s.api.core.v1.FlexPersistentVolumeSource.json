@@ -1,25 +1,25 @@
 {
-  "description": "FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.",
+  "description": "A generic persistent volume resource that is provisioned/attached using an exec-based plugin.",
   "properties": {
     "driver": {
-      "description": "Driver is the name of the driver to use for this volume.",
+      "description": "The name of the driver to use.",
       "minLength": 1,
       "type": "string"
     },
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\". The default filesystem depends on FlexVolume script.",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. The default filesystem depends on FlexVolume script.",
       "type": "string"
     },
     "options": {
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Extra command options if any.",
+      "description": "Extra command options if any. If the key contains '`/`', the subsring before '`/`' is treated as the namespace. The namespace must not have suffix like '`k8s.io`' or '`kubernetes.io`' which are reserved.",
       "type": "object"
     },
     "readOnly": {
       "default": false,
-      "description": "Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+      "description": "Force the volume to be mounted in read-only mode.",
       "type": "boolean"
     },
     "secretRef": {

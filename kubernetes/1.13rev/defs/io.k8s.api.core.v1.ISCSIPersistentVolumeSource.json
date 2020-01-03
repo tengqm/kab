@@ -1,5 +1,5 @@
 {
-  "description": "ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.",
+  "description": "An ISCSI disk. ISCSI volumes can only be mounted as `ReadWriteOnce`. ISCSI volumes support ownership management and SELinux relabeling.",
   "properties": {
     "chapAuthDiscovery": {
       "description": "whether support iSCSI Discovery CHAP authentication",
@@ -11,30 +11,32 @@
     },
     "fsType": {
       "default": "ext4",
-      "description": "Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi",
+      "description": "Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system.",
       "type": "string"
     },
     "initiatorName": {
-      "description": "Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.",
+      "description": "Custom iSCSI Initiator Name. If `initiatorName` is specified with `iscsiInterface` simultaneously, new iSCSI interface `<volume name>:<target portal>` will be created for the connection. The length of the interface string cannot exceed 64 characters.",
       "type": "string"
     },
     "iqn": {
-      "description": "Target iSCSI Qualified Name.",
+      "description": "Target iSCSI Qualified Name (IQN). The name must have prefix '`iqn`' or '`eui`' or '`naa`'.",
       "minLength": 1,
       "type": "string"
     },
     "iscsiInterface": {
       "default": "default",
-      "description": "iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).",
+      "description": "iSCSI interface name that uses an iSCSI transport.",
       "type": "string"
     },
     "lun": {
-      "description": "iSCSI Target Lun number.",
+      "description": "iSCSI target LUN number.",
       "format": "int32",
+      "maximum": 255,
+      "minimum": 0,
       "type": "integer"
     },
     "portals": {
-      "description": "iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).",
+      "description": "iSCSI target portal list. The portal is either an IP or `ip_addr:port` if the port is other than default (typically TCP ports 860 and 3260).",
       "items": {
         "type": "string"
       },
@@ -42,15 +44,15 @@
     },
     "readOnly": {
       "default": false,
-      "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+      "description": "Force the the volume to be mounted in ready-only mode.",
       "type": "boolean"
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "CHAP Secret for iSCSI target and initiator authentication"
+      "description": "CHAP secret for iSCSI target and initiator authentication. If `chapAuthSession` or `chapAuthDiscovery` is specified, this field cannot be empty."
     },
     "targetPortal": {
-      "description": "iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).",
+      "description": "iSCSI target portal. The portal is either an IP or `ip_addr:port` if the port is other than default (typically TCP ports 860 and 3260).",
       "minLength": 1,
       "type": "string"
     }

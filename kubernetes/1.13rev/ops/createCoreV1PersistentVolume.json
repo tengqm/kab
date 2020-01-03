@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified PersistentVolume",
+  "description": "create a PersistentVolume",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "replaceCoreV1PersistentVolume",
+  "operationId": "createCoreV1PersistentVolume",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the PersistentVolume",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -43,25 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PersistentVolume",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/api/v1/persistentvolumes/{name}"
+  "verb": "post",
+  "path": "/api/v1/persistentvolumes"
 }

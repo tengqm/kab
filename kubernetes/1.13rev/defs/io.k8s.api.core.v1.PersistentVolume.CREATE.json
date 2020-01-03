@@ -1,5 +1,5 @@
 {
-  "description": "A list of PersistentVolume items",
+  "description": "A storage resource provisioned by an administrator.",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,23 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "List of persistent volumes",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "PersistentVolumeList"
+        "PersistentVolume"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata."
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata. The name must be a valid DNS subdomain."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeSpec",
+      "description": "The specification of a persistent volume owned by the cluster."
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +32,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "",
-      "kind": "PersistentVolumeList",
+      "kind": "PersistentVolume",
       "version": "v1"
     }
   ]

@@ -1,18 +1,18 @@
 {
-  "description": "AzureFile represents an Azure File Service mount on the host and bind mount to the pod.",
+  "description": "An Azure File service mounted on the node and bind mount to the pod.",
   "properties": {
     "readOnly": {
       "default": false,
-      "description": "Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+      "description": "Force the volume to be mounted in read-only mode.",
       "type": "boolean"
     },
     "secretName": {
-      "description": "the name of secret that contains Azure Storage Account Name and Key",
+      "description": "Name of Secret that contains Azure storage account name and key",
       "minLength": 1,
       "type": "string"
     },
     "secretNamespace": {
-      "description": "the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod",
+      "description": "Namespace of the Secret that contains the Azure storage account name and key. Default is the same as the Pod. Empty string is not allowed.",
       "type": "string"
     },
     "shareName": {

@@ -1,11 +1,12 @@
 {
-  "description": "A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.",
+  "description": "The union of the OR'ed results of one or more label queries over a set of nodes.",
   "properties": {
     "nodeSelectorTerms": {
-      "description": "Required. A list of node selector terms. The terms are ORed.",
+      "description": "A list of node selector terms. The terms are OR'ed.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm"
       },
+      "minItems": 1,
       "type": "array"
     }
   },

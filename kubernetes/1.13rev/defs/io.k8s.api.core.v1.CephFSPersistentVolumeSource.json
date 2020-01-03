@@ -1,8 +1,8 @@
 {
-  "description": "Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.",
+  "description": "A Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.",
   "properties": {
     "monitors": {
-      "description": "Required: Monitors is a collection of Ceph monitors More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
+      "description": "A collection of Ceph monitors",
       "items": {
         "type": "string"
       },
@@ -10,26 +10,26 @@
     },
     "path": {
       "default": "/",
-      "description": "Optional: Used as the mounted root, rather than the full Ceph tree, default is /",
+      "description": "Path to use as the mounted root, rather than the full Ceph tree.",
       "type": "string"
     },
     "readOnly": {
       "default": false,
-      "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
+      "description": "Force the filesystem to be mounted in read-only mode.",
       "type": "boolean"
     },
     "secretFile": {
       "default": "/etc/ceph/user.secret",
-      "description": "Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
+      "description": "The path to key ring for User.",
       "type": "string"
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it"
+      "description": "The reference to the authentication secret for user, default is empty."
     },
     "user": {
       "default": "admin",
-      "description": "Optional: User is the rados user name, default is admin More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
+      "description": "The rados user name.",
       "type": "string"
     }
   },

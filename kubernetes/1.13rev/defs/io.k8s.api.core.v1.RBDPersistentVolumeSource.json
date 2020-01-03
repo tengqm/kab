@@ -1,23 +1,23 @@
 {
-  "description": "Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.",
+  "description": "A Rados Block Device (RBD) mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.",
   "properties": {
     "fsType": {
       "default": "ext4",
-      "description": "Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Implicitly inferred to be 'ext4' if unspecified.",
+      "description": "Filesystem type of the volume to mount. Tip: Ensure that the filesystem type is supported by the host operating system.",
       "type": "string"
     },
     "image": {
-      "description": "The rados image name. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
+      "description": "The rados image name.",
       "minLength": 1,
       "type": "string"
     },
     "keyring": {
       "default": "/etc/ceph/keyring",
-      "description": "Keyring is the path to key ring for RBDUser. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
+      "description": "The path to key ring for RBDUser.",
       "type": "string"
     },
     "monitors": {
-      "description": "A collection of Ceph monitors. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
+      "description": "A collection of Ceph monitors.",
       "items": {
         "type": "string"
       },
@@ -25,17 +25,17 @@
     },
     "pool": {
       "default": "rbd",
-      "description": "The rados pool name. Default is rbd. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
+      "description": "The rados pool name.",
       "type": "string"
     },
     "readOnly": {
       "default": false,
-      "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+      "description": "Force the disk to be mounted in read-only mode.",
       "type": "boolean"
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring."
+      "description": "The name of the authentication secret for RBDUser. If provided overrides `keyring`."
     },
     "user": {
       "default": "admin",
