@@ -1,8 +1,8 @@
 {
-  "description": "PersistentVolumeClaimStatus is the current status of a persistent volume claim.",
+  "description": "The current status of a persistent volume claim.",
   "properties": {
     "accessModes": {
-      "description": "AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1",
+      "description": "The actual access modes the volume backing the PVC has.",
       "items": {
         "type": "string",
         "enum": [
@@ -17,11 +17,11 @@
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "Represents the actual resources of the underlying volume.",
+      "description": "The actual resources of the underlying volume.",
       "type": "object"
     },
     "conditions": {
-      "description": "Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.",
+      "description": "Current condition of persistent volume claim. If underlying persistent volume is being resized then the `condition` will be set to '`ResizeStarted`'.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition"
       },
@@ -30,7 +30,12 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "phase": {
-      "description": "Phase represents the current phase of PersistentVolumeClaim.",
+      "description": "The current phase of PersistentVolumeClaim.",
+      "enum": [
+        "Pending",
+        "Bound",
+        "Lost"
+      ],
       "type": "string"
     }
   },

@@ -1,5 +1,5 @@
 {
-  "description": "NodeCondition contains condition information for a node.",
+  "description": "Condition information for a node.",
   "properties": {
     "lastHeartbeatTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -18,7 +18,7 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition, one of True, False, Unknown.",
+      "description": "Status of the condition.",
       "enum": [
         "False",
         "True",
@@ -28,6 +28,12 @@
     },
     "type": {
       "description": "Type of node condition.",
+      "enum": [
+        "Ready",
+        "MemoryPressure",
+        "DiskPressure",
+        "NetworkUnavailable"
+      ],
       "minLength": 1,
       "type": "string"
     }

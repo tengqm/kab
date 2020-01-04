@@ -1,8 +1,8 @@
 {
-  "description": "ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.",
+  "description": "The information to reference a ConfigMap as a config source for the Node.",
   "properties": {
     "kubeletConfigKey": {
-      "description": "KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure.",
+      "description": "The key of the referenced ConfigMap that corresponds to the kubelet configuration structure.",
       "minLength": 1,
       "type": "string"
     },
@@ -17,11 +17,11 @@
       "type": "string"
     },
     "resourceVersion": {
-      "description": "ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.",
+      "description": "Resource version of the referenced ConfigMap. This field is forbidden in node.spec, and required in node.status.",
       "type": "string"
     },
     "uid": {
-      "description": "UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.",
+      "description": "UID of the referenced ConfigMap. This field is forbidden in node.spec, and required in node.status.",
       "type": "string"
     }
   },
