@@ -1,16 +1,18 @@
 {
-  "description": "DaemonSetSpec is the specification of a daemon set.",
+  "description": "The specification of a daemon set.",
   "properties": {
     "minReadySeconds": {
       "default": 0,
-      "description": "The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).",
+      "description": "The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Default value 0 means the pods will be considered available as soon as it is ready).",
       "format": "int32",
+      "minimum": 0,
       "type": "integer"
     },
     "revisionHistoryLimit": {
       "default": 10,
       "description": "The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.",
       "format": "int32",
+      "minimum": 0,
       "type": "integer"
     },
     "selector": {

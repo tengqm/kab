@@ -1,5 +1,5 @@
 {
-  "description": "replace status of the specified DaemonSet",
+  "description": "read the specified DaemonSet",
   "consumes": [
     "*/*"
   ],
@@ -14,18 +14,13 @@
   "tags": [
     "apps_v1"
   ],
-  "operationId": "replaceAppsV1NamespacedDaemonSetStatus",
+  "operationId": "readAppsV1NamespacedDaemonSet",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -46,25 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "DaemonSet",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/apis/apps/v1/namespaces/{namespace}/daemonsets/{name}/status"
+  "verb": "get",
+  "path": "/apis/apps/v1/namespaces/{namespace}/daemonsets/{name}"
 }

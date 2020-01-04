@@ -1,8 +1,8 @@
 {
-  "description": "DaemonSetList is a collection of daemon sets.",
+  "description": "A list of daemon sets.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "apps/v1"
       ],
@@ -11,12 +11,12 @@
     "items": {
       "description": "A list of daemon sets.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "DaemonSetList"
       ],
