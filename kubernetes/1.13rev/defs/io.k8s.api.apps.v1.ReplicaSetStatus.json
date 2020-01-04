@@ -1,13 +1,13 @@
 {
-  "description": "ReplicaSetStatus represents the current status of a ReplicaSet.",
+  "description": "The current status of a ReplicaSet.",
   "properties": {
     "availableReplicas": {
-      "description": "The number of available replicas (ready for at least minReadySeconds) for this replica set.",
+      "description": "The number of available replicas (ready for at least `minReadySeconds`) for this replica set.",
       "format": "int32",
       "type": "integer"
     },
     "conditions": {
-      "description": "Represents the latest available observations of a replica set's current state.",
+      "description": "The latest available observations of a replica set's current state.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSetCondition"
       },
@@ -21,7 +21,7 @@
       "type": "integer"
     },
     "observedGeneration": {
-      "description": "ObservedGeneration reflects the generation of the most recently observed ReplicaSet.",
+      "description": "The generation of the most recently observed ReplicaSet.",
       "format": "int64",
       "type": "integer"
     },
@@ -31,7 +31,7 @@
       "type": "integer"
     },
     "replicas": {
-      "description": "Replicas is the most recently oberved number of replicas.",
+      "description": "The most recently oberved number of replicas.",
       "format": "int32",
       "type": "integer"
     }

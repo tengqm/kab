@@ -1,5 +1,5 @@
 {
-  "description": "partially update status of the specified ReplicaSet",
+  "description": "partially update the specified ReplicaSet",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
@@ -16,7 +16,7 @@
   "tags": [
     "apps_v1"
   ],
-  "operationId": "patchAppsV1NamespacedReplicaSetStatus",
+  "operationId": "patchAppsV1NamespacedReplicaSet",
   "parameters": [
     {
       "name": "body",
@@ -48,7 +48,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSet.GET"
       }
     },
     "401": {
@@ -62,5 +62,5 @@
     "version": "v1"
   },
   "verb": "patch",
-  "path": "/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/status"
+  "path": "/apis/apps/v1/namespaces/{namespace}/replicasets/{name}"
 }
