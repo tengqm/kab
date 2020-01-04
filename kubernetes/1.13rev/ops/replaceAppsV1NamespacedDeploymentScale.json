@@ -1,9 +1,7 @@
 {
-  "description": "partially update scale of the specified Deployment",
+  "description": "replace scale of the specified Deployment",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "apps_v1"
   ],
-  "operationId": "patchAppsV1NamespacedDeploymentScale",
+  "operationId": "replaceAppsV1NamespacedDeploymentScale",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale.UPDATE"
       }
     },
     {
@@ -48,19 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale"
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "autoscaling",
     "kind": "Scale",
     "version": "v1"
   },
-  "verb": "patch",
+  "verb": "put",
   "path": "/apis/apps/v1/namespaces/{namespace}/deployments/{name}/scale"
 }
