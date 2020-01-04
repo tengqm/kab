@@ -21,7 +21,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment.UPDATE"
       }
     },
     {
@@ -46,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment.GET"
       }
     },
     "401": {
