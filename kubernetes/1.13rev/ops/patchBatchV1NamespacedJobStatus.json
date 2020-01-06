@@ -1,7 +1,9 @@
 {
-  "description": "replace the specified Job",
+  "description": "partially update status of the specified Job",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,14 +16,14 @@
   "tags": [
     "batch_v1"
   ],
-  "operationId": "replaceBatchV1NamespacedJob",
+  "operationId": "patchBatchV1NamespacedJobStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
@@ -46,25 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}"
+  "verb": "patch",
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status"
 }

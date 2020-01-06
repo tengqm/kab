@@ -1,5 +1,5 @@
 {
-  "description": "A collection of Jobs.",
+  "description": "The configuration of a Job.",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,27 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "The list of Jobs.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "JobList"
+        "Job"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec",
+      "description": "Specification of the desired behavior of a Job"
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1.JobStatus",
+      "description": "Current status of a Job"
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +36,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "batch",
-      "kind": "JobList",
+      "kind": "Job",
       "version": "v1"
     }
   ]
