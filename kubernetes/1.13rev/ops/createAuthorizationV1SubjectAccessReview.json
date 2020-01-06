@@ -1,5 +1,5 @@
 {
-  "description": "create a SelfSubjectAccessReview",
+  "description": "create a SubjectAccessReview",
   "consumes": [
     "*/*"
   ],
@@ -14,14 +14,14 @@
   "tags": [
     "authorization_v1"
   ],
-  "operationId": "createAuthorizationV1SelfSubjectAccessReview",
+  "operationId": "createAuthorizationV1SubjectAccessReview",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReview.CREATE"
       }
     },
     {
@@ -38,19 +38,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReview.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReview.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReview.GET"
       }
     },
     "401": {
@@ -60,9 +60,9 @@
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "authorization.k8s.io",
-    "kind": "SelfSubjectAccessReview",
+    "kind": "SubjectAccessReview",
     "version": "v1"
   },
   "verb": "post",
-  "path": "/apis/authorization.k8s.io/v1/selfsubjectaccessreviews"
+  "path": "/apis/authorization.k8s.io/v1/subjectaccessreviews"
 }

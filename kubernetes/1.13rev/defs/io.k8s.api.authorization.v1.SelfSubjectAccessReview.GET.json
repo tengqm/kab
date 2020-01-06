@@ -1,26 +1,26 @@
 {
-  "description": "SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in a spec.namespace means 'in all namespaces'. Self is a special case, because users should always be able to check whether they can perform an action",
+  "description": "SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in a `spec.namespace` means 'in all namespaces'. Self is a special case, because users should always be able to check whether they can perform an action",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "authorization.k8s.io/v1"
       ],
       "type": "string"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "SelfSubjectAccessReview"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReviewSpec",
-      "description": "Spec holds information about the request being evaluated.  user and groups must be empty"
+      "description": "Information about the request being evaluated.  user and groups must be empty"
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReviewStatus",
