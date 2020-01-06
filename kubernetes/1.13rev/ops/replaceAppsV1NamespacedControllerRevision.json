@@ -1,5 +1,5 @@
 {
-  "description": "create a ControllerRevision",
+  "description": "replace the specified ControllerRevision",
   "consumes": [
     "*/*"
   ],
@@ -14,21 +14,26 @@
   "tags": [
     "apps_v1"
   ],
-  "operationId": "createAppsV1NamespacedControllerRevision",
+  "operationId": "replaceAppsV1NamespacedControllerRevision",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the ControllerRevision",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,31 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "ControllerRevision",
     "version": "v1"
   },
-  "verb": "post",
-  "path": "/apis/apps/v1/namespaces/{namespace}/controllerrevisions"
+  "verb": "put",
+  "path": "/apis/apps/v1/namespaces/{namespace}/controllerrevisions/{name}"
 }
