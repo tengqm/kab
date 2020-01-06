@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified StatefulSet",
+  "description": "create a StatefulSet",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,26 +14,21 @@
   "tags": [
     "apps_v1"
   ],
-  "operationId": "patchAppsV1NamespacedStatefulSet",
+  "operationId": "createAppsV1NamespacedStatefulSet",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the StatefulSet",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"
@@ -48,19 +41,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "StatefulSet",
     "version": "v1"
   },
-  "verb": "patch",
-  "path": "/apis/apps/v1/namespaces/{namespace}/statefulsets/{name}"
+  "verb": "post",
+  "path": "/apis/apps/v1/namespaces/{namespace}/statefulsets"
 }

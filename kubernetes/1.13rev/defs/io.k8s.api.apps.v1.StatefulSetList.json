@@ -1,8 +1,8 @@
 {
-  "description": "StatefulSetList is a collection of StatefulSets.",
+  "description": "A list of StatefulSets.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "apps/v1"
       ],
@@ -10,12 +10,12 @@
     },
     "items": {
       "items": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSet.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "StatefulSetList"
       ],
