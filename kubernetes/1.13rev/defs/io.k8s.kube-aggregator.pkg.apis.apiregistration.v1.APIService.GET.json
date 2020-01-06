@@ -1,30 +1,31 @@
 {
-  "description": "APIService represents a server for a particular GroupVersion. Name must be \"version.group\".",
+  "description": "APIService represents a server for a particular GroupVersion.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "apiregistration.k8s.io/v1"
       ],
       "type": "string"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "APIService"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata where `name` must be '`version.group`'."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceSpec",
-      "description": "Spec contains information for locating and communicating with a server"
+      "description": "Information for locating and communicating with a server"
     },
     "status": {
       "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceStatus",
-      "description": "Status contains derived information about an API server"
+      "description": "Derived information about an API server"
     }
   },
   "required": [
