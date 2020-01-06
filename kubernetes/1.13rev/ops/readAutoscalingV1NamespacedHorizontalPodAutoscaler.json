@@ -1,5 +1,5 @@
 {
-  "description": "replace status of the specified HorizontalPodAutoscaler",
+  "description": "read the specified HorizontalPodAutoscaler",
   "consumes": [
     "*/*"
   ],
@@ -14,18 +14,13 @@
   "tags": [
     "autoscaling_v1"
   ],
-  "operationId": "replaceAutoscalingV1NamespacedHorizontalPodAutoscalerStatus",
+  "operationId": "readAutoscalingV1NamespacedHorizontalPodAutoscaler",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -46,25 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler"
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "autoscaling",
     "kind": "HorizontalPodAutoscaler",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}/status"
+  "verb": "get",
+  "path": "/apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}"
 }
