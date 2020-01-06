@@ -1,5 +1,5 @@
 {
-  "description": "A collection of NetworkPolicy objects.",
+  "description": "NetworkPolicy describes what network traffic is allowed for a set of Pods",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,23 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "A list of schema objects.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.GET"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "NetworkPolicyList"
+        "NetworkPolicy"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicySpec",
+      "description": "Specification of the desired behavior for this NetworkPolicy."
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +32,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "networking.k8s.io",
-      "kind": "NetworkPolicyList",
+      "kind": "NetworkPolicy",
       "version": "v1"
     }
   ]

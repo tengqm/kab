@@ -21,7 +21,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.CREATE"
       }
     },
     {
@@ -41,19 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.GET"
       }
     },
     "401": {
