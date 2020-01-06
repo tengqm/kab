@@ -1,5 +1,5 @@
 {
-  "description": "replace status of the specified VolumeAttachment",
+  "description": "create a VolumeAttachment",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "storage_v1"
   ],
-  "operationId": "replaceStorageV1VolumeAttachmentStatus",
+  "operationId": "createStorageV1VolumeAttachment",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the VolumeAttachment",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -43,25 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "VolumeAttachment",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/apis/storage.k8s.io/v1/volumeattachments/{name}/status"
+  "verb": "post",
+  "path": "/apis/storage.k8s.io/v1/volumeattachments"
 }

@@ -2,12 +2,13 @@
   "description": "The specification of a VolumeAttachment request.",
   "properties": {
     "attacher": {
-      "description": "The name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().",
+      "description": "The name of the volume driver that must handle this request. This is the name returned by `GetPluginName()`. The value must be a valid DNS subdomain.",
+      "maxLength": 63,
       "minLength": 1,
       "type": "string"
     },
     "nodeName": {
-      "description": "The node that the volume should be attached to.",
+      "description": "The node that the volume should be attached to. The value must be a valid DNS subdomain.",
       "minLength": 1,
       "type": "string"
     },
