@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified RoleBinding",
+  "description": "create a RoleBinding",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "rbacAuthorization_v1"
   ],
-  "operationId": "replaceRbacAuthorizationV1NamespacedRoleBinding",
+  "operationId": "createRbacAuthorizationV1NamespacedRoleBinding",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the RoleBinding",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"
@@ -46,25 +41,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "RoleBinding",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name}"
+  "verb": "post",
+  "path": "/apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings"
 }
