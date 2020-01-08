@@ -1,5 +1,5 @@
 {
-  "description": "create a Lease",
+  "description": "replace the specified Lease",
   "consumes": [
     "*/*"
   ],
@@ -14,21 +14,26 @@
   "tags": [
     "coordination_v1beta1"
   ],
-  "operationId": "createCoordinationV1beta1NamespacedLease",
+  "operationId": "replaceCoordinationV1beta1NamespacedLease",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Lease",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,31 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
     "version": "v1beta1"
   },
-  "verb": "post",
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases"
+  "verb": "put",
+  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}"
 }

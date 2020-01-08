@@ -1,7 +1,9 @@
 {
-  "description": "read the specified Lease",
+  "description": "partially update the specified Lease",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,13 +16,18 @@
   "tags": [
     "coordination_v1beta1"
   ],
-  "operationId": "readCoordinationV1beta1NamespacedLease",
+  "operationId": "patchCoordinationV1beta1NamespacedLease",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -41,19 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
     "version": "v1beta1"
   },
-  "verb": "get",
+  "verb": "patch",
   "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}"
 }
