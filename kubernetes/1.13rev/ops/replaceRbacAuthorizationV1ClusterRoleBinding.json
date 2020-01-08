@@ -1,5 +1,5 @@
 {
-  "description": "create a ClusterRoleBinding",
+  "description": "replace the specified ClusterRoleBinding",
   "consumes": [
     "*/*"
   ],
@@ -14,21 +14,26 @@
   "tags": [
     "rbacAuthorization_v1"
   ],
-  "operationId": "createRbacAuthorizationV1ClusterRoleBinding",
+  "operationId": "replaceRbacAuthorizationV1ClusterRoleBinding",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the ClusterRoleBinding",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
@@ -38,31 +43,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRoleBinding",
     "version": "v1"
   },
-  "verb": "post",
-  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings"
+  "verb": "put",
+  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}"
 }

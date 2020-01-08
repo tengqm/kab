@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified ClusterRoleBinding",
+  "description": "create a ClusterRoleBinding",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "rbacAuthorization_v1"
   ],
-  "operationId": "replaceRbacAuthorizationV1ClusterRoleBinding",
+  "operationId": "createRbacAuthorizationV1ClusterRoleBinding",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the ClusterRoleBinding",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -43,25 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRoleBinding",
     "version": "v1"
   },
-  "verb": "put",
-  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}"
+  "verb": "post",
+  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings"
 }
