@@ -21,7 +21,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole.CREATE"
       }
     },
     {
@@ -38,19 +38,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole.GET"
       }
     },
     "401": {

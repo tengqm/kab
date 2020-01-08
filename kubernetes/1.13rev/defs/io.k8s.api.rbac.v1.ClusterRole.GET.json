@@ -1,30 +1,30 @@
 {
-  "description": "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.",
+  "description": "A cluster level logical grouping of policy rules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding resource.",
   "properties": {
     "aggregationRule": {
       "$ref": "#/definitions/io.k8s.api.rbac.v1.AggregationRule",
-      "description": "A field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller."
+      "description": "A field that describes how to build the `rules` for this ClusterRole."
     },
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "rbac.authorization.k8s.io/v1"
       ],
       "type": "string"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "ClusterRole"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
       "description": "Standard object's metadata."
     },
     "rules": {
-      "description": "Rules holds all the PolicyRules for this ClusterRole",
+      "description": "All the policy rules for this ClusterRole",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1.PolicyRule"
       },
