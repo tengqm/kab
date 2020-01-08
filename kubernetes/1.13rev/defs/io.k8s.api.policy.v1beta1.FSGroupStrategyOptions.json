@@ -1,15 +1,20 @@
 {
-  "description": "FSGroupStrategyOptions defines the strategy type and options used to create the strategy.",
+  "description": "The type and options related to fs group to use in security context.",
   "properties": {
     "ranges": {
-      "description": "The allowed ranges of fs groups. If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.",
+      "description": "The allowed ranges of fs groups. If you would like to force a single fs group then supply a single range with the same `start` and `end`. This is required when `rule` is set to '`MustRunAs`'. Each item in the list must be a supported FS type or '`*`'.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.IDRange"
       },
       "type": "array"
     },
     "rule": {
-      "description": "rule is the strategy that will dictate what FSGroup is used in the SecurityContext.",
+      "description": "The strategy that will dictate what fsGroup is used in the SecurityContext.",
+      "enum": [
+        "MayRunAs",
+        "MustRunAs",
+        "RunAsAny"
+      ],
       "minLength": 1,
       "type": "string"
     }

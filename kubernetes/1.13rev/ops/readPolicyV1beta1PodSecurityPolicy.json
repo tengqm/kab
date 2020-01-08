@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified PodSecurityPolicy",
+  "description": "read the specified PodSecurityPolicy",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,18 +14,13 @@
   "tags": [
     "policy_v1beta1"
   ],
-  "operationId": "patchPolicyV1beta1PodSecurityPolicy",
+  "operationId": "readPolicyV1beta1PodSecurityPolicy",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -45,19 +38,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy"
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodSecurityPolicy",
     "version": "v1beta1"
   },
-  "verb": "patch",
+  "verb": "get",
   "path": "/apis/policy/v1beta1/podsecuritypolicies/{name}"
 }

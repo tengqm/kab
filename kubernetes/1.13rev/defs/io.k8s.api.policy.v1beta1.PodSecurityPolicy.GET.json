@@ -1,27 +1,27 @@
 {
-  "description": "PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.",
+  "description": "PodSecurityPolicy governs the ability to make requests that affect the security context that will be applied to a Pod and container.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "policy/v1beta1"
       ],
       "type": "string"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "PodSecurityPolicy"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
-      "description": "Standard object's metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicySpec",
-      "description": "spec defines the policy enforced."
+      "description": "The policy enforced."
     }
   },
   "required": [
