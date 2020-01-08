@@ -1,5 +1,5 @@
 {
-  "description": "A collection of PodDisruptionBudgets.",
+  "description": "An object to define the max disruption that can be caused to a collection of pods",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,22 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "A list of PodDisruptionBudget objects",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget.GET"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "PodDisruptionBudgetList"
+        "PodDisruptionBudget"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudgetSpec",
+      "description": "Specification of the desired behavior of the PodDisruptionBudget."
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +31,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "policy",
-      "kind": "PodDisruptionBudgetList",
+      "kind": "PodDisruptionBudget",
       "version": "v1beta1"
     }
   ]

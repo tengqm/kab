@@ -1,5 +1,5 @@
 {
-  "description": "replace status of the specified PodDisruptionBudget",
+  "description": "read the specified PodDisruptionBudget",
   "consumes": [
     "*/*"
   ],
@@ -14,18 +14,13 @@
   "tags": [
     "policy_v1beta1"
   ],
-  "operationId": "replacePolicyV1beta1NamespacedPodDisruptionBudgetStatus",
+  "operationId": "readPolicyV1beta1NamespacedPodDisruptionBudget",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -46,25 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget"
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodDisruptionBudget",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status"
+  "verb": "get",
+  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}"
 }
