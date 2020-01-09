@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified MutatingWebhookConfiguration",
+  "description": "replace the specified MutatingWebhookConfiguration",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "admissionregistration_v1beta1"
   ],
-  "operationId": "patchAdmissionregistrationV1beta1MutatingWebhookConfiguration",
+  "operationId": "replaceAdmissionregistrationV1beta1MutatingWebhookConfiguration",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.UPDATE"
       }
     },
     {
@@ -45,19 +43,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "admissionregistration.k8s.io",
     "kind": "MutatingWebhookConfiguration",
     "version": "v1beta1"
   },
-  "verb": "patch",
+  "verb": "put",
   "path": "/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}"
 }

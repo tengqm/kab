@@ -1,8 +1,8 @@
 {
-  "description": "RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.",
+  "description": "A tuple of operations and resources. It is recommended to make sure that all the tuple expansions are valid.",
   "properties": {
     "apiGroups": {
-      "description": "APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one.",
+      "description": "The API groups the resources belong to. '`*`' is the wildcard for all groups. If '`*`' is present, the length of the slice must be one.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -11,7 +11,7 @@
       "type": "array"
     },
     "apiVersions": {
-      "description": "APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one.",
+      "description": "The API versions the resources belong to. '`*`' means all versions. If '`*`' is present, the length of the slice must be one.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -20,12 +20,14 @@
       "type": "array"
     },
     "operations": {
-      "description": "Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one.",
+      "description": "The operations the admission hook cares about. '`*`' means all operations. If '`*`' is present, the length of the slice must be one.",
       "items": {
         "enum": [
           "*",
           "CREATE",
-          "UPDATE"
+          "UPDATE",
+          "DELETE",
+          "CONNECT"
         ],
         "minLength": 1,
         "type": "string"
@@ -34,7 +36,7 @@
       "type": "array"
     },
     "resources": {
-      "description": "Resources is a list of resources this rule applies to. For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources. If wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
+      "description": "A list of resources this rule applies to. For example: '`pods`' means pods. '`pods/log`' means the `log` subresource of pods. '`*`' means all resources, but not subresources. '`pods/*`' means all subresources of pods. '`*/scale`' means all scale subresources. '`*/*`' means all resources and their subresources. If a wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
       "items": {
         "type": "string",
         "minLength": 1
@@ -43,5 +45,11 @@
       "type": "array"
     }
   },
+  "required": [
+    "apiGroups",
+    "apiVersions",
+    "operations",
+    "resources"
+  ],
   "type": "object"
 }
