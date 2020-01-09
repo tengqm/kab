@@ -1,36 +1,37 @@
 {
-  "description": "CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition",
+  "description": "The names used for this CustomResourceDefinition",
   "properties": {
     "categories": {
-      "description": "Categories is a list of grouped resources custom resources belong to (e.g. 'all')",
+      "description": "A list of grouped resources a CustomResource belongs to (e.g. '`all`'). Each entry must be a valid DNS label.",
       "items": {
+        "minLength": 1,
         "type": "string"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is the serialized kind of the resource.  It is normally CamelCase and singular.",
+      "description": "The serialized `kind` of the resource.  It is normally CamelCase and singular.",
       "minLength": 1,
       "type": "string"
     },
     "listKind": {
-      "description": "ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.",
+      "description": "The serialized `kind` of the list for this resource.  Defaults to `<kind>List`.",
       "type": "string"
     },
     "plural": {
-      "description": "Plural is the plural name of the resource to serve.  It must match the name of the CustomResourceDefinition-registration too: plural.group and it must be all lowercase.",
+      "description": "The plural name of the resource to serve. It must be of format `plural.group` and it must be all lowercase. The value must be a valid DNS label.",
       "minLength": 1,
       "type": "string"
     },
     "shortNames": {
-      "description": "ShortNames are short names for the resource.  It must be all lowercase.",
+      "description": "Short names for the resource.  It must be all lowercase and valid DNS labels.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "singular": {
-      "description": "Singular is the singular name of the resource.  It must be all lowercase  Defaults to lowercased <kind>",
+      "description": "Singular name of the resource. It must be all lowercase and a valid DNS label. Defaults to lowercased `kind`",
       "type": "string"
     }
   },

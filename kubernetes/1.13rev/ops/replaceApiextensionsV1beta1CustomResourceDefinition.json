@@ -1,5 +1,5 @@
 {
-  "description": "read the specified CustomResourceDefinition",
+  "description": "replace the specified CustomResourceDefinition",
   "consumes": [
     "*/*"
   ],
@@ -14,13 +14,18 @@
   "tags": [
     "apiextensions_v1beta1"
   ],
-  "operationId": "readApiextensionsV1beta1CustomResourceDefinition",
+  "operationId": "replaceApiextensionsV1beta1CustomResourceDefinition",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.UPDATE"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -38,19 +43,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition"
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "apiextensions.k8s.io",
     "kind": "CustomResourceDefinition",
     "version": "v1beta1"
   },
-  "verb": "get",
+  "verb": "put",
   "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}"
 }
