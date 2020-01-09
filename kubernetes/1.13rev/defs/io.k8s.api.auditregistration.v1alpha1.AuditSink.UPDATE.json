@@ -1,5 +1,5 @@
 {
-  "description": "A list of AuditSink objects.",
+  "description": "A cluster level audit sink",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,26 +8,23 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "List of AuditSink objects.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "AuditSinkList"
+        "AuditSink"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSinkSpec",
+      "description": "The audit configuration"
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -35,7 +32,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "auditregistration.k8s.io",
-      "kind": "AuditSinkList",
+      "kind": "AuditSink",
       "version": "v1alpha1"
     }
   ]

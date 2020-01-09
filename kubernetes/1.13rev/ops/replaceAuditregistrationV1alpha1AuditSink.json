@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified AuditSink",
+  "description": "replace the specified AuditSink",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "auditregistration_v1alpha1"
   ],
-  "operationId": "patchAuditregistrationV1alpha1AuditSink",
+  "operationId": "replaceAuditregistrationV1alpha1AuditSink",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.UPDATE"
       }
     },
     {
@@ -45,19 +43,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "auditregistration.k8s.io",
     "kind": "AuditSink",
     "version": "v1alpha1"
   },
-  "verb": "patch",
+  "verb": "put",
   "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks/{name}"
 }

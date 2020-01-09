@@ -1,5 +1,5 @@
 {
-  "description": "Policy defines the configuration of how audit events are logged",
+  "description": "The configuration of how audit events are logged",
   "properties": {
     "level": {
       "description": "The Level that all requests are recorded at.",
@@ -13,9 +13,16 @@
       "type": "string"
     },
     "stages": {
-      "description": "Stages is a list of stages for which events are created.",
+      "description": "A list of stages for which events are created.",
       "items": {
-        "type": "string"
+        "type": "string",
+        "enum": [
+          "RequestReceived",
+          "ResponseStarted",
+          "ResponseComplete",
+          "Panic"
+        ],
+        "minLength": 1
       },
       "type": "array"
     }

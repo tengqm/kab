@@ -1,16 +1,18 @@
 {
-  "description": "WebhookThrottleConfig holds the configuration for throttling events",
+  "description": "The configuration for throttling events",
   "properties": {
     "burst": {
       "default": 15,
       "description": "The maximum number of events sent per second",
       "format": "int64",
+      "minimum": 1,
       "type": "integer"
     },
     "qps": {
       "default": 10,
       "description": "The maximum number of batches per second",
       "format": "int64",
+      "minimum": 1,
       "type": "integer"
     }
   },

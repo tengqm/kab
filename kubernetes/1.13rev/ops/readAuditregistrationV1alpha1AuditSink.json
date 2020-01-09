@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified AuditSink",
+  "description": "read the specified AuditSink",
   "consumes": [
     "*/*"
   ],
@@ -14,18 +14,13 @@
   "tags": [
     "auditregistration_v1alpha1"
   ],
-  "operationId": "replaceAuditregistrationV1alpha1AuditSink",
+  "operationId": "readAuditregistrationV1alpha1AuditSink",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -43,25 +38,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "auditregistration.k8s.io",
     "kind": "AuditSink",
     "version": "v1alpha1"
   },
-  "verb": "put",
+  "verb": "get",
   "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks/{name}"
 }
