@@ -1,5 +1,5 @@
 {
-  "description": "MutatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects an object and may change it.",
+  "description": "The configuration of an admission webhook that accepts or rejects an object without changing it.",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -11,16 +11,16 @@
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "MutatingWebhookConfiguration"
+        "ValidatingWebhookConfiguration"
       ],
       "type": "string"
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata."
+      "description": "Standard object metadata"
     },
     "webhooks": {
-      "description": "A list of webhooks and the affected resources and operations.",
+      "description": "Webhooks is a list of webhooks and the affected resources and operations.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.Webhook"
       },
@@ -37,7 +37,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "admissionregistration.k8s.io",
-      "kind": "MutatingWebhookConfiguration",
+      "kind": "ValidatingWebhookConfiguration",
       "version": "v1beta1"
     }
   ]
