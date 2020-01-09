@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified CronJob",
+  "description": "create a CronJob",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,26 +14,21 @@
   "tags": [
     "batch_v1beta1"
   ],
-  "operationId": "patchBatchV1beta1NamespacedCronJob",
+  "operationId": "createBatchV1beta1NamespacedCronJob",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the CronJob",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"
@@ -48,19 +41,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob"
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "CronJob",
     "version": "v1beta1"
   },
-  "verb": "patch",
-  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}"
+  "verb": "post",
+  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs"
 }

@@ -1,7 +1,9 @@
 {
-  "description": "read the specified CronJob",
+  "description": "partially update status of the specified CronJob",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,13 +16,18 @@
   "tags": [
     "batch_v1beta1"
   ],
-  "operationId": "readBatchV1beta1NamespacedCronJob",
+  "operationId": "patchBatchV1beta1NamespacedCronJobStatus",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -41,19 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob"
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "CronJob",
     "version": "v1beta1"
   },
-  "verb": "get",
-  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}"
+  "verb": "patch",
+  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}/status"
 }

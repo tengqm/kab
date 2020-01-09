@@ -1,31 +1,31 @@
 {
-  "description": "CronJob represents the configuration of a single cron job.",
+  "description": "The configuration of a single CronJob.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "batch/v1beta1"
       ],
       "type": "string"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "CronJob"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
-      "description": "Standard object's metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobSpec",
-      "description": "Specification of the desired behavior of a cron job, including the schedule."
+      "description": "Specification of the desired behavior of a CronJob, including the schedule."
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobStatus",
-      "description": "Current status of the cron job."
+      "description": "Current status of the CronJob."
     }
   },
   "required": [

@@ -1,5 +1,5 @@
 {
-  "description": "A collection of cron jobs.",
+  "description": "The configuration of a single CronJob.",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,27 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "A list of CronJobs.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "CronJobList"
+        "CronJob"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobSpec",
+      "description": "Specification of the desired behavior of a CronJob, including the schedule."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobStatus",
+      "description": "Current status of the CronJob."
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +36,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "batch",
-      "kind": "CronJobList",
+      "kind": "CronJob",
       "version": "v1beta1"
     }
   ]
