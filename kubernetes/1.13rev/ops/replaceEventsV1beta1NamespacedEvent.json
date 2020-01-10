@@ -21,7 +21,7 @@
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event"
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.UPDATE"
       }
     },
     {
@@ -46,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event"
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event"
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
       }
     },
     "401": {
