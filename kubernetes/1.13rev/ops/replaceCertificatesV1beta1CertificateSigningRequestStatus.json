@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified CertificateSigningRequest",
+  "description": "replace status of the specified CertificateSigningRequest",
   "consumes": [
     "*/*"
   ],
@@ -14,14 +14,14 @@
   "tags": [
     "certificates_v1beta1"
   ],
-  "operationId": "replaceCertificatesV1beta1CertificateSigningRequest",
+  "operationId": "replaceCertificatesV1beta1CertificateSigningRequestStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.UPDATE"
       }
     },
     {
@@ -43,13 +43,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
       }
     },
     "401": {
@@ -63,5 +63,5 @@
     "version": "v1beta1"
   },
   "verb": "put",
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}"
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status"
 }

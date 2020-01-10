@@ -1,5 +1,5 @@
 {
-  "description": "replace approval of the specified CertificateSigningRequest",
+  "description": "create a CertificateSigningRequest",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "certificates_v1beta1"
   ],
-  "operationId": "replaceCertificatesV1beta1CertificateSigningRequestApproval",
+  "operationId": "createCertificatesV1beta1CertificateSigningRequest",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the CertificateSigningRequest",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -43,25 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/approval"
+  "verb": "post",
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests"
 }

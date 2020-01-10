@@ -1,5 +1,5 @@
 {
-  "description": "This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.",
+  "description": "This information is immutable after the request is created. Only the `request` and `usages` fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.",
   "properties": {
     "extra": {
       "additionalProperties": {
@@ -8,40 +8,42 @@
         },
         "type": "array"
       },
-      "description": "Extra information about the requesting user. See user.Info interface for details.",
+      "description": "Extra information about the requesting user.",
       "type": "object"
     },
     "groups": {
-      "description": "Group information about the requesting user. See user.Info interface for details.",
+      "description": "Group information about the requesting user.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "request": {
-      "description": "Base64-encoded PKCS#10 CSR data",
+      "description": "Base64-encoded PKCS#10 CSR data. The block should be either null or '`CERTIFICATE REQUEST`', and the content must be a X509 certificate request",
       "format": "byte",
       "minLength": 1,
       "type": "string"
     },
     "uid": {
-      "description": "UID information about the requesting user. See user.Info interface for details.",
+      "description": "UID information about the requesting user.",
       "type": "string"
     },
     "usages": {
-      "description": "allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3, https://tools.ietf.org/html/rfc5280#section-4.2.1.12",
+      "description": "A set of usage contexts the key will be valid for.",
       "items": {
         "type": "string"
       },
+      "minItems": 1,
       "type": "array"
     },
     "username": {
-      "description": "Information about the requesting user. See user.Info interface for details.",
+      "description": "Information about the requesting user.",
       "type": "string"
     }
   },
   "required": [
-    "request"
+    "request",
+    "usages"
   ],
   "type": "object"
 }

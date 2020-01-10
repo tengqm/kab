@@ -1,5 +1,5 @@
 {
-  "description": "A collection of CertificateSigningRequest objects",
+  "description": "A certificate signing request",
   "properties": {
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
@@ -8,27 +8,26 @@
       ],
       "type": "string"
     },
-    "items": {
-      "description": "A list of CertificateSigningRequest objects.",
-      "items": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
-      },
-      "type": "array"
-    },
     "kind": {
       "description": "A string value representing the REST resource this object represents.",
       "enum": [
-        "CertificateSigningRequestList"
+        "CertificateSigningRequest"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequestSpec",
+      "description": "The certificate request itself and some additional information."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequestStatus",
+      "description": "Derived information about the request."
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "kind"
   ],
@@ -36,7 +35,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "certificates.k8s.io",
-      "kind": "CertificateSigningRequestList",
+      "kind": "CertificateSigningRequest",
       "version": "v1beta1"
     }
   ]
