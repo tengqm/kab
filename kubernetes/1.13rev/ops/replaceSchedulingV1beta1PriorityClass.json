@@ -1,9 +1,7 @@
 {
-  "description": "partially update the specified PriorityClass",
+  "description": "replace the specified PriorityClass",
   "consumes": [
-    "application/json-patch+json",
-    "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "*/*"
   ],
   "produces": [
     "application/json",
@@ -16,14 +14,14 @@
   "tags": [
     "scheduling_v1beta1"
   ],
-  "operationId": "patchSchedulingV1beta1PriorityClass",
+  "operationId": "replaceSchedulingV1beta1PriorityClass",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.UPDATE"
       }
     },
     {
@@ -45,19 +43,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "patch",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "scheduling.k8s.io",
     "kind": "PriorityClass",
     "version": "v1beta1"
   },
-  "verb": "patch",
+  "verb": "put",
   "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses/{name}"
 }

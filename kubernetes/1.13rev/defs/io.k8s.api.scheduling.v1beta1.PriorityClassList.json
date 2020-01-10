@@ -1,22 +1,22 @@
 {
-  "description": "PriorityClassList is a collection of priority classes.",
+  "description": "A collection of priority classes.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "scheduling.k8s.io/v1beta1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "items is the list of PriorityClasses",
+      "description": "The list of PriorityClasses",
       "items": {
         "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "PriorityClassList"
       ],

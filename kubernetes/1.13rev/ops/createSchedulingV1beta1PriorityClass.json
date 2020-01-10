@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified PriorityClass",
+  "description": "create a PriorityClass",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "scheduling_v1beta1"
   ],
-  "operationId": "replaceSchedulingV1beta1PriorityClass",
+  "operationId": "createSchedulingV1beta1PriorityClass",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the PriorityClass",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
@@ -43,25 +38,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "scheduling.k8s.io",
     "kind": "PriorityClass",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses/{name}"
+  "verb": "post",
+  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses"
 }
