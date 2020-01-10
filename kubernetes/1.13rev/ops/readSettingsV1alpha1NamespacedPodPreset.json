@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified PodPreset",
+  "description": "read the specified PodPreset",
   "consumes": [
     "*/*"
   ],
@@ -14,18 +14,13 @@
   "tags": [
     "settings_v1alpha1"
   ],
-  "operationId": "replaceSettingsV1alpha1NamespacedPodPreset",
+  "operationId": "readSettingsV1alpha1NamespacedPodPreset",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPreset"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
@@ -46,25 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPreset"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPreset"
+        "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPreset.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "settings.k8s.io",
     "kind": "PodPreset",
     "version": "v1alpha1"
   },
-  "verb": "put",
+  "verb": "get",
   "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets/{name}"
 }
