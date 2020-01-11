@@ -1,5 +1,5 @@
 {
-  "description": "create an Ingress",
+  "description": "replace status of the specified Ingress",
   "consumes": [
     "*/*"
   ],
@@ -14,21 +14,26 @@
   "tags": [
     "extensions_v1beta1"
   ],
-  "operationId": "createExtensionsV1beta1NamespacedIngress",
+  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Ingress",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,31 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "Ingress",
     "version": "v1beta1"
   },
-  "verb": "post",
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses"
+  "verb": "put",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status"
 }
