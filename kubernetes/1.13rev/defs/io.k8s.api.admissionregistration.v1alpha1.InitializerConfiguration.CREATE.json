@@ -2,14 +2,14 @@
   "description": "InitializerConfiguration describes the configuration of initializers.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
         "admissionregistration.k8s.io/v1alpha1"
       ],
       "type": "string"
     },
     "initializers": {
-      "description": "Initializers is a list of resources and their default initializers Order-sensitive. When merging multiple InitializerConfigurations, we sort the initializers from different InitializerConfigurations by the name of the InitializerConfigurations; the order of the initializers from the same InitializerConfiguration is preserved.",
+      "description": "A list of resources and their default initializers. The list is order sensitive. When merging multiple InitializerConfigurations, we sort the initializers from different InitializerConfigurations by the name of the InitializerConfigurations; the order of the initializers from the same InitializerConfiguration is preserved.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.Initializer"
       },
@@ -18,14 +18,14 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource this object represents.",
       "enum": [
         "InitializerConfiguration"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
       "description": "Standard object metadata"
     }
   },
