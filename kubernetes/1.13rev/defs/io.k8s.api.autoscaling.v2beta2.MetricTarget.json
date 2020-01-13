@@ -1,17 +1,17 @@
 {
-  "description": "MetricTarget defines the target value, average value, or average utilization of a specific metric",
+  "description": "The target value, average value, or average utilization of a specific metric",
   "properties": {
     "averageUtilization": {
-      "description": "averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type",
+      "description": "Target value of the average of the resource metric across all relevant Pods, represented as a percentage of the requested value of the resource for the Pods. Currently only valid for '`Resource`' metric source type",
       "format": "int32",
       "type": "integer"
     },
     "averageValue": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
-      "description": "averageValue is the target value of the average of the metric across all relevant pods (as a quantity)"
+      "description": "The target value of the average of the metric across all relevant Pods (as a quantity)"
     },
     "type": {
-      "description": "type represents whether the metric type is Utilization, Value, or AverageValue",
+      "description": "Type of the metric value.",
       "enum": [
         "AverageValue",
         "Utilization",
@@ -22,7 +22,7 @@
     },
     "value": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
-      "description": "value is the target value of the metric (as a quantity)."
+      "description": "The target value of the metric (as a quantity)."
     }
   },
   "required": [
