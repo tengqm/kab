@@ -1,14 +1,15 @@
 {
-  "description": "The target value, average value, or average utilization of a specific metric",
+  "description": "The target value, average value, or average utilization of a specific metric. For '`Object`' type of metrics, one of `value` and `averageValue` must be specified. For '`External`' type of metrics, one and only one of `value` or `averageValue` must be set. For '`Pod`' type of metrics, `averageValue` must be set. For '`Resource`' type of metrics, either `averageUtilization` or `averageValue` should be specified but not both.",
   "properties": {
     "averageUtilization": {
       "description": "Target value of the average of the resource metric across all relevant Pods, represented as a percentage of the requested value of the resource for the Pods. Currently only valid for '`Resource`' metric source type",
       "format": "int32",
+      "minimum": 1,
       "type": "integer"
     },
     "averageValue": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
-      "description": "The target value of the average of the metric across all relevant Pods (as a quantity)"
+      "description": "The target value of the average of the metric across all relevant Pods. The value must be positive if specified."
     },
     "type": {
       "description": "Type of the metric value.",
@@ -22,7 +23,7 @@
     },
     "value": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
-      "description": "The target value of the metric (as a quantity)."
+      "description": "The target value of the metric (as a quantity). The value must be positive if specified."
     }
   },
   "required": [

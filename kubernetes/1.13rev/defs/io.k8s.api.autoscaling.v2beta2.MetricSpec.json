@@ -18,8 +18,9 @@
       "description": "Reference  to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory). Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `pods` source."
     },
     "type": {
-      "description": "The type of metric source.",
+      "description": "The type of metric source. When specified, the corresponding field must be set and only that field can be set.",
       "enum": [
+        "External",
         "Object",
         "Pods",
         "Resource"

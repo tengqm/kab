@@ -2,7 +2,7 @@
   "description": "The name and optionally the selector for a metric",
   "properties": {
     "name": {
-      "description": "The name of the given metric",
+      "description": "The name of the given metric. The name cannot be '`.`' or '`..`' and it cannot contain '`/`' or '`%`'.",
       "minLength": 1,
       "type": "string"
     },
