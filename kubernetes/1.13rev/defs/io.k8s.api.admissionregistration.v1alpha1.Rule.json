@@ -1,5 +1,5 @@
 {
-  "description": "A tuple of `apiGroups`, `apiVersion`, and `resources`. It is recommended to make sure that all the tuple expansions are valid.",
+  "description": "A tuple of `apiGroups`, `apiVersions`, and `resources`. It is recommended to make sure that all the tuple expansions are valid.",
   "properties": {
     "apiGroups": {
       "description": "The API groups the resources belong to. '`*`' means all groups. If '`*`' is present, the length of the array must be 1.",
@@ -12,7 +12,8 @@
     "apiVersions": {
       "description": "The API versions the resources belong to. '`*`' means all versions. If '`*`' is present, the length of the array must be 1.",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "minItems": 1,
       "type": "array"
@@ -26,5 +27,10 @@
       "type": "array"
     }
   },
+  "required": [
+    "apiGroups",
+    "apiVersions",
+    "resources"
+  ],
   "type": "object"
 }
