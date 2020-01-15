@@ -1,0 +1,73 @@
+{
+  "consumes": [
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json",
+    "application/apply-patch+yaml"
+  ],
+  "description": "partially update status of the specified ReplicaSet",
+  "operationId": "patchExtensionsV1beta1NamespacedReplicaSetStatus",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/force"
+    },
+    {
+      "description": "name of the ReplicaSet",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicasets/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "ReplicaSet",
+    "version": "v1beta1"
+  }
+}
