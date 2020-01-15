@@ -66,6 +66,55 @@ Removed Resources:
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializer.json
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
 
+New operations
+Only in 1.16/ops/: createAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: createAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: createCoreV1NamespacedServiceAccountToken.json
+Only in 1.16/ops/: createDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: deleteAdmissionregistrationV1CollectionMutatingWebhookConfiguration.json
+Only in 1.16/ops/: deleteAdmissionregistrationV1CollectionValidatingWebhookConfiguration.json
+Only in 1.16/ops/: deleteAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: deleteAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: deleteApiextensionsV1CollectionCustomResourceDefinition.json
+Only in 1.16/ops/: deleteApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: deleteDiscoveryV1alpha1CollectionNamespacedEndpointSlice.json
+Only in 1.16/ops/: deleteDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: getAdmissionregistrationV1APIResources.json
+Only in 1.16/ops/: getApiextensionsV1APIResources.json
+Only in 1.16/ops/: getDiscoveryAPIGroup.json
+Only in 1.16/ops/: getDiscoveryV1alpha1APIResources.json
+Only in 1.16/ops/: listAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: listAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: listApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: listDiscoveryV1alpha1EndpointSliceForAllNamespaces.json
+Only in 1.16/ops/: listDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: patchAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: patchAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinitionStatus.json
+Only in 1.16/ops/: patchDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: readAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: readAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinitionStatus.json
+Only in 1.16/ops/: readDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: replaceAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: replaceAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinitionStatus.json
+Only in 1.16/ops/: replaceDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: watchAdmissionregistrationV1MutatingWebhookConfiguration.json
+Only in 1.16/ops/: watchAdmissionregistrationV1MutatingWebhookConfigurationList.json
+Only in 1.16/ops/: watchAdmissionregistrationV1ValidatingWebhookConfiguration.json
+Only in 1.16/ops/: watchAdmissionregistrationV1ValidatingWebhookConfigurationList.json
+Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinition.json
+Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
+Only in 1.16/ops/: watchDiscoveryV1alpha1EndpointSliceListForAllNamespaces.json
+Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSlice.json
+Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
+
+
 - io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration deprecated in 1.16, will be removed in 1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
 - io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration.json deprecated in 1.16, will be removed in 1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
 - io.k8s.api.autoscaling.v1.HorizontalPodAutoscalerSpec.json minReplicas description changed.
@@ -143,3 +192,4 @@ Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `managedFields` no longer alpha.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `selfLink` description changed. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
 - io.k8s.apimachinery.pkg.runtime.RawExtension removed fields `Raw`.
+- patch operations now supports  "application/apply-patch+yaml" as its content-type
