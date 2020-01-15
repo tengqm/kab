@@ -1,3 +1,4 @@
+New API Group io.k8s.api.admissionregistration.v1
 Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhook.json
 Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhookConfiguration.json
 Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhookConfigurationList.json
@@ -7,24 +8,33 @@ Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhook.json
 Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration.json
 Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhookConfigurationList.json
 Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.WebhookClientConfig.json
+
+New API Group io.k8s.api.authentication.v1
 Only in 1.16/defs/: io.k8s.api.authentication.v1.BoundObjectReference.json
 Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequest.json
 Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequestSpec.json
 Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequestStatus.json
+
+New resources
 Only in 1.16/defs/: io.k8s.api.core.v1.EphemeralContainer.json
 Only in 1.16/defs/: io.k8s.api.core.v1.NamespaceCondition.json
 Only in 1.16/defs/: io.k8s.api.core.v1.PodIP.json
 Only in 1.16/defs/: io.k8s.api.core.v1.TopologySpreadConstraint.json
+Only in 1.16/defs/: io.k8s.api.storage.v1beta1.VolumeNodeResources.json
+
+New API Group io.k8s.api.discovery.v1alpha1
 Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.Endpoint.json
 Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointConditions.json
 Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointPort.json
 Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointSlice.json
 Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointSliceList.json
+
 Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Overhead.json
 Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Scheduling.json
 Only in 1.16/defs/: io.k8s.api.node.v1beta1.Overhead.json
 Only in 1.16/defs/: io.k8s.api.node.v1beta1.Scheduling.json
-Only in 1.16/defs/: io.k8s.api.storage.v1beta1.VolumeNodeResources.json
+
+New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceConversion.json
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinition.json
@@ -47,796 +57,89 @@ Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSO
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ServiceReference.json
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookClientConfig.json
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookConversion.json
+
+Replaced Resources
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
 Only in 1.16/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1.json
+
+Removed Resources:
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializer.json
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
 
-diff 1.15/defs/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.json 1.16/defs/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.json
-2c2
-<   "description": "MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.",
----
->   "description": "MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.",
-diff 1.15/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration.json 1.16/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration.json
-2c2
-<   "description": "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.",
----
->   "description": "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.",
-diff 1.15/defs/io.k8s.api.autoscaling.v1.HorizontalPodAutoscalerSpec.json 1.16/defs/io.k8s.api.autoscaling.v1.HorizontalPodAutoscalerSpec.json
-10c10
-<       "description": "lower limit for the number of pods that can be set by the autoscaler, default 1.",
----
->       "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.",
-diff 1.15/defs/io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec.json 1.16/defs/io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec.json
-17c17
-<       "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down. It defaults to 1 pod.",
----
->       "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.",
-diff 1.15/defs/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec.json 1.16/defs/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec.json
-17c17
-<       "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down. It defaults to 1 pod.",
----
->       "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.",
-diff 1.15/defs/io.k8s.api.batch.v1beta1.JobTemplateSpec.json 1.16/defs/io.k8s.api.batch.v1beta1.JobTemplateSpec.json
-6c6
-<       "description": "Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
----
->       "description": "Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
-10c10
-<       "description": "Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status"
----
->       "description": "Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
-diff 1.15/defs/io.k8s.api.core.v1.CephFSPersistentVolumeSource.json 1.16/defs/io.k8s.api.core.v1.CephFSPersistentVolumeSource.json
-5c5
-<       "description": "Required: Monitors is a collection of Ceph monitors More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-16c16
-<       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-20c20
-<       "description": "Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-25c25
-<       "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it"
----
->       "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it"
-28c28
-<       "description": "Optional: User is the rados user name, default is admin More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-diff 1.15/defs/io.k8s.api.core.v1.CephFSVolumeSource.json 1.16/defs/io.k8s.api.core.v1.CephFSVolumeSource.json
-5c5
-<       "description": "Required: Monitors is a collection of Ceph monitors More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-16c16
-<       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-20c20
-<       "description": "Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-25c25
-<       "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it"
----
->       "description": "Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it"
-28c28
-<       "description": "Optional: User is the rados user name, default is admin More info: https://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it",
----
->       "description": "Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it",
-diff 1.15/defs/io.k8s.api.core.v1.CinderPersistentVolumeSource.json 1.16/defs/io.k8s.api.core.v1.CinderPersistentVolumeSource.json
-5c5
-<       "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified. More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
----
->       "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md",
-9c9
-<       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
----
->       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md",
-17c17
-<       "description": "volume id used to identify the volume in cinder More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
----
->       "description": "volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md",
-diff 1.15/defs/io.k8s.api.core.v1.CinderVolumeSource.json 1.16/defs/io.k8s.api.core.v1.CinderVolumeSource.json
-5c5
-<       "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified. More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
----
->       "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md",
-9c9
-<       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
----
->       "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md",
-17c17
-<       "description": "volume id used to identify the volume in cinder More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md",
----
->       "description": "volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md",
-diff 1.15/defs/io.k8s.api.core.v1.ComponentStatus.json 1.16/defs/io.k8s.api.core.v1.ComponentStatus.json
-5c5
-<       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
----
->       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-21c21
-<       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
----
->       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-29c29
-<       "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
----
->       "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
-diff 1.15/defs/io.k8s.api.core.v1.Container.json 1.16/defs/io.k8s.api.core.v1.Container.json
-79a80,83
->     "startupProbe": {
->       "$ref": "#/definitions/io.k8s.api.core.v1.Probe",
->       "description": "StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.ContainerStatus.json 1.16/defs/io.k8s.api.core.v1.ContainerStatus.json
-32a33,36
->     "started": {
->       "description": "Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.",
->       "type": "boolean"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.EndpointPort.json 1.16/defs/io.k8s.api.core.v1.EndpointPort.json
-5c5
-<       "description": "The name of this port (corresponds to ServicePort.Name). Must be a DNS_LABEL. Optional only if one port is defined.",
----
->       "description": "The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.",
-diff 1.15/defs/io.k8s.api.core.v1.GlusterfsPersistentVolumeSource.json 1.16/defs/io.k8s.api.core.v1.GlusterfsPersistentVolumeSource.json
-5c5
-<       "description": "EndpointsName is the endpoint name that details Glusterfs topology. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-9c9
-<       "description": "EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-13c13
-<       "description": "Path is the Glusterfs volume path. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-17c17
-<       "description": "ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-diff 1.15/defs/io.k8s.api.core.v1.GlusterfsVolumeSource.json 1.16/defs/io.k8s.api.core.v1.GlusterfsVolumeSource.json
-5c5
-<       "description": "EndpointsName is the endpoint name that details Glusterfs topology. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-9c9
-<       "description": "Path is the Glusterfs volume path. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-13c13
-<       "description": "ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod",
----
->       "description": "ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod",
-diff 1.15/defs/io.k8s.api.core.v1.Lifecycle.json 1.16/defs/io.k8s.api.core.v1.Lifecycle.json
-10c10
-<       "description": "PreStop is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks"
----
->       "description": "PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks"
-diff 1.15/defs/io.k8s.api.core.v1.LimitRange.json 1.16/defs/io.k8s.api.core.v1.LimitRange.json
-5c5
-<       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
----
->       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-12c12
-<       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
----
->       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-20c20
-<       "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
----
->       "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
-24c24
-<       "description": "Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status"
----
->       "description": "Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
-diff 1.15/defs/io.k8s.api.core.v1.LimitRangeList.json 1.16/defs/io.k8s.api.core.v1.LimitRangeList.json
-5c5
-<       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
----
->       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-19c19
-<       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
----
->       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-27c27
-<       "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds"
----
->       "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
-diff 1.15/defs/io.k8s.api.core.v1.NamespaceStatus.json 1.16/defs/io.k8s.api.core.v1.NamespaceStatus.json
-3a4,12
->     "conditions": {
->       "description": "Represents the latest available observations of a namespace's current state.",
->       "items": {
->         "$ref": "#/definitions/io.k8s.api.core.v1.NamespaceCondition"
->       },
->       "type": "array",
->       "x-kubernetes-patch-merge-key": "type",
->       "x-kubernetes-patch-strategy": "merge"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.NodeSpec.json 1.16/defs/io.k8s.api.core.v1.NodeSpec.json
-15a16,23
->     "podCIDRs": {
->       "description": "podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.",
->       "items": {
->         "type": "string"
->       },
->       "type": "array",
->       "x-kubernetes-patch-strategy": "merge"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.PodSecurityContext.json 1.16/defs/io.k8s.api.core.v1.PodSecurityContext.json
-44c44
-<       "description": "Windows security options."
----
->       "description": "The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence."
-diff 1.15/defs/io.k8s.api.core.v1.PodSpec.json 1.16/defs/io.k8s.api.core.v1.PodSpec.json
-37a38,46
->     "ephemeralContainers": {
->       "description": "List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.",
->       "items": {
->         "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
->       },
->       "type": "array",
->       "x-kubernetes-patch-merge-key": "name",
->       "x-kubernetes-patch-strategy": "merge"
->     },
-73c82
-<       "description": "List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, or Liveness probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/",
----
->       "description": "List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/",
-91a101,107
->     "overhead": {
->       "additionalProperties": {
->         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
->       },
->       "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.",
->       "type": "object"
->     },
-155a172,185
->     "topologySpreadConstraints": {
->       "description": "TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is alpha-level and is only honored by clusters that enables the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.",
->       "items": {
->         "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint"
->       },
->       "type": "array",
->       "x-kubernetes-list-map-keys": [
->         "topologyKey",
->         "whenUnsatisfiable"
->       ],
->       "x-kubernetes-list-type": "map",
->       "x-kubernetes-patch-merge-key": "topologyKey",
->       "x-kubernetes-patch-strategy": "merge"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.PodStatus.json 1.16/defs/io.k8s.api.core.v1.PodStatus.json
-19a20,26
->     "ephemeralContainerStatuses": {
->       "description": "Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.",
->       "items": {
->         "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
->       },
->       "type": "array"
->     },
-46a54,62
->     "podIPs": {
->       "description": "podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.",
->       "items": {
->         "$ref": "#/definitions/io.k8s.api.core.v1.PodIP"
->       },
->       "type": "array",
->       "x-kubernetes-patch-merge-key": "ip",
->       "x-kubernetes-patch-strategy": "merge"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.Probe.json 1.16/defs/io.k8s.api.core.v1.Probe.json
-28c28
-<       "description": "Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness. Minimum value is 1.",
----
->       "description": "Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.",
-diff 1.15/defs/io.k8s.api.core.v1.RBDPersistentVolumeSource.json 1.16/defs/io.k8s.api.core.v1.RBDPersistentVolumeSource.json
-9c9
-<       "description": "The rados image name. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-13c13
-<       "description": "Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-17c17
-<       "description": "A collection of Ceph monitors. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-24c24
-<       "description": "The rados pool name. Default is rbd. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-28c28
-<       "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-33c33
-<       "description": "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it"
----
->       "description": "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it"
-36c36
-<       "description": "The rados user name. Default is admin. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-diff 1.15/defs/io.k8s.api.core.v1.RBDVolumeSource.json 1.16/defs/io.k8s.api.core.v1.RBDVolumeSource.json
-9c9
-<       "description": "The rados image name. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-13c13
-<       "description": "Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-17c17
-<       "description": "A collection of Ceph monitors. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-24c24
-<       "description": "The rados pool name. Default is rbd. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-28c28
-<       "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-33c33
-<       "description": "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it"
----
->       "description": "SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it"
-36c36
-<       "description": "The rados user name. Default is admin. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it",
----
->       "description": "The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it",
-diff 1.15/defs/io.k8s.api.core.v1.ReplicationController.json 1.16/defs/io.k8s.api.core.v1.ReplicationController.json
-20c20
-<       "description": "If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
----
->       "description": "If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
-diff 1.15/defs/io.k8s.api.core.v1.SecurityContext.json 1.16/defs/io.k8s.api.core.v1.SecurityContext.json
-44c44
-<       "description": "Windows security options."
----
->       "description": "The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence."
-diff 1.15/defs/io.k8s.api.core.v1.ServicePort.json 1.16/defs/io.k8s.api.core.v1.ServicePort.json
-5c5
-<       "description": "The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. This maps to the 'Name' field in EndpointPort objects. Optional if only one ServicePort is defined on this service.",
----
->       "description": "The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.",
-diff 1.15/defs/io.k8s.api.core.v1.ServiceSpec.json 1.16/defs/io.k8s.api.core.v1.ServiceSpec.json
-27a28,31
->     "ipFamily": {
->       "description": "ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.",
->       "type": "string"
->     },
-diff 1.15/defs/io.k8s.api.core.v1.Volume.json 1.16/defs/io.k8s.api.core.v1.Volume.json
-22c22
-<       "description": "Cinder represents a cinder volume attached and mounted on kubelets host machine More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md"
----
->       "description": "Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md"
-62c62
-<       "description": "Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md"
----
->       "description": "Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md"
-70c70
-<       "description": "ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://releases.k8s.io/HEAD/examples/volumes/iscsi/README.md"
----
->       "description": "ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md"
-102c102
-<       "description": "RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://releases.k8s.io/HEAD/examples/volumes/rbd/README.md"
----
->       "description": "RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md"
-diff 1.15/defs/io.k8s.api.core.v1.WindowsSecurityContextOptions.json 1.16/defs/io.k8s.api.core.v1.WindowsSecurityContextOptions.json
-10a11,14
->     },
->     "runAsUserName": {
->       "description": "The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. This field is alpha-level and it is only honored by servers that enable the WindowsRunAsUserName feature flag.",
->       "type": "string"
-diff 1.15/defs/io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec.json 1.16/defs/io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec.json
-9c9
-<       "description": "AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.",
----
->       "description": "AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.",
-diff 1.15/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json 1.16/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
-3a4,7
->     "overhead": {
->       "$ref": "#/definitions/io.k8s.api.node.v1alpha1.Overhead",
->       "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature."
->     },
-6a11,14
->     },
->     "scheduling": {
->       "$ref": "#/definitions/io.k8s.api.node.v1alpha1.Scheduling",
->       "description": "Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes."
-diff 1.15/defs/io.k8s.api.node.v1beta1.RuntimeClass.json 1.16/defs/io.k8s.api.node.v1beta1.RuntimeClass.json
-24c24,32
-<       "description": "More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
----
->       "description": "More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
->     },
->     "overhead": {
->       "$ref": "#/definitions/io.k8s.api.node.v1beta1.Overhead",
->       "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature."
->     },
->     "scheduling": {
->       "$ref": "#/definitions/io.k8s.api.node.v1beta1.Scheduling",
->       "description": "Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes."
-diff 1.15/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json 1.16/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json
-9c9
-<       "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID)",
----
->       "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" iff the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.",
-10a11,17
->     },
->     "volumeLifecycleModes": {
->       "description": "VolumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is \"Persistent\", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is \"Ephemeral\". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.",
->       "items": {
->         "type": "string"
->       },
->       "type": "array"
-diff 1.15/defs/io.k8s.api.storage.v1beta1.CSINodeDriver.json 1.16/defs/io.k8s.api.storage.v1beta1.CSINodeDriver.json
-3a4,7
->     "allocatable": {
->       "$ref": "#/definitions/io.k8s.api.storage.v1beta1.VolumeNodeResources",
->       "description": "allocatable represents the volume resources of a node that are available for scheduling."
->     },
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition.json
-5c5
-<       "description": "JSONPath is a simple JSON path, i.e. with array notation.",
----
->       "description": "JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.",
-13c13
-<       "description": "format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for more.",
----
->       "description": "format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.",
-21c21
-<       "description": "priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a higher priority.",
----
->       "description": "priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.",
-26c26
-<       "description": "type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for more.",
----
->       "description": "type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion.json
-5c5
-<       "description": "ConversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, conversion will fail for this object. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Default to `['v1beta1']`.",
----
->       "description": "conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `[\"v1beta1\"]`.",
-12c12
-<       "description": "`strategy` specifies the conversion strategy. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the CR. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information\n  is needed for this option. This requires spec.preserveUnknownFields to be false.",
----
->       "description": "strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information\n  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.",
-17c17
-<       "description": "`webhookClientConfig` is the instructions for how to call the webhook if strategy is `Webhook`. This field is alpha-level and is only honored by servers that enable the CustomResourceWebhookConversion feature."
----
->       "description": "webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`."
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.json
-2c2
-<   "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.",
----
->   "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
-5c5
-<       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
----
->       "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-12c12
-<       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
----
->       "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-23c23
-<       "description": "Spec describes how the user wants the resources to appear"
----
->       "description": "spec describes how the user wants the resources to appear"
-27c27
-<       "description": "Status indicates the actual state of the CustomResourceDefinition"
----
->       "description": "status indicates the actual state of the CustomResourceDefinition"
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionCondition.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionCondition.json
-6c6
-<       "description": "Last time the condition transitioned from one status to another."
----
->       "description": "lastTransitionTime last time the condition transitioned from one status to another."
-9c9
-<       "description": "Human-readable message indicating details about last transition.",
----
->       "description": "message is a human-readable message indicating details about last transition.",
-13c13
-<       "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
----
->       "description": "reason is a unique, one-word, CamelCase reason for the condition's last transition.",
-17c17
-<       "description": "Status is the status of the condition. Can be True, False, Unknown.",
----
->       "description": "status is the status of the condition. Can be True, False, Unknown.",
-21c21
-<       "description": "Type is the type of the condition. Types include Established, NamesAccepted and Terminating.",
----
->       "description": "type is the type of the condition. Types include Established, NamesAccepted and Terminating.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionList.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionList.json
-12c12
-<       "description": "Items individual CustomResourceDefinitions",
----
->       "description": "items list individual CustomResourceDefinition objects",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames.json
-5c5
-<       "description": "Categories is a list of grouped resources custom resources belong to (e.g. 'all')",
----
->       "description": "categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.",
-12c12
-<       "description": "Kind is the serialized kind of the resource.  It is normally CamelCase and singular.",
----
->       "description": "kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.",
-16c16
-<       "description": "ListKind is the serialized kind of the list for this resource.  Defaults to <kind>List.",
----
->       "description": "listKind is the serialized kind of the list for this resource. Defaults to \"`kind`List\".",
-20c20
-<       "description": "Plural is the plural name of the resource to serve.  It must match the name of the CustomResourceDefinition-registration too: plural.group and it must be all lowercase.",
----
->       "description": "plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.",
-24c24
-<       "description": "ShortNames are short names for the resource.  It must be all lowercase.",
----
->       "description": "shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.",
-31c31
-<       "description": "Singular is the singular name of the resource.  It must be all lowercase  Defaults to lowercased <kind>",
----
->       "description": "singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec.json
-5c5
-<       "description": "AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name. Defaults to a created-at column. Optional, the global columns for all versions. Top-level and per-version columns are mutually exclusive.",
----
->       "description": "additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.",
-13c13
-<       "description": "`conversion` defines conversion settings for the CRD."
----
->       "description": "conversion defines conversion settings for the CRD."
-16c16
-<       "description": "Group is the group this resource belongs in",
----
->       "description": "group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).",
-21c21
-<       "description": "Names are the names used to describe this custom resource"
----
->       "description": "names specify the resource and kind names for the custom resource."
-24c24
-<       "description": "preserveUnknownFields disables pruning of object fields which are not specified in the OpenAPI schema. apiVersion, kind, metadata and known fields inside metadata are always preserved. Defaults to true in v1beta and will default to false in v1.",
----
->       "description": "preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.",
-28c28
-<       "description": "Scope indicates whether this resource is cluster or namespace scoped.  Default is namespaced",
----
->       "description": "scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.",
-33c33
-<       "description": "Subresources describes the subresources for CustomResource Optional, the global subresources for all versions. Top-level and per-version subresources are mutually exclusive."
----
->       "description": "subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive."
-37c37
-<       "description": "Validation describes the validation methods for CustomResources Optional, the global validation schema for all versions. Top-level and per-version schemas are mutually exclusive."
----
->       "description": "validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive."
-40c40
-<       "description": "Version is the version this resource belongs in Should be always first item in Versions field if provided. Optional, but at least one of Version or Versions must be set. Deprecated: Please use `Versions`.",
----
->       "description": "version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead.",
-44c44
-<       "description": "Versions is the list of all supported versions for this resource. If Version field is provided, this field is optional. Validation: All versions must use the same validation schema for now. i.e., top level Validation field is applied to all of these versions. Order: The version name will be used to compute the order. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.",
----
->       "description": "versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionStatus.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionStatus.json
-6c6
-<       "description": "AcceptedNames are the names that are actually being used to serve discovery They may be different than the names in spec."
----
->       "description": "acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec."
-9c9
-<       "description": "Conditions indicate state for particular aspects of a CustomResourceDefinition",
----
->       "description": "conditions indicate state for particular aspects of a CustomResourceDefinition",
-16c16
-<       "description": "StoredVersions are all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so the migration controller can first finish a migration to another version (i.e. that no old objects are left in the storage), and then remove the rest of the versions from this list. None of the versions in this list can be removed from the spec.Versions field.",
----
->       "description": "storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.",
-24d23
-<     "conditions",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion.json
-5c5
-<       "description": "AdditionalPrinterColumns are additional columns shown e.g. in kubectl next to the name. Defaults to a created-at column. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead) This field is alpha-level and is only honored by servers that enable the CustomResourceWebhookConversion feature. NOTE: CRDs created prior to 1.13 populated the top-level additionalPrinterColumns field by default. To apply an update that changes to per-version additionalPrinterColumns, the top-level additionalPrinterColumns field must be explicitly set to null",
----
->       "description": "additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.",
-12c12
-<       "description": "Name is the version name, e.g. \u201cv1\u201d, \u201cv2beta1\u201d, etc.",
----
->       "description": "name is the version name, e.g. \u201cv1\u201d, \u201cv2beta1\u201d, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.",
-17c17
-<       "description": "Schema describes the schema for CustomResource used in validation, pruning, and defaulting. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead) This field is alpha-level and is only honored by servers that enable the CustomResourceWebhookConversion feature."
----
->       "description": "schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead)."
-20c20
-<       "description": "Served is a flag enabling/disabling this version from being served via REST APIs",
----
->       "description": "served is a flag enabling/disabling this version from being served via REST APIs",
-24c24
-<       "description": "Storage flags the version as storage version. There must be exactly one flagged as storage version.",
----
->       "description": "storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.",
-29c29
-<       "description": "Subresources describes the subresources for CustomResource Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead) This field is alpha-level and is only honored by servers that enable the CustomResourceWebhookConversion feature."
----
->       "description": "subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead)."
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale.json
-5c5
-<       "description": "LabelSelectorPath defines the JSON path inside of a CustomResource that corresponds to Scale.Status.Selector. Only JSON paths without the array notation are allowed. Must be a JSON Path under .status or .spec. Must be set to work with HPA. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the CustomResource, the status label selector value in the /scale subresource will default to the empty string.",
----
->       "description": "labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.",
-9c9
-<       "description": "SpecReplicasPath defines the JSON path inside of a CustomResource that corresponds to Scale.Spec.Replicas. Only JSON paths without the array notation are allowed. Must be a JSON Path under .spec. If there is no value under the given path in the CustomResource, the /scale subresource will return an error on GET.",
----
->       "description": "specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.",
-13c13
-<       "description": "StatusReplicasPath defines the JSON path inside of a CustomResource that corresponds to Scale.Status.Replicas. Only JSON paths without the array notation are allowed. Must be a JSON Path under .status. If there is no value under the given path in the CustomResource, the status replica value in the /scale subresource will default to 0.",
----
->       "description": "statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresources.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresources.json
-6c6
-<       "description": "Scale denotes the scale subresource for CustomResources"
----
->       "description": "scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object."
-10c10
-<       "description": "Status denotes the status subresource for CustomResources"
----
->       "description": "status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object."
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceValidation.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceValidation.json
-5c5
-<       "description": "OpenAPIV3Schema is the OpenAPI v3 schema to be validated against.",
----
->       "description": "openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference.json
-5c5
-<       "description": "`name` is the name of the service. Required",
----
->       "description": "name is the name of the service. Required",
-9c9
-<       "description": "`namespace` is the namespace of the service. Required",
----
->       "description": "namespace is the namespace of the service. Required",
-13c13
-<       "description": "`path` is an optional URL path which will be sent in any request to this service.",
----
->       "description": "path is an optional URL path at which the webhook will be contacted.",
-17c17
-<       "description": "If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).",
----
->       "description": "port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.",
-diff 1.15/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig.json 1.16/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig.json
-2c2
-<   "description": "WebhookClientConfig contains the information to make a TLS connection with the webhook. It has the same field as admissionregistration.v1beta1.WebhookClientConfig.",
----
->   "description": "WebhookClientConfig contains the information to make a TLS connection with the webhook.",
-5c5
-<       "description": "`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.",
----
->       "description": "caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.",
-11c11
-<       "description": "`service` is a reference to the service for this webhook. Either `service` or `url` must be specified.\n\nIf the webhook is running within the cluster, then you should use `service`."
----
->       "description": "service is a reference to the service for this webhook. Either service or url must be specified.\n\nIf the webhook is running within the cluster, then you should use `service`."
-14c14
-<       "description": "`url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.\n\nThe `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.\n\nPlease note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.\n\nThe scheme must be \"https\"; the URL must begin with \"https://\".\n\nA path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.\n\nAttempting to use a user or basic auth e.g. \"user:password@\" is not allowed. Fragments (\"#...\") and query parameters (\"?...\") are not allowed, either.",
----
->       "description": "url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.\n\nThe `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.\n\nPlease note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.\n\nThe scheme must be \"https\"; the URL must begin with \"https://\".\n\nA path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.\n\nAttempting to use a user or basic auth e.g. \"user:password@\" is not allowed. Fragments (\"#...\") and query parameters (\"?...\") are not allowed, either.",
-diff 1.15/defs/io.k8s.apimachinery.pkg.api.resource.Quantity.json 1.16/defs/io.k8s.apimachinery.pkg.api.resource.Quantity.json
-2c2
-<   "description": "Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and Int64() accessors.\n\nThe serialization format is:\n\n<quantity>        ::= <signedNumber><suffix>\n  (Note that <suffix> may be empty, from the \"\" case in <decimalSI>.)\n<digit>           ::= 0 | 1 | ... | 9 <digits>          ::= <digit> | <digit><digits> <number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> <sign>            ::= \"+\" | \"-\" <signedNumber>    ::= <number> | <sign><number> <suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> <binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei\n  (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)\n<decimalSI>       ::= m | \"\" | k | M | G | T | P | E\n  (Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)\n<decimalExponent> ::= \"e\" <signedNumber> | \"E\" <signedNumber>\n\nNo matter which of the three exponent forms is used, no quantity may represent a number greater than 2^63-1 in magnitude, nor may it have more than 3 decimal places. Numbers larger or more precise will be capped or rounded up. (E.g.: 0.1m will rounded up to 1m.) This may be extended in the future if we require larger or smaller quantities.\n\nWhen a Quantity is parsed from a string, it will remember the type of suffix it had, and will use the same type again when it is serialized.\n\nBefore serializing, Quantity will be put in \"canonical form\". This means that Exponent/suffix will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:\n  a. No precision is lost\n  b. No fractional digits will be emitted\n  c. The exponent (or suffix) is as large as possible.\nThe sign will be omitted unless the number is negative.\n\nExamples:\n  1.5 will be serialized as \"1500m\"\n  1.5Gi will be serialized as \"1536Mi\"\n\nNote that the quantity will NEVER be internally represented by a floating point number. That is the whole point of this exercise.\n\nNon-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)\n\nThis format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.",
----
->   "description": "Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.\n\nThe serialization format is:\n\n<quantity>        ::= <signedNumber><suffix>\n  (Note that <suffix> may be empty, from the \"\" case in <decimalSI>.)\n<digit>           ::= 0 | 1 | ... | 9 <digits>          ::= <digit> | <digit><digits> <number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> <sign>            ::= \"+\" | \"-\" <signedNumber>    ::= <number> | <sign><number> <suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> <binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei\n  (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)\n<decimalSI>       ::= m | \"\" | k | M | G | T | P | E\n  (Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)\n<decimalExponent> ::= \"e\" <signedNumber> | \"E\" <signedNumber>\n\nNo matter which of the three exponent forms is used, no quantity may represent a number greater than 2^63-1 in magnitude, nor may it have more than 3 decimal places. Numbers larger or more precise will be capped or rounded up. (E.g.: 0.1m will rounded up to 1m.) This may be extended in the future if we require larger or smaller quantities.\n\nWhen a Quantity is parsed from a string, it will remember the type of suffix it had, and will use the same type again when it is serialized.\n\nBefore serializing, Quantity will be put in \"canonical form\". This means that Exponent/suffix will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:\n  a. No precision is lost\n  b. No fractional digits will be emitted\n  c. The exponent (or suffix) is as large as possible.\nThe sign will be omitted unless the number is negative.\n\nExamples:\n  1.5 will be serialized as \"1500m\"\n  1.5Gi will be serialized as \"1536Mi\"\n\nNote that the quantity will NEVER be internally represented by a floating point number. That is the whole point of this exercise.\n\nNon-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)\n\nThis format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.",
-diff 1.15/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.16/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
-46a47,51
->       "version": "v1"
->     },
->     {
->       "group": "admission.k8s.io",
->       "kind": "DeleteOptions",
-51a57,61
->       "version": "v1"
->     },
->     {
->       "group": "admissionregistration.k8s.io",
->       "kind": "DeleteOptions",
-56a67,71
->       "version": "v1"
->     },
->     {
->       "group": "apiextensions.k8s.io",
->       "kind": "DeleteOptions",
-154a170,174
->       "group": "discovery.k8s.io",
->       "kind": "DeleteOptions",
->       "version": "v1alpha1"
->     },
->     {
-diff 1.15/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta.json 1.16/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta.json
-9c9
-<       "description": "remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.\n\nThis field is alpha and can be changed or removed without notice.",
----
->       "description": "remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.",
-18c18
-<       "description": "selfLink is a URL representing this object. Populated by the system. Read-only.",
----
->       "description": "selfLink is a URL representing this object. Populated by the system. Read-only.\n\nDEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
-diff 1.15/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry.json 1.16/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry.json
-8,10c8,14
-<     "fields": {
-<       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Fields",
-<       "description": "Fields identifies a set of fields."
----
->     "fieldsType": {
->       "description": "FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: \"FieldsV1\"",
->       "type": "string"
->     },
->     "fieldsV1": {
->       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1",
->       "description": "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type."
-diff 1.15/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.json 1.16/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.json
-45,48d44
-<     "initializers": {
-<       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Initializers",
-<       "description": "An initializer is a controller which enforces some system invariant at object creation time. This field is a list of initializers that have not yet acted on this object. If nil or empty, this object has been completely initialized. Otherwise, the object is considered uninitialized and is hidden (in list/watch and get calls) from clients that haven't explicitly asked to observe uninitialized objects.\n\nWhen an object is created, the system will populate this list with the current set of initializers. Only privileged users may set or modify this list. Once it is empty, it may not be modified further by any user.\n\nDEPRECATED - initializers are an alpha field and will be removed in v1.15."
-<     },
-57c53
-<       "description": "ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like \"ci-cd\". The set of fields is always in the version that the workflow used when modifying the object.\n\nThis field is alpha and can be changed or removed without notice.",
----
->       "description": "ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like \"ci-cd\". The set of fields is always in the version that the workflow used when modifying the object.",
-85c81
-<       "description": "SelfLink is a URL representing this object. Populated by the system. Read-only.",
----
->       "description": "SelfLink is a URL representing this object. Populated by the system. Read-only.\n\nDEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
-diff 1.15/defs/io.k8s.apimachinery.pkg.apis.meta.v1.StatusDetails.json 1.16/defs/io.k8s.apimachinery.pkg.apis.meta.v1.StatusDetails.json
-16c16
-<       "description": "The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
----
->       "description": "The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-diff 1.15/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.16/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
-25a26,30
->       "version": "v1"
->     },
->     {
->       "group": "admission.k8s.io",
->       "kind": "WatchEvent",
-30a36,40
->       "version": "v1"
->     },
->     {
->       "group": "admissionregistration.k8s.io",
->       "kind": "WatchEvent",
-35a46,50
->       "version": "v1"
->     },
->     {
->       "group": "apiextensions.k8s.io",
->       "kind": "WatchEvent",
-133a149,153
->       "group": "discovery.k8s.io",
->       "kind": "WatchEvent",
->       "version": "v1alpha1"
->     },
->     {
-diff 1.15/defs/io.k8s.apimachinery.pkg.runtime.RawExtension.json 1.16/defs/io.k8s.apimachinery.pkg.runtime.RawExtension.json
-3,12d2
-<   "properties": {
-<     "Raw": {
-<       "description": "Raw is the underlying serialization of this object.",
-<       "format": "byte",
-<       "type": "string"
-<     }
-<   },
-<   "required": [
-<     "Raw"
-<   ],
-
+- io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration deprecated in 1.16, will be removed in 1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+- io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration.json deprecated in 1.16, will be removed in 1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
+- io.k8s.api.autoscaling.v1.HorizontalPodAutoscalerSpec.json minReplicas description changed.
+  "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.",
+- io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec.json minReplicas description changed as well
+- io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec.json minReplicas description changed as well
+- io.k8s.api.core.v1.Container got a new field `startupProbe`.
+- io.k8s.api.core.v1.ContainerStatus got a new field `started`.
+- io.k8s.api.core.v1.EndpointPort name description changed.
+- io.k8s.api.core.v1.Lifecycle preStop description changed.
+- io.k8s.api.core.v1.NamespaceStatus got new field `conditions`.
+- io.k8s.api.core.v1.NodeSpec got new field `podCIDRs`.
+- io.k8s.api.core.v1.PodSecurityContext windowsOptions description changed.
+- io.k8s.api.core.v1.PodSpec got new field `ephemeralContainers`.
+- io.k8s.api.core.v1.PodSpec initContainers description changed.
+- io.k8s.api.core.v1.PodSpec got new field `overhead`.
+- io.k8s.api.core.v1.PodSpec got new field `topologySpreadConstraints`.
+- io.k8s.api.core.v1.PodStatus got new field `ephemeralContainerStatuses`.
+- io.k8s.api.core.v1.PodStatus got new field `podIPs`.
+- io.k8s.api.core.v1.Probe successThreshold description changed.
+- io.k8s.api.core.v1.SecurityContext windowsOptions description change.
+- io.k8s.api.core.v1.ServicePort name description change.
+- io.k8s.api.core.v1.ServiceSpec got new field `ipFamily`.
+- io.k8s.api.core.v1.WindowsSecurityContextOptions got new field `runAsUserName`.
+- io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers is no longer an alpha field.
+- io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `overhead`.
+- io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `scheduling`.
+- io.k8s.api.node.v1beta1.RuntimeClass got new field `overhead`
+- io.k8s.api.node.v1beta1.RuntimeClass got new field `scheduling`.
+- io.k8s.api.storage.v1beta1.CSIDriverSpec podInfoMount description changed.
+- io.k8s.api.storage.v1beta1.CSIDriverSpec got new field `volumeLifecycleModes`
+- io.k8s.api.storage.v1beta1.CSINodeDriver got new field `allocatable`
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition jsonPath description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition priority description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion conversionReviewVersions description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion strategy description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion webhookClientConfig description changed. No longer alpha level.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition deprecated in 1.16, planned for removal in 1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames categories description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames kind description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames listKind description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames plural description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames shortNames description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames singular description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec additionalPrinterColumns description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec group description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec names description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec preserveUnknownFields description changed. Deprecated.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec scope description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec subresources description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec validation description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec version description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec versions description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionStatus storedVerisons description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionStatus conditions no longer required.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion additionalPrinterColumns description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion name description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion schema description changed. No longer alpha.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion storage description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion subresources description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale labelSelectorPath description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale specReplicasPath description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale statusReplicasPath description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresources scale description change.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresources status description change.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceValidation openAPIV3Schema description change.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference path description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference port description changed.
+- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig webhookClientConfig description changed.
+- io.k8s.apimachinery.pkg.api.resource.Quantity quantity description changed.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta remainingItemCount description changed.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta selfLink description changed. DPRECATED. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry removed field `fields`, added fields `fieldsType` and `fieldsV1`.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `initializers` removed.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `managedFields` no longer alpha.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `selfLink` description changed. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+- io.k8s.apimachinery.pkg.runtime.RawExtension removed fields `Raw`.
