@@ -41,6 +41,29 @@ def process_definitions(data):
     return
 
 
+def validate_definition(needle, hack):
+    """Validate if referenced definition can be found."""
+    for k, v in needle.items():
+        if k != "$ref":
+            if isinstance(v, list) and not isinstance(v, str):
+                for item in v:
+                    if isinstance(item, dict):
+                        validate_definition(item, hack)
+            elif isinstance(v, dict):
+                validate_definition(v, hack)
+        else:
+            if "/parameters/" in v:
+                pos = v.index("/parameters/")
+                param = v[pos+12:]
+                if param not in hack["parameters"]:
+                    print("\033[31m  Mising parameter %s \033[0m" % param)
+            if "/definitions/" in v:
+                pos = v.index("/definitions/")
+                defn = v[pos+13:]
+                if defn not in hack["definitions"]:
+                    print("\033[31m  Mising definition %s \033[0m" % defn)
+
+
 def process_operations(data):
     """Gather operations.
 
@@ -64,10 +87,12 @@ def process_operations(data):
             print("\033[31m  Failed reading op %s \033[0m" % op_id)
             continue
 
+        validate_definition(opdata, data)
         if path not in paths:
             paths[path] = {}
         if verb not in paths[path]:
             paths[path][verb] = opdata
+
     data["paths"] = paths
 
 
@@ -113,11 +138,11 @@ def main():
 
     data = process_basic()
     process_definitions(data)
-    process_operations(data)
     process_parameters(data)
+    process_operations(data)
     process_security(data)
 
-    print(json.dumps(data, indent=2))
+    # print(json.dumps(data, indent=2))
 
     sys.exit(0)
 
