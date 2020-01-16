@@ -43,25 +43,33 @@ def process_definitions(data):
 
 def validate_definition(needle, hack):
     """Validate if referenced definition can be found."""
+    res = True
     for k, v in needle.items():
         if k != "$ref":
             if isinstance(v, list) and not isinstance(v, str):
                 for item in v:
                     if isinstance(item, dict):
-                        validate_definition(item, hack)
+                        r = validate_definition(item, hack)
+                        if not r:
+                            res = False
             elif isinstance(v, dict):
-                validate_definition(v, hack)
+                r = validate_definition(v, hack)
+                if not r:
+                    res = False
         else:
             if "/parameters/" in v:
                 pos = v.index("/parameters/")
                 param = v[pos+12:]
                 if param not in hack["parameters"]:
                     print("\033[31m  Mising parameter %s \033[0m" % param)
+                    res = False
             if "/definitions/" in v:
                 pos = v.index("/definitions/")
                 defn = v[pos+13:]
                 if defn not in hack["definitions"]:
                     print("\033[31m  Mising definition %s \033[0m" % defn)
+                    res = False
+    return res
 
 
 def process_operations(data):
@@ -87,7 +95,10 @@ def process_operations(data):
             print("\033[31m  Failed reading op %s \033[0m" % op_id)
             continue
 
-        validate_definition(opdata, data)
+        res = validate_definition(opdata, data)
+        if not res:
+            print("\033[31m  Failed validating %s \033[0m" % op_id)
+
         if path not in paths:
             paths[path] = {}
         if verb not in paths[path]:
