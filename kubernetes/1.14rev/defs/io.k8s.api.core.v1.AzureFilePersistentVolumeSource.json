@@ -1,0 +1,29 @@
+{
+  "description": "An Azure File service mounted on the node and bind mount to the pod.",
+  "properties": {
+    "readOnly": {
+      "default": false,
+      "description": "Force the volume to be mounted in read-only mode.",
+      "type": "boolean"
+    },
+    "secretName": {
+      "description": "Name of Secret that contains Azure storage account name and key",
+      "minLength": 1,
+      "type": "string"
+    },
+    "secretNamespace": {
+      "description": "Namespace of the Secret that contains the Azure storage account name and key. Default is the same as the Pod. Empty string is not allowed.",
+      "type": "string"
+    },
+    "shareName": {
+      "description": "Share Name",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "secretName",
+    "shareName"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,71 @@
+{
+  "description": "create an Event",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "events_v1beta1"
+  ],
+  "operationId": "createEventsV1beta1NamespacedEvent",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.CREATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "events.k8s.io",
+    "kind": "Event",
+    "version": "v1beta1"
+  },
+  "verb": "post",
+  "path": "/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events"
+}

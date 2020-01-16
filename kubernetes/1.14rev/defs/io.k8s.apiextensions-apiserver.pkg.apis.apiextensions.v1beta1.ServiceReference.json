@@ -1,0 +1,24 @@
+{
+  "description": "A reference to a Service",
+  "properties": {
+    "name": {
+      "description": "the name of the service",
+      "minLength": 1,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "the namespace of the service",
+      "minLength": 1,
+      "type": "string"
+    },
+    "path": {
+      "description": "An optional URL path which will be sent in any request to this service.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "namespace",
+    "name"
+  ],
+  "type": "object"
+}

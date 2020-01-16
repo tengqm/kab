@@ -1,0 +1,36 @@
+{
+  "description": "Current status of a horizontal pod autoscaler",
+  "properties": {
+    "currentCPUUtilizationPercentage": {
+      "description": "Current average CPU utilization over all Pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "currentReplicas": {
+      "description": "Current number of replicas of pods managed by this autoscaler.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "desiredReplicas": {
+      "description": "Desired number of replicas of pods managed by this autoscaler.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "lastScaleTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the HorizontalPodAutoscaler scaled the number of Pods; used by the autoscaler to control how often the number of pods is changed."
+    },
+    "observedGeneration": {
+      "description": "Most recent generation observed by this autoscaler.",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "currentReplicas",
+    "desiredReplicas"
+  ],
+  "type": "object"
+}

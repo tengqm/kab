@@ -1,0 +1,43 @@
+{
+  "description": "The configuration of a single CronJob.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "batch/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "CronJob"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata. The `name` can be at most 52 characters long because the CronJob controller will append a 11-character suffix to the name."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobSpec",
+      "description": "Specification of the desired behavior of a CronJob, including the schedule."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobStatus",
+      "description": "Current status of the CronJob."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "batch",
+      "kind": "CronJob",
+      "version": "v1beta1"
+    }
+  ]
+}

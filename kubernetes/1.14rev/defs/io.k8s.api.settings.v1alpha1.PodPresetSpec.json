@@ -1,0 +1,41 @@
+{
+  "description": "The description of a PodPreset object. At least one of `volumes`, `env`, `envFrom`, `volumeMounts` must be specified.",
+  "properties": {
+    "env": {
+      "description": "The collection of EnvVar to inject into containers.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.EnvVar"
+      },
+      "type": "array"
+    },
+    "envFrom": {
+      "description": "The collection of EnvFromSource to inject into containers.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.EnvFromSource"
+      },
+      "type": "array"
+    },
+    "selector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "A label query over a set of resources, in this case pods."
+    },
+    "volumeMounts": {
+      "description": "The collection of VolumeMount to inject into containers.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.VolumeMount"
+      },
+      "type": "array"
+    },
+    "volumes": {
+      "description": "The collection of Volume to inject into the Pod.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Volume"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "selector"
+  ],
+  "type": "object"
+}

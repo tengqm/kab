@@ -1,0 +1,18 @@
+{
+  "description": "Handler defines a specific action that should be taken. One and only one type of actions can be specified per handler.",
+  "properties": {
+    "exec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ExecAction",
+      "description": "This specifies the action to take."
+    },
+    "httpGet": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.HTTPGetAction",
+      "description": "This specifies the HTTP request to perform."
+    },
+    "tcpSocket": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.TCPSocketAction",
+      "description": "This specifies an action involving a TCP port. TCP hooks not yet supported"
+    }
+  },
+  "type": "object"
+}

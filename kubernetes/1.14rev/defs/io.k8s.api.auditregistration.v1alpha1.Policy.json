@@ -1,0 +1,34 @@
+{
+  "description": "The configuration of how audit events are logged",
+  "properties": {
+    "level": {
+      "description": "The Level that all requests are recorded at.",
+      "enum": [
+        "Metadata",
+        "None",
+        "Request",
+        "RequestResponse"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "stages": {
+      "description": "A list of stages for which events are created.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "RequestReceived",
+          "ResponseStarted",
+          "ResponseComplete",
+          "Panic"
+        ],
+        "minLength": 1
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "level"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,80 @@
+{
+  "description": "Metadata for patch operation.",
+  "properties": {
+    "annotations": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character.  The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
+      "type": "object"
+    },
+    "clusterName": {
+      "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now. It can be provided in a patch operation, but the value provided must be identical to the existing value.",
+      "type": "string"
+    },
+    "creationTimestamp": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "creationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. It is populated by the system, read-only. Null for lists. Its value is immutable once set."
+    },
+    "deletionGracePeriodSeconds": {
+      "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Its value is immutable once set.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "deletionTimestamp": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "A RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested and is not directly settable by a client. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time."
+    },
+    "finalizers": {
+      "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. No new finalizer can be added if the object's deletionTimestamp is not nil. When update, no new items can be added when the object is already deleted.",
+      "items": {
+        "description": "The name of the finalizer must is either a standard finalizer name (e.g. 'kubernetes', 'orphan', 'foregroundDeletion'), or it contains at least one slash ('/').",
+        "type": "string"
+      },
+      "type": "array",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "generateName": {
+      "description": "generateName is an optional prefix for the server to generate a unique name IF the name field has not been provided. It is ignored during patch operation",
+      "type": "string"
+    },
+    "generation": {
+      "description": "A sequence number representing a specific generation of the desired state. Populated by the system. It cannot be decremented.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "initializers": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Initializers",
+      "description": "This field is a list of initializers that have not yet acted on the object. If nil or empty, this object has been completely initialized. Otherwise, the object is considered uninitialized and is hidden when reading from clients unless explicitly asked to observe uninitialized objects. When an object is created, the system will populate this list with the current set of initializers. Only privileged users may set or modify this list. Once it is empty, it may not be modified further by any user. Changing the result field is permitted."
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects.  Both the key and the value must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character. The key must be between 1 and 63 characters. The key can have '/' in it thus referred to as 'qualified name'. The prefix part of a qualified name must be a valid DNS subdomain name. The value must be less than 64 characters with empty string allowed.",
+      "type": "object"
+    },
+    "name": {
+      "description": "The name cannot be updated so the value (if provided) must match the current name.",
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The namespace cannot be updated so the value (if provided) must match the current namespace.",
+      "type": "string"
+    },
+    "ownerReferences": {
+      "description": "List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, an entry in this list will point to the controller, with the controller field set to true. There cannot be more than one managing controller.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "uid",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "uid": {
+      "description": "UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations. Populated by the system. Read-only. When updating an existing object, its value must match the current value.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

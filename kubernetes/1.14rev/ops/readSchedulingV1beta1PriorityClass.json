@@ -1,0 +1,56 @@
+{
+  "description": "read the specified PriorityClass",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "scheduling_v1beta1"
+  ],
+  "operationId": "readSchedulingV1beta1PriorityClass",
+  "parameters": [
+    {
+      "$ref": "#/parameters/exact"
+    },
+    {
+      "$ref": "#/parameters/export"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the PriorityClass",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "scheduling.k8s.io",
+    "kind": "PriorityClass",
+    "version": "v1beta1"
+  },
+  "verb": "get",
+  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses/{name}"
+}

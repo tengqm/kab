@@ -1,0 +1,36 @@
+{
+  "description": "CustomResourceDefinitionCondition contains details for the current condition of this pod.",
+  "properties": {
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transitioned from one status to another."
+    },
+    "message": {
+      "description": "Human-readable message indicating details about last transition.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "Unique, one-word, CamelCase reason for the condition's last transition.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status is the status of the condition. Can be True, False, Unknown.",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "description": "Type is the type of the condition.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
+}
