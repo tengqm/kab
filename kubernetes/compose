@@ -82,7 +82,7 @@ def process_operations(data):
     opdir = os.path.join(basedir, "ops")
     files = sorted(os.listdir(opdir))
     paths = {}
-
+    res = True
     for fn in files:
         op_id, ext = os.path.splitext(fn)
         fullname = os.path.join(opdir, fn)
@@ -93,11 +93,13 @@ def process_operations(data):
         verb = opdata.pop("verb", None)
         if not path or not verb:
             print("\033[31m  Failed reading op %s \033[0m" % op_id)
+            res = False
             continue
 
         res = validate_definition(opdata, data)
         if not res:
             print("\033[31m  Failed validating %s \033[0m" % op_id)
+            res = False
 
         if path not in paths:
             paths[path] = {}
@@ -105,6 +107,7 @@ def process_operations(data):
             paths[path][verb] = opdata
 
     data["paths"] = paths
+    return res
 
 
 def process_security(data):
@@ -150,10 +153,11 @@ def main():
     data = process_basic()
     process_definitions(data)
     process_parameters(data)
-    process_operations(data)
+    if not process_operations(data):
+        sys.exit(-1)
     process_security(data)
 
-    # print(json.dumps(data, indent=2))
+    print(json.dumps(data, indent=2))
 
     sys.exit(0)
 
