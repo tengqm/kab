@@ -3,7 +3,7 @@
     "*/*"
   ],
   "description": "delete a Lease",
-  "operationId": "deleteCoordinationV1beta1NamespacedLease",
+  "operationId": "deleteCoordinationV1NamespacedLease",
   "parameters": [
     {
       "in": "body",
@@ -39,7 +39,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}",
+  "path": "/apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -66,13 +66,13 @@
     "https"
   ],
   "tags": [
-    "coordination_v1beta1"
+    "coordination_v1"
   ],
   "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
-    "version": "v1beta1"
+    "version": "v1"
   }
 }

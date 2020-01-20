@@ -2,27 +2,22 @@
   "consumes": [
     "*/*"
   ],
-  "description": "delete a Lease",
-  "operationId": "deleteCoordinationV1beta1NamespacedLease",
+  "description": "replace the specified Lease",
+  "operationId": "replaceCoordinationV1NamespacedLease",
   "parameters": [
     {
       "in": "body",
       "name": "body",
+      "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1.Lease.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/gracePeriodSeconds"
-    },
-    {
-      "$ref": "#/parameters/orphanDependents"
-    },
-    {
-      "$ref": "#/parameters/propagationPolicy"
+      "$ref": "#/parameters/fieldManager"
     },
     {
       "description": "name of the Lease",
@@ -39,7 +34,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}",
+  "path": "/apis/coordination.k8s.io/v1/namespaces/{namespace}/leases/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -49,13 +44,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1.Lease.GET"
       }
     },
-    "202": {
-      "description": "Accepted",
+    "201": {
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1.Lease.GET"
       }
     },
     "401": {
@@ -66,13 +61,13 @@
     "https"
   ],
   "tags": [
-    "coordination_v1beta1"
+    "coordination_v1"
   ],
-  "verb": "delete",
-  "x-kubernetes-action": "delete",
+  "verb": "put",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
-    "version": "v1beta1"
+    "version": "v1"
   }
 }
