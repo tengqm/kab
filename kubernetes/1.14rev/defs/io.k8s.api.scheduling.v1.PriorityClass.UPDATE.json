@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "apiVersion defines the versioned schema of this representation of an object.",
       "enum": [
-        "scheduling.k8s.io/v1beta1"
+        "scheduling.k8s.io/v1"
       ],
       "type": "string"
     },
@@ -17,14 +17,14 @@
       "type": "boolean"
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource.",
       "enum": [
         "PriorityClass"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
       "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
     },
     "value": {
@@ -43,7 +43,7 @@
     {
       "group": "scheduling.k8s.io",
       "kind": "PriorityClass",
-      "version": "v1beta1"
+      "version": "v1"
     }
   ]
 }
