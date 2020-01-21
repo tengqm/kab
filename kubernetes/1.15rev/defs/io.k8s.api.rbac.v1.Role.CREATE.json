@@ -1,0 +1,42 @@
+{
+  "description": "Role is a namespaced, logical grouping of policy rules.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "rbac.authorization.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "Role"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata."
+    },
+    "rules": {
+      "description": "The policy rules defined for this Role",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.PolicyRule"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "Role",
+      "version": "v1"
+    }
+  ]
+}

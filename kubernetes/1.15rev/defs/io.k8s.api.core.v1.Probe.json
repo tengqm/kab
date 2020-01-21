@@ -1,0 +1,52 @@
+{
+  "description": "A health check to be performed against a container to determine whether it is alive or ready to receive traffic.",
+  "properties": {
+    "exec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ExecAction",
+      "description": "This specifies the action to take."
+    },
+    "failureThreshold": {
+      "default": 3,
+      "description": "Minimum consecutive failures for the probe to be considered failed after having succeeded.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "httpGet": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.HTTPGetAction",
+      "description": "This specifies the HTTP GET request to perform."
+    },
+    "initialDelaySeconds": {
+      "description": "Number of seconds after the container has started before liveness probes are initiated.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "periodSeconds": {
+      "default": 10,
+      "description": "How often (in seconds) to perform the probe.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "successThreshold": {
+      "default": 1,
+      "description": "Minimum consecutive successes for the probe to be considered successful after having failed. Must be 1 for liveness probes.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "tcpSocket": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.TCPSocketAction",
+      "description": "TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported"
+    },
+    "timeoutSeconds": {
+      "default": 1,
+      "description": "Number of seconds after which the probe times out.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

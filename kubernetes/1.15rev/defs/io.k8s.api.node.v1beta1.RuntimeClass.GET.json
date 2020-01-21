@@ -1,0 +1,40 @@
+{
+  "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the Pod spec. The kubelet is responsible for resolving the name reference before running the Pod.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for this object representation.",
+      "enum": [
+        "node.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "handler": {
+      "description": "The underlying runtime and configuration that the CRI implementation will use to handle Pods of this class. The possible values are specific to the node & CRI configuration.",
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource.",
+      "enum": [
+        "RuntimeClass"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata."
+    }
+  },
+  "required": [
+    "handler",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "node.k8s.io",
+      "kind": "RuntimeClass",
+      "version": "v1beta1"
+    }
+  ]
+}

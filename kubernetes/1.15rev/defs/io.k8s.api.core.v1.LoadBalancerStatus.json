@@ -1,0 +1,13 @@
+{
+  "description": "The status of a load-balancer.",
+  "properties": {
+    "ingress": {
+      "description": "A list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.LoadBalancerIngress"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

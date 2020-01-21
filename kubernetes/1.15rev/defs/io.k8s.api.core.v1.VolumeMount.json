@@ -1,0 +1,44 @@
+{
+  "description": "A mounting of a volume within a container.",
+  "properties": {
+    "mountPath": {
+      "description": "Path within the container at which the volume should be mounted.  Must not contain ':'. The mounting point must be unique in the container and it cannot overlap with those of the volumeDevices.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "mountPropagation": {
+      "default": "None",
+      "description": "mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, None is used. Bidirectional mount propagation is only available to privileged containers. This field is beta in 1.10.",
+      "enum": [
+        "Bidirectional",
+        "HostToContainer",
+        "None"
+      ],
+      "type": "string"
+    },
+    "name": {
+      "description": "This must match the name of a volume. The name cannot overlap with that of volumeDevices.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.",
+      "type": "boolean"
+    },
+    "subPath": {
+      "default": "",
+      "description": "Path within the volume from which the container's volume should be mounted. Default value '' means the volume's root. This path cannot contain '..' or prefixed with '/'. In future, a 'subPathExpr' property is added as well which is mutual exclusive to subPath.",
+      "type": "string"
+    },
+    "subPathExpr": {
+      "description": "Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to `subPath` but environment variable references `$(VAR_NAME)` are expanded using the container's environment. Defaults to '' (volume's root). `subPathExpr` and `subPath` are mutually exclusive. The path must be relative path and it cannot contain '`..`' or prefix with '`..`'. This field is alpha in 1.14.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "mountPath"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,38 @@
+{
+  "description": "This toleration is attached to a pod that tolerates any taint that matches the triple (`key`,`value`,`effect`) using the matching operator `operator`.",
+  "properties": {
+    "effect": {
+      "description": "The taint effect to match. Empty ('') means matching all taint effects.",
+      "enum": [
+        "",
+        "NoExecute",
+        "NoSchedule",
+        "PreferNoSchedule"
+      ],
+      "type": "string"
+    },
+    "key": {
+      "description": "The taint key that the toleration applies to. If the `key` is empty, `operator` must be '`Exists`'; this combination means to match all values and all keys. If it is not empty, it must be a valid label name.",
+      "type": "string"
+    },
+    "operator": {
+      "default": "Equal",
+      "description": "A key's relationship to the value. The value `Exists` is equivalent to wildcard for `value`, it means a pod can tolerate all taints of a particular category, so the `value` field must be empty. An empty `operator` is equivalent to '`Equal`'.",
+      "enum": [
+        "Equal",
+        "Exists"
+      ],
+      "type": "string"
+    },
+    "tolerationSeconds": {
+      "description": "The period of time the toleration tolerates the taint. When this field is set, the `effect` must be '`NoExecute`'. By default, it is not set, which means tolerating the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "value": {
+      "description": "The taint value the toleration matches to. If the operator is `Exists`, the value should be empty (''), otherwise just a regular string.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
