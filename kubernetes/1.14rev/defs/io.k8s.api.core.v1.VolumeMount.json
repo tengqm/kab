@@ -30,6 +30,10 @@
       "default": "",
       "description": "Path within the volume from which the container's volume should be mounted. Default value '' means the volume's root. This path cannot contain '..' or prefixed with '/'. In future, a 'subPathExpr' property is added as well which is mutual exclusive to subPath.",
       "type": "string"
+    },
+    "subPathExpr": {
+      "description": "Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to `subPath` but environment variable references `$(VAR_NAME)` are expanded using the container's environment. Defaults to '' (volume's root). `subPathExpr` and `subPath` are mutually exclusive. The path must be relative path and it cannot contain '`..`' or prefix with '`..`'. This field is alpha in 1.14.",
+      "type": "string"
     }
   },
   "required": [
