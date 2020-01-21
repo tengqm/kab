@@ -121,6 +121,7 @@ io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta got new field `managedFields`.
 Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry.json
 Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
 
+## Other changes
 - io.k8s.api.admissionregistration.v1beta1.RuleWithOperations got new field `scope`.
 - io.k8s.api.admissionregistration.v1beta1.Webhook goot new field `admissionReviewVersions`
 - io.k8s.api.admissionregistration.v1beta1.Webhook goot new field `timeooutSeconds`
@@ -130,16 +131,17 @@ Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
 - io.k8s.api.core.v1.VolumeMount got newe field `subPathExpr`.
 - io.k8s.api.extensions.v1beta1.Ingress is deprecated by `networking.k8s.io/v1beta1` Ingress.
 - io.k8s.api.rbac.v1.ClusterRole, Role no longer requires `rules`
-- io.k8s.api.rbac.v1alpha1.ClusterRole, Role no longer requires `rules`
-- io.k8s.api.rbac.v1beta1.ClusterRole, Role no longer requires `rules`
-- io.k8s.api.scheduling.v1alpha1.PriorityClass deprecated by `scheduling.k8s.io/v1/PriorityClass`. 
+  io.k8s.api.rbac.v1alpha1.ClusterRole, Role no longer requires `rules`
+  io.k8s.api.rbac.v1beta1.ClusterRole, Role no longer requires `rules`
 - io.k8s.api.scheduling.v1beta1.PriorityClass deprecated by `scheduling.k8s.io/v1/PriorityClass`. 
+  io.k8s.api.scheduling.v1alpha1.PriorityClass deprecated by `scheduling.k8s.io/v1/PriorityClass`. 
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion got new field `conversionReviewVersions`.
 - io.k8s.apimachinery.pkg.apis.meta.v1.APIResource got new field `storageVersionHash`.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta initializer DEPRECATED - initializers are an alpha field and will be removed in v1.15.
 - io.k8s.apimachinery.pkg.apis.meta.v1.Preconditions got new field `resourceVersion`.
 
-# New node.k8s.io/v1alpha1 API group
+
+# New node.k8s.io/v1alpha1 API group (ignored)
 Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClass.json
 Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClassList.json
 Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
@@ -153,4 +155,3 @@ Only in 1.14/ops: readNodeV1alpha1RuntimeClass.json
 Only in 1.14/ops: replaceNodeV1alpha1RuntimeClass.json
 Only in 1.14/ops: watchNodeV1alpha1RuntimeClass.json
 Only in 1.14/ops: watchNodeV1alpha1RuntimeClassList.json
-
