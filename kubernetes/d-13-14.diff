@@ -26,13 +26,19 @@ Only in 1.14/ops: patchCoordinationV1NamespacedLease.json
 Only in 1.14/ops: readCoordinationV1NamespacedLease.json
 Only in 1.14/ops: replaceCoordinationV1NamespacedLease.json
 
+## CSIVolumeSource added
+io.k8s.api.core.v1.Volume got new field `csi`.
 Only in 1.14/defs/: io.k8s.api.core.v1.CSIVolumeSource.json
 
+## PodSecurityPolicy change, **ignored**
 Only in 1.14/defs/: io.k8s.api.extensions.v1beta1.AllowedCSIDriver.json
+io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec got new field `allowedCSIDrivers`.
 
+## PodSecurityPolicy change
 Only in 1.14/defs/: io.k8s.api.policy.v1beta1.AllowedCSIDriver.json
+io.k8s.api.policy.v1beta1.PodSecurityPolicySpec got new field `allowedCSIDrivers`.
 
-# networking.kk8s.io/v1beta1
+## Ingress moved from extensions to networking
 Only in 1.14/defs/: io.k8s.api.networking.v1beta1.HTTPIngressPath.json
 Only in 1.14/defs/: io.k8s.api.networking.v1beta1.HTTPIngressRuleValue.json
 Only in 1.14/defs/: io.k8s.api.networking.v1beta1.Ingress.json
@@ -58,22 +64,7 @@ Only in 1.14/ops: watchNetworkingV1beta1IngressListForAllNamespaces.json
 Only in 1.14/ops: watchNetworkingV1beta1NamespacedIngress.json
 Only in 1.14/ops: watchNetworkingV1beta1NamespacedIngressList.json
 
-# New node.k8s.io/v1alpha1 API group
-Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClass.json
-Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClassList.json
-Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
-Only in 1.14/ops: createNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: deleteNodeV1alpha1CollectionRuntimeClass.json
-Only in 1.14/ops: deleteNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: getNodeV1alpha1APIResources.json
-Only in 1.14/ops: listNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: patchNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: readNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: replaceNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: watchNodeV1alpha1RuntimeClass.json
-Only in 1.14/ops: watchNodeV1alpha1RuntimeClassList.json
-
-# Changes to node.k8s.io/v1beta1 API group
+## new node.k8s.io/v1beta1 API group
 Only in 1.14/defs/: io.k8s.api.node.v1beta1.RuntimeClass.json
 Only in 1.14/defs/: io.k8s.api.node.v1beta1.RuntimeClassList.json
 Only in 1.14/ops: createNodeV1beta1RuntimeClass.json
@@ -88,7 +79,7 @@ Only in 1.14/ops: watchNodeV1beta1RuntimeClass.json
 Only in 1.14/ops: watchNodeV1beta1RuntimeClassList.json
 Only in 1.14/ops: getNodeAPIGroup.json
 
-# new scheduling.k8s.io/v1 API group
+## new scheduling.k8s.io/v1 API group
 Only in 1.14/defs/: io.k8s.api.scheduling.v1.PriorityClass.json
 Only in 1.14/defs/: io.k8s.api.scheduling.v1.PriorityClassList.json
 Only in 1.14/ops: createSchedulingV1PriorityClass.json
@@ -99,10 +90,10 @@ Only in 1.14/ops: listSchedulingV1PriorityClass.json
 Only in 1.14/ops: patchSchedulingV1PriorityClass.json
 Only in 1.14/ops: readSchedulingV1PriorityClass.json
 Only in 1.14/ops: replaceSchedulingV1PriorityClass.json
-Only in 1.14/ops: watchSchedulingV1PriorityClass.json
-Only in 1.14/ops: watchSchedulingV1PriorityClassList.json
+// Only in 1.14/ops: watchSchedulingV1PriorityClass.json
+// Only in 1.14/ops: watchSchedulingV1PriorityClassList.json
 
-# New storage.k8s.io/v1beta1 API group
+## New resources added to storage.k8s.io/v1beta1 API group
 Only in 1.14/defs/: io.k8s.api.storage.v1beta1.CSIDriver.json
 Only in 1.14/defs/: io.k8s.api.storage.v1beta1.CSIDriverList.json
 Only in 1.14/defs/: io.k8s.api.storage.v1beta1.CSIDriverSpec.json
@@ -111,27 +102,24 @@ Only in 1.14/defs/: io.k8s.api.storage.v1beta1.CSINodeDriver.json
 Only in 1.14/defs/: io.k8s.api.storage.v1beta1.CSINodeList.json
 Only in 1.14/defs/: io.k8s.api.storage.v1beta1.CSINodeSpec.json
 Only in 1.14/ops: createStorageV1beta1CSIDriver.json
-Only in 1.14/ops: createStorageV1beta1CSINode.json
 Only in 1.14/ops: deleteStorageV1beta1CSIDriver.json
-Only in 1.14/ops: deleteStorageV1beta1CSINode.json
 Only in 1.14/ops: deleteStorageV1beta1CollectionCSIDriver.json
-Only in 1.14/ops: deleteStorageV1beta1CollectionCSINode.json
 Only in 1.14/ops: listStorageV1beta1CSIDriver.json
-Only in 1.14/ops: listStorageV1beta1CSINode.json
 Only in 1.14/ops: patchStorageV1beta1CSIDriver.json
-Only in 1.14/ops: patchStorageV1beta1CSINode.json
 Only in 1.14/ops: readStorageV1beta1CSIDriver.json
-Only in 1.14/ops: readStorageV1beta1CSINode.json
 Only in 1.14/ops: replaceStorageV1beta1CSIDriver.json
+Only in 1.14/ops: createStorageV1beta1CSINode.json
+Only in 1.14/ops: deleteStorageV1beta1CSINode.json
+Only in 1.14/ops: deleteStorageV1beta1CollectionCSINode.json
+Only in 1.14/ops: listStorageV1beta1CSINode.json
+Only in 1.14/ops: patchStorageV1beta1CSINode.json
+Only in 1.14/ops: readStorageV1beta1CSINode.json
 Only in 1.14/ops: replaceStorageV1beta1CSINode.json
-Only in 1.14/ops: watchStorageV1beta1CSIDriver.json
-Only in 1.14/ops: watchStorageV1beta1CSIDriverList.json
-Only in 1.14/ops: watchStorageV1beta1CSINode.json
-Only in 1.14/ops: watchStorageV1beta1CSINodeList.json
 
-# New meta resource
-Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
+## New field added to ObjectMata
+io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta got new field `managedFields`.
 Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry.json
+Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
 
 - io.k8s.api.admissionregistration.v1beta1.RuleWithOperations got new field `scope`.
 - io.k8s.api.admissionregistration.v1beta1.Webhook goot new field `admissionReviewVersions`
@@ -139,11 +127,8 @@ Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry.json
 - io.k8s.api.core.v1.Lifecycle PreStop description changed.
 - io.k8s.api.core.v1.QuobyteVolumeSource got new field `tenant`.
 - io.k8s.api.core.v1.ServiceSpec got new field `x-kubernetes-list-map-keys`, set to ["port", "protocol"]
-- io.k8s.api.core.v1.Volume got new field `csi`.
 - io.k8s.api.core.v1.VolumeMount got newe field `subPathExpr`.
 - io.k8s.api.extensions.v1beta1.Ingress is deprecated by `networking.k8s.io/v1beta1` Ingress.
-- io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec got new field `allowedCSIDrivers`.
-- io.k8s.api.policy.v1beta1.PodSecurityPolicySpec got new field `allowedCSIDrivers`.
 - io.k8s.api.rbac.v1.ClusterRole, Role no longer requires `rules`
 - io.k8s.api.rbac.v1alpha1.ClusterRole, Role no longer requires `rules`
 - io.k8s.api.rbac.v1beta1.ClusterRole, Role no longer requires `rules`
@@ -152,6 +137,20 @@ Only in 1.14/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry.json
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion got new field `conversionReviewVersions`.
 - io.k8s.apimachinery.pkg.apis.meta.v1.APIResource got new field `storageVersionHash`.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta initializer DEPRECATED - initializers are an alpha field and will be removed in v1.15.
-- io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta got new field `managedFields`.
 - io.k8s.apimachinery.pkg.apis.meta.v1.Preconditions got new field `resourceVersion`.
+
+# New node.k8s.io/v1alpha1 API group
+Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClass.json
+Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClassList.json
+Only in 1.14/defs/: io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
+Only in 1.14/ops: createNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: deleteNodeV1alpha1CollectionRuntimeClass.json
+Only in 1.14/ops: deleteNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: getNodeV1alpha1APIResources.json
+Only in 1.14/ops: listNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: patchNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: readNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: replaceNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: watchNodeV1alpha1RuntimeClass.json
+Only in 1.14/ops: watchNodeV1alpha1RuntimeClassList.json
 

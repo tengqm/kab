@@ -54,6 +54,13 @@
       "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects.  Both the key and the value must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character. The key must be between 1 and 63 characters. The key can have '/' in it thus referred to as 'qualified name'. The prefix part of a qualified name must be a valid DNS subdomain name. The value must be less than 64 characters with empty string allowed.",
       "type": "object"
     },
+    "managedFields": {
+      "description": "This maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like 'ci-cd'. The set of fields is always in the version that the workflow used when modifying the object. This field is alpha and can be changed or removed without notice.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry"
+      },
+      "type": "array"
+    },
     "name": {
       "description": "The name cannot be updated so the value (if provided) must match the current name.",
       "type": "string"
