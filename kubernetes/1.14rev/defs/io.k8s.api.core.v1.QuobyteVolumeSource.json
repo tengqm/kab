@@ -15,6 +15,11 @@
       "minLength": 1,
       "type": "string"
     },
+    "tenant": {
+      "description": "Tenant owning the given Quobyte volume in the backend. This is used with dynamically provisioned Quobyte volumes, value is set by the plugin",
+      "maxLength": 64,
+      "type": "string"
+    },
     "user": {
       "description": "User to map volume access to. Defaults to serivceaccount user",
       "type": "string"
