@@ -34,12 +34,28 @@
     "type": "boolean",
     "uniqueItems": true
   },
+  "fieldManager": {
+    "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+    "in": "query",
+    "name": "fieldManager",
+    "required": false,
+    "type": "string",
+    "uniqueItems": true
+  },
   "fieldSelector": {
     "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
     "in": "query",
     "name": "fieldSelector",
     "required": false,
     "type": "string",
+    "uniqueItems": true
+  },
+  "force": {
+    "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+    "in": "query",
+    "name": "force",
+    "required": false,
+    "type": "boolean",
     "uniqueItems": true
   },
   "gracePeriodSeconds": {
