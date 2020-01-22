@@ -14,6 +14,14 @@
     "path": {
       "description": "An URL path which will be sent in any request to this service. '`/`' and '' are always valid paths. '`//`' is invalid. The path has start with a '`/`'. The trailing '`/`' will be ignored. Each path segment must be a valid DNS subdomain.",
       "type": "string"
+    },
+    "port": {
+      "default": 443,
+      "description": "If specified, the port on the service that hosting webhook.",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
     }
   },
   "required": [
