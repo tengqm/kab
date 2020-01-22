@@ -102,6 +102,15 @@
       "description": "A selector which must match a node's labels for the pod to be scheduled on that node.",
       "type": "object"
     },
+    "preemptionPolicy": {
+      "default": "PreemptLowerPriority",
+      "description": "The policy for preempting Pods with lower priority. This field is alpha-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
+      "enum": [
+        "Never",
+        "PreemptLowerPriority"
+      ],
+      "type": "string"
+    },
     "priority": {
       "description": "The priority value. Various system components use this field to find the priority of the pod. When the 'Priority' Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.",
       "format": "int32",
@@ -120,7 +129,7 @@
     },
     "restartPolicy": {
       "default": "Always",
-      "description": "Restart policy for all containers within the pod. For Deployment, DaemonoSet, ReplicaSet and StatefulSet, the `restartPolicy` must be '`Always`'. For Job, the `restartPolicy` must be '`OnFailure`' or '`Never`'.",
+      "description": "Restart policy for all containers within the pod. For Deployment, DaemonSet, ReplicaSet and StatefulSet, the `restartPolicy` must be '`Always`'. For Job, the `restartPolicy` must be '`OnFailure`' or '`Never`'.",
       "enum": [
         "Always",
         "Never",
@@ -129,7 +138,7 @@
       "type": "string"
     },
     "runtimeClassName": {
-      "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain.",
+      "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value must be a valid DNS subdomain. This is a beta feature as of Kubernetes v1.14.",
       "type": "string"
     },
     "schedulerName": {
