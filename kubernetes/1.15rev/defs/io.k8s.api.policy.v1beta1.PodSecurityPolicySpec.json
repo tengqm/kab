@@ -7,7 +7,7 @@
       "type": "boolean"
     },
     "allowedCSIDrivers": {
-      "description": "A whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value means no CSI drivers can run inline within a pod spec.",
+      "description": "A whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.AllowedCSIDriver"
       },
