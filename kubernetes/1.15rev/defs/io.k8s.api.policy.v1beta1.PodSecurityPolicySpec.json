@@ -128,6 +128,10 @@
       "$ref": "#/definitions/io.k8s.api.policy.v1beta1.RunAsUserStrategyOptions",
       "description": "The strategy that dictates the valid `runAsUser` values that may be set."
     },
+    "runtimeClass": {
+      "$ref": "#/definitions/io.k8s.api.policy.v1beta1.RuntimeClassStrategyOptions",
+      "description": "The strategy that will dictate the allowable RuntimeClasses for a Pod. If this field is omitted, the Pod's `runtimeClassName` field is unrestricted. Enforcement of this field depends on the `RuntimeClass` feature gate being enabled."
+    },
     "seLinux": {
       "$ref": "#/definitions/io.k8s.api.policy.v1beta1.SELinuxStrategyOptions",
       "description": "The strategy that dictates the allowable labels that may be set."
