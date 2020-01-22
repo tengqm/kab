@@ -1,6 +1,10 @@
 {
   "description": "A storage that is managed by an external CSI volume driver",
   "properties": {
+    "controllerExpandSecretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume` call. This is an alpha field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed."
+    },
     "controllerPublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
       "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` field cannot be empty. The field can be updated if current value is nil."
