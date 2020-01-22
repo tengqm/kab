@@ -10,7 +10,7 @@
       "type": "array"
     },
     "strategy": {
-      "description": "The conversion strategy. '`None`' means the converter only change the `apiVersion` and would not touch any other fields in the CustomResource; '`Webhook`' means that the API server will call an external webhook to do the conversion. Additional information is specified in `webhookClientConfig`.",
+      "description": "The conversion strategy. '`None`' means the converter only change the `apiVersion` and would not touch any other fields in the CustomResource; '`Webhook`' means that the API server will call an external webhook to do the conversion. Additional information is specified in `webhookClientConfig`. This requires the `preserveUnknownFields` to be false.",
       "enum": [
         "None",
         "Webhook"

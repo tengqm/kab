@@ -21,6 +21,12 @@
       "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames",
       "description": "Names are the names used to describe this custom resource"
     },
+    "preserveUnknownFields": {
+      "default": true,
+      "description": "This flag disables pruning of object fields which are not specified in the OpenAPI schema. `apiVersion`, `kind`, `metadata` and known fields inside metadata are always preserved. Defaults to true in v1beta and will default to false in v1.",
+      "type": "boolean"
+    },
+
     "scope": {
       "default": "Namespaced",
       "description": "Scope indicates whether this resource is cluster or namespace scoped.",
