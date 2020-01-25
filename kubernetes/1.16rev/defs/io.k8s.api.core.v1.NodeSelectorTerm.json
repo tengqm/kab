@@ -1,0 +1,20 @@
+{
+  "description": "A node selection term. A null or empty term matches no objects. The requirements in the term are AND'ed.",
+  "properties": {
+    "matchExpressions": {
+      "description": "A list of node selector based on node's labels.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
+      },
+      "type": "array"
+    },
+    "matchFields": {
+      "description": "A list of node selector based on node's fields.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

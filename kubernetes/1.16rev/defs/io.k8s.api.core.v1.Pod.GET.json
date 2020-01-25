@@ -1,0 +1,43 @@
+{
+  "description": "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto nodes.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "Pod"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodSpec.GET",
+      "description": "Specification of the desired behavior of the pod."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodStatus",
+      "description": "Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "Pod",
+      "version": "v1"
+    }
+  ]
+}

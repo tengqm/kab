@@ -1,0 +1,43 @@
+{
+  "description": "A collection of RoleBindings",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "rbac.authorization.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of RoleBindings",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleBinding.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "RoleBindingList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard object's metadata."
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "RoleBindingList",
+      "version": "v1"
+    }
+  ]
+}

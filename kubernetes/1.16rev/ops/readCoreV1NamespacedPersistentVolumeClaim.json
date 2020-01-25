@@ -1,0 +1,59 @@
+{
+  "description": "read the specified PersistentVolumeClaim",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "operationId": "readCoreV1NamespacedPersistentVolumeClaim",
+  "parameters": [
+    {
+      "$ref": "#/parameters/exact"
+    },
+    {
+      "$ref": "#/parameters/export"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the PersistentVolumeClaim",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PersistentVolumeClaim",
+    "version": "v1"
+  },
+  "verb": "get",
+  "path": "/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}"
+}

@@ -1,0 +1,42 @@
+{
+  "description": "A list of AuditSink objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "auditregistration.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "List of AuditSink objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "AuditSinkList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "auditregistration.k8s.io",
+      "kind": "AuditSinkList",
+      "version": "v1alpha1"
+    }
+  ]
+}

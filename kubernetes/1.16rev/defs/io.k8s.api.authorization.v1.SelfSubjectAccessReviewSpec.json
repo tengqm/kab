@@ -1,0 +1,16 @@
+{
+  "description": "A description of the access request. Exactly one of `resourceAttributes` and `nonResourceAttributes` must be set",
+  "properties": {
+    "oneOf": {
+      "nonResourceAttributes": {
+        "$ref": "#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes",
+        "description": "Information for a non-resource access request"
+      },
+      "resourceAttributes": {
+        "$ref": "#/definitions/io.k8s.api.authorization.v1.ResourceAttributes",
+        "description": "Information for a resource access request"
+      }
+    }
+  },
+  "type": "object"
+}
