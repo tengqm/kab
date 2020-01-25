@@ -19,6 +19,9 @@
   "operationId": "listCoreV1NamespacedConfigMap",
   "parameters": [
     {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
       "$ref": "#/parameters/continue"
     },
     {
@@ -38,9 +41,6 @@
     },
     {
       "$ref": "#/parameters/watch"
-    },
-    {
-      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"

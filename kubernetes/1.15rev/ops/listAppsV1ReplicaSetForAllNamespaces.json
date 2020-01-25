@@ -1,50 +1,18 @@
 {
-  "description": "list or watch objects of kind ReplicaSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
+  "description": "list or watch objects of kind ReplicaSet",
   "operationId": "listAppsV1ReplicaSetForAllNamespaces",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSetList"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "list",
-  "x-kubernetes-group-version-kind": {
-    "group": "apps",
-    "kind": "ReplicaSet",
-    "version": "v1"
-  },
-  "verb": "get",
-  "path": "/apis/apps/v1/replicasets",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
     {
       "$ref": "#/parameters/continue"
     },
     {
       "$ref": "#/parameters/fieldSelector"
-    },
-    {
-      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/labelSelector"
@@ -64,5 +32,37 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ]
+  ],
+  "path": "/apis/apps/v1/replicasets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSetList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "ReplicaSet",
+    "version": "v1"
+  }
 }

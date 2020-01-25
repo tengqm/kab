@@ -1,23 +1,13 @@
 {
-  "description": "list or watch objects of kind StatefulSet",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
+  "description": "list or watch objects of kind StatefulSet",
   "operationId": "listAppsV1NamespacedStatefulSet",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
     {
       "$ref": "#/parameters/continue"
     },
@@ -40,14 +30,19 @@
       "$ref": "#/parameters/watch"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
-    },
-    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/apps/v1/namespaces/{namespace}/statefulsets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
   ],
   "responses": {
     "200": {
@@ -60,12 +55,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "StatefulSet",
     "version": "v1"
-  },
-  "verb": "get",
-  "path": "/apis/apps/v1/namespaces/{namespace}/statefulsets"
+  }
 }
