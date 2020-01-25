@@ -75,5 +75,9 @@ Only in 1.15/defs/: io.k8s.api.core.v1.WindowsSecurityContextOptions.json
 ## ListMeta changes
 1. io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta got new field `remainingItemCount`.
 
-- Operation delete-collection got parameter `allowWatchBookmarks`, `dryRun`, `gracePeriodSeconds`. `DeleteOption`, `orphanDependents`, `propagationPolicy`.
-- list and watch operations now get a `allowWatchBookmarks` parameter.
+## Changes to deleteCollection operations
+1. Operation delete-collection got parameter `allowWatchBookmarks`, `dryRun`, `gracePeriodSeconds`. `DeleteOption`, `orphanDependents`, `propagationPolicy`.
+
+## Changes to list operations
+1. list operations now get a `allowWatchBookmarks` parameter.
+2. IGNORED watch operations now get a `allowWatchBookmarks` parameter.
