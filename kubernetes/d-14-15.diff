@@ -1,42 +1,79 @@
-Only in 1.15/defs/: io.k8s.api.admissionregistration.v1beta1.MutatingWebhook.json
-Only in 1.15/defs/: io.k8s.api.admissionregistration.v1beta1.ValidatingWebhook.json
-Only in 1.14/defs/: io.k8s.api.admissionregistration.v1beta1.Webhook.json
+## Changes to MutatingWebhookConfiguration and ValidatingWebhookConfiguration
+1. Only in 1.14/defs/: io.k8s.api.admissionregistration.v1beta1.Webhook.json
+2. Only in 1.15/defs/: io.k8s.api.admissionregistration.v1beta1.MutatingWebhook.json
+3. io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration webhooks changed to io.k8s.api.admissionregistration.v1beta1.MutatingWebhook
+4. Only in 1.15/defs/: io.k8s.api.admissionregistration.v1beta1.ValidatingWebhook.json
+5. io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration webhooks changed to io.k8s.api.admissionregistration.v1beta1.ValidatingWebhook
+
+## Changes to ServiceReference in admissionregistration/v1beta1
+- io.k8s.api.admissionregistration.v1beta1.ServiceReference got new field `port`.
+
+## Changes to WebhookClientConfig in admissionregistration/v1beta1
+- io.k8s.api.admissionregistration.v1beta1.WebhookClientConfig service description changed.
+
+## WindowsSecurityContextOptions added to PodSecurityContext and SecurityContext
 Only in 1.15/defs/: io.k8s.api.core.v1.WindowsSecurityContextOptions.json
-Only in 1.15/defs/: io.k8s.api.extensions.v1beta1.RuntimeClassStrategyOptions.json
-Only in 1.15/defs/: io.k8s.api.policy.v1beta1.RuntimeClassStrategyOptions.json
+- io.k8s.api.core.v1.PodSecurityContext got new field `windowsOptions`.
+- io.k8s.api.core.v1.SecurityContext got new field `windowsOptions`.
+
+## Support to RuntimeClassStrategyOptions in PodSecurityPolicy
+1. IGNORED Only in 1.15/defs/: io.k8s.api.extensions.v1beta1.RuntimeClassStrategyOptions.json
+2. IGNORED io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec got new field `runtimeClass`.
+3. Only in 1.15/defs/: io.k8s.api.policy.v1beta1.RuntimeClassStrategyOptions.json
+4. io.k8s.api.policy.v1beta1.PodSecurityPolicySpec got new field `runtimeClass`.
+
+## allowedCSIDrivers description is changed.
+1. IGNORED io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers description changed. It is an alpha field.
+2. io.k8s.api.policy.v1beta1.PodSecurityPolicySpec allowedCSIDrivers description changed. It is an alpha field.
+
+# New 'port' field
+1. io.k8s.api.auditregistration.v1alpha1.ServiceReference got new field `port`.
+
+## No longer fallback to 443 port
+1. io.k8s.api.auditregistration.v1alpha1.WebhookClientConfig service description changed.
+
+## New field
+1. io.k8s.api.core.v1.CSIPersistentVolumeSource got new field `controllerExpandSecretRef`.
+
+## EventSeries state deprecated.
+1. io.k8s.api.core.v1.EventSeries state Deprecated. Planned removal for 1.18
+
+## PreemptionPolicy support
+1. io.k8s.api.core.v1.PodSpec got new field `preemptionPolicy`.
+2. io.k8s.api.scheduling.v1.PriorityClass got new field `preemptionPolicy`.
+3. IGNORED io.k8s.api.scheduling.v1alpha1.PriorityClass got new field `preemptionPolicy`.
+4. IGNORED io.k8s.api.scheduling.v1beta1.PriorityClass got new field `preemptionPolicy`.
+
+## runtimeClassName is a beta in 1.14
+1. io.k8s.api.core.v1.PodSpec runtimeClassName is a beta in 1.14.
+
+## Changes to subPathExpr in VolumeMount
+1. io.k8s.api.core.v1.VolumeMount subPathExpr is alpha in 1.14, now beta in 1.15.
+
+## events/v1beta1 EventSeries state
+1. io.k8s.api.events.v1beta1.EventSeries state is deprecated and planned removal for 1.18.
+
+## Inline volume
+1. io.k8s.api.storage.v1.VolumeAttachmentSource got new field `inlineVolumeSpec`.
+2. IGNORED io.k8s.api.storage.v1alpha1.VolumeAttachmentSource got new field `inlineVolumeSpec`.
+3. IGNORED io.k8s.api.storage.v1beta1.VolumeAttachmentSource got new field `inlineVolumeSpec`.
+
+## CRD changes
+1. io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion strategy description changed.
+2. io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionCondition types description changed.
+3. io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec got new field `preserveUnknownFields`.
+4. io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale labelSelectorPath description changed.
+
+## API Extensions changes
+1. io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference got new field `port`.
+2. io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig service description changed.
+
+## API Registration Changes
+1. io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.ServiceReference got new field `port`.
+2. IGNORED io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.ServiceReference got new field `port`.
+
+## ListMeta changes
+1. io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta got new field `remainingItemCount`.
 
 - Operation delete-collection got parameter `allowWatchBookmarks`, `dryRun`, `gracePeriodSeconds`. `DeleteOption`, `orphanDependents`, `propagationPolicy`.
 - list and watch operations now get a `allowWatchBookmarks` parameter.
-- io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration webhooks changed to io.k8s.api.admissionregistration.v1beta1.MutatingWebhook
-- io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration webhooks changed to io.k8s.api.admissionregistration.v1beta1.ValidatingWebhook
-- io.k8s.api.admissionregistration.v1beta1.ServiceReference got new field `port`.
-- io.k8s.api.admissionregistration.v1beta1.WebhookClientConfig service description changed.
-- io.k8s.api.auditregistration.v1alpha1.ServiceReference got new field `port`.
-- io.k8s.api.auditregistration.v1alpha1.WebhookClientConfig service description changed.
-- io.k8s.api.core.v1.CSIPersistentVolumeSource got new field `controllerExpandSecretRef`.
-- io.k8s.api.core.v1.EventSeries state Deprecated. Planned removal for 1.18
-- io.k8s.api.core.v1.PodSecurityContext got new field `windowsOptions`.
-- io.k8s.api.core.v1.PodSpec got new field `preemptionPolicy`.
-- io.k8s.api.core.v1.PodSpec runtimeClassName is a beta in 1.14.
-- io.k8s.api.core.v1.SecurityContext got new field `windowsOptions`.
-- io.k8s.api.core.v1.VolumeMount subPathExpr is alpha in 1.14, now beta in 1.15.
-- io.k8s.api.events.v1beta1.EventSeries state is deprecated and planned removal for 1.18.
-- io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers description changed. It is an alpha field.
-- io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec got new field `runtimeClass`.
-- io.k8s.api.policy.v1beta1.PodSecurityPolicySpec allowedCSIDrivers description changed. It is an alpha field.
-- io.k8s.api.policy.v1beta1.PodSecurityPolicySpec got new field `runtimeClass`.
-- io.k8s.api.scheduling.v1.PriorityClass got new field `preemptionPolicy`.
-- io.k8s.api.scheduling.v1alpha1.PriorityClass got new field `preemptionPolicy`.
-- io.k8s.api.scheduling.v1beta1.PriorityClass got new field `preemptionPolicy`.
-- io.k8s.api.storage.v1.VolumeAttachmentSource got new field `inlineVolumeSpec`.
-- io.k8s.api.storage.v1alpha1.VolumeAttachmentSource got new field `inlineVolumeSpec`.
-- io.k8s.api.storage.v1beta1.VolumeAttachmentSource got new field `inlineVolumeSpec`.
-- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion strategy description changed.
-- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionCondition types description changed.
-- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec got new field `preserveUnknownFields`.
-- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresourceScale labelSelectorPath description changed.
-- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference got new field `port`.
-- io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig service description changed.
-- io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta got new field `remainingItemCount`.
-- io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.ServiceReference got new field `port`.
-- io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.ServiceReference got new field `port`.

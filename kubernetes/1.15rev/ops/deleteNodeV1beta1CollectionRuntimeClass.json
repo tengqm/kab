@@ -6,16 +6,38 @@
   "operationId": "deleteNodeV1beta1CollectionRuntimeClass",
   "parameters": [
     {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
       "$ref": "#/parameters/continue"
     },
     {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
       "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
     },
     {
       "$ref": "#/parameters/labelSelector"
     },
     {
       "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "$ref": "#/parameters/resourceVersion"

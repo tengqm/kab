@@ -1,32 +1,43 @@
 {
-  "description": "delete collection of Deployment",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
+  "description": "delete collection of Deployment",
   "operationId": "deleteAppsV1CollectionNamespacedDeployment",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
     {
       "$ref": "#/parameters/continue"
     },
     {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
       "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
     },
     {
       "$ref": "#/parameters/labelSelector"
     },
     {
       "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "$ref": "#/parameters/resourceVersion"
@@ -38,14 +49,17 @@
       "$ref": "#/parameters/watch"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
-    },
-    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/apps/v1/namespaces/{namespace}/deployments",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -58,12 +72,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "Deployment",
     "version": "v1"
-  },
-  "verb": "delete",
-  "path": "/apis/apps/v1/namespaces/{namespace}/deployments"
+  }
 }
