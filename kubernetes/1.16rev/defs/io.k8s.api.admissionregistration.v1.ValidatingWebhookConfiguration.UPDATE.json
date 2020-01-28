@@ -1,0 +1,44 @@
+{
+  "description": "The configuration of an admission webhook that accepts or rejects an object without changing it.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for this object representation.",
+      "enum": [
+        "admissionregistration.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource.",
+      "enum": [
+        "ValidatingWebhookConfiguration"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata."
+    },
+    "webhooks": {
+      "description": "A list of webhooks and the affected resources and operations.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhook"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "admissionregistration.k8s.io",
+      "kind": "ValidatingWebhookConfiguration",
+      "version": "v1"
+    }
+  ]
+}
