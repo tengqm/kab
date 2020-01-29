@@ -93,9 +93,13 @@
 - Only in 1.16/defs/: io.k8s.api.node.v1beta1.Overhead.json
 - io.k8s.api.node.v1beta1.RuntimeClass got new field `overhead`
 
-##
-Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Scheduling.json
-Only in 1.16/defs/: io.k8s.api.node.v1beta1.Scheduling.json
+## IGNORED: `scheduling` field added to node.k8s.io/v1alpha1 RuntimeClass spec
+- Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Scheduling.json
+- io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `scheduling`.
+
+## `scheduling` field added to node.k8s.io/v1beta1 RuntimeClass
+- Only in 1.16/defs/: io.k8s.api.node.v1beta1.Scheduling.json
+- io.k8s.api.node.v1beta1.RuntimeClass got new field `scheduling`.
 
 New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
@@ -164,8 +168,6 @@ Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
 - io.k8s.api.core.v1.ServiceSpec got new field `ipFamily`.
 - io.k8s.api.core.v1.WindowsSecurityContextOptions got new field `runAsUserName`.
 - io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers is no longer an alpha field.
-- io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `scheduling`.
-- io.k8s.api.node.v1beta1.RuntimeClass got new field `scheduling`.
 - io.k8s.api.storage.v1beta1.CSIDriverSpec podInfoMount description changed.
 - io.k8s.api.storage.v1beta1.CSIDriverSpec got new field `volumeLifecycleModes`
 

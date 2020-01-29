@@ -26,6 +26,10 @@
     "overhead": {
       "$ref": "#/definitions/io.k8s.api.node.v1beta1.Overhead",
       "description": "The resource overhead associated with running a Pod for a given `RuntimeClass`. This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the `PodOverhead` feature."
+    },
+    "scheduling": {
+      "$ref": "#/definitions/io.k8s.api.node.v1beta1.Scheduling",
+      "description": "The scheduling constraints to ensure that Pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes."
     }
   },
   "required": [
