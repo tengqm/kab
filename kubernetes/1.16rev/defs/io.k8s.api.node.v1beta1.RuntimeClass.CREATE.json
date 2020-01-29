@@ -22,6 +22,10 @@
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
       "description": "Standard object metadata. The name must be a valid DNS subdomain."
+    },
+    "overhead": {
+      "$ref": "#/definitions/io.k8s.api.node.v1beta1.Overhead",
+      "description": "The resource overhead associated with running a Pod for a given `RuntimeClass`. This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the `PodOverhead` feature."
     }
   },
   "required": [

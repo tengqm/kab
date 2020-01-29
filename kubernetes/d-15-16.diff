@@ -85,10 +85,16 @@
 - IGNORED. Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSlice.json
 - IGNORED. Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
 
-# Node.v1alpha1 change
-Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Overhead.json
+## IGNORED: `overhead` field added to node.k8s.io/v1alpha1 RuntimeClass spec
+- Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Overhead.json
+- io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `overhead`.
+
+## `overhead` field added to node.k8s.io/v1beta1 RuntimeClass
+- Only in 1.16/defs/: io.k8s.api.node.v1beta1.Overhead.json
+- io.k8s.api.node.v1beta1.RuntimeClass got new field `overhead`
+
+##
 Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Scheduling.json
-Only in 1.16/defs/: io.k8s.api.node.v1beta1.Overhead.json
 Only in 1.16/defs/: io.k8s.api.node.v1beta1.Scheduling.json
 
 New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
@@ -158,9 +164,7 @@ Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
 - io.k8s.api.core.v1.ServiceSpec got new field `ipFamily`.
 - io.k8s.api.core.v1.WindowsSecurityContextOptions got new field `runAsUserName`.
 - io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers is no longer an alpha field.
-- io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `overhead`.
 - io.k8s.api.node.v1alpha1.RuntimeClassSpec got new field `scheduling`.
-- io.k8s.api.node.v1beta1.RuntimeClass got new field `overhead`
 - io.k8s.api.node.v1beta1.RuntimeClass got new field `scheduling`.
 - io.k8s.api.storage.v1beta1.CSIDriverSpec podInfoMount description changed.
 - io.k8s.api.storage.v1beta1.CSIDriverSpec got new field `volumeLifecycleModes`
