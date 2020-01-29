@@ -57,17 +57,35 @@
 - Only in 1.16/defs/: io.k8s.api.core.v1.TopologySpreadConstraint.json
 - io.k8s.api.core.v1.PodSpec got new field `topologySpreadConstraints`.
 
-## 
+## allocatable field added to CSINodeDriver resource
 - io.k8s.api.storage.v1beta1.CSINodeDriver got new field `allocatable`
-Only in 1.16/defs/: io.k8s.api.storage.v1beta1.VolumeNodeResources.json
+- Only in 1.16/defs/: io.k8s.api.storage.v1beta1.VolumeNodeResources.json
 
-New API Group io.k8s.api.discovery.v1alpha1
-Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.Endpoint.json
-Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointConditions.json
-Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointPort.json
-Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointSlice.json
-Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointSliceList.json
+## `overhead` field added to Pod Spec.
+- io.k8s.api.core.v1.PodSpec got new field `overhead`.
 
+
+## New API Group io.k8s.api.discovery.v1alpha1
+- Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.Endpoint.json
+- Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointConditions.json
+- Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointPort.json
+- Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointSlice.json
+- Only in 1.16/defs/: io.k8s.api.discovery.v1alpha1.EndpointSliceList.json
+- Only in 1.16/ops/: createDiscoveryV1alpha1NamespacedEndpointSlice.json
+- Only in 1.16/ops/: deleteDiscoveryV1alpha1CollectionNamespacedEndpointSlice.json
+- Only in 1.16/ops/: deleteDiscoveryV1alpha1NamespacedEndpointSlice.json
+- Only in 1.16/ops/: getDiscoveryAPIGroup.json
+- Only in 1.16/ops/: getDiscoveryV1alpha1APIResources.json
+- Only in 1.16/ops/: listDiscoveryV1alpha1EndpointSliceForAllNamespaces.json
+- Only in 1.16/ops/: listDiscoveryV1alpha1NamespacedEndpointSlice.json
+- Only in 1.16/ops/: patchDiscoveryV1alpha1NamespacedEndpointSlice.json
+- Only in 1.16/ops/: readDiscoveryV1alpha1NamespacedEndpointSlice.json
+- Only in 1.16/ops/: replaceDiscoveryV1alpha1NamespacedEndpointSlice.json
+- IGNORED. Only in 1.16/ops/: watchDiscoveryV1alpha1EndpointSliceListForAllNamespaces.json
+- IGNORED. Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSlice.json
+- IGNORED. Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
+
+# Node.v1alpha1 change
 Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Overhead.json
 Only in 1.16/defs/: io.k8s.api.node.v1alpha1.Scheduling.json
 Only in 1.16/defs/: io.k8s.api.node.v1beta1.Overhead.json
@@ -107,31 +125,18 @@ Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
 
 New operations
 Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: createDiscoveryV1alpha1NamespacedEndpointSlice.json
 Only in 1.16/ops/: deleteApiextensionsV1CollectionCustomResourceDefinition.json
 Only in 1.16/ops/: deleteApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: deleteDiscoveryV1alpha1CollectionNamespacedEndpointSlice.json
-Only in 1.16/ops/: deleteDiscoveryV1alpha1NamespacedEndpointSlice.json
 Only in 1.16/ops/: getApiextensionsV1APIResources.json
-Only in 1.16/ops/: getDiscoveryAPIGroup.json
-Only in 1.16/ops/: getDiscoveryV1alpha1APIResources.json
 Only in 1.16/ops/: listApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: listDiscoveryV1alpha1EndpointSliceForAllNamespaces.json
-Only in 1.16/ops/: listDiscoveryV1alpha1NamespacedEndpointSlice.json
 Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinitionStatus.json
-Only in 1.16/ops/: patchDiscoveryV1alpha1NamespacedEndpointSlice.json
 Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinitionStatus.json
-Only in 1.16/ops/: readDiscoveryV1alpha1NamespacedEndpointSlice.json
 Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinitionStatus.json
-Only in 1.16/ops/: replaceDiscoveryV1alpha1NamespacedEndpointSlice.json
 Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
-Only in 1.16/ops/: watchDiscoveryV1alpha1EndpointSliceListForAllNamespaces.json
-Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
 
 
 - io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration deprecated in 1.16, will be removed in 1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
@@ -147,7 +152,6 @@ Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
 - io.k8s.api.core.v1.NodeSpec got new field `podCIDRs`.
 - io.k8s.api.core.v1.PodSecurityContext windowsOptions description changed.
 - io.k8s.api.core.v1.PodSpec initContainers description changed.
-- io.k8s.api.core.v1.PodSpec got new field `overhead`.
 - io.k8s.api.core.v1.Probe successThreshold description changed.
 - io.k8s.api.core.v1.SecurityContext windowsOptions description change.
 - io.k8s.api.core.v1.ServicePort name description change.
@@ -160,6 +164,7 @@ Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
 - io.k8s.api.node.v1beta1.RuntimeClass got new field `scheduling`.
 - io.k8s.api.storage.v1beta1.CSIDriverSpec podInfoMount description changed.
 - io.k8s.api.storage.v1beta1.CSIDriverSpec got new field `volumeLifecycleModes`
+
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition jsonPath description changed.
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition priority description changed.
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion conversionReviewVersions description changed.
@@ -197,6 +202,7 @@ Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference path description changed.
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference port description changed.
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig webhookClientConfig description changed.
+
 - io.k8s.apimachinery.pkg.api.resource.Quantity quantity description changed.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta remainingItemCount description changed.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta selfLink description changed. DPRECATED. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
