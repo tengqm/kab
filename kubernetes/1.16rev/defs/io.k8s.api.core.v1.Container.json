@@ -36,7 +36,7 @@
       "type": "string"
     },
     "imagePullPolicy": {
-      "description": "Image pull policy. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated.",
+      "description": "Image pull policy. Defaults to '`Always`' if '`:latest`' tag is specified, or '`IfNotPresent`' otherwise. Cannot be updated.",
       "enum": [
         "Always",
         "IfNotPresent",
@@ -82,6 +82,10 @@
     "securityContext": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext",
       "description": "Security options the pod should run with."
+    },
+    "startupProbe": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.Probe",
+      "description": "This indicates that the Pod has been successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the `livenessProbe` failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be set on an init container. This cannot be updated. The `successThreshold`, if specified, must be 1. This is an alpha feature enabled by the `StartupProbe` feature flag."
     },
     "stdin": {
       "default": false,
