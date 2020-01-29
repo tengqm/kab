@@ -38,9 +38,17 @@
 ## New API createCoreV1NamespacedServiceAccountToken:
 - Only in 1.16/ops/: createCoreV1NamespacedServiceAccountToken.json
 
-New resources
-Only in 1.16/defs/: io.k8s.api.core.v1.EphemeralContainer.json
+## EphemeralContainer support
+- Only in 1.16/defs/: io.k8s.api.core.v1.EphemeralContainer.json
+- io.k8s.api.core.v1.PodSpec got new field `ephemeralContainers`.
+- io.k8s.api.core.v1.PodStatus got new field `ephemeralContainerStatuses`.
+- ADDED: ops 1.16rev/ops/updateCoreV1NamespacedPodEphemeralContainers.json
+- ADDED: ops 1.16rev/ops/getCoreV1NamespacedPodEphemeralContainers.json
+
+
 Only in 1.16/defs/: io.k8s.api.core.v1.NamespaceCondition.json
+- io.k8s.api.core.v1.NamespaceStatus got new field `conditions`.
+
 Only in 1.16/defs/: io.k8s.api.core.v1.PodIP.json
 Only in 1.16/defs/: io.k8s.api.core.v1.TopologySpreadConstraint.json
 Only in 1.16/defs/: io.k8s.api.storage.v1beta1.VolumeNodeResources.json
@@ -128,14 +136,11 @@ Only in 1.16/ops/: watchDiscoveryV1alpha1NamespacedEndpointSliceList.json
 - io.k8s.api.core.v1.ContainerStatus got a new field `started`.
 - io.k8s.api.core.v1.EndpointPort name description changed.
 - io.k8s.api.core.v1.Lifecycle preStop description changed.
-- io.k8s.api.core.v1.NamespaceStatus got new field `conditions`.
 - io.k8s.api.core.v1.NodeSpec got new field `podCIDRs`.
 - io.k8s.api.core.v1.PodSecurityContext windowsOptions description changed.
-- io.k8s.api.core.v1.PodSpec got new field `ephemeralContainers`.
 - io.k8s.api.core.v1.PodSpec initContainers description changed.
 - io.k8s.api.core.v1.PodSpec got new field `overhead`.
 - io.k8s.api.core.v1.PodSpec got new field `topologySpreadConstraints`.
-- io.k8s.api.core.v1.PodStatus got new field `ephemeralContainerStatuses`.
 - io.k8s.api.core.v1.PodStatus got new field `podIPs`.
 - io.k8s.api.core.v1.Probe successThreshold description changed.
 - io.k8s.api.core.v1.SecurityContext windowsOptions description change.

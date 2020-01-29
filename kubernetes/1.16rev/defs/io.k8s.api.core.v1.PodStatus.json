@@ -2,7 +2,7 @@
   "description": "Information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.",
   "properties": {
     "conditions": {
-      "description": "Current service state of pod.",
+      "description": "Current service state of Pod.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PodCondition"
       },
@@ -12,6 +12,13 @@
     },
     "containerStatuses": {
       "description": "The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
+      },
+      "type": "array"
+    },
+    "ephemeralContainerStatuses": {
+      "description": "Status for any ephemeral containers that have run in this Pod. This field is alpha-level and is only populated by servers that enable the `EphemeralContainers` feature.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
       },
