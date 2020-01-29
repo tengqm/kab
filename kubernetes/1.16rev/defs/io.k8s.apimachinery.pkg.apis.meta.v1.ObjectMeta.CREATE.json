@@ -31,10 +31,6 @@
       "description": "An optional prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the `name` field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return '201 Created' or '500' with Reason 'ServerTimeout' indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the 'Retry-After' header). Applied only if `name` is not specified.",
       "type": "string"
     },
-    "initializers": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Initializers",
-      "description": "This field is a list of initializers that have not yet acted on the object. If nil or empty, this object has been completely initialized. Otherwise, the object is considered uninitialized and is hidden when reading from clients unless explicitly asked to observe uninitialized objects. When an object is created, the system will populate this list with the current set of initializers. Only privileged users may set or modify this list. Once it is empty, it may not be modified further by any user. DEPRECATED - initializers are an alpha field and will be removed in v1.15."
-    },
     "labels": {
       "additionalProperties": {
         "type": "string"

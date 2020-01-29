@@ -101,6 +101,12 @@
 - Only in 1.16/defs/: io.k8s.api.node.v1beta1.Scheduling.json
 - io.k8s.api.node.v1beta1.RuntimeClass got new field `scheduling`.
 
+## 'initializers' field is removed from ObjectMeta
+- io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `initializers` removed.
+- Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializer.json
+- Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
+
+
 New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceConversion.json
@@ -128,10 +134,6 @@ Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.Web
 Replaced Resources
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
 Only in 1.16/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1.json
-
-Removed Resources:
-Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializer.json
-Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
 
 New operations
 Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
@@ -213,7 +215,6 @@ Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta remainingItemCount description changed.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta selfLink description changed. DPRECATED. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry removed field `fields`, added fields `fieldsType` and `fieldsV1`.
-- io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `initializers` removed.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `managedFields` no longer alpha.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `selfLink` description changed. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
 - io.k8s.apimachinery.pkg.runtime.RawExtension removed fields `Raw`.
