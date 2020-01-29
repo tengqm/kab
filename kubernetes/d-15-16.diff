@@ -1,19 +1,42 @@
-New API Group io.k8s.api.admissionregistration.v1
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhook.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhookConfiguration.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhookConfigurationList.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.RuleWithOperations.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ServiceReference.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhook.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhookConfigurationList.json
-Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.WebhookClientConfig.json
+## New API Group io.k8s.api.admissionregistration.v1
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhook.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhookConfiguration.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.MutatingWebhookConfigurationList.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.RuleWithOperations.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ServiceReference.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhook.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.ValidatingWebhookConfigurationList.json
+- Only in 1.16/defs/: io.k8s.api.admissionregistration.v1.WebhookClientConfig.json
+- Only in 1.16/ops/: getAdmissionregistrationV1APIResources.json
+- Only in 1.16/ops/: createAdmissionregistrationV1MutatingWebhookConfiguration.json
+- Only in 1.16/ops/: deleteAdmissionregistrationV1CollectionMutatingWebhookConfiguration.json
+- Only in 1.16/ops/: deleteAdmissionregistrationV1MutatingWebhookConfiguration.json
+- Only in 1.16/ops/: listAdmissionregistrationV1MutatingWebhookConfiguration.json
+- Only in 1.16/ops/: patchAdmissionregistrationV1MutatingWebhookConfiguration.json
+- Only in 1.16/ops/: readAdmissionregistrationV1MutatingWebhookConfiguration.json
+- Only in 1.16/ops/: replaceAdmissionregistrationV1MutatingWebhookConfiguration.json
+- Only in 1.16/ops/: createAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- Only in 1.16/ops/: deleteAdmissionregistrationV1CollectionValidatingWebhookConfiguration.json
+- Only in 1.16/ops/: deleteAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- Only in 1.16/ops/: listAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- Only in 1.16/ops/: patchAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- Only in 1.16/ops/: readAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- Only in 1.16/ops/: replaceAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- IGNORED Only in 1.16/ops/: watchAdmissionregistrationV1MutatingWebhookConfiguration.json
+- IGNORED Only in 1.16/ops/: watchAdmissionregistrationV1MutatingWebhookConfigurationList.json
+- IGNORED Only in 1.16/ops/: watchAdmissionregistrationV1ValidatingWebhookConfiguration.json
+- IGNORED Only in 1.16/ops/: watchAdmissionregistrationV1ValidatingWebhookConfigurationList.json
 
-New API Group io.k8s.api.authentication.v1
-Only in 1.16/defs/: io.k8s.api.authentication.v1.BoundObjectReference.json
-Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequest.json
-Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequestSpec.json
-Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequestStatus.json
+
+## New resource authentication.k8s.io/v1 TokenRequest
+- Only in 1.16/defs/: io.k8s.api.authentication.v1.BoundObjectReference.json
+- Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequest.json
+- Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequestSpec.json
+- Only in 1.16/defs/: io.k8s.api.authentication.v1.TokenRequestStatus.json
+
+## New API createCoreV1NamespacedServiceAccountToken:
+- Only in 1.16/ops/: createCoreV1NamespacedServiceAccountToken.json
 
 New resources
 Only in 1.16/defs/: io.k8s.api.core.v1.EphemeralContainer.json
@@ -67,47 +90,27 @@ Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializer.json
 Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Initializers.json
 
 New operations
-Only in 1.16/ops/: createAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: createAdmissionregistrationV1ValidatingWebhookConfiguration.json
 Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: createCoreV1NamespacedServiceAccountToken.json
 Only in 1.16/ops/: createDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: deleteAdmissionregistrationV1CollectionMutatingWebhookConfiguration.json
-Only in 1.16/ops/: deleteAdmissionregistrationV1CollectionValidatingWebhookConfiguration.json
-Only in 1.16/ops/: deleteAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: deleteAdmissionregistrationV1ValidatingWebhookConfiguration.json
 Only in 1.16/ops/: deleteApiextensionsV1CollectionCustomResourceDefinition.json
 Only in 1.16/ops/: deleteApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: deleteDiscoveryV1alpha1CollectionNamespacedEndpointSlice.json
 Only in 1.16/ops/: deleteDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: getAdmissionregistrationV1APIResources.json
 Only in 1.16/ops/: getApiextensionsV1APIResources.json
 Only in 1.16/ops/: getDiscoveryAPIGroup.json
 Only in 1.16/ops/: getDiscoveryV1alpha1APIResources.json
-Only in 1.16/ops/: listAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: listAdmissionregistrationV1ValidatingWebhookConfiguration.json
 Only in 1.16/ops/: listApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: listDiscoveryV1alpha1EndpointSliceForAllNamespaces.json
 Only in 1.16/ops/: listDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: patchAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: patchAdmissionregistrationV1ValidatingWebhookConfiguration.json
 Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinitionStatus.json
 Only in 1.16/ops/: patchDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: readAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: readAdmissionregistrationV1ValidatingWebhookConfiguration.json
 Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinitionStatus.json
 Only in 1.16/ops/: readDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: replaceAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: replaceAdmissionregistrationV1ValidatingWebhookConfiguration.json
 Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinitionStatus.json
 Only in 1.16/ops/: replaceDiscoveryV1alpha1NamespacedEndpointSlice.json
-Only in 1.16/ops/: watchAdmissionregistrationV1MutatingWebhookConfiguration.json
-Only in 1.16/ops/: watchAdmissionregistrationV1MutatingWebhookConfigurationList.json
-Only in 1.16/ops/: watchAdmissionregistrationV1ValidatingWebhookConfiguration.json
-Only in 1.16/ops/: watchAdmissionregistrationV1ValidatingWebhookConfigurationList.json
 Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinition.json
 Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
 Only in 1.16/ops/: watchDiscoveryV1alpha1EndpointSliceListForAllNamespaces.json

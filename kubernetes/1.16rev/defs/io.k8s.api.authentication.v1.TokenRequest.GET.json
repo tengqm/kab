@@ -1,0 +1,41 @@
+{
+  "description": "TokenRequest requests a token for a given service account.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "authentication.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "TokenRequest"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.authentication.v1.TokenRequestSpec"
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.authentication.v1.TokenRequestStatus"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "authentication.k8s.io",
+      "kind": "TokenRequest",
+      "version": "v1"
+    }
+  ]
+}
