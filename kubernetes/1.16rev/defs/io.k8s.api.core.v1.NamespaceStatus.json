@@ -1,6 +1,15 @@
 {
   "description": "Information about the current status of a Namespace.",
   "properties": {
+    "conditions": {
+      "description": "The latest available observations of a namespace's current state.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NamespaceCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
     "phase": {
       "description": "The current lifecycle phase of the namespace.",
       "enum": [
