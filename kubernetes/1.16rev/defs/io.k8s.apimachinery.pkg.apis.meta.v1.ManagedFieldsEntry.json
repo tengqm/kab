@@ -5,9 +5,13 @@
       "description": "The version of this resource that this field set applies to. The format is 'group/version' just like the top-level apiVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.",
       "type": "string"
     },
-    "fields": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Fields",
-      "description": "A set of fields."
+    "fieldsType": {
+      "description": "The discriminator for the different fields format and version. There is currently only one possible value: '`FieldsV1`'",
+      "type": "string"
+    },
+    "fieldsV1": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1",
+      "description": "The first JSON version format as described in the '`FieldsV1`' type."
     },
     "manager": {
       "description": "An identifier of the workflow managing these fields.",

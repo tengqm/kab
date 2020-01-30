@@ -159,7 +159,10 @@
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `managedFields` no longer alpha.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta field `selfLink` description changed.
 
-
+##  Changes to apimachinery ManagedFieldsEntry struct
+- Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
+- Only in 1.16/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1.json
+- io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry removed field `fields`, added fields `fieldsType` and `fieldsV1`.
 
 New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
@@ -185,9 +188,6 @@ Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.Ser
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookClientConfig.json
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookConversion.json
 
-Replaced Resources
-Only in 1.15/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.Fields.json
-Only in 1.16/defs/: io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1.json
 
 New operations
 Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
@@ -249,5 +249,4 @@ Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
 - io.k8s.apimachinery.pkg.api.resource.Quantity quantity description changed.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta remainingItemCount description changed.
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta selfLink description changed. DPRECATED. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
-- io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry removed field `fields`, added fields `fieldsType` and `fieldsV1`.
 - patch operations now supports  "application/apply-patch+yaml" as its content-type
