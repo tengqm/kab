@@ -1,20 +1,15 @@
 {
-  "description": "partially update the specified PodDisruptionBudget",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
-    "application/strategic-merge-patch+json"
+    "application/strategic-merge-patch+json",
+    "application/apply-patch+yaml"
   ],
+  "description": "partially update the specified PodDisruptionBudget",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
   ],
   "operationId": "patchPolicyV1beta1NamespacedPodDisruptionBudget",
   "parameters": [
@@ -55,6 +50,12 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
