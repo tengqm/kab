@@ -140,7 +140,12 @@
 ## `runAsUserName` field in WindowsSecurityContextOptions struct
 - io.k8s.api.core.v1.WindowsSecurityContextOptions got new field `runAsUserName`.
 
+## IGNORED. Change to extensions.v1beta1.PodSecurityPolicySpec
+- io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers is no longer an alpha field.
 
+## Change to CSIDriverSpec
+- io.k8s.api.storage.v1beta1.CSIDriverSpec podInfoMount description changed.
+- io.k8s.api.storage.v1beta1.CSIDriverSpec got new field `volumeLifecycleModes`
 
 New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
 Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
@@ -192,9 +197,6 @@ Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
   "description": "minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.",
 - io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec.json minReplicas description changed as well
 - io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec.json minReplicas description changed as well
-- io.k8s.api.extensions.v1beta1.PodSecurityPolicySpec allowedCSIDrivers is no longer an alpha field.
-- io.k8s.api.storage.v1beta1.CSIDriverSpec podInfoMount description changed.
-- io.k8s.api.storage.v1beta1.CSIDriverSpec got new field `volumeLifecycleModes`
 
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition jsonPath description changed.
 - io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition priority description changed.

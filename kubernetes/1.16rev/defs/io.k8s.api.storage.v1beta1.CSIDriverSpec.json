@@ -7,8 +7,15 @@
     },
     "podInfoOnMount": {
       "default": false,
-      "description": "If set to true, it indicates this CSI volume driver requires additional Pod information (like `podName`, `podUID`, etc.) during mount operations. If set to false, Pod information will not be passed on mount. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, kubelet will pass Pod information as `VolumeContext` in the CSI `NodePublishVolume()` calls. The CSI driver is responsible for parsing and validating the information passed in. The following VolumeConext will be passed if this is set to true. This list might grow, but the prefix will be used. 'csi.storage.k8s.io/pod.name': pod.Name, 'csi.storage.k8s.io/pod.namespace': pod.Namespace; 'csi.storage.k8s.io/pod.uid': string(pod.UID).",
+      "description": "If set to true, it indicates this CSI volume driver requires additional Pod information (like `podName`, `podUID`, etc.) during mount operations. If set to false, Pod information will not be passed on mount. The CSI driver specifies `podInfoOnMount` as part of driver deployment. If true, kubelet will pass Pod information as `VolumeContext` in the CSI `NodePublishVolume()` calls. The CSI driver is responsible for parsing and validating the information passed in. The following `VolumeConext` will be passed if this is set to true. This list might grow, but the prefix will be used. `\"csi.storage.k8s.io/pod.name\": pod.name, \"csi.storage.k8s.io/pod.namespace\": pod.namespace, \"csi.storage.k8s.io/pod.uid\": string(pod.UID), \"csi.storage.k8s.io/ephemeral\": \"true\" iff the volume is an ephemeral inline volume defined by a `CSIVolumeSource`, otherwise \"false\". \"csi.storage.k8s.io/ephemeral\" is a new feature in v1.16. It is only required for drivers which support both the 'Persistent' and 'Ephemeral' volume lifecycle mode. Other drivers can leave Pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, dirvers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.",
       "type": "boolean"
+    },
+    "volumeLifecycleModes": {
+      "description": "This defines what kind of volumes this CSI volume driver supports. The default if the list is empty is 'Persistent', which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is 'Ephemeral'. In this mode, volumes are defined inline inside the Pod spec with `csiVolumeSource` and their lifecycle is tied to the lifecycle of that Pod. A driver has to be aware of this because it is only going to get a `NodePublishVolume` call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     }
   },
   "required": [
