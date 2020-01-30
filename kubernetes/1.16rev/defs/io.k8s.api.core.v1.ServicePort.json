@@ -2,7 +2,7 @@
   "description": "Information on service's port.",
   "properties": {
     "name": {
-      "description": "The name of this port within the service. This must be a DNS label. All ports within a service spec must have unique names. This maps to the `name` field in EndpointPort objects. Optional if only one port is defined on this service.",
+      "description": "The name of this port within the service. This must be a DNS label. All ports within a service spec must have unique names. When considering the endpoints for a Service, this must match the `name` field in EndpointPort objects. Optional if only one `ports` is defined on this service.",
       "type": "string"
     },
     "nodePort": {

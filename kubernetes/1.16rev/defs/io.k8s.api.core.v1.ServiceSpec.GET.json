@@ -27,7 +27,16 @@
     "healthCheckNodePort": {
       "description": "The healthcheck nodePort for the service. If not specified, it is created by the service API backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when `type` is set to '`LoadBalancer`' and `externalTrafficPolicy` is set to '`Local`'.",
       "format": "int32",
+      "minimum": 0,
       "type": "integer"
+    },
+    "ipFamily": {
+      "description": "Whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6). If a specific IP family is requested, the `clusterIP` field will be allocated from that family, if it is available in the cluster. If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (`loadBalancerIP`, `loadBalancerSourceRanges`, `externalIPs`) and controllers which allocate external load-balancers should use the same IP family. Endpoints for this Service will be of this family. This field is immutable after creation. Assigning a `serviceIPFamily` not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during `clusterIP` assignment. If the `IPv6DualStack` feature flag is enabled, this field is required.",
+      "enum": [
+        "IPv4",
+        "IPv6"
+      ],
+      "type": "string"
     },
     "loadBalancerIP": {
       "description": "Only applies to `LoadBalancer` type of services. A load balancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the load balancer IP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.",
