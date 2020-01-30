@@ -2,7 +2,7 @@
   "description": "The names used for this CustomResourceDefinition",
   "properties": {
     "categories": {
-      "description": "A list of grouped resources a CustomResource belongs to (e.g. '`all`'). Each entry must be a valid DNS label.",
+      "description": "A list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`. Each entry must be a valid DNS label.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -10,7 +10,7 @@
       "type": "array"
     },
     "kind": {
-      "description": "The serialized `kind` of the resource. It is normally CamelCase and singular.",
+      "description": "The serialized `kind` of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.",
       "minLength": 1,
       "type": "string"
     },
@@ -19,12 +19,12 @@
       "type": "string"
     },
     "plural": {
-      "description": "The plural name of the resource to serve. It must be of format `plural.group` and it must be all lowercase. The value must be a valid DNS label.",
+      "description": "The plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). It must be all lowercase. The value must be a valid DNS label.",
       "minLength": 1,
       "type": "string"
     },
     "shortNames": {
-      "description": "Short names for the resource.  It must be all lowercase and valid DNS labels.",
+      "description": "Short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase and valid DNS labels.",
       "items": {
         "type": "string"
       },
