@@ -169,49 +169,44 @@
 
 ## Changes to apimachinery ListMeta
 - io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta remainingItemCount description changed.
-- io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta selfLink description changed. DPRECATED. Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+- io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta selfLink description changed.
 
-
-
-New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceConversion.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinition.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionCondition.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionList.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionNames.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionSpec.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionStatus.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionVersion.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresourceStatus.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresources.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceValidation.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ExternalDocumentation.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrArray.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrStringArray.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ServiceReference.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookClientConfig.json
-Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookConversion.json
-
-
-New operations
-Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: deleteApiextensionsV1CollectionCustomResourceDefinition.json
-Only in 1.16/ops/: deleteApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: getApiextensionsV1APIResources.json
-Only in 1.16/ops/: listApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinitionStatus.json
-Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinitionStatus.json
-Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinitionStatus.json
-Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinition.json
-Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
+## New API group io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceConversion.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinition.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionCondition.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionList.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionNames.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionSpec.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionStatus.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionVersion.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresourceScale.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresourceStatus.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresources.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceValidation.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ExternalDocumentation.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrArray.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrStringArray.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ServiceReference.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookClientConfig.json
+- Only in 1.16/defs/: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookConversion.json
+- Only in 1.16/ops/: createApiextensionsV1CustomResourceDefinition.json
+- Only in 1.16/ops/: deleteApiextensionsV1CollectionCustomResourceDefinition.json
+- Only in 1.16/ops/: deleteApiextensionsV1CustomResourceDefinition.json
+- Only in 1.16/ops/: getApiextensionsV1APIResources.json
+- Only in 1.16/ops/: listApiextensionsV1CustomResourceDefinition.json
+- Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinition.json
+- Only in 1.16/ops/: patchApiextensionsV1CustomResourceDefinitionStatus.json
+- Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinition.json
+- Only in 1.16/ops/: readApiextensionsV1CustomResourceDefinitionStatus.json
+- Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinition.json
+- Only in 1.16/ops/: replaceApiextensionsV1CustomResourceDefinitionStatus.json
+- IGNORED. Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinition.json
+- IGNORED. Only in 1.16/ops/: watchApiextensionsV1CustomResourceDefinitionList.json
 
 
 - io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration deprecated in 1.16, will be removed in 1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
