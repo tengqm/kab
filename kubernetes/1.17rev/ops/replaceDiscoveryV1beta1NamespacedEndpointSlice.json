@@ -3,14 +3,14 @@
     "*/*"
   ],
   "description": "replace the specified EndpointSlice",
-  "operationId": "replaceDiscoveryV1alpha1NamespacedEndpointSlice",
+  "operationId": "replaceDiscoveryV1beta1NamespacedEndpointSlice",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointSlice.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.UPDATE"
       }
     },
     {
@@ -34,7 +34,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/discovery.k8s.io/v1alpha1/namespaces/{namespace}/endpointslices/{name}",
+  "path": "/apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +44,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointSlice.GET"
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
       }
     },
     "201": {
       "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointSlice.GET"
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
       }
     },
     "401": {
@@ -61,13 +61,13 @@
     "https"
   ],
   "tags": [
-    "discovery_v1alpha1"
+    "discovery_v1beta1"
   ],
   "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "discovery.k8s.io",
     "kind": "EndpointSlice",
-    "version": "v1alpha1"
+    "version": "v1beta1"
   }
 }

@@ -4,14 +4,14 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "discovery.k8s.io/v1alpha1"
+        "discovery.k8s.io/v1beta1"
       ],
       "type": "string"
     },
     "items": {
       "description": "List of endpoint slices",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointSlice.GET"
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
       },
       "type": "array",
       "x-kubernetes-list-type": "set"
@@ -38,7 +38,7 @@
     {
       "group": "discovery.k8s.io",
       "kind": "EndpointSliceList",
-      "version": "v1alpha1"
+      "version": "v1beta1"
     }
   ]
 }

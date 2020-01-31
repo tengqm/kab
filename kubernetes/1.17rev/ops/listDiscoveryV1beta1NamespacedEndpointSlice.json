@@ -3,7 +3,7 @@
     "*/*"
   ],
   "description": "list or watch objects of kind EndpointSlice",
-  "operationId": "listDiscoveryV1alpha1EndpointSliceForAllNamespaces",
+  "operationId": "listDiscoveryV1beta1NamespacedEndpointSlice",
   "parameters": [
     {
       "$ref": "#/parameters/allowWatchBookmarks"
@@ -21,9 +21,6 @@
       "$ref": "#/parameters/limit"
     },
     {
-      "$ref": "#/parameters/pretty"
-    },
-    {
       "$ref": "#/parameters/resourceVersion"
     },
     {
@@ -31,9 +28,15 @@
     },
     {
       "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/discovery.k8s.io/v1alpha1/endpointslices",
+  "path": "/apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices",
   "produces": [
     "application/json",
     "application/yaml",
@@ -45,7 +48,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointSliceList"
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSliceList"
       }
     },
     "401": {
@@ -56,13 +59,13 @@
     "https"
   ],
   "tags": [
-    "discovery_v1alpha1"
+    "discovery_v1beta1"
   ],
   "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "discovery.k8s.io",
     "kind": "EndpointSlice",
-    "version": "v1alpha1"
+    "version": "v1beta1"
   }
 }
