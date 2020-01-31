@@ -1,0 +1,44 @@
+{
+  "description": "The cluster validation information.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "conditions": {
+      "description": "List of component conditions observed",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ComponentCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "ComponentStatus"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "ComponentStatus",
+      "version": "v1"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "description": "A reference to Service object",
+  "properties": {
+    "name": {
+      "description": "The name of the Service",
+      "minLength": 1,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The namespace of the Service.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "path": {
+      "description": "An URL path which will be sent in any request to this service. '`/`' and '' are always valid paths. '`//`' is invalid. The path has start with a '`/`'. The trailing '`/`' will be ignored. Each path segment must be a valid DNS subdomain.",
+      "type": "string"
+    },
+    "port": {
+      "default": 443,
+      "description": "If specified, the port on the service that hosting webhook.",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "namespace",
+    "name"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,62 @@
+{
+  "description": "Metadata that all persisted resources must have, which includes all objects users create.",
+  "properties": {
+    "annotations": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character.  The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
+      "type": "object"
+    },
+    "clusterName": {
+      "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create request.",
+      "type": "string"
+    },
+    "deletionGracePeriodSeconds": {
+      "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.",
+      "format": "int64",
+      "type": "integer"
+    },
+
+    "finalizers": {
+      "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed.",
+      "items": {
+        "description": "The name of the finalizer must is either a standard finalizer name (e.g. 'kubernetes', 'orphan', 'foregroundDeletion'), or it contains at least one slash ('/').",
+        "type": "string"
+      },
+      "type": "array",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "generateName": {
+      "description": "An optional prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the `name` field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return '201 Created' or '500' with Reason 'ServerTimeout' indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the 'Retry-After' header). Applied only if `name` is not specified.",
+      "type": "string"
+    },
+    "labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects.  Both the key and the value must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character. The key must be between 1 and 63 characters. The key can have '/' in it thus referred to as 'qualified name'. The prefix part of a qualified name must be a valid DNS subdomain name. The value must be less than 64 characters with empty string allowed.",
+      "type": "object"
+    },
+    "managedFields": {
+      "description": "This maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like 'ci-cd'. The set of fields is always in the version that the workflow used when modifying the object.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry"
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated.",
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The space within each name must be unique. An empty `namespace` is equivalent to the '`default`' namespace. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL. Cannot be updated.",
+      "default": "default",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

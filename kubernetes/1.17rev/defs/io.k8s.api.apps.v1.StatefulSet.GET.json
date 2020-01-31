@@ -1,0 +1,42 @@
+{
+  "description": "A set of pods with consistent identities. Identities are defined as: - Network: A single stable DNS and hostname. - Storage: As many VolumeClaims as requested. The StatefulSet guarantees that a given network identity will always map to the same storage identity.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "apps/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "StatefulSet"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec",
+      "description": "The desired identities of pods in this set."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetStatus",
+      "description": "The current status of Pods in this StatefulSet. This data may be out of date by some window of time."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "apps",
+      "kind": "StatefulSet",
+      "version": "v1"
+    }
+  ]
+}

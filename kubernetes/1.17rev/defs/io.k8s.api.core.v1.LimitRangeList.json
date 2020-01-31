@@ -1,0 +1,43 @@
+{
+  "description": "A list of LimitRange items.",
+  "properties": {
+    "apiVersion": {
+      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of LimitRange objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource this object represents.",
+      "enum": [
+        "LimitRangeList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata."
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "LimitRangeList",
+      "version": "v1"
+    }
+  ]
+}

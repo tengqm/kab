@@ -1,0 +1,39 @@
+{
+  "description": "A version for CustomResourceDefinition.",
+  "properties": {
+    "additionalPrinterColumns": {
+      "description": "Additional columns returned in table output. If no columns are specified, a single column displaying the age of the custom resource is used.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition"
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "The version name, e.g. '`v1`', '`v2beta1`', etc. The custom resources are served under this version at '`/apis/<group>/<version>/...`' if `served` is true. The value must be a valid DNS label.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceValidation",
+      "description": "The schema used for validation, pruning, and defaulting of this version of the custom resource."
+    },
+    "served": {
+      "description": "A flag enabling/disabling this version to be served via REST APIs",
+      "type": "boolean"
+    },
+    "storage": {
+      "description": "This flag indicates that the `version` should be used when persisting custom resources to storage. There must be exactly one version with `storage` set to true.",
+      "type": "boolean"
+    },
+    "subresources": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresources",
+      "description": "What subresources this version of the defined custom resource have."
+    }
+  },
+  "required": [
+    "name",
+    "served",
+    "storage"
+  ],
+  "type": "object"
+}

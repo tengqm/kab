@@ -1,0 +1,75 @@
+{
+  "description": "delete a CustomResourceDefinition",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiextensions_v1beta1"
+  ],
+  "operationId": "deleteApiextensionsV1beta1CustomResourceDefinition",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the CustomResourceDefinition",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "delete",
+  "x-kubernetes-group-version-kind": {
+    "group": "apiextensions.k8s.io",
+    "kind": "CustomResourceDefinition",
+    "version": "v1beta1"
+  },
+  "verb": "delete",
+  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}"
+}

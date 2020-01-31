@@ -1,0 +1,37 @@
+{
+  "description": "Details about state of namespace.",
+  "properties": {
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time"
+    },
+    "message": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition, one of True, False, Unknown.",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of namespace controller condition.",
+      "enum": [
+        "NamespaceDeletionDiscoveryFailure",
+        "NamespaceDeletionContentFailure",
+        "NamespaceDeletionGroupVersionParsingFailure"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
+}

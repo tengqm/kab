@@ -1,0 +1,41 @@
+{
+  "description": "The current status of a Job.",
+  "properties": {
+    "active": {
+      "description": "The number of actively running Pods.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "completionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Time when the Job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
+    },
+    "conditions": {
+      "description": "The latest available observations of an object's current state.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.JobCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "failed": {
+      "description": "The number of Pods which reached phase '`Failed`'.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "startTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The time when the Job was acknowledged by the controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
+    },
+    "succeeded": {
+      "description": "The number of Pods which reached phase '`Succeeded`'.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}
