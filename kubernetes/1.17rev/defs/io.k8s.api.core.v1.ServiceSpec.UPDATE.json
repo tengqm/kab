@@ -45,7 +45,7 @@
       "type": "array"
     },
     "ports": {
-      "description": "The list of ports that are exposed by this service.",
+      "description": "The list of ports that are exposed by this service. Required when service is not headless service and it is not of type `ExternalName`.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ServicePort"
       },
@@ -72,7 +72,7 @@
     },
     "sessionAffinity": {
       "default": "None",
-      "description": "Used to maintain session affinity. Setting this to 'ClientIP' enables client IP based session affinity.",
+      "description": "Used to maintain session affinity. Setting this to '`ClientIP`' enables client IP based session affinity.",
       "enum": [
         "ClientIP",
         "None"
@@ -82,6 +82,13 @@
     "sessionAffinityConfig": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SessionAffinityConfig",
       "description": "The configurations of session affinity."
+    },
+    "topologyKeys": {
+      "description": "A preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service. It cannot be used at the same time as `externalTrafficPolicy=Local`. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value '`*`' may be used to mean 'any topology'. This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     },
     "type": {
       "default": "ClusterIP",
