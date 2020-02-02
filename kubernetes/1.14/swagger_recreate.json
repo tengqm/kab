@@ -1,7 +1,7 @@
 {
   "info": {
     "title": "Kubernetes",
-    "version": "v1.13.7"
+    "version": "v1.14.4"
   },
   "swagger": "2.0",
   "definitions": {
@@ -10367,7 +10367,7 @@
           "type": "string"
         },
         "runtimeClassName": {
-          "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain.",
+          "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain. This is a beta feature as of Kubernetes v1.14.",
           "type": "string"
         },
         "schedulerName": {
@@ -10550,7 +10550,7 @@
           "type": "string"
         },
         "runtimeClassName": {
-          "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain.",
+          "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain. This is a beta feature as of Kubernetes v1.14.",
           "type": "string"
         },
         "schedulerName": {
@@ -10714,7 +10714,7 @@
           "type": "string"
         },
         "runtimeClassName": {
-          "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain.",
+          "description": "This refers to a RuntimeClass object in the 'node.k8s.io' group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the 'legacy' RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value, if specified, must be a valid DNS subdomain. This is a beta feature as of Kubernetes v1.14.",
           "type": "string"
         },
         "schedulerName": {
@@ -18348,23 +18348,27 @@
       "type": "object"
     },
     "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig": {
-      "description": "Information to make a TLS connection with a webhook.",
+      "description": "Information to make a TLS connection with a webhook. Either `service` or `url` must be specified. If the webhook is running within the cluster, then you should use `service`.",
       "properties": {
         "caBundle": {
           "description": "A PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.",
           "format": "byte",
           "type": "string"
         },
-        "oneOf": {
-          "service": {
-            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference",
-            "description": "A reference to the service for this webhook. Either `service` or `url` must be specified. If the webhook is running within the cluster, then you should use `service`. Port 443 will be used if it is open, otherwise it is an error."
+        "oneOf": [
+          {
+            "service": {
+              "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ServiceReference",
+              "description": "A reference to the service for this webhook. Port 443 will be used if it is open, otherwise it is an error."
+            }
           },
-          "url": {
-            "description": "The location of the webhook, in standard URL form (``scheme://host:port/path``). Exactly one of `url` or `service` must be specified. The `host` should not refer to a service running in the cluster; use the `service` field instead. The `host` might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address. Please note that using ``localhost`` or ``127.0.0.1`` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster. The scheme must be '`https`'. A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier. Attempting to use a user or basic auth e.g. '`user:password@`' is not allowed. Fragments ('`#...`') and query parameters ('`?...`') are not allowed, either.",
-            "type": "string"
+          {
+            "url": {
+              "description": "The location of the webhook, in standard URL form ('`scheme://host:port/path`'). The `host` should not refer to a service running in the cluster; use the `service` field instead. The `host` might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address. Please note that using '`localhost`' or '`127.0.0.1`' as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster. The scheme must be '`https`'. A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier. Attempting to use a user or basic auth e.g. '`user:password@`' is not allowed. Fragments ('`#...`') and query parameters ('`?...`') are not allowed, either.",
+              "type": "string"
+            }
           }
-        }
+        ]
       },
       "type": "object"
     },
@@ -20151,7 +20155,7 @@
       "uniqueItems": true
     },
     "exact": {
-      "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'.",
+      "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
       "in": "query",
       "name": "exact",
       "required": false,
@@ -20159,7 +20163,7 @@
       "uniqueItems": true
     },
     "export": {
-      "description": "Should this value be exported.  Export strips fields that a user can not specify.",
+      "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
       "in": "query",
       "name": "export",
       "required": false,

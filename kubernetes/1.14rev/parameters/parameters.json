@@ -19,7 +19,7 @@
     "uniqueItems": true
   },
   "exact": {
-    "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'.",
+    "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
     "in": "query",
     "name": "exact",
     "required": false,
@@ -27,7 +27,7 @@
     "uniqueItems": true
   },
   "export": {
-    "description": "Should this value be exported.  Export strips fields that a user can not specify.",
+    "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
     "in": "query",
     "name": "export",
     "required": false,
@@ -73,7 +73,7 @@
     "required": false,
     "type": "boolean",
     "uniqueItems": true
-   },
+  },
   "labelSelector": {
     "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
     "in": "query",
