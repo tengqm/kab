@@ -1,0 +1,49 @@
+{
+  "description": "The originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.",
+  "properties": {
+    "kind": {
+      "description": "The type of the subject.",
+      "enum": [
+        "User",
+        "Group",
+        "ServiceAccount"
+      ],
+      "type": "string"
+    },
+    "oneOf": [
+      {
+        "group": {
+          "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.GroupSubject",
+          "description": "The group of the request originator. Required when `type` is set to '`Group`'."
+        }
+      },
+
+      {
+        "serviceAccount": {
+          "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.ServiceAccountSubject",
+          "description": "The service account of the request originator. Required when `type` is set to '`ServiceAccount`'."
+        }
+      },
+      {
+        "user": {
+          "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.UserSubject",
+          "description": "The service account of the request originator. Required when `type` is set to '`User`'."
+        }
+      }
+    ]
+  },
+  "required": [
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-unions": [
+    {
+      "discriminator": "kind",
+      "fields-to-discriminateBy": {
+        "group": "Group",
+        "serviceAccount": "ServiceAccount",
+        "user": "User"
+      }
+    }
+  ]
+}

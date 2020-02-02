@@ -1,0 +1,34 @@
+{
+  "description": "PolicyRulesWithSubjects prescribes a test on an API request. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. A request is matched if and only if both (a) at least one member of subjects matches the request and (b) at least one member of `resourceRules` or `nonResourceRules` matches the request. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.",
+  "properties": {
+    "nonResourceRules": {
+      "description": "A list of rules that identify matching requests according to their verbs and the target non-resource URLs.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.NonResourcePolicyRule"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "set"
+    },
+    "resourceRules": {
+      "description": "A list of rules that identify matching requests according to their verbs and the target resources.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.ResourcePolicyRule"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "set"
+    },
+    "subjects": {
+      "description": "The list of normal user, serviceaccount, or group that this rule cares about. A slice that includes both the '`system:authenticated`' and '`system:unauthenticated`' user groups matches every request.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.Subject"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "set"
+    }
+  },
+  "required": [
+    "subjects"
+  ],
+  "type": "object"
+}
