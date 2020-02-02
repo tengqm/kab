@@ -1,40 +1,9 @@
 {
-  "description": "read log of the specified Pod",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "text/plain",
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
+  "description": "read log of the specified Pod",
   "operationId": "readCoreV1NamespacedPodLog",
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "type": "string"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "x-kubernetes-action": "get",
-  "x-kubernetes-group-version-kind": {
-    "group": "",
-    "kind": "Pod",
-    "version": "v1"
-  },
-  "verb": "get",
-  "path": "/api/v1/namespaces/{namespace}/pods/{name}/log",
   "parameters": [
     {
       "uniqueItems": true,
@@ -49,6 +18,13 @@
       "description": "Follow the log stream of the pod. Defaults to false.",
       "name": "follow",
       "in": "query"
+    },
+    {
+      "description": "insecureSkipTLSVerifyBackend indicates that the API server should not confirm the validity of the serving certificate of the backend it is connecting to. This will make the HTTPS connection between the API server and the backend insecure. This means the API server cannot verify the log data it is receiving came from the real kubelet. If the `kubelet` is configured to verify the API server's TLS credentials, it does not mean the connection to the real `kubelet` is vulnerable to a man in the middle attack (e.g. an attacker could not intercept the actual log data coming from the real `kubelet`).",
+      "in": "query",
+      "name": "insecureSkipTLSVerifyBackend",
+      "type": "boolean",
+      "uniqueItems": true
     },
     {
       "uniqueItems": true,
@@ -99,5 +75,36 @@
       "name": "timestamps",
       "in": "query"
     }
-  ]
+  ],
+  "produces": [
+    "text/plain",
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "Pod",
+    "version": "v1"
+  },
+  "verb": "get",
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/log"
 }
