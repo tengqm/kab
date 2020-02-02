@@ -10,7 +10,7 @@
       "type": "string"
     },
     "runAsUserName": {
-      "description": "The Windows user name to run the entrypoint of the container. Defaults to the `user` specified in image metadata if unspecified. May also be set in `podSecurityContext`. If set in both `securityContext` and `podSecurityContext`, the value specified in `securityContext` takes precedence. This field is alpha-level and it is only honored by servers that enable the `WindowsRunAsUserName` feature flag.",
+      "description": "The Windows user name to run the entrypoint of the container. Defaults to the `user` specified in image metadata if unspecified. May also be set in `podSecurityContext`. If set in both `securityContext` and `podSecurityContext`, the value specified in `securityContext` takes precedence. This field is beta-level and may be disabled with the `WindowsRunAsUserName` feature flag.",
       "type": "string"
     }
   },
