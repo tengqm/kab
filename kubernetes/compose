@@ -61,7 +61,7 @@ def validate_definition(needle, hack):
                 pos = v.index("/parameters/")
                 param = v[pos+12:]
                 if param not in hack["parameters"]:
-                    print("\033[31m  Mising parameter %s \033[0m" % param)
+                    print("\033[31m  Missing parameter %s \033[0m" % param)
                     res = False
             if "/definitions/" in v:
                 pos = v.index("/definitions/")
@@ -96,8 +96,8 @@ def process_operations(data):
             res = False
             continue
 
-        res = validate_definition(opdata, data)
-        if not res:
+        res1 = validate_definition(opdata, data)
+        if not res1:
             print("\033[31m  Failed validating %s \033[0m" % op_id)
             res = False
 
