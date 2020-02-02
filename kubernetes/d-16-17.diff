@@ -34,7 +34,7 @@
 - IGNORED. Only in 1.17/ops: watchDiscoveryV1beta1NamespacedEndpointSlice.json
 - IGNORED. Only in 1.17/ops: watchDiscoveryV1beta1NamespacedEndpointSliceList.json
 
-# storage.k8s.io/v1 CSINode
+## storage.k8s.io/v1 CSINode
 - Only in 1.17/defs: io.k8s.api.storage.v1.CSINode.json
 - Only in 1.17/defs: io.k8s.api.storage.v1.CSINodeDriver.json
 - Only in 1.17/defs: io.k8s.api.storage.v1.CSINodeList.json
@@ -50,7 +50,7 @@
 - IGNORED. Only in 1.17/ops: watchStorageV1CSINode.json
 - IGNORED. Only in 1.17/ops: watchStorageV1CSINodeList.json
 
-# New flowcontrol.k8s.io/v1alpha1 API group
+## New flowcontrol.k8s.io/v1alpha1 API group
 - Only in 1.17/defs: io.k8s.api.flowcontrol.v1alpha1.FlowDistinguisherMethod.json
 - Only in 1.17/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchema.json
 - Only in 1.17/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchemaCondition.json
@@ -100,10 +100,15 @@
 - IGNORED. Only in 1.17/ops: watchFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
 - IGNORED. Only in 1.17/ops: watchFlowcontrolApiserverV1alpha1PriorityLevelConfigurationList.json
 
+## parameters change
+- allowWatchBookmarks is not longer alpha.
 
-- allowWatchBookmarks is not longer beta.
-- rbac/v1alpha1 deprecated, to remove in 1.20: ClusterRole, ClusterRoleBinding, ClusterRoleBindingList, ClusterRoleList, Role, RoleList, RoleBinding, RoleBindingList
+## - rbac/v1alpha1 deprecated to remove in 1.20
+- ClusterRole, ClusterRoleBinding, ClusterRoleBindingList, ClusterRoleList, Role, RoleList, RoleBinding, RoleBindingList
+
+## Changes to EnvVarSource
 - io.k8s.api.core.v1.EnvVarSource fieldRef can have status.podIPs.
+
 - io.k8s.api.core.v1.PodSpec shareProcessNamespace is no longer beta-level. It could be disabled by PodShareProcessNamespace gate before.
 - io.k8s.api.core.v1.ServiceSpec has new field `topologyKeys`.
 - io.k8s.api.core.v1.VolumeMount subPathExpr is GA.
