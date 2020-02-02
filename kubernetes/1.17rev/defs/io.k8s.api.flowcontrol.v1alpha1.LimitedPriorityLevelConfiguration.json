@@ -1,0 +1,17 @@
+{
+  "description": "This specifies how to handle requests that are subject to limits, including how requests for this priority level are limited and what should be done with requests that exceed the limit.",
+  "properties": {
+    "assuredConcurrencyShares": {
+      "default": 30,
+      "description": "This configures the execution limit (ACS), which is a limit on the number of requests of this priority level that may be exeucting at a given time. The server's concurrency limit is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value, i.e. the number of requests that may be executing at a time. For each such priority level, `ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )`. Larger values of ACS mean more reserved concurrent requests (at the expense of every other priority levels).",
+      "minimum": 1,
+      "format": "int32",
+      "type": "integer"
+    },
+    "limitResponse": {
+      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.LimitResponse",
+      "description": "This indicates what to do with requests that can not be executed right now"
+    }
+  },
+  "type": "object"
+}
