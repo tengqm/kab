@@ -1,6 +1,6 @@
 {
   "allowWatchBookmarks": {
-    "description": "allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.",
+    "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.",
     "in": "query",
     "name": "allowWatchBookmarks",
     "required": false,
@@ -91,7 +91,7 @@
     "description": "object name and auth scope, such as for teams and projects",
     "in": "path",
     "name": "namespace",
-    "required": false,
+    "required": true,
     "type": "string",
     "uniqueItems": true
   },

@@ -1,6 +1,6 @@
 {
   "allowWatchBookmarks": {
-    "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver. This field is alpha.",
+    "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver.",
     "in": "query",
     "name": "allowWatchBookmarks",
     "required": false,
@@ -27,7 +27,7 @@
     "uniqueItems": true
   },
   "exact": {
-    "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'.",
+    "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
     "in": "query",
     "name": "exact",
     "required": false,
@@ -35,7 +35,7 @@
     "uniqueItems": true
   },
   "export": {
-    "description": "Should this value be exported.  Export strips fields that a user can not specify.",
+    "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
     "in": "query",
     "name": "export",
     "required": false,
@@ -74,14 +74,6 @@
     "type": "integer",
     "uniqueItems": true
   },
-  "includeUninitialized": {
-    "description": "If true, partially initialized resources are included in the response.",
-    "in": "query",
-    "name": "includeUninitialized",
-    "required": false,
-    "type": "boolean",
-    "uniqueItems": true
-   },
   "labelSelector": {
     "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
     "in": "query",
