@@ -375,6 +375,38 @@
       ],
       "type": "object"
     },
+    "io.k8s.api.admissionregistration.v1.ServiceReference": {
+      "description": "Reference to a Service",
+      "properties": {
+        "name": {
+          "description": "The name of the Service",
+          "minLength": 1,
+          "type": "string"
+        },
+        "namespace": {
+          "description": "The namespace of the Service",
+          "minLength": 1,
+          "type": "string"
+        },
+        "path": {
+          "description": "An optional URL path which will be sent in any request to this Service.",
+          "type": "string"
+        },
+        "port": {
+          "default": 443,
+          "description": "If specified, the port on the Service that hosting webhook.",
+          "maximum": 65535,
+          "minimum": 1,
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "namespace",
+        "name"
+      ],
+      "type": "object"
+    },
     "io.k8s.api.admissionregistration.v1.ValidatingWebhook": {
       "description": "An admission webhook and the resources and operations it applies to.",
       "properties": {
@@ -1197,7 +1229,7 @@
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDTE",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
           "description": "Standard object metadata"
         },
         "webhooks": {
@@ -1490,7 +1522,7 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetSpec",
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetSpec.CREATE",
           "description": "The desired behavior of this daemon set."
         }
       },
@@ -1672,7 +1704,7 @@
         }
       ]
     },
-    "io.k8s.api.apps.v1.DaemonSetSpec": {
+    "io.k8s.api.apps.v1.DaemonSetSpec.CREATE": {
       "description": "The specification of a daemon set.",
       "properties": {
         "minReadySeconds": {
@@ -1694,7 +1726,79 @@
           "description": "A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels."
         },
         "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
+          "description": "An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified)."
+        },
+        "updateStrategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetUpdateStrategy",
+          "description": "An update strategy to replace existing DaemonSet pods with new pods."
+        }
+      },
+      "required": [
+        "selector",
+        "template"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.apps.v1.DaemonSetSpec.GET": {
+      "description": "The specification of a daemon set.",
+      "properties": {
+        "minReadySeconds": {
+          "default": 0,
+          "description": "The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Default value 0 means the pods will be considered available as soon as it is ready).",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "revisionHistoryLimit": {
+          "default": 10,
+          "description": "The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels."
+        },
+        "template": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
+          "description": "An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified)."
+        },
+        "updateStrategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetUpdateStrategy",
+          "description": "An update strategy to replace existing DaemonSet pods with new pods."
+        }
+      },
+      "required": [
+        "selector",
+        "template"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.apps.v1.DaemonSetSpec.UPDATE": {
+      "description": "The specification of a daemon set.",
+      "properties": {
+        "minReadySeconds": {
+          "default": 0,
+          "description": "The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Default value 0 means the pods will be considered available as soon as it is ready).",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "revisionHistoryLimit": {
+          "default": 10,
+          "description": "The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels."
+        },
+        "template": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
           "description": "An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified)."
         },
         "updateStrategy": {
@@ -1858,7 +1962,7 @@
           "description": "Specification of the desired behavior of the Deployment."
         },
         "status": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.DeploymentStatus",
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStatus",
           "description": "The current information/status for the Deployment."
         }
       },
@@ -1901,7 +2005,7 @@
           "description": "Specification of the desired behavior of the Deployment."
         },
         "status": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.DeploymentStatus",
+          "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStatus",
           "description": "The current information/status for the Deployment."
         }
       },
@@ -2468,7 +2572,7 @@
           "description": "A label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. Empty selector is invalid."
         },
         "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
           "description": "The object that describes the pod that will be created if insufficient replicas are detected."
         }
       },
@@ -2579,7 +2683,7 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec",
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec.CREATE",
           "description": "The desired identities of pods in this set."
         },
         "status": {
@@ -2621,7 +2725,7 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec",
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec.GET",
           "description": "The desired identities of pods in this set."
         },
         "status": {
@@ -2663,7 +2767,7 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE"
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec",
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetSpec.UPDATE",
           "description": "The desired identities of pods in this set."
         },
         "status": {
@@ -2762,7 +2866,7 @@
         }
       ]
     },
-    "io.k8s.api.apps.v1.StatefulSetSpec": {
+    "io.k8s.api.apps.v1.StatefulSetSpec.CREATE": {
       "description": "The specification of a StatefulSet.",
       "properties": {
         "podManagementPolicy": {
@@ -2797,7 +2901,7 @@
           "type": "string"
         },
         "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
           "description": "The object describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet."
         },
         "updateStrategy": {
@@ -2807,7 +2911,121 @@
         "volumeClaimTemplates": {
           "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim"
+            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "selector",
+        "template",
+        "serviceName"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.apps.v1.StatefulSetSpec.GET": {
+      "description": "The specification of a StatefulSet.",
+      "properties": {
+        "podManagementPolicy": {
+          "default": "OrderedReady",
+          "description": "This controls how Pods are created during initial scale up, when replacing Pods on nodes, or when scaling down. The default policy is '`OrderedReady`', where Pods are created in increasing order and the controller will wait until each Pod is ready before continuing. When scaling down, the Pods are removed in the opposite order. The alternative policy is '`Parallel`' which will create Pods in parallel to match the desired scale without waiting, and on scale down will delete all Pods at once. Cannot be updated.",
+          "enum": [
+            "OrderedReady",
+            "Parallel"
+          ],
+          "type": "string"
+        },
+        "replicas": {
+          "default": 1,
+          "description": "The desired number of replicas of the given `template`. These are replicas in the sense that they are instantiations of the same `template`, but individual replicas also have a consistent identity.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "revisionHistoryLimit": {
+          "default": 10,
+          "description": "The maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied spec version. Cannot be updated.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "A label query over Pods that should match the replica count. It must match the Pod template's labels. Cannot be updated."
+        },
+        "serviceName": {
+          "description": "The name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: `pod-specific-string.serviceName.default.svc.cluster.local` where '`pod-specific-string`' is managed by the StatefulSet controller. Cannot be updated.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "template": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
+          "description": "The object describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet."
+        },
+        "updateStrategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",
+          "description": "The update strategy that will be employed to update Pods in the StatefulSet when a revision is made to `template`."
+        },
+        "volumeClaimTemplates": {
+          "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "selector",
+        "template",
+        "serviceName"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.apps.v1.StatefulSetSpec.UPDATE": {
+      "description": "The specification of a StatefulSet.",
+      "properties": {
+        "podManagementPolicy": {
+          "default": "OrderedReady",
+          "description": "This controls how Pods are created during initial scale up, when replacing Pods on nodes, or when scaling down. The default policy is '`OrderedReady`', where Pods are created in increasing order and the controller will wait until each Pod is ready before continuing. When scaling down, the Pods are removed in the opposite order. The alternative policy is '`Parallel`' which will create Pods in parallel to match the desired scale without waiting, and on scale down will delete all Pods at once. Cannot be updated.",
+          "enum": [
+            "OrderedReady",
+            "Parallel"
+          ],
+          "type": "string"
+        },
+        "replicas": {
+          "default": 1,
+          "description": "The desired number of replicas of the given `template`. These are replicas in the sense that they are instantiations of the same `template`, but individual replicas also have a consistent identity.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "revisionHistoryLimit": {
+          "default": 10,
+          "description": "The maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied spec version. Cannot be updated.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "A label query over Pods that should match the replica count. It must match the Pod template's labels. Cannot be updated."
+        },
+        "serviceName": {
+          "description": "The name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: `pod-specific-string.serviceName.default.svc.cluster.local` where '`pod-specific-string`' is managed by the StatefulSet controller. Cannot be updated.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "template": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
+          "description": "The object describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet."
+        },
+        "updateStrategy": {
+          "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",
+          "description": "The update strategy that will be employed to update Pods in the StatefulSet when a revision is made to `template`."
+        },
+        "volumeClaimTemplates": {
+          "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
           },
           "type": "array"
         }
@@ -3030,7 +3248,7 @@
         "items": {
           "description": "List of AuditSink objects.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
+            "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
           },
           "type": "array"
         },
@@ -4365,7 +4583,7 @@
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
           "description": "Standard object metadata"
         },
         "spec": {
@@ -4408,7 +4626,7 @@
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
           "description": "Standard object metadata"
         },
         "spec": {
@@ -5085,7 +5303,7 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec",
+          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec.CREATE",
           "description": "Specification of the desired behavior of a Job"
         },
         "status": {
@@ -5128,7 +5346,7 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec",
+          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec.GET",
           "description": "Specification of the desired behavior of a Job"
         },
         "status": {
@@ -5171,7 +5389,7 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec",
+          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec.UPDATE",
           "description": "Specification of the desired behavior of a Job"
         },
         "status": {
@@ -5250,7 +5468,7 @@
         "items": {
           "description": "The list of Jobs.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+            "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
           },
           "type": "array"
         },
@@ -5280,7 +5498,7 @@
         }
       ]
     },
-    "io.k8s.api.batch.v1.JobSpec": {
+    "io.k8s.api.batch.v1.JobSpec.CREATE": {
       "description": "This describes how the Job execution will look like.",
       "properties": {
         "activeDeadlineSeconds": {
@@ -5317,7 +5535,113 @@
           "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The selector must match the labels defined on the Pod template. This field cannot be updated."
         },
         "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
+          "description": "Describes the Pod that will be created when executing a Job. This field cannot be updated."
+        },
+        "ttlSecondsAfterFinished": {
+          "description": "This limits the lifetime of a Job that has finished execution (either '`Complete`' or '`Failed`'). If this field is set, the specified seconds after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the `TTLAfterFinished` feature.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "selector",
+        "template"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.batch.v1.JobSpec.GET": {
+      "description": "This describes how the Job execution will look like.",
+      "properties": {
+        "activeDeadlineSeconds": {
+          "description": "The duration in seconds relative to the `startTime` that the Job may be active before the system tries to terminate it.",
+          "format": "int64",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "backoffLimit": {
+          "default": 6,
+          "description": "The number of retries before marking this Job failed",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "completions": {
+          "description": "The desired number of successfully finished Pods the Job should be run with.  Setting to nil means that the success of any Pod signals the success of all Pods, and allows `parallelism` to have any positive value. Setting to 1 means that `parallelism` is limited to 1 and the success of that Pod signals the success of the Job. This field cannot be updated.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "manualSelector": {
+          "description": "This controls the generation of Pod labels and Pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When `false` or unset, the system pick labels unique to this Job and appends those labels to the pod template. When `true`, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other Jobs to not function correctly. However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.",
+          "type": "boolean"
+        },
+        "parallelism": {
+          "description": "The maximum desired number of Pods the Job should run at any given time. The actual number of Pods running in steady state will be less than this number when `((.spec.completions - .status.successful) < .spec.parallelism)`, i.e. when the work left to do is less than max `parallelism`.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The selector must match the labels defined on the Pod template. This field cannot be updated."
+        },
+        "template": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
+          "description": "Describes the Pod that will be created when executing a Job. This field cannot be updated."
+        },
+        "ttlSecondsAfterFinished": {
+          "description": "This limits the lifetime of a Job that has finished execution (either '`Complete`' or '`Failed`'). If this field is set, the specified seconds after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the `TTLAfterFinished` feature.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "selector",
+        "template"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.batch.v1.JobSpec.UPDATE": {
+      "description": "This describes how the Job execution will look like.",
+      "properties": {
+        "activeDeadlineSeconds": {
+          "description": "The duration in seconds relative to the `startTime` that the Job may be active before the system tries to terminate it.",
+          "format": "int64",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "backoffLimit": {
+          "default": 6,
+          "description": "The number of retries before marking this Job failed",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "completions": {
+          "description": "The desired number of successfully finished Pods the Job should be run with.  Setting to nil means that the success of any Pod signals the success of all Pods, and allows `parallelism` to have any positive value. Setting to 1 means that `parallelism` is limited to 1 and the success of that Pod signals the success of the Job. This field cannot be updated.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "manualSelector": {
+          "description": "This controls the generation of Pod labels and Pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When `false` or unset, the system pick labels unique to this Job and appends those labels to the pod template. When `true`, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other Jobs to not function correctly. However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.",
+          "type": "boolean"
+        },
+        "parallelism": {
+          "description": "The maximum desired number of Pods the Job should run at any given time. The actual number of Pods running in steady state will be less than this number when `((.spec.completions - .status.successful) < .spec.parallelism)`, i.e. when the work left to do is less than max `parallelism`.",
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "selector": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+          "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The selector must match the labels defined on the Pod template. This field cannot be updated."
+        },
+        "template": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
           "description": "Describes the Pod that will be created when executing a Job. This field cannot be updated."
         },
         "ttlSecondsAfterFinished": {
@@ -5625,7 +5949,7 @@
           "description": "Standard object's metadata of the jobs created from this template."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec",
+          "$ref": "#/definitions/io.k8s.api.batch.v1.JobSpec.CREATE",
           "description": "Specification of the desired behavior of the job. The `selector` will be auto-generated so must not be specified. The `manualSelector` can be either nil or set to `false`."
         }
       },
@@ -5952,7 +6276,7 @@
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
           "description": "Standard object metadata."
         },
         "spec": {
@@ -6916,7 +7240,7 @@
       "description": "ConfigMap holds configuration data for pods to consume.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+          "description": "The version of the schema for this object representation",
           "enum": [
             "v1"
           ],
@@ -6938,15 +7262,15 @@
           "type": "object"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ConfigMap"
           ],
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
-          "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+          "description": "Standard object's metadata."
         }
       },
       "required": [
@@ -7737,7 +8061,7 @@
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
           "description": "Standard object's metadata."
         },
         "subsets": {
@@ -8976,7 +9300,7 @@
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
           "description": "Standard object's metadata."
         },
         "spec": {
@@ -9094,7 +9418,7 @@
         "items": {
           "description": "A list of LimitRange objects.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange"
+            "$ref": "#/definitions/io.k8s.api.core.v1.LimitRange.GET"
           },
           "type": "array"
         },
@@ -9390,21 +9714,21 @@
       "description": "NamespaceList is a list of Namespaces.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "items": {
-          "description": "Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+          "description": "Items is the list of Namespace objects in the list.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+            "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
           },
           "type": "array"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource.",
           "enum": [
             "NamespaceList"
           ],
@@ -12562,7 +12886,7 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec.GET",
           "description": "The specification of the desired behavior of the replication controller."
         },
         "status": {
@@ -12605,7 +12929,7 @@
           "description": "Standard object's metadata. If the labels of a ReplicationController are empty, they are defaulted to that of the Pod(s) the replication controller manages. The name must be a valid DNS subdomain name."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec.UPDATE",
           "description": "The specification of the desired behavior of the replication controller."
         },
         "status": {
@@ -12767,7 +13091,7 @@
           "type": "object"
         },
         "template": {
-          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec",
+          "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
           "description": "The object that describes the pod that will be created if insufficient replicas are detected."
         }
       },
@@ -13386,7 +13710,7 @@
       "description": "Secret holds secret data of a certain type. The total bytes of the values in the data field must be less than 1MB.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for this object representation",
           "enum": [
             "v1"
           ],
@@ -13401,14 +13725,14 @@
           "type": "object"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource.",
           "enum": [
             "Secret"
           ],
           "type": "string"
         },
         "metadata": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
           "description": "Standard object's metadata."
         },
         "type": {
@@ -15054,7 +15378,7 @@
           "x-kubernetes-list-type": "set"
         },
         "conditions": {
-          "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointConditions",
+          "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointConditions",
           "description": "Information about the current status of the Endpoint."
         },
         "hostname": {
@@ -15650,7 +15974,7 @@
         "items": {
           "description": "A list of schema objects.",
           "items": {
-            "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event"
+            "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
           },
           "type": "array"
         },
@@ -19498,7 +19822,7 @@
           "description": "Standard object metadata. The `name` must be the Kubernetes Node name."
         },
         "spec": {
-          "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINodeSpec",
+          "$ref": "#/definitions/io.k8s.api.storage.v1.CSINodeSpec",
           "description": "The specification of CSINode"
         }
       },
@@ -22395,10 +22719,6 @@
           "format": "int64",
           "type": "integer"
         },
-        "initializers": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Initializers",
-          "description": "This field is a list of initializers that have not yet acted on the object. If nil or empty, this object has been completely initialized. Otherwise, the object is considered uninitialized and is hidden when reading from clients unless explicitly asked to observe uninitialized objects. When an object is created, the system will populate this list with the current set of initializers. Only privileged users may set or modify this list. Once it is empty, it may not be modified further by any user. Changing the result field is permitted."
-        },
         "labels": {
           "additionalProperties": {
             "type": "string"
@@ -23158,7 +23478,7 @@
         "items": {
           "description": "The list of APIService objects",
           "items": {
-            "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService"
+            "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService.GET"
           },
           "type": "array"
         },

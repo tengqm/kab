@@ -63,12 +63,16 @@ def validate_definition(needle, hack):
                 if param not in hack["parameters"]:
                     print("\033[31m  Missing parameter %s \033[0m" % param)
                     res = False
-            if "/definitions/" in v:
+            elif "/definitions/" in v:
                 pos = v.index("/definitions/")
                 defn = v[pos+13:]
                 if defn not in hack["definitions"]:
-                    print("\033[31m  Mising definition %s \033[0m" % defn)
+                    print("\033[31m  Missing definition %s \033[0m" % defn)
                     res = False
+            elif isinstance(v, str):
+                print("\033[31m  Invalid reference %s \033[0m" % v)
+                res = False
+
     return res
 
 
@@ -155,6 +159,11 @@ def main():
     process_parameters(data)
     if not process_operations(data):
         sys.exit(-1)
+    for k, v in data["definitions"].items():
+        if not validate_definition(v, data):
+            print("\033[31m  -- from definition %s \033[0m" % k)
+            sys.exit(-1)
+
     process_security(data)
 
     print(json.dumps(data, indent=2))
