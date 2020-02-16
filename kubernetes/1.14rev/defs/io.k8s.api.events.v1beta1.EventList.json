@@ -2,21 +2,21 @@
   "description": "A collection of Event objects.",
   "properties": {
     "apiVersion": {
-      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "events.k8s.io/v1beta1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "A list of schema objects.",
+      "description": "A list of event objects.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event"
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource",
       "enum": [
         "EventList"
       ],

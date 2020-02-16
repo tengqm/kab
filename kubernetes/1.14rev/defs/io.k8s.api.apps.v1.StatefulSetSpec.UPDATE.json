@@ -33,7 +33,7 @@
       "type": "string"
     },
     "template": {
-      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec",
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
       "description": "The object describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet."
     },
     "updateStrategy": {
@@ -43,7 +43,7 @@
     "volumeClaimTemplates": {
       "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
       },
       "type": "array"
     }
