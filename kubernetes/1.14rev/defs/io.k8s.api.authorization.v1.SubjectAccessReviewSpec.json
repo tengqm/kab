@@ -18,15 +18,13 @@
       },
       "type": "array"
     },
-    "oneOf": {
-      "nonResourceAttributes": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes",
-        "description": "Information for a non-resource access request"
-      },
-      "resourceAttributes": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1.ResourceAttributes",
-        "description": "Information for a resource access request"
-      }
+    "nonResourceAttributes": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes",
+      "description": "Information for a non-resource access request"
+    },
+    "resourceAttributes": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1.ResourceAttributes",
+      "description": "Information for a resource access request"
     },
     "uid": {
       "description": "UID of the requesting user.",
