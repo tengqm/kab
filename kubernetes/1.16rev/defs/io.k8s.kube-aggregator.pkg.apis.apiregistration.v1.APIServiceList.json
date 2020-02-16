@@ -2,7 +2,7 @@
   "description": "A list of APIService objects.",
   "properties": {
     "apiVersion": {
-      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of theschema for the object representation",
       "enum": [
         "apiregistration.k8s.io/v1"
       ],
@@ -11,12 +11,12 @@
     "items": {
       "description": "The list of APIService objects",
       "items": {
-        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService"
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource.",
       "enum": [
         "APIServiceList"
       ],

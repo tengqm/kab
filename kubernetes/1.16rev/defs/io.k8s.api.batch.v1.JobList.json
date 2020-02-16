@@ -2,7 +2,7 @@
   "description": "A collection of Jobs.",
   "properties": {
     "apiVersion": {
-      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "batch/v1"
       ],
@@ -11,12 +11,12 @@
     "items": {
       "description": "The list of Jobs.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource",
       "enum": [
         "JobList"
       ],

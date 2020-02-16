@@ -2,21 +2,21 @@
   "description": "NamespaceList is a list of Namespaces.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "v1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+      "description": "A list of Namespace objects in the list",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource",
       "enum": [
         "NamespaceList"
       ],

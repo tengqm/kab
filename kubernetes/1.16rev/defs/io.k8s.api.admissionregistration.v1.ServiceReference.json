@@ -1,0 +1,30 @@
+{
+  "description": "ServiceReference holds a reference to Service",
+  "properties": {
+    "name": {
+      "description": "The name of the Service",
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The namespace of the Service",
+      "type": "string"
+    },
+    "path": {
+      "description": "An optional URL path which will be sent in any request to this Service.",
+      "type": "string"
+    },
+    "port": {
+      "default": 443,
+      "description": "If specified, the port on the service that hosting webhook",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "namespace",
+    "name"
+  ],
+  "type": "object"
+}

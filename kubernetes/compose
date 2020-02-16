@@ -157,14 +157,21 @@ def main():
     data = process_basic()
     process_definitions(data)
     process_parameters(data)
-    if not process_operations(data):
+
+    OK = False
+    OK = process_operations(data)
+    if not OK:
         sys.exit(-1)
+    
+    process_security(data)
+
     for k, v in data["definitions"].items():
         if not validate_definition(v, data):
             print("\033[31m  -- from definition %s \033[0m" % k)
-            sys.exit(-1)
+            OK = False
 
-    process_security(data)
+    if not OK:
+        sys.exit(-1)
 
     print(json.dumps(data, indent=2))
 
