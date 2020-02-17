@@ -17,7 +17,6 @@
       "format": "int64",
       "type": "integer"
     },
-
     "finalizers": {
       "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed.",
       "items": {
@@ -50,8 +49,8 @@
       "type": "string"
     },
     "namespace": {
-      "description": "The space within each name must be unique. An empty `namespace` is equivalent to the '`default`' namespace. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL. Cannot be updated.",
       "default": "default",
+      "description": "The space within each name must be unique. An empty `namespace` is equivalent to the '`default`' namespace. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL. Cannot be updated.",
       "type": "string"
     }
   },

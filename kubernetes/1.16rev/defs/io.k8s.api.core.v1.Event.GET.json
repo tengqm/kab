@@ -6,7 +6,7 @@
       "type": "string"
     },
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "v1"
       ],
@@ -30,7 +30,7 @@
       "description": "The object that this event is about. The namespace must match that of the event."
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+      "description": "A string value representing the REST resource",
       "enum": [
         "Event"
       ],
@@ -74,11 +74,11 @@
     },
     "type": {
       "description": "Type of this event (Normal, Warning), new types could be added in the future",
-      "type": "string",
       "enum": [
         "Normal",
         "Warning"
-      ]
+      ],
+      "type": "string"
     }
   },
   "required": [
