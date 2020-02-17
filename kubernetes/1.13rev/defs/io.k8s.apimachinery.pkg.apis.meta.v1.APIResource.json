@@ -13,7 +13,7 @@
       "type": "string"
     },
     "kind": {
-      "description": "The kind for the resource",
+      "description": "A string value representing the REST resource",
       "minLength": 1,
       "type": "string"
     },
@@ -41,8 +41,6 @@
     "verbs": {
       "description": "A list of supported kube verbs",
       "items": {
-        "type": "string",
-        "minLength": 1,
         "enum": [
           "get",
           "list",
@@ -53,7 +51,9 @@
           "delete",
           "deletecollection",
           "proxy"
-        ]
+        ],
+        "minLength": 1,
+        "type": "string"
       },
       "minItems": 1,
       "type": "array"

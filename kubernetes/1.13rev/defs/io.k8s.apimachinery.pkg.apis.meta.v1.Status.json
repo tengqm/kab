@@ -2,7 +2,7 @@
   "description": "Status is a return value for calls that don't return other objects.",
   "properties": {
     "apiVersion": {
-      "description": "The versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "v1"
       ],
@@ -18,7 +18,7 @@
       "description": "Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type."
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents. Cannot be updated. In CamelCase.",
+      "description": "A string value representing the REST resource",
       "enum": [
         "Status"
       ],
@@ -38,11 +38,11 @@
     },
     "status": {
       "description": "Status of the operation. One of: 'Success' or 'Failure'.",
-      "type": "string",
       "enum": [
         "Success",
         "Failure"
-      ]
+      ],
+      "type": "string"
     }
   },
   "required": [

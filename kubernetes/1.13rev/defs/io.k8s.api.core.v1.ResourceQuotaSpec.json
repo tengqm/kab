@@ -15,14 +15,14 @@
     "scopes": {
       "description": "A collection of filters that for matching objects tracked by a quota. An empty list matches all objects. For a resource to match, both scopes AND scopeSelector (if specified) must match. For standard resources, when scopes contain Terminating, NotTerminating, NotBestEffort or PriorityClass, the resource in hard can be one of 'cpu', 'memory', 'limits.cpu', 'limits.memory', 'requests.cpu', 'requests.memory' or 'pods'. When scopes contain BestEffort, the resource name in hard can only be 'pods'. 'Terminating' conflicts with 'NonTerminating' and 'BestEffort' conflicts with 'NotBestEffort'. This field is immutable so cannot be updated.",
       "items": {
-        "type": "string",
         "enum": [
           "Terminating",
           "NotTerminating",
           "BestEffort",
           "NotBestEffort",
           "PriorityClass"
-        ]
+        ],
+        "type": "string"
       },
       "type": "array"
     }

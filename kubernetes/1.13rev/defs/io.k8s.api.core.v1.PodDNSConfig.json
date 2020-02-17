@@ -4,8 +4,8 @@
     "nameservers": {
       "description": "A list of DNS name server IP addresses. This will be appended to the base nameservers generated from dnsPolicy. Duplicated nameservers will be removed. When dnsPolicy is set to 'None', there must be at least one name server specified here. Each item must be a valid IP address.",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "type": "string"
       },
       "maxItems": 3,
       "type": "array"

@@ -9,8 +9,8 @@
     "allowedCapabilities": {
       "description": "A list of capabilities that can be requested to add to a container. Capabilities in this field may be added at the Pod author's discretion. You must not list a capability in both `allowedCapabilities` and `requiredDropCapabilities`. If '`*`' is in the list, then `requiredDropCapabilities` must be empty.",
       "items": {
-        "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "type": "string"
       },
       "type": "array"
     },
@@ -44,7 +44,7 @@
     "allowedUnsafeSysctls": {
       "description": "A list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in '`*`' in which case it is considered as a prefix of allowed sysctls. Single '`*`' means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection. This field cannot conflict with the value of `forbiddenSysctls`.",
       "items": {
-        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots (`.`), `_` and `-` in it.", 
+        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots (`.`), `_` and `-` in it.",
         "maxLength": 253,
         "minLength": 1,
         "pattern": "([a-z0-9]([-_a-z0-9]*[a-z0-9])?.)*[a-z0-9]([-_a-z0-9]*[a-z0-9])?",
@@ -66,7 +66,7 @@
     "forbiddenSysctls": {
       "description": "A list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in '`*`' in which case it is considered as a prefix of forbidden sysctls. Single '`*`' means all sysctls are forbidden. This field cannot conflict with `allowedUnsafeSysctls`.",
       "items": {
-        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots (`.`), `_` and `-` in it.", 
+        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots (`.`), `_` and `-` in it.",
         "maxLength": 253,
         "minLength": 1,
         "pattern": "([a-z0-9]([-_a-z0-9]*[a-z0-9])?.)*[a-z0-9]([-_a-z0-9]*[a-z0-9])?",
