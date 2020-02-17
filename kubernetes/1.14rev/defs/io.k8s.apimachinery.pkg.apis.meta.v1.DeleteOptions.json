@@ -2,16 +2,16 @@
   "description": "DeleteOptions may be provided when deleting an API object.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "type": "string"
     },
     "dryRun": {
       "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
       "items": {
-        "type": "string",
         "enum": [
           "All"
-        ]
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -21,7 +21,7 @@
       "type": "integer"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource",
       "type": "string"
     },
     "preconditions": {

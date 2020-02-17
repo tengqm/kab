@@ -2,7 +2,7 @@
   "description": "An immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validating all requests that attempt to mutate the `data` field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.",
   "properties": {
     "apiVersion": {
-      "description": "apiVersion defines the versioned schema of this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "apps/v1"
       ],
@@ -13,7 +13,7 @@
       "description": "The serialized representation of the state. This cannot be updated."
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource",
       "enum": [
         "ControllerRevision"
       ],
