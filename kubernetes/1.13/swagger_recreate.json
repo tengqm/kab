@@ -9,14 +9,14 @@
       "description": "Deployment enables declarative updates for Pods and ReplicaSets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Deployment"
           ],
@@ -73,7 +73,7 @@
       "description": "InitializerConfiguration describes the configuration of initializers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1alpha1"
           ],
@@ -89,7 +89,7 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "InitializerConfiguration"
           ],
@@ -117,7 +117,7 @@
       "description": "InitializerConfiguration describes the configuration of initializers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1alpha1"
           ],
@@ -133,7 +133,7 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "InitializerConfiguration"
           ],
@@ -161,7 +161,7 @@
       "description": "InitializerConfiguration describes the configuration of initializers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1alpha1"
           ],
@@ -177,7 +177,7 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "InitializerConfiguration"
           ],
@@ -205,7 +205,7 @@
       "description": "A collection of InitializerConfiguration.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1alpha1"
           ],
@@ -219,7 +219,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "InitializerConfigurationList"
           ],
@@ -258,8 +258,8 @@
         "apiVersions": {
           "description": "The API versions the resources belong to. '`*`' means all versions. If '`*`' is present, the length of the array must be 1.",
           "items": {
-            "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -284,14 +284,14 @@
       "description": "MutatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects an object and may change it.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "MutatingWebhookConfiguration"
           ],
@@ -328,14 +328,14 @@
       "description": "MutatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects and may change an object.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "MutatingWebhookConfiguration"
           ],
@@ -372,14 +372,14 @@
       "description": "MutatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects and may change an object.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "MutatingWebhookConfiguration"
           ],
@@ -416,7 +416,7 @@
       "description": "A collection of MutatingWebhookConfiguration.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
@@ -430,7 +430,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "MutatingWebhookConfigurationList"
           ],
@@ -495,8 +495,8 @@
         "resources": {
           "description": "A list of resources this rule applies to. For example: '`pods`' means pods. '`pods/log`' means the `log` subresource of pods. '`*`' means all resources, but not subresources. '`pods/*`' means all subresources of pods. '`*/scale`' means all scale subresources. '`*/*`' means all resources and their subresources. If a wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
           "items": {
-            "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -538,14 +538,14 @@
       "description": "The configuration of an admission webhook that accepts or rejects an object without changing it.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ValidatingWebhookConfiguration"
           ],
@@ -582,14 +582,14 @@
       "description": "The configuration of an admission webhook that accepts or rejects an object without changing it.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ValidatingWebhookConfiguration"
           ],
@@ -626,14 +626,14 @@
       "description": "The configuration of an admission webhook that accepts or rejects an object without changing it.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ValidatingWebhookConfiguration"
           ],
@@ -670,7 +670,7 @@
       "description": "A list of ValidatingWebhookConfiguration.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "admissionregistration.k8s.io/v1beta1"
           ],
@@ -684,7 +684,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ValidatingWebhookConfigurationList"
           ],
@@ -782,7 +782,7 @@
       "description": "An immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validating all requests that attempt to mutate the `data` field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -793,7 +793,7 @@
           "description": "The serialized representation of the state. This cannot be updated."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ControllerRevision"
           ],
@@ -828,7 +828,7 @@
       "description": "An immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validating all requests that attempt to mutate the `data` field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -839,7 +839,7 @@
           "description": "The serialized representation of the state. This cannot be updated."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ControllerRevision"
           ],
@@ -874,7 +874,7 @@
       "description": "An immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validating all requests that attempt to mutate the `data` field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -885,7 +885,7 @@
           "description": "The serialized representation of the state. This cannot be updated."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ControllerRevision"
           ],
@@ -920,7 +920,7 @@
       "description": "A resource containing a list of ControllerRevision objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -934,7 +934,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ControllerRevisionList"
           ],
@@ -963,14 +963,14 @@
       "description": "The configuration of a daemon set.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "DaemonSet"
           ],
@@ -1002,14 +1002,14 @@
       "description": "The configuration of a daemon set.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "DaemonSet"
           ],
@@ -1045,14 +1045,14 @@
       "description": "The configuration of a daemon set.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "DaemonSet"
           ],
@@ -1124,7 +1124,7 @@
       "description": "A list of daemon sets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -1138,7 +1138,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "DaemonSetList"
           ],
@@ -1360,14 +1360,14 @@
       "description": "Deployment enables declarative updates for Pods and ReplicaSets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Deployment"
           ],
@@ -1399,14 +1399,14 @@
       "description": "Deployment enables declarative updates for Pods and ReplicaSets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Deployment"
           ],
@@ -1442,14 +1442,14 @@
       "description": "Deployment enables declarative updates for Pods and ReplicaSets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Deployment"
           ],
@@ -1530,7 +1530,7 @@
       "description": "A list of Deployments.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -1544,7 +1544,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "DeploymentList"
           ],
@@ -1806,14 +1806,14 @@
       "description": "A ReplicaSet ensures that a specified number of pod replicas are running at any given time.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicaSet"
           ],
@@ -1845,14 +1845,14 @@
       "description": "A ReplicaSet ensures that a specified number of pod replicas are running at any given time.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicaSet"
           ],
@@ -1888,14 +1888,14 @@
       "description": "A ReplicaSet ensures that a specified number of pod replicas are running at any given time.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicaSet"
           ],
@@ -1953,10 +1953,10 @@
         },
         "type": {
           "description": "Type of replica set condition.",
-          "minLength": 1,
           "enum": [
             "ReplicaFailure"
           ],
+          "minLength": 1,
           "type": "string"
         }
       },
@@ -1970,7 +1970,7 @@
       "description": "A list of ReplicaSets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -1984,7 +1984,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicaSetList"
           ],
@@ -2187,14 +2187,14 @@
       "description": "A set of pods with consistent identities. Identities are defined as: - Network: A single stable DNS and hostname. - Storage: As many VolumeClaims as requested. The StatefulSet guarantees that a given network identity will always map to the same storage identity.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StatefulSet"
           ],
@@ -2229,14 +2229,14 @@
       "description": "A set of pods with consistent identities. Identities are defined as: - Network: A single stable DNS and hostname. - Storage: As many VolumeClaims as requested. The StatefulSet guarantees that a given network identity will always map to the same storage identity.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StatefulSet"
           ],
@@ -2271,14 +2271,14 @@
       "description": "A set of pods with consistent identities. Identities are defined as: - Network: A single stable DNS and hostname. - Storage: As many VolumeClaims as requested. The StatefulSet guarantees that a given network identity will always map to the same storage identity.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StatefulSet"
           ],
@@ -2349,7 +2349,7 @@
       "description": "A list of StatefulSets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apps/v1"
           ],
@@ -2362,7 +2362,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StatefulSetList"
           ],
@@ -2643,14 +2643,14 @@
       "description": "A cluster level audit sink",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "auditregistration.k8s.io/v1alpha1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "AuditSink"
           ],
@@ -2682,14 +2682,14 @@
       "description": "A cluster level audit sink",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "auditregistration.k8s.io/v1alpha1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "AuditSink"
           ],
@@ -2721,14 +2721,14 @@
       "description": "A cluster level audit sink",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "auditregistration.k8s.io/v1alpha1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "AuditSink"
           ],
@@ -2760,7 +2760,7 @@
       "description": "A list of AuditSink objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "auditregistration.k8s.io/v1alpha1"
           ],
@@ -2774,7 +2774,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "AuditSinkList"
           ],
@@ -2833,14 +2833,14 @@
         "stages": {
           "description": "A list of stages for which events are created.",
           "items": {
-            "type": "string",
             "enum": [
               "RequestReceived",
               "ResponseStarted",
               "ResponseComplete",
               "Panic"
             ],
-            "minLength": 1
+            "minLength": 1,
+            "type": "string"
           },
           "type": "array"
         }
@@ -2934,14 +2934,14 @@
       "description": "TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authentication.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "TokenReview"
           ],
@@ -2977,14 +2977,14 @@
       "description": "TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authentication.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "TokenReview"
           ],
@@ -3093,14 +3093,14 @@
       "description": "LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LocalSubjectAccessReview"
           ],
@@ -3136,14 +3136,14 @@
       "description": "LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LocalSubjectAccessReview"
           ],
@@ -3287,14 +3287,14 @@
       "description": "SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in a `spec.namespace` means 'in all namespaces'. Self is a special case, because users should always be able to check whether they can perform an action",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SelfSubjectAccessReview"
           ],
@@ -3330,14 +3330,14 @@
       "description": "SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in a `spec.namespace` means 'in all namespaces'. Self is a special case, because users should always be able to check whether they can perform an action",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SelfSubjectAccessReview"
           ],
@@ -3387,14 +3387,14 @@
       "description": "SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. `SubjectAccessReview`, and `LocalAccessReview` are the correct way to defer authorization decisions to the API server.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SelfSubjectRulesReview"
           ],
@@ -3426,14 +3426,14 @@
       "description": "SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. `SubjectAccessReview`, and `LocalAccessReview` are the correct way to defer authorization decisions to the API server.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SelfSubjectRulesReview"
           ],
@@ -3481,14 +3481,14 @@
       "description": "SubjectAccessReview checks whether or not a user or group can perform an action.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SubjectAccessReview"
           ],
@@ -3520,14 +3520,14 @@
       "description": "SubjectAccessReview checks whether or not a user or group can perform an action.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SubjectAccessReview"
           ],
@@ -3660,11 +3660,11 @@
       "description": "Information for identifying the referred resource.",
       "properties": {
         "apiVersion": {
-          "description": "API version of the referent",
+          "description": "The version of the schema for the object representation",
           "type": "string"
         },
         "kind": {
-          "description": "Kind of the referent. The value cannot be '`.`' or '`..`', and it can not contain '`/`' or '`%`'.",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -3684,14 +3684,14 @@
       "description": "The configuration for a horizontal pod autoscaler (HPA).",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscaler"
           ],
@@ -3723,14 +3723,14 @@
       "description": "The configuration for a horizontal pod autoscaler (HPA).",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscaler"
           ],
@@ -3766,14 +3766,14 @@
       "description": "The configuration for a horizontal pod autoscaler (HPA).",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscaler"
           ],
@@ -3809,7 +3809,7 @@
       "description": "List of horizontal pod autoscaler objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v1"
           ],
@@ -3823,7 +3823,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscalerList"
           ],
@@ -3920,14 +3920,14 @@
       "description": "The scale for a resource.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Scale"
           ],
@@ -3963,14 +3963,14 @@
       "description": "The scale for a resource.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Scale"
           ],
@@ -4032,11 +4032,11 @@
       "description": "Information for identifying a referenced resource.",
       "properties": {
         "apiVersion": {
-          "description": "API version of the referent",
+          "description": "The version of the schema for the object representation",
           "type": "string"
         },
         "kind": {
-          "description": "Kind of the referent. The kind cannot be '`.`' or '`..`' and it cannot contain '`/`' or '`%`'.",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -4092,14 +4092,14 @@
       "description": "The configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v2beta2"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscaler"
           ],
@@ -4135,14 +4135,14 @@
       "description": "The configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v2beta2"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscaler"
           ],
@@ -4178,14 +4178,14 @@
       "description": "The configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v2beta2"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscaler"
           ],
@@ -4257,7 +4257,7 @@
       "description": "A collection of horizontal pod autoscaler objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "autoscaling/v2beta2"
           ],
@@ -4271,7 +4271,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "HorizontalPodAutoscalerList"
           ],
@@ -4637,14 +4637,14 @@
       "description": "The configuration of a Job.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Job"
           ],
@@ -4680,14 +4680,14 @@
       "description": "The configuration of a Job.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Job"
           ],
@@ -4723,14 +4723,14 @@
       "description": "The configuration of a Job.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Job"
           ],
@@ -4811,7 +4811,7 @@
       "description": "A collection of Jobs.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1"
           ],
@@ -4825,7 +4825,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "JobList"
           ],
@@ -5054,14 +5054,14 @@
       "description": "The configuration of a single CronJob.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CronJob"
           ],
@@ -5097,14 +5097,14 @@
       "description": "The configuration of a single CronJob.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CronJob"
           ],
@@ -5140,14 +5140,14 @@
       "description": "The configuration of a single CronJob.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CronJob"
           ],
@@ -5183,7 +5183,7 @@
       "description": "A collection of cron jobs.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "batch/v1beta1"
           ],
@@ -5197,7 +5197,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CronJobList"
           ],
@@ -5311,14 +5311,14 @@
       "description": "A certificate signing request",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "certificates.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CertificateSigningRequest"
           ],
@@ -5353,14 +5353,14 @@
       "description": "A certificate signing request",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "certificates.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CertificateSigningRequest"
           ],
@@ -5395,14 +5395,14 @@
       "description": "A certificate signing request",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "certificates.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CertificateSigningRequest"
           ],
@@ -5466,7 +5466,7 @@
       "description": "A collection of CertificateSigningRequest objects",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "certificates.k8s.io/v1beta1"
           ],
@@ -5480,7 +5480,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CertificateSigningRequestList"
           ],
@@ -5575,14 +5575,14 @@
       "description": "Lease defines a lease concept.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "coordination.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Lease"
           ],
@@ -5614,14 +5614,14 @@
       "description": "Lease defines a lease concept.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "coordination.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Lease"
           ],
@@ -5653,14 +5653,14 @@
       "description": "Lease defines a lease concept.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "coordination.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Lease"
           ],
@@ -5692,7 +5692,7 @@
       "description": "A collection of Lease objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "coordination.k8s.io/v1beta1"
           ],
@@ -5706,7 +5706,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LeaseList"
           ],
@@ -5783,8 +5783,8 @@
         },
         "volumeID": {
           "description": "Unique ID of the persistent disk resource in AWS EBS volume.",
-          "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "type": "string"
         }
       },
       "required": [
@@ -5859,7 +5859,7 @@
         },
         "kind": {
           "default": "Shared",
-          "description": "How the disk is used. '`Shared`'(default) means multiple BLOB disks per storage account. '`Dedicated`' means single BLOB disk per storage account. '`Managed`' means Azure managed data disk (only in managed availability set).",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Dedicated",
             "Managed",
@@ -5937,14 +5937,14 @@
       "description": "Binding ties a Pod to a node.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Binding"
           ],
@@ -6234,7 +6234,7 @@
       "description": "The cluster validation information.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -6250,7 +6250,7 @@
           "x-kubernetes-patch-strategy": "merge"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ComponentStatus"
           ],
@@ -6278,7 +6278,7 @@
       "description": "Status of all conditions for system components",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -6292,7 +6292,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ComponentStatusList"
           ],
@@ -6321,37 +6321,37 @@
       "description": "ConfigMap holds configuration data for pods to consume. The total size of data and binaryData must be less than 1 MB.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values.",
-          "type": "string",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
-          ]
+          ],
+          "type": "string"
         },
         "binaryData": {
-          "description": "BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.",
-          "type": "object",
           "additionalProperties": {
-            "type": "string",
-            "format": "byte"
-          }
+            "format": "byte",
+            "type": "string"
+          },
+          "description": "BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.",
+          "type": "object"
         },
         "data": {
-          "description": "Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.",
-          "type": "object",
           "additionalProperties": {
             "type": "string"
-          }
+          },
+          "description": "Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.",
+          "type": "object"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase.",
-          "type": "string",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ConfigMap"
-          ]
+          ],
+          "type": "string"
         },
         "metadata": {
-          "description": "Standard object's metadata. The name of a ConfigMap must be a valid DNS subdomain.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object's metadata. The name of a ConfigMap must be a valid DNS subdomain."
         }
       },
       "required": [
@@ -6365,7 +6365,7 @@
       "description": "ConfigMap holds configuration data for pods to consume.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -6412,37 +6412,37 @@
       ]
     },
     "io.k8s.api.core.v1.ConfigMap.UPDATE": {
-      "type": "object",
       "description": "Patch data for ConfigMap",
       "properties": {
         "apiVersion": {
-          "description": "This field is ignored when patching.",
+          "description": "The version of the schema for the object representation",
           "type": "string"
         },
+        "binaryData": {
+          "additionalProperties": {
+            "format": "byte",
+            "type": "string"
+          },
+          "description": "The binaryData field contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. binaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in binaryData must not overlap with the ones in the data field.",
+          "type": "object"
+        },
+        "data": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "The data field contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the binaryData field. The keys stored in data must not overlap with the keys in the binaryData field.",
+          "type": "object"
+        },
         "kind": {
-          "description": "This field is ignored when patching",
+          "description": "A string value representing the REST resource",
           "type": "string"
         },
         "metadata": {
-          "description": "Metadata for patch operation",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE"
-        },
-        "binaryData": {
-          "description": "The binaryData field contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. binaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in binaryData must not overlap with the ones in the data field.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string",
-            "format": "byte"
-          }
-        },
-        "data": {
-          "description": "The data field contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the binaryData field. The keys stored in data must not overlap with the keys in the binaryData field.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+          "description": "Metadata for patch operation"
         }
-      }
+      },
+      "type": "object"
     },
     "io.k8s.api.core.v1.ConfigMapEnvSource": {
       "description": "ConfigMapEnvSource selects a ConfigMap to populate the environment variables with. The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.",
@@ -6463,8 +6463,8 @@
       "properties": {
         "key": {
           "description": "The key to select. It must consist of alphanumeric characters, '-', '_' or '.'. It cannot be '.' or '..' or prefixed with '..'.",
-          "minLength": 1,
           "maxLength": 253,
+          "minLength": 1,
           "type": "string"
         },
         "name": {
@@ -6485,7 +6485,7 @@
       "description": "ConfigMapList is a resource containing a list of ConfigMap objects.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -6499,7 +6499,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ConfigMapList"
           ],
@@ -7070,8 +7070,8 @@
         "port": {
           "description": "The port number of the endpoint.",
           "format": "int32",
-          "minimum": 1,
           "maximum": 65535,
+          "minimum": 1,
           "type": "integer"
         },
         "protocol": {
@@ -7122,14 +7122,14 @@
       "description": "Endpoints is a collection of endpoints that implement the actual service. ",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Endpoints"
           ],
@@ -7164,14 +7164,14 @@
       "description": "Endpoints is a collection of endpoints that implement the actual service. ",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Endpoints"
           ],
@@ -7206,14 +7206,14 @@
       "description": "Endpoints is a collection of endpoints that implement the actual service. ",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Endpoints"
           ],
@@ -7248,7 +7248,7 @@
       "description": "A list of endpoints.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -7262,7 +7262,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "EndpointsList"
           ],
@@ -7359,7 +7359,7 @@
           "type": "string"
         },
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -7383,7 +7383,7 @@
           "description": "The object that this event is about. The namespace must match that of the event."
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Event"
           ],
@@ -7427,11 +7427,11 @@
         },
         "type": {
           "description": "Type of this event (Normal, Warning), new types could be added in the future",
-          "type": "string",
           "enum": [
             "Normal",
             "Warning"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -7456,7 +7456,7 @@
           "type": "string"
         },
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -7480,7 +7480,7 @@
           "description": "The object that this event is about. The namespace must match that of the event."
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Event"
           ],
@@ -7524,11 +7524,11 @@
         },
         "type": {
           "description": "Type of this event (Normal, Warning), new types could be added in the future",
-          "type": "string",
           "enum": [
             "Normal",
             "Warning"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -7553,7 +7553,7 @@
           "type": "string"
         },
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -7577,7 +7577,7 @@
           "description": "The object that this event is about. The namespace must match that of the event."
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Event"
           ],
@@ -7621,11 +7621,11 @@
         },
         "type": {
           "description": "Type of this event (Normal, Warning), new types could be added in the future",
-          "type": "string",
           "enum": [
             "Normal",
             "Warning"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -7646,7 +7646,7 @@
       "description": "EventList is a list of events.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -7660,7 +7660,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "EventList"
           ],
@@ -7699,12 +7699,12 @@
         },
         "state": {
           "description": "State of this Series: Ongoing or Finished. Planned for removal for 1.18",
-          "type": "string",
           "enum": [
             "Ongoing",
             "Finished",
             "Unknown"
-          ]
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -8260,14 +8260,14 @@
       "description": "LimitRange sets resource usage limits for each kind of resource in a namespace.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LimitRange"
           ],
@@ -8299,14 +8299,14 @@
       "description": "LimitRange sets resource usage limits for each kind of resource in a Namespace.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LimitRange"
           ],
@@ -8338,14 +8338,14 @@
       "description": "LimitRange sets resource usage limits for each kind of resource in a Namespace.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LimitRange"
           ],
@@ -8422,7 +8422,7 @@
       "description": "A list of LimitRange items.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -8436,7 +8436,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "LimitRangeList"
           ],
@@ -8561,14 +8561,14 @@
       "description": "Namespace provides a scope for Names. Use of multiple namespaces is optional.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Namespace"
           ],
@@ -8604,14 +8604,14 @@
       "description": "Namespace provides a scope for Names. Use of multiple namespaces is optional.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Namespace"
           ],
@@ -8647,14 +8647,14 @@
       "description": "Namespace provides a scope for Names. Use of multiple namespaces is optional.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Namespace"
           ],
@@ -8690,7 +8690,7 @@
       "description": "NamespaceList is a list of Namespaces.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -8704,7 +8704,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "NamespaceList"
           ],
@@ -8760,14 +8760,14 @@
       "description": "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Node"
           ],
@@ -8803,14 +8803,14 @@
       "description": "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Node"
           ],
@@ -8846,14 +8846,14 @@
       "description": "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Node"
           ],
@@ -8889,14 +8889,14 @@
       "description": "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Node"
           ],
@@ -9063,7 +9063,7 @@
       "description": "NodeList is the whole list of all Nodes which have been registered with master.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -9077,7 +9077,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "NodeList"
           ],
@@ -9352,7 +9352,7 @@
       "properties": {
         "apiVersion": {
           "default": "v1",
-          "description": "Version of the schema the fieldPath is written in terms of.",
+          "description": "The version of the schema for the object representation",
           "type": "string"
         },
         "fieldPath": {
@@ -9371,7 +9371,7 @@
       "description": "ObjectReference contains enough information to let you inspect or modify the referred object.",
       "properties": {
         "apiVersion": {
-          "description": "API version of the referent.",
+          "description": "The version of the schema for the object representation",
           "type": "string"
         },
         "fieldPath": {
@@ -9379,7 +9379,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "Kind of the referent.",
+          "description": "A string value representing the REST resource",
           "type": "string"
         },
         "name": {
@@ -9405,14 +9405,14 @@
       "description": "A storage resource provisioned by an administrator.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolume"
           ],
@@ -9444,14 +9444,14 @@
       "description": "A storage resource provisioned by an administrator.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolume"
           ],
@@ -9487,14 +9487,14 @@
       "description": "A storage resource provisioned by an administrator.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolume"
           ],
@@ -9526,14 +9526,14 @@
       "description": "A user's request for and claim to a persistent volume.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolumeClaim"
           ],
@@ -9565,14 +9565,14 @@
       "description": "A user's request for and claim to a persistent volume.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolumeClaim"
           ],
@@ -9608,14 +9608,14 @@
       "description": "A user's request for and claim to a persistent volume.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolumeClaim"
           ],
@@ -9667,11 +9667,11 @@
           "type": "string"
         },
         "type": {
-          "minLength": 1,
           "enum": [
             "Resizing",
             "FileSystemResizePending"
           ],
+          "minLength": 1,
           "type": "string"
         }
       },
@@ -9685,7 +9685,7 @@
       "description": "A list of PersistentVolumeClaim items.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -9699,7 +9699,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolumeClaimList"
           ],
@@ -9730,12 +9730,12 @@
         "accessModes": {
           "description": "The desired access modes of the volume",
           "items": {
-            "type": "string",
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
               "ReadWriteOnce"
-            ]
+            ],
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -9781,12 +9781,12 @@
         "accessModes": {
           "description": "The desired access modes of the volume",
           "items": {
-            "type": "string",
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
               "ReadWriteOnce"
-            ]
+            ],
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -9832,12 +9832,12 @@
         "accessModes": {
           "description": "The desired access modes of the volume",
           "items": {
-            "type": "string",
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
               "ReadWriteOnce"
-            ]
+            ],
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -9883,12 +9883,12 @@
         "accessModes": {
           "description": "The actual access modes the volume backing the PVC has.",
           "items": {
-            "type": "string",
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
               "ReadWriteOnce"
-            ]
+            ],
+            "type": "string"
           },
           "type": "array"
         },
@@ -9943,7 +9943,7 @@
       "description": "A list of PersistentVolume items",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -9957,7 +9957,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PersistentVolumeList"
           ],
@@ -9988,12 +9988,12 @@
         "accessModes": {
           "description": "The ways the volume can be mounted.",
           "items": {
-            "type": "string",
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
               "ReadWriteOnce"
-            ]
+            ],
+            "type": "string"
           },
           "type": "array"
         },
@@ -10184,14 +10184,14 @@
       "description": "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto nodes.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Pod"
           ],
@@ -10223,14 +10223,14 @@
       "description": "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto nodes.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Pod"
           ],
@@ -10266,14 +10266,14 @@
       "description": "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto nodes.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Pod"
           ],
@@ -10420,8 +10420,8 @@
         "nameservers": {
           "description": "A list of DNS name server IP addresses. This will be appended to the base nameservers generated from dnsPolicy. Duplicated nameservers will be removed. When dnsPolicy is set to 'None', there must be at least one name server specified here. Each item must be a valid IP address.",
           "items": {
-            "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "type": "string"
           },
           "maxItems": 3,
           "type": "array"
@@ -10465,7 +10465,7 @@
       "description": "A list of Pods.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -10479,7 +10479,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodList"
           ],
@@ -11169,14 +11169,14 @@
       "description": "A template for creating copies of a predefined pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodTemplate"
           ],
@@ -11208,14 +11208,14 @@
       "description": "A template for creating copies of a predefined pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodTemplate"
           ],
@@ -11247,14 +11247,14 @@
       "description": "A template for creating copies of a predefined pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodTemplate"
           ],
@@ -11286,7 +11286,7 @@
       "description": "A list of PodTemplates.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -11300,7 +11300,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodTemplateList"
           ],
@@ -11628,14 +11628,14 @@
       "description": "The configuration of a replication controller.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicationController"
           ],
@@ -11671,14 +11671,14 @@
       "description": "The configuration of a replication controller.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicationController"
           ],
@@ -11714,14 +11714,14 @@
       "description": "The configuration of a replication controller.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicationController"
           ],
@@ -11779,10 +11779,10 @@
         },
         "type": {
           "description": "Type of replication controller condition.",
-          "minLength": 1,
           "enum": [
             "ReplicaFailure"
           ],
+          "minLength": 1,
           "type": "string"
         }
       },
@@ -11796,7 +11796,7 @@
       "description": "A collection of replication controllers.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -11810,7 +11810,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ReplicationControllerList"
           ],
@@ -12007,14 +12007,14 @@
       "description": "ResourceQuota sets aggregate quota restrictions enforced per namespace",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ResourceQuota"
           ],
@@ -12050,14 +12050,14 @@
       "description": "ResourceQuota sets aggregate quota restrictions enforced per namespace",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ResourceQuota"
           ],
@@ -12093,14 +12093,14 @@
       "description": "ResourceQuota sets aggregate quota restrictions enforced per namespace",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ResourceQuota"
           ],
@@ -12136,7 +12136,7 @@
       "description": "A list of ResourceQuota items.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -12150,7 +12150,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ResourceQuotaList"
           ],
@@ -12192,14 +12192,14 @@
         "scopes": {
           "description": "A collection of filters that for matching objects tracked by a quota. An empty list matches all objects. For a resource to match, both scopes AND scopeSelector (if specified) must match. For standard resources, when scopes contain Terminating, NotTerminating, NotBestEffort or PriorityClass, the resource in hard can be one of 'cpu', 'memory', 'limits.cpu', 'limits.memory', 'requests.cpu', 'requests.memory' or 'pods'. When scopes contain BestEffort, the resource name in hard can only be 'pods'. 'Terminating' conflicts with 'NonTerminating' and 'BestEffort' conflicts with 'NotBestEffort'. This field is immutable so cannot be updated.",
           "items": {
-            "type": "string",
             "enum": [
               "Terminating",
               "NotTerminating",
               "BestEffort",
               "NotBestEffort",
               "PriorityClass"
-            ]
+            ],
+            "type": "string"
           },
           "type": "array"
         }
@@ -12420,15 +12420,15 @@
         },
         "scopeName": {
           "description": "The name of the scope that the selector applies to.",
-          "minLength": 1,
-          "type": "string",
           "enum": [
             "Terminating",
             "NotTerminating",
             "BestEffort",
             "NotBestEffort",
             "PriorityClass"
-          ]
+          ],
+          "minLength": 1,
+          "type": "string"
         },
         "values": {
           "description": "An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.",
@@ -12448,7 +12448,7 @@
       "description": "Secret holds secret data of a certain type. The total bytes of the values in the data or stringData field must be less than 1MB.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -12463,7 +12463,7 @@
           "type": "object"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Secret"
           ],
@@ -12481,9 +12481,8 @@
           "type": "object"
         },
         "type": {
-          "description": "Used to facilitate programmatic handling of secret data.",
-          "type": "string",
           "default": "Opaque",
+          "description": "Used to facilitate programmatic handling of secret data.",
           "enum": [
             "Opaque",
             "kubernetes.io/service-account-token",
@@ -12493,7 +12492,8 @@
             "kubernetes.io/ssh-auth",
             "kubernetes.io/tls",
             "bootstrap.kubernetes.io/token"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -12513,7 +12513,7 @@
       "description": "Secret holds secret data of a certain type. The total bytes of the values in the data field must be less than 1MB.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -12528,7 +12528,7 @@
           "type": "object"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Secret"
           ],
@@ -12539,9 +12539,8 @@
           "description": "Standard object's metadata."
         },
         "type": {
-          "description": "Used to facilitate programmatic handling of secret data.",
-          "type": "string",
           "default": "Opaque",
+          "description": "Used to facilitate programmatic handling of secret data.",
           "enum": [
             "Opaque",
             "kubernetes.io/service-account-token",
@@ -12551,7 +12550,8 @@
             "kubernetes.io/ssh-auth",
             "kubernetes.io/tls",
             "bootstrap.kubernetes.io/token"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -12571,7 +12571,7 @@
       "description": "Secret holds secret data of a certain type. The total bytes of the values in the data or stringData field must be less than 1MB.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -12586,7 +12586,7 @@
           "type": "object"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Secret"
           ],
@@ -12604,9 +12604,8 @@
           "type": "object"
         },
         "type": {
-          "description": "Used to facilitate programmatic handling of secret data. This has to match the current type.",
-          "type": "string",
           "default": "Opaque",
+          "description": "Used to facilitate programmatic handling of secret data. This has to match the current type.",
           "enum": [
             "Opaque",
             "kubernetes.io/service-account-token",
@@ -12616,7 +12615,8 @@
             "kubernetes.io/ssh-auth",
             "kubernetes.io/tls",
             "bootstrap.kubernetes.io/token"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -12651,8 +12651,8 @@
       "properties": {
         "key": {
           "description": "The key of the secret to select from. It must consist of alphanumeric characters, '.', '-' or '-'. It cannot be '.', '..' or start with '..'.",
-          "minLength": 1,
           "maxLength": 253,
+          "minLength": 1,
           "type": "string"
         },
         "name": {
@@ -12673,7 +12673,7 @@
       "description": "SecretList is a list of Secret.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -12687,7 +12687,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "SecretList"
           ],
@@ -12830,14 +12830,14 @@
       "description": "A named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Service"
           ],
@@ -12869,14 +12869,14 @@
       "description": "A named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Service"
           ],
@@ -12912,14 +12912,14 @@
       "description": "A named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Service"
           ],
@@ -12951,7 +12951,7 @@
       "description": "A ServiceAccount binds together a name understood by users and perhaps by peripheral systems for an identity, a principal that can be authenticated and authorized and a set of secrets",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -12969,7 +12969,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ServiceAccount"
           ],
@@ -13006,7 +13006,7 @@
       "description": "A ServiceAccount binds together a name understood by users and perhaps by peripheral systems for an identity, a principal that can be authenticated and authorized and a set of secrets",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -13024,7 +13024,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ServiceAccount"
           ],
@@ -13061,7 +13061,7 @@
       "description": "A ServiceAccount binds together a name understood by users and perhaps by peripheral systems for an identity, a principal that can be authenticated and authorized and a set of secrets",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -13079,7 +13079,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ServiceAccount"
           ],
@@ -13116,7 +13116,7 @@
       "description": "A list of ServiceAccount objects",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -13130,7 +13130,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ServiceAccountList"
           ],
@@ -13184,7 +13184,7 @@
       "description": "A list of services.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -13198,7 +13198,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ServiceList"
           ],
@@ -13765,7 +13765,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "The type of resource being referenced",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -14054,7 +14054,7 @@
           "type": "string"
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "events.k8s.io/v1beta1"
           ],
@@ -14082,7 +14082,7 @@
           "description": "Time when this Event was first observed."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Event"
           ],
@@ -14147,7 +14147,7 @@
           "type": "string"
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "events.k8s.io/v1beta1"
           ],
@@ -14175,7 +14175,7 @@
           "description": "Time when this Event was first observed."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Event"
           ],
@@ -14240,7 +14240,7 @@
           "type": "string"
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "events.k8s.io/v1beta1"
           ],
@@ -14268,7 +14268,7 @@
           "description": "Time when this Event was first observed."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Event"
           ],
@@ -14329,7 +14329,7 @@
       "description": "A collection of Event objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "events.k8s.io/v1beta1"
           ],
@@ -14343,7 +14343,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "EventList"
           ],
@@ -14430,14 +14430,14 @@
       "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name-based virtual hosting etc.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "extensions/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Ingress"
           ],
@@ -14473,14 +14473,14 @@
       "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name-based virtual hosting etc.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "extensions/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Ingress"
           ],
@@ -14516,14 +14516,14 @@
       "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name-based virtual hosting etc.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "extensions/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Ingress"
           ],
@@ -14577,7 +14577,7 @@
       "description": "A collection of Ingress.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "extensions/v1beta1"
           ],
@@ -14591,7 +14591,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "IngressList"
           ],
@@ -14705,14 +14705,14 @@
       "description": "NetworkPolicy describes what network traffic is allowed for a set of Pods",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "networking.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "NetworkPolicy"
           ],
@@ -14744,14 +14744,14 @@
       "description": "NetworkPolicy describes what network traffic is allowed for a set of Pods",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "networking.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "NetworkPolicy"
           ],
@@ -14783,14 +14783,14 @@
       "description": "NetworkPolicy describes what network traffic is allowed for a set of Pods",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "networking.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "NetworkPolicy"
           ],
@@ -14862,7 +14862,7 @@
       "description": "A collection of NetworkPolicy objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "networking.k8s.io/v1"
           ],
@@ -14876,7 +14876,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "NetworkPolicyList"
           ],
@@ -14963,11 +14963,11 @@
         "policyTypes": {
           "description": "List of rule types that the NetworkPolicy relates to. If this field is not specified, it will default based on the existence of `ingress` or `egress` rules; policies that contain an `egress` section are assumed to affect `egress`, and all policies (whether or not they contain an `ingress` section) are assumed to affect `ingress`. If you want to write an egress-only policy, you must explicitly set `policyTypes` to ['`Egress`']. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a `policyTypes` value that include '`Egress`' (since such a policy would not include an `egress` section and would otherwise default to just ['`Ingress`' ]). This field is beta-level in 1.8",
           "items": {
-            "type": "string",
             "enum": [
               "Egress",
               "Ingress"
-            ]
+            ],
+            "type": "string"
           },
           "type": "array"
         }
@@ -15013,7 +15013,7 @@
       "description": "Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
@@ -15024,7 +15024,7 @@
           "description": "DeleteOptions may be provided"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Eviction"
           ],
@@ -15117,14 +15117,14 @@
       "description": "An object to define the max disruption that can be caused to a collection of pods",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodDisruptionBudget"
           ],
@@ -15155,14 +15155,14 @@
       "description": "An object to define the max disruption that can be caused to a collection of pods",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodDisruptionBudget"
           ],
@@ -15197,14 +15197,14 @@
       "description": "An object to define the max disruption that can be caused to a collection of pods",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodDisruptionBudget"
           ],
@@ -15239,7 +15239,7 @@
       "description": "A collection of PodDisruptionBudgets.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
@@ -15253,7 +15253,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodDisruptionBudgetList"
           ],
@@ -15348,14 +15348,14 @@
       "description": "PodSecurityPolicy governs the ability to make requests that affect the security context that will be applied to a Pod and container.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodSecurityPolicy"
           ],
@@ -15387,14 +15387,14 @@
       "description": "PodSecurityPolicy governs the ability to make requests that affect the security context that will be applied to a Pod and container.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodSecurityPolicy"
           ],
@@ -15426,14 +15426,14 @@
       "description": "PodSecurityPolicy governs the ability to make requests that affect the security context that will be applied to a Pod and container.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodSecurityPolicy"
           ],
@@ -15465,7 +15465,7 @@
       "description": "A list of PodSecurityPolicy objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "policy/v1beta1"
           ],
@@ -15479,7 +15479,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodSecurityPolicyList"
           ],
@@ -15515,8 +15515,8 @@
         "allowedCapabilities": {
           "description": "A list of capabilities that can be requested to add to a container. Capabilities in this field may be added at the Pod author's discretion. You must not list a capability in both `allowedCapabilities` and `requiredDropCapabilities`. If '`*`' is in the list, then `requiredDropCapabilities` must be empty.",
           "items": {
-            "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "type": "string"
           },
           "type": "array"
         },
@@ -15769,14 +15769,14 @@
           "description": "A field that describes how to build the `rules` for this ClusterRole. If `aggregationRule` is set, then the `rules` are controller managed and direct changes to `rules` will be stomped by the controller."
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRole"
           ],
@@ -15816,14 +15816,14 @@
           "description": "A field that describes how to build the `rules` for this ClusterRole."
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRole"
           ],
@@ -15863,14 +15863,14 @@
           "description": "A field that describes how to build the `rules` for this ClusterRole. If `aggregationRule` is set, then the `rules` are controller managed and direct changes to `rules` will be stomped by the controller."
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRole"
           ],
@@ -15906,14 +15906,14 @@
       "description": "ClusterRoleBinding represents a binding between a ClusterRole and some subjects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRoleBinding"
           ],
@@ -15953,14 +15953,14 @@
       "description": "ClusterRoleBinding represents a binding between a ClusterRole and some subjects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRoleBinding"
           ],
@@ -16000,14 +16000,14 @@
       "description": "ClusterRoleBinding represents a binding between a ClusterRole and some subjects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRoleBinding"
           ],
@@ -16047,7 +16047,7 @@
       "description": "A collection of ClusterRoleBindings",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
@@ -16061,7 +16061,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRoleBindingList"
           ],
@@ -16090,7 +16090,7 @@
       "description": "A collection of ClusterRoles",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
@@ -16104,7 +16104,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "ClusterRoleList"
           ],
@@ -16178,14 +16178,14 @@
       "description": "Role is a namespaced, logical grouping of policy rules.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Role"
           ],
@@ -16221,14 +16221,14 @@
       "description": "Role is a namespaced, logical grouping of policy rules.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Role"
           ],
@@ -16264,14 +16264,14 @@
       "description": "Role is a namespaced, logical grouping of policy rules.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Role"
           ],
@@ -16307,14 +16307,14 @@
       "description": "RoleBinding references a Role in the same namespace or a ClusterRole in the global namespace, and binds it to some subjects in the namespace.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "RoleBinding"
           ],
@@ -16354,14 +16354,14 @@
       "description": "RoleBinding references a Role in the same namespace or a ClusterRole in the global namespace, and binds it to some subjects in the namespace.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "RoleBinding"
           ],
@@ -16401,14 +16401,14 @@
       "description": "RoleBinding references a Role in the same namespace or a ClusterRole in the global namespace, and binds it to some subjects in the namespace.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "RoleBinding"
           ],
@@ -16448,7 +16448,7 @@
       "description": "A collection of RoleBindings",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
@@ -16462,7 +16462,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "RoleBindingList"
           ],
@@ -16491,7 +16491,7 @@
       "description": "A collection of Roles",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "rbac.authorization.k8s.io/v1"
           ],
@@ -16505,7 +16505,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "RoleList"
           ],
@@ -16539,7 +16539,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "The type of the referenced resource. For ClusterRoleBinding, this must be '`ClusterRole`'; for RoleBinding, this can be '`ClusterRole`' or '`Role`'.",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -16564,7 +16564,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "Kind of object being referenced. Values defined by this API group are '`User`', '`Group`', and '`ServiceAccount`'. If the authorizer does not recognize the value, it should report an error.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Group",
             "ServiceAccount",
@@ -16593,7 +16593,7 @@
       "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "scheduling.k8s.io/v1beta1"
           ],
@@ -16608,7 +16608,7 @@
           "type": "boolean"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PriorityClass"
           ],
@@ -16642,7 +16642,7 @@
       "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "scheduling.k8s.io/v1beta1"
           ],
@@ -16657,7 +16657,7 @@
           "type": "boolean"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PriorityClass"
           ],
@@ -16691,7 +16691,7 @@
       "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "scheduling.k8s.io/v1beta1"
           ],
@@ -16706,7 +16706,7 @@
           "type": "boolean"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PriorityClass"
           ],
@@ -16740,7 +16740,7 @@
       "description": "A collection of priority classes.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "scheduling.k8s.io/v1beta1"
           ],
@@ -16754,7 +16754,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PriorityClassList"
           ],
@@ -16783,14 +16783,14 @@
       "description": "PodPreset is a policy resource that defines additional runtime requirements for a Pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "settings.k8s.io/v1alpha1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodPreset"
           ],
@@ -16801,8 +16801,8 @@
           "description": "Standard object's metadata. The name must be a valid DNS subdomain name."
         },
         "spec": {
-          "description": "Specification for the PodPreset resource.",
-          "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec"
+          "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec",
+          "description": "Specification for the PodPreset resource."
         }
       },
       "required": [
@@ -16822,14 +16822,14 @@
       "description": "PodPreset is a policy resource that defines additional runtime requirements for a Pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "settings.k8s.io/v1alpha1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodPreset"
           ],
@@ -16840,8 +16840,8 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "description": "Specification for the PodPreset resource.",
-          "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec"
+          "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec",
+          "description": "Specification for the PodPreset resource."
         }
       },
       "required": [
@@ -16861,14 +16861,14 @@
       "description": "PodPreset is a policy resource that defines additional runtime requirements for a Pod.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "settings.k8s.io/v1alpha1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodPreset"
           ],
@@ -16879,8 +16879,8 @@
           "description": "Standard object's metadata."
         },
         "spec": {
-          "description": "Specification for the PodPreset resource.",
-          "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec"
+          "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec",
+          "description": "Specification for the PodPreset resource."
         }
       },
       "required": [
@@ -16900,7 +16900,7 @@
       "description": "A collection of PodPreset objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "settings.k8s.io/v1alpha1"
           ],
@@ -16914,7 +16914,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "PodPresetList"
           ],
@@ -16995,14 +16995,14 @@
           "type": "array"
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StorageClass"
           ],
@@ -17079,14 +17079,14 @@
           "type": "array"
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StorageClass"
           ],
@@ -17163,14 +17163,14 @@
           "type": "array"
         },
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StorageClass"
           ],
@@ -17236,7 +17236,7 @@
       "description": "A collection of storage classes.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
@@ -17250,7 +17250,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "StorageClassList"
           ],
@@ -17279,14 +17279,14 @@
       "description": "The intent to attach or detach the specified volume to/from the specified node.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "VolumeAttachment"
           ],
@@ -17323,14 +17323,14 @@
       "description": "The intent to attach or detach the specified volume to/from the specified node.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "VolumeAttachment"
           ],
@@ -17367,14 +17367,14 @@
       "description": "The intent to attach or detach the specified volume to/from the specified node.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "VolumeAttachment"
           ],
@@ -17411,7 +17411,7 @@
       "description": "A collection of VolumeAttachment objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "storage.k8s.io/v1"
           ],
@@ -17425,7 +17425,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "VolumeAttachmentList"
           ],
@@ -17614,22 +17614,22 @@
       "description": "A resource that should be exposed on the API server.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiextensions.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CustomResourceDefinition"
           ],
           "type": "string"
         },
         "metadata": {
-          "description": "Standard object's metadata.  Its name MUST be in the format `<.spec.names.plural>.<.spec.group>`",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object's metadata.  Its name MUST be in the format `<.spec.names.plural>.<.spec.group>`"
         },
         "spec": {
           "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec",
@@ -17658,22 +17658,22 @@
       "description": "A resource that should be exposed on the API server.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiextensions.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CustomResourceDefinition"
           ],
           "type": "string"
         },
         "metadata": {
-          "description": "Standard object's metadata.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+          "description": "Standard object's metadata."
         },
         "spec": {
           "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec",
@@ -17702,22 +17702,22 @@
       "description": "A resource that should be exposed on the API server.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiextensions.k8s.io/v1beta1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CustomResourceDefinition"
           ],
           "type": "string"
         },
         "metadata": {
-          "description": "Standard object's metadata.",
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE"
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+          "description": "Standard object's metadata."
         },
         "spec": {
           "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionSpec",
@@ -17782,7 +17782,7 @@
       "description": "A list of CustomResourceDefinition objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiextensions.k8s.io/v1beta1"
           ],
@@ -17796,7 +17796,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "CustomResourceDefinitionList"
           ],
@@ -17833,7 +17833,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "The serialized `kind` of the resource.  It is normally CamelCase and singular.",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -18093,14 +18093,14 @@
       "description": "The information about an API group.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIGroup"
           ],
@@ -18151,7 +18151,7 @@
       "description": "APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -18166,7 +18166,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIGroupList"
           ],
@@ -18202,7 +18202,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "The kind for the resource",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -18230,8 +18230,6 @@
         "verbs": {
           "description": "A list of supported kube verbs",
           "items": {
-            "type": "string",
-            "minLength": 1,
             "enum": [
               "get",
               "list",
@@ -18242,7 +18240,9 @@
               "delete",
               "deletecollection",
               "proxy"
-            ]
+            ],
+            "minLength": 1,
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -18265,7 +18265,7 @@
       "description": "A list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -18277,7 +18277,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIResourceList"
           ],
@@ -18311,14 +18311,14 @@
       "description": "A list of the available API versions",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIVersions"
           ],
@@ -18360,16 +18360,16 @@
       "description": "DeleteOptions may be provided when deleting an API object.",
       "properties": {
         "apiVersion": {
-          "description": "APIVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "type": "string"
         },
         "dryRun": {
           "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
           "items": {
-            "type": "string",
             "enum": [
               "All"
-            ]
+            ],
+            "type": "string"
           },
           "type": "array"
         },
@@ -18379,7 +18379,7 @@
           "type": "integer"
         },
         "kind": {
-          "description": "Kind is a string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "type": "string"
         },
         "preconditions": {
@@ -18760,8 +18760,8 @@
           "type": "string"
         },
         "namespace": {
-          "description": "Namespace defines the space within each name must be unique. An empty namespace is equivalent to the \"default\" namespace. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL. Cannot be updated.",
           "default": "default",
+          "description": "Namespace defines the space within each name must be unique. An empty namespace is equivalent to the \"default\" namespace. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL. Cannot be updated.",
           "type": "string"
         }
       },
@@ -19021,21 +19021,21 @@
       "description": "OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.",
       "properties": {
         "apiVersion": {
-          "description": "API version of the referent. The version part is required.",
+          "description": "The version of the schema for the object representation",
           "minLength": 1,
           "type": "string"
         },
         "blockOwnerDeletion": {
+          "default": false,
           "description": "If true, AND if the owner has the 'foregroundDeletion' finalizer, then the owner cannot be deleted from the key-value store until this reference is removed.  To set this field, a user needs 'delete' permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.",
-          "type": "boolean",
-          "default": false
+          "type": "boolean"
         },
         "controller": {
           "description": "If true, this reference points to the managing controller.",
           "type": "boolean"
         },
         "kind": {
-          "description": "Kind of the referent. Currently this cannot be 'Event'.",
+          "description": "A string value representing the REST resource",
           "minLength": 1,
           "type": "string"
         },
@@ -19095,7 +19095,7 @@
       "description": "Status is a return value for calls that don't return other objects.",
       "properties": {
         "apiVersion": {
-          "description": "The versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "v1"
           ],
@@ -19111,7 +19111,7 @@
           "description": "Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type."
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents. Cannot be updated. In CamelCase.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "Status"
           ],
@@ -19131,11 +19131,11 @@
         },
         "status": {
           "description": "Status of the operation. One of: 'Success' or 'Failure'.",
-          "type": "string",
           "enum": [
             "Success",
             "Failure"
-          ]
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -19184,7 +19184,7 @@
           "type": "string"
         },
         "kind": {
-          "description": "The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+          "description": "A string value representing the REST resource",
           "type": "string"
         },
         "name": {
@@ -19216,14 +19216,14 @@
           "description": "Object is new state of the object if Type is Added or Modified, or the state of the object immediately before deletion if Type is Deleted. If Type is Error, status is recommended; other types may make sense depending on context."
         },
         "type": {
-          "type": "string",
           "enum": [
             "Added",
             "Deleted",
             "Error",
             "Modified"
           ],
-          "minLength": 1
+          "minLength": 1,
+          "type": "string"
         }
       },
       "required": [
@@ -19495,14 +19495,14 @@
       "description": "APIService represents a server for a particular GroupVersion.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiregistration.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIService"
           ],
@@ -19538,14 +19538,14 @@
       "description": "APIService represents a server for a particular GroupVersion.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiregistration.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIService"
           ],
@@ -19581,14 +19581,14 @@
       "description": "APIService represents a server for a particular GroupVersion.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiregistration.k8s.io/v1"
           ],
           "type": "string"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIService"
           ],
@@ -19659,7 +19659,7 @@
       "description": "A list of APIService objects.",
       "properties": {
         "apiVersion": {
-          "description": "apiVersion defines the versioned schema of this representation of an object.",
+          "description": "The version of the schema for the object representation",
           "enum": [
             "apiregistration.k8s.io/v1"
           ],
@@ -19673,7 +19673,7 @@
           "type": "array"
         },
         "kind": {
-          "description": "A string value representing the REST resource this object represents.",
+          "description": "A string value representing the REST resource",
           "enum": [
             "APIServiceList"
           ],
