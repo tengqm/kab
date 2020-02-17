@@ -13,15 +13,15 @@
     },
     "scopeName": {
       "description": "The name of the scope that the selector applies to.",
-      "minLength": 1,
-      "type": "string",
       "enum": [
         "Terminating",
         "NotTerminating",
         "BestEffort",
         "NotBestEffort",
         "PriorityClass"
-      ]
+      ],
+      "minLength": 1,
+      "type": "string"
     },
     "values": {
       "description": "An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.",
