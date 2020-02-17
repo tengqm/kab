@@ -15,14 +15,14 @@
     "stages": {
       "description": "A list of stages for which events are created.",
       "items": {
-        "type": "string",
         "enum": [
           "RequestReceived",
           "ResponseStarted",
           "ResponseComplete",
           "Panic"
         ],
-        "minLength": 1
+        "minLength": 1,
+        "type": "string"
       },
       "type": "array"
     }

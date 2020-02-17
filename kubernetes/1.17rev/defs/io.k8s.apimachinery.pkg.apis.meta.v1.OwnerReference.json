@@ -2,21 +2,21 @@
   "description": "OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.",
   "properties": {
     "apiVersion": {
-      "description": "API version of the referent. The version part is required.",
+      "description": "The version of the schema for the object representation",
       "minLength": 1,
       "type": "string"
     },
     "blockOwnerDeletion": {
+      "default": false,
       "description": "If true, AND if the owner has the 'foregroundDeletion' finalizer, then the owner cannot be deleted from the key-value store until this reference is removed.  To set this field, a user needs 'delete' permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.",
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "controller": {
       "description": "If true, this reference points to the managing controller.",
       "type": "boolean"
     },
     "kind": {
-      "description": "Kind of the referent. Currently this cannot be 'Event'.",
+      "description": "A string value representing the REST resource",
       "minLength": 1,
       "type": "string"
     },

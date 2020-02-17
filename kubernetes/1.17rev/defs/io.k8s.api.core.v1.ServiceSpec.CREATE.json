@@ -95,7 +95,6 @@
       },
       "type": "array"
     },
-
     "type": {
       "default": "ClusterIP",
       "description": "This field determines how the service is exposed. '`ExternalName`' maps to the specified `externalName`. '`ClusterIP`' allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If `clusterIP` is '`None`', no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. '`NodePort`' builds on '`ClusterIP`' and allocates a port on every node which routes to the cluster IP. '`LoadBalancer`' builds on '`NodePort`' and creates an external load-balancer (if supported in the current cloud) which routes to the cluster IP.",

@@ -10,15 +10,15 @@
     "queueLengthLimit": {
       "default": 50,
       "description": "The maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.",
-      "minimum": 1,
       "format": "int32",
+      "minimum": 1,
       "type": "integer"
     },
     "queues": {
       "default": 64,
       "description": "The number of queues for this priority level. The queues exist independently at each API server. Setting it to 1 effectively precludes shuffle sharding and thus makes the distinguisher method of associated flow schemas irrelevant.",
-      "minimum": 1,
       "format": "int32",
+      "minimum": 1,
       "type": "integer"
     }
   },
