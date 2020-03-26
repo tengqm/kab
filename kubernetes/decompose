@@ -264,7 +264,7 @@ def main():
 
     # extract parameters into spec level
     data = extract_parameters(data)
-    newfile = basename + "_tailed" + ext
+    newfile = basename + "_tailored" + ext
     with open(newfile, "w") as f:
         f.write(json.dumps(data, indent=2, sort_keys=True))
 
