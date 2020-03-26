@@ -1,0 +1,20 @@
+{
+  "description": "A port to allow traffic on",
+  "properties": {
+    "port": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+      "description": "The port on the given protocol. This can either be a numerical or named port on a Pod. If this field is not provided, this matches all port names and numbers."
+    },
+    "protocol": {
+      "default": "TCP",
+      "description": "The protocol which traffic must match.",
+      "enum": [
+        "SCTP",
+        "TCP",
+        "UDP"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

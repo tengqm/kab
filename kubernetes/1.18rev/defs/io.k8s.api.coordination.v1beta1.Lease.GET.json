@@ -1,0 +1,39 @@
+{
+  "description": "Lease defines a lease concept.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "coordination.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Lease"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.LeaseSpec",
+      "description": "Specification of the Lease."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "coordination.k8s.io",
+      "kind": "Lease",
+      "version": "v1beta1"
+    }
+  ]
+}

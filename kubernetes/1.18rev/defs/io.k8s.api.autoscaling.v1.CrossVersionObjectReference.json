@@ -1,0 +1,24 @@
+{
+  "description": "Information for identifying the referred resource.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the referent. The value cannot be '`.`' or '`..`', and it can not contain '`/`' or '`%`'.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "name"
+  ],
+  "type": "object"
+}

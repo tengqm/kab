@@ -1,0 +1,23 @@
+{
+  "description": "Selects a key from a ConfigMap.",
+  "properties": {
+    "key": {
+      "description": "The key to select. It must consist of alphanumeric characters, '-', '_' or '.'. It cannot be '.' or '..' or prefixed with '..'.",
+      "maxLength": 253,
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the referent. It must be a valid DNS subdomain.",
+      "type": "string"
+    },
+    "optional": {
+      "description": "Specify whether the ConfigMap or it's key must be defined",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "key"
+  ],
+  "type": "object"
+}

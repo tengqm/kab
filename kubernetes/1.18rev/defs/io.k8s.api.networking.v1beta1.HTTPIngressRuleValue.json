@@ -1,0 +1,16 @@
+{
+  "description": "A list of HTTPselectors pointing to backends.",
+  "properties": {
+    "paths": {
+      "description": "A collection of paths that map requests to backends.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.networking.v1beta1.HTTPIngressPath"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "paths"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "Windows-specific options and credentials.",
+  "properties": {
+    "gmsaCredentialSpec": {
+      "description": "The contents of the GMSA credential spec inlined by the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa). It is named by the `gmsaCredentialSpecName` field. This field is alpha-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
+      "type": "string"
+    },
+    "gmsaCredentialSpecName": {
+      "description": "The name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
+      "type": "string"
+    },
+    "runAsUserName": {
+      "description": "The Windows user name to run the entrypoint of the container. Defaults to the `user` specified in image metadata if unspecified. May also be set in `podSecurityContext`. If set in both `securityContext` and `podSecurityContext`, the value specified in `securityContext` takes precedence. This field is beta-level and may be disabled with the `WindowsRunAsUserName` feature flag.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
