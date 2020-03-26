@@ -6,6 +6,15 @@
       "format": "int64",
       "type": "integer"
     },
+    "fsGroupChangePolicy": {
+      "description": "The behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership (and permissions). It will have no effect on ephemeral volume types such as: 'secret', 'configmaps' and 'emptydir'.",
+      "default": "Always",
+      "enum": [
+        "Always",
+        "OnRootMismatch"
+      ],
+      "type": "string"
+    },
     "runAsGroup": {
       "description": "The group ID (GID) to run the entry point of the container process. Uses runtime default if unset. May also be set in container.securityContext.",
       "format": "int64",
