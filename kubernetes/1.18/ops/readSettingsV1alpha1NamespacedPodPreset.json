@@ -1,0 +1,59 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified PodPreset",
+  "operationId": "readSettingsV1alpha1NamespacedPodPreset",
+  "parameters": [
+    {
+      "$ref": "#/parameters/exact"
+    },
+    {
+      "$ref": "#/parameters/export"
+    },
+    {
+      "description": "name of the PodPreset",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPreset"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "settings_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "settings.k8s.io",
+    "kind": "PodPreset",
+    "version": "v1alpha1"
+  }
+}

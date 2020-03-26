@@ -1,0 +1,68 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "watch individual changes to a list of HorizontalPodAutoscaler. deprecated: use the 'watch' parameter with a list operation instead.",
+  "operationId": "watchAutoscalingV1HorizontalPodAutoscalerListForAllNamespaces",
+  "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    }
+  ],
+  "path": "/apis/autoscaling/v1/watch/horizontalpodautoscalers",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "autoscaling_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watchlist",
+  "x-kubernetes-group-version-kind": {
+    "group": "autoscaling",
+    "kind": "HorizontalPodAutoscaler",
+    "version": "v1"
+  }
+}

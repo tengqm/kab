@@ -1,0 +1,68 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "list or watch objects of kind APIService",
+  "operationId": "listApiregistrationV1beta1APIService",
+  "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiregistration_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "apiregistration.k8s.io",
+    "kind": "APIService",
+    "version": "v1beta1"
+  }
+}
