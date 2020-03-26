@@ -37,9 +37,12 @@
       "type": "object"
     },
     "type": {
-      "description": "Type of resource that this limit applies to. This has to be a qualified name of resource or a standard limit type, i.e. one of 'Pod', 'Container' and 'PersistentVolumeClaim'. The type value must be unique in the limits list.",
+      "description": "Type of resource that this limit applies to. This has to be a qualified resource name (containing at least one '`/`') or a standard limit type, i.e. one of 'Pod', 'Container' and 'PersistentVolumeClaim'. The type value must be unique in the limits list.",
       "type": "string"
     }
   },
+  "required": [
+    "type"
+  ],
   "type": "object"
 }
