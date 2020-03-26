@@ -1,6 +1,10 @@
 {
   "description": "The desired functionality of the HorizontalPodAutoscaler.",
   "properties": {
+    "behavior": {
+      "description": "The scaling behavior configuration of the target in both the up and down directions. If not set, the default HPAScalingRules for scale up and scale down are used.",
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerBehavior"
+    },
     "maxReplicas": {
       "description": "The upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less than `minReplicas`.",
       "format": "int32",
