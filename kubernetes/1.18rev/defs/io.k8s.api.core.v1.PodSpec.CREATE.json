@@ -183,7 +183,7 @@
       "type": "array"
     },
     "topologySpreadConstraints": {
-      "description": "This describes how a group of Pods are to spread across topology domains. Scheduler will schedule Pods in a way which abides by the constraints. This field is alpha-level and is only honored by clusters that enables the `EvenPodsSpread` feature. All items in the list are AND'ed.",
+      "description": "This describes how a group of Pods are to spread across topology domains. Scheduler will schedule Pods in a way which abides by the constraints. This field is only honored by clusters that enables the `EvenPodsSpread` feature. All items in the list are AND'ed.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint"
       },
