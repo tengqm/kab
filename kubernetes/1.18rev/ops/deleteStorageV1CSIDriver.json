@@ -2,8 +2,8 @@
   "consumes": [
     "*/*"
   ],
-  "description": "delete a CSINode",
-  "operationId": "deleteStorageV1CSINode",
+  "description": "delete a CSIDriver",
+  "operationId": "deleteStorageV1CSIDriver",
   "parameters": [
     {
       "in": "body",
@@ -25,7 +25,7 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the CSINode",
+      "description": "name of the CSIDriver",
       "in": "path",
       "name": "name",
       "required": true,
@@ -36,7 +36,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1/csinodes/{name}",
+  "path": "/apis/storage.k8s.io/v1/csidrivers/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -46,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.CSINode.GET"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.CSIDriver.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.CSINode.GET"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.CSIDriver.GET"
       }
     },
     "401": {
@@ -69,7 +69,7 @@
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "CSINode",
+    "kind": "CSIDriver",
     "version": "v1"
   }
 }

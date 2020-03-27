@@ -2,9 +2,12 @@
   "consumes": [
     "*/*"
   ],
-  "description": "delete a CSINode",
-  "operationId": "deleteStorageV1CSINode",
+  "description": "delete collection of CSIDriver",
+  "operationId": "deleteStorageV1CollectionCSIDriver",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
     {
       "in": "body",
       "name": "body",
@@ -13,10 +16,22 @@
       }
     },
     {
+      "$ref": "#/parameters/continue"
+    },
+    {
       "$ref": "#/parameters/dryRun"
     },
     {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
       "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
     },
     {
       "$ref": "#/parameters/orphanDependents"
@@ -25,18 +40,19 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the CSINode",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1/csinodes/{name}",
+  "path": "/apis/storage.k8s.io/v1/csidrivers",
   "produces": [
     "application/json",
     "application/yaml",
@@ -46,13 +62,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.CSINode.GET"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.CSINode.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -66,10 +76,10 @@
     "storage_v1"
   ],
   "verb": "delete",
-  "x-kubernetes-action": "delete",
+  "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "CSINode",
+    "kind": "CSIDriver",
     "version": "v1"
   }
 }
