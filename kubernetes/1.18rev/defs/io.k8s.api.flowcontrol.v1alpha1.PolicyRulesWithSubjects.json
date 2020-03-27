@@ -7,7 +7,7 @@
         "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.NonResourcePolicyRule"
       },
       "type": "array",
-      "x-kubernetes-list-type": "set"
+      "x-kubernetes-list-type": "atomic"
     },
     "resourceRules": {
       "description": "A list of rules that identify matching requests according to their verbs and the target resources.",
@@ -15,7 +15,7 @@
         "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.ResourcePolicyRule"
       },
       "type": "array",
-      "x-kubernetes-list-type": "set"
+      "x-kubernetes-list-type": "atomic"
     },
     "subjects": {
       "description": "The list of normal user, serviceaccount, or group that this rule cares about. A slice that includes both the '`system:authenticated`' and '`system:unauthenticated`' user groups matches every request.",
@@ -24,7 +24,7 @@
       },
       "minItems": 1,
       "type": "array",
-      "x-kubernetes-list-type": "set"
+      "x-kubernetes-list-type": "atomic"
     }
   },
   "required": [
