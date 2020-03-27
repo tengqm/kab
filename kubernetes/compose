@@ -173,7 +173,7 @@ def main():
     if not OK:
         sys.exit(-1)
 
-    print(json.dumps(data, indent=2))
+    print(json.dumps(data, indent=2, sort_keys=True))
 
     sys.exit(0)
 
