@@ -1,28 +1,39 @@
 {
+  "description": "replace status of the specified Job",
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Job",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
   "operationId": "replaceBatchV1NamespacedJobStatus",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the Job",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Job",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -31,40 +42,29 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1"
-  ],
-  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
-  }
+  },
+  "verb": "put",
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status"
 }

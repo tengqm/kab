@@ -1,65 +1,71 @@
 {
+  "description": "create a CronJob",
   "consumes": [
     "*/*"
   ],
-  "description": "create a CronJob",
-  "operationId": "createBatchV1beta1NamespacedCronJob",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/namespace"
-    }
-  ],
-  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "batch_v1beta1"
   ],
-  "verb": "post",
+  "operationId": "createBatchV1beta1NamespacedCronJob",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.CREATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "CronJob",
     "version": "v1beta1"
-  }
+  },
+  "verb": "post",
+  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs"
 }

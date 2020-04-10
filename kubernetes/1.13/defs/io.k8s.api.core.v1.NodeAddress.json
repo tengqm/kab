@@ -1,12 +1,20 @@
 {
-  "description": "NodeAddress contains information for the node's address.",
+  "description": "Information for the node's address.",
   "properties": {
     "address": {
       "description": "The node address.",
+      "minLength": 1,
       "type": "string"
     },
     "type": {
-      "description": "Node address type, one of Hostname, ExternalIP or InternalIP.",
+      "description": "Node address type.",
+      "enum": [
+        "ExternalIP",
+        "Hostname",
+        "InternalIP",
+        "ExternalDNS",
+        "InternalDNS"
+      ],
       "type": "string"
     }
   },

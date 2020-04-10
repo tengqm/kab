@@ -1,8 +1,21 @@
 {
+  "description": "list or watch objects of kind LimitRange",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind LimitRange",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
   "operationId": "listCoreV1NamespacedLimitRange",
   "parameters": [
     {
@@ -36,14 +49,6 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/api/v1/namespaces/{namespace}/limitranges",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -55,17 +60,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "LimitRange",
     "version": "v1"
-  }
+  },
+  "verb": "get",
+  "path": "/api/v1/namespaces/{namespace}/limitranges"
 }

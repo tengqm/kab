@@ -1,8 +1,8 @@
 {
-  "description": "PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.",
+  "description": "PolicyRulesWithSubjects prescribes a test on an API request. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. A request is matched if and only if both (a) at least one member of subjects matches the request and (b) at least one member of `resourceRules` or `nonResourceRules` matches the request. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.",
   "properties": {
     "nonResourceRules": {
-      "description": "`nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.",
+      "description": "A list of rules that identify matching requests according to their verbs and the target non-resource URLs.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.NonResourcePolicyRule"
       },
@@ -10,7 +10,7 @@
       "x-kubernetes-list-type": "set"
     },
     "resourceRules": {
-      "description": "`resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.",
+      "description": "A list of rules that identify matching requests according to their verbs and the target resources.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.ResourcePolicyRule"
       },
@@ -18,10 +18,11 @@
       "x-kubernetes-list-type": "set"
     },
     "subjects": {
-      "description": "subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.",
+      "description": "The list of normal user, serviceaccount, or group that this rule cares about. A slice that includes both the '`system:authenticated`' and '`system:unauthenticated`' user groups matches every request.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.Subject"
       },
+      "minItems": 1,
       "type": "array",
       "x-kubernetes-list-type": "set"
     }

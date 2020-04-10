@@ -1,6 +1,6 @@
 {
   "allowWatchBookmarks": {
-    "description": "allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.",
+    "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver.",
     "in": "query",
     "name": "allowWatchBookmarks",
     "required": false,
@@ -21,6 +21,9 @@
     "name": "dryRun",
     "required": false,
     "type": "string",
+    "enum": [
+      "All"
+    ],
     "uniqueItems": true
   },
   "exact": {
@@ -56,7 +59,7 @@
     "uniqueItems": true
   },
   "force": {
-    "description": "Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+    "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
     "in": "query",
     "name": "force",
     "required": false,
@@ -69,6 +72,14 @@
     "name": "gracePeriodSeconds",
     "required": false,
     "type": "integer",
+    "uniqueItems": true
+  },
+  "includeUninitialized": {
+    "description": "If true, partially initialized resources are included in the response.",
+    "in": "query",
+    "name": "includeUninitialized",
+    "required": false,
+    "type": "boolean",
     "uniqueItems": true
   },
   "labelSelector": {
@@ -91,7 +102,7 @@
     "description": "object name and auth scope, such as for teams and projects",
     "in": "path",
     "name": "namespace",
-    "required": false,
+    "required": true,
     "type": "string",
     "uniqueItems": true
   },
@@ -117,6 +128,11 @@
     "name": "propagationPolicy",
     "required": false,
     "type": "string",
+    "enum": [
+      "Orphan",
+      "Background",
+      "Foreground"
+    ],
     "uniqueItems": true
   },
   "resourceVersion": {
@@ -144,3 +160,4 @@
     "uniqueItems": true
   }
 }
+

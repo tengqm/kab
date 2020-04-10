@@ -1,17 +1,22 @@
 {
+  "description": "get information of the storage.k8s.io API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getStorageAPIGroup",
-  "path": "/apis/storage.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage"
+  ],
+  "operationId": "getStorageAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/storage.k8s.io/"
 }

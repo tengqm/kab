@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of PodDisruptionBudget",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of PodDisruptionBudget",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
   "operationId": "deletePolicyV1beta1CollectionNamespacedPodDisruptionBudget",
   "parameters": [
     {
@@ -27,17 +38,14 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -50,17 +58,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodDisruptionBudget",
     "version": "v1beta1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets"
 }

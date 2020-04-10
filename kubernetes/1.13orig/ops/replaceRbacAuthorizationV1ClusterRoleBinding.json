@@ -1,0 +1,67 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "replace the specified ClusterRoleBinding",
+  "operationId": "replaceRbacAuthorizationV1ClusterRoleBinding",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "description": "name of the ClusterRoleBinding",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRoleBinding"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1"
+  ],
+  "verb": "put",
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "rbac.authorization.k8s.io",
+    "kind": "ClusterRoleBinding",
+    "version": "v1"
+  }
+}

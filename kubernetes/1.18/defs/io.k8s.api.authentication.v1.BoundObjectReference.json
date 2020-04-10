@@ -1,12 +1,16 @@
 {
-  "description": "BoundObjectReference is a reference to an object that a token is bound to.",
+  "description": "A reference to an object that a token is bound to.",
   "properties": {
     "apiVersion": {
-      "description": "API version of the referent.",
+      "description": "The version of the schema for the object representation",
       "type": "string"
     },
     "kind": {
-      "description": "Kind of the referent. Valid kinds are 'Pod' and 'Secret'.",
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Pod",
+        "Secret"
+      ],
       "type": "string"
     },
     "name": {
@@ -18,5 +22,9 @@
       "type": "string"
     }
   },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
   "type": "object"
 }

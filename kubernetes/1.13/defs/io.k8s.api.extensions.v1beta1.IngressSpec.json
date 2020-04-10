@@ -1,9 +1,9 @@
 {
-  "description": "IngressSpec describes the Ingress the user wishes to exist.",
+  "description": "The desired state of the Ingress. At least one of `backend` or `rules` must be specified.",
   "properties": {
     "backend": {
       "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.IngressBackend",
-      "description": "A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default."
+      "description": "A default backend capable of servicing requests that don't match any rule. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default."
     },
     "rules": {
       "description": "A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.",

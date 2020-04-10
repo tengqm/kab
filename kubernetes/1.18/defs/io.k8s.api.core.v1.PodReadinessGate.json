@@ -1,8 +1,9 @@
 {
-  "description": "PodReadinessGate contains the reference to a pod condition",
+  "description": "This contains the reference to a pod condition",
   "properties": {
     "conditionType": {
-      "description": "ConditionType refers to a condition in the pod's condition list with matching type.",
+      "description": "This refers to a condition in the pod's condition list with matching type. Its value must be a qualified name.",
+      "minLength": 1,
       "type": "string"
     }
   },

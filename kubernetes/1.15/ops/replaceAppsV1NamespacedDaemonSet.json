@@ -1,31 +1,39 @@
 {
+  "description": "replace the specified DaemonSet",
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified DaemonSet",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
   "operationId": "replaceAppsV1NamespacedDaemonSet",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/fieldManager"
-    },
-    {
-      "description": "name of the DaemonSet",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the DaemonSet",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -34,40 +42,29 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apps/v1/namespaces/{namespace}/daemonsets/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
-  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "DaemonSet",
     "version": "v1"
-  }
+  },
+  "verb": "put",
+  "path": "/apis/apps/v1/namespaces/{namespace}/daemonsets/{name}"
 }

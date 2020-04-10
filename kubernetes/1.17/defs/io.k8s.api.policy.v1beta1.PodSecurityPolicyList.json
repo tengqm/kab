@@ -1,22 +1,22 @@
 {
-  "description": "PodSecurityPolicyList is a list of PodSecurityPolicy objects.",
+  "description": "A list of PodSecurityPolicy objects.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "policy/v1beta1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "items is a list of schema objects.",
+      "description": "A list of schema objects.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy"
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "description": "A string value representing the REST resource",
       "enum": [
         "PodSecurityPolicyList"
       ],
@@ -24,7 +24,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+      "description": "Standard list metadata"
     }
   },
   "required": [

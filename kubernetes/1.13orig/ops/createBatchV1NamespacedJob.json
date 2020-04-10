@@ -1,0 +1,65 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a Job",
+  "operationId": "createBatchV1NamespacedJob",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "batch",
+    "kind": "Job",
+    "version": "v1"
+  }
+}

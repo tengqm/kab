@@ -1,65 +1,68 @@
 {
+  "description": "create an AuditSink",
   "consumes": [
     "*/*"
   ],
-  "description": "create an AuditSink",
-  "operationId": "createAuditregistrationV1alpha1AuditSink",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/fieldManager"
-    }
-  ],
-  "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "auditregistration_v1alpha1"
   ],
-  "verb": "post",
+  "operationId": "createAuditregistrationV1alpha1AuditSink",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.CREATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "auditregistration.k8s.io",
     "kind": "AuditSink",
     "version": "v1alpha1"
-  }
+  },
+  "verb": "post",
+  "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks"
 }

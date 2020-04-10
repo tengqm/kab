@@ -1,13 +1,24 @@
 {
+  "description": "delete an AuditSink",
   "consumes": [
     "*/*"
   ],
-  "description": "delete an AuditSink",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "auditregistration_v1alpha1"
+  ],
   "operationId": "deleteAuditregistrationV1alpha1AuditSink",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,22 +36,16 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the AuditSink",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the AuditSink",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,17 +64,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "auditregistration_v1alpha1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "auditregistration.k8s.io",
     "kind": "AuditSink",
     "version": "v1alpha1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks/{name}"
 }

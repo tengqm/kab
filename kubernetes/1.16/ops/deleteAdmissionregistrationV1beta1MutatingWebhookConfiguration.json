@@ -1,13 +1,24 @@
 {
+  "description": "delete a MutatingWebhookConfiguration",
   "consumes": [
     "*/*"
   ],
-  "description": "delete a MutatingWebhookConfiguration",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1beta1"
+  ],
   "operationId": "deleteAdmissionregistrationV1beta1MutatingWebhookConfiguration",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,22 +36,16 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the MutatingWebhookConfiguration",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the MutatingWebhookConfiguration",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,17 +64,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "admissionregistration_v1beta1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "admissionregistration.k8s.io",
     "kind": "MutatingWebhookConfiguration",
     "version": "v1beta1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}"
 }

@@ -1,8 +1,19 @@
 {
+  "description": "read the specified Job",
   "consumes": [
     "*/*"
   ],
-  "description": "read the specified Job",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
   "operationId": "readBatchV1NamespacedJob",
   "parameters": [
     {
@@ -12,12 +23,12 @@
       "$ref": "#/parameters/export"
     },
     {
-      "description": "name of the Job",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Job",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -26,34 +37,23 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}"
 }

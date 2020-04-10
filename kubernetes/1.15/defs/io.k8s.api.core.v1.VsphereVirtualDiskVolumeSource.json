@@ -1,12 +1,13 @@
 {
-  "description": "Represents a vSphere volume resource.",
+  "description": "A vSphere volume resource.",
   "properties": {
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\". Implicitly inferred to be \"ext4\" if unspecified.",
+      "default": "ext4",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system.",
       "type": "string"
     },
     "storagePolicyID": {
-      "description": "Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.",
+      "description": "Storage Policy Based Management (SPBM) profile ID associated with the `storagePolicyName`.",
       "type": "string"
     },
     "storagePolicyName": {
@@ -14,7 +15,8 @@
       "type": "string"
     },
     "volumePath": {
-      "description": "Path that identifies vSphere volume vmdk",
+      "description": "Path that identifies vSphere volume VMDK",
+      "minLength": 1,
       "type": "string"
     }
   },

@@ -1,9 +1,41 @@
 {
+  "description": "list or watch objects of kind PodDisruptionBudget",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind PodDisruptionBudget",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
   "operationId": "listPolicyV1beta1PodDisruptionBudgetForAllNamespaces",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudgetList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "policy",
+    "kind": "PodDisruptionBudget",
+    "version": "v1beta1"
+  },
+  "verb": "get",
+  "path": "/apis/policy/v1beta1/poddisruptionbudgets",
   "parameters": [
     {
       "$ref": "#/parameters/continue"
@@ -32,37 +64,5 @@
     {
       "$ref": "#/parameters/watch"
     }
-  ],
-  "path": "/apis/policy/v1beta1/poddisruptionbudgets",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudgetList"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
-  "verb": "get",
-  "x-kubernetes-action": "list",
-  "x-kubernetes-group-version-kind": {
-    "group": "policy",
-    "kind": "PodDisruptionBudget",
-    "version": "v1beta1"
-  }
+  ]
 }

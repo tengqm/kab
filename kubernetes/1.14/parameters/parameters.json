@@ -13,6 +13,9 @@
     "name": "dryRun",
     "required": false,
     "type": "string",
+    "enum": [
+      "All"
+    ],
     "uniqueItems": true
   },
   "exact": {
@@ -48,7 +51,7 @@
     "uniqueItems": true
   },
   "force": {
-    "description": "Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+    "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
     "in": "query",
     "name": "force",
     "required": false,
@@ -61,6 +64,14 @@
     "name": "gracePeriodSeconds",
     "required": false,
     "type": "integer",
+    "uniqueItems": true
+  },
+  "includeUninitialized": {
+    "description": "If true, partially initialized resources are included in the response.",
+    "in": "query",
+    "name": "includeUninitialized",
+    "required": false,
+    "type": "boolean",
     "uniqueItems": true
   },
   "labelSelector": {
@@ -109,6 +120,11 @@
     "name": "propagationPolicy",
     "required": false,
     "type": "string",
+    "enum": [
+      "Orphan",
+      "Background",
+      "Foreground"
+    ],
     "uniqueItems": true
   },
   "resourceVersion": {
@@ -136,3 +152,4 @@
     "uniqueItems": true
   }
 }
+

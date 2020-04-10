@@ -1,28 +1,39 @@
 {
+  "description": "replace the specified Lease",
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified Lease",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "coordination_v1beta1"
+  ],
   "operationId": "replaceCoordinationV1beta1NamespacedLease",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the Lease",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Lease",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -31,40 +42,29 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease"
+        "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "coordination_v1beta1"
-  ],
-  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
     "version": "v1beta1"
-  }
+  },
+  "verb": "put",
+  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}"
 }

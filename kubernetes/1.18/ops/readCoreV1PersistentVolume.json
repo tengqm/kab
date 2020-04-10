@@ -1,8 +1,19 @@
 {
+  "description": "read the specified PersistentVolume",
   "consumes": [
     "*/*"
   ],
-  "description": "read the specified PersistentVolume",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
   "operationId": "readCoreV1PersistentVolume",
   "parameters": [
     {
@@ -12,45 +23,34 @@
       "$ref": "#/parameters/export"
     },
     {
-      "description": "name of the PersistentVolume",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the PersistentVolume",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/api/v1/persistentvolumes/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PersistentVolume",
     "version": "v1"
-  }
+  },
+  "verb": "get",
+  "path": "/api/v1/persistentvolumes/{name}"
 }

@@ -1,65 +1,71 @@
 {
+  "description": "create a ControllerRevision",
   "consumes": [
     "*/*"
   ],
-  "description": "create a ControllerRevision",
-  "operationId": "createAppsV1NamespacedControllerRevision",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/namespace"
-    }
-  ],
-  "path": "/apis/apps/v1/namespaces/{namespace}/controllerrevisions",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "apps_v1"
   ],
-  "verb": "post",
+  "operationId": "createAppsV1NamespacedControllerRevision",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.CREATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "ControllerRevision",
     "version": "v1"
-  }
+  },
+  "verb": "post",
+  "path": "/apis/apps/v1/namespaces/{namespace}/controllerrevisions"
 }

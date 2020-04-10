@@ -1,50 +1,50 @@
 {
+  "description": "read the specified ClusterRole",
   "consumes": [
     "*/*"
   ],
-  "description": "read the specified ClusterRole",
-  "operationId": "readRbacAuthorizationV1ClusterRole",
-  "parameters": [
-    {
-      "description": "name of the ClusterRole",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ],
-  "path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/{name}",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "rbacAuthorization_v1"
   ],
-  "verb": "get",
+  "operationId": "readRbacAuthorizationV1ClusterRole",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.ClusterRole.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRole",
     "version": "v1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/{name}",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the ClusterRole",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ]
 }

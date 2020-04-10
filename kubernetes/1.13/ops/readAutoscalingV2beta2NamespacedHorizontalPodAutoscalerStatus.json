@@ -1,17 +1,47 @@
 {
+  "description": "read status of the specified HorizontalPodAutoscaler",
   "consumes": [
     "*/*"
   ],
-  "description": "read status of the specified HorizontalPodAutoscaler",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "autoscaling_v2beta2"
+  ],
   "operationId": "readAutoscalingV2beta2NamespacedHorizontalPodAutoscalerStatus",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscaler.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "autoscaling",
+    "kind": "HorizontalPodAutoscaler",
+    "version": "v2beta2"
+  },
+  "verb": "get",
+  "path": "/apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status",
   "parameters": [
     {
-      "description": "name of the HorizontalPodAutoscaler",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the HorizontalPodAutoscaler",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -19,35 +49,5 @@
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/autoscaling/v2beta2/namespaces/{namespace}/horizontalpodautoscalers/{name}/status",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscaler"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "autoscaling_v2beta2"
-  ],
-  "verb": "get",
-  "x-kubernetes-action": "get",
-  "x-kubernetes-group-version-kind": {
-    "group": "autoscaling",
-    "kind": "HorizontalPodAutoscaler",
-    "version": "v2beta2"
-  }
+  ]
 }

@@ -1,17 +1,22 @@
 {
+  "description": "get information of the apiextensions API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getApiextensionsAPIGroup",
-  "path": "/apis/apiextensions.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiextensions"
+  ],
+  "operationId": "getApiextensionsAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apiextensions"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/apiextensions.k8s.io/"
 }

@@ -1,13 +1,13 @@
 {
-  "description": "PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).",
+  "description": "The current value of a metric describing each Pod in the current scale target.",
   "properties": {
     "current": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricValueStatus",
-      "description": "current contains the current value for the given metric"
+      "description": "The current value for the given metric"
     },
     "metric": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricIdentifier",
-      "description": "metric identifies the target metric by name and selector"
+      "description": "The target metric by name and selector"
     }
   },
   "required": [

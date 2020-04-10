@@ -9,16 +9,11 @@
     "lastObservedTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
       "description": "Time when last Event from the series was seen before last heartbeat."
-    },
-    "state": {
-      "description": "Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18",
-      "type": "string"
     }
   },
   "required": [
     "count",
-    "lastObservedTime",
-    "state"
+    "lastObservedTime"
   ],
   "type": "object"
 }

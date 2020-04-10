@@ -1,11 +1,17 @@
 {
-  "description": "ClientIPConfig represents the configurations of Client IP based session affinity.",
+  "description": "The configuration for client IP based session affinity.",
   "properties": {
     "timeoutSeconds": {
-      "description": "timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == \"ClientIP\". Default value is 10800(for 3 hours).",
+      "default": 10800,
+      "description": "The session sticky time in seconds for client IP based session affinity.",
       "format": "int32",
+      "maximum": 86400,
+      "minimum": 1,
       "type": "integer"
     }
   },
+  "required": [
+    "timeoutSeconds"
+  ],
   "type": "object"
 }

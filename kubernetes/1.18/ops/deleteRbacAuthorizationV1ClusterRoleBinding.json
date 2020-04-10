@@ -1,13 +1,24 @@
 {
+  "description": "delete a ClusterRoleBinding",
   "consumes": [
     "*/*"
   ],
-  "description": "delete a ClusterRoleBinding",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1"
+  ],
   "operationId": "deleteRbacAuthorizationV1ClusterRoleBinding",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,22 +36,16 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the ClusterRoleBinding",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the ClusterRoleBinding",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,17 +64,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "rbacAuthorization_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRoleBinding",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}"
 }

@@ -2,11 +2,13 @@
   "description": "Selects a key from a ConfigMap.",
   "properties": {
     "key": {
-      "description": "The key to select.",
+      "description": "The key to select. It must consist of alphanumeric characters, '-', '_' or '.'. It cannot be '.' or '..' or prefixed with '..'.",
+      "maxLength": 253,
+      "minLength": 1,
       "type": "string"
     },
     "name": {
-      "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+      "description": "Name of the referent. It must be a valid DNS subdomain.",
       "type": "string"
     },
     "optional": {

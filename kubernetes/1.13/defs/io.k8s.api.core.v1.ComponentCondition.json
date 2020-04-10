@@ -10,11 +10,21 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition for a component. Valid values for \"Healthy\": \"True\", \"False\", or \"Unknown\".",
+      "description": "Status of the condition for a component.",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
-      "description": "Type of condition for a component. Valid value: \"Healthy\"",
+      "default": "Healthy",
+      "description": "Type of condition for a component.",
+      "enum": [
+        "Healthy"
+      ],
+      "minLength": 1,
       "type": "string"
     }
   },

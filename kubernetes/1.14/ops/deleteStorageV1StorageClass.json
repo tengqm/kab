@@ -1,13 +1,24 @@
 {
+  "description": "delete a StorageClass",
   "consumes": [
     "*/*"
   ],
-  "description": "delete a StorageClass",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
   "operationId": "deleteStorageV1StorageClass",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,22 +36,16 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the StorageClass",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the StorageClass",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/storage.k8s.io/v1/storageclasses/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,17 +64,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "StorageClass",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/storage.k8s.io/v1/storageclasses/{name}"
 }

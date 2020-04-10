@@ -1,13 +1,24 @@
 {
+  "description": "delete Endpoints",
   "consumes": [
     "*/*"
   ],
-  "description": "delete Endpoints",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
   "operationId": "deleteCoreV1NamespacedEndpoints",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,12 +36,12 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the Endpoints",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Endpoints",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -38,12 +49,6 @@
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/api/v1/namespaces/{namespace}/endpoints/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -62,17 +67,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Endpoints",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/api/v1/namespaces/{namespace}/endpoints/{name}"
 }

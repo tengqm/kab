@@ -1,15 +1,26 @@
 {
+  "description": "partially update the specified Ingress",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json"
   ],
-  "description": "partially update the specified Ingress",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
   "operationId": "patchExtensionsV1beta1NamespacedIngress",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -19,12 +30,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the Ingress",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Ingress",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -33,34 +44,23 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
-  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "Ingress",
     "version": "v1beta1"
-  }
+  },
+  "verb": "patch",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}"
 }

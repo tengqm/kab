@@ -18,11 +18,22 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition, one of True, False, Unknown.",
+      "description": "Status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "minLength": 1,
       "type": "string"
     },
     "type": {
-      "description": "Type of job condition, Complete or Failed.",
+      "description": "Type of job condition",
+      "enum": [
+        "Compelte",
+        "Failed"
+      ],
+      "minLength": 1,
       "type": "string"
     }
   },

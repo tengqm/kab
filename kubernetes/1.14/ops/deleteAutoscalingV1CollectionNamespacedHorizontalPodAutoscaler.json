@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of HorizontalPodAutoscaler",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of HorizontalPodAutoscaler",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "autoscaling_v1"
+  ],
   "operationId": "deleteAutoscalingV1CollectionNamespacedHorizontalPodAutoscaler",
   "parameters": [
     {
@@ -27,17 +38,14 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -50,17 +58,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "autoscaling_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "autoscaling",
     "kind": "HorizontalPodAutoscaler",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers"
 }

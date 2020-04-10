@@ -1,8 +1,21 @@
 {
+  "description": "list or watch objects of kind StorageClass",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind StorageClass",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
   "operationId": "listStorageV1StorageClass",
   "parameters": [
     {
@@ -27,16 +40,11 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/storage.k8s.io/v1/storageclasses",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
   ],
   "responses": {
     "200": {
@@ -49,17 +57,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "StorageClass",
     "version": "v1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/storage.k8s.io/v1/storageclasses"
 }

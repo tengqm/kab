@@ -1,70 +1,67 @@
 {
+  "description": "replace status of the specified PersistentVolume",
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified PersistentVolume",
-  "operationId": "replaceCoreV1PersistentVolumeStatus",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/fieldManager"
-    },
-    {
-      "description": "name of the PersistentVolume",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ],
-  "path": "/api/v1/persistentvolumes/{name}/status",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "core_v1"
   ],
-  "verb": "put",
+  "operationId": "replaceCoreV1PersistentVolumeStatus",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.UPDATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the PersistentVolume",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PersistentVolume",
     "version": "v1"
-  }
+  },
+  "verb": "put",
+  "path": "/api/v1/persistentvolumes/{name}/status"
 }

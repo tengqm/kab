@@ -1,12 +1,12 @@
 {
-  "description": "WindowsSecurityContextOptions contain Windows-specific options and credentials.",
+  "description": "Windows-specific options and credentials.",
   "properties": {
     "gmsaCredentialSpec": {
-      "description": "GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.",
+      "description": "The contents of the GMSA credential spec inlined by the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa). It is named by the `gmsaCredentialSpecName` field. This field is alpha-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
       "type": "string"
     },
     "gmsaCredentialSpecName": {
-      "description": "GMSACredentialSpecName is the name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the WindowsGMSA feature flag.",
+      "description": "The name of the GMSA credential spec to use. This field is alpha-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
       "type": "string"
     }
   },

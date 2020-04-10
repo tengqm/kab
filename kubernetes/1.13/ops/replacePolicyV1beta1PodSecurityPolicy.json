@@ -1,67 +1,67 @@
 {
+  "description": "replace the specified PodSecurityPolicy",
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified PodSecurityPolicy",
-  "operationId": "replacePolicyV1beta1PodSecurityPolicy",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "description": "name of the PodSecurityPolicy",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ],
-  "path": "/apis/policy/v1beta1/podsecuritypolicies/{name}",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "policy_v1beta1"
   ],
-  "verb": "put",
+  "operationId": "replacePolicyV1beta1PodSecurityPolicy",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.UPDATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the PodSecurityPolicy",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodSecurityPolicy",
     "version": "v1beta1"
-  }
+  },
+  "verb": "put",
+  "path": "/apis/policy/v1beta1/podsecuritypolicies/{name}"
 }

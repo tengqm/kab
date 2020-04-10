@@ -1,5 +1,5 @@
 {
-  "description": "CustomResourceDefinitionCondition contains details for the current condition of this pod.",
+  "description": "Details for the current condition of a resource.",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -14,11 +14,22 @@
       "type": "string"
     },
     "status": {
-      "description": "Status is the status of the condition. Can be True, False, Unknown.",
+      "description": "The status of the condition.",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
-      "description": "Type is the type of the condition. Types include Established, NamesAccepted and Terminating.",
+      "description": "The type of the condition.",
+      "enum": [
+        "Established",
+        "NamesAccepted",
+        "Terminating"
+      ],
+      "minLength": 1,
       "type": "string"
     }
   },

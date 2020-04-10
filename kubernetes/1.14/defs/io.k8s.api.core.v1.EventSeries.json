@@ -11,7 +11,12 @@
       "description": "Time of the last occurrence observed"
     },
     "state": {
-      "description": "State of this Series: Ongoing or Finished",
+      "description": "State of this Series: Ongoing or Finished. Planned for removal for 1.18",
+      "enum": [
+        "Ongoing",
+        "Finished",
+        "Unknown"
+      ],
       "type": "string"
     }
   },

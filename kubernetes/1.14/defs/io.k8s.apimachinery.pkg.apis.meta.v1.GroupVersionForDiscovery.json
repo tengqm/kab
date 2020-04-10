@@ -1,12 +1,14 @@
 {
-  "description": "GroupVersion contains the \"group/version\" and \"version\" string of a version. It is made a struct to keep extensibility.",
+  "description": "The 'group/version' and 'version' string of a version. It is made a struct to keep extensibility.",
   "properties": {
     "groupVersion": {
-      "description": "groupVersion specifies the API group and version in the form \"group/version\"",
+      "description": "The API group and version in the form 'group/version'",
+      "minLength": 1,
       "type": "string"
     },
     "version": {
-      "description": "version specifies the version in the form of \"version\". This is to save the clients the trouble of splitting the GroupVersion.",
+      "description": "The version in the form of 'version'.",
+      "minLength": 1,
       "type": "string"
     }
   },

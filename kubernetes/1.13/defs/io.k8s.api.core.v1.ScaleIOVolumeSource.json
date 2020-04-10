@@ -2,11 +2,13 @@
   "description": "ScaleIOVolumeSource represents a persistent ScaleIO volume",
   "properties": {
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\". Default is \"xfs\".",
+      "default": "xfs",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system.",
       "type": "string"
     },
     "gateway": {
       "description": "The host address of the ScaleIO API Gateway.",
+      "minLength": 1,
       "type": "string"
     },
     "protectionDomain": {
@@ -14,6 +16,7 @@
       "type": "string"
     },
     "readOnly": {
+      "default": false,
       "description": "Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
       "type": "boolean"
     },
@@ -22,11 +25,17 @@
       "description": "SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail."
     },
     "sslEnabled": {
-      "description": "Flag to enable/disable SSL communication with Gateway, default false",
+      "default": false,
+      "description": "Flag to enable/disable SSL communication with Gateway",
       "type": "boolean"
     },
     "storageMode": {
-      "description": "Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.",
+      "default": "ThinProvisioned",
+      "description": "Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned.",
+      "enum": [
+        "ThickProvisioned",
+        "ThinProvisioned"
+      ],
       "type": "string"
     },
     "storagePool": {
@@ -35,6 +44,7 @@
     },
     "system": {
       "description": "The name of the storage system as configured in ScaleIO.",
+      "minLength": 1,
       "type": "string"
     },
     "volumeName": {

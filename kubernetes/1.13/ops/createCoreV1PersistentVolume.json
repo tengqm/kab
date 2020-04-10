@@ -1,62 +1,68 @@
 {
+  "description": "create a PersistentVolume",
   "consumes": [
     "*/*"
   ],
-  "description": "create a PersistentVolume",
-  "operationId": "createCoreV1PersistentVolume",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    }
-  ],
-  "path": "/api/v1/persistentvolumes",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "core_v1"
   ],
-  "verb": "post",
+  "operationId": "createCoreV1PersistentVolume",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.CREATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PersistentVolume",
     "version": "v1"
-  }
+  },
+  "verb": "post",
+  "path": "/api/v1/persistentvolumes"
 }

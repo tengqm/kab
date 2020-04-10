@@ -1,17 +1,47 @@
 {
+  "description": "read scale of the specified ReplicaSet",
   "consumes": [
     "*/*"
   ],
-  "description": "read scale of the specified ReplicaSet",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
   "operationId": "readAppsV1NamespacedReplicaSetScale",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "autoscaling",
+    "kind": "Scale",
+    "version": "v1"
+  },
+  "verb": "get",
+  "path": "/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/scale",
   "parameters": [
     {
-      "description": "name of the Scale",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Scale",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -19,35 +49,5 @@
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/apps/v1/namespaces/{namespace}/replicasets/{name}/scale",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
-  "verb": "get",
-  "x-kubernetes-action": "get",
-  "x-kubernetes-group-version-kind": {
-    "group": "autoscaling",
-    "kind": "Scale",
-    "version": "v1"
-  }
+  ]
 }

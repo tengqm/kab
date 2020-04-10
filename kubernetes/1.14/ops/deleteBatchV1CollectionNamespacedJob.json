@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of Job",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of Job",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
   "operationId": "deleteBatchV1CollectionNamespacedJob",
   "parameters": [
     {
@@ -27,17 +38,14 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -50,17 +58,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs"
 }

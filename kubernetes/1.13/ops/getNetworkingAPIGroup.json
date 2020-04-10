@@ -1,17 +1,22 @@
 {
+  "description": "get information of the networking API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getNetworkingAPIGroup",
-  "path": "/apis/networking.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "networking"
+  ],
+  "operationId": "getNetworkingAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "networking"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/networking.k8s.io/"
 }

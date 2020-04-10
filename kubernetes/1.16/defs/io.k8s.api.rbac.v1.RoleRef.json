@@ -1,16 +1,19 @@
 {
-  "description": "RoleRef contains information that points to the role being used",
+  "description": "Information for referencing a role or a cluste role",
   "properties": {
     "apiGroup": {
-      "description": "APIGroup is the group for the resource being referenced",
+      "description": "The group for the referenced resource. Currently this must be '`rbac.authorization.k8s.io`'.",
+      "minLength": 1,
       "type": "string"
     },
     "kind": {
-      "description": "Kind is the type of resource being referenced",
+      "description": "A string value representing the REST resource",
+      "minLength": 1,
       "type": "string"
     },
     "name": {
-      "description": "Name is the name of resource being referenced",
+      "description": "The name of the referenced resource. This value must be a valid path segment name.",
+      "minLength": 1,
       "type": "string"
     }
   },

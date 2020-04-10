@@ -13,16 +13,17 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Optional: Extra command options if any.",
+      "description": "Extra command options if any.",
       "type": "object"
     },
     "readOnly": {
-      "description": "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+      "default": false,
+      "description": "Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
       "type": "boolean"
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
-      "description": "Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts."
+      "description": "A reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts."
     }
   },
   "required": [

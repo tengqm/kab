@@ -1,8 +1,21 @@
 {
+  "description": "list or watch objects of kind Ingress",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind Ingress",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
   "operationId": "listExtensionsV1beta1NamespacedIngress",
   "parameters": [
     {
@@ -36,14 +49,6 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -55,17 +60,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "Ingress",
     "version": "v1beta1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses"
 }

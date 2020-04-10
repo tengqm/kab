@@ -1,17 +1,22 @@
 {
+  "description": "get information of the certificates API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getCertificatesAPIGroup",
-  "path": "/apis/certificates.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates"
+  ],
+  "operationId": "getCertificatesAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "certificates"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/certificates.k8s.io/"
 }

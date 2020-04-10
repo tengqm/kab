@@ -1,15 +1,26 @@
 {
+  "description": "partially update status of the specified Job",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json"
   ],
-  "description": "partially update status of the specified Job",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
   "operationId": "patchBatchV1NamespacedJobStatus",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -19,12 +30,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the Job",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Job",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -33,34 +44,23 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1.Job"
+        "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1"
-  ],
-  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "Job",
     "version": "v1"
-  }
+  },
+  "verb": "patch",
+  "path": "/apis/batch/v1/namespaces/{namespace}/jobs/{name}/status"
 }

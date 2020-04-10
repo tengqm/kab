@@ -1,16 +1,27 @@
 {
+  "description": "partially update scale of the specified Deployment",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json",
     "application/apply-patch+yaml"
   ],
-  "description": "partially update scale of the specified Deployment",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
   "operationId": "patchAppsV1NamespacedDeploymentScale",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -20,18 +31,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/fieldManager"
-    },
-    {
-      "$ref": "#/parameters/force"
-    },
-    {
-      "description": "name of the Scale",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Scale",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -40,34 +45,23 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apps/v1/namespaces/{namespace}/deployments/{name}/scale",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale"
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.Scale.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
-  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "autoscaling",
     "kind": "Scale",
     "version": "v1"
-  }
+  },
+  "verb": "patch",
+  "path": "/apis/apps/v1/namespaces/{namespace}/deployments/{name}/scale"
 }

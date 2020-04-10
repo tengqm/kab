@@ -1,8 +1,21 @@
 {
+  "description": "list or watch objects of kind PriorityClass",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind PriorityClass",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "scheduling_v1beta1"
+  ],
   "operationId": "listSchedulingV1beta1PriorityClass",
   "parameters": [
     {
@@ -33,14 +46,6 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -52,17 +57,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "scheduling_v1beta1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "scheduling.k8s.io",
     "kind": "PriorityClass",
     "version": "v1beta1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/scheduling.k8s.io/v1beta1/priorityclasses"
 }

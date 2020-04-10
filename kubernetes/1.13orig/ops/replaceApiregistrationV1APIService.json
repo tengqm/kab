@@ -1,0 +1,67 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "replace the specified APIService",
+  "operationId": "replaceApiregistrationV1APIService",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "description": "name of the APIService",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/apiregistration.k8s.io/v1/apiservices/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiregistration_v1"
+  ],
+  "verb": "put",
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "apiregistration.k8s.io",
+    "kind": "APIService",
+    "version": "v1"
+  }
+}

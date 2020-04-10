@@ -1,5 +1,5 @@
 {
-  "description": "SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set",
+  "description": "A description of the access request. Exactly one of `resourceAttributes` and `nonResourceAttributes` must be set",
   "properties": {
     "extra": {
       "additionalProperties": {
@@ -8,11 +8,11 @@
         },
         "type": "array"
       },
-      "description": "Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.",
+      "description": "This contains some extra information about the user, returned from the authenticator. Since that is input to the authorizer it needs a reflection here.",
       "type": "object"
     },
     "groups": {
-      "description": "Groups is the groups you're testing for.",
+      "description": "The groups for testing. At least one of `user` or `groups` must be specified.",
       "items": {
         "type": "string"
       },
@@ -20,18 +20,18 @@
     },
     "nonResourceAttributes": {
       "$ref": "#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes",
-      "description": "NonResourceAttributes describes information for a non-resource access request"
+      "description": "Information for a non-resource access request"
     },
     "resourceAttributes": {
       "$ref": "#/definitions/io.k8s.api.authorization.v1.ResourceAttributes",
-      "description": "ResourceAuthorizationAttributes describes information for a resource access request"
+      "description": "Information for a resource access request"
     },
     "uid": {
-      "description": "UID information about the requesting user.",
+      "description": "UID of the requesting user.",
       "type": "string"
     },
     "user": {
-      "description": "User is the user you're testing for. If you specify \"User\" but not \"Groups\", then is it interpreted as \"What if User were not a member of any groups",
+      "description": "The user for testing. At least one of `user` or `groups` must be specified. If you specify `user` but not `groups`, then is it interpreted as 'What if User were not a member of any groups'",
       "type": "string"
     }
   },

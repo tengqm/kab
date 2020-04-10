@@ -1,33 +1,33 @@
 {
-  "consumes": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "description": "get information of a group",
-  "operationId": "getStorageAPIGroup",
-  "path": "/apis/storage.k8s.io/",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup"
-      }
+    "consumes": [
+        "application/json",
+        "application/yaml",
+        "application/vnd.kubernetes.protobuf"
+    ],
+    "description": "get information of the storage.k8s.io API group",
+    "operationId": "getStorageAPIGroup",
+    "path": "/apis/storage.k8s.io/",
+    "produces": [
+        "application/json",
+        "application/yaml",
+        "application/vnd.kubernetes.protobuf"
+    ],
+    "responses": {
+        "200": {
+            "description": "OK",
+            "schema": {
+                "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup"
+            }
+        },
+        "401": {
+            "description": "Unauthorized"
+        }
     },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage"
-  ],
-  "verb": "get"
+    "schemes": [
+        "https"
+    ],
+    "tags": [
+        "storage"
+    ],
+    "verb": "get"
 }

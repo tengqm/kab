@@ -1,13 +1,24 @@
 {
+  "description": "delete a NetworkPolicy",
   "consumes": [
     "*/*"
   ],
-  "description": "delete a NetworkPolicy",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "networking_v1"
+  ],
   "operationId": "deleteNetworkingV1NamespacedNetworkPolicy",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,12 +36,12 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the NetworkPolicy",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the NetworkPolicy",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -38,12 +49,6 @@
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -62,17 +67,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "networking_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "networking.k8s.io",
     "kind": "NetworkPolicy",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}"
 }

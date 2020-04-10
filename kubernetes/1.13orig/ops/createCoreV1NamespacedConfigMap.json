@@ -1,0 +1,65 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a ConfigMap",
+  "operationId": "createCoreV1NamespacedConfigMap",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/configmaps",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "ConfigMap",
+    "version": "v1"
+  }
+}

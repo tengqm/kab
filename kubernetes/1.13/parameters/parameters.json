@@ -13,6 +13,9 @@
     "name": "dryRun",
     "required": false,
     "type": "string",
+    "enum": [
+      "All"
+    ],
     "uniqueItems": true
   },
   "exact": {
@@ -101,6 +104,11 @@
     "name": "propagationPolicy",
     "required": false,
     "type": "string",
+    "enum": [
+      "Orphan",
+      "Background",
+      "Foreground"
+    ],
     "uniqueItems": true
   },
   "resourceVersion": {
@@ -128,3 +136,4 @@
     "uniqueItems": true
   }
 }
+

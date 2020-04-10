@@ -1,13 +1,13 @@
 {
-  "description": "IngressBackend describes all endpoints for a given service and port.",
+  "description": "Information about the service serving the backend for a given Ingress.",
   "properties": {
     "serviceName": {
-      "description": "Specifies the name of the referenced service.",
+      "description": "The name of the referenced service.",
       "type": "string"
     },
     "servicePort": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
-      "description": "Specifies the port of the referenced service."
+      "description": "The port of the referenced service."
     }
   },
   "required": [

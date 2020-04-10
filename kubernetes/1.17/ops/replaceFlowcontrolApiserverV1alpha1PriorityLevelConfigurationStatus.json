@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration.UPDATE"
       }
     },
     {
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration.GET"
       }
     },
     "401": {

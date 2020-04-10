@@ -1,15 +1,15 @@
 {
-  "description": "A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.",
+  "description": "A node selection term. A null or empty term matches no objects. The requirements in the term are AND'ed.",
   "properties": {
     "matchExpressions": {
-      "description": "A list of node selector requirements by node's labels.",
+      "description": "A list of node selector based on node's labels.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
       },
       "type": "array"
     },
     "matchFields": {
-      "description": "A list of node selector requirements by node's fields.",
+      "description": "A list of node selector based on node's fields.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
       },

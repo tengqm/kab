@@ -1,28 +1,20 @@
 {
+  "description": "read the specified ComponentStatus",
   "consumes": [
     "*/*"
   ],
-  "description": "read the specified ComponentStatus",
-  "operationId": "readCoreV1ComponentStatus",
-  "parameters": [
-    {
-      "description": "name of the ComponentStatus",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ],
-  "path": "/api/v1/componentstatuses/{name}",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "operationId": "readCoreV1ComponentStatus",
   "responses": {
     "200": {
       "description": "OK",
@@ -34,17 +26,25 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "ComponentStatus",
     "version": "v1"
-  }
+  },
+  "verb": "get",
+  "path": "/api/v1/componentstatuses/{name}",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the ComponentStatus",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ]
 }

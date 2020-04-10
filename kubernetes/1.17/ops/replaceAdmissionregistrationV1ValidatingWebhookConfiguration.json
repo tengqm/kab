@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration.UPDATE"
       }
     },
     {
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration.GET"
       }
     },
     "401": {

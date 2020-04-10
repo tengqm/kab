@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of Event",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of Event",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "events_v1beta1"
+  ],
   "operationId": "deleteEventsV1beta1CollectionNamespacedEvent",
   "parameters": [
     {
@@ -27,17 +38,14 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -50,17 +58,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "events_v1beta1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "events.k8s.io",
     "kind": "Event",
     "version": "v1beta1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events"
 }

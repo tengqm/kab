@@ -1,8 +1,8 @@
 {
-  "description": "EndpointsList is a list of endpoints.",
+  "description": "A list of endpoints.",
   "properties": {
     "apiVersion": {
-      "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "v1"
       ],
@@ -11,12 +11,12 @@
     "items": {
       "description": "List of endpoints.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Endpoints.GET"
       },
       "type": "array"
     },
     "kind": {
-      "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+      "description": "A string value representing the REST resource",
       "enum": [
         "EndpointsList"
       ],
@@ -24,12 +24,12 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+      "description": "Standard list metadata."
     }
   },
   "required": [
-    "items",
     "apiVersion",
+    "items",
     "kind"
   ],
   "type": "object",

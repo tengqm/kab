@@ -1,16 +1,16 @@
 {
-  "description": "ContainerStatus contains details for the current status of this container.",
+  "description": "The details for the current status of a container.",
   "properties": {
     "containerID": {
-      "description": "Container's ID in the format 'docker://<container_id>'.",
+      "description": "Container's ID in the format '`docker://<container_id>`'.",
       "type": "string"
     },
     "image": {
-      "description": "The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images",
+      "description": "The name of the image the container is running.",
       "type": "string"
     },
     "imageID": {
-      "description": "ImageID of the container's image.",
+      "description": "ID of the container's image.",
       "type": "string"
     },
     "lastState": {
@@ -18,7 +18,7 @@
       "description": "Details about the container's last termination condition."
     },
     "name": {
-      "description": "This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.",
+      "description": "The name for the container which is unique in a pod. Cannot be updated.",
       "type": "string"
     },
     "ready": {
@@ -31,7 +31,7 @@
       "type": "integer"
     },
     "started": {
-      "description": "Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.",
+      "description": "Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no `startupProbe` is defined.",
       "type": "boolean"
     },
     "state": {

@@ -1,8 +1,13 @@
 {
-  "description": "FlowDistinguisherMethod specifies the method of a flow distinguisher.",
+  "description": "The method of a flow distinguisher.",
   "properties": {
     "type": {
-      "description": "`type` is the type of flow distinguisher method The supported types are \"ByUser\" and \"ByNamespace\". Required.",
+      "description": "The type of flow distinguisher method.",
+      "enum": [
+        "ByUser",
+        "ByNamespace"
+      ],
+      "minLength": 1,
       "type": "string"
     }
   },

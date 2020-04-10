@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINode"
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINode.UPDATE"
       }
     },
     {
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINode"
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINode.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINode"
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINode.GET"
       }
     },
     "401": {

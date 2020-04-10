@@ -1,8 +1,21 @@
 {
+  "description": "list or watch objects of kind Lease",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind Lease",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "coordination_v1beta1"
+  ],
   "operationId": "listCoordinationV1beta1NamespacedLease",
   "parameters": [
     {
@@ -27,19 +40,14 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
   ],
   "responses": {
     "200": {
@@ -52,17 +60,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "coordination_v1beta1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
     "version": "v1beta1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases"
 }

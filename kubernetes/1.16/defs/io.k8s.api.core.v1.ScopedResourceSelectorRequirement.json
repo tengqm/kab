@@ -1,12 +1,26 @@
 {
-  "description": "A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.",
+  "description": "A selector that contains values, a scope name, and an operator that relates the scope name and values. This is currently only used in ResourceQuota.",
   "properties": {
     "operator": {
-      "description": "Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.",
+      "description": "Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. When scope is one of 'Terminating', 'NotTerminating', 'BestEffort', 'NotBestEffort', the operator can only be 'Exists'.",
+      "enum": [
+        "DoesNotExist",
+        "Exists",
+        "In",
+        "NotIn"
+      ],
       "type": "string"
     },
     "scopeName": {
       "description": "The name of the scope that the selector applies to.",
+      "enum": [
+        "Terminating",
+        "NotTerminating",
+        "BestEffort",
+        "NotBestEffort",
+        "PriorityClass"
+      ],
+      "minLength": 1,
       "type": "string"
     },
     "values": {

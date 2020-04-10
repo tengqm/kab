@@ -1,28 +1,30 @@
 {
-  "description": "Represents storage that is managed by an external CSI volume driver (Beta feature)",
+  "description": "A storage that is managed by an external CSI volume driver",
   "properties": {
     "controllerPublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` field cannot be empty. The field can be updated if current value is nil."
     },
     "driver": {
-      "description": "Driver is the name of the driver to use for this volume. Required.",
+      "description": "The name of the driver to use for this volume.",
+      "minLength": 1,
       "type": "string"
     },
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\".",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system.",
       "type": "string"
     },
     "nodePublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodePublishVolume` and `NodeUnpublishVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` fields should be specified."
     },
     "nodeStageSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodeStageVolume`, `NodeStageVolume` and `NodeUnstageVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` fields have to be provided."
     },
     "readOnly": {
-      "description": "Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).",
+      "default": false,
+      "description": "The value to pass to `ControllerPublishVolumeRequest`.",
       "type": "boolean"
     },
     "volumeAttributes": {
@@ -33,7 +35,8 @@
       "type": "object"
     },
     "volumeHandle": {
-      "description": "VolumeHandle is the unique volume name returned by the CSI volume plugin\u2019s CreateVolume to refer to the volume on all subsequent calls. Required.",
+      "description": "The unique volume name returned by the CSI volume plugin's `CreateVolume`. Used as reference to the volume on all subsequent calls.",
+      "minLength": 1,
       "type": "string"
     }
   },

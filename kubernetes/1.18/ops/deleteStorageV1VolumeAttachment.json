@@ -1,13 +1,24 @@
 {
+  "description": "delete a VolumeAttachment",
   "consumes": [
     "*/*"
   ],
-  "description": "delete a VolumeAttachment",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
   "operationId": "deleteStorageV1VolumeAttachment",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,51 +36,40 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the VolumeAttachment",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the VolumeAttachment",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1/volumeattachments/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment"
+        "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachment.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "VolumeAttachment",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/storage.k8s.io/v1/volumeattachments/{name}"
 }

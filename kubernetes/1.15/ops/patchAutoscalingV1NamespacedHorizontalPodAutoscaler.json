@@ -1,15 +1,26 @@
 {
+  "description": "partially update the specified HorizontalPodAutoscaler",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json"
   ],
-  "description": "partially update the specified HorizontalPodAutoscaler",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "autoscaling_v1"
+  ],
   "operationId": "patchAutoscalingV1NamespacedHorizontalPodAutoscaler",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -19,18 +30,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/fieldManager"
-    },
-    {
-      "$ref": "#/parameters/force"
-    },
-    {
-      "description": "name of the HorizontalPodAutoscaler",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the HorizontalPodAutoscaler",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -39,34 +44,23 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler"
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "autoscaling_v1"
-  ],
-  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "autoscaling",
     "kind": "HorizontalPodAutoscaler",
     "version": "v1"
-  }
+  },
+  "verb": "patch",
+  "path": "/apis/autoscaling/v1/namespaces/{namespace}/horizontalpodautoscalers/{name}"
 }

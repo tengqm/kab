@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of CustomResourceDefinition",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of CustomResourceDefinition",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiextensions_v1beta1"
+  ],
   "operationId": "deleteApiextensionsV1beta1CollectionCustomResourceDefinition",
   "parameters": [
     {
@@ -27,14 +38,11 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -47,17 +55,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apiextensions_v1beta1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "apiextensions.k8s.io",
     "kind": "CustomResourceDefinition",
     "version": "v1beta1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions"
 }

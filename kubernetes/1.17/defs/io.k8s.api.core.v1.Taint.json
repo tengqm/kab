@@ -1,12 +1,18 @@
 {
-  "description": "The node this Taint is attached to has the \"effect\" on any pod that does not tolerate the Taint.",
+  "description": "The node this Taint is attached to has the 'effect' on any pod that does not tolerate the Taint.",
   "properties": {
     "effect": {
-      "description": "Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.",
+      "description": "The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.",
+      "enum": [
+        "NoExecute",
+        "NoSchedule",
+        "PreferNoSchedule"
+      ],
       "type": "string"
     },
     "key": {
-      "description": "Required. The taint key to be applied to a node.",
+      "description": "The taint key to be applied to a node.",
+      "minLength": 1,
       "type": "string"
     },
     "timeAdded": {
@@ -14,13 +20,15 @@
       "description": "TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints."
     },
     "value": {
-      "description": "Required. The taint value corresponding to the taint key.",
+      "description": "The taint value corresponding to the taint key.",
+      "minLength": 1,
       "type": "string"
     }
   },
   "required": [
     "key",
-    "effect"
+    "effect",
+    "value"
   ],
   "type": "object"
 }

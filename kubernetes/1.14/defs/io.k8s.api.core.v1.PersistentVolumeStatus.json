@@ -1,12 +1,19 @@
 {
-  "description": "PersistentVolumeStatus is the current status of a persistent volume.",
+  "description": "The current status of a persistent volume.",
   "properties": {
     "message": {
       "description": "A human-readable message indicating details about why the volume is in this state.",
       "type": "string"
     },
     "phase": {
-      "description": "Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase",
+      "description": "Phase indicates if a volume is available, bound to a claim, or released by a claim.",
+      "enum": [
+        "Available",
+        "Bound",
+        "Failed",
+        "Released",
+        "Pending"
+      ],
       "type": "string"
     },
     "reason": {

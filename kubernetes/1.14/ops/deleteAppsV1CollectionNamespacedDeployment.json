@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of Deployment",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of Deployment",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
   "operationId": "deleteAppsV1CollectionNamespacedDeployment",
   "parameters": [
     {
@@ -27,17 +38,14 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/apps/v1/namespaces/{namespace}/deployments",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -50,17 +58,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "Deployment",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/apps/v1/namespaces/{namespace}/deployments"
 }

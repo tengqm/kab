@@ -1,0 +1,66 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "delete collection of PodSecurityPolicy",
+  "operationId": "deletePolicyV1beta1CollectionPodSecurityPolicy",
+  "parameters": [
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/policy/v1beta1/podsecuritypolicies",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
+  "verb": "delete",
+  "x-kubernetes-action": "deletecollection",
+  "x-kubernetes-group-version-kind": {
+    "group": "policy",
+    "kind": "PodSecurityPolicy",
+    "version": "v1beta1"
+  }
+}

@@ -1,70 +1,67 @@
 {
+  "description": "replace the specified MutatingWebhookConfiguration",
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified MutatingWebhookConfiguration",
-  "operationId": "replaceAdmissionregistrationV1beta1MutatingWebhookConfiguration",
-  "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/fieldManager"
-    },
-    {
-      "description": "name of the MutatingWebhookConfiguration",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ],
-  "path": "/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
   "schemes": [
     "https"
   ],
   "tags": [
     "admissionregistration_v1beta1"
   ],
-  "verb": "put",
+  "operationId": "replaceAdmissionregistrationV1beta1MutatingWebhookConfiguration",
+  "parameters": [
+    {
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.UPDATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the MutatingWebhookConfiguration",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "admissionregistration.k8s.io",
     "kind": "MutatingWebhookConfiguration",
     "version": "v1beta1"
-  }
+  },
+  "verb": "put",
+  "path": "/apis/admissionregistration.k8s.io/v1beta1/mutatingwebhookconfigurations/{name}"
 }

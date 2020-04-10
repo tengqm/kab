@@ -1,5 +1,4 @@
 {
-  "description": "APIServiceCondition describes the state of an APIService at a particular point",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -14,11 +13,17 @@
       "type": "string"
     },
     "status": {
-      "description": "Status is the status of the condition. Can be True, False, Unknown.",
+      "description": "The status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
       "description": "Type is the type of the condition.",
+      "minLength": 1,
       "type": "string"
     }
   },

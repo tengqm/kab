@@ -1,8 +1,8 @@
 {
-  "description": "A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.",
+  "description": "The AND of all the selectors represented by the matchExpressions selectors. This currently only used in ResourceQuota.",
   "properties": {
     "matchExpressions": {
-      "description": "A list of scope selector requirements by scope of the resources.",
+      "description": "A list of scope selector requirements by scope of the resources. Note that the 'BestEffort' and 'NotBestEffort' scopes conflicts with each other, and the 'Terminating' and the 'NotTerminating' scopes conflict with each other.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ScopedResourceSelectorRequirement"
       },

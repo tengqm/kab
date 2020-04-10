@@ -1,0 +1,71 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "list or watch objects of kind PodPreset",
+  "operationId": "listSettingsV1alpha1NamespacedPodPreset",
+  "parameters": [
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "settings_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "settings.k8s.io",
+    "kind": "PodPreset",
+    "version": "v1alpha1"
+  }
+}

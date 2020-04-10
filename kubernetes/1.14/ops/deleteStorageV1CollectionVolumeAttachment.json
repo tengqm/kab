@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of VolumeAttachment",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of VolumeAttachment",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
   "operationId": "deleteStorageV1CollectionVolumeAttachment",
   "parameters": [
     {
@@ -27,14 +38,11 @@
       "$ref": "#/parameters/watch"
     },
     {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/storage.k8s.io/v1/volumeattachments",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -47,17 +55,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "VolumeAttachment",
     "version": "v1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/storage.k8s.io/v1/volumeattachments"
 }

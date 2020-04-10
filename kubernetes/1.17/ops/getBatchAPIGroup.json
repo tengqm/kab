@@ -1,17 +1,22 @@
 {
+  "description": "get information of the batch API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getBatchAPIGroup",
-  "path": "/apis/batch/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch"
+  ],
+  "operationId": "getBatchAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/batch/"
 }

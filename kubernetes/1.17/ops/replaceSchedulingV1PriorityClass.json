@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1.PriorityClass.UPDATE"
       }
     },
     {
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1.PriorityClass.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.scheduling.v1.PriorityClass"
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1.PriorityClass.GET"
       }
     },
     "401": {

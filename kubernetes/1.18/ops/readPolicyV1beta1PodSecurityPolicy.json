@@ -1,8 +1,19 @@
 {
+  "description": "read the specified PodSecurityPolicy",
   "consumes": [
     "*/*"
   ],
-  "description": "read the specified PodSecurityPolicy",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
   "operationId": "readPolicyV1beta1PodSecurityPolicy",
   "parameters": [
     {
@@ -12,45 +23,34 @@
       "$ref": "#/parameters/export"
     },
     {
-      "description": "name of the PodSecurityPolicy",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the PodSecurityPolicy",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/policy/v1beta1/podsecuritypolicies/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy"
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodSecurityPolicy",
     "version": "v1beta1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/policy/v1beta1/podsecuritypolicies/{name}"
 }

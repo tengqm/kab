@@ -1,17 +1,22 @@
 {
+  "description": "get information of the scheduling.k8s.io API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getSchedulingAPIGroup",
-  "path": "/apis/scheduling.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "scheduling"
+  ],
+  "operationId": "getSchedulingAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "scheduling"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/scheduling.k8s.io/"
 }

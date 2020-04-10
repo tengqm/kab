@@ -1,8 +1,21 @@
 {
+  "description": "list or watch objects of kind PodSecurityPolicy",
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind PodSecurityPolicy",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
   "operationId": "listPolicyV1beta1PodSecurityPolicy",
   "parameters": [
     {
@@ -33,14 +46,6 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/policy/v1beta1/podsecuritypolicies",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -52,17 +57,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
-  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodSecurityPolicy",
     "version": "v1beta1"
-  }
+  },
+  "verb": "get",
+  "path": "/apis/policy/v1beta1/podsecuritypolicies"
 }

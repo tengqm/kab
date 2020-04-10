@@ -1,17 +1,22 @@
 {
+  "description": "get information of the extensions API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getExtensionsAPIGroup",
-  "path": "/apis/extensions/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions"
+  ],
+  "operationId": "getExtensionsAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/extensions/"
 }

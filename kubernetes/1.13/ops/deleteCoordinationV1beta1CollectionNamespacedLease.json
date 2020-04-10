@@ -1,8 +1,19 @@
 {
+  "description": "delete collection of Lease",
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of Lease",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "coordination_v1beta1"
+  ],
   "operationId": "deleteCoordinationV1beta1CollectionNamespacedLease",
   "parameters": [
     {
@@ -36,12 +47,6 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -53,17 +58,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "coordination_v1beta1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "coordination.k8s.io",
     "kind": "Lease",
     "version": "v1beta1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases"
 }

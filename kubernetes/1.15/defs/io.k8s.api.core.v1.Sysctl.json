@@ -1,12 +1,15 @@
 {
-  "description": "Sysctl defines a kernel parameter to be set",
+  "description": "A kernel parameter to set",
   "properties": {
     "name": {
-      "description": "Name of a property to set",
+      "description": "Name of a property to set. The name contains several segments separated with dots which each segment can contain alphanumeric characters, '-' and '_'. '-' and '_' cannot appear at the start or end, though.",
+      "maxLength": 253,
+      "minLength": 1,
       "type": "string"
     },
     "value": {
       "description": "Value of a property to set",
+      "minLength": 1,
       "type": "string"
     }
   },

@@ -15,10 +15,16 @@
     },
     "status": {
       "description": "Status is the status of the condition. Can be True, False, Unknown.",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
       "description": "Type is the type of the condition.",
+      "minLength": 1,
       "type": "string"
     }
   },

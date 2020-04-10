@@ -1,17 +1,22 @@
 {
+  "description": "get information of the apps API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "description": "get information of a group",
-  "operationId": "getAppsAPIGroup",
-  "path": "/apis/apps/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps"
+  ],
+  "operationId": "getAppsAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -23,11 +28,6 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apps"
-  ],
-  "verb": "get"
+  "verb": "get",
+  "path": "/apis/apps/"
 }

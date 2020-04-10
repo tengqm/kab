@@ -1,17 +1,47 @@
 {
+  "description": "read status of the specified Ingress",
   "consumes": [
     "*/*"
   ],
-  "description": "read status of the specified Ingress",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
   "operationId": "readExtensionsV1beta1NamespacedIngressStatus",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "Ingress",
+    "version": "v1beta1"
+  },
+  "verb": "get",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
   "parameters": [
     {
-      "description": "name of the Ingress",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the Ingress",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -19,35 +49,5 @@
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "responses": {
-    "200": {
-      "description": "OK",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
-      }
-    },
-    "401": {
-      "description": "Unauthorized"
-    }
-  },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "extensions_v1beta1"
-  ],
-  "verb": "get",
-  "x-kubernetes-action": "get",
-  "x-kubernetes-group-version-kind": {
-    "group": "extensions",
-    "kind": "Ingress",
-    "version": "v1beta1"
-  }
+  ]
 }

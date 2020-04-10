@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema.UPDATE"
       }
     },
     {
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema.GET"
       }
     },
     "401": {

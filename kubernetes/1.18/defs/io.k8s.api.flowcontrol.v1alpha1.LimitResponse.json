@@ -1,12 +1,16 @@
 {
-  "description": "LimitResponse defines how to handle requests that can not be executed right now.",
+  "description": "This defines how to handle requests that cannot be executed right now.",
   "properties": {
     "queuing": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.QueuingConfiguration",
-      "description": "`queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `\"Queue\"`."
+      "description": "The configuration parameters for queuing. This field may be non-empty only if `type` is '`Queue`'."
     },
     "type": {
-      "description": "`type` is \"Queue\" or \"Reject\". \"Queue\" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. \"Reject\" means that requests that can not be executed upon arrival are rejected. Required.",
+      "description": "'`Queue`' means that requests that cannot be executed immediately are held in a queue until they can be executed or a queuing limit is reached. '`Reject`' means that requests that cannot be executed upon arrival are rejected.",
+      "enum": [
+        "Queue",
+        "Reject"
+      ],
       "type": "string"
     }
   },

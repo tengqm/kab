@@ -2,17 +2,26 @@
   "description": "HPAScalingPolicy is a single policy which must hold true for a specified past interval.",
   "properties": {
     "periodSeconds": {
-      "description": "PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).",
+      "description": "The time window for which the policy should hold true.",
+      "default": 15,
       "format": "int32",
+      "minimum": 1,
+      "maximum": 1800,
       "type": "integer"
     },
     "type": {
-      "description": "Type is used to specify the scaling policy.",
+      "description": "Type is used to specify the scaling policy. 'Pods' means the policy is about the change in absolute number of Pods. 'Percent' means the policy is about the relative number of change with respect to the current number of Pods. ",
+      "enum": [
+        "Pods",
+        "Percentage"
+      ],
+      "minLength": 1,
       "type": "string"
     },
     "value": {
-      "description": "Value contains the amount of change which is permitted by the policy. It must be greater than zero",
+      "description": "The amount of change which is permitted by the policy. When 'type' is set to '`Percent`', the maximum value is 100.",
       "format": "int32",
+      "minimum": 1,
       "type": "integer"
     }
   },

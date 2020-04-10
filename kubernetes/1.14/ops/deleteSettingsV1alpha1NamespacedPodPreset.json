@@ -1,13 +1,24 @@
 {
+  "description": "delete a PodPreset",
   "consumes": [
     "*/*"
   ],
-  "description": "delete a PodPreset",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "settings_v1alpha1"
+  ],
   "operationId": "deleteSettingsV1alpha1NamespacedPodPreset",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -25,12 +36,12 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "description": "name of the PodPreset",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the PodPreset",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -38,12 +49,6 @@
     {
       "$ref": "#/parameters/pretty"
     }
-  ],
-  "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets/{name}",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -62,17 +67,12 @@
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "settings_v1alpha1"
-  ],
-  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "settings.k8s.io",
     "kind": "PodPreset",
     "version": "v1alpha1"
-  }
+  },
+  "verb": "delete",
+  "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets/{name}"
 }

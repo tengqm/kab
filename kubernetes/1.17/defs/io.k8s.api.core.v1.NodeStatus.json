@@ -1,8 +1,8 @@
 {
-  "description": "NodeStatus is information about the current status of a node.",
+  "description": "Information about the current status of a node.",
   "properties": {
     "addresses": {
-      "description": "List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.",
+      "description": "List of addresses reachable to the node. Queried from cloud provider, if available. Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.NodeAddress"
       },
@@ -14,18 +14,18 @@
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.",
+      "description": "The node resources that are available for scheduling. Defaults to `capacity'.",
       "type": "object"
     },
     "capacity": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity",
+      "description": "The total resources of a node.",
       "type": "object"
     },
     "conditions": {
-      "description": "Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition",
+      "description": "An array of current observed node conditions.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.NodeCondition"
       },
@@ -50,10 +50,10 @@
     },
     "nodeInfo": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSystemInfo",
-      "description": "Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info"
+      "description": "Set of ids/uuids to uniquely identify the node."
     },
     "phase": {
-      "description": "NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.",
+      "description": "The recently observed lifecycle phase of the node. The field is never populated, and now is deprecated.",
       "type": "string"
     },
     "volumesAttached": {

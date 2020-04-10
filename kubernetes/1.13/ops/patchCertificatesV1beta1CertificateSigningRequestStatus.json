@@ -1,15 +1,26 @@
 {
+  "description": "partially update status of the specified CertificateSigningRequest",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json"
   ],
-  "description": "partially update status of the specified CertificateSigningRequest",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1beta1"
+  ],
   "operationId": "patchCertificatesV1beta1CertificateSigningRequestStatus",
   "parameters": [
     {
-      "in": "body",
       "name": "body",
+      "in": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -19,45 +30,34 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the CertificateSigningRequest",
-      "in": "path",
-      "name": "name",
-      "required": true,
+      "uniqueItems": true,
       "type": "string",
-      "uniqueItems": true
+      "description": "name of the CertificateSigningRequest",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "certificates_v1beta1"
-  ],
-  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
     "version": "v1beta1"
-  }
+  },
+  "verb": "patch",
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status"
 }
