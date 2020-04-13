@@ -1,5 +1,5 @@
 {
-  "description": "connect GET requests to proxy of Service",
+  "description": "send DELETE requests to proxy of Service",
   "consumes": [
     "*/*"
   ],
@@ -12,7 +12,7 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "connectCoreV1GetNamespacedServiceProxy",
+  "operationId": "connectCoreV1DeleteNamespacedServiceProxy",
   "responses": {
     "200": {
       "description": "OK",
@@ -30,13 +30,13 @@
     "kind": "ServiceProxyOptions",
     "version": "v1"
   },
-  "verb": "get",
+  "verb": "delete",
   "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy",
   "parameters": [
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the ServiceProxyOptions",
+      "description": "name of the Service",
       "name": "name",
       "in": "path",
       "required": true
@@ -47,7 +47,7 @@
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+      "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is `http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`. Path is `_search?q=user:kimchy`.",
       "name": "path",
       "in": "query"
     }
