@@ -1,5 +1,5 @@
 {
-  "description": "connect POST requests to proxy of Pod",
+  "description": "send PUT requests to proxy of Pod",
   "consumes": [
     "*/*"
   ],
@@ -12,7 +12,7 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "connectCoreV1PostNamespacedPodProxy",
+  "operationId": "connectCoreV1PutNamespacedPodProxy",
   "responses": {
     "200": {
       "description": "OK",
@@ -30,13 +30,13 @@
     "kind": "PodProxyOptions",
     "version": "v1"
   },
-  "verb": "post",
+  "verb": "put",
   "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy",
   "parameters": [
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the PodProxyOptions",
+      "description": "name of the Pod",
       "name": "name",
       "in": "path",
       "required": true

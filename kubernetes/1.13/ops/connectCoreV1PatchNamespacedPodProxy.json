@@ -1,5 +1,5 @@
 {
-  "description": "connect OPTIONS requests to proxy of Pod",
+  "description": "send PATCH requests to proxy of Pod",
   "consumes": [
     "*/*"
   ],
@@ -12,7 +12,7 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "connectCoreV1OptionsNamespacedPodProxyWithPath",
+  "operationId": "connectCoreV1PatchNamespacedPodProxy",
   "responses": {
     "200": {
       "description": "OK",
@@ -30,27 +30,19 @@
     "kind": "PodProxyOptions",
     "version": "v1"
   },
-  "verb": "options",
-  "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy/{path}",
+  "verb": "patch",
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy",
   "parameters": [
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the PodProxyOptions",
+      "description": "name of the Pod",
       "name": "name",
       "in": "path",
       "required": true
     },
     {
       "$ref": "#/parameters/namespace"
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "path to the resource",
-      "name": "path",
-      "in": "path",
-      "required": true
     },
     {
       "uniqueItems": true,

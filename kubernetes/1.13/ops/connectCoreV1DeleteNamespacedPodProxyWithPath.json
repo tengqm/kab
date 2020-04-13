@@ -1,5 +1,5 @@
 {
-  "description": "connect HEAD requests to proxy of Pod",
+  "description": "send DELETE requests to proxy of Pod",
   "consumes": [
     "*/*"
   ],
@@ -12,7 +12,7 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "connectCoreV1HeadNamespacedPodProxyWithPath",
+  "operationId": "connectCoreV1DeleteNamespacedPodProxyWithPath",
   "responses": {
     "200": {
       "description": "OK",
@@ -30,13 +30,13 @@
     "kind": "PodProxyOptions",
     "version": "v1"
   },
-  "verb": "head",
+  "verb": "delete",
   "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy/{path}",
   "parameters": [
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the PodProxyOptions",
+      "description": "name of the Pod",
       "name": "name",
       "in": "path",
       "required": true
