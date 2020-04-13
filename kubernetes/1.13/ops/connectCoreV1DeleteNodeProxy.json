@@ -12,7 +12,7 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "connectCoreV1DeleteNodeProxyWithPath",
+  "operationId": "connectCoreV1DeleteNodeProxy",
   "responses": {
     "200": {
       "description": "OK",
@@ -31,21 +31,13 @@
     "version": "v1"
   },
   "verb": "delete",
-  "path": "/api/v1/nodes/{name}/proxy/{path}",
+  "path": "/api/v1/nodes/{name}/proxy",
   "parameters": [
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the NodeProxyOptions",
+      "description": "name of the Node",
       "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "path to the resource",
-      "name": "path",
       "in": "path",
       "required": true
     },

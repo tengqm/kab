@@ -1,5 +1,5 @@
 {
-  "description": "connect PATCH requests to proxy of Node",
+  "description": "send HEAD requests to proxy of Node",
   "consumes": [
     "*/*"
   ],
@@ -12,7 +12,7 @@
   "tags": [
     "core_v1"
   ],
-  "operationId": "connectCoreV1PatchNodeProxyWithPath",
+  "operationId": "connectCoreV1HeadNodeProxyWithPath",
   "responses": {
     "200": {
       "description": "OK",
@@ -30,13 +30,13 @@
     "kind": "NodeProxyOptions",
     "version": "v1"
   },
-  "verb": "patch",
+  "verb": "head",
   "path": "/api/v1/nodes/{name}/proxy/{path}",
   "parameters": [
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the NodeProxyOptions",
+      "description": "name of the Node",
       "name": "name",
       "in": "path",
       "required": true
