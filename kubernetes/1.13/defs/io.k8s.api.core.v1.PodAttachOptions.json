@@ -1,0 +1,44 @@
+{
+  "description": "PodAttachOptions is the query options to a Pod's remote attach call.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "container": {
+      "description": "Container to attach to",
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodAttachOptions"
+      ],
+      "type": "string"
+    },
+    "stderr": {
+      "description": "This indicates whether stderr is to be redirected for the attach call.",
+      "type": "bool"
+    },
+    "stdin": {
+      "description": "This indicates whether stdin is to be redirected for the attach call.",
+      "type": "bool"
+    },
+    "stdout": {
+      "description": "This indicates whether stdout is to be redirected for the attach call.",
+      "type": "bool"
+    },
+    "tty": {
+      "description": "This indicates whether a TTY is to be allocated for the attach call.",
+      "type": "bool"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object"
+}

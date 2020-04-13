@@ -1,0 +1,51 @@
+{
+  "description": "PodExecOptions is the query options to a Pod's remote exec call.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "command": {
+      "description": "The remote command to execute; argv array; not executed within a shell.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "container": {
+      "description": "Container in which to execute the command",
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodExecOptions"
+      ],
+      "type": "string"
+    },
+    "stderr": {
+      "description": "This indicates that stderr is to be redirected for the exec call",
+      "type": "bool"
+    },
+    "stdin": {
+      "description": "This indicates that stdin is to be redirected for the exec call",
+      "type": "bool"
+    },
+    "stdout": {
+      "description": "This indicates that stdout is to be redirected for the exec call",
+      "type": "bool"
+    },
+    "tty": {
+      "description": "This indicates that a TTY will be allocated for the exec call",
+      "type": "bool"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object"
+}

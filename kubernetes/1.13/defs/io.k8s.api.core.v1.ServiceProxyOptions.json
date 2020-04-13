@@ -1,0 +1,28 @@
+{
+  "description": "ServiceProxyOptions is the query options to a Service's proxy call.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ServiceProxyOptions"
+      ],
+      "type": "string"
+    },
+    "path": {
+      "description": "The part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object"
+}

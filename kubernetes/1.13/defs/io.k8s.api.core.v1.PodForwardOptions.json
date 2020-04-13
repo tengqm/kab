@@ -1,0 +1,31 @@
+{
+  "description": "PodPortForwardOptions is the query options to a Pod's port forward call.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodPortForwardOptions"
+      ],
+      "type": "string"
+    },
+    "ports": {
+      "description": "The list of ports to forward",
+      "items": {
+        "type": "integer"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object"
+}
