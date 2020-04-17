@@ -1,0 +1,63 @@
+{
+  "description": "send HEAD requests to proxy of Service",
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "*/*"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "operationId": "connectCoreV1HeadNamespacedServiceProxyWithPath",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "ServiceProxyOptions",
+    "version": "v1"
+  },
+  "verb": "head",
+  "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy/{path}",
+  "parameters": [
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Service",
+      "name": "name",
+      "in": "path",
+      "required": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "path to the resource",
+      "name": "path",
+      "in": "path",
+      "required": true
+    },
+    {
+      "uniqueItems": true,
+      "type": "string",
+      "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is `http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`. Path is `_search?q=user:kimchy`.",
+      "name": "path",
+      "in": "query"
+    }
+  ]
+}
