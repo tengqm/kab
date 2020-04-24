@@ -1,5 +1,5 @@
 {
-  "description": "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.",
+  "description": "Metadata that all persisted resources must have, which includes all objects users create.",
   "properties": {
     "annotations": {
       "additionalProperties": {
@@ -22,7 +22,7 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "generateName": {
-      "description": "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header). Applied only if Name is not specified.",
+      "description": "An optional prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the `name` field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return '201 Created' or '500' with Reason 'ServerTimeout' indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the 'Retry-After' header). Applied only if `name` is not specified.",
       "type": "string"
     },
     "initializers": {
