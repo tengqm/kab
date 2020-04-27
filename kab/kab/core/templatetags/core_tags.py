@@ -292,21 +292,11 @@ def escape_ref(api, value):
     return data
 
 
+@register.filter()
+def safedict(data):
+    return data.items()
+
+
 @register.simple_tag()
-def split_list(item_type, data):
-    if data is None:
-        return []
-    items = data.split(",")
-    result = []
-    for i in items:
-        if len(i) == 0:
-            continue
-        if item_type == "version":
-            result.append(i)
-        elif item_type == "group":
-            parts = i.split("/")
-            result.append({"path": parts[0], "name": parts[1]})
-        elif item_type == "definition":
-            parts = i.split("/")
-            result.append({"value": parts[0], "text": parts[1]})
-    return result
+def patch_strategy(data):
+    return data.get("x-kubernetes-patch-strategy", "")

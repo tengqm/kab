@@ -36,16 +36,9 @@
         <div id="navbarSupportedContent" class="collapse navbar-collapse">
           <!-- Top Menu Items -->
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-              <a id="navbarAPIs" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" href="#">
-                <i class="fa fa-fw fa-list-alt"></i> APIs
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'list-apis' %}"><i class="fa fa-fw fa-cubes"></i> APIs
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarAPIs">
-                {% for v in API_VERSIONS %}
-                  <a class="dropdown-item" href="{% url 'list-resources' v 'all' %}"><i class="fa fa-fw fa-book"></i> version {{ v }}</a>
-                {% endfor %}
-              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'list-resources' API 'all' %}"><i class="fa fa-fw fa-cubes"></i> Resources

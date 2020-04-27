@@ -102,10 +102,10 @@
     <dd class="col-md-10 col-sm-9">
       {% if BODY.0.schema.type == "array" %}
         {% escape_ref API BODY.0.schema.items as TARGET %}
-        [{{ TARGET.REF|safe }}]
+        [<code>{{ TARGET.REF|safe }}</code>]
       {% else %}
         {% escape_ref API BODY.0.schema as TARGET %}
-        {{ TARGET.REF|safe }}
+        <code>{{ TARGET.REF|safe }}</code>
       {% endif %}
     </dd>
     {% endif %}
@@ -129,7 +129,7 @@
             <td>
             {% if data.schema %}
               {% escape_ref API data.schema as RESP %}
-              {{ RESP.REF|safe }}
+              <code>{{ RESP.REF|safe }}</code>
             {% endif %}
             </td>
           </tr>

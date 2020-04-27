@@ -31,73 +31,6 @@ DATA.update(_load_json("data/index.json"))
 
 # Configuration Loaders
 
-def app_config(app):
-    """Returns application configuration module"""
-    try:
-        app_name = apps.get_app_config(app).name
-        return importlib.import_module(app_name + '.config')
-    except Exception:
-        return None
-
-
-# Model Helpers
-
-
-def get_model(model_name):
-    """Returns model"""
-    parts = model_name.split(":")
-    try:
-        model = apps.get_model(parts[0].lower(), parts[1])
-    except Exception:
-        model = None
-    return model
-
-
-# Form Helpers
-
-def get_custom_form(model_name):
-    """Returns custom form instance"""
-    parts = model_name.split(":")
-    app = parts[0].lower()
-    model = parts[1]
-
-    module = app_config(app)
-    if not module:
-        return None
-
-    if not hasattr(module, "FORM_CONFIG"):
-        return None
-
-    FormClass = module.FORM_CONFIG.get(model, None)
-
-    if not FormClass:
-        return None
-
-    try:
-        app_name = apps.get_app_config(app).name
-        module = importlib.import_module(app_name + '.forms')
-        return getattr(module, FormClass)
-    except (AttributeError, KeyError):
-        return None
-
-
-def get_form(model_name, operation=None):
-    """Returns form instance"""
-    model = get_model(model_name)
-    fields = [
-        f.name for f in model().class_meta.get_fields()
-        if f.name not in ['id', 'updated_at', 'created_at', 'operations']
-    ]
-
-    kwargs = {'fields': fields}
-    custom_form = get_custom_form(model_name)
-
-    if custom_form:
-        kwargs['form'] = custom_form
-
-    return models.modelform_factory(model, **kwargs)
-
-
 def _emptyNumeric(v):
     def_val = v.get('default', None)
     enum_vals = v.get("enum", [])
@@ -183,12 +116,6 @@ class NullStream:
         pass
 
 
-def filetype(fname):
-
-    types = subprocess.check_output(['file', '--mime-encoding', fname])
-    return types.decode().split(" ")[-1].strip()
-
-
 def _validateArray(schema):
     items = schema.get('items', {})
     if not isinstance(items, dict):
@@ -247,6 +174,10 @@ def xlat_errors(req, form, used=True):
 
 def apis():
     return DATA.get("api_versions", [])
+
+
+def latest_api():
+    return DATA["api_versions"][-1]
 
 
 def groups(api_version):
@@ -313,8 +244,14 @@ def definition_appears_in(apiv, defn):
     dentry = DATA["definitions"].get(defn, {})
     for item in dentry.get("appearsIn", {}).get(apiv, []):
         def_name, display_name, _ = definition_display_name(item)
-        data.append({"name": def_name, "display": display_name})
-    return data
+        item_groups = DATA["definitions"].get(item, {}).get(apiv, [])
+        data.append({
+            "name": def_name,
+            "display": display_name,
+            "group_name": item_groups[0]["group"],
+            "group_version": item_groups[0]["version"],
+        })
+    return sorted(data, key=lambda r: r["name"])
 
 
 def get_definition(api_version, group, version, defn):

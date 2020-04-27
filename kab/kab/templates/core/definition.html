@@ -3,7 +3,7 @@
 {% load core_tags %}
 
 {% block title %}
-  <title>Compare Definition: {{ API }} - </title>
+  <title>Definition: {{ API }} - </title>
   <style>
     P {line-height: 1.2; margin-bottom: 2px;}
   </style>
@@ -13,21 +13,21 @@
 
   <dl class="row mt-2 mb-0">
     {# kind #}
-    <dt class="col-md-2 col-sm-3">Kind:</dt>
-    <dd class="col-md-10 col-sm-9">
+    <dt class="col-3 col-md-2">Kind:</dt>
+    <dd class="col-9 col-md-10">
     <code>{{ KIND }} {% if VARIANT %}({{ VARIANT }}){% endif %} </code>
       {% if IS_RESOURCE %}  <span class="badge badge-info">Resource</span>{% endif %}
     </dd>
 
     {# group version #}
-    <dt class="col-md-2 col-sm-3">Group/Version:</dt>
-    <dd class="col-md-10 col-sm-9">
+    <dt class="col-3 col-md-2">Group/Version:</dt>
+    <dd class="col-9 col-md-10">
       <code>{% if GROUP != "" %}{{ GROUP }}/{% endif %}{{ VERSION }}</code>
     </dd>
 
     {# description #}
-    <dt class="col-md-2 col-sm-3">Description:</dt>
-    <dd class="col-md-10 col-sm-9">
+    <dt class="col-3 col-md-2">Description:</dt>
+    <dd class="col-9 col-md-10">
       {% if DEFINITION.description %}
         {% markdown_html DEFINITION.description %}
       {% else %}
@@ -39,52 +39,34 @@
   {# Appears In#}
   {% if APPEARS_IN %}
   <div class="row px-3" style="font-weight: 700;">Appears In:</div>
-  <div class="row px-3 ml-3">
+  <div class="row px-3 ml-2">
     {% for A in APPEARS_IN %}
         <a class="btn btn-outline-secondary btn-sm mb-1 mx-1" role="button"
-          href="{% url 'view-definition' API GROUP VERSION A.name %}">{{ A.display }}</a>
+          href="{% url 'view-definition' API A.group_name A.group_version A.name %}">{{ A.display }}</a>
     {% endfor %}
   </div>
   {% endif %}
 
   {# other versions #}
   <div class="row px-3" style="font-weight: 700;">Other Versions:</div>
-  <div class="row px-3 ml-3">
+  <div class="row px-3 ml-2">
     {% for AV, VLIST in VERSIONS.items %}
       <div class="col-lg-3 col-md-4 col-sm-6 p-1">
       <table class="table m-0" width="100%" >
-        <thead>
-          <tr><th colspan="2" class="text-center p-1" style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">API {{ AV }}</th></tr>
+        <thead class="thead-light">
+          <tr><th class="text-center p-1" style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">API {{ AV }}</th></tr>
         </thead>
         <tbody style="border: 1px solid #dee2e6;">
-          {% for V in VLIST %}
-            {% dereference AV V.group V.version NAME as LINK %}
-            <tr>
-              <td class="p-1" style="border-top: 0px; border-bottom: 0px; font-family: monospace; font-size: 10pt; word-break: break-word;">{{ V.group }}/{{ V.version}}</td>
-              <td class="p-1" style="border-top: 0px; border-bottom: 0px; width:80px; min-width:80px;">
-                {# jump to #}
-                {# compare to #}
-                <form class="form form-inline" action="{% url 'compare-defs' %}" method="post">
-                  {% csrf_token %}
-                  <input type="hidden" name="api1" value="{{ API }}" />
-                  <input type="hidden" name="api2" value="{{ AV }}" />
-                  <input type="hidden" name="group1" value="{{ GROUP }}" />
-                  <input type="hidden" name="group2" value="{{ V.group }}" />
-                  <input type="hidden" name="version1" value="{{ VERSION }}" />
-                  <input type="hidden" name="version2" value="{{ V.version }}" />
-                  <input type="hidden" name="def1" value="{{ NAME }}" />
-                  <input type="hidden" name="def2" value="{{ NAME }}" />
-                    <a class="btn btn-outline-secondary btn-sm" href="{{ LINK.0 }}" title="View">
-                      <i class="fa fa-eye"></i>
-                    </a>
-
-                  <button type="submit" class="btn btn-outline-secondary btn-sm" href="{{ LINK.0 }}" title="Compare">
-                    <i class="fa fa-exchange-alt"></i>
-                  </button>
-                </form>
-              </td>
-            </tr>
-          {% endfor %}
+          <tr>
+            <td class="p-1" style="border-top: 0px; border-bottom: 0px; word-break: break-word;">
+              {% for V in VLIST %}
+                {% dereference AV V.group V.version NAME as LINK %}
+                <a href="{{ LINK.0 }}"><var>{{ V.group }}/{{ V.version}}</var></a>
+                  <span style="cursor: pointer;" onclick="compare('{{ AV}}','{{ V.group }}','{{ V.version }}')">
+                    <i class="fa fa-exchange-alt"></i></span>
+              {% endfor %}
+            </td>
+          </tr>
         </tbody>
       </table>
       </div>
@@ -94,55 +76,105 @@
   {# properties #}
   {% if DEFINITION.properties %}
     <div class="row px-3" style="font-weight: 700;">Properties:</div>
-    <div class="row px-3">
+    <div class="row px-3 ml-2">
       <table class="table table-sm table-striped" width="100%">
         <colgroup>
           <col style="min-width: max-content; width: 30%;" />
           <col style="word-break: break-word;"/>
         </colgroup>
         <thead>
-          <tr class="table-info"r>
+          <tr class="table-active"r>
             <th>Field</th>
             <th>Description</th>
           </tr>
         </thead>
         <tbody>
-          {% for PNAME, DATA in DEFINITION.properties.items %}
-            <tr>
+          {% for PNAME, DATA in DEFINITION.properties|safedict %}
+            {% escape_ref API DATA as DATA %}
+            
+            <tr {% if "DEPRECATED" in DATA.description %}class="table-danger"{% endif %}
+                {% if " beta " in DATA.description %}class="table-warning"{% endif %}>
               <td>
                 <var>
                   {{ PNAME }}{% if PNAME in DEFINITION.required %}<span style="color:red;">*</span>{% endif %}
                 </var>
                 <br>
-                {% escape_ref API DATA as DATA %}
                 {% if DATA.type %}
-                  <code>{{ DATA.type }}</code>
+                  {% if DATA.type == "array" %}
+                    {% if DATA.items.REF %}
+                      <code>array</code> of <code>{{ DATA.items.REF|safe }}</code>
+                    {% else %}
+                      <code>array</code> of <code>{{ DATA.items.type }}</code>
+                    {% endif %}
+                    {% patch_strategy DATA as PATCH_STRATEGY %}
+                    {% if PATCH_STRATEGY %}
+                    <br/>
+                    <strong>Patch Strategy:</strong>  <code>{{ PATCH_STRATEGY }}</code>
+                    {% endif %}
+                  {% else %}
+                    <code>{{ DATA.type }}</code>
+                  {% endif %}
                 {% elif DATA.REF %}
                   <code>{{ DATA.REF|safe }}</code>
+                {% endif %}
+
+                {% if 'default' in DATA %}
+                  <br/>
+                  <strong>default</strong>:
+                  {% if DATA.type == "string" %}
+                    <var>"{{ DATA.default }}"</var>
+                  {% else %}
+                    <var>{{ DATA.default }}</var>
+                  {% endif %}
+                {% endif %}
+
+                {% if 'format' in DATA %}
+                  <br/>
+                  <strong>format</strong>: <var>{{ DATA.format }}</var>
+                {% endif %}
+
+                {% if 'minimum' in DATA %}
+                  <br/>
+                  <strong>minium</strong>: <var>{{ DATA.minimum }}<var>
+                {% endif %}
+
+                {% if 'maximum' in DATA %}
+                  <br/>
+                  <strong>maximum</strong>: <var>{{ DATA.maximum }}<var>
+                {% endif %}
+
+                {% if 'enum' in DATA %}
+                  {% if DATA.enum|length_is:"1" %}
+                    <br/>
+                    <strong>Const</strong>: <var>{{ DATA.enum.0 }}</var>
+                  {% else %}
+                    <br/>
+                    <strong>Choices</strong>: [
+                    {% for E in DATA.enum %}
+                      <var>"{{ E }}"</var>{% if not forloop.last %}, {% endif %}
+                    {%endfor %} 
+                    ]
+                  {% endif %}
+                {% endif %}
+
+                {% if "DEPRECATED" in DATA.description %}
+                  <br/>
+                  <p class="text-danger"><strong>DEPRECATED</strong></p>
+                {% endif %}
+
+                {% if " beta " in DATA.description|lower %}
+                  <br/>
+                  <p class="text-danger"><strong>Beta Feature</strong></p>
                 {% endif %}
               </td>
               <td>
                 <div>{% markdown_html DATA.description %}</div>
-                <div>
-                {% if 'default' in DATA %}
-                  <strong>default</strong>: <var>{{ DATA.default }}</var>
-                {% endif %}
-                {% if 'format' in DATA %}
-                  <strong>format</strong>: <var>{{ DATA.format }}</var>
-                {% endif %}
-                {% if 'minimum' in DATA %}
-                  <strong>minium</strong>: <var>{{ DATA.minimum }}<var>
-                {% endif %}
-                {% if 'maximum' in DATA %}
-                  <strong>maximum</strong>: <var>{{ DATA.maximum }}<var>
-                {% endif %}
-                {% if 'enum' in DATA %}
-                  {% if DATA.enum|length_is:"1" %}
-                    <strong>Const</strong>: <var>{{ DATA.enum.0 }}</var>
-                  {% else %}
-                    <strong>Choices</strong>: <var>{{ DATA.enum|safeseq|join:", " }}</var>
+                {% if DATA.type == "array" %}
+                  {% if DATA.items.description %}
+                    <div><strong>Item description:</strong> {% markdown_html DATA.items.description %}</div>
                   {% endif %}
                 {% endif %}
+                <div>
 
                 </div>
               </td>
@@ -163,4 +195,28 @@
       {% endfor %}
     </div>
   {% endif %}
+
+  <form id="form-compare" action="{% url 'compare-defs' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="api1" value="{{ API }}" />
+    <input type="hidden" id="form_api" name="api2" value="" />
+    <input type="hidden" name="group1" value="{{ GROUP }}" />
+    <input type="hidden" id="form_group" name="group2" value="" />
+    <input type="hidden" name="version1" value="{{ VERSION }}" />
+    <input type="hidden" id="form_version" name="version2" value="" />
+    <input type="hidden" name="def1" value="{{ NAME }}" />
+    <input type="hidden" name="def2" value="{{ NAME }}" />
+  </form>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+function compare(api, gn, gv) {
+  $("#form_api").val(api);
+  $("#form_group").val(gn);
+  $("#form_version").val(gv);
+  $("#form-compare").submit();
+}
+</script>
 {% endblock %}

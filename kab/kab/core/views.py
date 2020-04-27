@@ -24,15 +24,28 @@ def home(req):
     return shortcuts.render(req, 'index.html')
 
 
+class ListAPIs(generic.View):
+    """Generic view to list API versions"""
+
+    def get(self, req, *args, **kwargs):
+        ctx = {
+            "APIS": helpers.apis(),
+        }
+        return shortcuts.render(req, 'core/apis.html', ctx)
+
+
 class ListResources(generic.View):
     """Generic view to display API resources"""
 
     def get(self, req, *args, **kwargs):
-        api_version = kwargs.pop('version')
-        group_version = kwargs.pop('group')
-        resources = helpers.resources(api_version, group_version)
+        apiv = kwargs.get('api')
+        if not apiv:
+            apiv = helpers.latest_api()
+        group_version = kwargs.get('group')
+        LOG.info(apiv)
+        resources = helpers.resources(apiv, group_version)
         ctx = {
-            "API": api_version,
+            "API": apiv,
             "RESOURCES": resources,
         }
         return shortcuts.render(req, 'core/resources.html', ctx)
@@ -42,11 +55,13 @@ class ListOperations(generic.View):
     """Generic view to display API resources"""
 
     def get(self, req, *args, **kwargs):
-        version = kwargs.pop('version')
+        apiv = kwargs.get('api')
+        if not apiv:
+            apiv = helpers.latest_api()
         group = kwargs.pop('group')
-        operations = helpers.operations(version, group)
+        operations = helpers.operations(apiv, group)
         ctx = {
-            "API": version,
+            "API": apiv,
             "OPS": operations,
         }
         return shortcuts.render(req, 'core/operations.html', ctx)

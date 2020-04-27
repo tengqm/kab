@@ -7,11 +7,11 @@ from kab.core import views
 urlpatterns = [
     urls.url(r'^$', views.home, name='home'),
 
-    # urls.url(r'^apis/$', views.ListAPIs.as_view(), name='list-apis'),
-    urls.url(r'^apis/resources/(?P<version>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+    urls.url(r'^apis/apis/$', views.ListAPIs.as_view(), name='list-apis'),
+    urls.url(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListResources.as_view(),
              name='list-resources'),
-    urls.url(r'^apis/operations/(?P<version>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+    urls.url(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListOperations.as_view(),
              name='list-operations'),
     urls.url(r'^apis/definition/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
