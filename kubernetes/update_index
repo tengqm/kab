@@ -1,0 +1,527 @@
+#!/usr/bin/env python3
+
+import json
+import logging
+import os
+from os import path
+
+DEBUG = 1
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+LOG = logging.getLogger(__name__)
+
+# The following data are read from the settings.json
+GROUP_NAMES = {}
+KINDS = []
+
+# The following data are parsed and them dumped into the index.yaml
+
+# Each definition holds a list of versions
+DEFINITIONS = {}
+
+# Resource groups are keyed by their names. Each entry has a format of
+# { "1.13": [ "v1", "v2beta1"]}
+GROUPS = {}
+
+# Each entry contains name, variant, definitions, and versions list
+RESOURCES = []
+
+# Each entry contains name, variant, definitions, and versions list
+OPERATIONS = []
+
+# Each entry keyed by name and contains definitions, and versions list
+PARAMETERS = {}
+
+RESOURCE_PATTERNS = {
+    "create{g}{v}Namespaced{r}": "create",
+    "create{g}{v}{r}": "create",
+
+    "delete{g}{v}Namespaced{r}": "delete",
+    "delete{g}{v}{r}": "delete",
+    "delete{g}{v}Collection{r}": "deletecollection",
+    "delete{g}{v}CollectionNamespaced{r}": "deletecollection",
+
+    "read{g}{v}Namespaced{r}": "get",
+    "read{g}{v}{r}": "get",
+
+    "list{g}{v}Namespaced{r}": "list",
+    "list{g}{v}{r}": "list",
+    "list{g}{v}{r}ForAllNamespaces": "listall",
+
+    "patch{g}{v}Namespaced{r}": "patch",
+    "patch{g}{v}{r}": "patch",
+
+    "replace{g}{v}Namespaced{r}": "update",
+    "replace{g}{v}{r}": "update",
+
+    "read{g}{v}Namespaced{r}Status": "getstatus",
+    "read{g}{v}{r}Status": "getstatus",
+
+    "patch{g}{v}Namespaced{r}Status": "patchstatus",
+    "patch{g}{v}{r}Status": "patchstatus",
+
+    "replace{g}{v}Namespaced{r}Status": "updatestatus",
+    "replace{g}{v}{r}Status": "updatestatus",
+
+    "read{g}{v}Namespaced{r}Scale": "readscale",
+    "read{g}{v}{r}Scale": "getscale",
+
+    "patch{g}{v}Namespaced{r}Scale": "patchscale",
+    "patch{g}{v}{r}Scale": "patchscale",
+
+    "replace{g}{v}Namespaced{r}Scale": "updatescale",
+    "replace{g}{v}{r}Scale": "updatescale",
+
+    # specific to Pod
+    "read{g}{v}Namespaced{r}Log": "readlog",
+    "get{g}{v}Namespaced{r}EphemeralContainers": "getephemeralcontainers",
+    "update{g}{v}Namespaced{r}EphemeralContainers":
+        "updateephemeralcontainers",
+    "create{g}{v}Namespaced{r}Eviction": "evict",
+    "connect{g}{v}PostNamespaced{r}Portforward": "post-portforward",
+    "connect{g}{v}GetNamespaced{r}Portforward": "get-portforward",
+    "connect{g}{v}PostNamespaced{r}Exec": "post-exec",
+    "connect{g}{v}GetNamespaced{r}Exec": "get-exec",
+    "connect{g}{v}PostNamespaced{r}Attach": "post-attach",
+    "connect{g}{v}GetNamespaced{r}Attach": "get-attach",
+
+    # specific to CertificateSigningRequest
+    "replace{g}{v}{r}Approval": "updateapproval",
+
+    # Specific to Namespace
+    "replace{g}{v}{r}Finalize": "updatefinalize",
+
+    # NodeProxy
+    "connect{g}{v}Get{r}Proxy": "proxyget",
+    "connect{g}{v}Get{r}ProxyWithPath": "proxyget-withpath",
+    "connect{g}{v}Post{r}Proxy": "proxypost",
+    "connect{g}{v}Post{r}ProxyWithPath": "proxypost-withpath",
+    "connect{g}{v}Put{r}Proxy": "proxyput",
+    "connect{g}{v}Put{r}ProxyWithPath": "proxyput-withpath",
+    "connect{g}{v}Delete{r}Proxy": "proxydelete",
+    "connect{g}{v}Delete{r}ProxyWithPath": "proxydelete-withpath",
+    "connect{g}{v}Patch{r}Proxy": "proxypatch",
+    "connect{g}{v}Patch{r}ProxyWithPath": "proxypatch-withpath",
+    "connect{g}{v}Head{r}Proxy": "proxyhead",
+    "connect{g}{v}Head{r}ProxyWithPath": "proxyhead-withpath",
+    "connect{g}{v}Options{r}Proxy": "proxyoptions",
+    "connect{g}{v}Options{r}ProxyWithPath": "proxyoptions-withpath",
+
+    # Pod or Service Proxy
+    "connect{g}{v}GetNamespaced{r}Proxy": "proxyget",
+    "connect{g}{v}GetNamespaced{r}ProxyWithPath": "proxyget-withpath",
+    "connect{g}{v}PostNamespaced{r}Proxy": "proxypost",
+    "connect{g}{v}PostNamespaced{r}ProxyWithPath": "proxypost-withpath",
+    "connect{g}{v}PutNamespaced{r}Proxy": "proxyput",
+    "connect{g}{v}PutNamespaced{r}ProxyWithPath": "proxyput-withpath",
+    "connect{g}{v}DeleteNamespaced{r}Proxy": "proxydelete",
+    "connect{g}{v}DeleteNamespaced{r}ProxyWithPath": "proxydelete-withpath",
+    "connect{g}{v}PatchNamespaced{r}Proxy": "proxypatch",
+    "connect{g}{v}PatchNamespaced{r}ProxyWithPath": "proxypatch-withpath",
+    "connect{g}{v}HeadNamespaced{r}Proxy": "proxyhead",
+    "connect{g}{v}HeadNamespaced{r}ProxyWithPath": "proxyhead-withpath",
+    "connect{g}{v}OptionsNamespaced{r}Proxy": "proxyoptions",
+    "connect{g}{v}OptionsNamespaced{r}ProxyWithPath": "proxyoptions-withpath",
+
+
+}
+
+GROUP_PATTERNS = {
+    "get{g}{v}APIResources": "listresources",
+    "get{g}APIGroup": "readgroup",
+}
+
+
+def INFO(msg, *args, **kwargs):
+    LOG.info("\033[0;32m" + msg + "\033[0;0m", *args, **kwargs)
+
+
+def ERROR(msg, *args, **kwargs):
+    LOG.error("\033[1;31m" + msg + "\033[0;0m", *args, **kwargs)
+
+
+def WARN(msg, *args, **kwargs):
+    LOG.error("\033[0;33m" + msg + "\033[0;0m", *args, **kwargs)
+
+
+def load_json(version, fn, kind="op"):
+    path = version + "/" + kind + "s/" + fn
+    data = {}
+    with open(path, "r") as f:
+        data = json.loads(f.read())
+    return data
+
+
+def get_def_name(def_id):
+    if (def_id.endswith(".CREATE") or def_id.endswith(".UPDATE") or
+            def_id.endswith(".GET") or def_id.endswith(".PATCH")):
+        parts = def_id.rsplit(".", 3)
+        gversion = parts[-3]
+        def_name = parts[-2] + "." + parts[-1]
+    else:
+        parts = def_id.rsplit(".", 2)
+        gversion = parts[-2]
+        def_name = parts[-1]
+
+    return gversion, def_name
+
+
+def update_appears_in(apiv, def_id, parent):
+    """
+    :returns: False if the definition is referencing it self.
+    """
+    global DEFINITIONS
+
+    _, def_name = get_def_name(def_id)
+
+    dentry = DEFINITIONS.get(def_name, {})
+    if dentry:
+        dentry.setdefault("appearsIn", {})
+        dentry["appearsIn"].setdefault(apiv, [])
+        parent_list = dentry["appearsIn"][apiv]
+        if parent not in parent_list:
+            dentry["appearsIn"][apiv].append(parent)
+    else:
+        dentry = {
+            "appearsIn": {
+                apiv: [parent]
+            }
+        }
+
+    DEFINITIONS[def_name] = dentry
+    if def_name == parent:
+        return False
+    return True
+
+
+def parse_list(api_version, data, parent):
+    for item in data:
+        if isinstance(item, dict):
+            parse_dict(api_version, item, parent)
+        elif isinstance(item, list):
+            parse_list(api_version, item, parent)
+        else:
+            # ignore simple data types
+            continue
+
+
+def parse_dict(apiv, data, parent):
+
+    for k, v in data.items():
+        if k == "$ref":
+            if not isinstance(v, str):
+                ERROR("reference not string: %s->%s (%s)", k, v, parent)
+            elif v.startswith("#/definitions/"):
+                child_id = v[14:]
+                _, child_name = get_def_name(child_id)
+                cont = update_appears_in(apiv, child_id, parent)
+                if cont:
+                    parse_nested(apiv, child_name, child_id)
+            else:
+                ERROR("reference format error: %s->%s (%s)", k, v, parent)
+        elif isinstance(v, dict):
+            parse_dict(apiv, v, parent)
+        elif isinstance(v, list):
+            parse_list(apiv, v, parent)
+        else:
+            # for simple data types, ignore
+            continue
+
+
+def parse_nested(apiv, def_name, def_id):
+    """Parse given definition for nested ones.
+    """
+    fn = "{}/defs/{}.json".format(apiv, def_id)
+    data = {}
+    with open(fn, "r") as f:
+        data = json.loads(f.read())
+
+    parse_dict(apiv, data, def_name)
+
+
+def load_resources(version):
+    global GROUP_NAMES
+    global KINDS
+    global DEFINITIONS
+    global GROUPS
+    global RESOURCES
+
+    root = version + "/defs/"
+    for fn in os.listdir(root):
+        if not path.isfile(path.join(root, fn)):
+            continue
+
+        def_id = fn[:-5]
+        INFO("  Processing definition %s", def_id)
+        # currently testing if a definition is a resource by checking if it is
+        # prefixed with the full name of a API group.
+        g_name = ""
+        for g in GROUP_NAMES:
+            if fn.startswith(g["path"]):
+                g_name = g["name"]
+                break
+
+        # parse the name of the definition
+        gversion, def_name = get_def_name(def_id)
+
+        # consume the definition
+        dentry = DEFINITIONS.get(def_name, {})
+        if not dentry:
+            dentry = {
+                version: [
+                    {"group": g_name, "version": gversion, "id": def_id}
+                ]
+            }
+        else:
+            dversions = dentry.get(version, [])
+            if g_name != "":
+                dversions.append({
+                    "group": g_name,
+                    "version": gversion,
+                    "id": def_id,
+                })
+            dentry[version] = dversions
+
+        DEFINITIONS[def_name] = dentry
+
+        # g_name is "" means that this definition does not belong to
+        # any resource groups, skip updating resource groups and resources
+        if g_name == "":
+            continue
+
+        # parse the embedded definitions
+        parse_nested(version, def_name, def_id)
+
+        # update the GROUP dict if needed
+        gvs = GROUPS.get(g_name, {})
+        vlist = gvs.get(version, [])
+        if gversion not in vlist:
+            vlist.append(gversion)
+            gvs[version] = vlist
+        gvs.setdefault("operations", {})
+        GROUPS[g_name] = gvs
+
+        # this def_name may have operations appended, normalize it here
+        if def_name.endswith(".CREATE"):
+            res_name = def_name[:-7]
+            variant = "create"
+        elif def_name.endswith(".UPDATE"):
+            res_name = def_name[:-7]
+            variant = "update"
+        elif def_name.endswith(".GET"):
+            res_name = def_name[:-4]
+            variant = "get"
+        else:
+            res_name = def_name
+            variant = "*"
+
+        # ignore the definitions that are part of a resource
+        # TODO(Qiming):
+        # - decide whether FooBarList should be treated separately
+        # - handle APIResource should be treated
+        # - handle APIGroup if necessary
+        if res_name not in KINDS:
+            continue
+
+        # update the resources list
+        record = {}
+        for r in RESOURCES:
+            if (r["name"] == res_name and r["group"] == g_name):
+                record = r
+
+        if record:
+            vlist = record["versions"].get(version, [])
+            if gversion not in vlist:
+                vlist.append(gversion)
+                record["versions"][version] = vlist
+
+            if variant not in record["definitions"]:
+                record["definitions"][variant] = def_name
+
+            continue
+
+        record = {
+            "name": res_name,
+            "definitions": {
+                variant: def_name,
+            },
+            "group": g_name,
+            "versions": {
+                version: [gversion],
+            },
+            "operations": {}
+        }
+        RESOURCES.append(record)
+
+
+def _normalize_group_name(name):
+    if name == "rbac":
+        gname = "RbacAuthorization"
+    elif name == "flowcontrol":
+        gname = "FlowcontrolApiserver"
+    else:
+        gname = name.title()
+
+    return gname
+
+
+def load_operations(version):
+    global OPERATIONS
+    global RESOURCES
+
+    root = version + "/ops/"
+    escaped = 0
+    for fn in os.listdir(root):
+        if not path.isfile(path.join(root, fn)):
+            continue
+
+        fname = fn[:-5]
+
+        found = False
+
+        # Check if is group operations
+        for g_name, gdata in GROUPS.items():
+            for gv in gdata.get(version, []):
+                gname = _normalize_group_name(g_name)
+                # check 'listresources' and 'readgroup'
+                for p, otype in GROUP_PATTERNS.items():
+                    pt = p.format(g=gname, v=gv.capitalize())
+                    if fname != pt:
+                        continue
+
+                    ops = gdata["operations"].get(version, {})
+                    if otype in ops:
+                        if ops[otype] != fname:
+                            WARN("%s found for %s", otype, gname)
+                            WARN("  %s <-> %s", ops[otype], fname)
+                    else:
+                        ops[otype] = fname
+
+                    gdata["operations"][gv] = ops
+                    opdata = load_json(version, fn)
+                    OPERATIONS.append({
+                        "version": version,
+                        "type": "group",
+                        "op_type": otype,
+                        "target": gname,
+                        "group_version": g_name + "/" + gv,
+                        "description": opdata.get("description", ""),
+                        "name": fname})
+                    found = True
+                    break
+
+            if found:
+                break
+
+        # Skip checking for resource operations
+        if found:
+            continue
+
+        # check if it is operation related to a resource
+        for res in RESOURCES:
+            gname = _normalize_group_name(res["group"])
+
+            if res["name"] == "TokenRequest":
+                res_name = "ServiceAccountToken"
+                gname = "Core"
+            elif res["name"] == "Binding":
+                res_name = "PodBinding"
+            else:
+                res_name = res["name"]
+
+            for gv in res["versions"].get(version, []):
+                for p, otype in RESOURCE_PATTERNS.items():
+                    pt = p.format(g=gname, v=gv.capitalize(), r=res_name)
+
+                    if fname == pt:
+                        found = True
+                        break
+
+                # skip current group version
+                if not found:
+                    continue
+
+                ops = res["operations"].get(gv, {})
+                if otype in ops:
+                    if ops[otype] != fname:
+                        WARN("%s found for %s", otype, res_name)
+                        WARN("  %s <-> %s", ops[otype], fname)
+                else:
+                    ops[otype] = fname
+                res["operations"][gv] = ops
+
+                opdata = load_json(version, fn)
+                OPERATIONS.append({
+                    "type": "resource",
+                    "op_type": otype,
+                    "group_version": res["group"] + "/" + gv,
+                    "target": res_name,
+                    "version": version,
+                    "description": opdata.get("description", ""),
+                    "name": fname})
+
+                break
+
+            if found:
+                break
+
+        if not found:
+            escaped += 1
+            ERROR("  Escaped op: %s", fname)
+
+    if escaped > 0:
+        ERROR("  Escaped: %d" % escaped)
+    return
+
+
+def load_parameters(version):
+    global PARAMETERS
+
+    fn = version + "/parameters/parameters.json"
+    data = {}
+    with open(fn, "r") as f:
+        data = json.loads(f.read())
+
+    for p, d in data.items():
+        pentry = PARAMETERS.get(p, {})
+        pentry[version] = d
+        PARAMETERS[p] = pentry
+    return
+
+
+def main():
+    global GROUP_NAMES, KINDS, RESOURCES, DEFINITIONS, GROUPS, OPERATIONS
+
+    data = {}
+    with open("settings.json", "r") as f:
+        data = json.loads(f.read())
+
+    if DEBUG:
+        INFO("API versions: " + ", ".join(data["api_versions"]))
+
+    GROUP_NAMES = data["group_names"]
+    if DEBUG:
+        INFO("Groups: " + ", ".join([g['name'] for g in GROUP_NAMES]))
+
+    KINDS = data["kinds"]
+
+    for version in data["api_versions"]:
+        if DEBUG:
+            INFO("## Processing API %s", version)
+        load_resources(version)
+        load_operations(version)
+        load_parameters(version)
+
+    data = {
+        "definitions": DEFINITIONS,
+        "resources": RESOURCES,
+        "groups": GROUPS,
+        "operations": OPERATIONS,
+        "parameters": PARAMETERS,
+    }
+
+    with open("index.json", "w") as f:
+        json.dump(data, f, indent=2)
+
+
+if __name__ == "__main__":
+    main()
