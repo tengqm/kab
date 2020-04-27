@@ -7,7 +7,7 @@
     },
     "maxSkew": {
       "default": 1,
-      "description": "The degree to which Pods may be unevenly distributed. It's the maximum permitted difference between the number of matching Pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as '1/1/0'. If `maxSkew` is 1, incoming Pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1 would make the actual skew (2-0) on zone1 violate `maxSkew(1)`. If `maxSkew` is 2, incoming Pod can be scheduled onto any zone.",
+      "description": "The degree to which Pods may be unevenly distributed. It's the maximum permitted difference between the number of matching Pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as '1/1/0'.\n\n| zone1 | zone2 | zone3 |\n|------|------|------|\n|   P   |   P   |       |\n\n\n- If `maxSkew` is 1, incoming Pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1 would make the actual skew (2-0) on zone1 violate `maxSkew(1)`.\n- If `maxSkew` is 2, incoming Pod can be scheduled onto any zone.\n",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
