@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head -->
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% load static %}
+    <link href="{% static 'favicon.ico' %}" rel="icon" >
+    <script src="{% static 'js/popper-1.14.7.min.js' %}" integrity="sha256-RT0r01ZCmc+ncRuLqXbivOlXZn+cM/uQWMC+A+9WB5w="></script>
+    <link href="{% static 'css/fontawesome-5.8.2.min.css' %}" rel="stylesheet" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=">
+    <link href="{% static 'css/bootstrap-4.3.1.min.css' %}" rel="stylesheet" integrity="sha256-D4vVfyDgPBxpWhtpeh7r9dpdZb+rN013inMq9x39e28=">
+    <link href="{% static 'css/kab.css' %}" rel="stylesheet">
+
+    <script src="{% static 'js/fontawesome-5.8.2.min.js' %}" integrity="sha256-JgGtkjMEDh4dZj7UtWqSbUcftdwTFLNR3ih7FH80RHs="></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="></script>
+    <script src="{% static 'js/bootstrap-4.3.1.min.js' %}" integrity="sha256-y+ryzVZGIZVLSIdMwDer7mOu03KQEVyawqp+cZSrIC8="></script>
+    {% block title %}
+    {% endblock %}
+  </head>
+
+  <body>
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <span class="position-relative">KAB</span>
+          <span class="position-relative" style="font-size:10pt; top: 5px;">{{ kab_version }}</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+          <!-- Top Menu Items -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a id="navbarAPIs" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" href="#">
+                <i class="fa fa-fw fa-list-alt"></i> APIs
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarAPIs">
+                {% for v in API_VERSIONS %}
+                  <a class="dropdown-item" href="{% url 'list-resources' v 'all' %}"><i class="fa fa-fw fa-book"></i> version {{ v }}</a>
+                {% endfor %}
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'list-resources' API 'all' %}"><i class="fa fa-fw fa-cubes"></i> Resources
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'list-operations' API 'all' %}"><i class="fa fa-fw fa-cogs"></i> Operations
+              </a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav mr-right">
+            <li class="nav-item">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="" aria-label="Search String">
+                <div class="input-group-append">
+                  <button id="id_query" type="submit" class="btn btn-secondary btn-sm" type="button"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div id="page-wrapper">
+        {% block main_content %}{% endblock %}
+      </div>
+
+    <script>
+      $(function() {
+        $("ul.dropdown-menu.parent-menu").mouseleave(function(){
+          $(this).click();
+        });
+      });
+    </script>
+    {% block javascript %}{% endblock %}
+  </body>
+</html>

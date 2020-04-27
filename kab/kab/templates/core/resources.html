@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load core_tags %}
+
+{% block title %}
+  <title>RESOURCES: {{ VERSION }}</title>
+{% endblock %}
+
+{% block main_content %}
+  <table class="mt-3 table table-sm" width="100%">
+    <thead>
+      <tr class="table-secondary">
+        <th style="width:15%">Group</th>
+        <th style="width:15%">Version</th>
+        <th>Resources</th>
+      </tr>
+    </thead>
+    <tbody style="font-family:monospace;">
+      {% for G, RLIST in RESOURCES.items %}
+        <tr>
+          {% group_version G as GV %}
+          <td style="word-break:break-word;"><code>{{ GV.0 }}</code></td>
+          <td><samp>{{ GV.1 }}</samp></td>
+          <td>
+            {% for R in RLIST|dictsort:"name" %}
+              {% for DEF in R.definitions.values %}
+                {% dereference API GV.0 GV.1 DEF as LINK %}
+                <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+              {% endfor %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td>No API group found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+

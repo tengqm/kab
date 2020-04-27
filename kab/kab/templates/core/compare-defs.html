@@ -1,0 +1,437 @@
+{% extends "base.html" %}
+
+{% load core_tags %}
+
+{% block title %}
+  <title>Definition: {{ API }} - </title>
+  <style>
+    P {line-height: 1.2; margin-bottom: 2px;}
+  </style>
+{% endblock %}
+
+{% block main_content %}
+
+  <form id="compare" action="{% url 'compare-defs' %}" method="post"
+      class="form-horizontal">
+    {% csrf_token %}
+
+    <fieldset>
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="id_apis">
+          API Versions:
+        </label>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_apis_1" name="api1">
+            <option value="">---</option>
+            {% for A in APIS %}
+              <option value="{{ A }}" {% if API1 == A %} selected{% endif %}>
+                 {{ A }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_apis_2" name="api2">
+            <option value="">---</option>
+            {% for A in APIS %}
+              <option value="{{ A }}"{% if API2 == A %} selected{% endif %}>
+                 {{ A }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="id_groups">
+          API Groups:
+        </label>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_groups_1" name="group1">
+            <option value="">---</option>
+            {% for G in GROUPS1 %}
+              <option value="{{ G.name }}"{% if GRP1 == G.name %} selected{% endif %}>
+                 {{ G.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_groups_2" name="group2">
+            <option value="">---</option>
+            {% for G in GROUPS2 %}
+              <option value="{{ G.name }}"{% if GRP2 == G.name %} selected{% endif %}>
+                 {{ G.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="id_versions_1">
+          Group Versions:
+        </label>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_versions_1" name="version1">
+            <option value="">---</option>
+            {% for V in VERSIONS1 %}
+              <option value="{{ V }}"{% if VER1 == V %} selected{% endif %}>
+                 {{ V }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_versions_2" name="version2">
+            <option value="">---</option>
+            {% for V in VERSIONS2 %}
+              <option value="{{ V }}"{% if VER2 == V %} selected{% endif %}>
+                 {{ V }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="id_defs_1">
+          Definitions:
+        </label>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_defs_1" name="def1">
+            <option value="">---</option>
+            {% for D in DEFINITIONS1 %}
+              <option value="{{ D.name }}"{% if DEF1 == D.name%} selected{% endif %}>
+                 {{ D.display }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_defs_2" name="def2">
+            <option value="">---</option>
+            {% for D in DEFINITIONS2 %}
+              <option value="{{ D.name }}"{% if DEF2 == D.name %} selected{% endif %}>
+                 {{ D.display }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+    </fieldset>
+    <div class="row text-center py-2">
+      <div class="col">
+        <button type="submit" style="width:110px;" class="form-control btn btn-primary">Compare!</button>
+      </div>
+    </div>
+  </form>
+
+  {% if RESULT %}
+    <table class="table table-sm table-striped" width="100%">
+      <tbody>
+        {% if "ADDED" in RESULT %}
+          <tr class="table-info">
+            <td colspan="2">
+              <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
+                 aria-controls="fieldsAdded">Fields Added
+                <span class="badge badge-info">
+                    {{ RESULT.ADDED|length }}
+                </span>
+              </a>
+            </td>
+          </tr>
+          <tr class="collapse" id="fieldsAdded">
+            <td>
+              <ul>
+              {% for A in RESULT.ADDED %}
+                <li><var>{{ A }}</var></li>
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% if "REMOVED" in RESULT %}
+          <tr class="table-warning">
+            <td colspan="2">
+              <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
+                 aria-controls="fieldsRemoved">Fields Removed
+                <span class="badge badge-danger">
+                  {{ RESULT.REMOVED|length }}
+                </span>
+              </a>
+            </td>
+          </tr>
+          <tr class="collapse" id="fieldsRemoved">
+            <td colspan="2">
+              <ul>
+              {% for R in RESULT.REMOVED %}
+                <li><var>{{ R }}</var></li>
+              {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% if "CHANGED" in RESULT %}
+          <tr>
+            <td colspan="2">Fields Changed
+              <span class="badge badge-info">
+                  {{ RESULT.CHANGED|length }}
+              </span>
+            </td>
+          </tr>
+          {% for D in RESULT.CHANGED %}
+            {% for K, V in D.items %}
+              <tr>
+                <td>
+                  <var>
+                    {{ K }}
+                  </var>
+                </td>
+                <td>
+                  <p><strong>From:</strong></p>{{ V.BEFORE }} <BR/>
+                  <p><strong>To:</strong></p>{{ V.AFTER }}
+                </td>
+              </tr>
+            {% endfor %}
+          {% endfor %}
+        {% endif %}
+
+        {% if "DESCRIPTION" in RESULT %}
+          <tr>
+            <td colspan="2">
+              <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
+                  aria-controls="descChanges"> Description Changes
+                <span class="badge badge-info">
+                  {{ RESULT.DESCRIPTION|length }}
+                </span>
+              </a>
+            </td>
+          </tr>
+          <tr class="collapse" id="descChanges">
+            <td colspan="2">
+              <table>
+                <tbody>
+              {% for D in RESULT.DESCRIPTION %}
+                {% for K, V in D.items %}
+                  <tr>
+                    <td>
+                      <var>
+                        {{ K }}
+                      </var>
+                    </td>
+                    <td>
+                      {{ V|safe }}
+                      {% comment %}
+                      <p><strong>From:</strong></p>{{ V.BEFORE }} <BR/>
+                      <p><strong>To:</strong></p>{{ V.AFTER }}
+                      {% endcomment %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+                </tbody>
+              <table>
+            </td>
+          </tr>
+        {% endif %}
+
+      </tbody>
+    </table>
+
+  {% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+$("#id_apis_1").change(function() {
+  var api_version = $(this).find("option:selected").val();
+  $.ajax({
+    url: "/api/" + api_version + "/groups/",
+    type: 'get',
+    async: false,
+    success : function(data) {
+      $("#id_groups_1").empty();
+      $("#id_groups_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_grps1").val("");
+
+      $("#id_versions_1").empty();
+      $("#id_versions_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_vers1").val("");
+
+      $("#id_defs_1").empty();
+      $("#id_defs_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_defs1").val("");
+
+      $.each(data["groups"], function(i, item) {
+        $("#id_groups_1").append($('<option>', {
+          value: item.name,
+          text: item.name,
+        }));
+        var v = $("#id_grps1").val();
+        v += "," + item.name + "/" + item.name;
+        $("#id_grps1").val(v);
+      });
+    }
+  });
+});
+
+$("#id_apis_2").change(function() {
+  var api_version = $(this).find("option:selected").val();
+  $.ajax({
+    url: "/api/" + api_version + "/groups/",
+    type: 'get',
+    async: false,
+    success : function(data) {
+      $("#id_groups_2").empty();
+      $("#id_groups_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_grps2").val("");
+
+      $("#id_versions_2").empty();
+      $("#id_versions_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_vers2").val("");
+
+      $("#id_defs_2").empty();
+      $("#id_defs_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_defs2").val("");
+
+      $.each(data["groups"], function(i, item) {
+        $("#id_groups_2").append($('<option>', {
+          value: item.name,
+          text: item.name,
+        }));
+        var v = $("#id_grps2").val();
+        v += "," + item.name + "/" + item.name;
+        $("#id_grps2").val(v);
+      });
+    }
+  });
+});
+
+$("#id_groups_1").change(function() {
+  var api_version = $("#id_apis_1").find("option:selected").val();
+  var group = $(this).find("option:selected").text();
+  $.ajax({
+    url: "/api/" + api_version + "/groups/" + group + "/versions/",
+    type: 'get',
+    async: false,
+    success : function(data) {
+      $("#id_versions_1").empty();
+      $("#id_versions_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_vers1").val("");
+
+      $("#id_defs_1").empty();
+      $("#id_defs_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_defs1").val("");
+
+      $.each(data["versions"], function(i, item) {
+        $("#id_versions_1").append($('<option>', {
+          value: item,
+          text: item,
+        }));
+        var v = $("#id_vers1").val();
+        v += "," + item;
+        $("#id_vers1").val(v);
+      });
+    }
+  });
+});
+$("#id_groups_2").change(function() {
+  var api_version = $("#id_apis_2").find("option:selected").val();
+  var group = $(this).find("option:selected").text();
+  $.ajax({
+    url: "/api/" + api_version + "/groups/" + group + "/versions/",
+    type: 'get',
+    async: false,
+    success : function(data) {
+      $("#id_versions_2").empty();
+      $("#id_versions_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_vers2").val("");
+
+      $("#id_defs_2").empty();
+      $("#id_defs_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_defs2").val("");
+
+      $.each(data["versions"], function(i, item) {
+        $("#id_versions_2").append($('<option>', {
+          value: item,
+          text: item,
+        }));
+        var v = $("#id_vers2").val();
+        v += "," + item;
+        $("#id_vers2").val(v);
+      });
+    }
+  });
+});
+
+$("#id_versions_1").change(function() {
+  var api = $("#id_apis_1").find("option:selected").val();
+  var group = $("#id_groups_1").find("option:selected").val();
+  var version = $(this).find("option:selected").val();
+  $.ajax({
+    url: "/api/" + api + "/definitions/",
+    type: 'get',
+    async: false,
+    data: {
+      "group": group,
+      "version": version,
+    },
+    success : function(data) {
+      $("#id_defs_1").empty();
+      $("#id_defs_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_defs1").val("");
+
+      $.each(data["defs"], function(i, item) {
+        $("#id_defs_1").append($('<option>', {
+          value: item.name,
+          text: item.display,
+        }));
+        var v = $("#id_defs1").val();
+        v += "," + item.name + "/" + item.display;
+        $("#id_defs1").val(v);
+      });
+    }
+  });
+});
+$("#id_versions_2").change(function() {
+  var api = $("#id_apis_2").find("option:selected").val();
+  var group = $("#id_groups_2").find("option:selected").val();
+  var version = $(this).find("option:selected").val();
+  $.ajax({
+    url: "/api/" + api + "/definitions/",
+    type: 'get',
+    async: false,
+    data: {
+      "group": group,
+      "version": version,
+    },
+    success : function(data) {
+      $("#id_defs_2").empty();
+      $("#id_defs_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_defs2").val("");
+
+      $.each(data["defs"], function(i, item) {
+        $("#id_defs_2").append($('<option>', {
+          value: item.name,
+          text: item.display,
+        }));
+        var v = $("#id_defs2").val();
+        v += "," + item.name + "/" + item.display;
+        $("#id_defs2").val(v);
+      });
+    }
+  });
+});
+
+</script>
+{% endblock %}

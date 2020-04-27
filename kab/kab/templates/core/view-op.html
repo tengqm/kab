@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% load core_tags %}
+
+{% block title %}
+  <title>Operation: {{ API }} - {{ OP.operationId }}</title>
+  <style>
+    P {line-height: 1.5; margin-bottom: 2px;}
+  </style>
+{% endblock %}
+
+{% block main_content %}
+
+  <dl class="row">
+    {# Operation ID #}
+    <dt class="col-md-2 col-sm-3">ID:</dt>
+    <dd class="col-md-10 col-sm-9"><var>{{ OP.operationId }}</var></dd>
+
+    {# Description #}
+    <dt class="col-md-2 col-sm-3">Description:</dt>
+    <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
+      {% if OP.description %}
+        {% markdown_html OP.description %}
+      {% else %}
+        &lt;N/A&gt;
+      {% endif %}
+    </dd>
+
+    {# Path and Path Parameters #}
+    <dt class="col-md-2 col-sm-3">Path:</dt>
+    <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
+      <p><strong>{{ OP.verb|upper }}</strong><code> {{ OP.path}}</code></p>
+      {% if PATH %}
+        <table class="table table-sm table-striped mb-0">
+          <tr class="table-secondary"><td colspan="3">Params<td></tr>
+          {% for P in PATH %}
+            <tr>
+              <td style="min-width:100px;"><samp>{{ P.name }}</samp></td>
+              <td style="min-width:100px;"><code>{{ P.type }}</code></td>
+              <td style="word-break:break-word;">{{ P.description }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+    </dd>
+
+    {# Schemes #}
+    <dt class="col-md-2 col-sm-3">Schemes:</dt>
+    <dd class="col-md-10 col-sm-9 text-uppercase">
+      <var>{{ OP.schemes|safeseq|join:", " }}</var>
+    </dd>
+
+    {# Tags #}
+    <dt class="col-md-2 col-sm-3">Tags:</dt>
+    <dd class="col-md-10 col-sm-9">
+      <var>{{ OP.tags|safeseq|join:", " }}<var>
+    </dd>
+
+    {# Consumes #}
+    <dt class="col-md-2 col-sm-3">Consumes:</dt>
+    <dd class="col-md-10 col-sm-9">
+      <var>{{ OP.consumes|safeseq|join:", " }}</var>
+    </dd>
+
+    {# Produces #}
+    <dt class="col-md-2 col-sm-3">Produces:</dt>
+    <dd class="col-md-10 col-sm-9">
+      <var>{{ OP.produces|safeseq|join:", " }}</var>
+    </dd>
+
+    {% if QUERY %}
+    {# Query Parameters #}
+    <dt class="col-md-2 col-sm-3">Query Parameters:</dt>
+    <dd class="col-md-10 col-sm-9">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr class="table-secondary">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          <tr>
+        </thead>
+        <tbody>
+          {% for P in QUERY %}
+          <tr>
+            <td>
+              <samp>{{ P.name }}</samp>
+              {% if P.required %}<span style="color:orangered">*</span>{% endif %}
+            </td>
+            <td style="min-width:100px;"><code>{{ P.type }}</code></td>
+            <td>{% markdown_html P.description %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </dd>
+    {% endif %}
+
+    {% if BODY %}
+    {# Body #}
+    <dt class="col-md-2 col-sm-3">Body:</dt>
+    <dd class="col-md-10 col-sm-9">
+      {% if BODY.0.schema.type == "array" %}
+        {% escape_ref API BODY.0.schema.items as TARGET %}
+        [{{ TARGET.REF|safe }}]
+      {% else %}
+        {% escape_ref API BODY.0.schema as TARGET %}
+        {{ TARGET.REF|safe }}
+      {% endif %}
+    </dd>
+    {% endif %}
+
+    {% if OP.responses %}
+    <dt class="col-md-2 col-sm-3">Responses:</dt>
+    <dd class="col-md-10 col-sm-9">
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr class="table-secondary">
+            <th>Status</th>
+            <th>Description</th>
+            <th>Response</th>
+          <tr>
+        </thead>
+        <tbody>
+          {% for key, data in OP.responses.items %}
+          <tr>
+            <td>{{ key }}</td>
+            <td>{{ data.description|default:"no description" }}</td>
+            <td>
+            {% if data.schema %}
+              {% escape_ref API data.schema as RESP %}
+              {{ RESP.REF|safe }}
+            {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </dd>
+    {% endif %}
+
+  </dl>
+
+  {% if OP.extensions %}
+    <div class="card" style="width: 100%;">
+      <h5 class="card-header">Extensions</h5>
+      <div class="card-body p-0">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for K, V in OP.extensions.items %}
+            <tr>
+              <td style="font-family: monospace;"> {{ K }}</td>
+              <td style="font-family: monospace;"> {{ V }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div> <!-- card-body -->
+    </div>  <!-- card -->
+  {% endif %}
+{% endblock %}

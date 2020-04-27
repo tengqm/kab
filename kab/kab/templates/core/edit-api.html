@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% load core_tags %}
+{% block title %}
+<title>Service Definition</title>
+{% endblock %}
+
+{% block main_content %}
+
+  <div class="row p-2 ds-bg-contextual-blue-2 justify-content-between mb-3">
+    <div class="blockquote col-md-6">
+      <h4><strong>Service Definition</strong></h4>
+      <h6><i>Service definition information</i></h6>
+    </div>
+  </div>
+
+  <form method="post" class="form-horizontal"
+      {% if ACTION == 'CREATE' %}
+        action="{% url 'create-api' %}" 
+      {% else %}
+        action="{% url 'update-api' ID %}" 
+      {% endif %}>
+
+    {% csrf_token %}
+
+    <div class="pl-2 pr-3 mr-3">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-right" for="{{ FORM.name.auto_id }}">
+          <span class="text-danger mr-1">*</span>{{ FORM.name.label }}:
+        </label>
+        {{ FORM.name|widget_with_class:"col-md-4" }}
+
+        <label class="col-md-2 col-form-label text-right" for="{{ FORM.version.auto_id }}">
+          <span class="text-danger mr-1">*</span>{{ FORM.version.label }}:
+        </label>
+        {{ FORM.version|widget_with_class:"col-md-4" }}
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-right" for="{{ FORM.description.auto_id }}">
+          {{ FORM.description.label }}:
+        </label>
+        <textarea id="id_description" name="description" cols="40" rows="3" style="font-family:monospace;"
+            class="col-md-10 form-control">{{ FORM.description.value }}</textarea>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-right" for="{{ FORM.tags.auto_id }}">
+          {{ FORM.tags.label }}:
+        </label>
+        {{ FORM.tags|widget_with_class:"col-md-10" }}
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label text-right" for="{{ FORM.auth_type.auto_id }}">
+          <span class="text-danger mr-1">*</span>{{ FORM.auth_type.label }}:
+        </label>
+        <div class="col-md-10" id="id_auth_type_g">
+          {% for ATYPE in AUTH_TYPES %}
+            <div class="float-left pt-2" style="width: 200px;">
+              <label for="id_auth_type_{{ forloop.counter0 }}">
+                <input type="radio" name="auth_type" id="id_auth_type_{{ forloop.counter0 }}"
+                    {% if ATYPE.0 == FORM.auth_type.value %}checked{% endif%}
+                    value="{{ ATYPE.0 }}"> {{ ATYPE.1 }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div id="tabBasic" class="border bg-light p-2 offset-md-2 col-md-10 {% if FORM.auth_type.value != 'HTTP Basic' %}collapse{% endif %}">
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.auth_path.auto_id }}">
+            Authentication Path:
+          </label>
+          {{ FORM.auth_path|widget_with_class:"col-md-4 form-control" }}
+
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.auth_request.auto_id }}">
+            Request Method:
+          </label>
+          {{ FORM.auth_request|widget_with_class:"col-md-3 form-control" }}
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.session_header.auto_id }}">
+            {{ FORM.session_header.label }}:
+          </label>
+          {{ FORM.session_header|widget_with_class:"col-md-4 form-control" }}
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.cred_in.auto_id }}">
+            {{ FORM.cred_in.label }}:
+          </label>
+          {{ FORM.cred_in|widget_with_class:"col-md-3 form-control" }}
+
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.resp_key.auto_id }}">
+            {{ FORM.resp_key.label }}:
+          </label>
+          <input type="text" name="resp_key" maxlength="40" class="col-md-4 form-control"
+              id="id_resp_key"
+              placeholder="<Default to same as session header>"
+              value="{{ FORM.resp_key.value }}">
+
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.resp_in.auto_id }}">
+            {{ FORM.resp_in.label }}:
+          </label>
+          {{ FORM.resp_in|widget_with_class:"col-md-3 form-control" }}
+        </div>
+      </div>
+
+      <div id="tabToken" class="border bg-light offset-md-2 col-md-10 p-1 mt-2 {% if FORM.auth_type.value != 'Static Bearer Token' %}collapse{% endif %}">
+        <div class="row">
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.token_prefix.auto_id }}">
+            {{ FORM.token_prefix.label }}:
+          </label>
+          {{ FORM.token_prefix|widget_with_class:"col-md-9 form-control" }}
+        </div>
+      </div>
+ 
+      {% if ACTION == 'CREATE' %}
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-right" for="{{ FORM.spec.auto_id }}">
+            {{ FORM.spec.label }}:
+          </label>
+          <div class="col-md-9 px-0">
+            <div class="text-center">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label id="labelText" class="specSource btn btn-outline-secondary active">
+                  <input type="radio" id="sourceText" value="Text" name="spec_source" checked>
+                  Text
+                </label>
+                <label id="labelFile" class="specSource btn btn-outline-secondary">
+                  <input type="radio" id="sourceFile" value="File" name="spec_source">
+                  File
+                </label>
+                <label id="labelRemote" class="specSource btn btn-outline-secondary">
+                  <input type="radio" id="sourceRemote" value="Remote" name="spec_source">
+                  URL
+                </label>
+              </div>
+            </div>
+
+            <div id="ssText" class="mt-2 show">
+              <textarea style="width:100%; font-family: monospace;" name="spec" cols="40" rows="5"
+                  id="id_spec" class="form-control">{{ FORM.spec.value }}</textarea>
+            </div>
+            <div id="ssFile" class="mt-2 collapse">
+              <label class="custom-file" style="width:100%">
+                  <input id="id_spec_file" name="spec_file" type="file" class="custom-file-input">
+                  <label id="id_spec_file_label" class="custom-file-label"
+                      style="font-weight:normal">
+                    Choose file...
+                  </label>
+              </label>
+            </div>
+            <div id="ssRemote" class="mt-2 collapse">
+              <div class="input-group">
+                <input type="text" class="form-control" name="spec_url"
+                    id="id_spec_url" value=""
+                    placeholder="Input URL here and then click the GET button.">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-secondary"
+                    onclick="download_url()">GET</button>
+                </div>
+              </div> <!-- input-group -->
+              <div id="id_download_success" class="d-none">
+                <p class="text-success">Spec successfully downloaded!</p>
+              </div>
+              <div id="id_download_failure" class="d-none">
+                <p id="id_download_error" class="text-danger">Cannot download the specified content.</p>
+              </div>
+
+            </div> <!-- ssRemote -->
+          </div> <!-- col-md-9 -->
+        </div> <!-- form-group -->
+        {% endif %}
+    </div>
+
+    <div class="form-group mt-3">
+      <div class="mx-auto text-center">
+        <button type="submit" name="save" value="Save" class="btn btn-primary">
+          <i class="fa fa-save"></i> Save
+        </button>
+        <a class="btn btn-secondary" role="button" href="{% url 'list-apis' %}">
+          <i class="fa fa-ban"></i> Cancel
+        </a>
+      </div>
+    </div> 
+  </form>
+
+  {% if ERRORS %}
+    {% include "core/widgets/toast.html" with TYPE="Warning" TITLE="Data error" NOTES=ERRORS %}
+  {% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+$(document).ready(function() {
+  {% if ERRORS %}
+    $(".toast").toast('show');
+  {% endif %}
+});
+
+$("#id_auth_type_0").on("click", function(){
+  $("#tabBasic").addClass("show").removeClass("collapse");
+  $("#tabToken").addClass("collapse").removeClass("show");
+});
+
+$("#id_auth_type_1").on("click", function(){
+  $("#tabBasic").addClass("collapse").removeClass("show");
+  $("#tabToken").addClass("show").removeClass("collapse");
+});
+
+$("#id_auth_type_2").on("click", function(){
+  $("#tabBasic").addClass("collapse").removeClass("show");
+  $("#tabToken").addClass("collapse").removeClass("show");
+});
+
+/* Switching among different spec sources */
+$(".specSource").on("click", function() {
+  var id = $(this).find('input').attr('id');
+  if (id == "sourceText") {
+    $("#ssText").addClass("show").removeClass("collapse");
+    $("#ssFile").addClass("collapse").removeClass("show");
+    $("#ssRemote").addClass("collapse").removeClass("show");
+  }
+  else if (id == "sourceFile") {
+    $("#ssFile").addClass("show").removeClass("collapse");
+    $("#ssText").addClass("collapse").removeClass("show");
+    $("#ssRemote").addClass("collapse").removeClass("show");
+  }
+  else {
+    $("#ssRemote").addClass("show").removeClass("collapse");
+    $("#ssText").addClass("collapse").removeClass("show");
+    $("#ssFile").addClass("collapse").removeClass("show");
+  }
+});
+
+var onChooseFile = function(obj, fn) {
+  if (typeof window.FileReader !== 'function')
+    throw ("The file API isn't supported on this browser.");
+  if (!obj.files)
+    throw ("This browser does not support the `files` property of the file input.");
+  var file = obj.files[0];
+  if (!file) {
+    return undefined;
+  }
+  var fr = new FileReader();
+  fr.readAsText(file);
+  fr.onload = function() {
+    $("#id_spec").val(fr.result);
+    $("#id_spec_file_label").text(file.name);
+  };
+};
+
+/* show file name after file selection */
+$("#id_spec_file").on('change', function() {
+  onChooseFile(this, "source");
+});
+
+function download_url() {
+  $("#id_download_success").removeClass("d-block").addClass("d-none");
+  $("#id_download_failure").removeClass("d-block").addClass("d-none");
+  $.ajax({
+    url: $("#id_spec_url").val(),
+    type: 'GET',
+    async: true,
+    success : function(data) {
+      $("#id_spec").val(data);
+      $("#id_download_success").removeClass("d-none").addClass("d-block");
+    },
+    error: function (request, status, error) {
+      $("#id_spec").val("");
+      $("#id_download_error").text(request.responseText);
+      $("#id_download_failure").removeClass("d-none").addClass("d-block");
+    }
+  });
+}
+</script>
+{% endblock %}

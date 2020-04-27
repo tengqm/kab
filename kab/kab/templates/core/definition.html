@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% load core_tags %}
+
+{% block title %}
+  <title>Compare Definition: {{ API }} - </title>
+  <style>
+    P {line-height: 1.2; margin-bottom: 2px;}
+  </style>
+{% endblock %}
+
+{% block main_content %}
+
+  <dl class="row mt-2 mb-0">
+    {# kind #}
+    <dt class="col-md-2 col-sm-3">Kind:</dt>
+    <dd class="col-md-10 col-sm-9">
+    <code>{{ KIND }} {% if VARIANT %}({{ VARIANT }}){% endif %} </code>
+      {% if IS_RESOURCE %}  <span class="badge badge-info">Resource</span>{% endif %}
+    </dd>
+
+    {# group version #}
+    <dt class="col-md-2 col-sm-3">Group/Version:</dt>
+    <dd class="col-md-10 col-sm-9">
+      <code>{% if GROUP != "" %}{{ GROUP }}/{% endif %}{{ VERSION }}</code>
+    </dd>
+
+    {# description #}
+    <dt class="col-md-2 col-sm-3">Description:</dt>
+    <dd class="col-md-10 col-sm-9">
+      {% if DEFINITION.description %}
+        {% markdown_html DEFINITION.description %}
+      {% else %}
+        &lt;No description&gt;
+      {% endif %}
+    </dd>
+  </dl>
+
+  {# Appears In#}
+  {% if APPEARS_IN %}
+  <div class="row px-3" style="font-weight: 700;">Appears In:</div>
+  <div class="row px-3 ml-3">
+    {% for A in APPEARS_IN %}
+        <a class="btn btn-outline-secondary btn-sm mb-1 mx-1" role="button"
+          href="{% url 'view-definition' API GROUP VERSION A.name %}">{{ A.display }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {# other versions #}
+  <div class="row px-3" style="font-weight: 700;">Other Versions:</div>
+  <div class="row px-3 ml-3">
+    {% for AV, VLIST in VERSIONS.items %}
+      <div class="col-lg-3 col-md-4 col-sm-6 p-1">
+      <table class="table m-0" width="100%" >
+        <thead>
+          <tr><th colspan="2" class="text-center p-1" style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">API {{ AV }}</th></tr>
+        </thead>
+        <tbody style="border: 1px solid #dee2e6;">
+          {% for V in VLIST %}
+            {% dereference AV V.group V.version NAME as LINK %}
+            <tr>
+              <td class="p-1" style="border-top: 0px; border-bottom: 0px; font-family: monospace; font-size: 10pt; word-break: break-word;">{{ V.group }}/{{ V.version}}</td>
+              <td class="p-1" style="border-top: 0px; border-bottom: 0px; width:80px; min-width:80px;">
+                {# jump to #}
+                {# compare to #}
+                <form class="form form-inline" action="{% url 'compare-defs' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="api1" value="{{ API }}" />
+                  <input type="hidden" name="api2" value="{{ AV }}" />
+                  <input type="hidden" name="group1" value="{{ GROUP }}" />
+                  <input type="hidden" name="group2" value="{{ V.group }}" />
+                  <input type="hidden" name="version1" value="{{ VERSION }}" />
+                  <input type="hidden" name="version2" value="{{ V.version }}" />
+                  <input type="hidden" name="def1" value="{{ NAME }}" />
+                  <input type="hidden" name="def2" value="{{ NAME }}" />
+                    <a class="btn btn-outline-secondary btn-sm" href="{{ LINK.0 }}" title="View">
+                      <i class="fa fa-eye"></i>
+                    </a>
+
+                  <button type="submit" class="btn btn-outline-secondary btn-sm" href="{{ LINK.0 }}" title="Compare">
+                    <i class="fa fa-exchange-alt"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    {% endfor %}
+  </div>
+
+  {# properties #}
+  {% if DEFINITION.properties %}
+    <div class="row px-3" style="font-weight: 700;">Properties:</div>
+    <div class="row px-3">
+      <table class="table table-sm table-striped" width="100%">
+        <colgroup>
+          <col style="min-width: max-content; width: 30%;" />
+          <col style="word-break: break-word;"/>
+        </colgroup>
+        <thead>
+          <tr class="table-info"r>
+            <th>Field</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for PNAME, DATA in DEFINITION.properties.items %}
+            <tr>
+              <td>
+                <var>
+                  {{ PNAME }}{% if PNAME in DEFINITION.required %}<span style="color:red;">*</span>{% endif %}
+                </var>
+                <br>
+                {% escape_ref API DATA as DATA %}
+                {% if DATA.type %}
+                  <code>{{ DATA.type }}</code>
+                {% elif DATA.REF %}
+                  <code>{{ DATA.REF|safe }}</code>
+                {% endif %}
+              </td>
+              <td>
+                <div>{% markdown_html DATA.description %}</div>
+                <div>
+                {% if 'default' in DATA %}
+                  <strong>default</strong>: <var>{{ DATA.default }}</var>
+                {% endif %}
+                {% if 'format' in DATA %}
+                  <strong>format</strong>: <var>{{ DATA.format }}</var>
+                {% endif %}
+                {% if 'minimum' in DATA %}
+                  <strong>minium</strong>: <var>{{ DATA.minimum }}<var>
+                {% endif %}
+                {% if 'maximum' in DATA %}
+                  <strong>maximum</strong>: <var>{{ DATA.maximum }}<var>
+                {% endif %}
+                {% if 'enum' in DATA %}
+                  {% if DATA.enum|length_is:"1" %}
+                    <strong>Const</strong>: <var>{{ DATA.enum.0 }}</var>
+                  {% else %}
+                    <strong>Choices</strong>: <var>{{ DATA.enum|safeseq|join:", " }}</var>
+                  {% endif %}
+                {% endif %}
+
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  {# operations #}
+  {% if OPERATIONS %}
+    <div class="row px-3" style="font-weight: 700;">Operations:</div>
+    <div class="row px-3">
+      {% for K, V in OPERATIONS.items %}
+        <a class="btn btn-outline-secondary btn-sm mb-1 mx-1" role="button"
+          href="{% url 'view-operation' API V %}">{{ K }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

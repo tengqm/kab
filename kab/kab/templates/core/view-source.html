@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+{% load core_tags %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico">
+
+    <link href="{% static 'css/bootstrap-4.3.1.min.css' %}" rel="stylesheet" integrity="sha256-D4vVfyDgPBxpWhtpeh7r9dpdZb+rN013inMq9x39e28=">
+    <link href="{% static 'css/fontawesome-5.8.2.min.css' %}" rel="stylesheet" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=">
+    <link href="{% static 'css/kab.css' %}" rel="stylesheet" integrity="sha256-4p5aLR5qZ301XK9F7EiPZJPjSstp6QWjRpdM3GWW9nU=">
+    <title>Source View</title>
+  </head>
+
+  <body>
+    <h4 class="mx-2">{{ FIELD }} for "{{ ACTIVITY.name }}"
+      <a href="#" role="button" onclick="window.close();">
+        <i class="fa fa-window-close"></i>
+      </a>
+    </h4>
+    {% if LANG == 'JSON' %}
+      {% json_html CONTENT %}
+    {% else %}
+      {% code_html CONTENT LANG %}
+    {% endif %}
+  </body>
+</html>
