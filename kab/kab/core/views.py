@@ -67,10 +67,11 @@ class ListDefinitions(generic.View):
                 "display": item["display"]
             })
             result[gv] = deflist
+        
         ctx = {
             "API": apiv,
             "GROUP": gname,
-            "DEFINITIONS": result,
+            "DEFINITIONS": collections.OrderedDict(sorted(result.items())),
         }
         return shortcuts.render(req, 'core/definition-list.html', ctx)
 
