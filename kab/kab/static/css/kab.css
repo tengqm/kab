@@ -384,3 +384,46 @@ ins {
 del {
     color: red;
 }
+
+#appears_in p.collapse:not(.show) {
+    height: 35px !important;
+    overflow: hidden;
+  
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+}
+
+#appears_in p.collapsing {
+    min-height: 35px !important;
+}
+
+#appears_in button.collapsed:after  {
+    content: '+ More';
+}
+
+#appears_in button:not(.collapsed):after {
+    content: '- Less';
+}
+
+#versions div.collapse:not(.show) {
+    height: 35px !important;
+    overflow: hidden;
+  
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+}
+
+#versions div.collapsing {
+    min-height: 35px !important;
+}
+
+#versions button.collapsed:after  {
+    content: '+ More';
+}
+
+#versions button:not(.collapsed):after {
+    content: '- Less';
+}
+

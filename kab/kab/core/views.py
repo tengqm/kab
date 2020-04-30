@@ -35,7 +35,7 @@ class ListAPIs(generic.View):
 
 
 class ListResources(generic.View):
-    """Generic view to display API resources"""
+    """Generic view for listing API resources"""
 
     def get(self, req, *args, **kwargs):
         apiv = kwargs.get('api')
@@ -49,6 +49,30 @@ class ListResources(generic.View):
             "RESOURCES": resources,
         }
         return shortcuts.render(req, 'core/resources.html', ctx)
+
+
+class ListDefinitions(generic.View):
+    """Generic view for listing definitions"""
+
+    def get(self, req, **kwargs):
+        apiv = kwargs.get("api")
+        gname = req.GET.get("group")
+
+        result = {}
+        for item in helpers.definitions(apiv):
+            gv = item["group"] + "." + item["version"]
+            deflist = result.get(gv, [])
+            deflist.append({
+                "name": item["name"],
+                "display": item["display"]
+            })
+            result[gv] = deflist
+        ctx = {
+            "API": apiv,
+            "GROUP": gname,
+            "DEFINITIONS": result,
+        }
+        return shortcuts.render(req, 'core/definition-list.html', ctx)
 
 
 class ListOperations(generic.View):

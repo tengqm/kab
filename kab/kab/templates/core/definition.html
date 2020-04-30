@@ -10,15 +10,19 @@
 {% endblock %}
 
 {% block main_content %}
+<p id="debugg"></p>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"></a></li>
+      <li class="breadcrumb-item">Definitions</li>
+      <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>{{ API }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ KIND }}
+        {% if IS_RESOURCE %}  <span class="badge badge-info">Resource</span>{% endif %}
+      </li>
+    </ol>
+  </nav>
 
   <dl class="row mt-2 mb-0">
-    {# kind #}
-    <dt class="col-3 col-md-2">Kind:</dt>
-    <dd class="col-9 col-md-10">
-    <code>{{ KIND }} {% if VARIANT %}({{ VARIANT }}){% endif %} </code>
-      {% if IS_RESOURCE %}  <span class="badge badge-info">Resource</span>{% endif %}
-    </dd>
-
     {# group version #}
     <dt class="col-3 col-md-2">Group/Version:</dt>
     <dd class="col-9 col-md-10">
@@ -39,38 +43,53 @@
   {# Appears In#}
   {% if APPEARS_IN %}
   <div class="row px-3" style="font-weight: 700;">Appears In:</div>
-  <div class="row px-3 ml-2">
+  <div id="appears_in" class="row px-3 ml-2">
+    <p id="appearsList" class="collapse col-12 p-0">
     {% for A in APPEARS_IN %}
         <a class="btn btn-outline-secondary btn-sm mb-1 mx-1" role="button"
           href="{% url 'view-definition' API A.group_name A.group_version A.name %}">{{ A.display }}</a>
     {% endfor %}
+    </p>
+    <p id="expandAppears" class="col-12 text-right">
+      <button id="btnExpandAppears" type="button" class="btn btn-light btn-sm collapsed" data-toggle="collapse" href="#appearsList"
+          aria-expanded="false" aria-controls="appearsList"></button>
+    </p>
+
   </div>
   {% endif %}
 
   {# other versions #}
   <div class="row px-3" style="font-weight: 700;">Other Versions:</div>
-  <div class="row px-3 ml-2">
-    {% for AV, VLIST in VERSIONS.items %}
-      <div class="col-lg-3 col-md-4 col-sm-6 p-1">
-      <table class="table m-0" width="100%" >
-        <thead class="thead-light">
-          <tr><th class="text-center p-1" style="border-left: 1px solid #dee2e6; border-right: 1px solid #dee2e6;">API {{ AV }}</th></tr>
-        </thead>
-        <tbody style="border: 1px solid #dee2e6;">
-          <tr>
-            <td class="p-1" style="border-top: 0px; border-bottom: 0px; word-break: break-word;">
-              {% for V in VLIST %}
-                {% dereference AV V.group V.version NAME as LINK %}
-                <a href="{{ LINK.0 }}"><var>{{ V.group }}/{{ V.version}}</var></a>
-                  <span style="cursor: pointer;" onclick="compare('{{ AV}}','{{ V.group }}','{{ V.version }}')">
-                    <i class="fa fa-exchange-alt"></i></span>
-              {% endfor %}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div id="versions" class="row px-3 ml-2">
+    <div id="versionList" class="collapse col-12 p-0">
+      <div class="row col-12">
+        {% for AV, VLIST in VERSIONS.items %}
+          {% for V in VLIST %}
+            {% dereference AV V.group V.version NAME as LINK %}
+            <div class="input-group input-group-sm col-lg-3 col-md-4 col-sm-6 px-0 mb-2">
+              <div class="input-group-prepend">
+                <label class="input-group-text">{{ AV }}</label>
+              </div>
+              <div class="input-group-prepend">
+                <label class="input-group-text">{{ V.group }}/{{ V.version}}</label>
+              </div>
+              <div class="input-group-append">
+                <a class="btn btn-outline-secondary" href="{{ LINK.0 }}"><i class="fa fa-eye"></i></a>
+                <a class="btn btn-outline-secondary" href="#"
+                    onclick="compare('{{ AV}}','{{ V.group }}','{{ V.version }}')">
+                  <i class="fa fa-exchange-alt"></i>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
+    <div id="expandVersions" class="col-12 text-right">
+      <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed" data-toggle="collapse" href="#versionList"
+          aria-expanded="false" aria-controls="versionList">
+      </button>
+    </div>
   </div>
 
   {# properties #}
@@ -120,38 +139,38 @@
 
                 {% if 'default' in DATA %}
                   <br/>
-                  <strong>default</strong>:
+                  <small>default</small>:
                   {% if DATA.type == "string" %}
-                    <var>"{{ DATA.default }}"</var>
+                    <samp style="font-family:monospace;">"{{ DATA.default }}"</samp>
                   {% else %}
-                    <var>{{ DATA.default }}</var>
+                    <samp style="font-family:monospace;">{{ DATA.default }}</samp>
                   {% endif %}
                 {% endif %}
 
                 {% if 'format' in DATA %}
                   <br/>
-                  <strong>format</strong>: <var>{{ DATA.format }}</var>
+                  <small>format</small>: <samp>{{ DATA.format }}</samp>
                 {% endif %}
 
                 {% if 'minimum' in DATA %}
                   <br/>
-                  <strong>minium</strong>: <var>{{ DATA.minimum }}<var>
+                  <small>minium</small>: <samp>{{ DATA.minimum }}</samp>
                 {% endif %}
 
                 {% if 'maximum' in DATA %}
                   <br/>
-                  <strong>maximum</strong>: <var>{{ DATA.maximum }}<var>
+                  <small>maximum</small>: <samp>{{ DATA.maximum }}<samp>
                 {% endif %}
 
                 {% if 'enum' in DATA %}
                   {% if DATA.enum|length_is:"1" %}
                     <br/>
-                    <strong>Const</strong>: <var>{{ DATA.enum.0 }}</var>
+                    <small>Const</small>: <samp>{{ DATA.enum.0 }}</samp>
                   {% else %}
                     <br/>
-                    <strong>Choices</strong>: [
+                    <small>Choices</small>: [
                     {% for E in DATA.enum %}
-                      <var>"{{ E }}"</var>{% if not forloop.last %}, {% endif %}
+                      <samp>"{{ E }}"</samp>{% if not forloop.last %}, {% endif %}
                     {%endfor %} 
                     ]
                   {% endif %}
@@ -188,7 +207,7 @@
   {# operations #}
   {% if OPERATIONS %}
     <div class="row px-3" style="font-weight: 700;">Operations:</div>
-    <div class="row px-3">
+    <div class="row px-3 ml-2">
       {% for K, V in OPERATIONS.items %}
         <a class="btn btn-outline-secondary btn-sm mb-1 mx-1" role="button"
           href="{% url 'view-operation' API V %}">{{ K }}</a>
@@ -212,11 +231,37 @@
 
 {% block javascript %}
 <script>
-function compare(api, gn, gv) {
-  $("#form_api").val(api);
-  $("#form_group").val(gn);
-  $("#form_version").val(gv);
-  $("#form-compare").submit();
-}
+  window.onresize = function(ev) {
+    toggleExpandButtons();
+  };
+  $("document").ready(function() {
+    toggleExpandButtons();
+  });
+
+  function toggleExpandButtons() {
+    var height = $("#appearsList").prop("scrollHeight");
+    if (parseInt(height) > 35) {
+      // $("#expandAppears").removeClass("d-none").addClass("d-flex");
+      $("#btnExpandAppears").removeClass("d-none").addClass("d-unset");
+    }
+    else {
+      // $("#expandAppears").removeClass("d-flex").addClass("d-none");
+      $("#btnExpandAppears").removeClass("d-unset").addClass("d-none");
+    }
+    height = $("#versionList").prop("scrollHeight");
+    $("#debugg").text(height);
+    if (parseInt(height) > 39) {
+      $("#btnExpandVersions").removeClass("d-none").addClass("d-unset");
+    }
+    else {
+      $("#btnExpandVersions").removeClass("d-unset").addClass("d-none");
+    }
+  }
+  function compare(api, gn, gv) {
+    $("#form_api").val(api);
+    $("#form_group").val(gn);
+    $("#form_version").val(gv);
+    $("#form-compare").submit();
+  }
 </script>
 {% endblock %}

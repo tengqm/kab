@@ -3,7 +3,7 @@
 {% load core_tags %}
 
 {% block title %}
-  <title>RESOURCES: {{ VERSION }}</title>
+  <title>DEFINITIONS: {{ API }}</title>
 {% endblock %}
 
 {% block main_content %}
@@ -11,8 +11,8 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"></a></li>
-      <li class="breadcrumb-item">Resources</li>
-      <li class="breadcrumb-item active">{{ API }}</li>
+      <li class="breadcrumb-item">Definitions</li>
+      <li class="breadcrumb-item">{{ API }}</li>
     </ol>
   </nav>
 
@@ -25,23 +25,21 @@
       </tr>
     </thead>
     <tbody style="font-family:monospace;">
-      {% for G, RLIST in RESOURCES.items %}
+      {% for G, DLIST in DEFINITIONS.items %}
         <tr>
           {% group_version G as GV %}
           <td style="word-break:break-word;"><code>{{ GV.0 }}</code></td>
           <td><samp>{{ GV.1 }}</samp></td>
           <td>
-            {% for R in RLIST|dictsort:"name" %}
-              {% for DEF in R.definitions.values %}
-                {% dereference API GV.0 GV.1 DEF as LINK %}
-                <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
-              {% endfor %}
+            {% for D in DLIST %}
+              {% dereference API GV.0 GV.1 D.name as LINK %}
+              <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
             {% endfor %}
           </td>
         </tr>
       {% empty %}
         <tr>
-          <td>No API group found</td>
+          <td>No definition found</td>
         </tr>
       {% endfor %}
     </tbody>

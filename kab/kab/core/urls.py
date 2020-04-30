@@ -11,6 +11,9 @@ urlpatterns = [
     urls.url(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListResources.as_view(),
              name='list-resources'),
+    urls.url(r'^apis/definitions/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+             views.ListDefinitions.as_view(),
+             name='list-definitions'),
     urls.url(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListOperations.as_view(),
              name='list-operations'),
@@ -26,13 +29,13 @@ urlpatterns = [
 
     urls.url(r'^api/(?P<api>[^\/\s]*)/groups/$',
              views.APIGroups.as_view(),
-             name='list-groups'),
+             name='list-groups-ajax'),
     urls.url(r'^api/(?P<api>[^\/\s]*)/groups/(?P<group>[^\/\s]*)/versions/$',
              views.GroupVersions.as_view(),
-             name='list-group-versions'),
+             name='list-group-versions-ajax'),
     urls.url(r'^api/(?P<api>[^\/\s]*)/definitions/$',
              views.Definitions.as_view(),
-             name='list-definitions'),
+             name='list-definitions-ajax'),
 
 
     urls.url(

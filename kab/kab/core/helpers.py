@@ -204,26 +204,31 @@ def group_versions(api_version, group):
     return sorted(data)
 
 
-def definitions(api_version, group="all", version="all", kind="all"):
+def definitions(apiv, group="all", version="all", kind="all"):
     """List definitions in an API version."""
     result = []
     for k, v in DATA["definitions"].items():
         if kind != "all" and kind != k:
             continue
-        if api_version not in v:
+
+        if apiv not in v:
             continue
-        for item in v.get(api_version, []):
+
+        for item in v.get(apiv, []):
             if group != "all" and group != item["group"]:
                 continue
             if version != "all" and version != item["version"]:
                 continue
+
             parts = k.rsplit(".", 2)
-            if parts[-1] in ["CREATE", "UPDATE", "GET"]:
+            if parts[-1] in ["CREATE", "UPDATE", "GET", "PATCH"]:
                 display = parts[-2] + " (" + parts[-1].lower() + ")"
             else:
                 display = k
 
             result.append({
+                "group": item["group"],
+                "version": item["version"],
                 "name": k,
                 "display": display
             })
