@@ -4,5 +4,34 @@
 {% endblock %}
 
 {% block main_content %}
-{{ APIS }}
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center" scope="col">API Version</th>
+        <th class="text-center" scope="col">API Groups</th>
+        <th class="text-center" scope="col">Resources</th>
+        <th class="text-center" scope="col">Definitions</th>
+        <th class="text-center" scope="col">Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for AV, AD in APIS.items %}
+        <tr>
+          <th class="text-center" scope="row">{{ AV }}</th>
+          <td class="text-center">{{ AD.groups }}</td>
+          <td class="text-center">
+            <a href="{% url 'list-resources' AV 'all' %}">{{ AD.resources }}</a>
+          </td>
+          <td class="text-center">
+            <a href="{% url 'list-definitions' AV 'all' %}">{{ AD.definitions }}</a>
+          </td>
+          <td class="text-center">
+            <a href="{% url 'list-operations' AV 'all' %}">{{ AD.operations }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 {% endblock %}

@@ -180,6 +180,42 @@ def latest_api():
     return DATA["api_versions"][-1]
 
 
+def api_summary(apiv):
+    """Summarize API by api_groups, resources, operations."""
+
+    group_count = 0
+    group_data = DATA["group_names"]
+    for k, v in DATA["groups"].items():
+        if apiv not in v:
+            continue
+        for r in group_data:
+            if r["name"] == k:
+                group_count += len(v.get(apiv, []))
+
+    def_count = 0
+    for k, v in DATA["definitions"].items():
+        if apiv not in v:
+            continue
+        def_count += len(v.get(apiv, []))
+
+    res_count = 0
+    for r in DATA["resources"]:
+        vlist = r["versions"].get(apiv, [])
+        res_count += len(vlist)
+
+    op_count = 0
+    for op in DATA["operations"]:
+        if op["version"] == apiv:
+            op_count += 1
+
+    return {
+        "groups": group_count,
+        "definitions": def_count,
+        "resources": res_count,
+        "operations": op_count,
+    }
+
+
 def groups(api_version):
     result = []
     group_data = DATA.get("group_names", [])

@@ -28,8 +28,11 @@ class ListAPIs(generic.View):
     """Generic view to list API versions"""
 
     def get(self, req, *args, **kwargs):
+        result = {}
+        for apiv in helpers.apis():
+            result[apiv] = helpers.api_summary(apiv)
         ctx = {
-            "APIS": helpers.apis(),
+            "APIS": result,
         }
         return shortcuts.render(req, 'core/apis.html', ctx)
 
