@@ -1,4 +1,5 @@
 import base64
+import collections
 import json
 import logging
 
@@ -300,3 +301,15 @@ def safedict(data):
 @register.simple_tag()
 def patch_strategy(data):
     return data.get("x-kubernetes-patch-strategy", "")
+
+
+@register.simple_tag()
+def sort(value):
+    if isinstance(value, dict):
+        new_dict = collections.OrderedDict()
+        for k in sorted(value.keys()):
+            new_dict[k] = value[k]
+        return new_dict
+    elif isinstance(value, list):
+        return sorted(value)
+    return value
