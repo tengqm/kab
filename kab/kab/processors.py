@@ -7,6 +7,7 @@ from kab import consts
 
 def global_context(request):
     return {
-        'API_VERSIONS': consts.API_VERSIONS,
+        "APIS": consts.API_VERSIONS,
+        "LATEST_API": consts.API_VERSIONS[-1],
         "kab_version": pkg_resources.require("KAB")[0].version,
     }
