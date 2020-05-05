@@ -340,7 +340,7 @@ def resource_operations(resource, group_version):
 
 
 def operations(api_version, group_version):
-    data = []
+    data = {}
     for op in DATA.get("operations", []):
         # filter version
         if op["version"] != api_version:
@@ -348,15 +348,28 @@ def operations(api_version, group_version):
         # filter group_version
         if group_version != "all" and group_version != op["group_version"]:
             continue
-        data.append({
-            "type": op["type"],
+
+        opdict = data.get(op["group_version"], {})
+        op_type = op["type"]
+        if op_type == "group":
+            ops = opdict.get("group", [])
+        else:
+            ops = opdict.get(op["target"], [])
+
+        ops.append({
             "op_type": op["op_type"],
-            "group_version": op["group_version"],
             "description": op["description"],
             "target": op["target"],
             "name": op["name"]})
-    
-    return sorted(data, key=lambda x: x["name"])
+
+        if op_type == "group":
+            opdict["group"] = ops
+        else:
+            opdict[op["target"]] = ops
+
+        data[op["group_version"]] = opdict
+
+    return collections.OrderedDict(sorted(data.items()))
 
 
 def get_operation(api_version, name):
