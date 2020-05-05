@@ -24,6 +24,10 @@ urlpatterns = [
              views.ViewOperation.as_view(),
              name='view-operation'),
 
+    urls.url(r'^apis/switch/(?P<api>[^\/\s]*)/$',
+             views.SwitchAPI.as_view(),
+             name='switch-apiv'),
+
     urls.url(r'^apis/compare/$', views.CompareDefinitions.as_view(),
              name='compare-defs'),
 
