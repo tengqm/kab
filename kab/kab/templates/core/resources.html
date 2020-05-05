@@ -11,8 +11,8 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"></a></li>
-      <li class="breadcrumb-item">Resources</li>
-      <li class="breadcrumb-item active">{{ API }}</li>
+      <li class="breadcrumb-item">{{ API }}</li>
+      <li class="breadcrumb-item active">Resources</li>
     </ol>
   </nav>
 
@@ -30,7 +30,8 @@
           <td style="word-break:break-word;"><code>{{ GV.0 }}/{{ GV.1 }}</code></td>
           <td style="word-break:break-word;">
             {% for R in RLIST|dictsort:"name" %}
-              {% for DEF in R.definitions.values %}
+              {% sort R.definitions as DEFS %}
+              {% for DEF in DEFS.values %}
                 {% dereference API GV.0 GV.1 DEF as LINK %}
                 <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
               {% endfor %}

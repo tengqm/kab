@@ -3,7 +3,7 @@
 {% load core_tags %}
 
 {% block title %}
-  <title>Definition: {{ API }} - </title>
+  <title>Comparison</title>
   <style>
     P {line-height: 1.2; margin-bottom: 2px;}
   </style>
@@ -15,7 +15,7 @@
       class="form-horizontal">
     {% csrf_token %}
 
-    <fieldset>
+    <fieldset id="fieldSets" class="collapse">
       <div class="form-group row">
         <label class="col-md-2 col-form-label" for="id_apis">
           API Versions:
@@ -126,9 +126,12 @@
       </div>
 
     </fieldset>
-    <div class="row text-center py-2">
+    <div class="row py-2 text-right">
       <div class="col">
         <button type="submit" style="width:110px;" class="form-control btn btn-primary">Compare!</button>
+        <a class="btn" data-toggle="collapse" href="#fieldSets" aria-expanded="false" aria-controls="fieldSets">
+          <i class="fa fa-angle-double-down"></i>
+        </a>
       </div>
     </div>
   </form>
@@ -136,6 +139,12 @@
   {% if RESULT %}
     <table class="table table-sm table-striped" width="100%">
       <tbody>
+        {% if "IDENTICAL" in RESULT %}
+          <tr class="table-info">
+            <td>The two definitions are <em>identical</em>!</td>
+          </tr>
+        {% endif %}
+
         {% if "ADDED" in RESULT %}
           <tr class="table-info">
             <td colspan="2">
@@ -210,9 +219,7 @@
             <td colspan="2">
               <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
                   aria-controls="descChanges"> Description Changes
-                <span class="badge badge-info">
-                  {{ RESULT.DESCRIPTION|length }}
-                </span>
+                <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
               </a>
             </td>
           </tr>
@@ -253,6 +260,18 @@
 
 {% block javascript %}
 <script>
+$(function() {
+  $('[data-toggle="collapse"]').click(function() {
+    $this = $(this).children().eq(0);
+    if ($this.hasClass('fa-angle-double-up')) {
+      $this.addClass('fa-angle-double-down').removeClass('fa-angle-double-up');
+    }
+    else {
+      $this.addClass('fa-angle-double-up').removeClass('fa-angle-double-down');
+    }
+  });
+});
+
 $("#id_apis_1").change(function() {
   var api_version = $(this).find("option:selected").val();
   $.ajax({

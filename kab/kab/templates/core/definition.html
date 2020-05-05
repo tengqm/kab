@@ -10,12 +10,11 @@
 {% endblock %}
 
 {% block main_content %}
-<p id="debugg"></p>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"></a></li>
-      <li class="breadcrumb-item">Definitions</li>
-      <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>{{ API }}</a></li>
+      <li class="breadcrumb-item">{{ API }}</li>
+      <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>Definitions</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ KIND }}
         {% if IS_RESOURCE %}  <span class="badge badge-info">Resource</span>{% endif %}
       </li>
@@ -51,7 +50,8 @@
     {% endfor %}
     </p>
     <p id="expandAppears" class="col-12 text-right">
-      <button id="btnExpandAppears" type="button" class="btn btn-light btn-sm collapsed" data-toggle="collapse" href="#appearsList"
+      <button id="btnExpandAppears" type="button" class="btn btn-light btn-sm collapsed"
+          data-toggle="collapse" data-target="#appearsList"
           aria-expanded="false" aria-controls="appearsList"></button>
     </p>
 
@@ -89,7 +89,8 @@
       </div>
     </div>
     <div id="expandVersions" class="col-12 text-right">
-      <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed" data-toggle="collapse" href="#versionList"
+      <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed"
+          data-toggle="collapse" data-target="#versionList"
           aria-expanded="false" aria-controls="versionList">
       </button>
     </div>
@@ -244,15 +245,12 @@
   function toggleExpandButtons() {
     var height = $("#appearsList").prop("scrollHeight");
     if (parseInt(height) > 35) {
-      // $("#expandAppears").removeClass("d-none").addClass("d-flex");
       $("#btnExpandAppears").removeClass("d-none").addClass("d-unset");
     }
     else {
-      // $("#expandAppears").removeClass("d-flex").addClass("d-none");
       $("#btnExpandAppears").removeClass("d-unset").addClass("d-none");
     }
     height = $("#versionList").prop("scrollHeight");
-    $("#debugg").text(height);
     if (parseInt(height) > 39) {
       $("#btnExpandVersions").removeClass("d-none").addClass("d-unset");
     }

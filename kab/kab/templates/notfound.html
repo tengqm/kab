@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>APIs</title>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="container">
+  <div class="row">
+    <div class="alert alert-warning col align-self-center" role="alert">
+      <h4 class="alert-heading">{{ TYPE }} not found!</h4>
+      <p>If you are hitting this page, it means the {{ TYPE|lower }} is not defined in the
+        <code>{{ GROUP }}/{{ VERSION }}</code> API group in API version {{ API }}.
+      </p>
+      <hr>
+      <p class="mb-0">If you are sure the definition IS defined in the group version provided, please consider submitting a
+      github issue.</p>
+    </div>  
+  </div>
+</div>
+{% endblock %}

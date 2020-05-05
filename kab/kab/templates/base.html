@@ -24,7 +24,7 @@
   </head>
 
   <body>
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
           <span class="position-relative">KAB</span>
           <span class="position-relative" style="font-size:10pt; top: 5px;">{{ kab_version }}</span>
@@ -37,8 +37,29 @@
           <!-- Top Menu Items -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'list-apis' %}"><i class="fa fa-fw fa-code-branch"></i> APIs
+              <a class="nav-link" href="{% url 'list-apis' %}"> Overview
               </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarAPIs" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-fw fa-code-branch"></i> {% if API %} {{ API }} {% else %} {{ LATEST_API }} {% endif %}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarAPIs">
+                {% for THIS_API in APIS %}
+                  {% if API %}
+                    {% if API != THIS_API %}
+                      <a class="dropdown-item"
+                         href='{% url "switch-apiv" THIS_API  %}'>{{ THIS_API }}
+                      </a>
+                    {% endif %}
+                  {% elif LATEST_API != THIS_API %}
+                     <a class="dropdown-item"
+                       href='{% url "switch-apiv" THIS_API  %}'>{{ THIS_API }}
+                    </a>
+                  {% endif %}
+                {% endfor %}
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'list-resources' API 'all' %}"><i class="fa fa-fw fa-cube"></i> Resources
@@ -75,6 +96,16 @@
       $(function() {
         $("ul.dropdown-menu.parent-menu").mouseleave(function(){
           $(this).click();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="collapse"]').click(function() {
+          $this = $(this).children().eq(0);
+          if ($this.hasClass('fa-minus-square')) {
+            $this.addClass('fa-plus-square').removeClass('fa-minus-square');
+          }
+          else {
+            $this.addClass('fa-minus-square').removeClass('fa-plus-square');
+          }
         });
       });
     </script>

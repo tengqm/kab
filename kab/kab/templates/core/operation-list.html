@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% load core_tags %}
+
+{% block title %}
+  <title>Operations: {{ VERSION }}</title>
+{% endblock %}
+
+{% block main_content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"></a></li>
+      <li class="breadcrumb-item">{{ API }}</li>
+      <li class="breadcrumb-item active">Operations</li>
+    </ol>
+  </nav>
+
+  <div class="accordion" id="operationList">
+    {% for G, OPDICT in OPS.items %}
+      <div class="card">
+        <div class="card-header row" id="group-{{ G|slugify }}">
+          <div class="col-auto" style="align-self: center;">
+            <a href="#" data-toggle="collapse" data-target="#ops-{{ G|slugify }}"
+                aria-expanded="true" aria-controls="ops-{{ G|slugify }}">
+              <i class="fa fa-fw fa-plus-square"></i></a>
+            <code>{{ G }}</code>
+          </div>
+          <div class="col-auto">
+            {% for OP in OPDICT.group %}
+              <a class="btn btn-outline-secondary btn-sm" role="button"
+                href="{% url 'view-operation' API OP.name %}"
+                data-toggle="tooltip" data-placement="top"
+                title="{{ OP.description }}">
+                {{ OP.op_type }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+      <div id="ops-{{ G|slugify }}" class="collapse"
+          aria-labelledby="group-{{ G|slugify }}" data-parent="#operationList">
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0">
+            <colgroup>
+              <col />
+              <col />
+            </colgroup>
+            <tbody>
+              {% for OPT, OPLIST in OPDICT.items %}
+                <tr>
+                {% if OPT  != "group" %}
+                  <td class="pl-4">
+                    <var>{{ OPT }}</var>
+                  </td>
+                  <td>
+                    {% for OP in OPLIST|dictsort:"op_type" %}
+                      <a class="btn btn-outline-secondary btn-sm mb-1" role="button"
+                        href="{% url 'view-operation' API OP.name %}"
+                        data-toggle="tooltip" data-placement="top"
+                        title="{{ OP.description }}">
+                        {{ OP.op_type }}
+                      </a>
+                    {% endfor %}
+                  </td>
+                {% endif %}
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="2">
+                    No operation found, something is wrong.
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+  </div> <!-- operationList -->
+{% endblock %}
+
