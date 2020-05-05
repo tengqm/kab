@@ -1,7 +1,9 @@
 import collections
+import copy
 import difflib
 import json
 import logging
+from urllib import parse
 
 from django.contrib import messages
 from django.core import exceptions as exc
@@ -35,6 +37,32 @@ class ListAPIs(generic.View):
             "APIS": result,
         }
         return shortcuts.render(req, 'core/apis.html', ctx)
+
+
+class SwitchAPI(generic.View):
+    """Generic view to Switch API version"""
+
+    def get(self, req, *args, **kwargs):
+        new_api = kwargs.get("api")
+        def_target = urls.reverse("list-resources", args=(new_api, "all"))
+        orig_url = ""
+        try:
+            orig_url = req.META.get("HTTP_REFERER")
+        except Exception:
+            LOG.warning("HTTP_REFERER not found")
+            return http.HttpResponseRedirect(def_target)
+
+        o = parse.urlparse(orig_url)
+        try:
+            rm = urls.resolve(o.path)
+            new_kwargs = copy.deepcopy(rm.kwargs)
+        except Exception as ex:
+            LOG.warning("Failed resolving origin path: %s", str(ex))
+            return http.HttpResponseRedirect(def_target)
+
+        new_kwargs["api"] = new_api
+        new_target = urls.reverse(rm.url_name, kwargs=new_kwargs)
+        return http.HttpResponseRedirect(new_target)
 
 
 class ListResources(generic.View):
@@ -92,7 +120,7 @@ class ListOperations(generic.View):
             "API": apiv,
             "OPS": operations,
         }
-        return shortcuts.render(req, 'core/operations.html', ctx)
+        return shortcuts.render(req, 'core/operation-list.html', ctx)
 
 
 class ViewDefinition(generic.View):
@@ -108,14 +136,28 @@ class ViewDefinition(generic.View):
         name_parts = name.split(".")
         appears_in = helpers.definition_appears_in(apiv, name)
         versions = helpers.definition_versions(name)
-        # filter out current group and version
-        vlist = [v for v in versions.get(apiv, [])
-                 if v["group"] != group or v["version"] != version]
 
-        if len(vlist) > 0:
-            versions[apiv] = vlist
-        else:
-            versions.pop(apiv)
+        # filter out current group and version
+        found = False
+        vlist = []
+        for v in versions.get(apiv, []):
+            if v["group"] == group and v["version"] == version:
+                found = True
+            else:
+                vlist.append(v)
+
+        if not found:
+            # definition is not found 
+            ctx = {
+                "TYPE": "Definition",
+                "API": apiv,
+                "GROUP": group,
+                "VERSION": version,
+                "NAME": name,
+            }
+            return shortcuts.render(req, 'notfound.html', ctx)
+
+        versions[apiv] = vlist
 
         kind = name_parts[0]
         is_resource = helpers.is_resource(kind)
@@ -220,7 +262,13 @@ class CompareDefinitions(generic.View):
                                              v["BEFORE"], v["AFTER"])
                 obj[k] = self.get_diff(sm)
             desc.append(obj)
-        result["DESCRIPTION"] = desc
+        if len(desc) > 0:
+            result["DESCRIPTION"] = desc
+
+        # customize identical result
+        if not result:
+            result["IDENTICAL"] = True
+
         ctx = {
             "APIS": helpers.apis(),
             "API": api1,
