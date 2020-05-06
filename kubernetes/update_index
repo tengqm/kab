@@ -378,6 +378,34 @@ def load_operations(version):
 
         found = False
 
+        # Deal with two special meta APIs
+        if fname == "getCoreAPIVersions":
+            opdata = load_json(version, fn)
+            OPERATIONS.append({
+                "version": version,
+                "type": "group",
+                "op_type": "getversions",
+                "target": "core",
+                "group_version": "core/v1",
+                "description": opdata.get("description", ""),
+                "name": fname,
+            })
+            continue
+       
+        if fname == "getAPIVersions":
+            opdata = load_json(version, fn)
+            OPERATIONS.append({
+                "version": version,
+                "type": "group",
+                "op_type": "listgroups",
+                "target": "*",
+                "group_version": "*",
+                "description": opdata.get("description", ""),
+                "name": fname,
+            })
+
+            continue
+
         # Check if is group operations
         for g_name, gdata in GROUPS.items():
             for gv in gdata.get(version, []):
