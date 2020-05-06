@@ -1,0 +1,18 @@
+{
+  "description": " Information about the service serving the backend for a given Ingress.",
+  "properties": {
+    "serviceName": {
+      "description": "The name of the referenced service.",
+      "type": "string"
+    },
+    "servicePort": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+      "description": "The port of the referenced service."
+    }
+  },
+  "required": [
+    "serviceName",
+    "servicePort"
+  ],
+  "type": "object"
+}
