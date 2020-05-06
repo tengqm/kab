@@ -2,15 +2,15 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "replace the specified Ingress",
+  "operationId": "replaceExtensionsV1beta1NamespacedIngress",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
       }
     },
     {
@@ -34,7 +34,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +44,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
       }
     },
     "401": {

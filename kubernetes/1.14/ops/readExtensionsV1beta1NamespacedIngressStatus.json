@@ -2,23 +2,9 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "read status of the specified Ingress",
+  "operationId": "readExtensionsV1beta1NamespacedIngressStatus",
   "parameters": [
-    {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
-      }
-    },
-    {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/fieldManager"
-    },
     {
       "description": "name of the Ingress",
       "in": "path",
@@ -44,13 +30,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
       }
     },
     "401": {
@@ -63,8 +43,8 @@
   "tags": [
     "extensions_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "get",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
     "kind": "Ingress",
