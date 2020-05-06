@@ -73,7 +73,6 @@ class ListResources(generic.View):
         if not apiv:
             apiv = helpers.latest_api()
         group_version = kwargs.get('group')
-        LOG.info(apiv)
         resources = helpers.resources(apiv, group_version)
         ctx = {
             "API": apiv,

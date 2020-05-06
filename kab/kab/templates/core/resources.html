@@ -26,17 +26,19 @@
     <tbody style="font-family:monospace;">
       {% for G, RLIST in RESOURCES.items %}
         <tr>
-          {% group_version G as GV %}
-          <td style="word-break:break-word;"><code>{{ GV.0 }}/{{ GV.1 }}</code></td>
-          <td style="word-break:break-word;">
-            {% for R in RLIST|dictsort:"name" %}
-              {% sort R.definitions as DEFS %}
-              {% for DEF in DEFS.values %}
-                {% dereference API GV.0 GV.1 DEF as LINK %}
-                <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+          {% if RLIST|length > 0 %}
+            {% group_version G as GV %}
+            <td style="word-break:break-word;"><code>{{ GV.0 }}/{{ GV.1 }}</code></td>
+            <td style="word-break:break-word;">
+              {% for R in RLIST|dictsort:"name" %}
+                {% sort R.definitions as DEFS %}
+                {% for DEF in DEFS.values %}
+                  {% dereference API GV.0 GV.1 DEF as LINK %}
+                  <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+                {% endfor %}
               {% endfor %}
-            {% endfor %}
-          </td>
+            </td>
+          {% endif %}
         </tr>
       {% empty %}
         <tr>
