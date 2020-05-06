@@ -1,22 +1,17 @@
 {
-  "description": "get available API versions",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "description": "get available API versions",
+  "operationId": "getAPIVersions",
+  "path": "/apis/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apis"
-  ],
-  "operationId": "getAPIVersions",
   "responses": {
     "200": {
       "description": "OK",
@@ -28,6 +23,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/apis/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apis"
+  ],
+  "verb": "get"
 }
