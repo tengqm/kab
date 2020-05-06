@@ -232,8 +232,11 @@ def parse_nested(apiv, def_name, def_id):
     """
     fn = "{}/defs/{}.json".format(apiv, def_id)
     data = {}
-    with open(fn, "r") as f:
-        data = json.loads(f.read())
+    try:
+        with open(fn, "r") as f:
+            data = json.loads(f.read())
+    except Exception as ex:
+        ERROR("Failed parsing %s: %s", fn, str(ex))
 
     parse_dict(apiv, data, def_name)
 
