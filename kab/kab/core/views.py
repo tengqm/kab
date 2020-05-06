@@ -197,7 +197,6 @@ class ViewOperation(generic.View):
             'BODY': [p for p in op["parameters"] if p['in'] == 'body'],
             # 'EXTENSIONS': .extensions,
         }
-        LOG.info(ctx)
 
         return shortcuts.render(req, 'core/view-op.html', ctx)
 

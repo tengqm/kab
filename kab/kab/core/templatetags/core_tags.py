@@ -164,7 +164,7 @@ def json_html(json_data):
 @register.simple_tag()
 def markdown_html(mddoc):
     try:
-        html = markdown.markdown(mddoc, extensions=['extra'])
+        html = markdown.markdown(mddoc, extensions=["extra"])
         return safestring.mark_safe(html)
     except Exception as ex:
         LOG.exception(ex)
