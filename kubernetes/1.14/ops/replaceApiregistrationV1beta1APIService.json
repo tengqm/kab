@@ -2,22 +2,36 @@
   "consumes": [
     "*/*"
   ],
-  "description": "create an APIService",
-  "operationId": "createApiregistrationV1beta1APIService",
+  "description": "replace the specified APIService",
+  "operationId": "replaceApiregistrationV1beta1APIService",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.CREATE"
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "description": "name of the APIService",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices",
+  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -36,12 +50,6 @@
         "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET"
       }
     },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET"
-      }
-    },
     "401": {
       "description": "Unauthorized"
     }
@@ -52,8 +60,8 @@
   "tags": [
     "apiregistration_v1beta1"
   ],
-  "verb": "post",
-  "x-kubernetes-action": "post",
+  "verb": "put",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "apiregistration.k8s.io",
     "kind": "APIService",
