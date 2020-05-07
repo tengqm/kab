@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified APIService",
+  "description": "replace status of the specified APIService",
   "consumes": [
     "*/*"
   ],
@@ -14,14 +14,14 @@
   "tags": [
     "apiregistration_v1beta1"
   ],
-  "operationId": "replaceApiregistrationV1beta1APIService",
+  "operationId": "replaceApiregistrationV1beta1APIServiceStatus",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService"
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.UPDATE"
       }
     },
     {
@@ -43,13 +43,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService"
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService"
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET"
       }
     },
     "401": {
@@ -63,5 +63,5 @@
     "version": "v1beta1"
   },
   "verb": "put",
-  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}"
+  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}/status"
 }
