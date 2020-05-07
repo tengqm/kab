@@ -1,13 +1,9 @@
 {
-  "description": "DeploymentCondition describes the state of a deployment at a certain point.",
+  "description": "The state of a StatefulSet at a certain point.",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
       "description": "Last time the condition transitioned from one status to another."
-    },
-    "lastUpdateTime": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The last time this condition was updated."
     },
     "message": {
       "description": "A human readable message indicating details about the transition.",
@@ -18,11 +14,17 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition, one of True, False, Unknown.",
+      "description": "Status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
       "type": "string"
     },
     "type": {
-      "description": "Type of deployment condition.",
+      "description": "Type of StatefulSet condition.",
+      "minLength": 1,
       "type": "string"
     }
   },
