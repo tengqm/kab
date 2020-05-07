@@ -12,10 +12,10 @@
 {% block main_content %}
 
   <form id="compare" action="{% url 'compare-defs' %}" method="post"
-      class="form-horizontal">
+      class="form-horizontal collapse">
     {% csrf_token %}
 
-    <fieldset id="fieldSets" class="collapse">
+    <fieldset id="fieldSets">
       <div class="form-group row">
         <label class="col-md-2 col-form-label" for="id_apis">
           API Versions:
@@ -129,14 +129,33 @@
     <div class="row py-2 text-right">
       <div class="col">
         <button type="submit" style="width:110px;" class="form-control btn btn-primary">Compare!</button>
-        <a class="btn" data-toggle="collapse" href="#fieldSets" aria-expanded="false" aria-controls="fieldSets">
-          <i class="fa fa-angle-double-down"></i>
-        </a>
       </div>
     </div>
   </form>
 
   {% if RESULT %}
+    <h4 align="center">Comparison
+      <button class="btn btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#compare" aria-expanded="false"
+        aria-controls="compare">
+        <i class="fa fa-chevron-circle-down"></i>
+      </button>
+    </h4>
+    <div class="row my-3 alert alert-secondary">
+      <div class="col text-right">
+        <var>{{ DEF1|humanize_name }}</var> from
+        <code>{{ GRP1 }}/{{ VER1}}</code>
+        in <em>{{ API1 }}</em>
+      </div>
+      <div class="col-1 text-center">
+        <i class="fa fa-exchange-alt"></i>
+      </div>
+      <div class="col text-left">
+        <var>{{ DEF2|humanize_name }}</var> from
+        <code>{{ GRP2 }}/{{ VER2}}</code> 
+        in <em> {{ API2 }}</em>
+      </div>
+    </div>
+
     <table class="table table-sm table-striped" width="100%">
       <tbody>
         {% if "IDENTICAL" in RESULT %}
@@ -149,11 +168,8 @@
           <tr class="table-info">
             <td colspan="2">
               <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
-                 aria-controls="fieldsAdded">Fields Added
-                <span class="badge badge-info">
-                    {{ RESULT.ADDED|length }}
-                </span>
-              </a>
+                 aria-controls="fieldsAdded"><i class="far fa-plus-square"></i></a>
+              Fields Added <span class="badge badge-info">{{ RESULT.ADDED|length }}</span>
             </td>
           </tr>
           <tr class="collapse" id="fieldsAdded">
@@ -171,11 +187,9 @@
           <tr class="table-warning">
             <td colspan="2">
               <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
-                 aria-controls="fieldsRemoved">Fields Removed
-                <span class="badge badge-danger">
-                  {{ RESULT.REMOVED|length }}
-                </span>
+                  aria-controls="fieldsRemoved"><i class="far fa-plus-square"></i></a>
               </a>
+              Fields Removed <span class="badge badge-danger">{{ RESULT.REMOVED|length }}</span>
             </td>
           </tr>
           <tr class="collapse" id="fieldsRemoved">
@@ -191,36 +205,38 @@
 
         {% if "CHANGED" in RESULT %}
           <tr>
-            <td colspan="2">Fields Changed
-              <span class="badge badge-info">
-                  {{ RESULT.CHANGED|length }}
-              </span>
+            <td colspan="2">
+              <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
+                  aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
+              Fields Changed <span class="badge badge-info">{{ RESULT.CHANGED|length }}</span>
             </td>
           </tr>
-          {% for D in RESULT.CHANGED %}
-            {% for K, V in D.items %}
-              <tr>
-                <td>
-                  <var>
-                    {{ K }}
-                  </var>
-                </td>
-                <td>
-                  <p><strong>From:</strong></p>{{ V.BEFORE }} <BR/>
-                  <p><strong>To:</strong></p>{{ V.AFTER }}
-                </td>
-              </tr>
-            {% endfor %}
-          {% endfor %}
+          <tr id="fieldsChanged" class="collapse">
+            <td colspan="2" class="py-0">
+              <table class="table table-unstriped">
+                {% for D in RESULT.CHANGED %}
+                  {% for K, V in D.items %}
+                    <tr>
+                      <td>
+                        <var>{{ K }}</var>
+                      </td>
+                      <td>
+                        <strong>From:</strong> {{ V.BEFORE }} <strong> To: </strong>{{ V.AFTER }}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endfor %}
+              </table>
+            </td>
+          </tr>
         {% endif %}
 
         {% if "DESCRIPTION" in RESULT %}
           <tr>
             <td colspan="2">
               <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
-                  aria-controls="descChanges"> Description Changes
-                <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
-              </a>
+                  aria-controls="descChanges"><i class="far fa-plus-square"></i></a>
+              Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
             </td>
           </tr>
           <tr class="collapse" id="descChanges">
@@ -236,11 +252,7 @@
                       </var>
                     </td>
                     <td>
-                      {{ V|safe }}
-                      {% comment %}
-                      <p><strong>From:</strong></p>{{ V.BEFORE }} <BR/>
-                      <p><strong>To:</strong></p>{{ V.AFTER }}
-                      {% endcomment %}
+                      {% markdown_html V %}
                     </td>
                   </tr>
                 {% endfor %}
@@ -260,22 +272,10 @@
 
 {% block javascript %}
 <script>
-$(function() {
-  $('[data-toggle="collapse"]').click(function() {
-    $this = $(this).children().eq(0);
-    if ($this.hasClass('fa-angle-double-up')) {
-      $this.addClass('fa-angle-double-down').removeClass('fa-angle-double-up');
-    }
-    else {
-      $this.addClass('fa-angle-double-up').removeClass('fa-angle-double-down');
-    }
-  });
-});
-
 $("#id_apis_1").change(function() {
   var api_version = $(this).find("option:selected").val();
   $.ajax({
-    url: "/api/" + api_version + "/groups/",
+    url: "/api/" + api_version.trim() + "/groups/",
     type: 'get',
     async: false,
     success : function(data) {
@@ -307,7 +307,7 @@ $("#id_apis_1").change(function() {
 $("#id_apis_2").change(function() {
   var api_version = $(this).find("option:selected").val();
   $.ajax({
-    url: "/api/" + api_version + "/groups/",
+    url: "/api/" + api_version.trim() + "/groups/",
     type: 'get',
     async: false,
     success : function(data) {
@@ -340,7 +340,7 @@ $("#id_groups_1").change(function() {
   var api_version = $("#id_apis_1").find("option:selected").val();
   var group = $(this).find("option:selected").text();
   $.ajax({
-    url: "/api/" + api_version + "/groups/" + group + "/versions/",
+    url: "/api/" + api_version.trim() + "/groups/" + group.trim() + "/versions/",
     type: 'get',
     async: false,
     success : function(data) {
@@ -368,7 +368,7 @@ $("#id_groups_2").change(function() {
   var api_version = $("#id_apis_2").find("option:selected").val();
   var group = $(this).find("option:selected").text();
   $.ajax({
-    url: "/api/" + api_version + "/groups/" + group + "/versions/",
+    url: "/api/" + api_version.trim() + "/groups/" + group.trim() + "/versions/",
     type: 'get',
     async: false,
     success : function(data) {
@@ -398,7 +398,7 @@ $("#id_versions_1").change(function() {
   var group = $("#id_groups_1").find("option:selected").val();
   var version = $(this).find("option:selected").val();
   $.ajax({
-    url: "/api/" + api + "/definitions/",
+    url: "/api/" + api.trim() + "/definitions/",
     type: 'get',
     async: false,
     data: {
@@ -427,7 +427,7 @@ $("#id_versions_2").change(function() {
   var group = $("#id_groups_2").find("option:selected").val();
   var version = $(this).find("option:selected").val();
   $.ajax({
-    url: "/api/" + api + "/definitions/",
+    url: "/api/" + api.trim() + "/definitions/",
     type: 'get',
     async: false,
     data: {

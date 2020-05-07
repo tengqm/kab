@@ -223,6 +223,16 @@ def dos_str(value):
         return value
 
 
+@register.filter(is_safe=True)
+def humanize_name(name):
+    parts = name.rsplit(".", 1)
+    if len(parts) != 2:
+        return name
+    if parts[1] in ("CREATE", "UPDATE", "GET", "PATCH"):
+        return parts[0] + " (" + parts[1].lower() + ")"
+    return parts[1]
+
+
 @register.simple_tag()
 def dereference(api, group, ver, defn):
     group_path = helpers.group_path(group)

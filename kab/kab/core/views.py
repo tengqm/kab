@@ -1,23 +1,16 @@
 import collections
 import copy
 import difflib
-import json
 import logging
 from urllib import parse
 
-from django.contrib import messages
-from django.core import exceptions as exc
-from django.db import transaction
-from django.db import utils
 from django import http
 from django import shortcuts
 from django import urls
 from django.views import generic
 
-from kab import consts
 from kab.core import helpers
 from kab.core import jsondiff
-from kab.core import models
 
 LOG = logging.getLogger(__name__)
 
@@ -97,7 +90,7 @@ class ListDefinitions(generic.View):
                 "display": item["display"]
             })
             result[gv] = deflist
-        
+
         ctx = {
             "API": apiv,
             "GROUP": gname,
@@ -146,7 +139,7 @@ class ViewDefinition(generic.View):
                 vlist.append(v)
 
         if not found:
-            # definition is not found 
+            # definition is not found
             ctx = {
                 "TYPE": "Definition",
                 "API": apiv,
@@ -184,7 +177,7 @@ class ViewOperation(generic.View):
     """Generic view to display a definition"""
 
     def get(self, req, *args, **kwargs):
-        apiv= kwargs.pop('api')
+        apiv = kwargs.pop('api')
         name = kwargs.pop('name')
         op = helpers.get_operation(apiv, name)
         op = helpers.parse_params(apiv, op)
@@ -211,8 +204,32 @@ class CompareDefinitions(generic.View):
         }
         return shortcuts.render(req, 'core/compare-defs.html', ctx)
 
+    def compare_tuple(self, t1, t2):
+        """Compare two tuples.
+        Each tuple contains (api-version, group-name, group-ver, definition)
+        :returns: A tuple with the older version before the newer one.
+        """
+        # test version
+        if t1[0] != t2[0]:
+            return (t1, t2) if t1[0] < t2[0] else (t2, t1)
+
+        # test group name
+        if t1[1] != t2[1]:
+            return (t1, t2) if t1[1] < t2[1] else (t2, t1)
+
+        # test version
+        # v2 > v1 > v2beta2 > v2beta1 > v1beta1 > v2alpha1 > v1alpha1
+        if t1[2] != t2[2]:
+            if ("alpha" not in t1[2] and "beta" not in t1[2] or
+                    "alpha" not in t2[2] and "beta" not in t2[2]):
+                return (t1, t2) if t1[2] > t2[2] else (t2, t1)
+            else:
+                return (t1, t2) if t1[2] < t2[2] else (t2, t1)
+
+        return (t1, t2) if t1[3] < t2[3] else (t2, t1)
+
     def get_diff(self, seqm):
-        output= []
+        output = []
         for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
             if opcode == 'equal':
                 output.append(seqm.a[a0:a1])
@@ -237,6 +254,12 @@ class CompareDefinitions(generic.View):
         ver2 = req.POST.get('version2', ver1)
         def1 = req.POST.get("def1")
         def2 = req.POST.get("def2", def1)
+
+        tuple1 = (api1, grp1, ver1, def1)
+        tuple2 = (api2, grp2, ver2, def2)
+        tuple1, tuple2 = self.compare_tuple(tuple1, tuple2)
+        api1, grp1, ver1, def1 = tuple1
+        api2, grp2, ver2, def2 = tuple2
 
         grps1 = helpers.groups(api1)
         grps2 = helpers.groups(api2)
@@ -317,6 +340,6 @@ class Definitions(generic.View):
         gname = req.GET.get("group")
         gversion = req.GET.get("version")
 
-        defs = helpers.defintions(apiv, gname, gversion)
+        defs = helpers.definitions(apiv, gname, gversion)
 
         return http.JsonResponse({"defs": defs})
