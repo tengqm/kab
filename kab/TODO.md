@@ -15,3 +15,5 @@
 [] Add back ignored definitions/operations in 1.16
 [] Add back ignored definitions/operations in 1.17
 [] Add back ignored definitions/operations in 1.18
+[] Add badge to deprecated API resources
+[] Add badge to deprecated API groups
