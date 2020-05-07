@@ -2,22 +2,30 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified ControllerRevision",
-  "operationId": "replaceAppsV1beta1NamespacedControllerRevision",
+  "description": "delete a Deployment",
+  "operationId": "deleteAppsV1beta2NamespacedDeployment",
   "parameters": [
     {
       "in": "body",
       "name": "body",
-      "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.UPDATE"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the ControllerRevision",
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "description": "name of the Deployment",
       "in": "path",
       "name": "name",
       "required": true,
@@ -31,7 +39,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}",
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/deployments/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -41,13 +49,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
-    "201": {
-      "description": "Updated",
+    "202": {
+      "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -58,13 +66,13 @@
     "https"
   ],
   "tags": [
-    "apps_v1beta1"
+    "apps_v1beta2"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "ControllerRevision",
-    "version": "v1beta1"
+    "kind": "Deployment",
+    "version": "v1beta2"
   }
 }

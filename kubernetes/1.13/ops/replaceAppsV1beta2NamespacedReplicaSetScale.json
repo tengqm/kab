@@ -2,22 +2,22 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified ControllerRevision",
-  "operationId": "replaceAppsV1beta1NamespacedControllerRevision",
+  "description": "replace scale of the specified ReplicaSet",
+  "operationId": "replaceAppsV1beta2NamespacedReplicaSetScale",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.Scale"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the ControllerRevision",
+      "description": "name of the Scale",
       "in": "path",
       "name": "name",
       "required": true,
@@ -31,7 +31,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}",
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/replicasets/{name}/scale",
   "produces": [
     "application/json",
     "application/yaml",
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.Scale"
       }
     },
     "201": {
-      "description": "Updated",
+      "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.Scale"
       }
     },
     "401": {
@@ -58,13 +58,13 @@
     "https"
   ],
   "tags": [
-    "apps_v1beta1"
+    "apps_v1beta2"
   ],
   "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "ControllerRevision",
-    "version": "v1beta1"
+    "kind": "Scale",
+    "version": "v1beta2"
   }
 }

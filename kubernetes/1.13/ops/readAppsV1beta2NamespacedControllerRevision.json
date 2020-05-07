@@ -2,19 +2,14 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified ControllerRevision",
-  "operationId": "replaceAppsV1beta1NamespacedControllerRevision",
+  "description": "read the specified ControllerRevision",
+  "operationId": "readAppsV1beta2NamespacedControllerRevision",
   "parameters": [
     {
-      "in": "body",
-      "name": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.UPDATE"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "description": "name of the ControllerRevision",
@@ -31,7 +26,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}",
+  "path": "/apis/apps/v1beta2/namespaces/{namespace}/controllerrevisions/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -41,13 +36,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
-      }
-    },
-    "201": {
-      "description": "Updated",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta2.ControllerRevision.GET"
       }
     },
     "401": {
@@ -58,13 +47,13 @@
     "https"
   ],
   "tags": [
-    "apps_v1beta1"
+    "apps_v1beta2"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "get",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "ControllerRevision",
-    "version": "v1beta1"
+    "version": "v1beta2"
   }
 }
