@@ -1,0 +1,45 @@
+{
+  "description": "The state of a Deployment at a certain point.",
+  "properties": {
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transitioned from one status to another."
+    },
+    "lastUpdateTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The last time this condition was updated."
+    },
+    "message": {
+      "description": "A human readable message indicating details about the transition.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "The reason for the condition's last transition.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of Deployment condition.",
+      "enum": [
+        "Available",
+        "Progressing",
+        "ReplicaFailure"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "status"
+  ],
+  "type": "object"
+}
