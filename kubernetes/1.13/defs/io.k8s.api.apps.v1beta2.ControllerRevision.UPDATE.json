@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "apps/v1beta1"
+        "apps/v1beta2"
       ],
       "type": "string"
     },
@@ -20,7 +20,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
       "description": "Standard object's metadata."
     },
     "revision": {
@@ -40,7 +40,7 @@
     {
       "group": "apps",
       "kind": "ControllerRevision",
-      "version": "v1beta1"
+      "version": "v1beta2"
     }
   ]
 }
