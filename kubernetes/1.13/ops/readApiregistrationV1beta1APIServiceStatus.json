@@ -1,20 +1,28 @@
 {
-  "description": "read status of the specified APIService",
   "consumes": [
     "*/*"
   ],
+  "description": "read status of the specified APIService",
+  "operationId": "readApiregistrationV1beta1APIServiceStatus",
+  "parameters": [
+    {
+      "description": "name of the APIService",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}/status",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apiregistration_v1beta1"
-  ],
-  "operationId": "readApiregistrationV1beta1APIServiceStatus",
   "responses": {
     "200": {
       "description": "OK",
@@ -26,25 +34,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiregistration_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "apiregistration.k8s.io",
     "kind": "APIService",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/apiregistration.k8s.io/v1beta1/apiservices/{name}/status",
-  "parameters": [
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the APIService",
-      "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ]
+  }
 }

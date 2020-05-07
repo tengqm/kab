@@ -1,24 +1,13 @@
 {
-  "description": "delete an APIService",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apiregistration_v1"
-  ],
+  "description": "delete an APIService",
   "operationId": "deleteApiregistrationV1APIService",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -36,16 +25,22 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the APIService",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/apiregistration.k8s.io/v1/apiservices/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -64,12 +59,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiregistration_v1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "apiregistration.k8s.io",
     "kind": "APIService",
     "version": "v1"
-  },
-  "verb": "delete",
-  "path": "/apis/apiregistration.k8s.io/v1/apiservices/{name}"
+  }
 }
