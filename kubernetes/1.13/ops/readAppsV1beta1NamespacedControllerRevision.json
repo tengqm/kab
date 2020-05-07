@@ -1,5 +1,5 @@
 {
-  "description": "replace the specified Deployment",
+  "description": "read the specified ControllerRevision",
   "consumes": [
     "*/*"
   ],
@@ -14,23 +14,18 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "replaceAppsV1beta1NamespacedDeployment",
+  "operationId": "readAppsV1beta1NamespacedControllerRevision",
   "parameters": [
     {
-      "name": "body",
-      "in": "body",
-      "required": true,
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment"
-      }
+      "$ref": "#/parameters/exact"
     },
     {
-      "$ref": "#/parameters/dryRun"
+      "$ref": "#/parameters/export"
     },
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the Deployment",
+      "description": "name of the ControllerRevision",
       "name": "name",
       "in": "path",
       "required": true
@@ -46,25 +41,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "Deployment",
+    "kind": "ControllerRevision",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}"
+  "verb": "get",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}"
 }

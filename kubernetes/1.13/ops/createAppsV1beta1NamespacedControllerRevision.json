@@ -1,5 +1,5 @@
 {
-  "description": "replace scale of the specified Deployment",
+  "description": "create a ControllerRevision",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "replaceAppsV1beta1NamespacedDeploymentScale",
+  "operationId": "createAppsV1beta1NamespacedControllerRevision",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Scale"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Scale",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"
@@ -46,25 +41,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Scale"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Scale"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "Scale",
+    "kind": "ControllerRevision",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/scale"
+  "verb": "post",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions"
 }

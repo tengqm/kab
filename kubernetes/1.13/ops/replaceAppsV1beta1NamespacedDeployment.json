@@ -1,5 +1,5 @@
 {
-  "description": "create a ControllerRevision",
+  "description": "replace the specified Deployment",
   "consumes": [
     "*/*"
   ],
@@ -14,21 +14,26 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "createAppsV1beta1NamespacedControllerRevision",
+  "operationId": "replaceAppsV1beta1NamespacedDeployment",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.UPDATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the Deployment",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,31 +46,25 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "ControllerRevision",
+    "kind": "Deployment",
     "version": "v1beta1"
   },
-  "verb": "post",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions"
+  "verb": "put",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}"
 }

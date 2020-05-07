@@ -1,7 +1,9 @@
 {
-  "description": "create a StatefulSet",
+  "description": "partially update the specified StatefulSet",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,21 +16,26 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "createAppsV1beta1NamespacedStatefulSet",
+  "operationId": "patchAppsV1beta1NamespacedStatefulSet",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "uniqueItems": true,
+      "type": "string",
+      "description": "name of the StatefulSet",
+      "name": "name",
+      "in": "path",
+      "required": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,31 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
-      }
-    },
-    "202": {
-      "description": "Accepted",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "post",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "StatefulSet",
     "version": "v1beta1"
   },
-  "verb": "post",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/statefulsets"
+  "verb": "patch",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}"
 }

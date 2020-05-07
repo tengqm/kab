@@ -1,5 +1,5 @@
 {
-  "description": "read the specified ControllerRevision",
+  "description": "read the specified StatefulSet",
   "consumes": [
     "*/*"
   ],
@@ -14,7 +14,7 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "readAppsV1beta1NamespacedControllerRevision",
+  "operationId": "readAppsV1beta1NamespacedStatefulSet",
   "parameters": [
     {
       "$ref": "#/parameters/exact"
@@ -25,7 +25,7 @@
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the ControllerRevision",
+      "description": "name of the StatefulSet",
       "name": "name",
       "in": "path",
       "required": true
@@ -41,7 +41,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet.GET"
       }
     },
     "401": {
@@ -51,9 +51,9 @@
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "ControllerRevision",
+    "kind": "StatefulSet",
     "version": "v1beta1"
   },
   "verb": "get",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}"
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}"
 }

@@ -1,7 +1,9 @@
 {
-  "description": "read the specified Deployment",
+  "description": "partially update status of the specified Deployment",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,13 +16,18 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "readAppsV1beta1NamespacedDeployment",
+  "operationId": "patchAppsV1beta1NamespacedDeploymentStatus",
   "parameters": [
     {
-      "$ref": "#/parameters/exact"
+      "name": "body",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
     },
     {
-      "$ref": "#/parameters/export"
+      "$ref": "#/parameters/dryRun"
     },
     {
       "uniqueItems": true,
@@ -41,19 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "get",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
     "kind": "Deployment",
     "version": "v1beta1"
   },
-  "verb": "get",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}"
+  "verb": "patch",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}/status"
 }

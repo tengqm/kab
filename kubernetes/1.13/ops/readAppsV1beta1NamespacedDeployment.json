@@ -1,5 +1,5 @@
 {
-  "description": "read the specified StatefulSet",
+  "description": "read the specified Deployment",
   "consumes": [
     "*/*"
   ],
@@ -14,7 +14,7 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "readAppsV1beta1NamespacedStatefulSet",
+  "operationId": "readAppsV1beta1NamespacedDeployment",
   "parameters": [
     {
       "$ref": "#/parameters/exact"
@@ -25,7 +25,7 @@
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the StatefulSet",
+      "description": "name of the Deployment",
       "name": "name",
       "in": "path",
       "required": true
@@ -41,7 +41,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "401": {
@@ -51,9 +51,9 @@
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "StatefulSet",
+    "kind": "Deployment",
     "version": "v1beta1"
   },
   "verb": "get",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}"
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}"
 }

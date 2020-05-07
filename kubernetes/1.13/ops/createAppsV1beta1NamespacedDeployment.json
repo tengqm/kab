@@ -1,5 +1,5 @@
 {
-  "description": "replace scale of the specified StatefulSet",
+  "description": "create a Deployment",
   "consumes": [
     "*/*"
   ],
@@ -14,26 +14,21 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "replaceAppsV1beta1NamespacedStatefulSetScale",
+  "operationId": "createAppsV1beta1NamespacedDeployment",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Scale"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Scale",
-      "name": "name",
-      "in": "path",
-      "required": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/namespace"
@@ -46,25 +41,31 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Scale"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Scale"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "Scale",
+    "kind": "Deployment",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}/scale"
+  "verb": "post",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments"
 }

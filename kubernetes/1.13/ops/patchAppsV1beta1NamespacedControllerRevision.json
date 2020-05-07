@@ -1,7 +1,9 @@
 {
-  "description": "replace the specified StatefulSet",
+  "description": "partially update the specified ControllerRevision",
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
   "produces": [
     "application/json",
@@ -14,14 +16,14 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "replaceAppsV1beta1NamespacedStatefulSet",
+  "operationId": "patchAppsV1beta1NamespacedControllerRevision",
   "parameters": [
     {
       "name": "body",
       "in": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
@@ -30,7 +32,7 @@
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the StatefulSet",
+      "description": "name of the ControllerRevision",
       "name": "name",
       "in": "path",
       "required": true
@@ -46,25 +48,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
-      }
-    },
-    "201": {
-      "description": "Created",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.StatefulSet"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
-  "x-kubernetes-action": "put",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "StatefulSet",
+    "kind": "ControllerRevision",
     "version": "v1beta1"
   },
-  "verb": "put",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/statefulsets/{name}"
+  "verb": "patch",
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}"
 }

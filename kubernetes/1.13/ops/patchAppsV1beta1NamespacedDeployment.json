@@ -1,5 +1,5 @@
 {
-  "description": "partially update the specified ControllerRevision",
+  "description": "partially update the specified Deployment",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
@@ -16,7 +16,7 @@
   "tags": [
     "apps_v1beta1"
   ],
-  "operationId": "patchAppsV1beta1NamespacedControllerRevision",
+  "operationId": "patchAppsV1beta1NamespacedDeployment",
   "parameters": [
     {
       "name": "body",
@@ -32,7 +32,7 @@
     {
       "uniqueItems": true,
       "type": "string",
-      "description": "name of the ControllerRevision",
+      "description": "name of the Deployment",
       "name": "name",
       "in": "path",
       "required": true
@@ -48,7 +48,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.ControllerRevision"
+        "$ref": "#/definitions/io.k8s.api.apps.v1beta1.Deployment.GET"
       }
     },
     "401": {
@@ -58,9 +58,9 @@
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "apps",
-    "kind": "ControllerRevision",
+    "kind": "Deployment",
     "version": "v1beta1"
   },
   "verb": "patch",
-  "path": "/apis/apps/v1beta1/namespaces/{namespace}/controllerrevisions/{name}"
+  "path": "/apis/apps/v1beta1/namespaces/{namespace}/deployments/{name}"
 }
