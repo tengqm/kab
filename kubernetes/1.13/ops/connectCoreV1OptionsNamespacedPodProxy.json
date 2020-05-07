@@ -1,18 +1,33 @@
 {
-  "description": "send OPTIONS requests to proxy of Pod",
   "consumes": [
     "*/*"
   ],
+  "description": "send OPTIONS requests to proxy of Pod",
+  "operationId": "connectCoreV1OptionsNamespacedPodProxy",
+  "parameters": [
+    {
+      "description": "name of the Pod",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "description": "Path is the URL path to use for the current proxy request to pod.",
+      "in": "query",
+      "name": "path",
+      "type": "string",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy",
   "produces": [
     "*/*"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
-  "operationId": "connectCoreV1OptionsNamespacedPodProxy",
   "responses": {
     "200": {
       "description": "OK",
@@ -24,32 +39,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "options",
   "x-kubernetes-action": "connect",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PodProxyOptions",
     "version": "v1"
-  },
-  "verb": "options",
-  "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy",
-  "parameters": [
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Pod",
-      "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "$ref": "#/parameters/namespace"
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "Path is the URL path to use for the current proxy request to pod.",
-      "name": "path",
-      "in": "query"
-    }
-  ]
+  }
 }

@@ -1,24 +1,13 @@
 {
-  "description": "create an InitializerConfiguration",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "admissionregistration_v1alpha1"
-  ],
+  "description": "create an InitializerConfiguration",
   "operationId": "createAdmissionregistrationV1alpha1InitializerConfiguration",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.InitializerConfiguration.CREATE"
@@ -33,6 +22,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -57,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1alpha1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "admissionregistration.k8s.io",
     "kind": "InitializerConfiguration",
     "version": "v1alpha1"
-  },
-  "verb": "post",
-  "path": "/apis/admissionregistration.k8s.io/v1alpha1/initializerconfigurations"
+  }
 }

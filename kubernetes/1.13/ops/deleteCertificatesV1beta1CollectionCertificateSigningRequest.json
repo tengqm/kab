@@ -1,19 +1,8 @@
 {
-  "description": "delete collection of CertificateSigningRequest",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "certificates_v1beta1"
-  ],
+  "description": "delete collection of CertificateSigningRequest",
   "operationId": "deleteCertificatesV1beta1CollectionCertificateSigningRequest",
   "parameters": [
     {
@@ -44,6 +33,12 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -55,12 +50,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1beta1"
+  ],
+  "verb": "delete",
   "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
     "version": "v1beta1"
-  },
-  "verb": "delete",
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests"
+  }
 }

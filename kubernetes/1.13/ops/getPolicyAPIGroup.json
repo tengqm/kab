@@ -1,22 +1,17 @@
 {
-  "description": "get information of the policy group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "description": "get information of the policy group",
+  "operationId": "getPolicyAPIGroup",
+  "path": "/apis/policy/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy"
-  ],
-  "operationId": "getPolicyAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -28,6 +23,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/apis/policy/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy"
+  ],
+  "verb": "get"
 }

@@ -1,22 +1,17 @@
 {
-  "description": "get information of the authentication API group",
   "consumes": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
+  "description": "get information of the authentication API group",
+  "operationId": "getAuthenticationAPIGroup",
+  "path": "/apis/authentication.k8s.io/",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "authentication"
-  ],
-  "operationId": "getAuthenticationAPIGroup",
   "responses": {
     "200": {
       "description": "OK",
@@ -28,6 +23,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "get",
-  "path": "/apis/authentication.k8s.io/"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "authentication"
+  ],
+  "verb": "get"
 }

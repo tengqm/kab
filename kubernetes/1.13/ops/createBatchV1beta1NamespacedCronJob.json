@@ -1,24 +1,13 @@
 {
-  "description": "create a CronJob",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1beta1"
-  ],
+  "description": "create a CronJob",
   "operationId": "createBatchV1beta1NamespacedCronJob",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.CREATE"
@@ -36,6 +25,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -60,12 +55,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "CronJob",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs"
+  }
 }
