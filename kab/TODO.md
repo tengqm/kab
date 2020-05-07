@@ -1,4 +1,4 @@
-
+[] Process x-kubernetes-action, x-kubernetes-group-version-kind extensions
 [] Related operations for a given operation
 [] Comparison of operations between two versions
 [] Popup field info on definition comparison screen
