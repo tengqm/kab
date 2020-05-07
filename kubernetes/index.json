@@ -799,6 +799,7 @@
         "1.15": [
           "SelfSubjectRulesReview.GET",
           "PersistentVolumeClaim.GET",
+          "Ingress.GET",
           "PodTemplate.GET",
           "PodTemplateSpec.GET",
           "Pod.GET",
@@ -842,7 +843,6 @@
           "RuntimeClass.GET",
           "CustomResourceDefinition.GET",
           "VolumeAttachment.GET",
-          "Ingress.GET",
           "ValidatingWebhookConfiguration.GET",
           "CSIDriver.GET",
           "SelfSubjectAccessReview.GET",
@@ -854,6 +854,7 @@
           "SelfSubjectRulesReview.GET",
           "PodTemplateSpec.GET",
           "PersistentVolumeClaim.GET",
+          "Ingress.GET",
           "ValidatingWebhookConfiguration.GET",
           "PodTemplate.GET",
           "Pod.GET",
@@ -898,7 +899,6 @@
           "TokenRequest.GET",
           "CustomResourceDefinition.GET",
           "VolumeAttachment.GET",
-          "Ingress.GET",
           "CSIDriver.GET",
           "SelfSubjectAccessReview.GET",
           "PodDisruptionBudget.GET",
@@ -908,6 +908,7 @@
         "1.17": [
           "SelfSubjectRulesReview.GET",
           "PersistentVolumeClaim.GET",
+          "Ingress.GET",
           "ValidatingWebhookConfiguration.GET",
           "PodTemplate.GET",
           "PodTemplateSpec.GET",
@@ -955,7 +956,6 @@
           "TokenRequest.GET",
           "CustomResourceDefinition.GET",
           "VolumeAttachment.GET",
-          "Ingress.GET",
           "SelfSubjectAccessReview.GET",
           "PodDisruptionBudget.GET",
           "PodPreset.GET",
@@ -964,6 +964,7 @@
         "1.18": [
           "SelfSubjectRulesReview.GET",
           "PersistentVolumeClaim.GET",
+          "Ingress.GET",
           "ValidatingWebhookConfiguration.GET",
           "PodTemplate.GET",
           "PodTemplateSpec.GET",
@@ -1013,7 +1014,6 @@
           "TokenRequest.GET",
           "CustomResourceDefinition.GET",
           "VolumeAttachment.GET",
-          "Ingress.GET",
           "SelfSubjectAccessReview.GET",
           "PodDisruptionBudget.GET",
           "PodPreset.GET",
@@ -1431,6 +1431,7 @@
         ],
         "1.15": [
           "Status",
+          "IngressList",
           "PodTemplateList",
           "PodList",
           "StatefulSetList",
@@ -1473,12 +1474,12 @@
           "VolumeAttachmentList",
           "CSIDriverList",
           "ValidatingWebhookConfigurationList",
-          "IngressList",
           "PodDisruptionBudgetList",
           "PodPresetList",
           "JobList"
         ],
         "1.16": [
+          "IngressList",
           "ValidatingWebhookConfigurationList",
           "PodTemplateList",
           "PodList",
@@ -1523,12 +1524,12 @@
           "CustomResourceDefinitionList",
           "VolumeAttachmentList",
           "CSIDriverList",
-          "IngressList",
           "PodDisruptionBudgetList",
           "PodPresetList",
           "JobList"
         ],
         "1.17": [
+          "IngressList",
           "ValidatingWebhookConfigurationList",
           "PodTemplateList",
           "PodList",
@@ -1574,12 +1575,12 @@
           "RuntimeClassList",
           "CustomResourceDefinitionList",
           "VolumeAttachmentList",
-          "IngressList",
           "PodDisruptionBudgetList",
           "PodPresetList",
           "JobList"
         ],
         "1.18": [
+          "IngressList",
           "ValidatingWebhookConfigurationList",
           "PodTemplateList",
           "PodList",
@@ -1627,7 +1628,6 @@
           "RuntimeClassList",
           "CustomResourceDefinitionList",
           "VolumeAttachmentList",
-          "IngressList",
           "PodDisruptionBudgetList",
           "PodPresetList",
           "JobList"
@@ -9969,8 +9969,8 @@
         "1.15": [
           "HTTPGetAction",
           "TCPSocketAction",
-          "NetworkPolicyPort",
           "IngressBackend",
+          "NetworkPolicyPort",
           "RollingUpdateDeployment",
           "RollingUpdateDaemonSet",
           "ServicePort",
@@ -9979,8 +9979,8 @@
         "1.16": [
           "HTTPGetAction",
           "TCPSocketAction",
-          "NetworkPolicyPort",
           "IngressBackend",
+          "NetworkPolicyPort",
           "RollingUpdateDeployment",
           "RollingUpdateDaemonSet",
           "ServicePort",
@@ -9989,8 +9989,8 @@
         "1.17": [
           "HTTPGetAction",
           "TCPSocketAction",
-          "NetworkPolicyPort",
           "IngressBackend",
+          "NetworkPolicyPort",
           "RollingUpdateDeployment",
           "RollingUpdateDaemonSet",
           "ServicePort",
@@ -9999,8 +9999,8 @@
         "1.18": [
           "HTTPGetAction",
           "TCPSocketAction",
-          "NetworkPolicyPort",
           "IngressBackend",
+          "NetworkPolicyPort",
           "RollingUpdateDeployment",
           "RollingUpdateDaemonSet",
           "ServicePort",
@@ -10648,12 +10648,22 @@
       ],
       "1.15": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressList"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressList"
         }
       ],
       "1.16": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressList"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -10662,12 +10672,22 @@
       ],
       "1.17": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressList"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressList"
         }
       ],
       "1.18": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressList"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -10717,12 +10737,22 @@
       ],
       "1.15": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.GET"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.GET"
         }
       ],
       "1.16": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.GET"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -10731,12 +10761,22 @@
       ],
       "1.17": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.GET"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.GET"
         }
       ],
       "1.18": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.GET"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -10757,24 +10797,24 @@
           "Ingress.UPDATE"
         ],
         "1.15": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ],
         "1.16": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ],
         "1.17": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ],
         "1.18": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ]
       },
       "1.13": [
@@ -10801,6 +10841,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressSpec"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressSpec"
         }
       ],
       "1.16": [
@@ -10808,6 +10853,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressSpec"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressSpec"
         }
       ],
       "1.17": [
@@ -10815,6 +10865,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressSpec"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressSpec"
         }
       ],
       "1.18": [
@@ -10822,6 +10877,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressSpec"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressSpec"
         }
       ]
     },
@@ -10876,6 +10936,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressBackend"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressBackend"
         }
       ],
       "1.16": [
@@ -10883,6 +10948,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressBackend"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressBackend"
         }
       ],
       "1.17": [
@@ -10890,6 +10960,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressBackend"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressBackend"
         }
       ],
       "1.18": [
@@ -10897,6 +10972,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressBackend"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressBackend"
         }
       ]
     },
@@ -10945,6 +11025,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressRule"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressRule"
         }
       ],
       "1.16": [
@@ -10952,6 +11037,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressRule"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressRule"
         }
       ],
       "1.17": [
@@ -10959,6 +11049,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressRule"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressRule"
         }
       ],
       "1.18": [
@@ -10966,6 +11061,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressRule"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressRule"
         }
       ]
     },
@@ -11014,6 +11114,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.HTTPIngressRuleValue"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressRuleValue"
         }
       ],
       "1.16": [
@@ -11021,6 +11126,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.HTTPIngressRuleValue"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressRuleValue"
         }
       ],
       "1.17": [
@@ -11028,6 +11138,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.HTTPIngressRuleValue"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressRuleValue"
         }
       ],
       "1.18": [
@@ -11035,6 +11150,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.HTTPIngressRuleValue"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressRuleValue"
         }
       ]
     },
@@ -11080,12 +11200,22 @@
       ],
       "1.15": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressPath"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.HTTPIngressPath"
         }
       ],
       "1.16": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressPath"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -11094,12 +11224,22 @@
       ],
       "1.17": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressPath"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.HTTPIngressPath"
         }
       ],
       "1.18": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.HTTPIngressPath"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -11149,12 +11289,22 @@
       ],
       "1.15": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressTLS"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressTLS"
         }
       ],
       "1.16": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressTLS"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -11163,12 +11313,22 @@
       ],
       "1.17": [
         {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressTLS"
+        },
+        {
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressTLS"
         }
       ],
       "1.18": [
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressTLS"
+        },
         {
           "group": "networking",
           "version": "v1beta1",
@@ -11189,24 +11349,24 @@
           "Ingress.UPDATE"
         ],
         "1.15": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ],
         "1.16": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ],
         "1.17": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ],
         "1.18": [
+          "Ingress.GET",
           "Ingress.CREATE",
-          "Ingress.UPDATE",
-          "Ingress.GET"
+          "Ingress.UPDATE"
         ]
       },
       "1.13": [
@@ -11233,6 +11393,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressStatus"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressStatus"
         }
       ],
       "1.16": [
@@ -11240,6 +11405,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressStatus"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressStatus"
         }
       ],
       "1.17": [
@@ -11247,6 +11417,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressStatus"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressStatus"
         }
       ],
       "1.18": [
@@ -11254,6 +11429,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.IngressStatus"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.IngressStatus"
         }
       ]
     },
@@ -22748,6 +22928,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.CREATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.CREATE"
         }
       ],
       "1.16": [
@@ -22755,6 +22940,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.CREATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.CREATE"
         }
       ],
       "1.17": [
@@ -22762,6 +22952,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.CREATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.CREATE"
         }
       ],
       "1.18": [
@@ -22769,6 +22964,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.CREATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.CREATE"
         }
       ]
     },
@@ -27789,6 +27989,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.UPDATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
         }
       ],
       "1.16": [
@@ -27796,6 +28001,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.UPDATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
         }
       ],
       "1.17": [
@@ -27803,6 +28013,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.UPDATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
         }
       ],
       "1.18": [
@@ -27810,6 +28025,11 @@
           "group": "networking",
           "version": "v1beta1",
           "id": "io.k8s.api.networking.v1beta1.Ingress.UPDATE"
+        },
+        {
+          "group": "extensions",
+          "version": "v1beta1",
+          "id": "io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
         }
       ]
     },
@@ -35853,6 +36073,18 @@
         ],
         "1.14": [
           "v1beta1"
+        ],
+        "1.15": [
+          "v1beta1"
+        ],
+        "1.16": [
+          "v1beta1"
+        ],
+        "1.17": [
+          "v1beta1"
+        ],
+        "1.18": [
+          "v1beta1"
         ]
       },
       "operations": {
@@ -38248,6 +38480,18 @@
         }
       },
       "1.14": [
+        "v1beta1"
+      ],
+      "1.15": [
+        "v1beta1"
+      ],
+      "1.16": [
+        "v1beta1"
+      ],
+      "1.17": [
+        "v1beta1"
+      ],
+      "1.18": [
         "v1beta1"
       ]
     },
@@ -48683,6 +48927,15 @@
       "name": "listAppsV1ReplicaSetForAllNamespaces"
     },
     {
+      "type": "resource",
+      "op_type": "updatestatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "replace status of the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngressStatus"
+    },
+    {
       "version": "1.15",
       "type": "group",
       "op_type": "readgroup",
@@ -49629,6 +49882,15 @@
     },
     {
       "type": "resource",
+      "op_type": "delete",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "delete an Ingress",
+      "name": "deleteExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "patchscale",
       "group_version": "apps/v1",
       "target": "ReplicaSet",
@@ -50448,6 +50710,15 @@
     },
     {
       "type": "resource",
+      "op_type": "deletecollection",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "delete collection of Ingress",
+      "name": "deleteExtensionsV1beta1CollectionNamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "delete",
       "group_version": "apiextensions/v1beta1",
       "target": "CustomResourceDefinition",
@@ -50562,6 +50833,15 @@
       "version": "1.15",
       "description": "read the specified AuditSink",
       "name": "readAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "patch",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "partially update the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -51394,6 +51674,15 @@
     {
       "type": "resource",
       "op_type": "create",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "create an Ingress",
+      "name": "createExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "create",
       "group_version": "authorization/v1",
       "target": "SelfSubjectAccessReview",
       "version": "1.15",
@@ -51489,6 +51778,15 @@
       "version": "1.15",
       "description": "partially update status of the specified ResourceQuota",
       "name": "patchCoreV1NamespacedResourceQuotaStatus"
+    },
+    {
+      "type": "resource",
+      "op_type": "patchstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "partially update status of the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.15",
@@ -51642,6 +51940,15 @@
       "version": "1.15",
       "description": "partially update the specified AuditSink",
       "name": "patchAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "get",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "read the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -52437,6 +52744,15 @@
     },
     {
       "type": "resource",
+      "op_type": "update",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "replace the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "updatefinalize",
       "group_version": "core/v1",
       "target": "Namespace",
@@ -52479,6 +52795,15 @@
       "version": "1.15",
       "description": "send PATCH requests to proxy of Node",
       "name": "connectCoreV1PatchNodeProxy"
+    },
+    {
+      "type": "resource",
+      "op_type": "list",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -52695,6 +53020,15 @@
       "version": "1.15",
       "description": "create a CronJob",
       "name": "createBatchV1beta1NamespacedCronJob"
+    },
+    {
+      "version": "1.15",
+      "type": "group",
+      "op_type": "readgroup",
+      "target": "Extensions",
+      "group_version": "extensions/v1beta1",
+      "description": "get information of the extensions API group",
+      "name": "getExtensionsAPIGroup"
     },
     {
       "type": "resource",
@@ -52967,6 +53301,15 @@
       "name": "listCoreV1ServiceAccountForAllNamespaces"
     },
     {
+      "type": "resource",
+      "op_type": "listall",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1IngressForAllNamespaces"
+    },
+    {
       "version": "1.15",
       "type": "group",
       "op_type": "listresources",
@@ -53145,6 +53488,15 @@
       "version": "1.15",
       "description": "delete collection of Node",
       "name": "deleteCoreV1CollectionNode"
+    },
+    {
+      "type": "resource",
+      "op_type": "getstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.15",
+      "description": "read status of the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "type": "resource",
@@ -53658,6 +54010,15 @@
       "version": "1.16",
       "description": "list or watch objects of kind ReplicaSet",
       "name": "listAppsV1ReplicaSetForAllNamespaces"
+    },
+    {
+      "type": "resource",
+      "op_type": "updatestatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "replace status of the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.16",
@@ -54660,6 +55021,15 @@
     },
     {
       "type": "resource",
+      "op_type": "delete",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "delete an Ingress",
+      "name": "deleteExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "patchscale",
       "group_version": "apps/v1",
       "target": "ReplicaSet",
@@ -55578,6 +55948,15 @@
     },
     {
       "type": "resource",
+      "op_type": "deletecollection",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "delete collection of Ingress",
+      "name": "deleteExtensionsV1beta1CollectionNamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "delete",
       "group_version": "apiextensions/v1beta1",
       "target": "CustomResourceDefinition",
@@ -55692,6 +56071,15 @@
       "version": "1.16",
       "description": "read the specified AuditSink",
       "name": "readAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "patch",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "partially update the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -56560,6 +56948,15 @@
     {
       "type": "resource",
       "op_type": "create",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "create an Ingress",
+      "name": "createExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "create",
       "group_version": "authorization/v1",
       "target": "SelfSubjectAccessReview",
       "version": "1.16",
@@ -56655,6 +57052,15 @@
       "version": "1.16",
       "description": "partially update status of the specified ResourceQuota",
       "name": "patchCoreV1NamespacedResourceQuotaStatus"
+    },
+    {
+      "type": "resource",
+      "op_type": "patchstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "partially update status of the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.16",
@@ -56835,6 +57241,15 @@
       "version": "1.16",
       "description": "partially update the specified AuditSink",
       "name": "patchAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "get",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "read the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -57685,6 +58100,15 @@
     {
       "type": "resource",
       "op_type": "update",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "replace the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "update",
       "group_version": "admissionregistration/v1",
       "target": "MutatingWebhookConfiguration",
       "version": "1.16",
@@ -57735,6 +58159,15 @@
       "version": "1.16",
       "description": "send PATCH requests to proxy of Node",
       "name": "connectCoreV1PatchNodeProxy"
+    },
+    {
+      "type": "resource",
+      "op_type": "list",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -57951,6 +58384,15 @@
       "version": "1.16",
       "description": "create a CronJob",
       "name": "createBatchV1beta1NamespacedCronJob"
+    },
+    {
+      "version": "1.16",
+      "type": "group",
+      "op_type": "readgroup",
+      "target": "Extensions",
+      "group_version": "extensions/v1beta1",
+      "description": "get information of the extensions API group",
+      "name": "getExtensionsAPIGroup"
     },
     {
       "type": "resource",
@@ -58259,6 +58701,15 @@
       "name": "listCoreV1ServiceAccountForAllNamespaces"
     },
     {
+      "type": "resource",
+      "op_type": "listall",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1IngressForAllNamespaces"
+    },
+    {
       "version": "1.16",
       "type": "group",
       "op_type": "listresources",
@@ -58464,6 +58915,15 @@
       "version": "1.16",
       "description": "delete collection of Node",
       "name": "deleteCoreV1CollectionNode"
+    },
+    {
+      "type": "resource",
+      "op_type": "getstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.16",
+      "description": "read status of the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "type": "resource",
@@ -58995,6 +59455,15 @@
       "version": "1.17",
       "description": "list or watch objects of kind ReplicaSet",
       "name": "listAppsV1ReplicaSetForAllNamespaces"
+    },
+    {
+      "type": "resource",
+      "op_type": "updatestatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "replace status of the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.17",
@@ -60060,6 +60529,15 @@
     },
     {
       "type": "resource",
+      "op_type": "delete",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "delete an Ingress",
+      "name": "deleteExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "patchscale",
       "group_version": "apps/v1",
       "target": "ReplicaSet",
@@ -60915,6 +61393,15 @@
     },
     {
       "type": "resource",
+      "op_type": "deletecollection",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "delete collection of Ingress",
+      "name": "deleteExtensionsV1beta1CollectionNamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "delete",
       "group_version": "apiextensions/v1beta1",
       "target": "CustomResourceDefinition",
@@ -61038,6 +61525,15 @@
       "version": "1.17",
       "description": "read the specified AuditSink",
       "name": "readAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "patch",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "partially update the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -61969,6 +62465,15 @@
     {
       "type": "resource",
       "op_type": "create",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "create an Ingress",
+      "name": "createExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "create",
       "group_version": "authorization/v1",
       "target": "SelfSubjectAccessReview",
       "version": "1.17",
@@ -62082,6 +62587,15 @@
       "version": "1.17",
       "description": "partially update status of the specified ResourceQuota",
       "name": "patchCoreV1NamespacedResourceQuotaStatus"
+    },
+    {
+      "type": "resource",
+      "op_type": "patchstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "partially update status of the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.17",
@@ -62253,6 +62767,15 @@
       "version": "1.17",
       "description": "partially update the specified AuditSink",
       "name": "patchAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "get",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "read the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -63139,6 +63662,15 @@
     {
       "type": "resource",
       "op_type": "update",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "replace the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "update",
       "group_version": "admissionregistration/v1",
       "target": "MutatingWebhookConfiguration",
       "version": "1.17",
@@ -63198,6 +63730,15 @@
       "version": "1.17",
       "description": "send PATCH requests to proxy of Node",
       "name": "connectCoreV1PatchNodeProxy"
+    },
+    {
+      "type": "resource",
+      "op_type": "list",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -63396,6 +63937,15 @@
       "version": "1.17",
       "description": "create a CronJob",
       "name": "createBatchV1beta1NamespacedCronJob"
+    },
+    {
+      "version": "1.17",
+      "type": "group",
+      "op_type": "readgroup",
+      "target": "Extensions",
+      "group_version": "extensions/v1beta1",
+      "description": "get information of the extensions API group",
+      "name": "getExtensionsAPIGroup"
     },
     {
       "type": "resource",
@@ -63731,6 +64281,15 @@
       "name": "listCoreV1ServiceAccountForAllNamespaces"
     },
     {
+      "type": "resource",
+      "op_type": "listall",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1IngressForAllNamespaces"
+    },
+    {
       "version": "1.17",
       "type": "group",
       "op_type": "listresources",
@@ -63909,6 +64468,15 @@
       "version": "1.17",
       "description": "delete collection of Node",
       "name": "deleteCoreV1CollectionNode"
+    },
+    {
+      "type": "resource",
+      "op_type": "getstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.17",
+      "description": "read status of the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "type": "resource",
@@ -64458,6 +65026,15 @@
       "version": "1.18",
       "description": "list or watch objects of kind ReplicaSet",
       "name": "listAppsV1ReplicaSetForAllNamespaces"
+    },
+    {
+      "type": "resource",
+      "op_type": "updatestatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "replace status of the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.18",
@@ -65550,6 +66127,15 @@
     },
     {
       "type": "resource",
+      "op_type": "delete",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "delete an Ingress",
+      "name": "deleteExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "patchscale",
       "group_version": "apps/v1",
       "target": "ReplicaSet",
@@ -66423,6 +67009,15 @@
     },
     {
       "type": "resource",
+      "op_type": "deletecollection",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "delete collection of Ingress",
+      "name": "deleteExtensionsV1beta1CollectionNamespacedIngress"
+    },
+    {
+      "type": "resource",
       "op_type": "delete",
       "group_version": "apiextensions/v1beta1",
       "target": "CustomResourceDefinition",
@@ -66546,6 +67141,15 @@
       "version": "1.18",
       "description": "read the specified AuditSink",
       "name": "readAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "patch",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "partially update the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -67504,6 +68108,15 @@
     {
       "type": "resource",
       "op_type": "create",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "create an Ingress",
+      "name": "createExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "create",
       "group_version": "authorization/v1",
       "target": "SelfSubjectAccessReview",
       "version": "1.18",
@@ -67617,6 +68230,15 @@
       "version": "1.18",
       "description": "partially update status of the specified ResourceQuota",
       "name": "patchCoreV1NamespacedResourceQuotaStatus"
+    },
+    {
+      "type": "resource",
+      "op_type": "patchstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "partially update status of the specified Ingress",
+      "name": "patchExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "version": "1.18",
@@ -67788,6 +68410,15 @@
       "version": "1.18",
       "description": "partially update the specified AuditSink",
       "name": "patchAuditregistrationV1alpha1AuditSink"
+    },
+    {
+      "type": "resource",
+      "op_type": "get",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "read the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -68701,6 +69332,15 @@
     {
       "type": "resource",
       "op_type": "update",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "replace the specified Ingress",
+      "name": "replaceExtensionsV1beta1NamespacedIngress"
+    },
+    {
+      "type": "resource",
+      "op_type": "update",
       "group_version": "admissionregistration/v1",
       "target": "MutatingWebhookConfiguration",
       "version": "1.18",
@@ -68760,6 +69400,15 @@
       "version": "1.18",
       "description": "send PATCH requests to proxy of Node",
       "name": "connectCoreV1PatchNodeProxy"
+    },
+    {
+      "type": "resource",
+      "op_type": "list",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1NamespacedIngress"
     },
     {
       "type": "resource",
@@ -69302,6 +69951,15 @@
       "name": "listCoreV1ServiceAccountForAllNamespaces"
     },
     {
+      "type": "resource",
+      "op_type": "listall",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "list or watch objects of kind Ingress",
+      "name": "listExtensionsV1beta1IngressForAllNamespaces"
+    },
+    {
       "version": "1.18",
       "type": "group",
       "op_type": "listresources",
@@ -69480,6 +70138,15 @@
       "version": "1.18",
       "description": "delete collection of Node",
       "name": "deleteCoreV1CollectionNode"
+    },
+    {
+      "type": "resource",
+      "op_type": "getstatus",
+      "group_version": "extensions/v1beta1",
+      "target": "Ingress",
+      "version": "1.18",
+      "description": "read status of the specified Ingress",
+      "name": "readExtensionsV1beta1NamespacedIngressStatus"
     },
     {
       "type": "resource",
