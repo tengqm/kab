@@ -1,0 +1,43 @@
+{
+  "description": "SubjectAccessReview checks whether or not a user or group can perform an action.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "authorization.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "SubjectAccessReview"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.SubjectAccessReviewSpec",
+      "description": "Information about the request being evaluated"
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.SubjectAccessReviewStatus",
+      "description": "Status is filled in by the server and indicates whether the request is allowed or not"
+    }
+  },
+  "required": [
+    "spec",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "authorization.k8s.io",
+      "kind": "SubjectAccessReview",
+      "version": "v1beta1"
+    }
+  ]
+}
