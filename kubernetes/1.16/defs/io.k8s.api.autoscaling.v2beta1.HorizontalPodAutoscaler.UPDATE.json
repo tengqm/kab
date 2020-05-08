@@ -1,0 +1,43 @@
+{
+  "description": "The configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "autoscaling/v2beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "HorizontalPodAutoscaler"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscalerSpec",
+      "description": "The specification for the behaviour of the autoscaler."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscalerStatus",
+      "description": "The current information about the autoscaler."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "autoscaling",
+      "kind": "HorizontalPodAutoscaler",
+      "version": "v2beta1"
+    }
+  ]
+}
