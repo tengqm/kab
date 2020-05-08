@@ -4,14 +4,14 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "autoscaling/v2beta2"
+        "autoscaling/v2beta1"
       ],
       "type": "string"
     },
     "items": {
       "description": "The list of HorizontalPodAutoscaler objects.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscaler.GET"
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.HorizontalPodAutoscaler.GET"
       },
       "type": "array"
     },
@@ -37,7 +37,7 @@
     {
       "group": "autoscaling",
       "kind": "HorizontalPodAutoscalerList",
-      "version": "v2beta2"
+      "version": "v2beta1"
     }
   ]
 }
