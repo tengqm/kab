@@ -1,27 +1,16 @@
 {
-  "description": "create a LocalSubjectAccessReview",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "authorization_v1beta1"
-  ],
+  "description": "create a LocalSubjectAccessReview",
   "operationId": "createAuthorizationV1beta1NamespacedLocalSubjectAccessReview",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview.CREATE"
       }
     },
     {
@@ -37,35 +26,46 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/authorization.k8s.io/v1beta1/namespaces/{namespace}/localsubjectaccessreviews",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview"
+        "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.LocalSubjectAccessReview.GET"
       }
     },
     "401": {
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "authorization_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "authorization.k8s.io",
     "kind": "LocalSubjectAccessReview",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/authorization.k8s.io/v1beta1/namespaces/{namespace}/localsubjectaccessreviews"
+  }
 }
