@@ -3,7 +3,7 @@
   "properties": {
     "port": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
-      "description": "The port on the given protocol. This can either be a numerical or named port on a Pod. If this field is not provided, this matches all port names and numbers."
+      "description": "The port on the given protocol. This can either be a numerical or named port on a Pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified `protocol` AND `port` will be matched."
     },
     "protocol": {
       "default": "TCP",
