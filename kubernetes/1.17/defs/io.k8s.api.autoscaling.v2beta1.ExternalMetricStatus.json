@@ -1,0 +1,27 @@
+{
+  "description": "The current value of a global metric which is not associated with any Kubernetes object.",
+  "properties": {
+    "currentAverageValue": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "The current value of metric averaged over autoscaled Pods."
+    },
+    "currentValue": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "The current value of the metric (as a quantity)"
+    },
+    "metricName": {
+      "description": "The name of a metric used for autoscaling in metric system.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "metricSelector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "Used to identify a specific time series within a given metric."
+    }
+  },
+  "required": [
+    "metricName",
+    "currentValue"
+  ],
+  "type": "object"
+}
