@@ -1,0 +1,49 @@
+{
+  "description": "DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "extensions/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "DeploymentRollback"
+      ],
+      "type": "string"
+    },
+    "name": {
+      "description": "This must match the name of a deployment.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "rollbackTo": {
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.RollbackConfig",
+      "description": "The config of this deployment rollback."
+    },
+    "updatedAnnotations": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "The annotations to be updated to a deployment",
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "name",
+    "rollbackTo"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "extensions",
+      "kind": "DeploymentRollback",
+      "version": "v1beta1"
+    }
+  ]
+}
