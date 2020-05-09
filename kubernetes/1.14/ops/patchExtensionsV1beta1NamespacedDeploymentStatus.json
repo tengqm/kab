@@ -1,16 +1,18 @@
 {
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "partially update status of the specified Deployment",
+  "operationId": "patchExtensionsV1beta1NamespacedDeploymentStatus",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
@@ -20,7 +22,10 @@
       "$ref": "#/parameters/fieldManager"
     },
     {
-      "description": "name of the Ingress",
+      "$ref": "#/parameters/force"
+    },
+    {
+      "description": "name of the Deployment",
       "in": "path",
       "name": "name",
       "required": true,
@@ -34,7 +39,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/status",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +49,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
-      }
-    },
-    "201": {
-      "description": "Updated",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment.GET"
       }
     },
     "401": {
@@ -63,11 +62,11 @@
   "tags": [
     "extensions_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
-    "kind": "Ingress",
+    "kind": "Deployment",
     "version": "v1beta1"
   }
 }

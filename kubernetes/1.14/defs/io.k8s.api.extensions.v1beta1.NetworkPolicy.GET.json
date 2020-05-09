@@ -1,5 +1,5 @@
 {
-  "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name-based virtual hosting etc. DEPRECATED - This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress.",
+  "description": "NetworkPolicy describes what network traffic is allowed for a set of Pods. DEPRECATED since 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. ",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -11,7 +11,7 @@
     "kind": {
       "description": "A string value representing the REST resource",
       "enum": [
-        "Ingress"
+        "NetworkPolicy"
       ],
       "type": "string"
     },
@@ -20,12 +20,8 @@
       "description": "Standard object's metadata."
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.IngressSpec",
-      "description": "The desired state of the Ingress."
-    },
-    "status": {
-      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.IngressStatus",
-      "description": "The current state of the Ingress."
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.NetworkPolicySpec",
+      "description": "Specification of the desired behavior for this NetworkPolicy."
     }
   },
   "required": [
@@ -36,7 +32,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "extensions",
-      "kind": "Ingress",
+      "kind": "NetworkPolicy",
       "version": "v1beta1"
     }
   ]
