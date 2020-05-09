@@ -2,22 +2,22 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "replace scale of the specified Deployment",
+  "operationId": "replaceExtensionsV1beta1NamespacedDeploymentScale",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the Ingress",
+      "description": "name of the Scale",
       "in": "path",
       "name": "name",
       "required": true,
@@ -31,7 +31,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/scale",
   "produces": [
     "application/json",
     "application/yaml",
@@ -41,13 +41,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
       }
     },
     "201": {
       "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Scale"
       }
     },
     "401": {
@@ -64,7 +64,7 @@
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
-    "kind": "Ingress",
+    "kind": "Scale",
     "version": "v1beta1"
   }
 }

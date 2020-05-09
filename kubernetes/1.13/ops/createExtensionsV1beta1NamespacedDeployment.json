@@ -2,15 +2,15 @@
   "consumes": [
     "*/*"
   ],
-  "description": "create a ReplicaSet",
-  "operationId": "createAppsV1NamespacedReplicaSet",
+  "description": "create a Deployment",
+  "operationId": "createExtensionsV1beta1NamespacedDeployment",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSet.CREATE"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment.CREATE"
       }
     },
     {
@@ -20,7 +20,7 @@
       "$ref": "#/parameters/namespace"
     }
   ],
-  "path": "/apis/apps/v1/namespaces/{namespace}/replicasets",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments",
   "produces": [
     "application/json",
     "application/yaml",
@@ -30,19 +30,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSet.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSet.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment.GET"
       }
     },
     "202": {
       "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSet.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Deployment.GET"
       }
     },
     "401": {
@@ -53,13 +53,13 @@
     "https"
   ],
   "tags": [
-    "apps_v1"
+    "extensions_v1beta1"
   ],
   "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
-    "group": "apps",
-    "kind": "ReplicaSet",
-    "version": "v1"
+    "group": "extensions",
+    "kind": "Deployment",
+    "version": "v1beta1"
   }
 }
