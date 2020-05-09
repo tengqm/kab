@@ -2,9 +2,12 @@
   "consumes": [
     "*/*"
   ],
-  "description": "watch changes to an object of kind VolumeAttachment. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
-  "operationId": "watchStorageV1beta1VolumeAttachment",
+  "description": "list or watch objects of kind StorageClass",
+  "operationId": "listStorageV1beta1StorageClass",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
     {
       "$ref": "#/parameters/continue"
     },
@@ -18,17 +21,6 @@
       "$ref": "#/parameters/limit"
     },
     {
-      "description": "name of the VolumeAttachment",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    },
-    {
       "$ref": "#/parameters/resourceVersion"
     },
     {
@@ -36,9 +28,12 @@
     },
     {
       "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1beta1/watch/volumeattachments/{name}",
+  "path": "/apis/storage.k8s.io/v1beta1/storageclasses",
   "produces": [
     "application/json",
     "application/yaml",
@@ -50,7 +45,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.StorageClassList"
       }
     },
     "401": {
@@ -64,10 +59,10 @@
     "storage_v1beta1"
   ],
   "verb": "get",
-  "x-kubernetes-action": "watch",
+  "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "VolumeAttachment",
+    "kind": "StorageClass",
     "version": "v1beta1"
   }
 }

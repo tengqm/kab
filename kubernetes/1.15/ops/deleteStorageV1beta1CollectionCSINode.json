@@ -2,17 +2,30 @@
   "consumes": [
     "*/*"
   ],
-  "description": "watch individual changes to a list of VolumeAttachment. deprecated: use the 'watch' parameter with a list operation instead.",
-  "operationId": "watchStorageV1beta1VolumeAttachmentList",
+  "description": "delete collection of CSINode",
+  "operationId": "deleteStorageV1beta1CollectionCSINode",
   "parameters": [
     {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
       "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/dryRun"
     },
     {
       "$ref": "#/parameters/fieldSelector"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
+      "$ref": "#/parameters/gracePeriodSeconds"
     },
     {
       "$ref": "#/parameters/labelSelector"
@@ -21,7 +34,10 @@
       "$ref": "#/parameters/limit"
     },
     {
-      "$ref": "#/parameters/pretty"
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "$ref": "#/parameters/resourceVersion"
@@ -31,21 +47,22 @@
     },
     {
       "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1beta1/watch/volumeattachments",
+  "path": "/apis/storage.k8s.io/v1beta1/csinodes",
   "produces": [
     "application/json",
     "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -58,11 +75,11 @@
   "tags": [
     "storage_v1beta1"
   ],
-  "verb": "get",
-  "x-kubernetes-action": "watchlist",
+  "verb": "delete",
+  "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "VolumeAttachment",
+    "kind": "CSINode",
     "version": "v1beta1"
   }
 }
