@@ -3,14 +3,14 @@
     "*/*"
   ],
   "description": "replace the specified ClusterRole",
-  "operationId": "replaceRbacAuthorizationV1alpha1ClusterRole",
+  "operationId": "replaceRbacAuthorizationV1beta1ClusterRole",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.UPDATE"
       }
     },
     {
@@ -28,7 +28,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/{name}",
+  "path": "/apis/rbac.authorization.k8s.io/v1beta1/clusterroles/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -38,13 +38,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.GET"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.GET"
       }
     },
     "201": {
       "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.GET"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.GET"
       }
     },
     "401": {
@@ -55,13 +55,13 @@
     "https"
   ],
   "tags": [
-    "rbacAuthorization_v1alpha1"
+    "rbacAuthorization_v1beta1"
   ],
   "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRole",
-    "version": "v1alpha1"
+    "version": "v1beta1"
   }
 }

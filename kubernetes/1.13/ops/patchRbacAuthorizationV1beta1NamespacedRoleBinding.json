@@ -1,23 +1,25 @@
 {
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json"
   ],
-  "description": "replace the specified ClusterRole",
-  "operationId": "replaceRbacAuthorizationV1alpha1ClusterRole",
+  "description": "partially update the specified RoleBinding",
+  "operationId": "patchRbacAuthorizationV1beta1NamespacedRoleBinding",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.UPDATE"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the ClusterRole",
+      "description": "name of the RoleBinding",
       "in": "path",
       "name": "name",
       "required": true,
@@ -25,10 +27,13 @@
       "uniqueItems": true
     },
     {
+      "$ref": "#/parameters/namespace"
+    },
+    {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/{name}",
+  "path": "/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/rolebindings/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -38,13 +43,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.GET"
-      }
-    },
-    "201": {
-      "description": "Updated",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.GET"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.RoleBinding.GET"
       }
     },
     "401": {
@@ -55,13 +54,13 @@
     "https"
   ],
   "tags": [
-    "rbacAuthorization_v1alpha1"
+    "rbacAuthorization_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
-    "kind": "ClusterRole",
-    "version": "v1alpha1"
+    "kind": "RoleBinding",
+    "version": "v1beta1"
   }
 }

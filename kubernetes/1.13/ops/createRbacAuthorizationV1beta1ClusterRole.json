@@ -2,33 +2,28 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified ClusterRole",
-  "operationId": "replaceRbacAuthorizationV1alpha1ClusterRole",
+  "description": "create a ClusterRole",
+  "operationId": "createRbacAuthorizationV1beta1ClusterRole",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.CREATE"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the ClusterRole",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/includeUninitialized"
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles/{name}",
+  "path": "/apis/rbac.authorization.k8s.io/v1beta1/clusterroles",
   "produces": [
     "application/json",
     "application/yaml",
@@ -38,13 +33,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.GET"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.GET"
       }
     },
     "201": {
-      "description": "Updated",
+      "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole.GET"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRole.GET"
       }
     },
     "401": {
@@ -55,13 +56,13 @@
     "https"
   ],
   "tags": [
-    "rbacAuthorization_v1alpha1"
+    "rbacAuthorization_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "post",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "rbac.authorization.k8s.io",
     "kind": "ClusterRole",
-    "version": "v1alpha1"
+    "version": "v1beta1"
   }
 }
