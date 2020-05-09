@@ -1,0 +1,26 @@
+{
+  "description": "Information for referencing a role or a cluste role",
+  "properties": {
+    "apiGroup": {
+      "description": "The group for the referenced resource. Currently this must be '`rbac.authorization.k8s.io`'.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the referenced resource. This value must be a valid path segment name.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiGroup",
+    "kind",
+    "name"
+  ],
+  "type": "object"
+}
