@@ -1,0 +1,18 @@
+{
+  "description": "A volume that should be attached. Only PersistenVolumes can be attached via external attacher. Exactly one member can be set.",
+  "properties": {
+    "inlineVolumeSpec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeSpec",
+      "description": "Information needed to attach a persistent volume defined by a Pod's inline VolumeSource. This field is populated only for the `CSIMigration` feature. It contains translated fields from a Pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the `CSIMigration` feature."
+    },
+    "persistentVolumeName": {
+      "description": "Name of the persistent volume to attach. The name must be a valid DNS subdomain.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "persistentVolumeName"
+  ],
+  "type": "object"
+}
