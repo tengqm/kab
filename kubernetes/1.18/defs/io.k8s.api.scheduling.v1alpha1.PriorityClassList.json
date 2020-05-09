@@ -1,0 +1,43 @@
+{
+  "description": "A collection of priority classes. DEPRECATED - This group version of PriorityClassList is deprecated by scheduling.k8s.io/v1/PriorityClassList.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "scheduling.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "The list of PriorityClasses",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.scheduling.v1alpha1.PriorityClass.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PriorityClassList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "PriorityClassList",
+      "version": "v1alpha1"
+    }
+  ]
+}
