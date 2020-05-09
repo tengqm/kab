@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "scheduling.k8s.io/v1beta1"
+        "scheduling.k8s.io/v1alpha1"
       ],
       "type": "string"
     },
@@ -13,7 +13,7 @@
       "type": "string"
     },
     "globalDefault": {
-      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`, the smallest value of such global default PriorityClasses will be used as the default one.",
+      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`, the smallest value of such global default PriorityClasses will be used as the default priority.",
       "type": "boolean"
     },
     "kind": {
@@ -43,7 +43,7 @@
     {
       "group": "scheduling.k8s.io",
       "kind": "PriorityClass",
-      "version": "v1beta1"
+      "version": "v1alpha1"
     }
   ]
 }
