@@ -1,0 +1,40 @@
+{
+  "description": "Binding ties a Pod to a node.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Binding"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
+    },
+    "target": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "The target node that you want to bind to the Pod. The kind if provided must be 'Node' and the name must be provided."
+    }
+  },
+  "required": [
+    "target",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "Binding",
+      "version": "v1"
+    }
+  ]
+}
