@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "storage.k8s.io/v1"
+        "storage.k8s.io/v1alpha1"
       ],
       "type": "string"
     },
@@ -16,15 +16,15 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
       "description": "Standard object metadata"
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachmentSpec",
+      "$ref": "#/definitions/io.k8s.api.storage.v1alpha1.VolumeAttachmentSpec",
       "description": "Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system. This field cannot be updated."
     },
     "status": {
-      "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachmentStatus",
+      "$ref": "#/definitions/io.k8s.api.storage.v1alpha1.VolumeAttachmentStatus",
       "description": "Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher."
     }
   },
@@ -38,7 +38,7 @@
     {
       "group": "storage.k8s.io",
       "kind": "VolumeAttachment",
-      "version": "v1"
+      "version": "v1alpha1"
     }
   ]
 }
