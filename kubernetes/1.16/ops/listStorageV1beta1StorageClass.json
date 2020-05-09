@@ -2,8 +2,8 @@
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind CSINode",
-  "operationId": "listStorageV1beta1CSINode",
+  "description": "list or watch objects of kind StorageClass",
+  "operationId": "listStorageV1beta1StorageClass",
   "parameters": [
     {
       "$ref": "#/parameters/allowWatchBookmarks"
@@ -33,7 +33,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1beta1/csinodes",
+  "path": "/apis/storage.k8s.io/v1beta1/storageclasses",
   "produces": [
     "application/json",
     "application/yaml",
@@ -45,7 +45,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINodeList"
+        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.StorageClassList"
       }
     },
     "401": {
@@ -62,7 +62,7 @@
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "CSINode",
+    "kind": "StorageClass",
     "version": "v1beta1"
   }
 }

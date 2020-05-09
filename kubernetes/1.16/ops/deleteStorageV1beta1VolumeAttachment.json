@@ -2,12 +2,9 @@
   "consumes": [
     "*/*"
   ],
-  "description": "delete collection of CSIDriver",
-  "operationId": "deleteStorageV1beta1CollectionCSIDriver",
+  "description": "delete a VolumeAttachment",
+  "operationId": "deleteStorageV1beta1VolumeAttachment",
   "parameters": [
-    {
-      "$ref": "#/parameters/allowWatchBookmarks"
-    },
     {
       "in": "body",
       "name": "body",
@@ -16,22 +13,10 @@
       }
     },
     {
-      "$ref": "#/parameters/continue"
-    },
-    {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/fieldSelector"
-    },
-    {
       "$ref": "#/parameters/gracePeriodSeconds"
-    },
-    {
-      "$ref": "#/parameters/labelSelector"
-    },
-    {
-      "$ref": "#/parameters/limit"
     },
     {
       "$ref": "#/parameters/orphanDependents"
@@ -40,19 +25,18 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "$ref": "#/parameters/resourceVersion"
-    },
-    {
-      "$ref": "#/parameters/timeoutSeconds"
-    },
-    {
-      "$ref": "#/parameters/watch"
+      "description": "name of the VolumeAttachment",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1beta1/csidrivers",
+  "path": "/apis/storage.k8s.io/v1beta1/volumeattachments/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -61,6 +45,12 @@
   "responses": {
     "200": {
       "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "202": {
+      "description": "Accepted",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
@@ -76,10 +66,10 @@
     "storage_v1beta1"
   ],
   "verb": "delete",
-  "x-kubernetes-action": "deletecollection",
+  "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "CSIDriver",
+    "kind": "VolumeAttachment",
     "version": "v1beta1"
   }
 }

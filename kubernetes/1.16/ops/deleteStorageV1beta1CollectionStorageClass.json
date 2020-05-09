@@ -2,23 +2,42 @@
   "consumes": [
     "*/*"
   ],
-  "description": "list or watch objects of kind CSINode",
-  "operationId": "listStorageV1beta1CSINode",
+  "description": "delete collection of StorageClass",
+  "operationId": "deleteStorageV1beta1CollectionStorageClass",
   "parameters": [
     {
       "$ref": "#/parameters/allowWatchBookmarks"
     },
     {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
       "$ref": "#/parameters/continue"
     },
     {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
       "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
     },
     {
       "$ref": "#/parameters/labelSelector"
     },
     {
       "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "$ref": "#/parameters/resourceVersion"
@@ -33,19 +52,17 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/storage.k8s.io/v1beta1/csinodes",
+  "path": "/apis/storage.k8s.io/v1beta1/storageclasses",
   "produces": [
     "application/json",
     "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSINodeList"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -58,11 +75,11 @@
   "tags": [
     "storage_v1beta1"
   ],
-  "verb": "get",
-  "x-kubernetes-action": "list",
+  "verb": "delete",
+  "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
-    "kind": "CSINode",
+    "kind": "StorageClass",
     "version": "v1beta1"
   }
 }
