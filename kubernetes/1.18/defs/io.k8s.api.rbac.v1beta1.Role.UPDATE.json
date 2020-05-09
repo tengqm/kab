@@ -1,0 +1,42 @@
+{
+  "description": "Role is a namespaced, logical grouping of policy rules that can be referenced as a unit by a RoleBinding. DEPRECATED in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "rbac.authorization.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Role"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object's metadata."
+    },
+    "rules": {
+      "description": "The policy rules defined for this Role",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.PolicyRule"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "Role",
+      "version": "v1beta1"
+    }
+  ]
+}
