@@ -2,15 +2,15 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "create a ReplicaSet",
+  "operationId": "createExtensionsV1beta1NamespacedReplicaSet",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet.CREATE"
       }
     },
     {
@@ -20,21 +20,10 @@
       "$ref": "#/parameters/fieldManager"
     },
     {
-      "description": "name of the Ingress",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
-    },
-    {
       "$ref": "#/parameters/namespace"
-    },
-    {
-      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/replicasets",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +33,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet.GET"
       }
     },
     "201": {
-      "description": "Updated",
+      "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ReplicaSet.GET"
       }
     },
     "401": {
@@ -63,11 +58,11 @@
   "tags": [
     "extensions_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "post",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
-    "kind": "Ingress",
+    "kind": "ReplicaSet",
     "version": "v1beta1"
   }
 }
