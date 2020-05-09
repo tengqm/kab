@@ -1,0 +1,43 @@
+{
+  "description": "Scale represents a scaling request for a resource.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "extensions/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Scale"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ScaleSpec",
+      "description": "The behavior of the scale."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.ScaleStatus",
+      "description": "Current status of the scale. Read-only."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "extensions",
+      "kind": "Scale",
+      "version": "v1beta1"
+    }
+  ]
+}
