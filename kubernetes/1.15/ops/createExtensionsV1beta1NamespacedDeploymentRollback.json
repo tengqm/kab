@@ -2,25 +2,19 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "create rollback of a Deployment",
+  "operationId": "createExtensionsV1beta1NamespacedDeploymentRollback",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DeploymentRollback"
       }
     },
     {
-      "$ref": "#/parameters/dryRun"
-    },
-    {
-      "$ref": "#/parameters/fieldManager"
-    },
-    {
-      "description": "name of the Ingress",
+      "description": "name of the DeploymentRollback",
       "in": "path",
       "name": "name",
       "required": true,
@@ -29,12 +23,9 @@
     },
     {
       "$ref": "#/parameters/namespace"
-    },
-    {
-      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/deployments/{name}/rollback",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +35,19 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "201": {
-      "description": "Updated",
+      "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -63,11 +60,11 @@
   "tags": [
     "extensions_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "post",
+  "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
-    "kind": "Ingress",
+    "kind": "DeploymentRollback",
     "version": "v1beta1"
   }
 }

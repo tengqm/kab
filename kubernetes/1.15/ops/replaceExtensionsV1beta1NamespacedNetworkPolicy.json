@@ -2,15 +2,15 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "replace the specified NetworkPolicy",
+  "operationId": "replaceExtensionsV1beta1NamespacedNetworkPolicy",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.NetworkPolicy.UPDATE"
       }
     },
     {
@@ -20,7 +20,7 @@
       "$ref": "#/parameters/fieldManager"
     },
     {
-      "description": "name of the Ingress",
+      "description": "name of the NetworkPolicy",
       "in": "path",
       "name": "name",
       "required": true,
@@ -34,7 +34,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/networkpolicies/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +44,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.NetworkPolicy.GET"
       }
     },
     "201": {
       "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.NetworkPolicy.GET"
       }
     },
     "401": {
@@ -67,7 +67,7 @@
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
-    "kind": "Ingress",
+    "kind": "NetworkPolicy",
     "version": "v1beta1"
   }
 }

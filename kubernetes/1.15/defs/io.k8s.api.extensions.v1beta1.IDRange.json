@@ -1,0 +1,22 @@
+{
+  "description": "The allowed range of IDs. DEPRECATED - use IDRange from policy API Group instead.",
+  "properties": {
+    "max": {
+      "description": "The end of the range, inclusive. Cannot be less than `min`.",
+      "format": "int64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "min": {
+      "description": "The start of the range, inclusive. Cannot be greater than `max`.",
+      "format": "int64",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "min",
+    "max"
+  ],
+  "type": "object"
+}

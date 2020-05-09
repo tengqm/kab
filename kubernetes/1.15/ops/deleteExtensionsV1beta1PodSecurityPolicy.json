@@ -2,25 +2,30 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified Ingress",
-  "operationId": "replaceExtensionsV1beta1NamespacedIngressStatus",
+  "description": "delete a PodSecurityPolicy",
+  "operationId": "deleteExtensionsV1beta1PodSecurityPolicy",
   "parameters": [
     {
       "in": "body",
       "name": "body",
-      "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.UPDATE"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/fieldManager"
+      "$ref": "#/parameters/gracePeriodSeconds"
     },
     {
-      "description": "name of the Ingress",
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "description": "name of the PodSecurityPolicy",
       "in": "path",
       "name": "name",
       "required": true,
@@ -28,13 +33,10 @@
       "uniqueItems": true
     },
     {
-      "$ref": "#/parameters/namespace"
-    },
-    {
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/ingresses/{name}/status",
+  "path": "/apis/extensions/v1beta1/podsecuritypolicies/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -44,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
-    "201": {
-      "description": "Updated",
+    "202": {
+      "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.Ingress.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -63,11 +65,11 @@
   "tags": [
     "extensions_v1beta1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "extensions",
-    "kind": "Ingress",
+    "kind": "PodSecurityPolicy",
     "version": "v1beta1"
   }
 }

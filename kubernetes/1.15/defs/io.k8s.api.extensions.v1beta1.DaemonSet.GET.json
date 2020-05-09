@@ -1,5 +1,5 @@
 {
-  "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name-based virtual hosting etc. DEPRECATED - This group version of Ingress is deprecated by networking.k8s.io/v1beta1 Ingress.",
+  "description": "The configuration of a daemon set. DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -11,7 +11,7 @@
     "kind": {
       "description": "A string value representing the REST resource",
       "enum": [
-        "Ingress"
+        "DaemonSet"
       ],
       "type": "string"
     },
@@ -20,12 +20,12 @@
       "description": "Standard object's metadata."
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.IngressSpec",
-      "description": "The desired state of the Ingress."
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DaemonSetSpec.GET",
+      "description": "The desired behavior of this daemon set."
     },
     "status": {
-      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.IngressStatus",
-      "description": "The current state of the Ingress."
+      "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetStatus",
+      "description": "The current status of this daemon set. This data may be out of date by some window of time."
     }
   },
   "required": [
@@ -36,7 +36,7 @@
   "x-kubernetes-group-version-kind": [
     {
       "group": "extensions",
-      "kind": "Ingress",
+      "kind": "DaemonSet",
       "version": "v1beta1"
     }
   ]

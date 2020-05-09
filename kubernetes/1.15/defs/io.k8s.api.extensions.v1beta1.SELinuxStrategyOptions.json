@@ -1,0 +1,22 @@
+{
+  "description": "The type and options related to SELinux settings. DEPRECATED - use SELinuxStrategyOptions from policy API Group instead.",
+  "properties": {
+    "rule": {
+      "description": "The strategy that will dictate the allowable labels that may be set.",
+      "enum": [
+        "MustRunAs",
+        "RunAsAny"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "seLinuxOptions": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SELinuxOptions",
+      "description": "SELinux options required to run as. This is required when `rule` is set to '`MustRunAs`'."
+    }
+  },
+  "required": [
+    "rule"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,53 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read status of the specified DaemonSet",
+  "operationId": "readExtensionsV1beta1NamespacedDaemonSetStatus",
+  "parameters": [
+    {
+      "description": "name of the DaemonSet",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/extensions/v1beta1/namespaces/{namespace}/daemonsets/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.DaemonSet.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "extensions_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "extensions",
+    "kind": "DaemonSet",
+    "version": "v1beta1"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "description": "NetworkPolicy describes what network traffic is allowed for a set of Pods. DEPRECATED since 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. ",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "extensions/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "NetworkPolicy"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.extensions.v1beta1.NetworkPolicySpec",
+      "description": "Specification of the desired behavior for this NetworkPolicy."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "extensions",
+      "kind": "NetworkPolicy",
+      "version": "v1beta1"
+    }
+  ]
+}
