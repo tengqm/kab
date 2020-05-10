@@ -276,12 +276,11 @@ def load_resources(version):
             }
         else:
             dversions = dentry.get(version, [])
-            if g_name != "":
-                dversions.append({
-                    "group": g_name,
-                    "version": gversion,
-                    "id": def_id,
-                })
+            dversions.append({
+                "group": g_name,
+                "version": gversion,
+                "id": def_id,
+            })
             dentry[version] = dversions
 
         DEFINITIONS[def_name] = dentry
