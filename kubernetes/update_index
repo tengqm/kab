@@ -34,6 +34,7 @@ PARAMETERS = {}
 RESOURCE_PATTERNS = {
     "create{g}{v}Namespaced{r}": "create",
     "create{g}{v}{r}": "create",
+    "create{g}{v}Namespaced{r}Rollback": "rollback",
 
     "delete{g}{v}Namespaced{r}": "delete",
     "delete{g}{v}{r}": "delete",
@@ -72,6 +73,7 @@ RESOURCE_PATTERNS = {
     "replace{g}{v}{r}Scale": "updatescale",
 
     # specific to Pod
+    "create{g}{v}Namespaced{r}Binding": "bind",
     "read{g}{v}Namespaced{r}Log": "readlog",
     "get{g}{v}Namespaced{r}EphemeralContainers": "getephemeralcontainers",
     "update{g}{v}Namespaced{r}EphemeralContainers":
@@ -366,6 +368,81 @@ def _normalize_group_name(name):
     return gname
 
 
+SPECIAL_OPS = [
+    "getCoreAPIVersions",
+    "getAPIVersions",
+    "getCodeVersion",
+    "logFileHandler",
+    "logFileListHandler",
+]
+
+
+def _handle_special_ops(version, fn):
+    global OPERATIONS
+
+    fname = fn[:-5]
+    opdata = load_json(version, fn)
+    if fname == "getCoreAPIVersions":
+        OPERATIONS.append({
+            "version": version,
+            "type": "group",
+            "op_type": "getversions",
+            "target": "core",
+            "group_version": "core/v1",
+            "description": opdata.get("description", ""),
+            "name": fname,
+        })
+        return
+   
+    if fname == "getAPIVersions":
+        OPERATIONS.append({
+            "version": version,
+            "type": "group",
+            "op_type": "listgroups",
+            "target": "*",
+            "group_version": "*",
+            "description": opdata.get("description", ""),
+            "name": fname,
+        })
+        return
+
+    if fname == "getCodeVersion":
+        OPERATIONS.append({
+            "version": version,
+            "type": "misc",
+            "op_type": "getversion",
+            "target": "*",
+            "group_version": "*",
+            "description": opdata.get("description", ""),
+            "name": fname,
+        })
+        return
+
+    if fname == "logFileHandler":
+        OPERATIONS.append({
+            "version": version,
+            "type": "misc",
+            "op_type": "logfile",
+            "target": "*",
+            "group_version": "*",
+            "description": opdata.get("description", ""),
+            "name": fname,
+        })
+        return
+
+    if fname == "logFileListHandler":
+        OPERATIONS.append({
+            "version": version,
+            "type": "misc",
+            "op_type": "logfilelist",
+            "target": "*",
+            "group_version": "*",
+            "description": opdata.get("description", ""),
+            "name": fname,
+        })
+        return
+
+
 def load_operations(version):
     global OPERATIONS
     global RESOURCES
@@ -380,32 +457,9 @@ def load_operations(version):
 
         found = False
 
-        # Deal with two special meta APIs
-        if fname == "getCoreAPIVersions":
-            opdata = load_json(version, fn)
-            OPERATIONS.append({
-                "version": version,
-                "type": "group",
-                "op_type": "getversions",
-                "target": "core",
-                "group_version": "core/v1",
-                "description": opdata.get("description", ""),
-                "name": fname,
-            })
-            continue
-       
-        if fname == "getAPIVersions":
-            opdata = load_json(version, fn)
-            OPERATIONS.append({
-                "version": version,
-                "type": "group",
-                "op_type": "listgroups",
-                "target": "*",
-                "group_version": "*",
-                "description": opdata.get("description", ""),
-                "name": fname,
-            })
-
+        # Deal with some special meta APIs
+        if fname in SPECIAL_OPS:
+            _handle_special_ops(version, fn)
             continue
 
         # Check if is group operations
@@ -453,8 +507,6 @@ def load_operations(version):
             if res["name"] == "TokenRequest":
                 res_name = "ServiceAccountToken"
                 gname = "Core"
-            elif res["name"] == "Binding":
-                res_name = "PodBinding"
             else:
                 res_name = res["name"]
 
