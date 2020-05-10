@@ -5,7 +5,7 @@ import logging
 import os
 from os import path
 
-DEBUG = 1
+DEBUG = 0
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 LOG = logging.getLogger(__name__)
 
@@ -211,7 +211,8 @@ def parse_dict(apiv, data, parent):
     for k, v in data.items():
         if k == "$ref":
             if not isinstance(v, str):
-                ERROR("reference not string: %s->%s (%s)", k, v, parent)
+                if not isinstance(v, dict):
+                    ERROR("reference not string: %s->%s (%s)", k, v, parent)
             elif v.startswith("#/definitions/"):
                 child_id = v[14:]
                 _, child_name = get_def_name(child_id)
@@ -256,7 +257,8 @@ def load_resources(version):
             continue
 
         def_id = fn[:-5]
-        INFO("  Processing definition %s", def_id)
+        if DEBUG:
+            INFO("  Processing definition %s", def_id)
         # currently testing if a definition is a resource by checking if it is
         # prefixed with the full name of a API group.
         g_name = ""
@@ -409,7 +411,7 @@ def _handle_special_ops(version, fn):
     if fname == "getCodeVersion":
         OPERATIONS.append({
             "version": version,
-            "type": "misc",
+            "type": "group",
             "op_type": "getversion",
             "target": "*",
             "group_version": "*",
@@ -421,7 +423,7 @@ def _handle_special_ops(version, fn):
     if fname == "logFileHandler":
         OPERATIONS.append({
             "version": version,
-            "type": "misc",
+            "type": "group",
             "op_type": "logfile",
             "target": "*",
             "group_version": "*",
@@ -433,7 +435,7 @@ def _handle_special_ops(version, fn):
     if fname == "logFileListHandler":
         OPERATIONS.append({
             "version": version,
-            "type": "misc",
+            "type": "group",
             "op_type": "logfilelist",
             "target": "*",
             "group_version": "*",
@@ -577,7 +579,6 @@ def main():
     with open("settings.json", "r") as f:
         data = json.loads(f.read())
 
-    if DEBUG:
         INFO("API versions: " + ", ".join(data["api_versions"]))
 
     GROUP_NAMES = data["group_names"]
@@ -587,8 +588,7 @@ def main():
     KINDS = data["kinds"]
 
     for version in data["api_versions"]:
-        if DEBUG:
-            INFO("## Processing API %s", version)
+        INFO("## Processing API %s", version)
         load_resources(version)
         load_operations(version)
         load_parameters(version)
