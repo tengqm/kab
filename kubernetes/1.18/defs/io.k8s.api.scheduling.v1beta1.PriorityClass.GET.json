@@ -1,0 +1,49 @@
+{
+  "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer. DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "scheduling.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "description": {
+      "description": "An arbitrary string that usually provides guidelines on using this priority class.",
+      "type": "string"
+    },
+    "globalDefault": {
+      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+      "type": "boolean"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PriorityClass"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
+    },
+    "value": {
+      "description": "The value of this priority class. This is the actual priority that Pods receive when they have the name of this class in their Pod spec. Other than the system predefined priority classes, user defined priority classes cannot have `value` greater than 1000000000. The value cannot be changed in an update operation.",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "value",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "PriorityClass",
+      "version": "v1beta1"
+    }
+  ]
+}
