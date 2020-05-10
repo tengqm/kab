@@ -4,14 +4,14 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "node.k8s.io/v1beta1"
+        "node.k8s.io/v1alpha1"
       ],
       "type": "string"
     },
     "items": {
       "description": "A list of RuntimeClass objects.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.node.v1beta1.RuntimeClass.GET"
+        "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
       },
       "type": "array"
     },
@@ -37,7 +37,7 @@
     {
       "group": "node.k8s.io",
       "kind": "RuntimeClassList",
-      "version": "v1beta1"
+      "version": "v1alpha1"
     }
   ]
 }
