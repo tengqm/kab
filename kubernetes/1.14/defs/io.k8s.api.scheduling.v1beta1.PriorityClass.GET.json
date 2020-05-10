@@ -1,10 +1,10 @@
 {
-  "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.",
+  "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer. DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "scheduling.k8s.io/v1"
+        "scheduling.k8s.io/v1beta1"
       ],
       "type": "string"
     },
@@ -24,7 +24,7 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
       "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
     },
     "value": {
@@ -43,7 +43,7 @@
     {
       "group": "scheduling.k8s.io",
       "kind": "PriorityClass",
-      "version": "v1"
+      "version": "v1beta1"
     }
   ]
 }
