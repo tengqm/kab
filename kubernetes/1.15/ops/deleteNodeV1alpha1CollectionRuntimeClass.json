@@ -2,14 +2,30 @@
   "consumes": [
     "*/*"
   ],
-  "description": "watch changes to an object of kind RuntimeClass. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
-  "operationId": "watchNodeV1alpha1RuntimeClass",
+  "description": "delete collection of RuntimeClass",
+  "operationId": "deleteNodeV1alpha1CollectionRuntimeClass",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
     {
       "$ref": "#/parameters/continue"
     },
     {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
       "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
     },
     {
       "$ref": "#/parameters/labelSelector"
@@ -18,15 +34,10 @@
       "$ref": "#/parameters/limit"
     },
     {
-      "description": "name of the RuntimeClass",
-      "in": "path",
-      "name": "name",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/orphanDependents"
     },
     {
-      "$ref": "#/parameters/pretty"
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "$ref": "#/parameters/resourceVersion"
@@ -36,21 +47,22 @@
     },
     {
       "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/node.k8s.io/v1alpha1/watch/runtimeclasses/{name}",
+  "path": "/apis/node.k8s.io/v1alpha1/runtimeclasses",
   "produces": [
     "application/json",
     "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -63,8 +75,8 @@
   "tags": [
     "node_v1alpha1"
   ],
-  "verb": "get",
-  "x-kubernetes-action": "watch",
+  "verb": "delete",
+  "x-kubernetes-action": "deletecollection",
   "x-kubernetes-group-version-kind": {
     "group": "node.k8s.io",
     "kind": "RuntimeClass",

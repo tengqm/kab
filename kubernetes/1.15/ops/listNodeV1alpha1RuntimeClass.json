@@ -2,9 +2,12 @@
   "consumes": [
     "*/*"
   ],
-  "description": "watch individual changes to a list of RuntimeClass. deprecated: use the 'watch' parameter with a list operation instead.",
-  "operationId": "watchNodeV1alpha1RuntimeClassList",
+  "description": "list or watch objects of kind RuntimeClass",
+  "operationId": "listNodeV1alpha1RuntimeClass",
   "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
     {
       "$ref": "#/parameters/continue"
     },
@@ -18,9 +21,6 @@
       "$ref": "#/parameters/limit"
     },
     {
-      "$ref": "#/parameters/pretty"
-    },
-    {
       "$ref": "#/parameters/resourceVersion"
     },
     {
@@ -28,9 +28,12 @@
     },
     {
       "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/node.k8s.io/v1alpha1/watch/runtimeclasses",
+  "path": "/apis/node.k8s.io/v1alpha1/runtimeclasses",
   "produces": [
     "application/json",
     "application/yaml",
@@ -42,7 +45,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+        "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClassList"
       }
     },
     "401": {
@@ -56,7 +59,7 @@
     "node_v1alpha1"
   ],
   "verb": "get",
-  "x-kubernetes-action": "watchlist",
+  "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "node.k8s.io",
     "kind": "RuntimeClass",
