@@ -83,7 +83,10 @@ class ListDefinitions(generic.View):
 
         result = {}
         for item in helpers.definitions(apiv):
-            gv = item["group"] + "." + item["version"]
+            if item["group"] != "":
+                gv = item["group"] + "." + item["version"]
+            else:
+                gv = "*"
             deflist = result.get(gv, [])
             deflist.append({
                 "name": item["name"],
@@ -133,7 +136,9 @@ class ViewDefinition(generic.View):
         found = False
         vlist = []
         for v in versions.get(apiv, []):
-            if v["group"] == group and v["version"] == version:
+            if group == "*" and version == "*":
+                found = True
+            elif v["group"] == group and v["version"] == version:
                 found = True
             else:
                 vlist.append(v)

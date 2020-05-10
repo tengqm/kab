@@ -65,21 +65,30 @@
       <div class="row col-12">
         {% for AV, VLIST in VERSIONS.items %}
           {% for V in VLIST %}
-            {% dereference AV V.group V.version NAME as LINK %}
+            {% if V.group %}
+              {% dereference AV V.group V.version NAME as LINK %}
+            {% else %}
+              {% dereference AV "*" "*" NAME as LINK %}
+            {% endif %}
             <div class="input-group input-group-sm col-lg-4 col-md-6 col-sm-12 px-2 mb-2">
               <div class="input-group-prepend">
                 <label class="input-group-text">{{ AV }}</label>
               </div>
-              {% comment %}
-              <div class="input-group-prepend">
-                <label class="input-group-text">{{ V.group }}/{{ V.version}}</label>
-              </div>
-              {% endcomment %}
-              <input type="text" class="form-control" value="{{ V.group }}/{{ V.version}}" readonly>
+              <input type="text" class="form-control"
+                  {% if V.group %}
+                    value="{{ V.group }}/{{ V.version}}"
+                  {% else %}
+                    value="*/*"
+                  {% endif %}
+                  readonly />
               <div class="input-group-append">
                 <a class="btn btn-outline-secondary" href="{{ LINK.0 }}"><i class="fa fa-eye"></i></a>
                 <a class="btn btn-outline-secondary" href="#"
-                    onclick="compare('{{ AV}}','{{ V.group }}','{{ V.version }}')">
+                    {% if V.group %}
+                      onclick="compare('{{ AV }}','{{ V.group }}','{{ V.version }}')"
+                    {% else %}
+                      onclick="compare('{{ AV }}','*','*')"
+                    {% endif %} >
                   <i class="fa fa-exchange-alt"></i>
                 </a>
               </div>

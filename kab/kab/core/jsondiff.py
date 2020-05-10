@@ -202,8 +202,30 @@ def compare(apis, file1, file2):
 
 
 def compare_defs(apis, groups, versions, kinds):
-    fmt = "data/{}/defs/{}.{}.{}.json"
-    file1 = fmt.format(apis[0], groups[0], versions[0], kinds[0])
-    file2 = fmt.format(apis[-1], groups[-1], versions[-1], kinds[-1])
+    fmt = "data/{}/defs/{}.json"
 
-    return compare(apis, file1, file2)
+    if kinds[0] == "Info":
+        fn0 = "io.k8s.apimachinery.pkg.version.Info"
+    elif kinds[0] == "IntOrString":
+        fn0 = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+    elif kinds[0] == "RawExtension":
+        fn0 = "io.k8s.apimachinery.pkg.runtime.RawExtension"
+    elif kinds[0] == "Quantity":
+        fn0 = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+    else:
+        fn0 = ".".join([groups[0], versions[0], kinds[0]])
+    file0 = fmt.format(apis[0], fn0)
+
+    if kinds[-1] == "Info":
+        fn1 = "io.k8s.apimachinery.pkg.version.Info"
+    elif kinds[-1] == "IntOrString":
+        fn1 = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+    elif kinds[-1] == "RawExtension":
+        fn1 = "io.k8s.apimachinery.pkg.runtime.RawExtension"
+    elif kinds[-1] == "Quantity":
+        fn1 = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+    else:
+        fn1 = ".".join([groups[0], versions[0], kinds[0]])
+    file1 = fmt.format(apis[-1], fn1)
+
+    return compare(apis, file0, file1)

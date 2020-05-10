@@ -62,16 +62,20 @@
     </dd>
 
     {# Consumes #}
-    <dt class="col-md-2 col-sm-3">Consumes:</dt>
-    <dd class="col-md-10 col-sm-9">
-      <var>{{ OP.consumes|safeseq|join:", " }}</var>
-    </dd>
+    {% if OP.consumes %}
+      <dt class="col-md-2 col-sm-3">Consumes:</dt>
+      <dd class="col-md-10 col-sm-9">
+        <var>{{ OP.consumes|safeseq|join:", " }}</var>
+      </dd>
+    {% endif %}
 
     {# Produces #}
-    <dt class="col-md-2 col-sm-3">Produces:</dt>
-    <dd class="col-md-10 col-sm-9">
-      <var>{{ OP.produces|safeseq|join:", " }}</var>
-    </dd>
+    {% if OP.produces %}
+      <dt class="col-md-2 col-sm-3">Produces:</dt>
+      <dd class="col-md-10 col-sm-9">
+        <var>{{ OP.produces|safeseq|join:", " }}</var>
+      </dd>
+    {% endif %}
 
     {% if QUERY %}
     {# Query Parameters #}

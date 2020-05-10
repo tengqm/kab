@@ -297,10 +297,18 @@ def definition_appears_in(apiv, defn):
 
 def get_definition(api_version, group, version, defn):
     # def_name is too short, need full path
-    gpath = group_path(group)
-    fn = gpath + "." + version + "." + defn
-    LOG.info("Reading %s", fn)
-    fpath = path.join("data", api_version, "defs", fn+ ".json")
+    if defn == "Info":
+        fn = "io.k8s.apimachinery.pkg.version.Info"
+    elif defn == "IntOrString":
+        fn = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+    elif defn == "RawExtension":
+        fn = "io.k8s.apimachinery.pkg.runtime.RawExtension"
+    elif defn == "Quantity":
+        fn = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+    else:
+        gpath = group_path(group)
+        fn = gpath + "." + version + "." + defn
+    fpath = path.join("data", api_version, "defs", fn+".json")
     return _load_json(fpath)
 
 

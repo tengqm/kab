@@ -107,6 +107,8 @@ def list_as_string(value):
 
 @register.simple_tag()
 def group_version(value):
+    if value == "*":
+        return "*", "*"
     parts = value.split(".")
     if len(parts) == 1:
         return value, ""
