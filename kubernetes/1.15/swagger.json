@@ -10950,7 +10950,7 @@
       ],
       "type": "object"
     },
-    "io.k8s.api.core.v1.Binding": {
+    "io.k8s.api.core.v1.Binding.CREATE": {
       "description": "Binding ties a Pod to a node.",
       "properties": {
         "apiVersion": {
@@ -10969,6 +10969,46 @@
         },
         "metadata": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object's metadata."
+        },
+        "target": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+          "description": "The target node that you want to bind to the Pod. The kind if provided must be 'Node' and the name must be provided."
+        }
+      },
+      "required": [
+        "target",
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "",
+          "kind": "Binding",
+          "version": "v1"
+        }
+      ]
+    },
+    "io.k8s.api.core.v1.Binding.GET": {
+      "description": "Binding ties a Pod to a node.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "v1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "Binding"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
           "description": "Standard object's metadata."
         },
         "target": {
@@ -22595,6 +22635,182 @@
       },
       "type": "object"
     },
+    "io.k8s.api.node.v1alpha1.RuntimeClass.CREATE": {
+      "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the Pod spec. The kubelet is responsible for resolving the name reference before running the Pod.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "node.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "RuntimeClass"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object metadata. The name must be a valid DNS subdomain."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClassSpec",
+          "description": "Specification of the RuntimeClass."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.node.v1alpha1.RuntimeClass.GET": {
+      "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the Pod spec. The kubelet is responsible for resolving the name reference before running the Pod.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "node.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "RuntimeClass"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+          "description": "Standard object metadata. The name must be a valid DNS subdomain."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClassSpec",
+          "description": "Specification of the RuntimeClass."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.node.v1alpha1.RuntimeClass.UPDATE": {
+      "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the Pod spec. The kubelet is responsible for resolving the name reference before running the Pod.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "node.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "RuntimeClass"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+          "description": "Standard object metadata. The name must be a valid DNS subdomain."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClassSpec",
+          "description": "Specification of the RuntimeClass."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.node.v1alpha1.RuntimeClassList": {
+      "description": "A collection of RuntimeClass objects.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "node.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "items": {
+          "description": "A list of RuntimeClass objects.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "RuntimeClassList"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+          "description": "Standard list metadata."
+        }
+      },
+      "required": [
+        "items",
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClassList",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.node.v1alpha1.RuntimeClassSpec": {
+      "description": "The specification of a RuntimeClass. It contains parameters required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the Pod will be run. The RuntimeClassSpec is immutable.",
+      "properties": {
+        "runtimeHandler": {
+          "description": "This specifies the underlying runtime and configuration that the CRI implementation will use to handle Pods of this class. The possible values are specific to the node & CRI configuration. It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called '`runc`' might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a Pod. The `runtimeHandler` must conform to the DNS Label (RFC 1123) requirements and is immutable.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "runtimeHandler"
+      ],
+      "type": "object"
+    },
     "io.k8s.api.node.v1beta1.RuntimeClass.CREATE": {
       "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the Pod spec. The kubelet is responsible for resolving the name reference before running the Pod.",
       "properties": {
@@ -26520,6 +26736,205 @@
           "group": "scheduling.k8s.io",
           "kind": "PriorityClassList",
           "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.scheduling.v1beta1.PriorityClass.CREATE": {
+      "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer. DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "scheduling.k8s.io/v1beta1"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "An arbitrary string that usually provides guidelines on using this priority class.",
+          "type": "string"
+        },
+        "globalDefault": {
+          "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+          "type": "boolean"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "PriorityClass"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
+        },
+        "preemptionPolicy": {
+          "default": "PreemptLowerPriority",
+          "description": "The Policy for preempting Pods with lower priority. This field is alpha-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
+          "enum": [
+            "Never",
+            "PreemptLowerPriority"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of this priority class. This is the actual priority that Pods receive when they have the name of this class in their Pod spec. Other than the system predefined priority classes, user defined priority classes cannot have `value` greater than 1000000000. The value cannot be changed in an update operation.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "value",
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      ]
+    },
+    "io.k8s.api.scheduling.v1beta1.PriorityClass.GET": {
+      "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer. DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "scheduling.k8s.io/v1beta1"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "An arbitrary string that usually provides guidelines on using this priority class.",
+          "type": "string"
+        },
+        "globalDefault": {
+          "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+          "type": "boolean"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "PriorityClass"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+          "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
+        },
+        "value": {
+          "description": "The value of this priority class. This is the actual priority that Pods receive when they have the name of this class in their Pod spec. Other than the system predefined priority classes, user defined priority classes cannot have `value` greater than 1000000000. The value cannot be changed in an update operation.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "value",
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      ]
+    },
+    "io.k8s.api.scheduling.v1beta1.PriorityClass.UPDATE": {
+      "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer. DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "scheduling.k8s.io/v1beta1"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "An arbitrary string that usually provides guidelines on using this priority class.",
+          "type": "string"
+        },
+        "globalDefault": {
+          "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+          "type": "boolean"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "PriorityClass"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+          "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
+        },
+        "value": {
+          "description": "The value of this priority class. This is the actual priority that Pods receive when they have the name of this class in their Pod spec. Other than the system predefined priority classes, user defined priority classes cannot have `value` greater than 1000000000. The value cannot be changed in an update operation.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "value",
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      ]
+    },
+    "io.k8s.api.scheduling.v1beta1.PriorityClassList": {
+      "description": "A collection of priority classes.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "scheduling.k8s.io/v1beta1"
+          ],
+          "type": "string"
+        },
+        "items": {
+          "description": "List of PriorityClasses",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "PriorityClassList"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+          "description": "Standard list metadata"
+        }
+      },
+      "required": [
+        "items",
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClassList",
+          "version": "v1beta1"
         }
       ]
     },
@@ -31891,6 +32306,68 @@
         }
       }
     },
+    "/api/v1/namespaces/{namespace}/bindings": {
+      "post": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "create a Binding",
+        "operationId": "createCoreV1NamespacedBinding",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.CREATE"
+            }
+          },
+          {
+            "$ref": "#/parameters/namespace"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.GET"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.GET"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "core_v1"
+        ],
+        "x-kubernetes-action": "post",
+        "x-kubernetes-group-version-kind": {
+          "group": "",
+          "kind": "Binding",
+          "version": "v1"
+        }
+      }
+    },
     "/api/v1/namespaces/{namespace}/configmaps": {
       "delete": {
         "consumes": [
@@ -35193,7 +35670,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.CREATE"
             }
           },
           {
@@ -35226,19 +35703,19 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.GET"
             }
           },
           "201": {
             "description": "Created",
             "schema": {
-              "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.GET"
             }
           },
           "202": {
             "description": "Accepted",
             "schema": {
-              "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+              "$ref": "#/definitions/io.k8s.api.core.v1.Binding.GET"
             }
           },
           "401": {
@@ -73268,6 +73745,517 @@
         ]
       }
     },
+    "/apis/node.k8s.io/v1alpha1/": {
+      "get": {
+        "consumes": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "description": "get available resources",
+        "operationId": "getNodeV1alpha1APIResources",
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ]
+      }
+    },
+    "/apis/node.k8s.io/v1alpha1/runtimeclasses": {
+      "delete": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "delete collection of RuntimeClass",
+        "operationId": "deleteNodeV1alpha1CollectionRuntimeClass",
+        "parameters": [
+          {
+            "$ref": "#/parameters/allowWatchBookmarks"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+            }
+          },
+          {
+            "$ref": "#/parameters/continue"
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldSelector"
+          },
+          {
+            "$ref": "#/parameters/gracePeriodSeconds"
+          },
+          {
+            "$ref": "#/parameters/labelSelector"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/orphanDependents"
+          },
+          {
+            "$ref": "#/parameters/propagationPolicy"
+          },
+          {
+            "$ref": "#/parameters/resourceVersion"
+          },
+          {
+            "$ref": "#/parameters/timeoutSeconds"
+          },
+          {
+            "$ref": "#/parameters/watch"
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "deletecollection",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      },
+      "get": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "list or watch objects of kind RuntimeClass",
+        "operationId": "listNodeV1alpha1RuntimeClass",
+        "parameters": [
+          {
+            "$ref": "#/parameters/allowWatchBookmarks"
+          },
+          {
+            "$ref": "#/parameters/continue"
+          },
+          {
+            "$ref": "#/parameters/fieldSelector"
+          },
+          {
+            "$ref": "#/parameters/labelSelector"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/resourceVersion"
+          },
+          {
+            "$ref": "#/parameters/timeoutSeconds"
+          },
+          {
+            "$ref": "#/parameters/watch"
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf",
+          "application/json;stream=watch",
+          "application/vnd.kubernetes.protobuf;stream=watch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClassList"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "list",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      },
+      "post": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "create a RuntimeClass",
+        "operationId": "createNodeV1alpha1RuntimeClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.CREATE"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "post",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      }
+    },
+    "/apis/node.k8s.io/v1alpha1/runtimeclasses/{name}": {
+      "delete": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "delete a RuntimeClass",
+        "operationId": "deleteNodeV1alpha1RuntimeClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/gracePeriodSeconds"
+          },
+          {
+            "$ref": "#/parameters/orphanDependents"
+          },
+          {
+            "$ref": "#/parameters/propagationPolicy"
+          },
+          {
+            "description": "name of the RuntimeClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "delete",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      },
+      "get": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "read the specified RuntimeClass",
+        "operationId": "readNodeV1alpha1RuntimeClass",
+        "parameters": [
+          {
+            "$ref": "#/parameters/exact"
+          },
+          {
+            "$ref": "#/parameters/export"
+          },
+          {
+            "description": "name of the RuntimeClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "get",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      },
+      "patch": {
+        "consumes": [
+          "application/json-patch+json",
+          "application/merge-patch+json",
+          "application/strategic-merge-patch+json"
+        ],
+        "description": "partially update the specified RuntimeClass",
+        "operationId": "patchNodeV1alpha1RuntimeClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          },
+          {
+            "$ref": "#/parameters/force"
+          },
+          {
+            "description": "name of the RuntimeClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "patch",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      },
+      "put": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "replace the specified RuntimeClass",
+        "operationId": "replaceNodeV1alpha1RuntimeClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.UPDATE"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          },
+          {
+            "description": "name of the RuntimeClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "201": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.node.v1alpha1.RuntimeClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "node_v1alpha1"
+        ],
+        "x-kubernetes-action": "put",
+        "x-kubernetes-group-version-kind": {
+          "group": "node.k8s.io",
+          "kind": "RuntimeClass",
+          "version": "v1alpha1"
+        }
+      }
+    },
     "/apis/node.k8s.io/v1beta1/": {
       "get": {
         "consumes": [
@@ -82424,6 +83412,517 @@
         }
       }
     },
+    "/apis/scheduling.k8s.io/v1beta1/": {
+      "get": {
+        "consumes": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "description": "get available resources",
+        "operationId": "getSchedulingV1beta1APIResources",
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ]
+      }
+    },
+    "/apis/scheduling.k8s.io/v1beta1/priorityclasses": {
+      "delete": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "delete collection of PriorityClass",
+        "operationId": "deleteSchedulingV1beta1CollectionPriorityClass",
+        "parameters": [
+          {
+            "$ref": "#/parameters/allowWatchBookmarks"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+            }
+          },
+          {
+            "$ref": "#/parameters/continue"
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldSelector"
+          },
+          {
+            "$ref": "#/parameters/gracePeriodSeconds"
+          },
+          {
+            "$ref": "#/parameters/labelSelector"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/orphanDependents"
+          },
+          {
+            "$ref": "#/parameters/propagationPolicy"
+          },
+          {
+            "$ref": "#/parameters/resourceVersion"
+          },
+          {
+            "$ref": "#/parameters/timeoutSeconds"
+          },
+          {
+            "$ref": "#/parameters/watch"
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "deletecollection",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      },
+      "get": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "list or watch objects of kind PriorityClass",
+        "operationId": "listSchedulingV1beta1PriorityClass",
+        "parameters": [
+          {
+            "$ref": "#/parameters/allowWatchBookmarks"
+          },
+          {
+            "$ref": "#/parameters/continue"
+          },
+          {
+            "$ref": "#/parameters/fieldSelector"
+          },
+          {
+            "$ref": "#/parameters/labelSelector"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/resourceVersion"
+          },
+          {
+            "$ref": "#/parameters/timeoutSeconds"
+          },
+          {
+            "$ref": "#/parameters/watch"
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf",
+          "application/json;stream=watch",
+          "application/vnd.kubernetes.protobuf;stream=watch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClassList"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "list",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      },
+      "post": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "create a PriorityClass",
+        "operationId": "createSchedulingV1beta1PriorityClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.CREATE"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "post",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      }
+    },
+    "/apis/scheduling.k8s.io/v1beta1/priorityclasses/{name}": {
+      "delete": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "delete a PriorityClass",
+        "operationId": "deleteSchedulingV1beta1PriorityClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/gracePeriodSeconds"
+          },
+          {
+            "$ref": "#/parameters/orphanDependents"
+          },
+          {
+            "$ref": "#/parameters/propagationPolicy"
+          },
+          {
+            "description": "name of the PriorityClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "delete",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      },
+      "get": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "read the specified PriorityClass",
+        "operationId": "readSchedulingV1beta1PriorityClass",
+        "parameters": [
+          {
+            "$ref": "#/parameters/exact"
+          },
+          {
+            "$ref": "#/parameters/export"
+          },
+          {
+            "description": "name of the PriorityClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "get",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      },
+      "patch": {
+        "consumes": [
+          "application/json-patch+json",
+          "application/merge-patch+json",
+          "application/strategic-merge-patch+json"
+        ],
+        "description": "partially update the specified PriorityClass",
+        "operationId": "patchSchedulingV1beta1PriorityClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          },
+          {
+            "$ref": "#/parameters/force"
+          },
+          {
+            "description": "name of the PriorityClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "patch",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      },
+      "put": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "replace the specified PriorityClass",
+        "operationId": "replaceSchedulingV1beta1PriorityClass",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.UPDATE"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          },
+          {
+            "description": "name of the PriorityClass",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "201": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.scheduling.v1beta1.PriorityClass.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "scheduling_v1beta1"
+        ],
+        "x-kubernetes-action": "put",
+        "x-kubernetes-group-version-kind": {
+          "group": "scheduling.k8s.io",
+          "kind": "PriorityClass",
+          "version": "v1beta1"
+        }
+      }
+    },
     "/apis/settings.k8s.io/": {
       "get": {
         "consumes": [
@@ -86691,6 +88190,77 @@
           "kind": "VolumeAttachment",
           "version": "v1beta1"
         }
+      }
+    },
+    "/logs/": {
+      "get": {
+        "operationId": "logFileListHandler",
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "logs"
+        ]
+      }
+    },
+    "/logs/{logpath}": {
+      "get": {
+        "operationId": "logFileHandler",
+        "parameters": [
+          {
+            "description": "path to the log",
+            "in": "path",
+            "name": "logpath",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "logs"
+        ]
+      }
+    },
+    "/version/": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "get the code version",
+        "operationId": "getCodeVersion",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.version.Info"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "version"
+        ]
       }
     }
   },
