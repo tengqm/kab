@@ -1,6 +1,10 @@
+import collections
+import copy
 import json
 import logging
 import sys
+
+from kab.core import helpers
 
 LOG = logging.getLogger(__name__)
 
@@ -93,7 +97,7 @@ class Diff(object):
             self.difference.append((kind, message))
 
 
-def load_data(api, fn):
+def load_data(api, fn, skin=False):
     data = {}
     try:
         with open(fn, "r") as f:
@@ -101,6 +105,9 @@ def load_data(api, fn):
     except Exception as ex:
         LOG.error("Error reading data %s: %s", fn, str(ex))
         return None
+
+    if skin:
+        return data
 
     result = {}
 
@@ -244,10 +251,66 @@ def compare_defs(apis, groups, versions, kinds):
     return compare(apis, file0, file1)
 
 
+def populate_parameters(apiv, param_list):
+    param_dict = helpers.parameters(apiv)
+
+    data = {}
+    for p in param_list:
+        if "$ref" not in p:
+            data[p["name"]] = p
+            continue
+        pref = p.pop("$ref")
+        param_name = pref[13:]
+        if param_name not in param_dict:
+            LOG.error("Parameter %s not found!", param_name)
+            continue
+        item = copy.deepcopy(p)
+        item.update(param_dict.get(param_name))
+        data[item["name"]] = item
+
+    return collections.OrderedDict(sorted(data.items())) 
+
+
 def compare_ops(apis, opid):
     fmt = "data/{}/ops/{}.json"
 
     file0 = fmt.format(apis[0], opid)
     file1 = fmt.format(apis[-1], opid)
 
-    return compare(apis, file0, file1)
+    json1 = load_data(apis[0], file0, True)
+    if json1 is None:
+        return None
+
+    json2 = load_data(apis[-1], file1, True)
+    if json2 is None:
+        return None
+
+    params1 = json1.pop("parameters", [])
+    params2 = json2.pop("parameters", [])
+
+    parameters1 = populate_parameters(apis[0], params1)
+    parameters2 = populate_parameters(apis[-1], params2)
+
+    # basic JSON diff
+    result = compare_data(json1, json2)
+    
+    for k1 in parameters1:
+        if k1 not in parameters2:
+            removed = result.get("P_REMOVED", [])
+            removed.append(k1)
+            result["P_REMOVED"] = removed
+        elif parameters1[k1] != parameters2[k1]:
+            changed = result.get("P_CHANGED", [])
+            changed.append({
+                "BEFORE": parameters1[k1],
+                "AFTER": parameters2[k1]
+            })
+            result["P_CHANGED"] = changed
+
+    for k2 in parameters2:
+        if k2 not in parameters1:
+            added = result.get("P_ADDED", [])
+            added.append(k2)
+            result["P_ADDED"] = added
+
+    return result

@@ -401,22 +401,11 @@ def get_operation(api_version, name):
 
 
 def parameters(api_version):
-    return DATA.get(api_version, {}).get("parameters", {})
-
-
-def _load_parameters(version):
-    global DATA
-
-    basedir = "data/" + version
-    fn = os.path.join(basedir, "parameters", "parameters.json")
-    try:
-        with open(fn, "r") as f:
-            raw = f.read()
-            data = json.loads(raw)
-    except Exception:
-        data = {}
-    DATA[version]["parameters"] = data
-    return
+    result = {}
+    for k, v in DATA["parameters"].items():
+        if api_version in v:
+            result[k] = v.get(api_version)
+    return collections.OrderedDict(sorted(result.items()))
 
 
 def definition_display_name(def_name):
