@@ -79,6 +79,9 @@ class ListDefinitions(generic.View):
 
     def get(self, req, **kwargs):
         apiv = kwargs.get("api")
+        if not apiv:
+            apiv = helpers.latest_api()
+
         gname = req.GET.get("group")
 
         result = {}
