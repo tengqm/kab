@@ -1,19 +1,8 @@
 {
-  "description": "read the specified PodDisruptionBudget",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
+  "description": "read the specified PodDisruptionBudget",
   "operationId": "readPolicyV1beta1NamespacedPodDisruptionBudget",
   "parameters": [
     {
@@ -23,12 +12,12 @@
       "$ref": "#/parameters/export"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the PodDisruptionBudget",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -36,6 +25,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -48,12 +43,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodDisruptionBudget",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}"
+  }
 }
