@@ -221,7 +221,8 @@
                         <var>{{ K }}</var>
                       </td>
                       <td>
-                        <strong>From:</strong> {{ V.BEFORE }} <strong> To: </strong>{{ V.AFTER }}
+                        <strong>From:</strong> <var>{{ V.BEFORE }}</var>
+                        <strong> To: </strong> <var>{{ V.AFTER }}</var>
                       </td>
                     </tr>
                   {% endfor %}
@@ -246,14 +247,8 @@
               {% for D in RESULT.DESCRIPTION %}
                 {% for K, V in D.items %}
                   <tr>
-                    <td>
-                      <var>
-                        {{ K }}
-                      </var>
-                    </td>
-                    <td>
-                      {% markdown_html V %}
-                    </td>
+                    <td><var>{{ K }}</var></td>
+                    <td>{{ V|safe }}</td>
                   </tr>
                 {% endfor %}
               {% endfor %}

@@ -51,23 +51,32 @@ class Diff(object):
 
         # if object is list, loop over it and check.
         elif isinstance(first, list):
+            if not isinstance(second, list):
+                type1 = type(first).__name__
+                type2 = type(second).__name__
+                msg = '%s;; %s||%s' % (path, type1, type2)
+                self.save("TYPE", msg)
+                return
+
+            # process simple type
+            if not isinstance(first[0], (dict, list)):
+                first = sorted(first)
+                second = sorted(second)
+                if first != second:
+                    msg = "%s;; %s||%s" % (path, first, second)
+                    self.save("VALUE", msg)
+                return
+
             for index, item in enumerate(first):
                 new_path = "%s[%s]" % (path, index)
-                # try to get the same index from second
                 sec = None
-                if second is not None:
-                    try:
-                        sec = second[index]
-                    except (IndexError, KeyError):
-                        # goes to differenc
-                        type1 = type(first).__name__
-                        type2 = type(second).__name__
-                        msg = '%s;; %s||%s' % (new_path, type1, type2)
-                        self.save("TYPE", msg)
-
-                # recursive call
-                self.check(first[index], sec, path=new_path,
-                           with_values=with_values)
+                try:
+                    sec = second[index]
+                    self.check(item, sec, path=new_path,
+                               with_values=with_values)
+                except (IndexError, KeyError):
+                    msg = '%s;; %s||' % (new_path, str(item))
+                    self.save("VALUE", msg)
 
         # not list, not dict.
         # check for equality (only if with_values is True) and return.
@@ -134,23 +143,7 @@ def parse_list(api, data):
     return result
 
 
-def compare(apis, file1, file2):
-    """Compare two JSON files.
-
-    :param apis: The APIs for the two files.
-    :param file1: Name for the first definition file.
-    :param file2: Name for the second definition file.
-    :returns: None if either one of the data cannot be loaded.
-    """
-
-    json1 = load_data(apis[0], file1)
-    if json1 is None:
-        return None
-
-    json2 = load_data(apis[-1], file2)
-    if json2 is None:
-        return None
-
+def compare_data(json1, json2):
     # first round check removed properties and changed values
     diff1 = Diff(json1, json2, True).difference
     # second round check newly added properties
@@ -158,12 +151,13 @@ def compare(apis, file1, file2):
 
     diffs = []
     for kind, message in diff1:
-        newType = "CHANGED"
-        if kind == "PATH":
-            newType = "REMOVED"
+        newType = "REMOVED" if kind == "PATH" else "CHANGED"
         diffs.append({'type': newType, 'message': message})
 
     for kind, message in diff2:
+        # ignore value changes
+        if kind == "VALUE":
+            continue
         diffs.append({'type': "ADDED", 'message': message})
 
     result = {}
@@ -199,6 +193,25 @@ def compare(apis, file1, file2):
             result[key] = [value]
 
     return result
+
+def compare(apis, file1, file2):
+    """Compare two JSON files.
+
+    :param apis: The APIs for the two files.
+    :param file1: Name for the first definition file.
+    :param file2: Name for the second definition file.
+    :returns: None if either one of the data cannot be loaded.
+    """
+
+    json1 = load_data(apis[0], file1)
+    if json1 is None:
+        return None
+
+    json2 = load_data(apis[-1], file2)
+    if json2 is None:
+        return None
+
+    return compare_data(json1, json2)
 
 
 def compare_defs(apis, groups, versions, kinds):

@@ -1,6 +1,7 @@
 import collections
 import copy
 import difflib
+import json
 import logging
 from urllib import parse
 
@@ -8,6 +9,7 @@ from django import http
 from django import shortcuts
 from django import urls
 from django.views import generic
+import markdown
 
 from kab.core import helpers
 from kab.core import jsondiff
@@ -240,22 +242,32 @@ class CompareDefinitions(generic.View):
 
         return (t1, t2) if t1[3] < t2[3] else (t2, t1)
 
-    def get_diff(self, seqm):
+    def get_diff(self, d1, d2):
+        d1 = markdown.markdown(d1, extensions=["extra"])
+        d2 = markdown.markdown(d2, extensions=["extra"])
+        if d1.startswith("<p>") and d1.endswith("</p>"):
+            d1 = d1[3:-4]
+        if d2.startswith("<p>") and d2.endswith("</p>"):
+            d2 = d2[3:-4]
+
+        sm = difflib.SequenceMatcher(lambda x: x == " ", d1, d2)
+
         output = []
-        for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
+        for opcode, a0, a1, b0, b1 in sm.get_opcodes():
             if opcode == 'equal':
-                output.append(seqm.a[a0:a1])
+                output.append(sm.a[a0:a1])
             elif opcode == 'insert':
-                output.append("<ins>" + seqm.b[b0:b1] + "</ins>")
+                output.append("<ins>" + sm.b[b0:b1] + "</ins>")
             elif opcode == 'delete':
-                output.append("<del>" + seqm.a[a0:a1] + "</del>")
+                output.append("<del>" + sm.a[a0:a1] + "</del>")
             elif opcode == 'replace':
-                output.append("<ins>" + seqm.b[b0:b1] + "</ins>" +
-                              "<del>" + seqm.a[a0:a1] + "</del>")
+                output.append("<ins>" + sm.b[b0:b1] + "</ins>" +
+                              "<del>" + sm.a[a0:a1] + "</del>")
             else:
                 LOG.error("Unknown opcode")
 
-        return ''.join(output)
+        res = ''.join(output)
+        return res
 
     def post(self, req, *args, **kwargs):
         api1 = req.POST.get('api1')
@@ -291,9 +303,7 @@ class CompareDefinitions(generic.View):
         for r in result.get("DESCRIPTION", []):
             obj = {}
             for k, v in r.items():
-                sm = difflib.SequenceMatcher(lambda x: x == " ",
-                                             v["BEFORE"], v["AFTER"])
-                obj[k] = self.get_diff(sm)
+                obj[k] = self.get_diff(v["BEFORE"], v["AFTER"])
             desc.append(obj)
         if len(desc) > 0:
             result["DESCRIPTION"] = desc
