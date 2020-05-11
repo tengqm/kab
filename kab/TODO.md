@@ -9,11 +9,11 @@
 [] Document patch operations
 [] Filter operations based on resource variants
 [] Refactor helpers code into classes
-[] Add back ignored definitions/operations in 1.13
-[] Add back ignored definitions/operations in 1.14
-[] Add back ignored definitions/operations in 1.15
-[] Add back ignored definitions/operations in 1.16
-[] Add back ignored definitions/operations in 1.17
-[] Add back ignored definitions/operations in 1.18
+[o] Add back ignored definitions/operations in 1.13
+[o] Add back ignored definitions/operations in 1.14
+[o] Add back ignored definitions/operations in 1.15
+[o] Add back ignored definitions/operations in 1.16
+[o] Add back ignored definitions/operations in 1.17
+[o] Add back ignored definitions/operations in 1.18
 [] Add badge to deprecated API resources
 [] Add badge to deprecated API groups
