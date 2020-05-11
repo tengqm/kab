@@ -383,15 +383,19 @@ def operations(api_version, group_version):
 def get_operation(api_version, name):
     data = {}
     for op in DATA.get("operations", []):
-        if op["version"] == api_version and op["name"] == name:
-            data = op
-            break
+        if op["name"] == name:
+            if op["version"] == api_version:
+                data = op
+            else:
+                versions = data.get("other_versions", [])
+                versions.append(op["version"])
+                data["other_versions"] = versions
+
     if not data:
         return {}
     path = "data/{}/ops/{}.json".format(api_version, name)
-    opdata = _load_json(path)
-    opdata["_meta"] = data
-    return opdata
+    data["spec"] = _load_json(path)
+    return data
 
 
 def parameters(api_version):
@@ -470,12 +474,10 @@ def parse_params(api_version, op):
             params.append(p)
             continue
         param = target[13:]
-        LOG.info(param)
         param_def = DATA["parameters"].get(param, {}).get(api_version, {})
         if param_def:
             params.append(param_def)
-    op["parameters"] = params
-    return op
+    return params
 
 
 def is_resource(def_name):

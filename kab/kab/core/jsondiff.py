@@ -225,7 +225,16 @@ def compare_defs(apis, groups, versions, kinds):
     elif kinds[-1] == "Quantity":
         fn1 = "io.k8s.apimachinery.pkg.api.resource.Quantity"
     else:
-        fn1 = ".".join([groups[0], versions[0], kinds[0]])
+        fn1 = ".".join([groups[-1], versions[-1], kinds[-1]])
     file1 = fmt.format(apis[-1], fn1)
+
+    return compare(apis, file0, file1)
+
+
+def compare_ops(apis, opid):
+    fmt = "data/{}/ops/{}.json"
+
+    file0 = fmt.format(apis[0], opid)
+    file1 = fmt.format(apis[-1], opid)
 
     return compare(apis, file0, file1)

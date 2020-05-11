@@ -28,8 +28,10 @@ urlpatterns = [
              views.SwitchAPI.as_view(),
              name='switch-apiv'),
 
-    urls.url(r'^apis/compare/$', views.CompareDefinitions.as_view(),
+    urls.url(r'^apis/compare-defs/$', views.CompareDefinitions.as_view(),
              name='compare-defs'),
+    urls.url(r'^apis/compare-ops/$', views.CompareOperations.as_view(),
+             name='compare-ops'),
 
     urls.url(r'^api/(?P<api>[^\/\s]*)/groups/$',
              views.APIGroups.as_view(),

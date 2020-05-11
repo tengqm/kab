@@ -16,7 +16,7 @@
       <li class="breadcrumb-item">{{ API }}</li>
       <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>Definitions</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ KIND }}
-        {% if IS_RESOURCE %}  <span class="badge badge-info">Resource</span>{% endif %}
+        {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">Resource</span>{% endif %}
       </li>
     </ol>
   </nav>
@@ -60,50 +60,54 @@
 
   {# other versions #}
   <div class="row px-3" style="font-weight: 700;">Other Versions:</div>
-  <div id="versions" class="row px-3 ml-2">
-    <div id="versionList" class="collapse col-12 p-0">
-      <div class="row col-12">
-        {% for AV, VLIST in VERSIONS.items %}
-          {% for V in VLIST %}
-            {% if V.group %}
-              {% dereference AV V.group V.version NAME as LINK %}
-            {% else %}
-              {% dereference AV "*" "*" NAME as LINK %}
-            {% endif %}
-            <div class="input-group input-group-sm col-lg-4 col-md-6 col-sm-12 px-2 mb-2">
-              <div class="input-group-prepend">
-                <label class="input-group-text">{{ AV }}</label>
-              </div>
-              <input type="text" class="form-control"
-                  {% if V.group %}
-                    value="{{ V.group }}/{{ V.version}}"
-                  {% else %}
-                    value="*/*"
-                  {% endif %}
-                  readonly />
-              <div class="input-group-append">
-                <a class="btn btn-outline-secondary" href="{{ LINK.0 }}"><i class="fa fa-eye"></i></a>
-                <a class="btn btn-outline-secondary" href="#"
+  {% if not VERSIONS %}
+    <div id="versions" class="row px-3 ml-2">None</div>
+  {% else %}
+    <div id="versions" class="row px-3 ml-2">
+      <div id="versionList" class="collapse col-12 p-0">
+        <div class="row col-12">
+          {% for AV, VLIST in VERSIONS.items %}
+            {% for V in VLIST %}
+              {% if V.group %}
+                {% dereference AV V.group V.version NAME as LINK %}
+              {% else %}
+                {% dereference AV "*" "*" NAME as LINK %}
+              {% endif %}
+              <div class="input-group input-group-sm col-lg-4 col-md-6 col-sm-12 px-2 mb-2">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">{{ AV }}</label>
+                </div>
+                <input type="text" class="form-control"
                     {% if V.group %}
-                      onclick="compare('{{ AV }}','{{ V.group }}','{{ V.version }}')"
+                      value="{{ V.group }}/{{ V.version}}"
                     {% else %}
-                      onclick="compare('{{ AV }}','*','*')"
-                    {% endif %} >
-                  <i class="fa fa-exchange-alt"></i>
-                </a>
+                      value="*/*"
+                    {% endif %}
+                    readonly />
+                <div class="input-group-append">
+                  <a class="btn btn-outline-secondary" href="{{ LINK.0 }}"><i class="fa fa-eye"></i></a>
+                  <a class="btn btn-outline-secondary" href="#"
+                      {% if V.group %}
+                        onclick="compare('{{ AV }}','{{ V.group }}','{{ V.version }}')"
+                      {% else %}
+                        onclick="compare('{{ AV }}','*','*')"
+                      {% endif %} >
+                    <i class="fa fa-exchange-alt"></i>
+                  </a>
+                </div>
               </div>
-            </div>
+            {% endfor %}
           {% endfor %}
-        {% endfor %}
+        </div>
+      </div>
+      <div id="expandVersions" class="col-12 text-right">
+        <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed"
+            data-toggle="collapse" data-target="#versionList"
+            aria-expanded="false" aria-controls="versionList">
+        </button>
       </div>
     </div>
-    <div id="expandVersions" class="col-12 text-right">
-      <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed"
-          data-toggle="collapse" data-target="#versionList"
-          aria-expanded="false" aria-controls="versionList">
-      </button>
-    </div>
-  </div>
+  {% endif %}
 
   {# properties #}
   {% if DEFINITION.properties %}
@@ -167,7 +171,7 @@
 
                 {% if 'minimum' in DATA %}
                   <br/>
-                  <small>minium</small>: <samp>{{ DATA.minimum }}</samp>
+                  <small>minimum</small>: <samp>{{ DATA.minimum }}</samp>
                 {% endif %}
 
                 {% if 'maximum' in DATA %}

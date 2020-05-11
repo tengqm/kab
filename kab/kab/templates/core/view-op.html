@@ -30,7 +30,40 @@
         &lt;N/A&gt;
       {% endif %}
     </dd>
+  </dl>
 
+  {# other versions #}
+  <div class="row px-3" style="font-weight: 700;">Other Versions:</div>
+  {% if not VERSIONS %}
+    <div id="versions" class="row px-3 ml-2">None</div>
+  {% else %}
+    <div id="versions" class="row px-3 ml-2">
+      <div id="versionList" class="collapse col-12 p-0">
+        <div class="row col-12">
+          {% for AV in VERSIONS %}
+            <div class="input-group input-group-sm col-lg-4 col-md-6 col-sm-12 px-2 mb-2">
+              <input type="text" class="form-control" value="{{ AV }}" readonly />
+              <div class="input-group-append">
+                <a class="btn btn-outline-secondary"
+                   href="{% url 'view-operation' AV OP.operationId %}"><i class="fa fa-eye"></i></a>
+                <a class="btn btn-outline-secondary" href="#" onclick="compareOp('{{ AV }}')" >
+                  <i class="fa fa-exchange-alt"></i>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="expandVersions" class="col-12 text-right">
+        <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed"
+            data-toggle="collapse" data-target="#versionList"
+            aria-expanded="false" aria-controls="versionList">
+        </button>
+      </div>
+    </div>
+  {% endif %} <!-- othere versions -->
+
+  <dl class="row">
     {# Path and Path Parameters #}
     <dt class="col-md-2 col-sm-3">Path:</dt>
     <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
@@ -125,10 +158,10 @@
       <table class="table table-sm table-striped">
         <thead>
           <tr class="table-secondary">
-            <th>Status</th>
-            <th>Description</th>
+            <th style="width: 15%;">Status</th>
+            <th style="width: 15%;">Description</th>
             <th>Response</th>
-          <tr>
+          </tr>
         </thead>
         <tbody>
           {% for key, data in OP.responses.items %}
@@ -173,4 +206,21 @@
       </div> <!-- card-body -->
     </div>  <!-- card -->
   {% endif %}
+
+  <form id="form-compare-op" action="{% url 'compare-ops' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="api1" value="{{ API }}" />
+    <input type="hidden" id="form_api" name="api2" value="" />
+    <input type="hidden" name="op" value="{{ OP.operationId }}" />
+  </form>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+  function compareOp(api) {
+    $("#form_api").val(api);
+    $("#form-compare-op").submit();
+  }
+</script>
 {% endblock %}
