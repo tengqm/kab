@@ -119,8 +119,15 @@
           <tr class="collapse" id="fieldsAdded">
             <td>
               <ul>
-              {% for A in RESULT.P_ADDED %}
-                <li><var>{{ A }}</var></li>
+              {% for A, D in RESULT.P_ADDED.items %}
+                <li><var>{{ A }}</var>
+                  <a role="button" data-toggle="collapse" data-target="#added-{{ A }}" aria-expanded="false"
+                      aria-controls="added-{{ A }}"> <i class="fa fw fa-angle-double-down"></i>
+                  </a>
+                  <div class="collapse" id="added-{{ A }}">
+                    {{ D|safe }} 
+                  </div>
+                </li>
               {% endfor %}
               </ul>
             </td>
@@ -139,8 +146,15 @@
           <tr class="collapse" id="fieldsRemoved">
             <td colspan="2">
               <ul>
-              {% for R in RESULT.P_REMOVED %}
-                <li><var>{{ R }}</var></li>
+              {% for R, D in RESULT.P_REMOVED.items %}
+                <li><var>{{ R }}</var>
+                  <a role="button" data-toggle="collapse" data-target="#removed-{{ R }}" aria-expanded="false"
+                      aria-controls="removed-{{ R }}"> <i class="fa fw fa-angle-double-down"></i>
+                  </a>
+                  <div class="collapse" id="removed-{{ R }}">
+                    {{ D|safe }} 
+                  </div>
+                </li>
               {% endfor %}
               </ul>
             </td>

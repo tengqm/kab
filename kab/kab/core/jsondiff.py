@@ -3,6 +3,11 @@ import copy
 import json
 import logging
 import sys
+import yaml
+
+import pygments
+from pygments import formatters
+from pygments import lexers
 
 from kab.core import helpers
 
@@ -271,6 +276,21 @@ def populate_parameters(apiv, param_list):
     return collections.OrderedDict(sorted(data.items())) 
 
 
+def json_html(data):
+    if not data:
+        return ""
+
+    if not isinstance(data, str):
+        data = yaml.dump(data, indent=2, default_flow_style=False)
+
+    if data.strip() == "":
+        return ""
+
+    lexer = lexers.YamlLexer()
+    formatter = formatters.HtmlFormatter(style="colorful")
+    return pygments.highlight(data, lexer, formatter)
+
+
 def compare_ops(apis, opid):
     fmt = "data/{}/ops/{}.json"
 
@@ -294,23 +314,23 @@ def compare_ops(apis, opid):
     # basic JSON diff
     result = compare_data(json1, json2)
     
-    for k1 in parameters1:
-        if k1 not in parameters2:
-            removed = result.get("P_REMOVED", [])
-            removed.append(k1)
+    for p, v in parameters1.items():
+        if p not in parameters2:
+            removed = result.get("P_REMOVED", {})
+            removed[p] = json_html(v)
             result["P_REMOVED"] = removed
-        elif parameters1[k1] != parameters2[k1]:
-            changed = result.get("P_CHANGED", [])
-            changed.append({
-                "BEFORE": parameters1[k1],
-                "AFTER": parameters2[k1]
-            })
+        elif parameters1[p] != parameters2[p]:
+            changed = result.get("P_CHANGED", {})
+            changed[p] = {
+                "BEFORE": parameters1[p],
+                "AFTER": parameters2[p]
+            }
             result["P_CHANGED"] = changed
 
-    for k2 in parameters2:
-        if k2 not in parameters1:
-            added = result.get("P_ADDED", [])
-            added.append(k2)
+    for p, v in parameters2.items():
+        if p not in parameters1:
+            added = result.get("P_ADDED", {})
+            added[p] = json_html(v)
             result["P_ADDED"] = added
 
     return result
