@@ -1,5 +1,6 @@
 import collections
 import copy
+import difflib
 import importlib
 import json
 import logging
@@ -10,6 +11,7 @@ import subprocess
 from django.apps import apps
 from django.contrib import messages
 from django.forms import models
+import markdown
 
 from kab import consts
 
@@ -482,3 +484,32 @@ def parse_params(api_version, op):
 
 def is_resource(def_name):
     return def_name in DATA["kinds"]
+
+
+def compare_text(text1, text2):
+    """Compare two markdown texts and return the diff as annotated HTML."""
+    d1 = markdown.markdown(text1, extensions=["extra"])
+    d2 = markdown.markdown(text2, extensions=["extra"])
+    if d1.startswith("<p>") and d1.endswith("</p>"):
+        d1 = d1[3:-4]
+    if d2.startswith("<p>") and d2.endswith("</p>"):
+        d2 = d2[3:-4]
+
+    sm = difflib.SequenceMatcher(lambda x: x == " ", d1, d2)
+
+    output = []
+    for opcode, a0, a1, b0, b1 in sm.get_opcodes():
+        if opcode == 'equal':
+            output.append(sm.a[a0:a1])
+        elif opcode == 'insert':
+            output.append("<ins>" + sm.b[b0:b1] + "</ins>")
+        elif opcode == 'delete':
+            output.append("<del>" + sm.a[a0:a1] + "</del>")
+        elif opcode == 'replace':
+            output.append("<ins>" + sm.b[b0:b1] + "</ins>" +
+                          "<del>" + sm.a[a0:a1] + "</del>")
+        else:
+            LOG.error("Unknown opcode")
+
+    res = ''.join(output)
+    return res
