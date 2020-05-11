@@ -178,7 +178,7 @@ class ViewDefinition(generic.View):
             "DEFINITION": definition,
             "OPERATIONS": operations,
         }
-        return shortcuts.render(req, 'core/definition.html', ctx)
+        return shortcuts.render(req, 'core/view-definition.html', ctx)
 
 
 class ViewOperation(generic.View):

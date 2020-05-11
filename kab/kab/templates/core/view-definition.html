@@ -17,6 +17,7 @@
       <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>Definitions</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ KIND }}
         {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">Resource</span>{% endif %}
+        {% if "DEPRECATED" in DEFINITION.description %}  <span class="badge badge-danger" style="vertical-align: super;">DEPRECATED</span>{% endif %}
       </li>
     </ol>
   </nav>
@@ -128,8 +129,10 @@
           {% for PNAME, DATA in DEFINITION.properties|safedict %}
             {% escape_ref API DATA as DATA %}
             
-            <tr {% if "DEPRECATED" in DATA.description %}class="table-danger"{% endif %}
-                {% if " beta " in DATA.description %}class="table-warning"{% endif %}>
+            <tr {% if " deprecated " in DATA.description|lower %}class="table-danger"
+                {% elif " beta " in DATA.description|lower %}class="table-warning"
+                {% elif " alpha " in DATA.description|lower %}class="table-warning"
+                {% endif %}>
               <td style="word-break:break-word;">
                 <var>
                   {{ PNAME }}{% if PNAME in DEFINITION.required %}<span style="color:red;">*</span>{% endif %}
