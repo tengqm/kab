@@ -43,6 +43,11 @@ urlpatterns = [
              views.Definitions.as_view(),
              name='list-definitions-ajax'),
 
+    urls.url(r'test1/$', views.TestJSTree.as_view(),
+             name='jstree-test'),
+
+    urls.url(r'yaml/$', views.TestYAML.as_view(),
+             name='yaml-test'),
 
     urls.url(
         r'^Denied/$',

@@ -11,6 +11,7 @@ from django.views import generic
 
 from kab.core import helpers
 from kab.core import jsondiff
+from kab.core import tmpl
 
 LOG = logging.getLogger(__name__)
 
@@ -383,3 +384,25 @@ class Definitions(generic.View):
         defs = helpers.definitions(apiv, gname, gversion)
 
         return http.JsonResponse({"defs": defs})
+
+
+class TestJSTree(generic.View):
+    """Test view for JStree"""
+
+    def get(self, req, *args, **kwargs):
+        data = tmpl.gen_tree("1.13", "core", "v1", "Pod.CREATE")
+        ctx = {
+            "JSON": data,
+        }
+        return shortcuts.render(req, 'jstree.html', ctx)
+
+
+class TestYAML(generic.View):
+    """Test view for JStree"""
+
+    def get(self, req, *args, **kwargs):
+        data = tmpl.gen_tree("1.13", "core", "v1", "Pod.CREATE")
+        ctx = {
+            "JSON": data,
+        }
+        return shortcuts.render(req, 'yaml.html', ctx)

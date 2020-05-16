@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>APIs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+{% endblock %}
+
+{% block main_content %}
+
+<div>
+  Kubernetes API Browser!
+</div>
+<div id="jstree_demo_div"></div>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+{{ JSON|json_script:"def-data" }}
+<script>
+$(function () {
+  var value = JSON.parse(document.getElementById('def-data').textContent);
+  console.log(value);
+  $('#jstree_demo_div').jstree(
+    {
+      "core": {
+        "data": value, 
+      },
+      "checkbox": {
+        "keep_selected_style": false
+      },
+      "plugins": ["wholerow", "checkbox"]
+    }
+  );
+});
+$('#jstree_demo_div').on("changed.jstree", function (e, data) {
+  console.log(data.selected);
+});
+</script>
+{% endblock %}
