@@ -346,6 +346,7 @@ def resource_operations(resource, group_version):
     for res in DATA["resources"]:
         if res["name"] == resource:
             data = res.get("operations", {}).get(group_version, {})
+            break
     return collections.OrderedDict(sorted(data.items()))
 
 
@@ -383,11 +384,13 @@ def operations(api_version, group_version):
 
 
 def get_operation(api_version, name):
-    data = {}
+    data = {
+        "other_versions": []
+    }
     for op in DATA.get("operations", []):
         if op["name"] == name:
             if op["version"] == api_version:
-                data = op
+                data.update(op)
             else:
                 versions = data.get("other_versions", [])
                 versions.append(op["version"])
