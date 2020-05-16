@@ -145,11 +145,31 @@
                     {% else %}
                       <code>array</code> of <code>{{ DATA.items.type }}</code>
                     {% endif %}
+
                     {% patch_strategy DATA as PATCH_STRATEGY %}
                     {% if PATCH_STRATEGY %}
                     <br/>
-                    <small>Patch Strategy:</small>  <code>{{ PATCH_STRATEGY }}</code>
+                    <small><b>patch strategy:</b></small>  <samp>{{ PATCH_STRATEGY }}</samp>
                     {% endif %}
+
+                    {% list_type DATA as LIST_TYPE %}
+                    {% if LIST_TYPE %}
+                    <br/>
+                    <small><b>list type:</b></small>  <samp>{{ LIST_TYPE }}</samp>
+                    {% endif %}
+
+                    {% list_map_keys DATA as LIST_KEYS %}
+                    {% if LIST_KEYS %}
+                    <br/>
+                    <small><b>list map keys:</b></small>  <samp>{{ LIST_KEYS }}</samp>
+                    {% endif %}
+
+                    {% map_type DATA as MAP_TYPE %}
+                    {% if MAP_TYPE %}
+                    <br/>
+                    <small><b>map type:</b><small>  <samp>{{ MAP_TYPE }}</samp>
+                    {% endif %}
+
                   {% else %}
                     <code>{{ DATA.type }}</code>
                   {% endif %}
@@ -159,7 +179,7 @@
 
                 {% if 'default' in DATA %}
                   <br/>
-                  <small>default</small>:
+                  <small><b>default</b></small>:
                   {% if DATA.type == "string" %}
                     <samp style="font-family:monospace;">"{{ DATA.default }}"</samp>
                   {% else %}
@@ -169,26 +189,26 @@
 
                 {% if 'format' in DATA %}
                   <br/>
-                  <small>format</small>: <samp>{{ DATA.format }}</samp>
+                  <small><b>format</b></small>: <samp>{{ DATA.format }}</samp>
                 {% endif %}
 
                 {% if 'minimum' in DATA %}
                   <br/>
-                  <small>minimum</small>: <samp>{{ DATA.minimum }}</samp>
+                  <small><b>minimum</b></small>: <samp>{{ DATA.minimum }}</samp>
                 {% endif %}
 
                 {% if 'maximum' in DATA %}
                   <br/>
-                  <small>maximum</small>: <samp>{{ DATA.maximum }}<samp>
+                  <small><b>maximum</b></small>: <samp>{{ DATA.maximum }}<samp>
                 {% endif %}
 
                 {% if 'enum' in DATA %}
                   {% if DATA.enum|length_is:"1" %}
                     <br/>
-                    <small>Const</small>: <samp>{{ DATA.enum.0 }}</samp>
+                    <small><b>const</b></small>: <samp>{{ DATA.enum.0 }}</samp>
                   {% else %}
                     <br/>
-                    <small>Choices</small>: [
+                    <small><b>choices</b></small>: [
                     {% for E in DATA.enum %}
                       <samp>"{{ E }}"</samp>{% if not forloop.last %}, {% endif %}
                     {%endfor %} 

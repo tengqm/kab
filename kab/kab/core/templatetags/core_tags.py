@@ -316,6 +316,21 @@ def patch_strategy(data):
 
 
 @register.simple_tag()
+def list_type(data):
+    return data.get("x-kubernetes-list-type", "")
+
+
+@register.simple_tag()
+def list_map_keys(data):
+    return data.get("x-kubernetes-list-map-keys", "")
+
+
+@register.simple_tag()
+def map_type(data):
+    return data.get("x-kubernetes-map-type", "")
+
+
+@register.simple_tag()
 def sort(value):
     if isinstance(value, dict):
         new_dict = collections.OrderedDict()

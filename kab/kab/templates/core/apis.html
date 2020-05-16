@@ -5,9 +5,46 @@
 
 {% block main_content %}
 
- <div class="row justify-content-center">
-   <div class="col-auto">
-  <table class="table table-striped table-responsive" style="margin: 0px auto; width: auto;">
+<h5>Reference Documentation</h5>
+<ul>
+  <li>
+    <a href="https://kubernetes.io/docs/reference/using-api/api-overview/" target="_blank">
+      API Overview
+    </a>
+  </li>
+  <li>
+    <a href="https://kubernetes.io/docs/reference/using-api/api-concepts/" target="_blank">
+      API Concepts
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md"
+      target="_blank">
+      API Conventions
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md"
+      target="_blank">
+      API Changes
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md"
+      target="_blank">
+      API Groups
+    </a>
+  </li>
+  <li>
+    <a href="https://kubernetes.io/docs/reference/using-api/deprecation-policy/" target="_blank">
+      API Deprecation Policy
+    </a>
+  </li>
+</ul>
+
+<h5>APIs summary </h5>
+  <table class="table table-striped" width="100%">
     <thead>
       <tr>
         <th class="text-center" scope="col">API Version</th>
@@ -35,6 +72,4 @@
       {% endfor %}
     </tbody>
   </table>
-   </div>
- </div>
 {% endblock %}

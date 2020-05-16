@@ -17,7 +17,7 @@ LOG = logging.getLogger(__name__)
 
 
 def home(req):
-    return shortcuts.render(req, 'index.html')
+    return shortcuts.redirect(urls.reverse('list-apis'))
 
 
 class ListAPIs(generic.View):
