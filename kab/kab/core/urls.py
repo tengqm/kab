@@ -33,6 +33,10 @@ urlpatterns = [
     urls.url(r'^apis/compare-ops/$', views.CompareOperations.as_view(),
              name='compare-ops'),
 
+    urls.url(r'^apis/try/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
+             views.TryResource.as_view(),
+             name='try-resource'),
+
     urls.url(r'^api/(?P<api>[^\/\s]*)/groups/$',
              views.APIGroups.as_view(),
              name='list-groups-ajax'),
@@ -45,9 +49,6 @@ urlpatterns = [
 
     urls.url(r'test1/$', views.TestJSTree.as_view(),
              name='jstree-test'),
-
-    urls.url(r'yaml/$', views.TestYAML.as_view(),
-             name='yaml-test'),
 
     urls.url(
         r'^Denied/$',

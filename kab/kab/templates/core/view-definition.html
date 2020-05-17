@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block main_content %}
+
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"></a></li>
@@ -112,7 +113,13 @@
 
   {# properties #}
   {% if DEFINITION.properties %}
-    <div class="row px-3" style="font-weight: 700;">Properties:</div>
+    <div class="row px-3" style="font-weight: 700;">Properties:
+      {% if IS_RESOURCE %}
+        &nbsp;&nbsp; &nbsp;<a class="btn-outline-info btn-sm"
+          href="{% url 'try-resource' API GROUP VERSION NAME %}"> Try It!
+        </a>
+      {% endif %}
+    </div>
     <div class="row px-3 ml-2">
       <table class="table table-sm table-striped" width="100%">
         <colgroup>

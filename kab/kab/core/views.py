@@ -397,12 +397,29 @@ class TestJSTree(generic.View):
         return shortcuts.render(req, 'jstree.html', ctx)
 
 
-class TestYAML(generic.View):
-    """Test view for JStree"""
+class TryResource(generic.View):
+    """Generic view to try a resource"""
 
     def get(self, req, *args, **kwargs):
-        data = tmpl.gen_tree("1.13", "core", "v1", "Pod.CREATE")
+        apiv = kwargs.pop('api')
+        group = kwargs.pop('group')
+        version = kwargs.pop('version')
+        name = kwargs.pop('name')
+        name_parts = name.split(".")
+
+        kind = name_parts[0]
+        # TODO: only process CREATE and UPDATE variants
+        is_resource = helpers.is_resource(kind)
+        # TODO: pop up warning if not resource
+
+        definition = tmpl.gen_tree(apiv, group, version, name)
         ctx = {
-            "JSON": data,
+            "API": apiv,
+            "GROUP": group,
+            "VERSION": version,
+            "KIND": kind,
+            "NAME": name,
+            "IS_RESOURCE": is_resource,
+            "DEFINITION": definition,
         }
-        return shortcuts.render(req, 'yaml.html', ctx)
+        return shortcuts.render(req, 'core/try-yaml.html', ctx)

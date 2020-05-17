@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load core_tags %}
+
+{% block title %}
+  <title>Resource: {{ API }} - {{ GROUP }}/{{ VERSION }} - {{ KIND }}</title>
+  <link rel="stylesheet" data-name="vs/editor/editor.main" href="{% static 'css/monaco/editor.main.css' %}">
+  <style>
+    .x-highlight-range {
+      background-color: lightblue;
+    }
+  </style>
+{% endblock %}
+
+{% block main_content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"></a></li>
+      <li class="breadcrumb-item">{{ API }}</li>
+      <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>Definitions</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ KIND }}
+        {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">Resource</span>{% endif %}
+        {% if "DEPRECATED" in DEFINITION.description %}  <span class="badge badge-danger" style="vertical-align: super;">DEPRECATED</span>{% endif %}
+      </li>
+    </ol>
+  </nav>
+
+  <!-- div id="container" style="width:800px;height:600px;border:1px solid grey" -->
+  <div class="container row mb-2">
+    <div class="col">
+    <a class="btn btn-outline-info" href="#">Save</a>
+    <a class="btn btn-outline-primary hBack" href="#">Back</a>
+    </div>
+  </div>
+  <div id="container" style="height:600px; border:1px solid grey">
+  </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+  // Loading basic-languages to get the YAML language definition
+  var paths = {
+    'vs/basic-languages': '/static/js/monaco-lang',
+    'vs/language/yaml': '/static/js/monaco-yaml',
+    vs: '/static/js/vs',
+  };
+  var require = {
+    paths: paths,
+  };
+</script>
+
+<script src="{% static 'js/monaco/loader.js' %}"></script>
+<script src="{% static 'js/monaco/editor.main.nls.js' %}"></script>
+<script src="{% static 'js/monaco/editor.main.js' %}"></script>
+
+{{ DEFINITION|json_script:"def-data" }}
+
+<script>
+  require([
+    'vs/basic-languages/monaco.contribution',
+    'vs/language/yaml/monaco.contribution',
+  ], function() {
+    const yaml = "apiVersion: ";
+    const modelUri = monaco.Uri.parse('a://b/foo.json');
+    const editor = monaco.editor.create(
+      document.getElementById('container'),
+      {
+        language: 'yaml',
+        showFoldingControls: 'always',
+        model: monaco.editor.createModel(yaml, 'yaml', modelUri),
+      }
+    );
+    editor.getModel().updateOptions({tabSize: 2});
+
+    var myschema = JSON.parse(document.getElementById('def-data').textContent);
+
+    monaco.languages.yaml.yamlDefaults.setDiagnosticsOptions({
+      enableSchemaRequest: true,
+      hover: true,
+      completion: true,
+      validate: true,
+      isKubernetes: true,
+      tabSize: 2,
+      // format: true,
+      schemas: [
+        {
+          uri: 'http://myserver/foo-schema.json', // id of the first schema
+          fileMatch: [modelUri.toString()], // associate with our model
+          schema: myschema,
+        },
+     ],
+    });
+  });
+  $(".hBack").on("click", function(e){
+      e.preventDefault();
+      window.history.back();
+  });
+</script>
+{% endblock %}
