@@ -316,6 +316,11 @@ def patch_strategy(data):
 
 
 @register.simple_tag()
+def patch_merge_key(data):
+    return data.get("x-kubernetes-patch-merge-key", "")
+
+
+@register.simple_tag()
 def list_type(data):
     return data.get("x-kubernetes-list-type", "")
 

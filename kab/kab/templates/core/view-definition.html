@@ -5,7 +5,7 @@
 {% block title %}
   <title>Definition: {{ API }} - </title>
   <style>
-    P {line-height: 1.2; margin-bottom: 2px;}
+    P {line-height: 1.2; }
   </style>
 {% endblock %}
 
@@ -150,6 +150,12 @@
                     {% if PATCH_STRATEGY %}
                     <br/>
                     <small><b>patch strategy:</b></small>  <samp>{{ PATCH_STRATEGY }}</samp>
+                    {% endif %}
+
+                    {% patch_merge_key DATA as PATCH_MERGE_KEY %}
+                    {% if PATCH_MERGE_KEY %}
+                    <br/>
+                    <small><b>patch merge key:</b></small>  <samp>{{ PATCH_MERGE_KEY }}</samp>
                     {% endif %}
 
                     {% list_type DATA as LIST_TYPE %}
