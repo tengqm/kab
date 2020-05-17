@@ -27,7 +27,7 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys. '`kubernetes.io/hostname`' indicates the hostname of the node where the endpoint is located. This should match the corresponding node label. '`topology.kubernetes.io/zone`' indicates the zone where the endpoint is located. This should match the corresponding node label. '`topology.kubernetes.io/region`' indicates the region where the endpoint is located. This should match the corresponding node label.",
+      "description": "Arbitrary topology information associated with the endpoint. These key/value pairs must conform with the [label format](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels). Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys:\n\n- \"`kubernetes.io/hostname`\": the hostname of the node where the endpoint is located. This should match the corresponding node label.\n- \"`topology.kubernetes.io/zone`\": the zone where the endpoint is located. This should match the corresponding node label.\n- \"`topology.kubernetes.io/region`\": the region where the endpoint is located. This should match the corresponding node label.\n",
       "type": "object"
     }
   },
