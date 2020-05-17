@@ -7,14 +7,14 @@
       "type": "boolean"
     },
     "allowedCSIDrivers": {
-      "description": "A whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.",
+      "description": "A whitelist of inline CSI drivers that must be explicitly set to be embedded within a Pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the `CSIInlineVolume` feature gate.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.AllowedCSIDriver"
       },
       "type": "array"
     },
     "allowedCapabilities": {
-      "description": "A list of capabilities that can be requested to add to a container. Capabilities in this field may be added at the Pod author's discretion. You must not list a capability in both `allowedCapabilities` and `requiredDropCapabilities`. If '`*`' is in the list, then `requiredDropCapabilities` must be empty.",
+      "description": "A list of capabilities that can be requested to add to a container. Capabilities in this field may be added at the Pod author's discretion. You must not list a capability in both `allowedCapabilities` and `requiredDropCapabilities`. If \"`*`\" is in the list, then `requiredDropCapabilities` must be empty.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -36,7 +36,7 @@
       "type": "array"
     },
     "allowedProcMountTypes": {
-      "description": "A whitelist of allowed proc mount types. Empty or nil indicates that only the '`Default`' may be used. This requires the `ProcMountType` feature flag to be enabled.",
+      "description": "A whitelist of allowed proc mount types. Empty or nil indicates that only the \"`Default`\" may be used. This requires the `ProcMountType` feature flag to be enabled.",
       "items": {
         "description": "The type of proc mount to use for containers. The '`Default`' value means to use the container runtime defaults for read-only paths and masked paths.",
         "enum": [
@@ -49,9 +49,9 @@
       "type": "array"
     },
     "allowedUnsafeSysctls": {
-      "description": "A list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in '`*`' in which case it is considered as a prefix of allowed sysctls. Single '`*`' means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection. This field cannot conflict with the value of `forbiddenSysctls`.",
+      "description": "A list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in \"`*`\" in which case it is considered as a prefix of allowed sysctls. Single \"`*`\" means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection. This field cannot conflict with the value of `forbiddenSysctls`.",
       "items": {
-        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots (`.`), `_` and `-` in it.",
+        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots ('`.`'), '`_`' and '`-`' in it.",
         "maxLength": 253,
         "minLength": 1,
         "pattern": "([a-z0-9]([-_a-z0-9]*[a-z0-9])?.)*[a-z0-9]([-_a-z0-9]*[a-z0-9])?",
@@ -71,9 +71,9 @@
       "type": "boolean"
     },
     "forbiddenSysctls": {
-      "description": "A list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in '`*`' in which case it is considered as a prefix of forbidden sysctls. Single '`*`' means all sysctls are forbidden. This field cannot conflict with `allowedUnsafeSysctls`.",
+      "description": "A list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in \"`*`\" in which case it is considered as a prefix of forbidden sysctls. Single \"`*`\" means all sysctls are forbidden. This field cannot conflict with `allowedUnsafeSysctls`.",
       "items": {
-        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots (`.`), `_` and `-` in it.",
+        "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots ('`.`'), '`_`' and '`-`' in it.",
         "maxLength": 253,
         "minLength": 1,
         "pattern": "([a-z0-9]([-_a-z0-9]*[a-z0-9])?.)*[a-z0-9]([-_a-z0-9]*[a-z0-9])?",
@@ -83,18 +83,18 @@
     },
     "fsGroup": {
       "$ref": "#/definitions/io.k8s.api.policy.v1beta1.FSGroupStrategyOptions",
-      "description": "The strategy that will dictate what fs group is used by the security context."
+      "description": "The strategy that will dictate what `fsGroup` is used by the security context."
     },
     "hostIPC": {
-      "description": "Whether the use of hostIPC in the Pod spec is allowed.",
+      "description": "Whether the use of `hostIPC` in the Pod spec is allowed.",
       "type": "boolean"
     },
     "hostNetwork": {
-      "description": "Whether the use of hostNetwork in the Pod spec is allowed.",
+      "description": "Whether the use of `hostNetwork` in the Pod spec is allowed.",
       "type": "boolean"
     },
     "hostPID": {
-      "description": "Whether the use of hostPID in the Pod spec is allowed.",
+      "description": "Whether the use of `hostPID` in the Pod spec is allowed.",
       "type": "boolean"
     },
     "hostPorts": {
@@ -137,10 +137,10 @@
     },
     "supplementalGroups": {
       "$ref": "#/definitions/io.k8s.api.policy.v1beta1.SupplementalGroupsStrategyOptions",
-      "description": "The strategy that dictates what supplemental groups are used by the securityContext."
+      "description": "The strategy that dictates what supplemental groups are used by the `securityContext`."
     },
     "volumes": {
-      "description": "A white list of allowed volume plugins. Empty list indicates that no volumes may be used. To allow all volumes you may use '`*`'.",
+      "description": "A white list of allowed volume plugins. Empty list indicates that no volumes may be used. To allow all volumes you may use \"`*`\".",
       "items": {
         "type": "string"
       },
