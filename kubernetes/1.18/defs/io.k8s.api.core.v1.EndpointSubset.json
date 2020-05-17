@@ -1,5 +1,5 @@
 {
-  "description": "A group of addresses with a common set of ports. The expanded set of endpoints is the cartesian product of addresses and ports. Either 'addresses' or 'notReadyAddresses' should be specified.",
+  "description": "A group of addresses with a common set of ports. The expanded set of endpoints is the cartesian product of `addresses` and `ports`. For example, given:\n\n```\n{\n  Addresses: [{\n    \"ip\": \"10.10.1.1\"\n  }, {\n    \"ip\": \"10.10.2.2\"\n  }],\n  Ports: [{\n    \"name\": \"a\",\n    \"port\": 8675\n  }, {\n    \"name\": \"b\",\n    \"port\": 309\n  }]\n}\n```\n\nThe resulting set of endpoints can be viewed as:\n\n```a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],\nb: [ 10.10.1.1:309, 10.10.2.2:309 ]\n```\n\nEither `addresses` or `notReadyAddresses` should be specified.",
   "properties": {
     "addresses": {
       "description": "IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.",
