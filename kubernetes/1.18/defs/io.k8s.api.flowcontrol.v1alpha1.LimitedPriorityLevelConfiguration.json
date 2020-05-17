@@ -3,7 +3,7 @@
   "properties": {
     "assuredConcurrencyShares": {
       "default": 30,
-      "description": "This configures the execution limit (ACS), which is a limit on the number of requests of this priority level that may be exeucting at a given time. The server's concurrency limit is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value, i.e. the number of requests that may be executing at a time. For each such priority level, `ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )`. Larger values of ACS mean more reserved concurrent requests (at the expense of every other priority levels).",
+      "description": "`assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time. ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) for each such priority level where ACV is the number of requests that may be executing at a time:\n\n```\n   ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )\n```\nBigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL).",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
