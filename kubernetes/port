@@ -1,0 +1,104 @@
+#!/bin/bash
+
+FROMV=1.17
+TOV=1.18
+DEFP="*.scheduling.v1beta1.*"
+OPP="*SchedulingV1beta1*"
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# copy def
+function copy_def() {
+  for f in `ls ${TOV}orig/defs/${DEFP}`
+  do
+      base=$(basename $f)
+      if [ -f ${FROMV}/defs/${base} ]; then
+        echo -e "[${FROMV}->${TOV}] ${YELLOW}copying ${base} ${NC}"
+        cp ${FROMV}/defs/${base} ${TOV}/defs/
+      else
+        base1=${base/\.json/\.CREATE\.json}
+        if [ -f ${FROMV}/defs/${base1} ]; then
+          echo -e "[${FROMV}->${TOV}] ${YELLOW}copying ${base1} ${NC}"
+          cp ${FROMV}/defs/${base1} ${TOV}/defs/
+
+          base2=${base/\.json/\.UPDATE\.json}
+          echo -e "[${FROMV}->${TOV}] ${YELLOW}copying ${base2} ${NC}"
+          cp ${FROMV}/defs/${base2} ${TOV}/defs/
+
+          base3=${base/\.json/\.GET\.json}
+          echo -e "[${FROMV}->${TOV}] ${YELLOW}copying ${base3} ${NC}"
+          cp ${FROMV}/defs/${base3} ${TOV}/defs/
+        else
+          echo -e "${RED} ${base} is not found ${NC}"
+        fi
+      fi
+  done
+}
+
+function compare_def() {
+  for f in `ls ${FROMV}orig/defs/${DEFP}`
+  do
+    base=$(basename $f)
+    F1=${TOV}orig/defs/${base}
+    F2=${TOV}/defs/${base}
+    echo -e "[${FROMV}->${TOV}] ${YELLOW}vimdiff ${F1} ${F2}${NC}"
+    diff $f ${F1}
+  done
+
+  for f in `ls ${TOV}orig/defs/${DEFP}`
+  do
+    base=$(basename $f)
+    if [ ! -f ${FROMV}orig/defs/${base} ]; then
+      echo -e "${RED} ${base} is new!${NC}"
+    fi
+  done
+}
+
+# copy op
+function copy_op() {
+  for f in `ls ${FROMV}/ops/${OPP}`
+  do
+    base=$(basename $f)
+    echo -e "[${FROMV}->${TOV}] ${YELLOW}copying ${base} ${NC}"
+    # j2j $f > $TOV/ops/${base}
+    cp $f $TOV/ops/${base}
+  done
+
+  for f in `ls ${TOV}orig/ops/${OPP}`
+  do
+    base=$(basename $f)
+    if [ ! -f ${TOV}/ops/${base} ]; then
+      echo -e "${RED} ${base} is new!${NC}"
+    fi
+  done
+}
+
+function compare_op() {
+  for f in `ls ${FROMV}orig/ops/${OPP}`
+  do
+      base=$(basename $f)
+      F1=${TOV}orig/ops/${base}
+      F2=${TOV}/ops/${base}
+      if [ -f "$F2" ]; then
+        echo -e "[${FROMV}->${TOV}] ${YELLOW}vimdiff $F1 $F2${NC}"
+        diff $f ${F1}
+      else
+        echo -e "${RED} ${F2} is not found ${NC}"
+      fi
+  done
+}
+
+case $1 in
+  copydef)
+    copy_def;;
+  compdef)
+    compare_def;;
+  copyop)
+    copy_op;;
+  compop)
+    compare_op;;
+  *)
+    echo "unknown op";;
+esac
