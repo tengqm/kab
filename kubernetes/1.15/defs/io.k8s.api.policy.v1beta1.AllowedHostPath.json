@@ -2,7 +2,7 @@
   "description": "The host volume conditions that will be enabled by a policy for Pods to use. It requires the path prefix to be defined.",
   "properties": {
     "pathPrefix": {
-      "description": "The path prefix that the host volume must match. It does not support '`*`' and it can not contain '`..`'. Trailing slashes are trimmed when validating the path prefix. Examples: '`/foo`' would allow '`/foo`', '`/foo/`' and '`/foo/bar`'. '`/foo`' would not allow '`/food`' or '`/etc/foo`'.",
+      "description": "The path prefix that the host volume must match. It does not support \"`*`\" and it can not contain \"`..`\". Trailing slashes are trimmed when validating the path prefix. Examples: \"`/foo`\" would allow \"`/foo`\", \"`/foo/`\" and \"`/foo/bar`\". \"`/foo`\" would not allow \"`/food`\" or \"`/etc/foo`\".",
       "minLength": 1,
       "type": "string"
     },
