@@ -36,7 +36,7 @@
       "type": "array"
     },
     "resources": {
-      "description": "A list of resources this rule applies to. For example: '`pods`' means pods. '`pods/log`' means the `log` subresource of pods. '`*`' means all resources, but not subresources. '`pods/*`' means all subresources of pods. '`*/scale`' means all scale subresources. '`*/*`' means all resources and their subresources. If a wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
+      "description": "A list of resources this rule applies to. For example:\n\n- '`pods`': all pods\n- '`pods/log`': the `log` subresource of pods\n- '`*`': all resources, but not subresources\n- '`pods/*`': all subresources of pods\n- '`*/scale`': all scale subresources\n- '`*/*`': all resources and their subresources.\n\nIf a wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -46,7 +46,7 @@
     },
     "scope": {
       "default": "*",
-      "description": "The scope of this rule. '`Cluster`' means that only cluster-scoped resources will match this rule. '`Namespaced`' means that only namespaced resources will match this rule. '`*`' means that there are no scope restrictions. Subresources match the scope of their parent resource.",
+      "description": "The scope of this rule.\n\n- '`Cluster`': only cluster-scoped resources will match this rule\n- '`Namespaced`': only namespaced resources will match this rule\n- '`*`': there are no scope restrictions.\n\n Subresources match the scope of their parent resource.",
       "enum": [
         "Cluster",
         "Namespaced",
