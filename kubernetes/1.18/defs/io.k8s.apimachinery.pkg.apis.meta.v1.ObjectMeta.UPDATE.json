@@ -5,7 +5,7 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character.  The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
+      "description": "Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
       "type": "object"
     },
     "clusterName": {
@@ -17,7 +17,7 @@
       "description": "creationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. It is populated by the system, read-only. Null for lists. Its value is immutable once set."
     },
     "deletionGracePeriodSeconds": {
-      "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Its value is immutable once set.",
+      "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when `deletionTimestamp` is also set. May only be shortened. Read-only.",
       "format": "int64",
       "type": "integer"
     },
@@ -26,16 +26,16 @@
       "description": "A RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested and is not directly settable by a client. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time."
     },
     "finalizers": {
-      "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. No new finalizer can be added if the object's deletionTimestamp is not nil. When update, no new items can be added when the object is already deleted.",
+      "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the `deletionTimestamp` of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order. Order is NOT enforced because it introduces significant risk of stuck finalizers. `finalizers` is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.",
       "items": {
-        "description": "The name of the finalizer must is either a standard finalizer name (e.g. 'kubernetes', 'orphan', 'foregroundDeletion'), or it contains at least one slash ('/').",
+        "description": "The name of the finalizer must is either a standard finalizer name (e.g. \"`kubernetes`\", \"`orphan`\", \"`foregroundDeletion`\"), or it contains at least one slash (\"`/`\").",
         "type": "string"
       },
       "type": "array",
       "x-kubernetes-patch-strategy": "merge"
     },
     "generateName": {
-      "description": "generateName is an optional prefix for the server to generate a unique name IF the name field has not been provided. It is ignored during patch operation",
+      "description": "An optional prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the `name` field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return '201 Created' or '500' with Reason 'ServerTimeout' indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the 'Retry-After' header). Applied only if `name` is not specified. It is ignored for a PATCH operation.",
       "type": "string"
     },
     "generation": {

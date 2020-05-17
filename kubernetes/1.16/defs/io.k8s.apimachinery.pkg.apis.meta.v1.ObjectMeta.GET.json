@@ -17,7 +17,7 @@
       "description": "creationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. It is populated by the system, read-only. Null for lists."
     },
     "deletionGracePeriodSeconds": {
-      "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.",
+      "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when `deletionTimestamp` is also set. May only be shortened. Read-only.",
       "format": "int64",
       "type": "integer"
     },
@@ -26,8 +26,9 @@
       "description": "A RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested. Populated by the system when a graceful deletion is requested. Read-only."
     },
     "finalizers": {
-      "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed.",
+      "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the `deletionTimestamp` of the object is non-nil, entries in this list can only be removed.",
       "items": {
+        "description": "The name of the finalizer must is either a standard finalizer name (e.g. \"`kubernetes`\", \"`orphan`\", \"`foregroundDeletion`\"), or it contains at least one slash (\"`/`\").",
         "type": "string"
       },
       "type": "array",
@@ -46,7 +47,7 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services.",
+      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects.  Both the key and the value must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character. The key must be between 1 and 63 characters. The key can have '/' in it thus referred to as 'qualified name'. The prefix part of a qualified name must be a valid DNS subdomain name. The value must be less than 64 characters with empty string allowed.",
       "type": "object"
     },
     "managedFields": {
@@ -61,7 +62,8 @@
       "type": "string"
     },
     "namespace": {
-      "description": "Namespace defines the space within each name must be unique. An empty namespace is equivalent to the '`default`' namespace, but 'default' is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL. Cannot be updated.",
+      "default": "default",
+      "description": "The space within each name must be unique. An empty `namespace` is equivalent to the '`default`' namespace, but 'default' is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty. Must be a DNS_LABEL.",
       "type": "string"
     },
     "ownerReferences": {
@@ -78,11 +80,11 @@
       "type": "string"
     },
     "selfLink": {
-      "description": "SelfLink is a URL representing this object. Populated by the system. Read-only. DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
+      "description": "A URL representing this object. Populated by the system. Read-only. DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
       "type": "string"
     },
     "uid": {
-      "description": "UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations. Populated by the system. Read-only.",
+      "description": "The unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations. Populated by the system. Read-only.",
       "type": "string"
     }
   },
