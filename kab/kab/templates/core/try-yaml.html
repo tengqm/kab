@@ -29,13 +29,27 @@
   <!-- div id="container" style="width:800px;height:600px;border:1px solid grey" -->
   <div class="container row mb-2">
     <div class="col">
-    <a class="btn btn-outline-info" href="#">Save</a>
+    <div class="btn-group shadow-sm my-2" role="group">
+      <button id="btnExport" type="button" class="btn btn-outline-info dropdown-toggle"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-file-export"></i> Export
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnExport">
+        <a class="btn btn-link dropdown-item" onclick="exportData('json')">
+          <samp>JSON</samp>
+        </a>
+        <a class="btn btn-link dropdown-item" onclick="exportData('yaml')">
+          <samp>YAML</samp>
+        </a>
+      </div>
+    </div> <!-- export -->
     <a class="btn btn-outline-primary hBack" href="#">Back</a>
     </div>
   </div>
   <div id="container" style="height:600px; border:1px solid grey">
   </div>
 
+  <a id="download_link" class="d-none" href="">export</a>
 {% endblock %}
 
 {% block javascript %}
@@ -58,13 +72,14 @@
 {{ DEFINITION|json_script:"def-data" }}
 
 <script>
+  var editor;
   require([
     'vs/basic-languages/monaco.contribution',
     'vs/language/yaml/monaco.contribution',
   ], function() {
     const yaml = "apiVersion: ";
     const modelUri = monaco.Uri.parse('a://b/foo.json');
-    const editor = monaco.editor.create(
+    editor = monaco.editor.create(
       document.getElementById('container'),
       {
         language: 'yaml',
@@ -97,5 +112,16 @@
       e.preventDefault();
       window.history.back();
   });
+</script>
+
+<script>
+function exportData(typef) {
+  data = editor.getValue();
+
+  target = "/apis/export/" + typef;
+  target += "?kind={{ KIND|lower }}&data=" + btoa(data);
+  $("#download_link").attr("href", target);
+  $("#download_link")[0].click();
+}
 </script>
 {% endblock %}

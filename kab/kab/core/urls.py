@@ -37,6 +37,10 @@ urlpatterns = [
              views.TryResource.as_view(),
              name='try-resource'),
 
+    urls.url(r'^apis/export/(?P<fmt>\w+)$',
+             views.ExportManifest.as_view(),
+             name='export-manifest'),
+
     urls.url(r'^api/(?P<api>[^\/\s]*)/groups/$',
              views.APIGroups.as_view(),
              name='list-groups-ajax'),

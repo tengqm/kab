@@ -1,13 +1,16 @@
+import base64
 import collections
 import copy
 import json
 import logging
 from urllib import parse
 
+from django.core import exceptions as exc
 from django import http
 from django import shortcuts
 from django import urls
 from django.views import generic
+from ruamel import yaml
 
 from kab.core import helpers
 from kab.core import jsondiff
@@ -423,3 +426,47 @@ class TryResource(generic.View):
             "DEFINITION": definition,
         }
         return shortcuts.render(req, 'core/try-yaml.html', ctx)
+
+
+class ExportManifest(generic.View):
+
+    def get(self, req, *args, **kwargs):
+        kind = req.GET.get("kind", None)
+        if not kind:
+            raise exc.SuspiciousOperation("Unknown resource kind")
+
+        raw_data = req.GET.get("data", None)
+        LOG.info(raw_data)
+        if raw_data:
+            try:
+                data = base64.b64decode(raw_data).decode()
+            except Exception as ex:
+                err = "Data is not valid: %s" % str(ex)
+                raise exc.SuspiciousOperation(err)
+        else:
+            data = ""
+
+        try:
+            obj = yaml.load(data)
+        except Exception:
+            raise exc.SuspiciousOperation("Data is not valid YAML")
+
+        fmt = kwargs.get('fmt', 'yaml').lower()
+        if fmt == "json":
+            content_type = "application/json"
+            result = json.dumps(obj, indent=2)
+        elif fmt == "yaml":
+            content_type = "application/yaml"
+            yml = yaml.YAML()
+            yml.default_flow_style = False
+            dumper = helpers.NullStream()
+            yml.dump(obj, dumper)
+            result = dumper.buf
+        else:
+            raise exc.SuspiciousOperation("Unsupported format '%s'" % fmt)
+
+        resp = http.HttpResponse(result, content_type=content_type)
+        fn = "{}-sample.{}".format(kind, fmt)
+        resp['Content-Disposition'] = 'attachment; filename="%s"' % fn
+        return resp
+
