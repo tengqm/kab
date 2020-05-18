@@ -34,17 +34,26 @@ RUN mkdir -p $KAB_LOG_DIR
 
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
-RUN mkdir -p $APP_HOME/data
 
 # NOTE: The following ADD contents are sorted by change frequency
 COPY kab/LICENSE kab/manage.py $APP_HOME/
 ADD kab/dist $APP_HOME/dist
-ADD kubernetes/1.13 $APP_HOME/data/
-ADD kubernetes/1.14 $APP_HOME/data/
-ADD kubernetes/1.15 $APP_HOME/data/
-ADD kubernetes/1.16 $APP_HOME/data/
-ADD kubernetes/1.17 $APP_HOME/data/
-ADD kubernetes/1.18 $APP_HOME/data/
+
+RUN mkdir -p $APP_HOME/data &&
+    mkdir -p $APP_HOME/data/1.13 &&
+    mkdir -p $APP_HOME/data/1.14 &&
+    mkdir -p $APP_HOME/data/1.15 &&
+    mkdir -p $APP_HOME/data/1.16 &&
+    mkdir -p $APP_HOME/data/1.17 &&
+    mkdir -p $APP_HOME/data/1.18
+
+ADD kubernetes/1.13 $APP_HOME/data/1.13
+ADD kubernetes/1.14 $APP_HOME/data/1.14
+ADD kubernetes/1.15 $APP_HOME/data/1.15
+ADD kubernetes/1.16 $APP_HOME/data/1.16
+ADD kubernetes/1.17 $APP_HOME/data/1.17
+ADD kubernetes/1.18 $APP_HOME/data/1.18
+
 COPY kubernetes/index.json $APP_HOME/data
 COPY kubernetes/settings.json $APP_HOME/data
 
