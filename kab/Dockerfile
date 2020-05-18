@@ -34,16 +34,16 @@ RUN mkdir -p $APP_HOME
 RUN mkdir -p $APP_HOME/data
 
 # NOTE: The following ADD contents are sorted by change frequency
-COPY LICENSE manage.py $APP_HOME/
-ADD dist $APP_HOME/dist
-ADD data/1.13 $APP_HOME/data/
-ADD data/1.14 $APP_HOME/data/
-ADD data/1.15 $APP_HOME/data/
-ADD data/1.16 $APP_HOME/data/
-ADD data/1.17 $APP_HOME/data/
-ADD data/1.18 $APP_HOME/data/
-COPY data/index.json $APP_HOME/data
-COPY data/settings.json $APP_HOME/data
+COPY kab/LICENSE kab/manage.py $APP_HOME/
+ADD kab/dist $APP_HOME/dist
+ADD kubernetes/1.13 $APP_HOME/data/
+ADD kubernetes/1.14 $APP_HOME/data/
+ADD kubernetes/1.15 $APP_HOME/data/
+ADD kubernetes/1.16 $APP_HOME/data/
+ADD kubernetes/1.17 $APP_HOME/data/
+ADD kubernetes/1.18 $APP_HOME/data/
+COPY kubernetes/index.json $APP_HOME/data
+COPY kubernetes/settings.json $APP_HOME/data
 
 WORKDIR $APP_HOME
 

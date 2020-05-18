@@ -13,8 +13,6 @@ if [ ""$KAB_VERSION == "" ] ; then
 fi
 
 BUILD_DIR="/tmp/build"
-PKG_DIR=${BUILD_DIR}/Flowor-${KAB_VERSION}
-RELEASE_FILE="kab-${KAB_VERSION}.linux.zip"
 
 function clone_code() {
     if [ -d $BUILD_DIR ] ; then
@@ -31,6 +29,8 @@ function clone_code() {
 }
 
 function build_wheel() {
+    pushd $BUILD_DIR/kab
+
     for d in dist build KAB.egg-info
     do
         if [ -d $d ];then
@@ -39,33 +39,29 @@ function build_wheel() {
     done
     pip3 install --upgrade setuptools wheel
     python3 setup.py bdist_wheel
+
+    popd
 }
 
 function create_image() {
-    if [ ! -d $PKG_DIR ] ; then
-        echo -e "Creating directory $PKG_DIR"
-        mkdir -p $PKG_DIR
-    fi
+    pushd $BUILD_DIR
 
     version=$1
     image="kab:${version}"
-    echo -e "  Checking image for ${image}"
+    echo -e "Checking image for ${image}"
     FOUND=`docker images $image --format "{{.ID}}"`
     if [ ""$FOUND == "" ] ; then
-        echo -e "  ${image} not found, building from scratch..."
-        docker build -f Dockerfile -t ${image} ./
-        echo -e "  ${image} is ready"
+        echo -e "${image} not found, building from scratch..."
+        docker build -f kab/Dockerfile -t ${image} ./
+        echo -e "${image} is ready"
     fi
 
-    echo -e "  Dumping image for ${image}"
-    docker save $image --output=$PKG_DIR/kab-$version.tar
-    echo -e "  ${image} is dumped"
+    popd
 }
 
 echo "Start building KAB image"
 
 clone_code
-cd $BUILD_DIR
 build_wheel
 create_image $KAB_VERSION
 
