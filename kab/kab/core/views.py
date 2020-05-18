@@ -58,7 +58,13 @@ class SwitchAPI(generic.View):
             return http.HttpResponseRedirect(def_target)
 
         new_kwargs["api"] = new_api
-        new_target = urls.reverse(rm.url_name, kwargs=new_kwargs)
+        try:
+            new_target = urls.reverse(rm.url_name, kwargs=new_kwargs)
+        except Exception:
+            # redirect to resource list if the reverse parsing failed
+            new_kwargs["group"] = "all"
+            new_target = urls.reverse("list-resources", kwargs=new_kwargs)
+
         return http.HttpResponseRedirect(new_target)
 
 
