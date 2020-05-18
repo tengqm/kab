@@ -61,12 +61,7 @@ WSGI_APPLICATION = 'kab.wsgi.application'
 
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = {}
 
 
 # Password validation
@@ -109,7 +104,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-
 
 LOG_DIR = os.environ.get('KAB_LOG_DIR', os.path.join(BASE_DIR, 'log'))
 

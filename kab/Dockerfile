@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 # install python3, pip3
 RUN apt-get update -y && \
-        apt-get install -y --no-install-recommends python3 python3-pip && \
+        apt-get install -y --no-install-recommends python3 python3-pip vim-tiny && \
         pip3 install --upgrade pip && \
         rm -rf /var/lib/apt/lists/*
 
@@ -28,6 +28,9 @@ RUN apt-get update -y && \
 # 
 # ADD manifests/nginx/nginx.conf /etc/nginx/nginx.conf
 # ADD manifests/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+ENV KAB_LOG_DIR /var/log
+RUN mkdir -p $KAB_LOG_DIR
 
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
