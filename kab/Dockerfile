@@ -39,13 +39,13 @@ RUN mkdir -p $APP_HOME
 COPY kab/LICENSE kab/manage.py $APP_HOME/
 ADD kab/dist $APP_HOME/dist
 
-RUN mkdir -p $APP_HOME/data &&
-    mkdir -p $APP_HOME/data/1.13 &&
-    mkdir -p $APP_HOME/data/1.14 &&
-    mkdir -p $APP_HOME/data/1.15 &&
-    mkdir -p $APP_HOME/data/1.16 &&
-    mkdir -p $APP_HOME/data/1.17 &&
-    mkdir -p $APP_HOME/data/1.18
+RUN mkdir -p $APP_HOME/data
+RUN mkdir -p $APP_HOME/data/1.13
+RUN mkdir -p $APP_HOME/data/1.14
+RUN mkdir -p $APP_HOME/data/1.15
+RUN mkdir -p $APP_HOME/data/1.16
+RUN mkdir -p $APP_HOME/data/1.17
+RUN mkdir -p $APP_HOME/data/1.18
 
 ADD kubernetes/1.13 $APP_HOME/data/1.13
 ADD kubernetes/1.14 $APP_HOME/data/1.14
