@@ -77,8 +77,7 @@
     'vs/basic-languages/monaco.contribution',
     'vs/language/yaml/monaco.contribution',
   ], function() {
-    // const yaml = "apiVersion: ";
-    const yaml = `{{ OBJECT }}`;
+    const yaml = `{{ OBJECT|safe }}`;
     const modelUri = monaco.Uri.parse('a://b/foo.json');
     editor = monaco.editor.create(
       document.getElementById('container'),
