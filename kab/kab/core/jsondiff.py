@@ -1,14 +1,16 @@
 import collections
 import copy
-import json
+import difflib
 import logging
 import yaml
 
+import markdown
 import pygments
 from pygments import formatters
 from pygments import lexers
 
 from kab.core import helpers
+from kab.core import jsonutil
 
 LOG = logging.getLogger(__name__)
 
@@ -101,61 +103,6 @@ class Diff(object):
             self.difference.append((kind, message))
 
 
-def load_data(api, fn, skin=False):
-    data = {}
-    try:
-        with open(fn, "r") as f:
-            data = json.loads(f.read())
-    except Exception as ex:
-        LOG.error("Error reading data %s: %s", fn, str(ex))
-        return None
-
-    if skin:
-        return data
-
-    result = {}
-
-    for k, v in data.items():
-        if isinstance(v, dict):
-            new_v = parse_dict(api, v)
-        elif isinstance(v, list):
-            new_v = parse_list(api, v)
-        else:
-            new_v = v
-        result[k] = new_v
-    return result
-
-
-def parse_dict(api, data):
-    result = {}
-    for k, v in data.items():
-        if isinstance(v, dict):
-            result[k] = parse_dict(api, v)
-        elif isinstance(v, list):
-            result[k] = parse_list(api, v)
-        elif isinstance(v, str):
-            if k == "$ref" and v.startswith("#/definitions/"):
-                def_file = "data/{}/defs/{}.json".format(api, v[14:])
-                return load_data(api, def_file)
-            else:
-                result[k] = v
-        else:
-            result[k] = v
-    return result
-
-
-def parse_list(api, data):
-    result = []
-    for item in data:
-        if isinstance(item, dict):
-            result.append(parse_dict(api, item))
-        elif isinstance(item, list):
-            result.append(parse_list(api, item))
-        else:
-            result.append(item)
-    return result
-
-
 def compare_data(json1, json2):
     # first round check removed properties and changed values
     diff1 = Diff(json1, json2, True).difference
@@ -217,11 +164,11 @@ def compare(apis, file1, file2):
     :returns: None if either one of the data cannot be loaded.
     """
 
-    json1 = load_data(apis[0], file1)
+    json1 = jsonutil.load_json(file1, apis[0])
     if json1 is None:
         return None
 
-    json2 = load_data(apis[-1], file2)
+    json2 = jsonutil.load_json(file2, apis[-1])
     if json2 is None:
         return None
 
@@ -299,11 +246,11 @@ def compare_ops(apis, opid):
     file0 = fmt.format(apis[0], opid)
     file1 = fmt.format(apis[-1], opid)
 
-    json1 = load_data(apis[0], file0, True)
+    json1 = jsonutil.load_json(file0, apis[0], False)
     if json1 is None:
         return None
 
-    json2 = load_data(apis[-1], file1, True)
+    json2 = jsonutil.load_json(file1, apis[-1], False)
     if json2 is None:
         return None
 
@@ -336,3 +283,32 @@ def compare_ops(apis, opid):
             result["P_ADDED"] = added
 
     return result
+
+
+def compare_text(text1, text2):
+    """Compare two markdown texts and return the diff as annotated HTML."""
+    d1 = markdown.markdown(text1, extensions=["extra"])
+    d2 = markdown.markdown(text2, extensions=["extra"])
+    if d1.startswith("<p>") and d1.endswith("</p>"):
+        d1 = d1[3:-4]
+    if d2.startswith("<p>") and d2.endswith("</p>"):
+        d2 = d2[3:-4]
+
+    sm = difflib.SequenceMatcher(lambda x: x == " ", d1, d2)
+
+    output = []
+    for opcode, a0, a1, b0, b1 in sm.get_opcodes():
+        if opcode == 'equal':
+            output.append(sm.a[a0:a1])
+        elif opcode == 'insert':
+            output.append("<ins>" + sm.b[b0:b1] + "</ins>")
+        elif opcode == 'delete':
+            output.append("<del>" + sm.a[a0:a1] + "</del>")
+        elif opcode == 'replace':
+            output.append("<ins>" + sm.b[b0:b1] + "</ins>" +
+                          "<del>" + sm.a[a0:a1] + "</del>")
+        else:
+            LOG.error("Unknown opcode")
+
+    res = ''.join(output)
+    return res

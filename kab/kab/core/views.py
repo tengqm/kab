@@ -10,7 +10,7 @@ from django import http
 from django import shortcuts
 from django import urls
 from django.views import generic
-from ruamel import yaml
+import yaml
 
 from kab.core import helpers
 from kab.core import jsondiff
@@ -284,7 +284,7 @@ class CompareDefinitions(generic.View):
         for r in result.get("DESCRIPTION", []):
             obj = {}
             for k, v in r.items():
-                obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"])
+                obj[k] = jsondiff.compare_text(v["BEFORE"], v["AFTER"])
             desc.append(obj)
         if len(desc) > 0:
             result["DESCRIPTION"] = desc
@@ -338,7 +338,7 @@ class CompareOperations(generic.View):
         for r in result.get("DESCRIPTION", []):
             obj = {}
             for k, v in r.items():
-                obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"])
+                obj[k] = jsondiff.compare_text(v["BEFORE"], v["AFTER"])
             desc.append(obj)
         if len(desc) > 0:
             result["DESCRIPTION"] = desc
@@ -421,7 +421,11 @@ class TryResource(generic.View):
         is_resource = helpers.is_resource(kind)
         # TODO: pop up warning if not resource
 
-        definition = tmpl.get_schema(apiv, group, version, name)
+        schema = helpers.get_definition(apiv, group, version, name, True)
+        LOG.info(json.dumps(schema, indent=2))
+        json_obj = helpers.empty_json(schema)
+        yaml_str = yaml.dump(json_obj, indent=2, default_flow_style=False)
+        yaml_str = yaml_str.replace("\r", "\n")
         ctx = {
             "API": apiv,
             "GROUP": group,
@@ -429,7 +433,8 @@ class TryResource(generic.View):
             "KIND": kind,
             "NAME": name,
             "IS_RESOURCE": is_resource,
-            "DEFINITION": definition,
+            "SCHEMA": schema,
+            "OBJECT": yaml_str,
         }
         return shortcuts.render(req, 'core/try-yaml.html', ctx)
 
