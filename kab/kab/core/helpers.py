@@ -1,19 +1,11 @@
 import collections
-import copy
 import difflib
-import importlib
 import json
 import logging
-import os
 from os import path
-import subprocess
 
-from django.apps import apps
 from django.contrib import messages
-from django.forms import models
 import markdown
-
-from kab import consts
 
 LOG = logging.getLogger(__name__)
 
@@ -310,7 +302,7 @@ def get_definition(api_version, group, version, defn):
     else:
         gpath = group_path(group)
         fn = gpath + "." + version + "." + defn
-    fpath = path.join("data", api_version, "defs", fn+".json")
+    fpath = path.join("data", api_version, "defs", fn + ".json")
     return _load_json(fpath)
 
 
@@ -338,7 +330,7 @@ def resources(api_version, group_version):
                 continue
             result[curr_gv].append(record)
 
-    return result 
+    return result
 
 
 def resource_operations(resource, group_version):
@@ -417,7 +409,7 @@ def definition_display_name(def_name):
     if (def_name.endswith(".CREATE") or def_name.endswith(".UPDATE") or
             def_name.endswith(".GET") or def_name.endswith(".PATCH")):
         parts = def_name.rsplit(".", 2)
-        variant = parts[-1].lower() 
+        variant = parts[-1].lower()
         display_name = parts[-2] + " (" + parts[-1].lower() + ")"
         def_name = parts[-2] + "." + parts[-1]
     else:
@@ -435,7 +427,7 @@ def parse_definition_id(def_id):
     if (def_id.endswith(".CREATE") or def_id.endswith(".UPDATE") or
             def_id.endswith(".GET") or def_id.endswith(".PATCH")):
         parts = def_id.rsplit(".", 3)
-        variant = parts[-1].lower() 
+        # variant = parts[-1].lower()
         display_name = parts[-2] + " (" + parts[-1].lower() + ")"
         def_name = parts[-2] + "." + parts[-1]
         version = parts[-3]
@@ -446,7 +438,6 @@ def parse_definition_id(def_id):
         def_name = parts[-1]
         version = parts[-2]
         group_path = parts[0]
-        variant = ""
 
     # translate to short group name
     group = group_path
@@ -464,7 +455,7 @@ def parse_params(api_version, op):
         if not target:
             params.append(p)
             continue
-        if not "#/parameters/" in target:
+        if "#/parameters/" not in target:
             params.append(p)
             continue
         param = target[13:]

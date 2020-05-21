@@ -2,7 +2,6 @@ import collections
 import copy
 import json
 import logging
-import sys
 import yaml
 
 import pygments
@@ -25,7 +24,7 @@ class Diff(object):
         if with_values and second is not None:
             if not isinstance(first, type(second)):
                 message = '%s;; %s||%s' % (path, type(first).__name__,
-                                         type(second).__name__)
+                                           type(second).__name__)
                 self.save("TYPE", message)
 
         if isinstance(first, dict):
@@ -130,14 +129,16 @@ def load_data(api, fn, skin=False):
 def parse_dict(api, data):
     result = {}
     for k, v in data.items():
-        if k == "$ref":
-            if v.startswith("#/definitions/"):
-                def_file = "data/{}/defs/{}.json".format(api, v[14:])
-                return load_data(api, def_file)
-        elif isinstance(v, dict):
+        if isinstance(v, dict):
             result[k] = parse_dict(api, v)
         elif isinstance(v, list):
             result[k] = parse_list(api, v)
+        elif isinstance(v, str):
+            if k == "$ref" and v.startswith("#/definitions/"):
+                def_file = "data/{}/defs/{}.json".format(api, v[14:])
+                return load_data(api, def_file)
+            else:
+                result[k] = v
         else:
             result[k] = v
     return result
@@ -206,6 +207,7 @@ def compare_data(json1, json2):
 
     return result
 
+
 def compare(apis, file1, file2):
     """Compare two JSON files.
 
@@ -273,7 +275,7 @@ def populate_parameters(apiv, param_list):
         item.update(param_dict.get(param_name))
         data[item["name"]] = item
 
-    return collections.OrderedDict(sorted(data.items())) 
+    return collections.OrderedDict(sorted(data.items()))
 
 
 def json_html(data):
@@ -313,7 +315,7 @@ def compare_ops(apis, opid):
 
     # basic JSON diff
     result = compare_data(json1, json2)
-    
+
     for p, v in parameters1.items():
         if p not in parameters2:
             removed = result.get("P_REMOVED", {})

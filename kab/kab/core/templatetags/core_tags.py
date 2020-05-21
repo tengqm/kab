@@ -237,7 +237,6 @@ def humanize_name(name):
 
 @register.simple_tag()
 def dereference(api, group, ver, defn):
-    group_path = helpers.group_path(group)
     tmpl = "/apis/definition/{}/{}/{}/{}/"
     link = tmpl.format(api, group, ver, defn)
     parts = defn.split(".")

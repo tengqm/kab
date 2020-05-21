@@ -1,7 +1,7 @@
 """openapiviewer URL Configuration
 """
-from django.contrib import admin
-from django.urls import path
+# from django.contrib import admin
+# from django.urls import path
 from django.conf import urls
 
 urlpatterns = [

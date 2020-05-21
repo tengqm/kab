@@ -338,7 +338,7 @@ class CompareOperations(generic.View):
         for r in result.get("DESCRIPTION", []):
             obj = {}
             for k, v in r.items():
-                obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"]) 
+                obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"])
             desc.append(obj)
         if len(desc) > 0:
             result["DESCRIPTION"] = desc
@@ -421,7 +421,7 @@ class TryResource(generic.View):
         is_resource = helpers.is_resource(kind)
         # TODO: pop up warning if not resource
 
-        definition = tmpl.gen_tree(apiv, group, version, name)
+        definition = tmpl.get_schema(apiv, group, version, name)
         ctx = {
             "API": apiv,
             "GROUP": group,
@@ -475,4 +475,3 @@ class ExportManifest(generic.View):
         fn = "{}-sample.{}".format(kind, fmt)
         resp['Content-Disposition'] = 'attachment; filename="%s"' % fn
         return resp
-

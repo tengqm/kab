@@ -17,7 +17,8 @@ urlpatterns = [
     urls.url(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListOperations.as_view(),
              name='list-operations'),
-    urls.url(r'^apis/definition/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
+    urls.url(r"^apis/definition/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
+             r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
              views.ViewDefinition.as_view(),
              name='view-definition'),
     urls.url(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
@@ -33,7 +34,8 @@ urlpatterns = [
     urls.url(r'^apis/compare-ops/$', views.CompareOperations.as_view(),
              name='compare-ops'),
 
-    urls.url(r'^apis/try/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
+    urls.url(r"^apis/try/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
+             r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
              views.TryResource.as_view(),
              name='try-resource'),
 
