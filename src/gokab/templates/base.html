@@ -1,0 +1,120 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head -->
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="/public/css/fontawesome-5.8.2.min.css" rel="stylesheet" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=">
+    <link href="/public/css/bootstrap-4.3.1.min.css" rel="stylesheet" integrity="sha256-D4vVfyDgPBxpWhtpeh7r9dpdZb+rN013inMq9x39e28=">
+
+    <script src="/public/js/fontawesome-5.8.2.min.js" integrity="sha256-JgGtkjMEDh4dZj7UtWqSbUcftdwTFLNR3ih7FH80RHs="></script>
+    <script src="/public/js/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="></script>
+    <script src="/public/js/popper-1.14.7.min.js" integrity="sha256-RT0r01ZCmc+ncRuLqXbivOlXZn+cM/uQWMC+A+9WB5w="></script>
+    <script src="/public/js/bootstrap-4.3.1.min.js" integrity="sha256-y+ryzVZGIZVLSIdMwDer7mOu03KQEVyawqp+cZSrIC8="></script>
+
+    <title>KAB: Kubernetes API Browser</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">
+        <span class="position-relative">KAB</span>
+        <span class="position-relative" style="font-size:10pt; top: 5px;">kab version</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <!-- Top Menu Items -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list-apis' %}"> Overview
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarAPIs" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-fw fa-code-branch"></i> {{ .API }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarAPIs">
+              {{ range .APIS }}
+                <a class="dropdown-item" href="/apis/switch-apiv/{{ . }}">{{ . }}
+                </a>
+              {{ end }}
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list-resources' API 'all' %}"><i class="fa fa-fw fa-cube"></i> Resources
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list-definitions' API 'all' %}"><i class="fa fa-fw fa-cubes"></i> Definitions
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list-operations' API 'all' %}"><i class="fa fa-fw fa-cogs"></i> Operations
+            </a>
+          </li>
+        </ul>
+
+        <!-- TODO(Qiming): Enable search
+        <ul class="navbar-nav mr-right">
+          <li class="nav-item">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="" aria-label="Search String">
+              <div class="input-group-append">
+                <button id="id_query" type="submit" class="btn btn-secondary btn-sm" type="button"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </li>
+        </ul>
+        -->
+      </div>
+    </nav>
+
+    <div id="page-wrapper">
+      {{ template "body" }}
+    </div>
+
+    <script>
+      $(function() {
+        $("ul.dropdown-menu.parent-menu").mouseleave(function(){
+          $(this).click();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="collapse"]').click(function() {
+          $this = $(this).children().eq(0);
+          if ($this.hasClass('fa-minus-square')) {
+            $this.addClass('fa-plus-square').removeClass('fa-minus-square');
+          }
+          else if ($this.hasClass('fa-plus-square')) {
+            $this.addClass('fa-minus-square').removeClass('fa-plus-square');
+          }
+          else if ($this.hasClass('fa-angle-double-up')) {
+            $this.addClass('fa-angle-double-down').removeClass('fa-angle-double-up');
+          }
+          else if ($this.hasClass('fa-angle-double-down')){
+            $this.addClass('fa-angle-double-up').removeClass('fa-angle-double-down');
+          }
+          else if ($this.hasClass('fa-chevron-circle-down')){
+            $this.addClass('fa-chevron-circle-up').removeClass('fa-chevron-circle-down');
+          }
+          else if ($this.hasClass('fa-chevron-circle-up')){
+            $this.addClass('fa-chevron-circle-down').removeClass('fa-chevron-circle-down');
+          }
+
+        });
+      });
+    </script>
+  </body>
+</html>
+
+{{ end }}
+
