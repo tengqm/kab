@@ -7,7 +7,7 @@
     },
     "fieldRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectFieldSelector",
-      "description": "Selects a field of the pod: supports `metadata.name`, `metadata.namespace`, `metadata.labels`, `metadata.annotations`, `metadata.uid`, `spec.host`, `spec.nodeName`, `spec.restartPolicy`, `spec.schedulerName`, `spec.serviceAccountName`, `status.phase`, `status.hostIP`, `status.podIP`, `status.podIPs`."
+      "description": "Selects a field of the pod: supports `metadata.name`, `metadata.namespace`, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, `spec.nodeName`, `spec.serviceAccountName`, `status.hostIP`, `status.podIP`, `status.podIPs`."
     },
     "resourceFieldRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceFieldSelector",
