@@ -170,9 +170,17 @@ def extract_parameters(data):
         "pretty",
         "propagationPolicy",
         "resourceVersion",
+        "resourceVersionMatch", # since 1.19
         "timeoutSeconds",
         "watch",
     ]
+    fieldManagerDesc = (
+        "fieldManager is a name associated with the actor or entity that is "
+        "making these changes. The value must be less than or 128 characters "
+        "long, and only contain printable characters, as defined by "
+        "https://golang.org/pkg/unicode/#IsPrint. This field is required "
+        "for apply requests (application/apply-patch) but optional for "
+        "non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).")
     param_spec = {}
     paths = data['paths']
     
@@ -191,6 +199,8 @@ def extract_parameters(data):
                             if p.get("required", False):
                                 print("\033[31m Whoops, required?\033[0m")
                             p_copy["required"] = False
+                            if p_name == "fieldManager":
+                                p_copy["description"] = fieldManagerDesc
                             param_spec[p_name] = p_copy
                         else:
                             cross_compare(param_spec[p_name], p)
