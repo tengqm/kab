@@ -1,5 +1,9 @@
 {
   "properties": {
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time."
+    },
     "lastUpdateTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
       "description": "Timestamp of the last update to this condition"
@@ -12,11 +16,22 @@
       "description": "Brief reason for the request state",
       "type": "string"
     },
+    "status": {
+      "description": "Status of the condition. `Approved`, `Denied`, and `Failed` conditions may not be \"False\" or \"Unknown\". If unset, should be treated as \"True\".",
+      "default": "True",
+      "enum": [
+        "True",
+        "False",
+        "Unknown"
+      ],
+      "type": "string"
+    },
     "type": {
-      "description": "Request approval state",
+      "description": "Type of the condition.",
       "enum": [
         "Approved",
-        "Denied"
+        "Denied",
+        "Failed"
       ],
       "minLength": 1,
       "type": "string"
