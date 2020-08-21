@@ -9,6 +9,14 @@
     "lastObservedTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
       "description": "Time of the last occurrence observed"
+    },
+    "state": {
+      "description": "State of this series: Ongoing or Finished. Deprecated. Planned removal for 1.18",
+      "enum": [
+        "Ongoing",
+        "Finished"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
