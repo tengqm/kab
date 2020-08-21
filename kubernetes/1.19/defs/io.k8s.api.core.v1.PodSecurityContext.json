@@ -33,6 +33,10 @@
       "$ref": "#/definitions/io.k8s.api.core.v1.SELinuxOptions",
       "description": "The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in `container.securityContext`."
     },
+    "seccompProfile": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SeccompProfile",
+      "description": "The seccomp options to use by the containers in this pod."
+    },
     "supplementalGroups": {
       "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.",
       "items": {
