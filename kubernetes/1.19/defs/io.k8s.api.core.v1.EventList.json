@@ -1,0 +1,43 @@
+{
+  "description": "EventList is a list of events.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "List of events",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Event.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "EventList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "items",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "EventList",
+      "version": "v1"
+    }
+  ]
+}

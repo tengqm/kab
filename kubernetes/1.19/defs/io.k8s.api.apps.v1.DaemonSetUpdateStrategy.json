@@ -1,0 +1,19 @@
+{
+  "description": "The update strategy for a DaemonSet.",
+  "properties": {
+    "rollingUpdate": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.RollingUpdateDaemonSet",
+      "description": "Rolling update configuration parameters. Present only if `type` is set to '`RollingUpdate`'. This is required for rolling update."
+    },
+    "type": {
+      "default": "RollingUpdate",
+      "description": "Type of daemon set update.",
+      "enum": [
+        "OnDelete",
+        "RollingUpdate"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

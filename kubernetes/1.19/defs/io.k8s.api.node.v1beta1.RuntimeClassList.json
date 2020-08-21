@@ -1,0 +1,43 @@
+{
+  "description": "A collection of RuntimeClass objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "node.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of RuntimeClass objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.node.v1beta1.RuntimeClass.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "RuntimeClassList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata."
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "node.k8s.io",
+      "kind": "RuntimeClassList",
+      "version": "v1beta1"
+    }
+  ]
+}

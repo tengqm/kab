@@ -1,0 +1,43 @@
+{
+  "description": "CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.\n\nKubelets use this API to obtain:\n 1. client certificates to authenticate to `kube-apiserver` (with the \"`kubernetes.io/kube-apiserver-client-kubelet`\" signerName).\n 2. serving certificates for TLS endpoints `kube-apiserver` can connect to securely (with the \"`kubernetes.io/kubelet-serving`\" signerName).\n\nThis API can be used to request client certificates to authenticate to `kube-apiserver` (with the \"`kubernetes.io/kube-apiserver-client`\" signerName), or to obtain certificates from custom non-Kubernetes signers.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "certificates.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "CertificateSigningRequest"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequestSpec",
+      "description": "The certificate request itself and some additional information. It is immutable after creation. Only the `request`, `signerName`, and `usages` fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequestStatus",
+      "description": "Information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "certificates.k8s.io",
+      "kind": "CertificateSigningRequest",
+      "version": "v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "The scheduling constraints for nodes supporting a RuntimeClass.",
+  "properties": {
+    "nodeSelector": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Labels that must present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass `nodeSelector` is merged with a Pod's existing `nodeSelector`. Any conflicts will cause the Pod to be rejected in admission.",
+      "type": "object"
+    },
+    "tolerations": {
+      "description": "The tolerations are appended (excluding duplicates) to Pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the Pod and the RuntimeClass. Duplications in the list is treated as invalid.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Toleration"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    }
+  },
+  "type": "object"
+}

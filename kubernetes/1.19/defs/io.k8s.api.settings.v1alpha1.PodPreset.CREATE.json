@@ -1,0 +1,39 @@
+{
+  "description": "PodPreset is a policy resource that defines additional runtime requirements for a Pod.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "settings.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodPreset"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata. The name must be a valid DNS subdomain name."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPresetSpec",
+      "description": "Specification for the PodPreset resource."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "settings.k8s.io",
+      "kind": "PodPreset",
+      "version": "v1alpha1"
+    }
+  ]
+}

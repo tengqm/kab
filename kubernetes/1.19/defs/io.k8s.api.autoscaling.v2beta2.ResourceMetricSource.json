@@ -1,0 +1,19 @@
+{
+  "description": "A resource metric describing each Pod in the current scale target. The resource is known to Kubernetes as it can be specified in `requests` and `limits`. The values will be averaged together before being compared to the target. Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the '`pods`' source.  Only one `target` type should be set.",
+  "properties": {
+    "name": {
+      "description": "The name of the resource in question.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "target": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricTarget",
+      "description": "The target value for the given metric"
+    }
+  },
+  "required": [
+    "name",
+    "target"
+  ],
+  "type": "object"
+}

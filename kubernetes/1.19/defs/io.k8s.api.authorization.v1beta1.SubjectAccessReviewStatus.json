@@ -1,0 +1,25 @@
+{
+  "description": "Status of authorization test request.",
+  "properties": {
+    "allowed": {
+      "description": "Flag indicating whethre the action would be allowed.",
+      "type": "boolean"
+    },
+    "denied": {
+      "description": "Flag indicating whether the action would be denied. If both `allowed` is `false` and `denied` is `false`, then the authorizer has no opinion on whether to authorize the action. `denied` may not be `true` if `allowed` is `true`.",
+      "type": "boolean"
+    },
+    "evaluationError": {
+      "description": "An indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "This indicates why a request was allowed or denied.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "allowed"
+  ],
+  "type": "object"
+}

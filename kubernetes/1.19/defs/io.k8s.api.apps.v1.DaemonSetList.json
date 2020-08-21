@@ -1,0 +1,43 @@
+{
+  "description": "A list of daemon sets.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "apps/v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of daemon sets.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSet.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "DaemonSetList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata."
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "apps",
+      "kind": "DaemonSetList",
+      "version": "v1"
+    }
+  ]
+}

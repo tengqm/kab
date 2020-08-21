@@ -1,0 +1,47 @@
+{
+  "description": "ClusterRoleBinding represents a binding between a ClusterRole and some subjects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "rbac.authorization.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ClusterRoleBinding"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object's metadata."
+    },
+    "roleRef": {
+      "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleRef",
+      "description": "The reference to a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error. This field cannot be updated."
+    },
+    "subjects": {
+      "description": "References to the objects the ClusterRole applies to.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1.Subject"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "roleRef",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "ClusterRoleBinding",
+      "version": "v1"
+    }
+  ]
+}

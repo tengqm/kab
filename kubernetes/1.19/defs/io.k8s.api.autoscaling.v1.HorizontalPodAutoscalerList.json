@@ -1,0 +1,43 @@
+{
+  "description": "List of horizontal pod autoscaler objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "autoscaling/v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "List of horizontal pod autoscaler objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "HorizontalPodAutoscalerList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata."
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "autoscaling",
+      "kind": "HorizontalPodAutoscalerList",
+      "version": "v1"
+    }
+  ]
+}

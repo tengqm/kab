@@ -1,0 +1,54 @@
+{
+  "description": "Specification detailing how the job execution will look like and when it will actually run.",
+  "properties": {
+    "concurrencyPolicy": {
+      "default": "Allow",
+      "description": "Specifies how to treat concurrent executions of a Job. '`Allow`' means allowing CronJobs to run concurrently. '`Forbid`' means forbiding concurrent runs, skipping next run if previous run hasn't finished yet. '`Replace`' means cancelling currently running job and replaces it with a new one.",
+      "enum": [
+        "Allow",
+        "Forbid",
+        "Replace"
+      ],
+      "type": "string"
+    },
+    "failedJobsHistoryLimit": {
+      "default": 1,
+      "description": "The number of failed jobs to retain. This is a pointer to distinguish between explicit zero and not specified.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "jobTemplate": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1beta1.JobTemplateSpec",
+      "description": "Specifies the job that will be created when executing a CronJob."
+    },
+    "schedule": {
+      "description": "The schedule in Cron format,",
+      "minLength": 1,
+      "type": "string"
+    },
+    "startingDeadlineSeconds": {
+      "description": "Optional deadline in seconds for starting the job if it misses scheduled time for any reason. Missed jobs executions will be counted as failed ones.",
+      "format": "int64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "successfulJobsHistoryLimit": {
+      "default": 3,
+      "description": "The number of successful jobs to retain. This is a pointer to distinguish between explicit zero and not specified.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "suspend": {
+      "default": false,
+      "description": "This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schedule",
+    "jobTemplate"
+  ],
+  "type": "object"
+}
