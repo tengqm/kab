@@ -1,19 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path"
-)
 
-type Context struct {
-	APIS       []string
-	API        string
-	KABVersion string
-}
+	"gokab/pkg/context"
+)
 
 // Main entry of the server
 func main() {
@@ -22,10 +17,10 @@ func main() {
 
 	http.HandleFunc("/", ServeTemplate)
 
-	fmt.Println("Listening...")
+	log.Println("INFO: Listening...")
 	err := http.ListenAndServe(GetPort(), nil)
 	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
+		log.Println("ERROR: ListenAndServe: ", err)
 		return
 	}
 }
@@ -35,19 +30,15 @@ func GetPort() string {
 	var port = os.Getenv("PORT")
 	// Set a default port if there is nothing in the environment
 	if port == "" {
-		port = "4747"
-		// TODO: Better log lib
-		fmt.Println("INFO: No PORT environment variable detected, defaulting to " + port)
+		port = "8080"
+		log.Println("INFO: No PORT environment variable detected, defaulting to " + port)
 	}
 	return ":" + port
 }
 
 func ServeTemplate(w http.ResponseWriter, r *http.Request) {
-	context := Context{
-		APIS:       []string{"1.13", "1.14", "1.15", "1.16", "1.17", "1.18"},
-		API:        "1.18",
-		KABVersion: "0.1",
-	}
+
+	ctx := context.GetContext()
 
 	lp := path.Join("templates", "base.html")
 	fp := path.Join("templates", r.URL.Path)
@@ -69,10 +60,10 @@ func ServeTemplate(w http.ResponseWriter, r *http.Request) {
 
 	tmpls, err := template.ParseFiles(lp, fp)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		http.Error(w, "500 Internal Server Error", 500)
 		return
 	}
 
-	tmpls.ExecuteTemplate(w, "base", context)
+	tmpls.ExecuteTemplate(w, "base", ctx)
 }
