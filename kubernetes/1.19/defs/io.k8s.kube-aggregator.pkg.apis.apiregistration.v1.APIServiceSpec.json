@@ -4,7 +4,8 @@
     "caBundle": {
       "description": "A PEM encoded CA bundle for validating an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.",
       "format": "byte",
-      "type": "string"
+      "type": "string",
+      "x-kubernetes-list-type": "atomic"
     },
     "group": {
       "description": "The API group name this server hosts. If `group` is empty, `version` must be '`v1`'. Value must be a valid DNS subdomain.",
