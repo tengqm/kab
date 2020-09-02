@@ -1,0 +1,14 @@
+{
+  "description": "IngressBackend describes all endpoints for a given service and port.",
+  "properties": {
+    "resource": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
+      "description": "An ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, `service.name` and `service.Port` must not be specified. This is a mutually exclusive setting with \"`service`\"."
+    },
+    "service": {
+      "$ref": "#/definitions/io.k8s.api.networking.v1.IngressServiceBackend",
+      "description": "A reference to a service as a backend. This is a mutually exclusive setting with \"`resource`\"."
+    }
+  },
+  "type": "object"
+}

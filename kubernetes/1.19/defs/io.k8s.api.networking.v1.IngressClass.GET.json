@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "networking.k8s.io/v1beta1"
+        "networking.k8s.io/v1"
       ],
       "type": "string"
     },
@@ -16,12 +16,12 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
       "description": "Standard object's metadata. The name must be a valid DNS subdomain name."
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClassSpec",
-      "description": "Spec is the desired state of the IngressClass."
+      "$ref": "#/definitions/io.k8s.api.networking.v1.IngressClassSpec",
+      "description": "The desired state of the IngressClass."
     }
   },
   "required": [
@@ -33,7 +33,7 @@
     {
       "group": "networking.k8s.io",
       "kind": "IngressClass",
-      "version": "v1beta1"
+      "version": "v1"
     }
   ]
 }

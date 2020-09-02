@@ -1,43 +1,43 @@
 {
-  "description": "A list of `FlowSchema` objects.",
+  "description": "IngressClassList is a collection of IngressClasses.",
   "properties": {
     "apiVersion": {
-      "description": "The version of the schema for the object representation",
+      "description": "The version of the schema for this representation of an object.",
       "enum": [
-        "flowcontrol.apiserver.k8s.io/v1alpha1"
+        "networking.k8s.io/v1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "A list of FlowSchema objects.",
+      "description": "A list of IngressClass objects.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchema.GET"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.IngressClass.GET"
       },
       "type": "array"
     },
     "kind": {
       "description": "A string value representing the REST resource",
       "enum": [
-        "FlowSchemaList"
+        "IngressClassList"
       ],
       "type": "string"
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "The standard list metadata."
+      "description": "Standard list metadata."
     }
   },
   "required": [
     "apiVersion",
-    "kind",
-    "items"
+    "items",
+    "kind"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
     {
-      "group": "flowcontrol.apiserver.k8s.io",
-      "kind": "FlowSchemaList",
-      "version": "v1alpha1"
+      "group": "networking.k8s.io",
+      "kind": "IngressClassList",
+      "version": "v1"
     }
   ]
 }
