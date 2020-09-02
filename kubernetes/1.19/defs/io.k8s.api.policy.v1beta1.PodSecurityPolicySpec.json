@@ -7,7 +7,7 @@
       "type": "boolean"
     },
     "allowedCSIDrivers": {
-      "description": "A whitelist of inline CSI drivers that must be explicitly set to be embedded within a Pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the `CSIInlineVolume` feature gate.",
+      "description": "A whitelist of inline CSI drivers that must be explicitly set to be embedded within a Pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an beta field, and is only honored if the API server enables the `CSIInlineVolume` feature gate.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.AllowedCSIDriver"
       },
@@ -22,21 +22,21 @@
       "type": "array"
     },
     "allowedFlexVolumes": {
-      "description": "A whitelist of allowed FlexVolumes. Empty or nil indicates that all FlexVolumes may be used. This parameter is effective only when the usage of the FlexVolumes is allowed in the `volumes` field.",
+      "description": "An allowlist of FlexVolumes. Empty or nil indicates that all FlexVolumes may be used. This parameter is effective only when the usage of the FlexVolumes is allowed in the `volumes` field.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.AllowedFlexVolume"
       },
       "type": "array"
     },
     "allowedHostPaths": {
-      "description": "A white list of allowed host paths. Empty indicates that all host paths may be used.",
+      "description": "An allowlist of host paths. Empty indicates that all host paths may be used.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.AllowedHostPath"
       },
       "type": "array"
     },
     "allowedProcMountTypes": {
-      "description": "A whitelist of allowed proc mount types. Empty or nil indicates that only the \"`Default`\" may be used. This requires the `ProcMountType` feature flag to be enabled.",
+      "description": "An allowlist of proc mount types. Empty or nil indicates that only the \"`Default`\" may be used. This requires the `ProcMountType` feature flag to be enabled.",
       "items": {
         "description": "The type of proc mount to use for containers. The '`Default`' value means to use the container runtime defaults for read-only paths and masked paths.",
         "enum": [
@@ -49,7 +49,7 @@
       "type": "array"
     },
     "allowedUnsafeSysctls": {
-      "description": "A list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in \"`*`\" in which case it is considered as a prefix of allowed sysctls. Single \"`*`\" means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection. This field cannot conflict with the value of `forbiddenSysctls`.",
+      "description": "A list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in \"`*`\" in which case it is considered as a prefix of allowed sysctls. Single \"`*`\" means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection. This field cannot conflict with the value of `forbiddenSysctls`.",
       "items": {
         "description": "The name of sysctl must start with lower case character or digit and end with lower case character or digit. It can have dots ('`.`'), '`_`' and '`-`' in it.",
         "maxLength": 253,
@@ -140,7 +140,7 @@
       "description": "The strategy that dictates what supplemental groups are used by the `securityContext`."
     },
     "volumes": {
-      "description": "A white list of allowed volume plugins. Empty list indicates that no volumes may be used. To allow all volumes you may use \"`*`\".",
+      "description": "An allowlist of volume plugins. Empty list indicates that no volumes may be used. To allow all volumes you may use \"`*`\".",
       "items": {
         "type": "string"
       },
