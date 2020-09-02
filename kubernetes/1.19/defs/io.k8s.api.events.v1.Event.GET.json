@@ -2,40 +2,40 @@
   "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.",
   "properties": {
     "action": {
-      "description": "What action was taken/failed regarding to the object. It is machine-readable.",
+      "description": "What action was taken/failed regarding to the `regarding` object. It is machine-readable.",
       "maxLength": 128,
       "type": "string"
     },
     "apiVersion": {
-      "description": "The version of the schema for the representation of the object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "events.k8s.io/v1"
       ],
       "type": "string"
     },
     "deprecatedCount": {
-      "description": "The deprecated field assuring backward compatibility with core.v1 Event type.",
+      "description": "Deprecated field assuring backward compatibility with core.v1 Event type",
       "format": "int32",
       "type": "integer"
     },
     "deprecatedFirstTimestamp": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The deprecated field assuring backward compatibility with core.v1 Event type."
+      "description": "Deprecated field assuring backward compatibility with core.v1 Event type"
     },
     "deprecatedLastTimestamp": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The deprecated field assuring backward compatibility with core.v1 Event type."
+      "description": "Deprecated field assuring backward compatibility with core.v1 Event type"
     },
     "deprecatedSource": {
       "$ref": "#/definitions/io.k8s.api.core.v1.EventSource",
-      "description": "The deprecated field assuring backward compatibility with core.v1 Event type."
+      "description": "Deprecated field assuring backward compatibility with core.v1 Event type"
     },
     "eventTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
-      "description": "The time when this Event was first observed. It is required."
+      "description": "The time when this Event was first observed."
     },
     "kind": {
-      "description": "A string value representing the REST resource this object represents.",
+      "description": "A string value representing the REST resource",
       "enum": [
         "Event"
       ],
@@ -46,7 +46,7 @@
       "description": "Standard object metadata"
     },
     "note": {
-      "description": "note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.",
+      "description": "A human-readable description of the status of this operation. Maximal length of the note is 1 kB, but libraries should be prepared to handle values up to 64kB.",
       "type": "string"
     },
     "reason": {
@@ -60,7 +60,7 @@
     },
     "related": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object."
+      "description": "The optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object."
     },
     "reportingController": {
       "description": "The name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.",

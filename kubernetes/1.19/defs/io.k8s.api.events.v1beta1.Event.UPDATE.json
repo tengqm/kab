@@ -2,7 +2,8 @@
   "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.",
   "properties": {
     "action": {
-      "description": "What action was taken/failed regarding to the regarding object.",
+      "description": "What action was taken/failed regarding to the `regarding` object. It is machine-readable.",
+      "maxLength": 128,
       "type": "string"
     },
     "apiVersion": {
@@ -31,7 +32,7 @@
     },
     "eventTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
-      "description": "Time when this Event was first observed."
+      "description": "The time when this Event was first observed."
     },
     "kind": {
       "description": "A string value representing the REST resource",
@@ -49,23 +50,24 @@
       "type": "string"
     },
     "reason": {
-      "description": "Why the action was taken.",
+      "description": "Why the action was taken. It is human-readable.",
+      "maxLength": 128,
       "type": "string"
     },
     "regarding": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "The object this Event is about. In most cases it's an object the reporting controller implements."
+      "description": "The object this Event is about. In most cases it's an object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object."
     },
     "related": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "Optional secondary object for more complex actions."
+      "description": "The optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object."
     },
     "reportingController": {
-      "description": "Name of the controller that emitted this Event.",
+      "description": "The name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.",
       "type": "string"
     },
     "reportingInstance": {
-      "description": "ID of the controller instance.",
+      "description": "The ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.",
       "type": "string"
     },
     "series": {
@@ -73,14 +75,14 @@
       "description": "Data about the Event series this event represents or nil if it's a singleton Event."
     },
     "type": {
-      "description": "Type of this event.",
+      "description": "The type of this event (`Normal`, `Warning`), new types could be added in the future. It is machine-readable.",
       "type": "string"
     }
   },
   "required": [
-    "eventTime",
     "apiVersion",
-    "kind"
+    "kind",
+    "eventTime"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
