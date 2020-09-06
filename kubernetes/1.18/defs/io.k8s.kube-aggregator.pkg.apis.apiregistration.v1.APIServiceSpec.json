@@ -2,7 +2,7 @@
   "description": "Information for locating and communicating with a server. Only HTTPS is supported, though you can disable certificate verification.",
   "properties": {
     "caBundle": {
-      "description": "A PEM encoded CA bundle for validating an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.",
+      "description": "A PEM encoded CA bundle for validating an API server's serving certificate. If unspecified, system trust roots on the apiserver are used. This field cannot be specified if `service` is provided because local APIServices cannot have a CA bundle.",
       "format": "byte",
       "type": "string"
     },
@@ -18,7 +18,7 @@
       "type": "integer"
     },
     "insecureSkipTLSVerify": {
-      "description": "This flag disables TLS certificate verification. This is strongly discouraged. You should use the `caBundle` instead. If `caBundle` is specified, this field cannot be True.",
+      "description": "This flag disables TLS certificate verification. This is strongly discouraged. You should use the `caBundle` instead. If `caBundle` is specified, this field cannot be True. If `service` is not specified, this field cannot be specified because local APIServices cannot have TLS certificate verification.",
       "type": "boolean"
     },
     "service": {
