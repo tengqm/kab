@@ -1,0 +1,626 @@
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.AuditSink.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.AuditSinkList.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.AuditSinkSpec.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.Policy.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.ServiceReference.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.Webhook.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.WebhookClientConfig.json
+# Only in 1.18orig/defs: io.k8s.api.auditregistration.v1alpha1.WebhookThrottleConfig.json
+# 
+# Only in 1.19orig/defs: io.k8s.api.core.v1.EphemeralVolumeSource.json
+# Only in 1.19orig/defs: io.k8s.api.certificates.v1.CertificateSigningRequest.json
+# Only in 1.19orig/defs: io.k8s.api.certificates.v1.CertificateSigningRequestCondition.json
+# Only in 1.19orig/defs: io.k8s.api.certificates.v1.CertificateSigningRequestList.json
+# Only in 1.19orig/defs: io.k8s.api.certificates.v1.CertificateSigningRequestSpec.json
+# Only in 1.19orig/defs: io.k8s.api.certificates.v1.CertificateSigningRequestStatus.json
+# Only in 1.19orig/defs: io.k8s.api.core.v1.PersistentVolumeClaimTemplate.json
+# Only in 1.19orig/defs: io.k8s.api.core.v1.SeccompProfile.json
+# Only in 1.19orig/defs: io.k8s.api.events.v1.Event.json
+# Only in 1.19orig/defs: io.k8s.api.events.v1.EventList.json
+# Only in 1.19orig/defs: io.k8s.api.events.v1.EventSeries.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.HTTPIngressPath.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.HTTPIngressRuleValue.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.Ingress.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressBackend.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressClass.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressClassList.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressClassSpec.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressList.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressRule.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressServiceBackend.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.ServiceBackendPort.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressSpec.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressStatus.json
+# Only in 1.19orig/defs: io.k8s.api.networking.v1.IngressTLS.json
+
+# diff -r 1.18orig/defs/io.k8s.api.admissionregistration.v1.RuleWithOperations.json 1.19orig/defs/io.k8s.api.admissionregistration.v1.RuleWithOperations.json
+# 19c19
+# <       "description": "Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.",
+# ---
+# >       "description": "Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.",
+# diff -r 1.18orig/defs/io.k8s.api.admissionregistration.v1beta1.RuleWithOperations.json 1.19orig/defs/io.k8s.api.admissionregistration.v1beta1.RuleWithOperations.json
+# 19c19
+# <       "description": "Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.",
+# ---
+# >       "description": "Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.",
+# diff -r 1.18orig/defs/io.k8s.api.certificates.v1beta1.CertificateSigningRequestCondition.json 1.19orig/defs/io.k8s.api.certificates.v1beta1.CertificateSigningRequestCondition.json
+# 2a3,6
+# >     "lastTransitionTime": {
+# >       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+# >       "description": "lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time."
+# >     },
+# 14a19,22
+# >     "status": {
+# >       "description": "Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be \"False\" or \"Unknown\". Defaults to \"True\". If unset, should be treated as \"True\".",
+# >       "type": "string"
+# >     },
+# 16c24
+# <       "description": "request approval state, currently Approved or Denied.",
+# ---
+# >       "description": "type of the condition. Known conditions include \"Approved\", \"Denied\", and \"Failed\".",
+# 
+# diff -r 1.18orig/defs/io.k8s.api.certificates.v1beta1.CertificateSigningRequestSpec.json 1.19orig/defs/io.k8s.api.certificates.v1beta1.CertificateSigningRequestSpec.json
+# 19c19,20
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+# 24c25,26
+# <       "type": "string"
+# ---
+# >       "type": "string",
+# >       "x-kubernetes-list-type": "atomic"
+# 35c37
+# <       "description": "allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3\n     https://tools.ietf.org/html/rfc5280#section-4.2.1.12",
+# ---
+# >       "description": "allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3\n     https://tools.ietf.org/html/rfc5280#section-4.2.1.12\nValid values are:\n \"signing\",\n \"digital signature\",\n \"content commitment\",\n \"key encipherment\",\n \"key agreement\",\n \"data encipherment\",\n \"cert sign\",\n \"crl sign\",\n \"encipher only\",\n \"decipher only\",\n \"any\",\n \"server auth\",\n \"client auth\",\n \"code signing\",\n \"email protection\",\n \"s/mime\",\n \"ipsec end system\",\n \"ipsec tunnel\",\n \"ipsec user\",\n \"timestamping\",\n \"ocsp signing\",\n \"microsoft sgc\",\n \"netscape sgc\"",
+# 39c41,42
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+# diff -r 1.18orig/defs/io.k8s.api.certificates.v1beta1.CertificateSigningRequestStatus.json 1.19orig/defs/io.k8s.api.certificates.v1beta1.CertificateSigningRequestStatus.json
+# 6c6,7
+# <       "type": "string"
+# ---
+# >       "type": "string",
+# >       "x-kubernetes-list-type": "atomic"
+# 13c14,18
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "type"
+# >       ],
+# >       "x-kubernetes-list-type": "map"
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ComponentStatus.json 1.19orig/defs/io.k8s.api.core.v1.ComponentStatus.json
+# 2c2
+# <   "description": "ComponentStatus (and ComponentStatusList) holds the cluster validation info.",
+# ---
+# >   "description": "ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ComponentStatusList.json 1.19orig/defs/io.k8s.api.core.v1.ComponentStatusList.json
+# 2c2
+# <   "description": "Status of all the conditions for the component as a list of ComponentStatus objects.",
+# ---
+# >   "description": "Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+",
+# 
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ConfigMap.json 1.19orig/defs/io.k8s.api.core.v1.ConfigMap.json
+# 27c27
+# <       "description": "Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.",
+# ---
+# >       "description": "Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ConfigMapVolumeSource.json 1.19orig/defs/io.k8s.api.core.v1.ConfigMapVolumeSource.json
+# 5c5
+# <       "description": "Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# ---
+# >       "description": "Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.DownwardAPIVolumeFile.json 1.19orig/defs/io.k8s.api.core.v1.DownwardAPIVolumeFile.json
+# 9c9
+# <       "description": "Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# ---
+# >       "description": "Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.DownwardAPIVolumeSource.json 1.19orig/defs/io.k8s.api.core.v1.DownwardAPIVolumeSource.json
+# 5c5
+# <       "description": "Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# ---
+# >       "description": "Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.EndpointPort.json 1.19orig/defs/io.k8s.api.core.v1.EndpointPort.json
+# 5c5
+# <       "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.",
+# ---
+# >       "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.EnvVarSource.json 1.19orig/defs/io.k8s.api.core.v1.EnvVarSource.json
+# 10c10
+# <       "description": "Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs."
+# ---
+# >       "description": "Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs."
+
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.EventSeries.json 1.19orig/defs/io.k8s.api.core.v1.EventSeries.json
+# 12,15d11
+# <     },
+# <     "state": {
+# <       "description": "State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18",
+# <       "type": "string"
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.KeyToPath.json 1.19orig/defs/io.k8s.api.core.v1.KeyToPath.json
+# 9c9
+# <       "description": "Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# ---
+# >       "description": "Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.NodeSystemInfo.json 1.19orig/defs/io.k8s.api.core.v1.NodeSystemInfo.json
+# 41c41
+# <       "description": "SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-US/Red_Hat_Subscription_Management/1/html/RHSM/getting-system-uuid.html",
+# ---
+# >       "description": "SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.PodSecurityContext.json 1.19orig/defs/io.k8s.api.core.v1.PodSecurityContext.json
+# 30a31,34
+# >     "seccompProfile": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.SeccompProfile",
+# >       "description": "The seccomp options to use by the containers in this pod."
+# >     },
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.PodSpec.json 1.19orig/defs/io.k8s.api.core.v1.PodSpec.json
+# 109c109
+# <       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.",
+# ---
+# >       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.",
+# 151a152,155
+# >     "setHostnameAsFQDN": {
+# >       "description": "If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.",
+# >       "type": "boolean"
+# >     },
+# 173c177
+# <       "description": "TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. This field is only honored by clusters that enable the EvenPodsSpread feature. All topologySpreadConstraints are ANDed.",
+# ---
+# >       "description": "TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ProjectedVolumeSource.json 1.19orig/defs/io.k8s.api.core.v1.ProjectedVolumeSource.json
+# 5c5
+# <       "description": "Mode bits to use on created files by default. Must be a value between 0 and 0777. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# ---
+# >       "description": "Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.Secret.json 1.19orig/defs/io.k8s.api.core.v1.Secret.json
+# 20c20
+# <       "description": "Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is an alpha field enabled by ImmutableEphemeralVolumes feature gate.",
+# ---
+# >       "description": "Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.SecretVolumeSource.json 1.19orig/defs/io.k8s.api.core.v1.SecretVolumeSource.json
+# 5c5
+# <       "description": "Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# ---
+# >       "description": "Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.SecurityContext.json 1.19orig/defs/io.k8s.api.core.v1.SecurityContext.json
+# 41a42,45
+# >     "seccompProfile": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.SeccompProfile",
+# >       "description": "The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options."
+# >     },
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ServicePort.json 1.19orig/defs/io.k8s.api.core.v1.ServicePort.json
+# 5c5
+# <       "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. Field can be enabled with ServiceAppProtocol feature gate.",
+# ---
+# >       "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.",
+
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.ServiceSpec.json 1.19orig/defs/io.k8s.api.core.v1.ServiceSpec.json
+# 29c29
+# <       "description": "ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.",
+# ---
+# >       "description": "ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values \"IPv4\" and \"IPv6\"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)",
+# 58c58
+# <       "description": "publishNotReadyAddresses, when set to true, indicates that DNS implementations must publish the notReadyAddresses of subsets for the Endpoints associated with the Service. The default value is false. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate SRV records for its Pods without respect to their readiness for purpose of peer discovery.",
+# ---
+# >       "description": "publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered \"ready\" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.",
+# 
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.TopologySpreadConstraint.json 1.19orig/defs/io.k8s.api.core.v1.TopologySpreadConstraint.json
+# 9c9
+# <       "description": "MaxSkew describes the degree to which pods may be unevenly distributed. It's the maximum permitted difference between the number of matching pods in any two topology domains of a given topology type. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. It's a required field. Default value is 1 and 0 is not allowed.",
+# ---
+# >       "description": "MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.",
+# 18c18
+# <       "description": "WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it - ScheduleAnyway tells the scheduler to still schedule it It's considered as \"Unsatisfiable\" if and only if placing incoming pod on any topology violates \"MaxSkew\". For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.",
+# ---
+# >       "description": "WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,\n  but giving higher precedence to topologies that would help reduce the\n  skew.\nA constraint is considered \"Unsatisfiable\" for an incoming pod if and only if every possible node assigment for that pod would violate \"MaxSkew\" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.",
+
+# diff -r 1.18orig/defs/io.k8s.api.core.v1.Volume.json 1.19orig/defs/io.k8s.api.core.v1.Volume.json
+# 30c30
+# <       "description": "CSI (Container Storage Interface) represents storage that is handled by an external CSI driver (Alpha feature)."
+# ---
+# >       "description": "CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature)."
+# 39a40,43
+# >     "ephemeral": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource",
+# >       "description": "Ephemeral represents a volume that is handled by a cluster storage driver (Alpha feature). The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.\n\nUse this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity\n   tracking are needed,\nc) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through\n   a PersistentVolumeClaim (see EphemeralVolumeSource for more\n   information on the connection between this volume type\n   and PersistentVolumeClaim).\n\nUse PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.\n\nUse CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.\n\nA pod can use both types of ephemeral volumes and persistent volumes at the same time."
+# >     },
+# diff -r 1.18orig/defs/io.k8s.api.discovery.v1beta1.EndpointSliceList.json 1.19orig/defs/io.k8s.api.discovery.v1beta1.EndpointSliceList.json
+# 16,17c16
+# <       "type": "array",
+# <       "x-kubernetes-list-type": "set"
+# ---
+# >       "type": "array"
+
+# diff -r 1.18orig/defs/io.k8s.api.events.v1beta1.Event.json 1.19orig/defs/io.k8s.api.events.v1beta1.Event.json
+# 5c5
+# <       "description": "What action was taken/failed regarding to the regarding object.",
+# ---
+# >       "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.",
+# 16c16
+# <       "description": "Deprecated field assuring backward compatibility with core.v1 Event type",
+# ---
+# >       "description": "deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.",
+# 22c22
+# <       "description": "Deprecated field assuring backward compatibility with core.v1 Event type"
+# ---
+# >       "description": "deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type."
+# 26c26
+# <       "description": "Deprecated field assuring backward compatibility with core.v1 Event type"
+# ---
+# >       "description": "deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type."
+# 30c30
+# <       "description": "Deprecated field assuring backward compatibility with core.v1 Event type"
+# ---
+# >       "description": "deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type."
+# 34c34
+# <       "description": "Required. Time when this Event was first observed."
+# ---
+# >       "description": "eventTime is the time when this Event was first observed. It is required."
+# 47c47
+# <       "description": "Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.",
+# ---
+# >       "description": "note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.",
+# 51c51
+# <       "description": "Why the action was taken.",
+# ---
+# >       "description": "reason is why the action was taken. It is human-readable. This field can have at most 128 characters.",
+# 56c56
+# <       "description": "The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object."
+# ---
+# >       "description": "regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object."
+# 60c60
+# <       "description": "Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object."
+# ---
+# >       "description": "related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object."
+# 63c63
+# <       "description": "Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.",
+# ---
+# >       "description": "reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.",
+# 67c67
+# <       "description": "ID of the controller instance, e.g. `kubelet-xyzf`.",
+# ---
+# >       "description": "reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.",
+# 72c72
+# <       "description": "Data about the Event series this event represents or nil if it's a singleton Event."
+# ---
+# >       "description": "series is data about the Event series this event represents or nil if it's a singleton Event."
+# 75c75
+# <       "description": "Type of this event (Normal, Warning), new types could be added in the future.",
+# ---
+# >       "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.",
+# diff -r 1.18orig/defs/io.k8s.api.events.v1beta1.EventList.json 1.19orig/defs/io.k8s.api.events.v1beta1.EventList.json
+# 12c12
+# <       "description": "Items is a list of schema objects.",
+# ---
+# >       "description": "items is a list of schema objects.",
+# diff -r 1.18orig/defs/io.k8s.api.events.v1beta1.EventSeries.json 1.19orig/defs/io.k8s.api.events.v1beta1.EventSeries.json
+# 5c5
+# <       "description": "Number of occurrences in this series up to the last heartbeat time",
+# ---
+# >       "description": "count is the number of occurrences in this series up to the last heartbeat time.",
+# 11,15c11
+# <       "description": "Time when last Event from the series was seen before last heartbeat."
+# <     },
+# <     "state": {
+# <       "description": "Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18",
+# <       "type": "string"
+# ---
+# >       "description": "lastObservedTime is the time when last Event from the series was seen before last heartbeat."
+# 20,21c16
+# <     "lastObservedTime",
+# <     "state"
+# ---
+# >     "lastObservedTime"
+# diff -r 1.18orig/defs/io.k8s.api.flowcontrol.v1alpha1.FlowSchema.json 1.19orig/defs/io.k8s.api.flowcontrol.v1alpha1.FlowSchema.json
+# 20c20
+# <       "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
+# ---
+# >       "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+# 24c24
+# <       "description": "`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status"
+# ---
+# >       "description": "`spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+# 28c28
+# <       "description": "`status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status"
+# ---
+# >       "description": "`status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+# diff -r 1.18orig/defs/io.k8s.api.flowcontrol.v1alpha1.FlowSchemaList.json 1.19orig/defs/io.k8s.api.flowcontrol.v1alpha1.FlowSchemaList.json
+# 16,17c16
+# <       "type": "array",
+# <       "x-kubernetes-list-type": "atomic"
+# ---
+# >       "type": "array"
+# 28c27
+# <       "description": "`metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
+# ---
+# >       "description": "`metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+# diff -r 1.18orig/defs/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration.json 1.19orig/defs/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration.json
+# 20c20
+# <       "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
+# ---
+# >       "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+# 24c24
+# <       "description": "`spec` is the specification of the desired behavior of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status"
+# ---
+# >       "description": "`spec` is the specification of the desired behavior of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+# 28c28
+# <       "description": "`status` is the current status of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status"
+# ---
+# >       "description": "`status` is the current status of a \"request-priority\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+# diff -r 1.18orig/defs/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationList.json 1.19orig/defs/io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationList.json
+# 16,17c16
+# <       "type": "array",
+# <       "x-kubernetes-list-type": "atomic"
+# ---
+# >       "type": "array"
+# 28c27
+# <       "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata"
+# ---
+# >       "description": "`metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+# diff -r 1.18orig/defs/io.k8s.api.networking.v1.NetworkPolicyPeer.json 1.19orig/defs/io.k8s.api.networking.v1.NetworkPolicyPeer.json
+# 2c2
+# <   "description": "NetworkPolicyPeer describes a peer to allow traffic from. Only certain combinations of fields are allowed",
+# ---
+# >   "description": "NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed",
+
+# diff -r 1.18orig/defs/io.k8s.api.networking.v1beta1.IngressClassList.json 1.19orig/defs/io.k8s.api.networking.v1beta1.IngressClassList.json
+# 16,17c16
+# <       "type": "array",
+# <       "x-kubernetes-list-type": "set"
+# ---
+# >       "type": "array"
+# diff -r 1.18orig/defs/io.k8s.api.policy.v1beta1.PodSecurityPolicySpec.json 1.19orig/defs/io.k8s.api.policy.v1beta1.PodSecurityPolicySpec.json
+# 9c9
+# <       "description": "AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.",
+# ---
+# >       "description": "AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.",
+# 23c23
+# <       "description": "allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the \"volumes\" field.",
+# ---
+# >       "description": "allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the \"volumes\" field.",
+# 30c30
+# <       "description": "allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.",
+# ---
+# >       "description": "allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.",
+# 37c37
+# <       "description": "AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.",
+# ---
+# >       "description": "AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.",
+# 44c44
+# <       "description": "allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in \"*\" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.\n\nExamples: e.g. \"foo/*\" allows \"foo/bar\", \"foo/baz\", etc. e.g. \"foo.*\" allows \"foo.bar\", \"foo.baz\", etc.",
+# ---
+# >       "description": "allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in \"*\" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.\n\nExamples: e.g. \"foo/*\" allows \"foo/bar\", \"foo/baz\", etc. e.g. \"foo.*\" allows \"foo.bar\", \"foo.baz\", etc.",
+# 127c127
+# <       "description": "volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.",
+# ---
+# >       "description": "volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.",
+# diff -r 1.18orig/defs/io.k8s.api.policy.v1beta1.RuntimeClassStrategyOptions.json 1.19orig/defs/io.k8s.api.policy.v1beta1.RuntimeClassStrategyOptions.json
+# 5c5
+# <       "description": "allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of \"*\" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.",
+# ---
+# >       "description": "allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of \"*\" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.",
+
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRole.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRole.json
+# 2c2
+# <   "description": "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRoleBinding.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRoleBinding.json
+# 2c2
+# <   "description": "ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRoleBindingList.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRoleBindingList.json
+# 2c2
+# <   "description": "ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindings, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRoleList.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.ClusterRoleList.json
+# 2c2
+# <   "description": "ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.22.",
+
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.Role.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.Role.json
+# 2c2
+# <   "description": "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.",
+# ---
+# >   "description": "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.RoleBinding.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.RoleBinding.json
+# 2c2
+# <   "description": "RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.",
+# ---
+# >   "description": "RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.RoleBindingList.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.RoleBindingList.json
+# 2c2
+# <   "description": "RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.",
+# ---
+# >   "description": "RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1alpha1.RoleList.json 1.19orig/defs/io.k8s.api.rbac.v1alpha1.RoleList.json
+# 2c2
+# <   "description": "RoleList is a collection of Roles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.",
+# ---
+# >   "description": "RoleList is a collection of Roles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.ClusterRole.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.ClusterRole.json
+# 2c2
+# <   "description": "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.ClusterRoleBinding.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.ClusterRoleBinding.json
+# 2c2
+# <   "description": "ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.ClusterRoleBindingList.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.ClusterRoleBindingList.json
+# 2c2
+# <   "description": "ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.ClusterRoleList.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.ClusterRoleList.json
+# 2c2
+# <   "description": "ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.",
+# ---
+# >   "description": "ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.Role.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.Role.json
+# 2c2
+# <   "description": "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.20.",
+# ---
+# >   "description": "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.RoleBinding.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.RoleBinding.json
+# 2c2
+# <   "description": "RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.",
+# ---
+# >   "description": "RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.RoleBindingList.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.RoleBindingList.json
+# 2c2
+# <   "description": "RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.",
+# ---
+# >   "description": "RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.rbac.v1beta1.RoleList.json 1.19orig/defs/io.k8s.api.rbac.v1beta1.RoleList.json
+# 2c2
+# <   "description": "RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.",
+# ---
+# >   "description": "RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.22.",
+# diff -r 1.18orig/defs/io.k8s.api.scheduling.v1.PriorityClass.json 1.19orig/defs/io.k8s.api.scheduling.v1.PriorityClass.json
+# 31c31
+# <       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.",
+# ---
+# >       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.",
+# diff -r 1.18orig/defs/io.k8s.api.scheduling.v1alpha1.PriorityClass.json 1.19orig/defs/io.k8s.api.scheduling.v1alpha1.PriorityClass.json
+# 31c31
+# <       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.",
+# ---
+# >       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.",
+# diff -r 1.18orig/defs/io.k8s.api.scheduling.v1beta1.PriorityClass.json 1.19orig/defs/io.k8s.api.scheduling.v1beta1.PriorityClass.json
+# 31c31
+# <       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.",
+# ---
+# >       "description": "PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.",
+# diff -r 1.18orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json 1.19orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json
+# 7a8,11
+# >     "fsGroupPolicy": {
+# >       "description": "Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.",
+# >       "type": "string"
+# >     },
+# 11a16,19
+# >     "storageCapacity": {
+# >       "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.",
+# >       "type": "boolean"
+# >     },
+# diff -r 1.18orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json 1.19orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json
+# 7a8,11
+# >     "fsGroupPolicy": {
+# >       "description": "Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.",
+# >       "type": "string"
+# >     },
+# 11a16,19
+# >     "storageCapacity": {
+# >       "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.",
+# >       "type": "boolean"
+# >     },
+
+# diff -r 1.18orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionVersion.json 1.19orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionVersion.json
+# 10a11,18
+# >     "deprecated": {
+# >       "description": "deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.",
+# >       "type": "boolean"
+# >     },
+# >     "deprecationWarning": {
+# >       "description": "deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.",
+# >       "type": "string"
+# >     },
+# diff -r 1.18orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.json 1.19orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.json
+# 2c2
+# <   "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
+# ---
+# >   "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
+# diff -r 1.18orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion.json 1.19orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion.json
+# 10a11,18
+# >     "deprecated": {
+# >       "description": "deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.",
+# >       "type": "boolean"
+# >     },
+# >     "deprecationWarning": {
+# >       "description": "deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.",
+# >       "type": "string"
+# >     },
+# diff -r 1.18orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+# 100,104d99
+# <       "group": "auditregistration.k8s.io",
+# <       "kind": "DeleteOptions",
+# <       "version": "v1alpha1"
+# <     },
+# <     {
+# 156a152,156
+# >       "version": "v1"
+# >     },
+# >     {
+# >       "group": "certificates.k8s.io",
+# >       "kind": "DeleteOptions",
+# 181a182,186
+# >       "version": "v1"
+# >     },
+# >     {
+# >       "group": "events.k8s.io",
+# >       "kind": "DeleteOptions",
+
+# diff -r 1.18orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.json 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.json
+# 64c64
+# <       "description": "Namespace defines the space within each name must be unique. An empty namespace is equivalent to the \"default\" namespace, but \"default\" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.\n\nMust be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces",
+# ---
+# >       "description": "Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the \"default\" namespace, but \"default\" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.\n\nMust be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces",
+# diff -r 1.18orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
+# 79,83d78
+# <       "group": "auditregistration.k8s.io",
+# <       "kind": "WatchEvent",
+# <       "version": "v1alpha1"
+# <     },
+# <     {
+# 135a131,135
+# >       "version": "v1"
+# >     },
+# >     {
+# >       "group": "certificates.k8s.io",
+# >       "kind": "WatchEvent",
+# 160a161,165
+# >       "version": "v1"
+# >     },
+# >     {
+# >       "group": "events.k8s.io",
+# >       "kind": "WatchEvent",
+# diff -r 1.18orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceSpec.json 1.19orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceSpec.json
+# 7c7,8
+# <       "type": "string"
+# ---
+# >       "type": "string",
+# >       "x-kubernetes-list-type": "atomic"
+# 24c25
+# <       "description": "Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled."
+# ---
+# >       "description": "Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled."
+# diff -r 1.18orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceStatus.json 1.19orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceStatus.json
+# 9a10,13
+# >       "x-kubernetes-list-map-keys": [
+# >         "type"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# diff -r 1.18orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec.json 1.19orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec.json
+# 7c7,8
+# <       "type": "string"
+# ---
+# >       "type": "string",
+# >       "x-kubernetes-list-type": "atomic"
+# 24c25
+# <       "description": "Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled."
+# ---
+# >       "description": "Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled."
+# diff -r 1.18orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceStatus.json 1.19orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceStatus.json
+# 9a10,13
+# >       "x-kubernetes-list-map-keys": [
+# >         "type"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
