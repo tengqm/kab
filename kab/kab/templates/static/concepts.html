@@ -1,0 +1,204 @@
+
+<H2>Overview</H2>
+
+The REST API is the fundamental fabric of Kubernetes, exposed by the API server.
+You can use the <code>kubectl</code> command line interface to invoke the API
+and you can use other tools as well. There are
+<a href="https://kubernetes.io/docs/reference/using-api/client-libraries/">client libraries</a>
+to use if you are writing applications to invoke the API.
+
+<H2>The OpenAPI Specification</H2>
+
+The official API specification is generated in the
+<a href="https://www.openapis.org/">OpenAPI V2</a>
+format from the Go source code.
+
+
+<H2>API Groups and Versioning</H2>
+
+Kubernetes supports multiple API versions, each at a different API path, such
+as <code>/api/v1</code> or <code>/apis/rbac.authorization.k8s.io/v1alpha1</code>.
+
+<H3>API Group</H3>
+
+API groups make it easier to extend the Kubernetes API. The API group is
+specified in a REST path and in the <code>apiVersion</code> field of a
+serialized object.
+
+There are several API groups in Kubernetes:
+
+<ul>
+  <li>The <code>core</code> (also called <code>legacy</code>) group is found
+    at REST path <code>/api/v1</code>. The <code>core</code> group is not
+    specified as part of the <code>apiVersion</code> field, for example,
+    <code>apiVersion: v1</code>.
+  </li>
+  <li>The named groups are at REST path <code>/apis/$GROUP_NAME/$VERSION</code>
+    and use <code>apiVersion: $GROUP_NAME/$VERSION</code>
+    (for example, <code>apiVersion: batch/v1</code>).
+  </li>
+</ul>
+
+<B>TODO</B> List of API Groups
+
+<H4>Enabling/Disabling API Groups</H4>
+
+<p>Certain Resources and API groups are enabled by default. You can enable or
+disable them by setting <code>--runtime-config</code> on the API server.
+The <code>--runtime-config</code> flag accepts comma separated
+<code>&lt;key&gt;[=&lt;value&gt;]</code> pairs describing the runtime
+configuration of the API server. If the <code>=value&gt;</code> part is
+omitted, it is treated as if <code>=true</code> is specified.
+For example:
+</p>
+
+<ul>
+  <li>to disable <code>batch/v1</code>, set <code>--runtime-config=batch/v1=false</code>;
+  </li>
+  <li>to enable <code>batch/v2alpha1</code>, set <code>--runtime-config=batch/v2alpha1</code>
+  </li>
+</ul>
+
+<p>
+Note: When you enable or disable groups or resources, you need to restart the
+API server and controller manager to pick up the <code>--runtime-config</code>
+changes.
+</p>
+
+<H3>API Resources</H3>
+
+API resources are distinguished by their API group, resource type, namespace
+(for namespaced resources), and name. The API server may serve the same
+underlying data through multiple API versions and handle the conversion between
+API versions transparently. All these different versions are actually representations
+of the same resource.
+
+For example, suppose there are two versions <code>v1</code> and <code>v1beta1</code>
+for the same resource. An object created by the <code>v1beta1</code> version
+can then be read, updated, and deleted by either the <code>v1beta1</code> or
+the <code>v1</code> versions.
+
+<H3>API Versions</H3>
+
+Versioning is done at the API group level rather than at the resource or field
+level to ensure that the API presents a clear, consistent view of system resources
+and behavior, and to enable controlling access to end-of-life and/or
+experimental APIs.
+
+The JSON and Protobuf serialization schemas follow the same guidelines for
+schema changes. The following descriptions cover both formats.
+
+The API versioning and software versioning are indirectly related. The
+<a href="https://git.k8s.io/community/contributors/design-proposals/release/versioning.md">
+  API and release versioning proposal</a> describes the relationship between
+API versioning and software versioning.
+
+Different API versions indicate different levels of stability and support. You
+can find more information about the criteria for each level in the
+<a href="">API Changes</a> documentation.
+
+Here's a summary of each level:
+
+<ul>
+  <li><B>Alpha</B>:
+    <ul>
+      <li>The version names contain alpha (for example, v1alpha1).</li>
+      <li>The software may contain bugs. Enabling a feature may expose bugs. A feature may be disabled by default.</li>
+      <li>The support for a feature may be dropped at any time without notice.</li>
+      <li>The API may change in incompatible ways in a later software release without notice.</li>
+      <li>The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and
+        lack of long-term support.</li>
+    </ul>
+  </li>
+  <li><B>Beta</B>:
+    <ul>
+      <li>The version names contain beta (for example, <tt>v2beta3</tt>).
+      </li>
+      <li>The software is well tested. Enabling a feature is considered safe.
+        Features are enabled by default.
+      </li>
+      <li>The support for a feature will not be dropped, though the details may change.
+      </li>
+      <li>The schema and/or semantics of objects may change in incompatible
+        ways in a subsequent beta or stable release. When this happens,
+        migration instructions are provided. Schema changes may require
+        deleting, editing, and re-creating API objects. The editing process
+        may not be straightforward. The migration may require downtime for
+        applications that rely on the feature.
+      </li>
+      <li>The feature is not recommended for production uses. Subsequent
+        releases may introduce incompatible changes. If you have multiple
+        clusters which can be upgraded independently, you may be able to relax
+        this restriction.
+      </li>
+    </ul>
+  </li>
+  <li><B>Stable/GA</B>:
+    <ul>
+      <li>The version name is vX where X is an integer.
+      </li>
+      <li>The stable versions of features appear in released software for many
+        subsequent versions.
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<H2>Invocation</H2>
+
+<H3>Request Format</H3>
+
+Requests sent to the API server can be encoded in one of the following formats:
+
+<ul>
+  <li><code>application/json</code>
+    Request payload is encoded in JSON format.
+  </li>
+  <li><code>application/yaml</code>
+    Request payload is encoded in YAML.
+  </li>
+  <li><code>application/vnd.kubernetes.protobuf</code>
+    Request payload is encoded in
+    <a href="https://developers.google.com/protocol-buffers">protocol buffers</a> format.
+  </li>
+</ul>
+
+<H3>Specifying the Response Encoding</H3>
+
+You can customize the response format by specifying the following HTTP request
+headers.
+
+<ul>
+  <li><code>Accept-Encoding</code>
+    The accepted value is "<tt>gzip</tt>". It is acceptable to omit this header.
+  </li>
+  <li><code>Accept</code>
+    The valid values can be one of:
+    <ul>
+      <li><code>application/com.github.proto-openapi.spec.v2@v1.0+protobuf</code>
+        This is mainly used for intra-cluster communnications.
+      </li>
+      <li><code>application/json</code>
+        This is the default value indicating that the server response is expecected
+        to be JSON data.
+      </li>
+      <li><code>application/json;stream=watch</code>
+        The server response is expecected to be JSON data stream for watch operations.
+      </li>
+      <li><code>application/yaml</code>
+        The server response are encoded in YAML format.
+      </li>
+      <li><code>application/vnd.kubernetes.protobuf</code>
+        The server response are encoded in 
+        <a href="https://developers.google.com/protocol-buffers">protocol buffers</a> format.
+      </li>
+      <li><code>application/vnd.kubernetes.protobuf;stream=watch</code>
+        The same as <code>application/vnd.kubernetes.protobuf</code> except that
+        the response will be an stream.
+      </li>
+      <li><code>*</code>
+        The server response is encoded in "<tt>application/json</tt>".
+      </li>
+    </ul>
+  </li>
+</ul>

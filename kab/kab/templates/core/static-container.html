@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load core_tags %}
+
+{% block title %}
+  <title>{{ TITLE }}</title>
+<style type="text/css">
+p {
+  margin-left: 8pt
+}
+</style>
+{% endblock %}
+
+{% block main_content %}
+{% include CONTENT %}
+{% endblock %}

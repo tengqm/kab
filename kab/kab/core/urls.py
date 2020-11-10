@@ -1,4 +1,5 @@
 
+from django.conf import settings
 from django.conf import urls
 from django.views import generic
 
@@ -8,6 +9,9 @@ urlpatterns = [
     urls.url(r'^$', views.home, name='home'),
 
     urls.url(r'^apis/apis/$', views.ListAPIs.as_view(), name='list-apis'),
+    urls.url(r'^page/(?P<page>[^\/\s]*)/$',
+             views.StaticPage.as_view(),
+             name='static-page'),
     urls.url(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListResources.as_view(),
              name='list-resources'),

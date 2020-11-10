@@ -3,8 +3,10 @@ import collections
 import copy
 import json
 import logging
+import os
 from urllib import parse
 
+from django.conf import settings
 from django.core import exceptions as exc
 from django import http
 from django import shortcuts
@@ -480,3 +482,33 @@ class ExportManifest(generic.View):
         fn = "{}-sample.{}".format(kind, fmt)
         resp['Content-Disposition'] = 'attachment; filename="%s"' % fn
         return resp
+
+
+class StaticPage(generic.View):
+
+    def get(self, req, *args, **kwargs):
+        page = kwargs.get("page", "")
+        if page == "":
+            target = urls.reverse("list-apis")
+            return http.HttpResponseRedirect(target)
+
+        path = os.path.join(settings.BASE_DIR, "kab", "templates", "static",
+                            page)
+        if not os.path.exists(path) or not os.path.isfile(path):
+            target = urls.reverse("list-apis")
+            return http.HttpResponseRedirect(target)
+
+        # content = ""
+        # with open(path, "r") as f:
+        #     try:
+        #         content = f.read()
+        #     except Exception as ex:
+        #         LOG.warning("page %s not found", page)
+        #         target = urls.reverse("list-apis")
+        #         return http.HttpResponseRedirect(target)
+
+        ctx = {
+            "TITLE": "Title",
+            "CONTENT": "static/" + page,
+        }
+        return shortcuts.render(req, 'core/static-container.html', ctx)
