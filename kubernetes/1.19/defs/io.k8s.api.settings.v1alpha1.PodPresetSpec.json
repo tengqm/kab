@@ -17,7 +17,7 @@
     },
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "A label query over a set of resources, in this case pods."
+      "description": "A label query over a set of resources, in this case pods. Defaule value is `{}`."
     },
     "volumeMounts": {
       "description": "The collection of VolumeMount to inject into containers.",
@@ -35,7 +35,7 @@
     }
   },
   "required": [
-    "selector"
+    "volumes"
   ],
   "type": "object"
 }

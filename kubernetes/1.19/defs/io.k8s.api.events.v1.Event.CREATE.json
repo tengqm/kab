@@ -77,13 +77,24 @@
     },
     "type": {
       "description": "The type of this event (`Normal`, `Warning`), new types could be added in the future. It is machine-readable.",
+      "enum": [
+        "Normal",
+        "Warning"
+      ],
       "type": "string"
     }
   },
   "required": [
+    "action",
     "apiVersion",
+    "eventTime",
     "kind",
-    "eventTime"
+    "metadata",
+    "reason",
+    "regarding",
+    "reportingController",
+    "reportingInstance",
+    "type"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

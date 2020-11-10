@@ -1,5 +1,5 @@
 {
-  "description": "A named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.",
+  "description": "A named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which Pods will answer requests sent through the proxy.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata. The service name must be valid DNS label. The annotation `service.beta.kubernetes.io/load-balancer-source-ranges` can be set to specify the ingress range allowed. The value should e a comma separated list of CIRDs. Default value is `0.0.0.0/0` which allows full access. Not all cloud-providers support this annotation."
+      "description": "Standard object's metadata. The service name must be valid DNS label. The annotation `service.beta.kubernetes.io/load-balancer-source-ranges` can be set to specify the Ingress range allowed when service type is \"`LoadBalancer`\". The value should be a comma separated list of CIDRs. Default value is \"`0.0.0.0/0`\" which allows full access. Not all cloud-providers support this annotation."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ServiceSpec.CREATE",
@@ -26,7 +26,8 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

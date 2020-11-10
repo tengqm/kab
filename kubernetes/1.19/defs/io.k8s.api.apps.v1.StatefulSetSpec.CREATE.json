@@ -34,7 +34,7 @@
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
-      "description": "The object describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet."
+      "description": "The object describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet. Currently only check if the `metadata.labels` are set."
     },
     "updateStrategy": {
       "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",

@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object's metadata. The name of a Node must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSpec",
@@ -30,7 +30,8 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

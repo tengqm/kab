@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object's metadata. The name must be a valid DNS label no matter it is generated for explicitly provided."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NamespaceSpec",
@@ -30,7 +30,8 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

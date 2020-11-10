@@ -1,5 +1,5 @@
 {
-  "description": "The specification of a persistent volume. One and only one volume type can be specified. The volume source cannot be updated once created.",
+  "description": "The specification of a persistent volume. One and only one volume type must be specified. The volume source cannot be updated once created.",
   "properties": {
     "accessModes": {
       "description": "The ways the volume can be mounted.",
@@ -42,7 +42,7 @@
     },
     "claimRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "Part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.volumeName is the authoritative bind between PV and PVC."
+      "description": "Part of a bi-directional binding between `PersistentVolume` and `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative bind between a PV and a PVC."
     },
     "csi": {
       "$ref": "#/definitions/io.k8s.api.core.v1.CSIPersistentVolumeSource",
@@ -96,7 +96,7 @@
       "description": "Constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This can be updated if not set yet."
     },
     "persistentVolumeReclaimPolicy": {
-      "description": "What happens to a persistent volume when released from its claim. Valid options are '`Retain`' (default for manually created PersistentVolumes), '`Delete`' (default for dynamically provisioned PersistentVolumes), and '`Recycle`' (deprecated). '`Recycle`' must be supported by the volume plugin underlying this PersistentVolume. Hostpath volume mounts of '`/`' cannot be used with the `Recycle` policy.",
+      "description": "What happens to a persistent volume when released from its claim. Valid options are '`Retain`' (default for manually created `PersistentVolume`s), '`Delete`' (default for dynamically provisioned `PersistentVolume`s), and '`Recycle`' (deprecated). '`Recycle`' must be supported by the volume plugin underlying this `PersistentVolume`. HostPath volume mounts of '`/`' cannot be used with the `Recycle` policy.",
       "enum": [
         "Delete",
         "Recycle",

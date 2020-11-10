@@ -50,7 +50,7 @@
       "type": "array"
     },
     "ports": {
-      "description": "The list of ports that are exposed by this service. Required when service is not headless service and it is not of type `ExternalName`.",
+      "description": "The list of ports that are exposed by this service. Required when service is not headless service and it is not of type `ExternalName`. The combination of `protocol` and `nodePort` must be unique among all port records and the combination of `protocol` and `port` must be unique as well.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ServicePort"
       },
