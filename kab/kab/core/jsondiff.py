@@ -4,6 +4,7 @@ import difflib
 import logging
 import yaml
 
+from django.conf import settings
 import markdown
 import pygments
 from pygments import formatters
@@ -155,7 +156,7 @@ def compare_data(json1, json2):
     return result
 
 
-def compare(apis, file1, file2):
+def compare(apis, file1, file2, root=None):
     """Compare two JSON files.
 
     :param apis: The APIs for the two files.
@@ -164,20 +165,25 @@ def compare(apis, file1, file2):
     :returns: None if either one of the data cannot be loaded.
     """
 
-    json1 = jsonutil.load_json(file1, apis[0])
+    json1 = jsonutil.load_json(file1, apis[0], root=root)
     if json1 is None:
         return None
 
-    json2 = jsonutil.load_json(file2, apis[-1])
+    json2 = jsonutil.load_json(file2, apis[-1], root=root)
     if json2 is None:
         return None
 
     return compare_data(json1, json2)
 
 
-def compare_defs(apis, groups, versions, kinds):
-    fmt = "data/{}/defs/{}.json"
-
+def compare_defs(apis, groups, versions, kinds, root=None):
+    if root is None:
+        if settings.configured:
+            fmt = settings.DATA_DIR + "/{}/defs/{}.json"
+        else:
+            fmt = "data/{}/defs/{}.json"
+    else:
+        fmt = root + "/{}/defs/{}.json"
     if kinds[0] == "Info":
         fn0 = "io.k8s.apimachinery.pkg.version.Info"
     elif kinds[0] == "IntOrString":
@@ -202,7 +208,7 @@ def compare_defs(apis, groups, versions, kinds):
         fn1 = ".".join([groups[-1], versions[-1], kinds[-1]])
     file1 = fmt.format(apis[-1], fn1)
 
-    return compare(apis, file0, file1)
+    return compare(apis, file0, file1, root=root)
 
 
 def populate_parameters(apiv, param_list):
@@ -240,8 +246,11 @@ def json_html(data):
     return pygments.highlight(data, lexer, formatter)
 
 
-def compare_ops(apis, opid):
-    fmt = "data/{}/ops/{}.json"
+def compare_ops(apis, opid, root=None):
+    if root is None:
+        fmt = settings.DATA_DIR + "/{}/ops/{}.json"
+    else:
+        fmt = root + "/{}/ops/{}.json"
 
     file0 = fmt.format(apis[0], opid)
     file1 = fmt.format(apis[-1], opid)

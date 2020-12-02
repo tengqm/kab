@@ -7,11 +7,15 @@ from django.contrib import messages
 from kab.core import jsonutil
 
 LOG = logging.getLogger(__name__)
-DATA = jsonutil.load_json("data/settings.json")
-DATA.update(jsonutil.load_json("data/index.json"))
+DATA = None
 
 
 # Configuration Loaders
+def init(data_path):
+    global DATA
+
+    DATA = jsonutil.load_json(path.join(data_path, "settings.json"))
+    DATA.update(jsonutil.load_json(path.join(data_path, "index.json")))
 
 def _emptyNumeric(v):
     def_val = v.get('default', None)
@@ -363,7 +367,7 @@ def operations(api_version, group_version):
     return collections.OrderedDict(sorted(data.items()))
 
 
-def get_operation(api_version, name):
+def get_operation(api_version, name, root=None):
     data = {
         "other_versions": []
     }
@@ -378,7 +382,9 @@ def get_operation(api_version, name):
 
     if not data:
         return {}
-    path = "data/{}/ops/{}.json".format(api_version, name)
+    if root is None:
+        root = settings.DATA_DIR
+    path = "{}/{}/ops/{}.json".format(root, api_version, name)
     data["spec"] = jsonutil.load_json(path, api_version, False)
     return data
 

@@ -1,5 +1,3 @@
-
-from django.conf import settings
 from django.conf import urls
 from django.views import generic
 
