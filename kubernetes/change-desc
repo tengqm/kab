@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# This script updates all apiVersion and kind descriptions for a specific
+# version.
+
 import copy
 import json
 import jsonref
@@ -46,12 +49,12 @@ def main():
     global basedir
 
     if len(sys.argv) < 2:
-        print("Usage: compose <dir>")
+        print("Usage: change-desc <dir>")
         sys.exit(-1)
 
     if not os.path.isdir(sys.argv[1]):
         print("The specified directory is invalid.")
-        print("Usage: compose <dir>")
+        print("Usage: change-desc <dir>")
         sys.exit(-1)
 
     basedir = sys.argv[1]
