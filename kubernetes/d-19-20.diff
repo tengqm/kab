@@ -228,15 +228,15 @@ diff -r 1.19orig/defs/io.k8s.api.core.v1.ServiceStatus.json 1.20orig/defs/io.k8s
 >     },
 
 # Clarification on JobStatus
-diff -r 1.19orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.20orig/defs/io.k8s.api.batch.v1.JobStatus.json
-11c11
-<       "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
----
->       "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully."
-14c14
-<       "description": "The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
----
->       "description": "The latest available observations of an object's current state. When a job fails, one of the conditions will have type == \"Failed\". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
+# diff -r 1.19orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.20orig/defs/io.k8s.api.batch.v1.JobStatus.json
+# 11c11
+# <       "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
+# ---
+# >       "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully."
+# 14c14
+# <       "description": "The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
+# ---
+# >       "description": "The latest available observations of an object's current state. When a job fails, one of the conditions will have type == \"Failed\". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
 
 # Container StartupProbe GA'ed 
 # diff -r 1.19orig/defs/io.k8s.api.core.v1.Container.json 1.20orig/defs/io.k8s.api.core.v1.Container.json
