@@ -246,11 +246,11 @@ diff -r 1.19orig/defs/io.k8s.api.core.v1.Container.json 1.20orig/defs/io.k8s.api
 >       "description": "StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes"
 
 # Update to core v1 Event description
-diff -r 1.19orig/defs/io.k8s.api.core.v1.Event.json 1.20orig/defs/io.k8s.api.core.v1.Event.json
-2c2
-<   "description": "Event is a report of an event somewhere in the cluster.",
----
->   "description": "Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.",
+# diff -r 1.19orig/defs/io.k8s.api.core.v1.Event.json 1.20orig/defs/io.k8s.api.core.v1.Event.json
+# 2c2
+# <   "description": "Event is a report of an event somewhere in the cluster.",
+# ---
+# >   "description": "Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.",
 
 # Update to PVCSpec description
 # diff -r 1.19orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json 1.20orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json
