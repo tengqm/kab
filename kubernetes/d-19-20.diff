@@ -210,22 +210,22 @@ diff -r 1.19orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json 1.20orig/def
 >     },
 
 # New Conditions field added to ServiceStatus type
-Only in 1.20orig/defs: io.k8s.apimachinery.pkg.apis.meta.v1.Condition.json
-diff -r 1.19orig/defs/io.k8s.api.core.v1.ServiceStatus.json 1.20orig/defs/io.k8s.api.core.v1.ServiceStatus.json
-3a4,16
->     "conditions": {
->       "description": "Current service state",
->       "items": {
->         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition"
->       },
->       "type": "array",
->       "x-kubernetes-list-map-keys": [
->         "type"
->       ],
->       "x-kubernetes-list-type": "map",
->       "x-kubernetes-patch-merge-key": "type",
->       "x-kubernetes-patch-strategy": "merge"
->     },
+# Only in 1.20orig/defs: io.k8s.apimachinery.pkg.apis.meta.v1.Condition.json
+# diff -r 1.19orig/defs/io.k8s.api.core.v1.ServiceStatus.json 1.20orig/defs/io.k8s.api.core.v1.ServiceStatus.json
+# 3a4,16
+# >     "conditions": {
+# >       "description": "Current service state",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "type"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# >       "x-kubernetes-patch-merge-key": "type",
+# >       "x-kubernetes-patch-strategy": "merge"
+# >     },
 
 # Clarification on JobStatus
 # diff -r 1.19orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.20orig/defs/io.k8s.api.batch.v1.JobStatus.json

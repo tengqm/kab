@@ -1,6 +1,19 @@
 {
   "description": "The current status of a service.",
   "properties": {
+    "conditions": {
+      "description": "Current Service state.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition"
+      },
+      "type": "array",
+      "x-kubernetes-list-map-keys": [
+        "type"
+      ],
+      "x-kubernetes-list-type": "map",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
     "loadBalancer": {
       "$ref": "#/definitions/io.k8s.api.core.v1.LoadBalancerStatus",
       "description": "The current status of the load-balancer, if one is present."
