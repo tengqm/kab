@@ -2,14 +2,14 @@
   "description": "Represents a projected volume source",
   "properties": {
     "defaultMode": {
-      "description": "Mode bits used to set permissions on created files by default. Must be an octal value between `0` and `0777` or a decimal value between `0` and `511`. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.",
+      "description": "Mode bits used to set permissions on created files by default. Must be an octal value between `0` and `0777` or a decimal value between `0` and `511`. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like `fsGroup`, and the result can be other mode bits set.",
       "format": "int32",
       "maximum": 511,
       "minimum": 0,
       "type": "integer"
     },
     "sources": {
-      "description": "list of volume projections",
+      "description": "List of volume projections",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.VolumeProjection"
       },
@@ -17,8 +17,5 @@
       "type": "array"
     }
   },
-  "required": [
-    "sources"
-  ],
   "type": "object"
 }
