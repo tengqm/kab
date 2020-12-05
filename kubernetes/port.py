@@ -19,7 +19,6 @@ def parse_args():
     parser = argparse.ArgumentParser(description="API comparator")
     parser.add_argument("--base", dest="base_version", required=True,
                         help="Base API version for comparison")
-    # TODO(Qiming): Make this a list
     parser.add_argument("--to", dest="to_version", required=True,
                         help="Target version for comparsion")
     parser.add_argument("--type", dest="data_type", default="defs",
@@ -31,37 +30,88 @@ def parse_args():
     ARGS = parser.parse_args()
 
     if not os.path.isdir(ARGS.base_version):
-        print("Error: base dir '%s' is invalid" % ARGS.base_version)
+        print("Error: base version '%s' is invalid" % ARGS.base_version)
         return -1
     if not os.path.isdir(ARGS.to_version):
-        print("Error: target dir '%s' is invalid" % ARGS.base_version)
+        print("Error: target version '%s' is invalid" % ARGS.to_version)
         return -1
 
     return 0
 
+def parse_version(ver):
+    """Split version into major and minor"""
+    vs = ver.split(".")
+    if len(vs) != 2:
+        return -1, -1
+    return int(vs[0]), int(vs[1])
 
-def traverse():
+def traverse(major, minor0, minor1):
     helpers.init(".")
-    dropped = []
-    diffs = {}
-    v0 = ARGS.base_version
-    v1 = ARGS.to_version
-    path = os.path.join(v0, ARGS.data_type)
+    result = {}
+    direction = minor1 - minor0
+    minor_from = minor0
 
-    # check dropped or changed
-    for f in pathlib.Path(path).glob(ARGS.file):
-        basename = os.path.basename(f)
-        t = os.path.join(v1, ARGS.data_type, basename)
-        if not os.path.isfile(t):
-            dropped.append(t)
-            continue
-        if ARGS.data_type == "defs":
-            res = jsondiff.compare([v0, v1], f, t, root=".")
+    if direction > 0:
+        minor_to = minor0 + 1
+    else:
+        minor_to = minor0 - 1
+
+    while True:
+        v0 = str(major) + "." + str(minor_from)
+        v1 = str(major) + "." + str(minor_to)
+        print("checking " + v1)
+        path0 = os.path.join(v0, ARGS.data_type)
+        for file0 in pathlib.Path(path0).glob(ARGS.file):
+            basename = os.path.basename(file0)
+            file1 = os.path.join(v1, ARGS.data_type, basename)
+            if not os.path.isfile(file1):
+                if basename not in result:
+                    result[basename] = {v1: {"status": "DELETED"}}
+                else:
+                    result[basename][v1] = {"status": "DELETED"}
+                continue
+
+            if ARGS.data_type == "defs":
+                res = jsondiff.compare([v0, v1], file0, file1, root=".")
+            else:
+                opid = os.path.splitext(basename)[0]
+                print(opid)
+                res = jsondiff.compare_ops([v0, v1], opid, root=".")
+
+            if res:
+                if basename not in result:
+                    result[basename] = {
+                        v1: {"status": "CHANGED", "changes": res}
+                    }
+                else:
+                    result[basename][v1] = {
+                        "status": "CHANGED",
+                        "changes": res
+                    }
+            else:
+                result[basename] = None
+
+        path1 = os.path.join(v1, ARGS.data_type)
+        for f in pathlib.Path(path1).glob(ARGS.file):
+            basename = os.path.basename(f)
+            if basename not in result:
+                result[basename] = {v1: {"status": "ADDED"}}
+            elif result[basename] is None:
+                result.pop(basename)
+
+        # Done?
+        if minor_to == minor1:
+            break
+
+        # go to next version
+        if direction > 0:
+            minor_from += 1
+            minor_to +=1
         else:
-            res = jsondiff.compare_ops([v0, v1], basename, root=".")
-        diffs[basename] = res
-    print(json.dumps(diffs, indent=2)) 
-    return 0
+            minor_from -= 1
+            minor_to -= 1
+
+    return result
 
 def main():
     global ARGS
@@ -69,7 +119,15 @@ def main():
     ret = parse_args()
     if ret != 0:
         return ret
-    traverse()
+
+    vmajor0, vminor0 = parse_version(ARGS.base_version) 
+    vmajor1, vminor1 = parse_version(ARGS.to_version) 
+    if vminor0 == vminor1:
+        print("Error: the two versions specified cannot be the same")
+        return -1
+
+    result = traverse(vmajor0, vminor0, vminor1)
+    print(json.dumps(result, indent=2)) 
     return 0
 
 
