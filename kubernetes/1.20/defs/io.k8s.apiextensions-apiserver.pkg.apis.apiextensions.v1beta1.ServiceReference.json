@@ -1,0 +1,32 @@
+{
+  "description": "A reference to a Service",
+  "properties": {
+    "name": {
+      "description": "The name of the Service",
+      "minLength": 1,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The namespace of the Service",
+      "minLength": 1,
+      "type": "string"
+    },
+    "path": {
+      "description": "An optional URL path at which the webhook will be contacted.",
+      "type": "string"
+    },
+    "port": {
+      "default": 443,
+      "description": "If specified, the service port at which the webhook will be contacted.",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "namespace",
+    "name"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "The result of a token request.",
+  "properties": {
+    "expirationTimestamp": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The time of expiration of the returned token."
+    },
+    "token": {
+      "description": "The opaque bearer token.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "expirationTimestamp"
+  ],
+  "type": "object"
+}

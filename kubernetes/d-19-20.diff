@@ -1,0 +1,468 @@
+# PodPreset dropped along with the settings API group
+# Only in 1.19orig/defs: io.k8s.api.settings.v1alpha1.PodPreset.json
+# Only in 1.19orig/defs: io.k8s.api.settings.v1alpha1.PodPresetList.json
+# Only in 1.19orig/defs: io.k8s.api.settings.v1alpha1.PodPresetSpec.json
+# Only in 1.19orig/ops: createSettingsV1alpha1NamespacedPodPreset.json
+# Only in 1.19orig/ops: deleteSettingsV1alpha1CollectionNamespacedPodPreset.json
+# Only in 1.19orig/ops: deleteSettingsV1alpha1NamespacedPodPreset.json
+# Only in 1.19orig/ops: listSettingsV1alpha1NamespacedPodPreset.json
+# Only in 1.19orig/ops: listSettingsV1alpha1PodPresetForAllNamespaces.json
+# Only in 1.19orig/ops: patchSettingsV1alpha1NamespacedPodPreset.json
+# Only in 1.19orig/ops: readSettingsV1alpha1NamespacedPodPreset.json
+# Only in 1.19orig/ops: replaceSettingsV1alpha1NamespacedPodPreset.json
+# Only in 1.19orig/ops: getSettingsAPIGroup.json
+# Only in 1.19orig/ops: getSettingsV1alpha1APIResources.json
+
+# New StorageVersion in apiserverinternal Group
+Only in 1.20orig/ops: getInternalApiserverAPIGroup.json
+Only in 1.20orig/ops: getInternalApiserverV1alpha1APIResources.json
+Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.ServerStorageVersion.json
+Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersion.json
+Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersionCondition.json
+Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersionList.json
+Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersionSpec.json
+Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersionStatus.json
+Only in 1.20orig/ops: createInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: deleteInternalApiserverV1alpha1CollectionStorageVersion.json
+Only in 1.20orig/ops: deleteInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: listInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: patchInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: patchInternalApiserverV1alpha1StorageVersionStatus.json
+Only in 1.20orig/ops: readInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: readInternalApiserverV1alpha1StorageVersionStatus.json
+Only in 1.20orig/ops: replaceInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: replaceInternalApiserverV1alpha1StorageVersionStatus.json
+Only in 1.20orig/ops: watchInternalApiserverV1alpha1StorageVersion.json
+Only in 1.20orig/ops: watchInternalApiserverV1alpha1StorageVersionList.json
+
+# ContainerResourceMetricSource and ContainerResourceMetricStatus added to autoscaling v2beta2
+Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricSource.json
+Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricStatus.json
+
+diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta1.MetricSpec.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta1.MetricSpec.json
+3a4,7
+>     "containerResource": {
+>       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricSource",
+>       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag."
+>     },
+21c25
+<       "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object.",
+---
+>       "description": "type is the type of metric source.  It should be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
+
+diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta1.MetricStatus.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta1.MetricStatus.json
+3a4,7
+>     "containerResource": {
+>       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricStatus",
+>       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source."
+>     },
+21c25
+<       "description": "type is the type of metric source.  It will be one of \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object.",
+---
+>       "description": "type is the type of metric source.  It will be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
+
+# ContainerResourceMetricSource and ContainerResourceMetricStatus added to autoscaling v2beta2
+Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource.json
+Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus.json
+
+diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta2.MetricSpec.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta2.MetricSpec.json
+3a4,7
+>     "containerResource": {
+>       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource",
+>       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag."
+>     },
+21c25
+<       "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object.",
+---
+>       "description": "type is the type of metric source.  It should be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
+
+diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta2.MetricStatus.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta2.MetricStatus.json
+3a4,7
+>     "containerResource": {
+>       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus",
+>       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source."
+>     },
+21c25
+<       "description": "type is the type of metric source.  It will be one of \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object.",
+---
+>       "description": "type is the type of metric source.  It will be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
+
+# PortStatus added to LoadBalancerIngress type
+Only in 1.20orig/defs: io.k8s.api.core.v1.PortStatus.json
+diff -r 1.19orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json 1.20orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json
+10a11,18
+>     },
+>     "ports": {
+>       "description": "Ports is a list of records of service ports If used, every port defined in the service should have an entry in it",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.core.v1.PortStatus"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+
+# New version v1beta1 for flowcontrol
+Only in 1.20orig/ops: getFlowcontrolApiserverV1beta1APIResources.json
+
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.FlowDistinguisherMethod.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.FlowSchema.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.FlowSchemaCondition.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.FlowSchemaList.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.FlowSchemaSpec.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.FlowSchemaStatus.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.GroupSubject.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.LimitResponse.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.LimitedPriorityLevelConfiguration.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.NonResourcePolicyRule.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PolicyRulesWithSubjects.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfiguration.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationCondition.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationList.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationReference.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationSpec.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationStatus.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.QueuingConfiguration.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.ResourcePolicyRule.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.ServiceAccountSubject.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.Subject.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1beta1.UserSubject.json
+
+Only in 1.20orig/ops: createFlowcontrolApiserverV1beta1FlowSchema.json
+Only in 1.20orig/ops: createFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1beta1CollectionFlowSchema.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1beta1CollectionPriorityLevelConfiguration.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1beta1FlowSchema.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: listFlowcontrolApiserverV1beta1FlowSchema.json
+Only in 1.20orig/ops: listFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1beta1FlowSchema.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1beta1FlowSchemaStatus.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1beta1FlowSchema.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1beta1FlowSchemaStatus.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1beta1FlowSchema.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1beta1FlowSchemaStatus.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus.json
+## Only in 1.20orig/ops: watchFlowcontrolApiserverV1beta1FlowSchema.json
+## Only in 1.20orig/ops: watchFlowcontrolApiserverV1beta1FlowSchemaList.json
+## Only in 1.20orig/ops: watchFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+## Only in 1.20orig/ops: watchFlowcontrolApiserverV1beta1PriorityLevelConfigurationList.json
+
+# RuntimeClass in Node v1 group
+Only in 1.20orig/defs: io.k8s.api.node.v1.RuntimeClass.json
+Only in 1.20orig/defs: io.k8s.api.node.v1.Overhead.json
+Only in 1.20orig/defs: io.k8s.api.node.v1.RuntimeClassList.json
+Only in 1.20orig/defs: io.k8s.api.node.v1.Scheduling.json
+Only in 1.20orig/ops: createNodeV1RuntimeClass.json
+Only in 1.20orig/ops: deleteNodeV1CollectionRuntimeClass.json
+Only in 1.20orig/ops: deleteNodeV1RuntimeClass.json
+Only in 1.20orig/ops: getNodeV1APIResources.json
+Only in 1.20orig/ops: listNodeV1RuntimeClass.json
+Only in 1.20orig/ops: patchNodeV1RuntimeClass.json
+Only in 1.20orig/ops: readNodeV1RuntimeClass.json
+Only in 1.20orig/ops: replaceNodeV1RuntimeClass.json
+Only in 1.20orig/ops: watchNodeV1RuntimeClass.json
+Only in 1.20orig/ops: watchNodeV1RuntimeClassList.json
+
+# New None REST Operation
+Only in 1.20orig/ops: getServiceAccountIssuerOpenIDConfiguration.json
+
+# New OpenID Operation
+Only in 1.20orig/ops: getServiceAccountIssuerOpenIDKeyset.json
+
+# New TokenRequest type in storage/v1
+Only in 1.20orig/defs: io.k8s.api.storage.v1.TokenRequest.json
+diff -r 1.19orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json 1.20orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json
+15a16,19
+>     "requiresRepublish": {
+>       "description": "RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.\n\nNote: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.",
+>       "type": "boolean"
+>     },
+19a24,31
+>     "tokenRequests": {
+>       "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"<audience>\": {\n    \"token\": <token>,\n    \"expirationTimestamp\": <expiration timestamp in RFC3339>,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.storage.v1.TokenRequest"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+
+# New TokenRequest type in storage/v1beta1
+Only in 1.20orig/defs: io.k8s.api.storage.v1beta1.TokenRequest.json
+diff -r 1.19orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json 1.20orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json
+15a16,19
+>     "requiresRepublish": {
+>       "description": "RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.\n\nNote: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.",
+>       "type": "boolean"
+>     },
+19a24,31
+>     "tokenRequests": {
+>       "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"<audience>\": {\n    \"token\": <token>,\n    \"expirationTimestamp\": <expiration timestamp in RFC3339>,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.storage.v1beta1.TokenRequest"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+
+# New Conditions field added to ServiceStatus type
+Only in 1.20orig/defs: io.k8s.apimachinery.pkg.apis.meta.v1.Condition.json
+diff -r 1.19orig/defs/io.k8s.api.core.v1.ServiceStatus.json 1.20orig/defs/io.k8s.api.core.v1.ServiceStatus.json
+3a4,16
+>     "conditions": {
+>       "description": "Current service state",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-map-keys": [
+>         "type"
+>       ],
+>       "x-kubernetes-list-type": "map",
+>       "x-kubernetes-patch-merge-key": "type",
+>       "x-kubernetes-patch-strategy": "merge"
+>     },
+
+# Clarification on JobStatus
+diff -r 1.19orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.20orig/defs/io.k8s.api.batch.v1.JobStatus.json
+11c11
+<       "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
+---
+>       "description": "Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully."
+14c14
+<       "description": "The latest available observations of an object's current state. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
+---
+>       "description": "The latest available observations of an object's current state. When a job fails, one of the conditions will have type == \"Failed\". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
+
+# Container StartupProbe GA'ed 
+diff -r 1.19orig/defs/io.k8s.api.core.v1.Container.json 1.20orig/defs/io.k8s.api.core.v1.Container.json
+82c82
+<       "description": "StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is a beta feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes"
+---
+>       "description": "StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes"
+
+# Update to core v1 Event description
+diff -r 1.19orig/defs/io.k8s.api.core.v1.Event.json 1.20orig/defs/io.k8s.api.core.v1.Event.json
+2c2
+<   "description": "Event is a report of an event somewhere in the cluster.",
+---
+>   "description": "Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.",
+
+# Update to PVCSpec description
+diff -r 1.19orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json 1.20orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json
+13c13
+<       "description": "This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot - Beta) * An existing PVC (PersistentVolumeClaim) * An existing custom resource/object that implements data population (Alpha) In order to use VolumeSnapshot object types, the appropriate feature gate must be enabled (VolumeSnapshotDataSource or AnyVolumeDataSource) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the specified data source is not supported, the volume will not be created and the failure will be reported as an event. In the future, we plan to support more data source types and the behavior of the provisioner may change."
+---
+>       "description": "This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source."
+
+# Update to fsGroupChangePolicy description in PodSecurityContext
+diff -r 1.19orig/defs/io.k8s.api.core.v1.PodSecurityContext.json 1.20orig/defs/io.k8s.api.core.v1.PodSecurityContext.json
+10c10
+<       "description": "fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are \"OnRootMismatch\" and \"Always\". If not specified defaults to \"Always\".",
+---
+>       "description": "fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are \"OnRootMismatch\" and \"Always\". If not specified, \"Always\" is used.",
+
+# ProjectedVolumeSource no longer require 'sources'
+diff -r 1.19orig/defs/io.k8s.api.core.v1.ProjectedVolumeSource.json 1.20orig/defs/io.k8s.api.core.v1.ProjectedVolumeSource.json
+17,19d16
+<   "required": [
+<     "sources"
+<   ],
+
+# ServicePort description change
+diff -r 1.19orig/defs/io.k8s.api.core.v1.ServicePort.json 1.20orig/defs/io.k8s.api.core.v1.ServicePort.json
+13c13
+<       "description": "The port on each node on which this service is exposed when type=NodePort or LoadBalancer. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the ServiceType of this Service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport",
+---
+>       "description": "The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport",
+
+#  ServiceSpec field description changes and added clusterIPs
+diff -r 1.19orig/defs/io.k8s.api.core.v1.ServiceSpec.json 1.20orig/defs/io.k8s.api.core.v1.ServiceSpec.json
+3a4,7
+>     "allocateLoadBalancerNodePorts": {
+>       "description": "allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is \"true\". It may be set to \"false\" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.",
+>       "type": "boolean"
+>     },
+5c9
+<       "description": "clusterIP is the IP address of the service and is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. This field can not be changed through updates. Valid values are \"None\", empty string (\"\"), or a valid IP address. \"None\" can be specified for headless services when proxying is not required. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies",
+---
+>       "description": "clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are \"None\", empty string (\"\"), or a valid IP address. Setting this to \"None\" makes a \"headless service\" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies",
+7a12,19
+>     "clusterIPs": {
+>       "description": "ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are \"None\", empty string (\"\"), or a valid IP address.  Setting this to \"None\" makes a \"headless service\" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.\n\nUnless the \"IPv6DualStack\" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies",
+>       "items": {
+>         "type": "string"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+16c28
+<       "description": "externalName is the external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be ExternalName.",
+---
+>       "description": "externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be",
+24c36
+<       "description": "healthCheckNodePort specifies the healthcheck nodePort for the service. If not specified, HealthCheckNodePort is created by the service api backend with the allocated nodePort. Will use user-specified nodePort value if specified by the client. Only effects when Type is set to LoadBalancer and ExternalTrafficPolicy is set to Local.",
+---
+>       "description": "healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).",
+28,29c40,49
+<     "ipFamily": {
+<       "description": "ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6) when the IPv6DualStack feature gate is enabled. In a dual-stack cluster, you can specify ipFamily when creating a ClusterIP Service to determine whether the controller will allocate an IPv4 or IPv6 IP for it, and you can specify ipFamily when creating a headless Service to determine whether it will have IPv4 or IPv6 Endpoints. In either case, if you do not specify an ipFamily explicitly, it will default to the cluster's primary IP family. This field is part of an alpha feature, and you should not make any assumptions about its semantics other than those described above. In particular, you should not assume that it can (or cannot) be changed after creation time; that it can only have the values \"IPv4\" and \"IPv6\"; or that its current value on a given Service correctly reflects the current state of that Service. (For ClusterIP Services, look at clusterIP to see if the Service is IPv4 or IPv6. For headless Services, look at the endpoints, which may be dual-stack in the future. For ExternalName Services, ipFamily has no meaning, but it may be set to an irrelevant value anyway.)",
+---
+>     "ipFamilies": {
+>       "description": "IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the \"IPv6DualStack\" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are \"IPv4\" and \"IPv6\".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to \"headless\" services.  This field will be wiped when updating a Service to type ExternalName.\n\nThis field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.",
+>       "items": {
+>         "type": "string"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+>     "ipFamilyPolicy": {
+>       "description": "IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the \"IPv6DualStack\" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be \"SingleStack\" (a single IP family), \"PreferDualStack\" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or \"RequireDualStack\" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.",
+77c97
+<       "description": "topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value \"*\" may be used to mean \"any topology\". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.",
+---
+>       "description": "topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value \"*\" may be used to mean \"any topology\". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature.",
+84c104
+<       "description": "type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. \"ExternalName\" maps to the specified externalName. \"ClusterIP\" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object. If clusterIP is \"None\", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a stable IP. \"NodePort\" builds on ClusterIP and allocates a port on every node which routes to the clusterIP. \"LoadBalancer\" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the clusterIP. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types",
+---
+>       "description": "type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. \"ClusterIP\" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is \"None\", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. \"NodePort\" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. \"LoadBalancer\" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. \"ExternalName\" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types",
+
+#  'nodeName' added to discovery/v1beta1 Endpoint type
+diff -r 1.19orig/defs/io.k8s.api.discovery.v1beta1.Endpoint.json 1.20orig/defs/io.k8s.api.discovery.v1beta1.Endpoint.json
+17c17,21
+<       "description": "hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.",
+---
+>       "description": "hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.",
+>       "type": "string"
+>     },
+>     "nodeName": {
+>       "description": "nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.",
+28c32
+<       "description": "topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node\n  where the endpoint is located. This should match the corresponding\n  node label.\n* topology.kubernetes.io/zone: the value indicates the zone where the\n  endpoint is located. This should match the corresponding node label.\n* topology.kubernetes.io/region: the value indicates the region where the\n  endpoint is located. This should match the corresponding node label.",
+---
+>       "description": "topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node\n  where the endpoint is located. This should match the corresponding\n  node label.\n* topology.kubernetes.io/zone: the value indicates the zone where the\n  endpoint is located. This should match the corresponding node label.\n* topology.kubernetes.io/region: the value indicates the region where the\n  endpoint is located. This should match the corresponding node label.\nThis field is deprecated and will be removed in future api versions.",
+
+# EndpointConditions gets new fields
+diff -r 1.19orig/defs/io.k8s.api.discovery.v1beta1.EndpointConditions.json 1.20orig/defs/io.k8s.api.discovery.v1beta1.EndpointConditions.json
+5c5,13
+<       "description": "ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.",
+---
+>       "description": "ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be \"true\" for terminating endpoints.",
+>       "type": "boolean"
+>     },
+>     "serving": {
+>       "description": "serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.",
+>       "type": "boolean"
+>     },
+>     "terminating": {
+>       "description": "terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.",
+
+# Update description for event/v1 Event 
+diff -r 1.19orig/defs/io.k8s.api.events.v1.Event.json 1.20orig/defs/io.k8s.api.events.v1.Event.json
+2c2
+<   "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.",
+---
+>   "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.",
+5c5
+<       "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.",
+---
+>       "description": "action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.",
+51c51
+<       "description": "reason is why the action was taken. It is human-readable. This field can have at most 128 characters.",
+---
+>       "description": "reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.",
+75c75
+<       "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.",
+---
+>       "description": "type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.",
+79a80
+>     "metadata",
+
+# description update to events/v1beta1 Event type
+diff -r 1.19orig/defs/io.k8s.api.events.v1beta1.Event.json 1.20orig/defs/io.k8s.api.events.v1beta1.Event.json
+2c2
+<   "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.",
+---
+>   "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.",
+79a80
+>     "metadata",
+
+# description update to node/v1alpha1 RuntimeClassSpec
+diff -r 1.19orig/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json 1.20orig/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
+9c9
+<       "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.",
+---
+>       "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+
+# description update to node/v1beta1 RuntimeClass
+diff -r 1.19orig/defs/io.k8s.api.node.v1beta1.RuntimeClass.json 1.20orig/defs/io.k8s.api.node.v1beta1.RuntimeClass.json
+12c12
+<       "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+---
+>       "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+
+# Update to DeleteOptions
+diff -r 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+199a200,204
+>       "group": "flowcontrol.apiserver.k8s.io",
+>       "kind": "DeleteOptions",
+>       "version": "v1beta1"
+>     },
+>     {
+204a210,214
+>       "group": "internal.apiserver.k8s.io",
+>       "kind": "DeleteOptions",
+>       "version": "v1alpha1"
+>     },
+>     {
+216a227,231
+>       "version": "v1"
+>     },
+>     {
+>       "group": "node.k8s.io",
+>       "kind": "DeleteOptions",
+260,264d274
+<       "group": "settings.k8s.io",
+<       "kind": "DeleteOptions",
+<       "version": "v1alpha1"
+<     },
+<     {
+
+### Map type extension for LabelSelector
+# diff -r 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector.json 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector.json
+# 19c19,20
+# <   "type": "object"
+# ---
+# >   "type": "object",
+# >   "x-kubernetes-map-type": "atomic"
+ 
+### Update to meta/v1 WatchEvent due to API group changes
+# diff -r 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
+# 178a179,183
+# >       "group": "flowcontrol.apiserver.k8s.io",
+# >       "kind": "WatchEvent",
+# >       "version": "v1beta1"
+# >     },
+# >     {
+# 183a189,193
+# >       "group": "internal.apiserver.k8s.io",
+# >       "kind": "WatchEvent",
+# >       "version": "v1alpha1"
+# >     },
+# >     {
+# 195a206,210
+# >       "version": "v1"
+# >     },
+# >     {
+# >       "group": "node.k8s.io",
+# >       "kind": "WatchEvent",
+# 239,243d253
+# <       "group": "settings.k8s.io",
+# <       "kind": "WatchEvent",
+# <       "version": "v1alpha1"
+# <     },
+# <     {

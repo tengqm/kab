@@ -1,0 +1,110 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read log of the specified Pod",
+  "operationId": "readCoreV1NamespacedPodLog",
+  "parameters": [
+    {
+      "description": "The container for which to stream logs. Defaults to only container if there is one container in the pod.",
+      "in": "query",
+      "name": "container",
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "description": "Follow the log stream of the pod. Defaults to false.",
+      "in": "query",
+      "name": "follow",
+      "type": "boolean",
+      "uniqueItems": true
+    },
+    {
+      "description": "insecureSkipTLSVerifyBackend indicates that the API server should not confirm the validity of the serving certificate of the backend it is connecting to. This will make the HTTPS connection between the API server and the backend insecure. This means the API server cannot verify the log data it is receiving came from the real kubelet. If the `kubelet` is configured to verify the API server's TLS credentials, it does not mean the connection to the real `kubelet` is vulnerable to a man in the middle attack (e.g. an attacker could not intercept the actual log data coming from the real `kubelet`).",
+      "in": "query",
+      "name": "insecureSkipTLSVerifyBackend",
+      "type": "boolean",
+      "uniqueItems": true
+    },
+    {
+      "description": "If set, the number of bytes to read from the server before terminating the log output. This may not display a complete final line of logging, and may return slightly more or slightly less than the specified limit.",
+      "in": "query",
+      "name": "limitBytes",
+      "type": "integer",
+      "uniqueItems": true
+    },
+    {
+      "description": "name of the Pod",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    },
+    {
+      "description": "Return previous terminated container logs. Defaults to false.",
+      "in": "query",
+      "name": "previous",
+      "type": "boolean",
+      "uniqueItems": true
+    },
+    {
+      "description": "A relative time in seconds before the current time from which to show logs. If this value precedes the time a pod was started, only logs since the pod start will be returned. If this value is in the future, no logs will be returned. Only one of sinceSeconds or sinceTime may be specified.",
+      "in": "query",
+      "name": "sinceSeconds",
+      "type": "integer",
+      "uniqueItems": true
+    },
+    {
+      "description": "If set, the number of lines from the end of the logs to show. If not specified, logs are shown from the creation of the container or sinceSeconds or sinceTime",
+      "in": "query",
+      "name": "tailLines",
+      "type": "integer",
+      "uniqueItems": true
+    },
+    {
+      "description": "If true, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to false.",
+      "in": "query",
+      "name": "timestamps",
+      "type": "boolean",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/log",
+  "produces": [
+    "text/plain",
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "Pod",
+    "version": "v1"
+  }
+}

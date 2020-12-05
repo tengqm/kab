@@ -1,0 +1,17 @@
+{
+  "description": "The union of the OR'ed results of one or more label queries over a set of nodes.",
+  "properties": {
+    "nodeSelectorTerms": {
+      "description": "A list of node selector terms. The terms are OR'ed.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "nodeSelectorTerms"
+  ],
+  "type": "object"
+}

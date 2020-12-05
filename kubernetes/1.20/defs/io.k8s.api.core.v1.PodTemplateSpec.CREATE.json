@@ -1,0 +1,17 @@
+{
+  "description": "The data a pod should have when created from a template",
+  "properties": {
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodSpec.CREATE",
+      "description": "Specification of the desired behavior of the pod."
+    }
+  },
+  "required": [
+    "spec"
+  ],
+  "type": "object"
+}

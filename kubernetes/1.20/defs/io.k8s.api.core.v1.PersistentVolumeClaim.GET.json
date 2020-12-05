@@ -1,0 +1,43 @@
+{
+  "description": "A user's request for and claim to a persistent volume.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PersistentVolumeClaim"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec",
+      "description": "The desired characteristics of a persistent volume."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimStatus",
+      "description": "The current information/status of a persistent volume claim."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "PersistentVolumeClaim",
+      "version": "v1"
+    }
+  ]
+}

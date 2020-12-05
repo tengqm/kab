@@ -1,0 +1,79 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create eviction of a Pod",
+  "operationId": "createCoreV1NamespacedPodEviction",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.Eviction"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/includeUninitialized"
+    },
+    {
+      "description": "name of the Eviction",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/eviction",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.Eviction"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.Eviction"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.Eviction"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "policy",
+    "kind": "Eviction",
+    "version": "v1beta1"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "description": "A user's request for and claim to a persistent volume.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PersistentVolumeClaim"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata. The name of a `PersistentVolumeClaim` must be a valid DNS subdomain name."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec",
+      "description": "The desired characteristics of a persistent volume."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "PersistentVolumeClaim",
+      "version": "v1"
+    }
+  ]
+}

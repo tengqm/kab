@@ -1,0 +1,65 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a ClusterRole",
+  "operationId": "createRbacAuthorizationV1alpha1ClusterRole",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    }
+  ],
+  "path": "/apis/rbac.authorization.k8s.io/v1alpha1/clusterroles",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRole"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1alpha1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "rbac.authorization.k8s.io",
+    "kind": "ClusterRole",
+    "version": "v1alpha1"
+  }
+}

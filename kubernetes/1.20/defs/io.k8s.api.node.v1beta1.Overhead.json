@@ -1,0 +1,13 @@
+{
+  "description": "The resource overhead associated with running a Pod.",
+  "properties": {
+    "podFixed": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The fixed resource overhead associated with running a Pod.",
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

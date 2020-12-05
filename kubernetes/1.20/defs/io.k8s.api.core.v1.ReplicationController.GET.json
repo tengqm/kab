@@ -1,0 +1,43 @@
+{
+  "description": "The configuration of a replication controller.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ReplicationController"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object's metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec.GET",
+      "description": "The specification of the desired behavior of the replication controller."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerStatus",
+      "description": "The most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "ReplicationController",
+      "version": "v1"
+    }
+  ]
+}

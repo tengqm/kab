@@ -1,0 +1,20 @@
+{
+  "description": "The strategy that will dictate the allowable RuntimeClasses for a Pod.",
+  "properties": {
+    "allowedRuntimeClassNames": {
+      "description": "An allowlist of RuntimeClass names that may be specified on a Pod. A value of '`*`' means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the `defaultRuntimeClassName` field to be unset.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "defaultRuntimeClassName": {
+      "description": "The default RuntimeClassName to set on the Pod. The default MUST be allowed by the `allowedRuntimeClassNames` list. A value of nil does not mutate the Pod.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "allowedRuntimeClassNames"
+  ],
+  "type": "object"
+}

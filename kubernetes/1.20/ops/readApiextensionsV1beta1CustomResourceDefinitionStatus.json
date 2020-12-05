@@ -1,0 +1,50 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read status of the specified CustomResourceDefinition",
+  "operationId": "readApiextensionsV1beta1CustomResourceDefinitionStatus",
+  "parameters": [
+    {
+      "description": "name of the CustomResourceDefinition",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiextensions_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "apiextensions.k8s.io",
+    "kind": "CustomResourceDefinition",
+    "version": "v1beta1"
+  }
+}

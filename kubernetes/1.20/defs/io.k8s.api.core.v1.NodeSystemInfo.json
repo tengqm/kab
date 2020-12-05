@@ -1,0 +1,68 @@
+{
+  "description": "A set of IDs/UUIDs to uniquely identify the node.",
+  "properties": {
+    "architecture": {
+      "description": "The architecture reported by the node",
+      "minLength": 1,
+      "type": "string"
+    },
+    "bootID": {
+      "description": "Boot ID reported by the node.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "containerRuntimeVersion": {
+      "description": "Container runtime version as reported by the node through runtime remote API (e.g. '`docker://1.5.0`').",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kernelVersion": {
+      "description": "Kernel version as reported by the node from 'uname -r' (e.g. '`3.16.0-0.bpo.4-amd64`').",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kubeProxyVersion": {
+      "description": "kube-proxy version reported by the node.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kubeletVersion": {
+      "description": "kubelet version reported by the node.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "machineID": {
+      "description": "Machine ID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id",
+      "minLength": 1,
+      "type": "string"
+    },
+    "operatingSystem": {
+      "description": "The operating system reported by the node",
+      "minLength": 1,
+      "type": "string"
+    },
+    "osImage": {
+      "description": "OS image reported by the node from /etc/os-release (e.g. '`Debian GNU/Linux 7 (wheezy)`').",
+      "minLength": 1,
+      "type": "string"
+    },
+    "systemUUID": {
+      "description": "System UUID reported by the node. For unique machine identification, `machineID` is preferred. This field is specific to Red Hat hosts.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "machineID",
+    "systemUUID",
+    "bootID",
+    "kernelVersion",
+    "osImage",
+    "containerRuntimeVersion",
+    "kubeletVersion",
+    "kubeProxyVersion",
+    "operatingSystem",
+    "architecture"
+  ],
+  "type": "object"
+}

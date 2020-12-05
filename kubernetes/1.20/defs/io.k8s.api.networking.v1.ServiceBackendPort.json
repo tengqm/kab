@@ -1,0 +1,15 @@
+{
+  "description": "The service port being referenced.",
+  "properties": {
+    "name": {
+      "description": "Name is the name of the port on the Service. This is a mutually exclusive setting with `number`.",
+      "type": "string"
+    },
+    "number": {
+      "description": "Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with `name`.",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,59 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified Event",
+  "operationId": "readEventsV1beta1NamespacedEvent",
+  "parameters": [
+    {
+      "$ref": "#/parameters/exact"
+    },
+    {
+      "$ref": "#/parameters/export"
+    },
+    {
+      "description": "name of the Event",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/events.k8s.io/v1beta1/namespaces/{namespace}/events/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.events.v1beta1.Event.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "events_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "events.k8s.io",
+    "kind": "Event",
+    "version": "v1beta1"
+  }
+}

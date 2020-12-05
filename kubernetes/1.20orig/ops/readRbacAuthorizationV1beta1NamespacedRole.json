@@ -1,0 +1,53 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified Role",
+  "operationId": "readRbacAuthorizationV1beta1NamespacedRole",
+  "parameters": [
+    {
+      "description": "name of the Role",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/rbac.authorization.k8s.io/v1beta1/namespaces/{namespace}/roles/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.Role"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "rbacAuthorization_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "rbac.authorization.k8s.io",
+    "kind": "Role",
+    "version": "v1beta1"
+  }
+}

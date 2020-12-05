@@ -1,0 +1,18 @@
+{
+  "description": "Information about the class of an Ingress.",
+  "properties": {
+    "controller": {
+      "description": "The name of the controller that should handle this class. This allows for different 'flavors' to be controlled by the same controller. For example, you may have different `parameters` for the same controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. 'acme.io/ingress-controller'. This field is immutable.",
+      "maxLength": 250,
+      "type": "string"
+    },
+    "parameters": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
+      "description": "A link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters. When specified, the `apiGroup` field must be a valid DNS subdomain name; the `kind` and the `name` fields are required and they must be valid path segment names."
+    }
+  },
+  "required": [
+    "controller"
+  ],
+  "type": "object"
+}

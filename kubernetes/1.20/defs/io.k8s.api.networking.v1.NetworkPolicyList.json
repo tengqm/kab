@@ -1,0 +1,43 @@
+{
+  "description": "A collection of NetworkPolicy objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "networking.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of schema objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "NetworkPolicyList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "required": [
+    "items",
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "networking.k8s.io",
+      "kind": "NetworkPolicyList",
+      "version": "v1"
+    }
+  ]
+}

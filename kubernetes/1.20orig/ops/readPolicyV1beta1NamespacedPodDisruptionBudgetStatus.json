@@ -1,0 +1,53 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read status of the specified PodDisruptionBudget",
+  "operationId": "readPolicyV1beta1NamespacedPodDisruptionBudgetStatus",
+  "parameters": [
+    {
+      "description": "name of the PodDisruptionBudget",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "policy",
+    "kind": "PodDisruptionBudget",
+    "version": "v1beta1"
+  }
+}

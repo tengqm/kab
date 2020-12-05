@@ -1,0 +1,276 @@
+{
+  "description": "Event represents a single event to a watched resource.",
+  "properties": {
+    "object": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension",
+      "description": "Object is:\n\n- new state of the object if `type` is '`Added`' or '`Modified`'\n- the state of the object immediately before deletion if `type` is '`Deleted`'.\n- If Type is Error, *status* is recommended; other types may make sense depending on context."
+    },
+    "type": {
+      "enum": [
+        "Added",
+        "Deleted",
+        "Error",
+        "Modified"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "object"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "admission.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "admission.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "admissionregistration.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "admissionregistration.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "apiextensions.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "apiextensions.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "apiregistration.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "apiregistration.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "apps",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "apps",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "apps",
+      "kind": "WatchEvent",
+      "version": "v1beta2"
+    },
+    {
+      "group": "authentication.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "authentication.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "authorization.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "authorization.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "autoscaling",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "autoscaling",
+      "kind": "WatchEvent",
+      "version": "v2beta1"
+    },
+    {
+      "group": "autoscaling",
+      "kind": "WatchEvent",
+      "version": "v2beta2"
+    },
+    {
+      "group": "batch",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "batch",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "batch",
+      "kind": "WatchEvent",
+      "version": "v2alpha1"
+    },
+    {
+      "group": "certificates.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "certificates.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "coordination.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "coordination.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "discovery.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "discovery.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "events.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "events.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "extensions",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "flowcontrol.apiserver.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "flowcontrol.apiserver.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "imagepolicy.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "internal.apiserver.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "networking.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "networking.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "node.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "node.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "node.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "policy",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "storage.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "storage.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "storage.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    }
+  ]
+}
