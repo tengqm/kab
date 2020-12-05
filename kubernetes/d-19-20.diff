@@ -392,45 +392,45 @@ diff -r 1.19orig/defs/io.k8s.api.events.v1beta1.Event.json 1.20orig/defs/io.k8s.
 >     "metadata",
 
 # description update to node/v1alpha1 RuntimeClassSpec
-diff -r 1.19orig/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json 1.20orig/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
-9c9
-<       "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.",
----
->       "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+# diff -r 1.19orig/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json 1.20orig/defs/io.k8s.api.node.v1alpha1.RuntimeClassSpec.json
+# 9c9
+# <       "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.",
+# ---
+# >       "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
 
 # description update to node/v1beta1 RuntimeClass
-diff -r 1.19orig/defs/io.k8s.api.node.v1beta1.RuntimeClass.json 1.20orig/defs/io.k8s.api.node.v1beta1.RuntimeClass.json
-12c12
-<       "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.",
----
->       "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+# diff -r 1.19orig/defs/io.k8s.api.node.v1beta1.RuntimeClass.json 1.20orig/defs/io.k8s.api.node.v1beta1.RuntimeClass.json
+# 12c12
+# <       "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+# ---
+# >       "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
 
 # Update to DeleteOptions
-diff -r 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
-199a200,204
->       "group": "flowcontrol.apiserver.k8s.io",
->       "kind": "DeleteOptions",
->       "version": "v1beta1"
->     },
->     {
-204a210,214
->       "group": "internal.apiserver.k8s.io",
->       "kind": "DeleteOptions",
->       "version": "v1alpha1"
->     },
->     {
-216a227,231
->       "version": "v1"
->     },
->     {
->       "group": "node.k8s.io",
->       "kind": "DeleteOptions",
-260,264d274
-<       "group": "settings.k8s.io",
-<       "kind": "DeleteOptions",
-<       "version": "v1alpha1"
-<     },
-<     {
+# diff -r 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+# 199a200,204
+# >       "group": "flowcontrol.apiserver.k8s.io",
+# >       "kind": "DeleteOptions",
+# >       "version": "v1beta1"
+# >     },
+# >     {
+# 204a210,214
+# >       "group": "internal.apiserver.k8s.io",
+# >       "kind": "DeleteOptions",
+# >       "version": "v1alpha1"
+# >     },
+# >     {
+# 216a227,231
+# >       "version": "v1"
+# >     },
+# >     {
+# >       "group": "node.k8s.io",
+# >       "kind": "DeleteOptions",
+# 260,264d274
+# <       "group": "settings.k8s.io",
+# <       "kind": "DeleteOptions",
+# <       "version": "v1alpha1"
+# <     },
+# <     {
 
 ### Map type extension for LabelSelector
 # diff -r 1.19orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector.json 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector.json
