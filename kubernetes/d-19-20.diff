@@ -1,4 +1,4 @@
-# PodPreset dropped along with the settings API group
+### PodPreset dropped along with the settings API group
 # Only in 1.19orig/defs: io.k8s.api.settings.v1alpha1.PodPreset.json
 # Only in 1.19orig/defs: io.k8s.api.settings.v1alpha1.PodPresetList.json
 # Only in 1.19orig/defs: io.k8s.api.settings.v1alpha1.PodPresetSpec.json
@@ -13,7 +13,7 @@
 # Only in 1.19orig/ops: getSettingsAPIGroup.json
 # Only in 1.19orig/ops: getSettingsV1alpha1APIResources.json
 
-# New StorageVersion in apiserverinternal Group
+### New StorageVersion in apiserverinternal Group
 # Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.ServerStorageVersion.json
 # Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersion.json
 # Only in 1.20orig/defs: io.k8s.api.apiserverinternal.v1alpha1.StorageVersionCondition.json
@@ -35,7 +35,7 @@
 # Only in 1.20orig/ops: watchInternalApiserverV1alpha1StorageVersion.json
 # Only in 1.20orig/ops: watchInternalApiserverV1alpha1StorageVersionList.json
 
-# ContainerResourceMetricSource and ContainerResourceMetricStatus added to autoscaling v2beta2
+### ContainerResourceMetricSource and ContainerResourceMetricStatus added to autoscaling v2beta2
 # Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricSource.json
 # Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricStatus.json
 # diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta1.MetricSpec.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta1.MetricSpec.json
@@ -61,30 +61,29 @@
 # >       "description": "type is the type of metric source.  It will be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
 
 # ContainerResourceMetricSource and ContainerResourceMetricStatus added to autoscaling v2beta2
-Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource.json
-Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus.json
-
-diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta2.MetricSpec.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta2.MetricSpec.json
-3a4,7
->     "containerResource": {
->       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource",
->       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag."
->     },
-21c25
-<       "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object.",
----
->       "description": "type is the type of metric source.  It should be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
-
-diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta2.MetricStatus.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta2.MetricStatus.json
-3a4,7
->     "containerResource": {
->       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus",
->       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source."
->     },
-21c25
-<       "description": "type is the type of metric source.  It will be one of \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object.",
----
->       "description": "type is the type of metric source.  It will be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
+# Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource.json
+# Only in 1.20orig/defs: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus.json
+# diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta2.MetricSpec.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta2.MetricSpec.json
+# 3a4,7
+# >     "containerResource": {
+# >       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource",
+# >       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag."
+# >     },
+# 21c25
+# <       "description": "type is the type of metric source.  It should be one of \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object.",
+# ---
+# >       "description": "type is the type of metric source.  It should be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
+# 
+# diff -r 1.19orig/defs/io.k8s.api.autoscaling.v2beta2.MetricStatus.json 1.20orig/defs/io.k8s.api.autoscaling.v2beta2.MetricStatus.json
+# 3a4,7
+# >     "containerResource": {
+# >       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus",
+# >       "description": "container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the \"pods\" source."
+# >     },
+# 21c25
+# <       "description": "type is the type of metric source.  It will be one of \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object.",
+# ---
+# >       "description": "type is the type of metric source.  It will be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
 
 # PortStatus added to LoadBalancerIngress type
 Only in 1.20orig/defs: io.k8s.api.core.v1.PortStatus.json
