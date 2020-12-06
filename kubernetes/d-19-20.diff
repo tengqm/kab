@@ -86,17 +86,17 @@
 # >       "description": "type is the type of metric source.  It will be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each corresponds to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate HPAContainerMetrics is enabled",
 
 # PortStatus added to LoadBalancerIngress type
-Only in 1.20orig/defs: io.k8s.api.core.v1.PortStatus.json
-diff -r 1.19orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json 1.20orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json
-10a11,18
->     },
->     "ports": {
->       "description": "Ports is a list of records of service ports If used, every port defined in the service should have an entry in it",
->       "items": {
->         "$ref": "#/definitions/io.k8s.api.core.v1.PortStatus"
->       },
->       "type": "array",
->       "x-kubernetes-list-type": "atomic"
+# Only in 1.20orig/defs: io.k8s.api.core.v1.PortStatus.json
+# diff -r 1.19orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json 1.20orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json
+# 10a11,18
+# >     },
+# >     "ports": {
+# >       "description": "Ports is a list of records of service ports If used, every port defined in the service should have an entry in it",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.PortStatus"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
 
 # New version v1beta1 for flowcontrol
 Only in 1.20orig/ops: getFlowcontrolApiserverV1beta1APIResources.json

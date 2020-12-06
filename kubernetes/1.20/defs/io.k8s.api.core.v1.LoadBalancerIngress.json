@@ -6,8 +6,16 @@
       "type": "string"
     },
     "ip": {
-      "description": "The `ip` is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)",
+      "description": "The `ip` is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers).",
       "type": "string"
+    },
+    "ports": {
+      "description": "A list of records of service ports. If used, every port defined in the service should have an entry in it.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PortStatus"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
     }
   },
   "type": "object"
