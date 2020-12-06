@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "flowcontrol.apiserver.k8s.io/v1alpha1"
+        "flowcontrol.apiserver.k8s.io/v1beta1"
       ],
       "type": "string"
     },
@@ -16,30 +16,29 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
       "description": "The standard object's metadata."
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchemaSpec",
+      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.FlowSchemaSpec",
       "description": "The specification of the desired behavior of a FlowSchema."
     },
     "status": {
-      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.FlowSchemaStatus",
+      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.FlowSchemaStatus",
       "description": "The current status of a FlowSchema."
     }
   },
   "required": [
     "apiVersion",
     "kind",
-    "metadata",
-    "spec"
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
     {
       "group": "flowcontrol.apiserver.k8s.io",
       "kind": "FlowSchema",
-      "version": "v1alpha1"
+      "version": "v1beta1"
     }
   ]
 }

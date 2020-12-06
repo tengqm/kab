@@ -12,7 +12,7 @@
       "x-kubernetes-list-type": "set"
     },
     "clusterScope": {
-      "description": "This indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or `false` then the `namespaces` field must contain a non-empty list.",
+      "description": "This indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.",
       "type": "boolean"
     },
     "namespaces": {
@@ -34,7 +34,7 @@
       "x-kubernetes-list-type": "set"
     },
     "verbs": {
-      "description": "A list of matching verbs. '`*`' matches all verbs and, if present, must be the only entry.",
+      "description": "A list of matching verbs and may not be empty. \"`*`\" matches all verbs and, if present, must be the only entry.",
       "items": {
         "minLength": 1,
         "type": "string"

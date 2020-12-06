@@ -4,7 +4,7 @@
     "nonResourceRules": {
       "description": "A list of `NonResourcePolicyRule`s that identify matching requests according to their verb and the target non-resource URL.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.NonResourcePolicyRule"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.NonResourcePolicyRule"
       },
       "type": "array",
       "x-kubernetes-list-type": "atomic"
@@ -12,17 +12,16 @@
     "resourceRules": {
       "description": "A list of `ResourcePolicyRule`s that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.ResourcePolicyRule"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.ResourcePolicyRule"
       },
       "type": "array",
       "x-kubernetes-list-type": "atomic"
     },
     "subjects": {
-      "description": "The list of normal user, ServiceAccount, or group that this rule cares about. A slice that includes both the '`system:authenticated`' and '`system:unauthenticated`' user groups matches every request.",
+      "description": "The list of normal user, ServiceAccount, or group that this rule cares about. There must be at least one member in this list. A list that includes both the `system:authenticated` and `system:unauthenticated` user groups matches every request.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.Subject"
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.Subject"
       },
-      "minItems": 1,
       "type": "array",
       "x-kubernetes-list-type": "atomic"
     }
