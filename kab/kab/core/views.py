@@ -5,6 +5,7 @@ import json
 import logging
 import os
 from urllib import parse
+import yaml
 
 from django.conf import settings
 from django.core import exceptions as exc
@@ -12,13 +13,15 @@ from django import http
 from django import shortcuts
 from django import urls
 from django.views import generic
-import yaml
+import markdown
 
 from kab.core import helpers
 from kab.core import jsondiff
 from kab.core import tmpl
 
 LOG = logging.getLogger(__name__)
+MD = markdown.Markdown(
+    extensions=["codehilite", "tables", "fenced_code", "toc"])
 
 
 def home(req):
@@ -493,22 +496,21 @@ class StaticPage(generic.View):
             return http.HttpResponseRedirect(target)
 
         path = os.path.join(settings.BASE_DIR, "kab", "templates", "static",
-                            page)
+                            page + ".md")
         if not os.path.exists(path) or not os.path.isfile(path):
             target = urls.reverse("list-apis")
             return http.HttpResponseRedirect(target)
 
-        # content = ""
-        # with open(path, "r") as f:
-        #     try:
-        #         content = f.read()
-        #     except Exception as ex:
-        #         LOG.warning("page %s not found", page)
-        #         target = urls.reverse("list-apis")
-        #         return http.HttpResponseRedirect(target)
+        content = ""
+        try: 
+            with open(path, "r") as f:
+                content = MD.reset().convert(f.read())
+        except Exception as ex:
+            LOG.warning("Failed parsing markdown %s: %s", path, str(ex))
+            content = ""
 
         ctx = {
             "TITLE": "Title",
-            "CONTENT": "static/" + page,
+            "CONTENT": content,
         }
         return shortcuts.render(req, 'core/static-container.html', ctx)
