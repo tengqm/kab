@@ -123,15 +123,12 @@ RESOURCE_PATTERNS = {
     "connect{g}{v}HeadNamespaced{r}ProxyWithPath": "proxyhead-withpath",
     "connect{g}{v}OptionsNamespaced{r}Proxy": "proxyoptions",
     "connect{g}{v}OptionsNamespaced{r}ProxyWithPath": "proxyoptions-withpath",
-
-
 }
 
 GROUP_PATTERNS = {
     "get{g}{v}APIResources": "listresources",
     "get{g}APIGroup": "readgroup",
 }
-
 
 def INFO(msg, *args, **kwargs):
     LOG.info("\033[0;32m" + msg + "\033[0;0m", *args, **kwargs)
@@ -364,6 +361,8 @@ def _normalize_group_name(name):
         gname = "RbacAuthorization"
     elif name == "flowcontrol":
         gname = "FlowcontrolApiserver"
+    elif name == "apiserverinternal":
+        gname = "InternalApiserver"
     else:
         gname = name.title()
 
@@ -376,6 +375,8 @@ SPECIAL_OPS = [
     "getCodeVersion",
     "logFileHandler",
     "logFileListHandler",
+    "getServiceAccountIssuerOpenIDConfiguration",
+    "getServiceAccountIssuerOpenIDKeyset",
 ]
 
 
