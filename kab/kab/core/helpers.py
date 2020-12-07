@@ -2,6 +2,7 @@ import collections
 import logging
 from os import path
 
+from django.conf import settings
 from django.contrib import messages
 
 from kab.core import jsonutil
