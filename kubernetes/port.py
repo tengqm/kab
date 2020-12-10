@@ -6,8 +6,11 @@ import os
 import pathlib
 import sys
 
+# import jsonpatch
+
 from kab.core import helpers
 from kab.core import jsondiff
+from kab.core import jsonutil
 
 basedir = "."
 ARGS = None
@@ -73,6 +76,14 @@ def traverse(major, minor0, minor1):
 
             if ARGS.data_type == "defs":
                 res = jsondiff.compare([v0, v1], file0, file1, root=".")
+
+                # The following is jsonpatch, the difference generated for
+                # description fields is not good. We can improve the jsondiff
+                # module to generate something similar to JSON Patch format.
+                # j1 = jsonutil.load_json(file0, v0, root=".")
+                # j2 = jsonutil.load_json(file1, v1, root=".")
+                # d = jsonpatch.JsonPatch.from_diff(j1, j2)
+                # res = json.loads(d.to_string())
             else:
                 opid = os.path.splitext(basename)[0]
                 print(opid)
