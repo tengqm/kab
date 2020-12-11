@@ -6,7 +6,7 @@ import os
 import pathlib
 import sys
 
-# import jsonpatch
+import jsonpatch
 
 from kab.core import helpers
 from kab.core import jsondiff
@@ -25,9 +25,9 @@ def parse_args():
     parser.add_argument("--to", dest="to_version", required=True,
                         help="Target version for comparsion")
     parser.add_argument("--type", dest="data_type", default="defs",
-                        choices=["defs", "ops"],
-                        help=("Data type for comparison, one of 'defs' "
-                              "and 'ops'"))
+                        choices=["defs", "ops", "parameters"],
+                        help=("Data type for comparison, one of 'defs', "
+                              "'ops' and 'parameters'"))
     parser.add_argument("--file", required=True,
                         help="File for comparison")
     ARGS = parser.parse_args()
@@ -84,10 +84,15 @@ def traverse(major, minor0, minor1):
                 # j2 = jsonutil.load_json(file1, v1, root=".")
                 # d = jsonpatch.JsonPatch.from_diff(j1, j2)
                 # res = json.loads(d.to_string())
-            else:
+            elif ARGS.data_type == "ops":
                 opid = os.path.splitext(basename)[0]
-                print(opid)
                 res = jsondiff.compare_ops([v0, v1], opid, root=".")
+            else:
+                # j1 = jsonutil.load_json(file0, v0, root=".")
+                # j2 = jsonutil.load_json(file1, v1, root=".")
+                # d = jsonpatch.JsonPatch.from_diff(j1, j2)
+                # res = json.loads(d.to_string())
+                res = jsondiff.compare([v0, v1], file0, file1, root=".")
 
             if res:
                 if basename not in result:
@@ -100,15 +105,19 @@ def traverse(major, minor0, minor1):
                         "changes": res
                     }
             else:
-                result[basename] = None
+                if basename not in result:
+                    result[basename] = {v1: None}
+                else:
+                    result[basename][v1] = None
+
 
         path1 = os.path.join(v1, ARGS.data_type)
         for f in pathlib.Path(path1).glob(ARGS.file):
             basename = os.path.basename(f)
             if basename not in result:
                 result[basename] = {v1: {"status": "ADDED"}}
-            elif result[basename] is None:
-                result.pop(basename)
+            elif result[basename][v1] is None:
+                result[basename].pop(v1)
 
         # Done?
         if minor_to == minor1:
