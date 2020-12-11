@@ -256,7 +256,7 @@ def _simplify_ref(api, ref):
 
     tmpl = "/apis/definition/{}/{}/{}/{}"
     target = tmpl.format(api, group, version, def_name)
-    return "<a href='%s'>%s</a>" % (target, display_name)
+    return [target, display_name]
 
 
 def _escape_list(api, value):

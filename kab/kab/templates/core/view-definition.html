@@ -148,7 +148,9 @@
                 {% if DATA.type %}
                   {% if DATA.type == "array" %}
                     {% if DATA.items.REF %}
-                      <code>array</code> of <code>{{ DATA.items.REF|safe }}</code>
+                      <code>array</code> of
+                        <a class="btn btn-outline-dark btn-sm" role="button"
+                           href="{{ DATA.items.REF.0 }}">{{ DATA.items.REF.1 }}</a>
                     {% else %}
                       <code>array</code> of <code>{{ DATA.items.type }}</code>
                     {% endif %}
@@ -187,7 +189,9 @@
                     <code>{{ DATA.type }}</code>
                   {% endif %}
                 {% elif DATA.REF %}
-                  <i class="fa fa-share-alt"></i> <code>{{ DATA.REF|safe }}</code>
+                  <i class="fa fa-share-alt"></i>
+                    <a class="btn btn-outline-dark btn-sm" role="button"
+                           href="{{ DATA.REF.0 }}">{{ DATA.REF.1 }}</a>
                 {% endif %}
 
                 {% if 'default' in DATA %}

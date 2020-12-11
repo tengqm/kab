@@ -69,7 +69,7 @@
     <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
       <p><strong>{{ OP.verb|upper }}</strong><code> {{ OP.path}}</code></p>
       {% if PATH %}
-        <table class="table table-sm table-striped mb-0">
+        <table class="table table-sm table-striped mb-0 mt-2">
           <tr class="table-secondary"><td colspan="3">Params<td></tr>
           {% for P in PATH %}
             <tr>
@@ -114,7 +114,7 @@
     {# Query Parameters #}
     <dt class="col-md-2 col-sm-3">Query Parameters:</dt>
     <dd class="col-md-10 col-sm-9">
-      <table class="table table-sm table-striped">
+      <table class="table table-sm table-striped table-bordered mt-2">
         <thead>
           <tr class="table-secondary">
             <th>Name</th>
@@ -147,7 +147,9 @@
         [<code>{{ TARGET.REF|safe }}</code>]
       {% else %}
         {% escape_ref API BODY.0.schema as TARGET %}
-        <code>{{ TARGET.REF|safe }}</code>
+        <a class="btn btn-outline-dark btn-sm" role="button"
+             href="{{ TARGET.REF.0 }}">{{ TARGET.REF.1 }}</a>
+
       {% endif %}
     </dd>
     {% endif %}
@@ -155,7 +157,7 @@
     {% if OP.responses %}
     <dt class="col-md-2 col-sm-3">Responses:</dt>
     <dd class="col-md-10 col-sm-9">
-      <table class="table table-sm table-striped">
+      <table class="table table-sm table-striped table-bordered mt-2">
         <thead>
           <tr class="table-secondary">
             <th style="width: 15%;">Status</th>
@@ -171,7 +173,8 @@
             <td>
             {% if data.schema %}
               {% escape_ref API data.schema as RESP %}
-              <code>{{ RESP.REF|safe }}</code>
+              <a class="btn btn-outline-dark btn-sm" role="button"
+                   href="{{ RESP.REF.0 }}">{{ RESP.REF.1 }}</a>
             {% endif %}
             </td>
           </tr>
