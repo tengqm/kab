@@ -51,7 +51,7 @@
     "uniqueItems": true
   },
   "fieldSelector": {
-    "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+    "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
     "in": "query",
     "name": "fieldSelector",
     "required": false,
