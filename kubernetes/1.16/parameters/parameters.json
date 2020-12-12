@@ -17,13 +17,13 @@
   },
   "dryRun": {
     "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+    "enum": [
+      "All"
+    ],
     "in": "query",
     "name": "dryRun",
     "required": false,
     "type": "string",
-    "enum": [
-      "All"
-    ],
     "uniqueItems": true
   },
   "exact": {
@@ -43,7 +43,7 @@
     "uniqueItems": true
   },
   "fieldManager": {
-    "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+    "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
     "in": "query",
     "name": "fieldManager",
     "required": false,
@@ -124,15 +124,15 @@
   },
   "propagationPolicy": {
     "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-    "in": "query",
-    "name": "propagationPolicy",
-    "required": false,
-    "type": "string",
     "enum": [
       "Orphan",
       "Background",
       "Foreground"
     ],
+    "in": "query",
+    "name": "propagationPolicy",
+    "required": false,
+    "type": "string",
     "uniqueItems": true
   },
   "resourceVersion": {
@@ -160,4 +160,3 @@
     "uniqueItems": true
   }
 }
-
