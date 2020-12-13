@@ -135,6 +135,14 @@
     "type": "string",
     "uniqueItems": true
   },
+  "resourceVersionMatch": {
+    "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to **list** requests. It is highly recommended that `resourceVersionMatch` be set for **list** calls where `resourceVersion` is set.\n\nDefaults to unset.",
+    "in": "query",
+    "name": "resourceVersionMatch",
+    "required": false,
+    "type": "string",
+    "uniqueItems": true
+  },
   "timeoutSeconds": {
     "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
     "in": "query",
