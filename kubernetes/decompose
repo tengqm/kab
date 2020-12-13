@@ -192,10 +192,8 @@ def extract_parameters(data):
                         if p_name not in param_spec:
                             p_copy = copy.deepcopy(p)
                             p_copy["required"] = False
-                            if p.get("required", False):
+                            if p.get("required", False) == True:
                                 p_copy["required"] = True
-                                t = "\033[31m %s required?\033[0m"
-                                print(t % p_name)
 
                             param_spec[p_name] = p_copy
                         else:
@@ -230,8 +228,6 @@ def extract_parameters(data):
                             param_spec[p_name] = p_copy
                             if p.get("required", False) == True:
                                 p_copy["required"] = True
-                                t = "\033[31m %s required?\033[0m"
-                                print(t % p_name)
                         else:
                             cross_compare(param_spec[p_name], p)
 
