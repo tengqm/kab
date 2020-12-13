@@ -1,7 +1,7 @@
-## Field Selector
+## Label Selector
 
-When listing resources, the `fieldSelector` can be used to restrict the list
-of returned objects by their fields. The default is to return everything. The
+When listing resources, the `labelSelector` can be used to restrict the list
+of returned objects by their labels. The default is to return everything. The
 accepted value is a comma-separated list of *terms*. Backslash-escaped commas
 are treated as data instead of delimiters, and included in the returned terms
 with the leading backslash perserved. Each *term* consists of a *key*, an
