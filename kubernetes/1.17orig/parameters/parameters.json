@@ -1,6 +1,6 @@
 {
   "allowWatchBookmarks": {
-    "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.",
+    "description": "allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.",
     "in": "query",
     "name": "allowWatchBookmarks",
     "required": false,
@@ -41,6 +41,14 @@
   },
   "fieldManager": {
     "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+    "in": "query",
+    "name": "fieldManager",
+    "required": false,
+    "type": "string",
+    "uniqueItems": true
+  },
+  "fieldManagerPatch": {
+    "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
     "in": "query",
     "name": "fieldManager",
     "required": false,
