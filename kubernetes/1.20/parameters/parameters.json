@@ -99,7 +99,7 @@
     "uniqueItems": true
   },
   "orphanDependents": {
-    "description": "This field will be DEPRECATED in 1.7, please use the `propagationPolicy`. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
+    "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
     "in": "query",
     "name": "orphanDependents",
     "required": false,
@@ -107,7 +107,7 @@
     "uniqueItems": true
   },
   "pretty": {
-    "description": "If 'true', then the output is pretty printed.",
+    "description": "If `true`, then the output is pretty printed.",
     "in": "query",
     "name": "pretty",
     "required": false,
@@ -115,7 +115,7 @@
     "uniqueItems": true
   },
   "propagationPolicy": {
-    "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
+    "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
     "in": "query",
     "name": "propagationPolicy",
     "required": false,
@@ -128,15 +128,23 @@
     "uniqueItems": true
   },
   "resourceVersion": {
-    "description": "When specified with a `watch` call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list:\n\n- if unset, then the result is returned from remote storage based on quorum-read flag;\n- if it is 0, then we simply return what we currently have in cache, no guarantee;\n- if set to non-zero, then the result is at least as fresh as given resourceVersion.\n",
+    "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
     "in": "query",
     "name": "resourceVersion",
     "required": false,
     "type": "string",
     "uniqueItems": true
   },
+  "resourceVersionMatch": {
+    "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to **list** requests. It is highly recommended that `resourceVersionMatch` be set for **list** calls where `resourceVersion` is set.\n\nDefaults to unset.",
+    "in": "query",
+    "name": "resourceVersionMatch",
+    "required": false,
+    "type": "string",
+    "uniqueItems": true
+  },
   "timeoutSeconds": {
-    "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.",
+    "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
     "in": "query",
     "name": "timeoutSeconds",
     "required": false,
@@ -144,7 +152,7 @@
     "uniqueItems": true
   },
   "watch": {
-    "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify `resourceVersion`.",
+    "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
     "in": "query",
     "name": "watch",
     "required": false,
