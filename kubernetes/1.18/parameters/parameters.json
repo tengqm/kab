@@ -128,7 +128,7 @@
     "uniqueItems": true
   },
   "resourceVersion": {
-    "description": "When specified with a `watch` call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list:\n\n- if unset, then the result is returned from remote storage based on quorum-read flag;\n- if it is 0, then we simply return what we currently have in cache, no guarantee;\n- if set to non-zero, then the result is at least as fresh as given resourceVersion.\n",
+    "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
     "in": "query",
     "name": "resourceVersion",
     "required": false,
