@@ -99,7 +99,7 @@
     "uniqueItems": true
   },
   "orphanDependents": {
-    "description": "This field will be DEPRECATED in 1.7, please use the `propagationPolicy`. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
+    "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
     "in": "query",
     "name": "orphanDependents",
     "required": false,
