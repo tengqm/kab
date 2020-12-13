@@ -39,6 +39,14 @@
     "type": "string",
     "uniqueItems": true
   },
+  "fieldManagerPatch": {
+    "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+    "in": "query",
+    "name": "fieldManager",
+    "required": false,
+    "type": "string",
+    "uniqueItems": true
+  },
   "fieldSelector": {
     "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
     "in": "query",
