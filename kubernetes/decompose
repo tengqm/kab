@@ -145,7 +145,9 @@ def process_basic(data):
 
 def cross_compare(existing, check):
     c = copy.deepcopy(check)
-    c["required"] = False
+    if "required" not in c:
+        c["required"] = False
+
     if c != existing:
         print("\033[31mDeviated param definition: %r \033[0m" % check)
         print("\033[31m    %r \033[0m" % existing)
@@ -174,13 +176,6 @@ def extract_parameters(data):
         "timeoutSeconds",
         "watch",
     ]
-    fieldManagerDesc = (
-        "fieldManager is a name associated with the actor or entity that is "
-        "making these changes. The value must be less than or 128 characters "
-        "long, and only contain printable characters, as defined by "
-        "https://golang.org/pkg/unicode/#IsPrint. This field is required "
-        "for apply requests (application/apply-patch) but optional for "
-        "non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).")
     param_spec = {}
     paths = data['paths']
     
@@ -189,18 +184,19 @@ def extract_parameters(data):
         for op, opd in pathd.items():
             if op == "parameters":
                 params = []
-                # opd is the list of parameters
+                # opd is the list of parameters defined for a path
                 for p in opd:
                     p_name = p["name"]
                     if p_name in common_params:
                         # accumulate the top leve list
                         if p_name not in param_spec:
                             p_copy = copy.deepcopy(p)
-                            if p.get("required", False):
-                                print("\033[31m Whoops, required?\033[0m")
                             p_copy["required"] = False
-                            if p_name == "fieldManager":
-                                p_copy["description"] = fieldManagerDesc
+                            if p.get("required", False):
+                                p_copy["required"] = True
+                                t = "\033[31m %s required?\033[0m"
+                                print(t % p_name)
+
                             param_spec[p_name] = p_copy
                         else:
                             cross_compare(param_spec[p_name], p)
@@ -211,7 +207,9 @@ def extract_parameters(data):
                         p_copy = copy.deepcopy(p)
                         params.append(p_copy)
                 data["paths"][path]["parameters"] = params
+            # op is a verb
             else:
+                # param_list is the list of parameters defined for an operation
                 param_list = opd.get("parameters", [])
                 if len(param_list) == 0:
                     continue
@@ -219,13 +217,21 @@ def extract_parameters(data):
                 for p in param_list:
                     p_name = p["name"]
                     if p_name in common_params:
+                        # Patch operation has a different description for
+                        # fieldManager, we define a separate item for it
+                        if p_name == "fieldManager":
+                            if op == "patch":
+                                p_name = "fieldManagerPatch"
+
                         # accumulate the top leve list
                         if p_name not in param_spec:
                             p_copy = copy.deepcopy(p)
                             p_copy["required"] = False
                             param_spec[p_name] = p_copy
-                            if p.get("required", False):
-                                print("\033[31m Whoops, required?\033[0m")
+                            if p.get("required", False) == True:
+                                p_copy["required"] = True
+                                t = "\033[31m %s required?\033[0m"
+                                print(t % p_name)
                         else:
                             cross_compare(param_spec[p_name], p)
 
