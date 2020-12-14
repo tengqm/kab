@@ -1,5 +1,5 @@
 {
-  "description": "MutatingWebhookConfiguration describes the configuration of an admission webhook that accepts or rejects and may change an object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.",
+  "description": "The configuration of an admission webhook that accepts or rejects an object and may change it. Deprecated in v1.16, planned for removal in v1.19. Use `admissionregistration.k8s.io/v1` MutatingWebhookConfiguration instead.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -31,7 +31,9 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "webhooks"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of ValidatingWebhookConfiguration.",
+      "description": "List of ValidatingWebhookConfiguration.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.ValidatingWebhookConfiguration.GET"
       },
@@ -24,13 +24,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata"
+      "description": "Standard list metadata."
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
