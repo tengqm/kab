@@ -514,3 +514,29 @@ class StaticPage(generic.View):
             "CONTENT": content,
         }
         return shortcuts.render(req, 'core/static-container.html', ctx)
+
+
+class HelpPage(generic.View):
+
+    def get(self, req, *args, **kwargs):
+        page = kwargs.get("page", "")
+        if page == "":
+            raise exc.SuspiciousOperation("Invalid page specified")
+
+        path = os.path.join(settings.BASE_DIR, "kab", "templates", "static",
+                            page + ".md")
+        if not os.path.exists(path) or not os.path.isfile(path):
+            raise exc.SuspiciousOperation("Page not found")
+
+        content = ""
+        try: 
+            with open(path, "r") as f:
+                content = MD.reset().convert(f.read())
+        except Exception as ex:
+            LOG.warning("Failed parsing markdown %s: %s", path, str(ex))
+            content = ""
+
+        ctx = {
+            "CONTENT": content,
+        }
+        return shortcuts.render(req, 'core/help-page.html', ctx)

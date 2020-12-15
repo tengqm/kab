@@ -28,6 +28,10 @@
     <dt class="col-3 col-md-2">Group/Version:</dt>
     <dd class="col-9 col-md-10">
       <code>{% if GROUP != "" %}{{ GROUP }}/{% endif %}{{ VERSION }}</code>
+      <button type="button" class="btn"
+        onclick="show_help('apiversion-long')">
+        <i class="fa far fa-question-circle text-info"></i>
+      </button>
     </dd>
 
     {# description #}
@@ -284,6 +288,7 @@
     <input type="hidden" name="def2" value="{{ NAME }}" />
   </form>
 
+  {% include "core/help-dialog.html" %}
 {% endblock %}
 
 {% block javascript %}
@@ -316,6 +321,20 @@
     $("#form_group").val(gn);
     $("#form_version").val(gv);
     $("#form-compare").submit();
+  }
+  function show_help(page) {
+    $.ajax({
+      url: "/help-page/" + page + "/",
+      type: "get",
+      async: false,
+      success: function(data) {
+        $("#help-modal-body").html(data);
+      },
+      error: function(jqxhr, textStatus, msg) {
+        $("#help-modal-body").html("<p>" + textStatus + "</p>");
+      }
+    });
+    $("#helpModal").modal();
   }
 </script>
 {% endblock %}

@@ -6,10 +6,15 @@ from kab.core import views
 urlpatterns = [
     urls.url(r'^$', views.home, name='home'),
 
-    urls.url(r'^apis/apis/$', views.ListAPIs.as_view(), name='list-apis'),
+    urls.url(r'^apis/apis/$',
+             views.ListAPIs.as_view(),
+             name='list-apis'),
     urls.url(r'^page/(?P<page>[^\/\s]*)/$',
              views.StaticPage.as_view(),
              name='static-page'),
+    urls.url(r'^help-page/(?P<page>[^\/\s]*)/$',
+             views.HelpPage.as_view(),
+             name='help-page'),
     urls.url(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListResources.as_view(),
              name='list-resources'),

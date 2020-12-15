@@ -1,0 +1,46 @@
+{% load static %}
+{% load core_tags %}
+
+<style type="text/css">
+H2 {
+  font-size: 16pt;
+  font-weight: 600;
+  color: DarkBlue;
+}
+H3 {
+  font-size: 14pt;
+  font-weight: 600;
+  margin-left: 4pt;
+  color: SeaGreen;
+}
+
+H4 {
+  font-size: 12pt;
+  font-weight: 600;
+  margin-left: 6pt;
+  color: SteelBlue;
+}
+
+P {
+  margin: 10pt;
+}
+
+pre {
+  background-color: #f8f9fa;
+  color: #222;
+  padding: 1rem;
+  display: block;
+  font-size: 87.5%;
+  margin: 1em 0px;
+  overflow: auto;
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,liberation mono,courier new,monospace;
+  white-space: pre;
+  line-height: normal;
+}
+
+pre code {
+  color: inherit !important;
+}
+</style>
+
+{{ CONTENT|safe }}
