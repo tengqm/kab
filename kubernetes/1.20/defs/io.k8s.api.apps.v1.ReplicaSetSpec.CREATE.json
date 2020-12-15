@@ -3,7 +3,7 @@
   "properties": {
     "minReadySeconds": {
       "default": 0,
-      "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Default value 0 means a Pod will be considered available as soon as it is ready.",
+      "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its container crashing, for it to be considered available. Default value 0 means a Pod will be considered available as soon as it is ready.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
@@ -17,11 +17,11 @@
     },
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "A label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. Empty selector is invalid."
+      "description": "A label query over Pods that should match the replica count. Label keys and values that must match in order to be controlled by this ReplicaSet. It must match the Pod template's `labels`. Empty `selector` is invalid."
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
-      "description": "The object that describes the pod that will be created if insufficient replicas are detected."
+      "description": "The object that describes the Pod that will be created if insufficient replicas are detected."
     }
   },
   "required": [
