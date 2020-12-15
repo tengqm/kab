@@ -27,7 +27,7 @@ def parse_args():
                         help="Target version for comparsion")
     parser.add_argument("--field", dest="field",
                         help="Field whose value will be copied")
-    parser.add_argument("--type", dest="data_type",
+    parser.add_argument("--type", dest="data_type", default="defs",
                         choices=["defs", "ops", "parameters"],
                         help="File type to check")
     parser.add_argument("--file", required=True,
@@ -87,6 +87,8 @@ def traverse(major, minor0, minor1):
     if value is None:
         print("Source value is None!" % value)
         return -1
+    else:
+        print("Source:\n%s" % json.dumps(value, indent=2, sort_keys=True))
 
     basename = os.path.basename(file0)
     while True:
@@ -112,7 +114,7 @@ def traverse(major, minor0, minor1):
             if minor_to == -1:
                 break
             continue
-               
+
         data1 = jsonpointer.set_pointer(data, ARGS.field, value)
         try:
             with open(file1, "w") as f:
