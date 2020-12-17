@@ -1,5 +1,5 @@
 {
-  "description": "CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.\n\nKubelets use this API to obtain:\n 1. client certificates to authenticate to `kube-apiserver` (with the \"`kubernetes.io/kube-apiserver-client-kubelet`\" signerName).\n 2. serving certificates for TLS endpoints `kube-apiserver` can connect to securely (with the \"`kubernetes.io/kubelet-serving`\" signerName).\n\nThis API can be used to request client certificates to authenticate to `kube-apiserver` (with the \"`kubernetes.io/kube-apiserver-client`\" signerName), or to obtain certificates from custom non-Kubernetes signers.",
+  "description": "CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued. Kubelets use this API to obtain:\n\n1. client certificates to authenticate to `kube-apiserver` (with the `signerName` set to `\"kubernetes.io/kube-apiserver-client-kubelet\"` ).\n1. serving certificates for TLS endpoints `kube-apiserver` can connect to securely (with the `signerName` set to `\"kubernetes.io/kubelet-serving\"`).\n\nThis API can be used to request client certificates to authenticate to `kube-apiserver` (with the `signerName` set to `\"kubernetes.io/kube-apiserver-client\"`), or to obtain certificates from custom non-Kubernetes signers.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -16,7 +16,8 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequestSpec",
@@ -30,7 +31,9 @@
   "required": [
     "apiVersion",
     "kind",
-    "spec"
+    "metadata",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

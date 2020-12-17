@@ -1,5 +1,5 @@
 {
-  "description": "A collection of CertificateSigningRequest objects",
+  "description": "A list of CertificateSigningRequest objects",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
