@@ -1,5 +1,5 @@
 {
-  "description": "TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.",
+  "description": "TokenReview attempts to authenticate a token to a known user. **Note**: TokenReview requests may be cached by the webhook token authenticator plugin in the API server.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -16,15 +16,12 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.authentication.v1.TokenReviewSpec",
       "description": "Information about the request being evaluated"
-    },
-    "status": {
-      "$ref": "#/definitions/io.k8s.api.authentication.v1.TokenReviewStatus",
-      "description": "Indicates whether the request can be authenticated; filled in by the server."
     }
   },
   "required": [
