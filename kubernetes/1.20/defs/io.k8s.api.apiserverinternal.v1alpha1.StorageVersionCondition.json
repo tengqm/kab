@@ -1,5 +1,5 @@
 {
-  "description": "Describes the state of the StorageVersion at a certain point.",
+  "description": "Describes the state of the StorageVersion at a certain point in time.",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -21,7 +21,7 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition, one of \"True\", \"False\", \"Unknown\".",
+      "description": "Status of the condition.",
       "enum": [
         "False",
         "True",

@@ -1,5 +1,5 @@
 {
-  "description": "A list of StorageVersions.",
+  "description": "A list of StorageVersion objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,6 +9,7 @@
       "type": "string"
     },
     "items": {
+      "description": "A list of StorageVersion objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.apiserverinternal.v1alpha1.StorageVersion.GET"
       },
@@ -22,13 +23,14 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
     }
   },
   "required": [
     "apiVersion",
-    "kind",
     "items",
+    "kind",
     "metadata"
   ],
   "type": "object",
