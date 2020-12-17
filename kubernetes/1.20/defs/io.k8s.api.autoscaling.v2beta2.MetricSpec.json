@@ -3,7 +3,7 @@
   "properties": {
     "containerResource": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource",
-      "description": "Container resource refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing a single container in each Pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the \"pods\" source. This is an alpha feature and can be enabled by the `HPAContainerMetrics` feature flag."
+      "description": "Container resource refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing a single container in each Pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source. This is an Alpha feature and can be enabled by the `HPAContainerMetrics` feature gate."
     },
     "external": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ExternalMetricSource",
@@ -11,18 +11,18 @@
     },
     "object": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ObjectMetricSource",
-      "description": "Reference to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object)."
+      "description": "Reference to a metric describing a single kubernetes object (for example, `\"hits-per-second\"` on an Ingress object)."
     },
     "pods": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.PodsMetricSource",
-      "description": "Reference to a metric describing each Pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value."
+      "description": "Reference to a metric describing each Pod in the current scale target (for example, `\"transactions-processed-per-second\"`). The values will be averaged together before being compared to the target value."
     },
     "resource": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ResourceMetricSource",
-      "description": "Reference  to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory). Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `pods` source."
+      "description": "Reference  to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory). Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source."
     },
     "type": {
-      "description": "Type of metric source. It should be one of \"ContainerResource\", \"External\", \"Object\", \"Pods\" or \"Resource\", each mapping to a matching field in the object. Note: \"ContainerResource\" type is available on when the feature-gate `HPAContainerMetrics` is enabled",
+      "description": "Type of metric source. It should be one of `\"ContainerResource\"`, `\"External\"`, `\"Object\"`, `\"Pods\"` or `\"Resource\"`, each mapping to a matching field in the object. **Note**: `\"ContainerResource\"` type is available on when the feature gate `HPAContainerMetrics` is enabled",
       "enum": [
         "ContainerResource",
         "External",

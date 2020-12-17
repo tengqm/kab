@@ -1,5 +1,5 @@
 {
-  "description": "HPAScalingPolicy is a single policy which must hold true for a specified past interval.",
+  "description": "HPAScalingPolicy is a policy which must hold true for a specified past interval.",
   "properties": {
     "periodSeconds": {
       "description": "The time window for which the policy should hold true.",
@@ -10,7 +10,7 @@
       "type": "integer"
     },
     "type": {
-      "description": "Type is used to specify the scaling policy. 'Pods' means the policy is about the change in absolute number of Pods. 'Percent' means the policy is about the relative number of change with respect to the current number of Pods. ",
+      "description": "This is used to specify the scaling policy.\n\n- `\"Pods\"` means the policy is about the change in absolute number of Pods.\n- `\"Percent\"` means the policy is about the relative number of change with respect to the current number of Pods.\n",
       "enum": [
         "Pods",
         "Percentage"
@@ -19,16 +19,16 @@
       "type": "string"
     },
     "value": {
-      "description": "The amount of change which is permitted by the policy. When 'type' is set to '`Percent`', the maximum value is 100.",
+      "description": "The amount of change permitted by the policy. When `type` is set to `\"Percent\"`, the maximum value is 100.",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
     }
   },
   "required": [
+    "periodSeconds",
     "type",
-    "value",
-    "periodSeconds"
+    "value"
   ],
   "type": "object"
 }
