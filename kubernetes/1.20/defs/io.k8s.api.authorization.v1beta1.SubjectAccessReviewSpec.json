@@ -1,5 +1,5 @@
 {
-  "description": "A description of the access request. Exactly one of `resourceAttributes` and `nonResourceAttributes` must be set. One of `user` and `groups` must be specified.",
+  "description": "A description of the access request. Exactly one of `resourceAttributes` and `nonResourceAttributes` must be set. At least one of `user` and `groups` must be specified.",
   "properties": {
     "extra": {
       "additionalProperties": {
@@ -31,7 +31,7 @@
       "type": "string"
     },
     "user": {
-      "description": "The user for testing. At least one of `user` or `groups` must be specified. If you specify `user` but not `groups`, then is it interpreted as 'What if User were not a member of any groups'",
+      "description": "The user for testing. At least one of `user` or `groups` must be specified. If you specify `user` but not `groups`, then is it interpreted as \"What if User were not a member of any groups\"?",
       "type": "string"
     }
   },
