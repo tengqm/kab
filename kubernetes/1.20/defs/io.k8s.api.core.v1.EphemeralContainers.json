@@ -1,0 +1,45 @@
+{
+  "description": "A list of ephemeral containers used with the Pod `ephemeralcontainers` subresource.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "ephemeralContainers": {
+      "description": "A list of ephemeral containers associated with this Pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "EphemeralContainers"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+      "description": "Standard object metadata"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "ephemeralContainers",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "EphemeralContainers",
+      "version": "v1"
+    }
+  ]
+}
