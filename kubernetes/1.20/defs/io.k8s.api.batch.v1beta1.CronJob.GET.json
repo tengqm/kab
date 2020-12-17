@@ -1,5 +1,5 @@
 {
-  "description": "The configuration of a single CronJob.",
+  "description": "The configuration of a CronJob.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -30,7 +30,10 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

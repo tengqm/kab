@@ -1,5 +1,5 @@
 {
-  "description": "A collection of cron jobs.",
+  "description": "A list of CronJob objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of CronJobs.",
+      "description": "A list of CronJob objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.batch.v2alpha1.CronJob.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
