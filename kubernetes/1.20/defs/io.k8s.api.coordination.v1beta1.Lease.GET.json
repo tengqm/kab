@@ -21,12 +21,14 @@
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.coordination.v1beta1.LeaseSpec",
-      "description": "Specification of the Lease."
+      "description": "Specification of the Lease"
     }
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
