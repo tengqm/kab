@@ -14,14 +14,21 @@
       "type": "string"
     },
     "reason": {
-      "description": "Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports '`ResizeStarted`' that means the underlying persistent volume is being resized.",
+      "description": "Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports `\"ResizeStarted\"` that means the underlying persistent volume is being resized.",
       "type": "string"
     },
     "status": {
+      "description": "The status of the condition.",
+      "enum": [
+        "False",
+        "True",
+        "Unknownn"
+      ],
       "minLength": 1,
       "type": "string"
     },
     "type": {
+      "description": "The type of the condition.\n\n- `\"Resizing\"`: A user triggered resize of PVC has been started.\n- `\"FileSystemResizePending\"`: The controller resize has completed and a file system resize is pending on node.",
       "enum": [
         "Resizing",
         "FileSystemResizePending"
@@ -31,8 +38,8 @@
     }
   },
   "required": [
-    "type",
-    "status"
+    "status",
+    "type"
   ],
   "type": "object"
 }

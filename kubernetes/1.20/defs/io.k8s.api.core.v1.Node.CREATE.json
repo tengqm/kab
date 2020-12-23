@@ -1,5 +1,5 @@
 {
-  "description": "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).",
+  "description": "Node is a worker node in Kubernetes. Each Node will have a unique identifier in the cache (i.e. in etcd).",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,15 +17,15 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata. The name of a Node must be a valid DNS subdomain name."
+      "description": "Standard object metadata. The name of a Node must be a valid DNS subdomain name. A Node can have taints specified using the `\"scheduler.alpha.kubernetes.io/taints\"` annotation key, where the value is a serialized JSON of a valid Taint object. The server validates the deserialized Taint object as if it is specified on the Node's `spec.taints`. A Node can also have the `\"scheduler.alpha.kubernetes.io/preferAvoidPods\"` annotation key specified as a serialized JSON list of `PreferAvoidPods` struct."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSpec",
-      "description": "Spec defines the behavior of a node."
+      "description": "Spec defines the behavior of a Node."
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeStatus",
-      "description": "Most recently observed status of the node."
+      "description": "Most recently observed status of the Node."
     }
   },
   "required": [

@@ -1,5 +1,5 @@
 {
-  "description": "Namespace provides a scope for Names. Use of multiple namespaces is optional.",
+  "description": "Namespace provides a scope for names. Use of multiple namespaces is optional.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -30,7 +30,10 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

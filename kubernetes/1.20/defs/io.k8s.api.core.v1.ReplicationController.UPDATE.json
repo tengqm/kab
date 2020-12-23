@@ -1,5 +1,5 @@
 {
-  "description": "The configuration of a replication controller.",
+  "description": "The configuration of a ReplicationController.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,15 +17,15 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object metadata If the labels of a ReplicationController are empty, they are defaulted to that of the Pod(s) the replication controller manages. The name must be a valid DNS subdomain name."
+      "description": "Standard object metadata. If the `labels` of a ReplicationController are empty, they are defaulted to that of the Pod(s) the ReplicationController manages. The `name`, if specified, must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec.UPDATE",
-      "description": "The specification of the desired behavior of the replication controller."
+      "description": "The specification of the desired behavior of the ReplicationController."
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ReplicationControllerStatus",
-      "description": "The most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only."
+      "description": "The most recently observed status of the ReplicationController. This data may be out of date by some window of time."
     }
   },
   "required": [

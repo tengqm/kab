@@ -1,5 +1,5 @@
 {
-  "description": "A user's request for and claim to a persistent volume.",
+  "description": "A user's request for and claim to a persistent volume (PersistentVolume, PV).",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,11 +17,11 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata. The name of a `PersistentVolumeClaim` must be a valid DNS subdomain name."
+      "description": "Standard object metadata. The name of must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec",
-      "description": "The desired characteristics of a persistent volume."
+      "description": "The desired characteristics of a PersistentVolumeClaim."
     }
   },
   "required": [

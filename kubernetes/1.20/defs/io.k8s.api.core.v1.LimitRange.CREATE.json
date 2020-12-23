@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata. The name must be a valid DNS subdomain name if specified. If name is not provided, an UUID will be generated and used as its name."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name if specified. If `name` is not provided, an UUID will be generated and used as its name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.LimitRangeSpec",
@@ -26,7 +26,8 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

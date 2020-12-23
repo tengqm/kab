@@ -23,11 +23,11 @@
     },
     "firstTimestamp": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)"
+      "description": "The time at which the event was first recorded. (Time of server receipt is in `metadata`.)"
     },
     "involvedObject": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "The object that this event is about. The namespace must match that of the event."
+      "description": "The object that this event is about. The namespace must match that of the Event."
     },
     "kind": {
       "description": "A string value representing the REST resource",
@@ -38,7 +38,7 @@
     },
     "lastTimestamp": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The time at which the most recent occurrence of this event was recorded."
+      "description": "The time at which the most recent occurrence of this Event was recorded."
     },
     "message": {
       "description": "A human-readable description of the status of this operation.",
@@ -57,23 +57,23 @@
       "description": "Optional secondary object for more complex actions."
     },
     "reportingComponent": {
-      "description": "Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.",
+      "description": "Name of the controller that emitted this Event, e.g. `\"kubernetes.io/kubelet\"`.",
       "type": "string"
     },
     "reportingInstance": {
-      "description": "ID of the controller instance, e.g. `kubelet-xyzf`.",
+      "description": "ID of the controller instance, e.g. `\"kubelet-xyzf\"`.",
       "type": "string"
     },
     "series": {
       "$ref": "#/definitions/io.k8s.api.core.v1.EventSeries",
-      "description": "Data about the Event series this event represents or nil if it's a singleton Event."
+      "description": "Data about the Event series this Event represents or nil if it's a singleton Event."
     },
     "source": {
       "$ref": "#/definitions/io.k8s.api.core.v1.EventSource",
-      "description": "The component reporting this event. Should be a short machine understandable string."
+      "description": "The component reporting this Event. Should be a short machine understandable string."
     },
     "type": {
-      "description": "Type of this event (Normal, Warning), new types could be added in the future",
+      "description": "Type of this event. New types could be added in the future",
       "enum": [
         "Normal",
         "Warning"
@@ -82,9 +82,23 @@
     }
   },
   "required": [
+    "action",
     "apiVersion",
+    "count",
+    "eventTime",
+    "firstTimestamp",
+    "involvedObject",
     "kind",
-    "metadata"
+    "lastTimestamp",
+    "message",
+    "metadata",
+    "reason",
+    "related",
+    "reportingComponent",
+    "reportingInstance",
+    "series",
+    "source",
+    "type"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

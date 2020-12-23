@@ -25,13 +25,14 @@
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuotaStatus",
-      "description": "Status defines the actual enforced quota and its current usage."
+      "description": "The actual enforced quota and its current usage."
     }
   },
   "required": [
     "apiVersion",
     "kind",
-    "metadata"
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

@@ -1,8 +1,8 @@
 {
-  "description": "An NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.",
+  "description": "An NFS mount that lasts the lifetime of a Pod. NFS volumes do not support ownership management or SELinux relabeling.",
   "properties": {
     "path": {
-      "description": "Path as exported by the NFS server. This must be an absolute path.",
+      "description": "The path as exported by the NFS server. This must be an absolute path.",
       "minLength": 1,
       "type": "string"
     },
@@ -18,8 +18,8 @@
     }
   },
   "required": [
-    "server",
-    "path"
+    "path",
+    "server"
   ],
   "type": "object"
 }

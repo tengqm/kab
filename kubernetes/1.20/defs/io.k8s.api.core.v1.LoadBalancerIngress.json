@@ -1,5 +1,5 @@
 {
-  "description": "The status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.",
+  "description": "The status of a load-balancer ingress point. Traffic intended for the Service should be sent to an ingress point.",
   "properties": {
     "hostname": {
       "description": "The `hostname` is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)",
@@ -10,7 +10,7 @@
       "type": "string"
     },
     "ports": {
-      "description": "A list of records of service ports. If used, every port defined in the service should have an entry in it.",
+      "description": "A list of records of service ports. If used, every port defined in the Service should have an entry in it.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PortStatus"
       },
@@ -18,5 +18,8 @@
       "x-kubernetes-list-type": "atomic"
     }
   },
+  "required": [
+    "ports"
+  ],
   "type": "object"
 }

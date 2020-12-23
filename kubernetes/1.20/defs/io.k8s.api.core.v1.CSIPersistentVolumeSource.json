@@ -3,32 +3,33 @@
   "properties": {
     "controllerExpandSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume` call. This is an alpha field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume()` call. This is an Alpha field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed. When specified, both `name` and `namespace` field should be specified as valid DNS_LABEL strings."
     },
     "controllerPublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` field cannot be empty. The field can be updated if current value is nil."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerPublishVolume()` and `ControllerUnpublishVolume()` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` field should be specified as valid DNS_LABEL strings. The field can be updated if current value is nil."
     },
     "driver": {
-      "description": "The name of the driver to use for this volume.",
+      "description": "The name of the driver to use for this volume. The name can be at most 63 characters and it must be a valid DNS subdomain name.",
+      "maxLength": 63,
       "minLength": 1,
       "type": "string"
     },
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system.",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system.  Ex. `\"ext4\"`, `\"xfs\"`, `\"ntfs\"`.",
       "type": "string"
     },
     "nodePublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodePublishVolume` and `NodeUnpublishVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` fields should be specified."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodePublishVolume()` and `NodeUnpublishVolume()` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` fields should be specified as valid DNS_LABEL strings."
     },
     "nodeStageSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodeStageVolume`, `NodeStageVolume` and `NodeUnstageVolume` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` fields have to be provided."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodeStageVolume()` and `NodeUnstageVolume()` calls. This field may be empty if no Secret is required. If the Secret object contains more than one secret, all secrets are passed. When specified, both `name` and `namespace` fields have to be specified as valid DNS_LABEL strings."
     },
     "readOnly": {
       "default": false,
-      "description": "The value to pass to `ControllerPublishVolumeRequest`.",
+      "description": "The value to pass to `ControllerPublishVolumeRequest()`.",
       "type": "boolean"
     },
     "volumeAttributes": {
@@ -39,7 +40,7 @@
       "type": "object"
     },
     "volumeHandle": {
-      "description": "The unique volume name returned by the CSI volume plugin's `CreateVolume`. Used as reference to the volume on all subsequent calls.",
+      "description": "The unique volume name returned by the CSI volume plugin's `CreateVolume()`. Used as reference to the volume on all subsequent calls.",
       "minLength": 1,
       "type": "string"
     }

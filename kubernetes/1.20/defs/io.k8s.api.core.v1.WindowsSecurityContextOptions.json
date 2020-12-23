@@ -2,15 +2,15 @@
   "description": "Windows-specific options and credentials.",
   "properties": {
     "gmsaCredentialSpec": {
-      "description": "Where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the `GMSACredentialSpecName` field.",
+      "description": "Where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the `gmsaCredentialSpecName` field. This field cannot be an empty string and its maximum length is 64 K.",
       "type": "string"
     },
     "gmsaCredentialSpecName": {
-      "description": "The name of the GMSA credential spec to use.",
+      "description": "The name of the GMSA credential spec to use. The string must be a valid DNS subdomain name.",
       "type": "string"
     },
     "runAsUserName": {
-      "description": "The Windows user name to run the entrypoint of the container. Defaults to the `user` specified in image metadata if unspecified. May also be set in `podSecurityContext`. If set in both `securityContext` and `podSecurityContext`, the value specified in `securityContext` takes precedence.",
+      "description": "The Windows user name to run the entrypoint of the container. Defaults to the `user` defined in image metadata if unspecified. May also be set in the `securityContext` of the enclosing Pod. This string cannot be empty string; it cannot contain control characters; it cannot contain more than one backslash. The domain name, when specified, must be no more than 256 characters and it must either match the NetBios or the DNS format. The user name part can be no more than 104 characters. The name cannot only contain periods or spaces and it cannot contain characters like `/\\:;|=,+*?<>@[]`.",
       "type": "string"
     }
   },

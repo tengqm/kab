@@ -1,13 +1,13 @@
 {
-  "description": "A Persistent Disk resource in Google Compute Engine (GCE). A GCE PD must exist before being mounted to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as '`ReadWriteOnce`' or '`ReadOnlyMany`'. GCE PDs support ownership management and SELinux relabeling.",
+  "description": "A Persistent Disk resource in Google Compute Engine (GCE). A GCE PD must exist before being mounted to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as `\"ReadWriteOnce\"` or `\"ReadOnlyMany\"`. GCE PDs support ownership management and SELinux relabeling.",
   "properties": {
     "fsType": {
       "default": "ext4",
-      "description": "Filesystem type of the volume. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: 'ext4', 'xfs', 'ntfs'.",
+      "description": "Filesystem type of the volume. The filesystem type must be supported by the host operating system. Examples: `\"ext4\"`, `\"xfs\"`, `\"ntfs\"`.",
       "type": "string"
     },
     "partition": {
-      "description": "The partition to mount in the volume. If omitted, the default is to mount by volume name.\n\nExamples: for volume '`/dev/sda1`', you specify the partition as '`1`'. Similarly, the volume partition for '`/dev/sda`' is '`0`' (or you can leave the property empty).",
+      "description": "The partition to mount in the volume. If omitted, the default is to mount by volume name.\n\nExamples: for volume `\"/dev/sda1\"`, you specify the partition as `1`. Similarly, the volume partition for `\"/dev/sda\"` is `0` (or you can leave the property empty).",
       "format": "int32",
       "maximum": 255,
       "minimum": 0,
@@ -20,7 +20,7 @@
     },
     "readOnly": {
       "default": false,
-      "description": "Force the ReadOnly setting in volume mounts.",
+      "description": "Force the `readOnly` setting in `volumeMounts`.",
       "type": "boolean"
     }
   },

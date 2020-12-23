@@ -1,9 +1,9 @@
 {
-  "description": "The specification of a replication controller.",
+  "description": "The specification of a ReplicationController.",
   "properties": {
     "minReadySeconds": {
       "default": 0,
-      "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. The default value 0 meands a pod will be considered available as soon as it is ready.",
+      "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. The default value 0 meands a Pod will be considered available as soon as it is ready.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
@@ -19,12 +19,12 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Label keys and values for Pods that must match in order to be controlled by this replication controller. If selector is empty, it defaults to the labels present on the Pod template. If selector is not empty, it must match the labels defined for the Pod template.",
+      "description": "Label keys and values for Pods that must match in order to be controlled by this ReplicationController. If `selector` is empty, it defaults to the labels present on the `template`. If `selector` is not empty, it must match the `labels` defined on the `template`.",
       "type": "object"
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
-      "description": "The object that describes the pod that will be created if insufficient replicas are detected."
+      "description": "The object that describes the Pod to create if insufficient replicas are detected."
     }
   },
   "required": [
