@@ -21,10 +21,10 @@
     },
     "roleRef": {
       "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleRef",
-      "description": "Reference a Role in the current namespace or a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error."
+      "description": "The reference to a Role in the current namespace or a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error."
     },
     "subjects": {
-      "description": "References to the objects the Role applies to.",
+      "description": "References to the subjects the Role applies to.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1.Subject"
       },
@@ -32,9 +32,11 @@
     }
   },
   "required": [
-    "roleRef",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "roleRef",
+    "subjects"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

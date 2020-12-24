@@ -1,5 +1,5 @@
 {
-  "description": "A cluster level logical grouping of policy rules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding resource.",
+  "description": "A cluster level group of policy rules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding resource.",
   "properties": {
     "aggregationRule": {
       "$ref": "#/definitions/io.k8s.api.rbac.v1.AggregationRule",
@@ -32,9 +32,10 @@
     }
   },
   "required": [
-    "rules",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "rules"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

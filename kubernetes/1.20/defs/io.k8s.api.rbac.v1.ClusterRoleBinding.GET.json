@@ -24,7 +24,7 @@
       "description": "The reference to a ClusterRole."
     },
     "subjects": {
-      "description": "References to the objects the ClusterRole applies to.",
+      "description": "References to the subjects the ClusterRole applies to.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1.Subject"
       },
@@ -32,9 +32,11 @@
     }
   },
   "required": [
-    "roleRef",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "roleRef",
+    "subjects"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
