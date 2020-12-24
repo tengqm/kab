@@ -1,5 +1,5 @@
 {
-  "description": "A collection of Ingress.",
+  "description": "A list of Ingress objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of Ingress.",
+      "description": "A list of Ingress objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress.GET"
       },
@@ -24,13 +24,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard object metadata"
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

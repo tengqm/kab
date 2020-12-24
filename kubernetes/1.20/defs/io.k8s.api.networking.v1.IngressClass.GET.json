@@ -1,5 +1,5 @@
 {
-  "description": "IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to `true`, new Ingress resources without a class specified will be assigned this default class.",
+  "description": "IngressClass represents the class of the Ingress, referenced by the Ingress spec. The `\"ingressclass.kubernetes.io/is-default-class\"` annotation can be used to indicate that an IngressClass should be considered *default*. When a single IngressClass resource has this annotation set to `true`, new Ingress resources without a class specified will be assigned this default class.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -26,7 +26,9 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

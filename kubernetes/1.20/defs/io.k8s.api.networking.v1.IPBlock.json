@@ -1,13 +1,13 @@
 {
-  "description": "A particular CIDR (Ex. '`192.168.1.1/24`', ,'`2001:db9::/64`') that is allowed to the Pods matched by a NetworkPolicySpec's `podSelector`. The `except` entry describes CIDRs that should not be included within this rule.",
+  "description": "A particular CIDR (e.g. `\"192.168.1.1/24\"`,`\"2001:db9::/64\"`) that is allowed for the Pods matched by a NetworkPolicySpec's `podSelector`. The `except` entry describes CIDRs that should not be included within this rule.",
   "properties": {
     "cidr": {
-      "description": "CIDR is a string representing the IP Block. Valid examples are '`192.168.1.1/24`' or '`2001:db9::/64`'",
+      "description": "A string representing the IP Block. Valid examples are `\"192.168.1.1/24\"` or `\"2001:db9::/64\"`.",
       "minLength": 1,
       "type": "string"
     },
     "except": {
-      "description": "A slice of CIDRs that should not be included within an IP Block. Valid examples are '`192.168.1.1/24`' or '`2001:db9::/64`'. Except values will be rejected if they are outside the `cidr` range",
+      "description": "A list of CIDRs that should not be included within an IP Block. Valid examples are `\"192.168.1.1/24\"` or `\"2001:db9::/64\"`. `except` values will be rejected if they are outside the `cidr` range.",
       "items": {
         "type": "string"
       },
