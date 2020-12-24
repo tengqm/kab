@@ -17,15 +17,15 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "The standard object's metadata."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationSpec",
-      "description": "The desired behavior of a \"request-priority\"."
+      "description": "The desired behavior of a PriorityLevelConfiguration"
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationStatus",
-      "description": "The current status of a \"request-priority\""
+      "description": "The current status of a PriorityLevelConfiguration"
     }
   },
   "required": [

@@ -1,5 +1,5 @@
 {
-  "description": "The condition of priority level.",
+  "description": "The condition of a PriorityLevelConfiguration.",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -16,8 +16,8 @@
     "status": {
       "description": "The status of the condition.",
       "enum": [
-        "True",
         "False",
+        "True",
         "Unknown"
       ],
       "minLength": 1,

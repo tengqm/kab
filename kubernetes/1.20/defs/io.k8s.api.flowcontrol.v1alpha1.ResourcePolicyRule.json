@@ -2,7 +2,7 @@
   "description": "A predicate that matches some resource requests, testing the request's verb and the target resource. A resource request is matched if and only if:\n\n- at least one member of `verbs` matches the request,\n- at least one member of `apiGroups` matches the request,\n- at least one member of `resources` matches the request, and\n- least one member of `namespaces` matches the request.\n\n",
   "properties": {
     "apiGroups": {
-      "description": "A list of matching API groups and may not be empty. \"`*`\" matches all API groups and, if present, must be the only entry.",
+      "description": "A list of matching API groups and may not be empty. `\"*\"` matches all API groups and, if present, must be the only entry.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -16,7 +16,7 @@
       "type": "boolean"
     },
     "namespaces": {
-      "description": "A list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either:\n\n1. this list contains that target namespace or\n1. this list contains \"`*`\".\n\nNote that \"`*`\" matches any specified namespace but does not match a request that does NOT specify a namespace (see the `clusterScope` field for that). This list may be empty only if `clusterScope` is `true`.",
+      "description": "A list of target namespaces that restricts matches. A request that specifies a target namespace matches only if either:\n\n1. this list contains that target namespace or\n1. this list contains `\"*\"`.\n\nNote that `\"*\"` matches any specified namespace but does not match a request that does NOT specify a namespace (see the `clusterScope` field for that). This list may be empty only if `clusterScope` is `true`.",
       "items": {
         "type": "string"
       },
@@ -24,7 +24,7 @@
       "x-kubernetes-list-type": "set"
     },
     "resources": {
-      "description": "A list of matching resources (i.e., lowercase and plural) with, if desired, subresource. For example, `[\"services\", \"nodes/status\"]`. This list may not be empty. \"`*`\" matches all resources and, if present, must be the only entry.",
+      "description": "A list of matching resources (i.e., lowercase and plural) with, if desired, subresource. For example, `[\"services\", \"nodes/status\"]`. This list may not be empty. `\"*\"` matches all resources and, if present, must be the only entry.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -34,7 +34,7 @@
       "x-kubernetes-list-type": "set"
     },
     "verbs": {
-      "description": "A list of matching verbs. '`*`' matches all verbs and, if present, must be the only entry.",
+      "description": "A list of matching verbs. `\"*\"` matches all verbs and, if present, must be the only entry.",
       "items": {
         "minLength": 1,
         "type": "string"

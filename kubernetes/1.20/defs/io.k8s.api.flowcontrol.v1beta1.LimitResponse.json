@@ -3,7 +3,7 @@
   "properties": {
     "queuing": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta1.QueuingConfiguration",
-      "description": "The configuration parameters for queuing. This field may be non-empty only if `type` is `\"Queue\"`."
+      "description": "The configuration parameters for queuing. This field must be non-empty only if `type` is `\"Queue\"`."
     },
     "type": {
       "description": "`\"Queue\"` means that requests that cannot be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. `\"Reject\"` means that requests that can not be executed upon arrival are rejected.",

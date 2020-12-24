@@ -1,27 +1,27 @@
 {
-  "description": "Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.",
+  "description": "Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator: by user, group, or service account. One and only one of the subject kind must be specified.",
   "properties": {
     "group": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.GroupSubject",
-      "description": "The group of the request originator. Required when `type` is set to '`Group`'."
+      "description": "The group of the request originator. Required when `type` is set to `\"Group\"` and invalid otherwise."
     },
     "kind": {
       "description": "A string representing the kind of the subject.",
       "enum": [
-        "User",
         "Group",
-        "ServiceAccount"
+        "ServiceAccount",
+        "User"
       ],
       "minLength": 1,
       "type": "string"
     },
     "serviceAccount": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.ServiceAccountSubject",
-      "description": "The service account of the request originator. Required when `type` is set to \"ServiceAccount\"."
+      "description": "The ServiceAccount of the request originator. Required when `type` is set to `\"ServiceAccount\"` and invalid otherwise."
     },
     "user": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.UserSubject",
-      "description": "The user of the request originator. Required when `type` is set to \"User\"."
+      "description": "The user of the request originator. Required when `type` is set to `\"User\"` and invalid otherwise."
     }
   },
   "required": [
