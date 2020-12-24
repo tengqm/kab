@@ -1,8 +1,8 @@
 {
-  "description": "The type and options related to fs group to use in security context.",
+  "description": "The rule and options related to fsGroup to use in security context.",
   "properties": {
     "ranges": {
-      "description": "The allowed ranges of fs groups. If you would like to force a single fs group then supply a single range with the same `start` and `end`. This is required when `rule` is set to '`MustRunAs`'. Each item in the list must be a supported FS type or '`*`'.",
+      "description": "The allowed ranges of fsGroups. If you would like to force a single fsGroup then supply a single range with the same `start` and `end`. This is required when `rule` is set to `\"MustRunAs\"`. Each item in the list must be a supported fsGroup ID or `\"*\"`.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.IDRange"
       },
@@ -19,5 +19,8 @@
       "type": "string"
     }
   },
+  "required": [
+    "rule"
+  ],
   "type": "object"
 }

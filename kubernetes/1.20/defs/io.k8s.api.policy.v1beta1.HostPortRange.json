@@ -1,5 +1,5 @@
 {
-  "description": "HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined.",
+  "description": "HostPortRange defines a range of host ports that can be used by Pods. It requires both the `start` and `end` to be defined.",
   "properties": {
     "max": {
       "description": "The end of the range, inclusive.",
@@ -13,8 +13,8 @@
     }
   },
   "required": [
-    "min",
-    "max"
+    "max",
+    "min"
   ],
   "type": "object"
 }
