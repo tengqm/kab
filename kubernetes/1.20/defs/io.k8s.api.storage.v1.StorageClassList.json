@@ -1,5 +1,5 @@
 {
-  "description": "A collection of storage classes.",
+  "description": "A list of StorageClass objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "The list of StorageClasses",
+      "description": "A list of StorageClass objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.storage.v1.StorageClass.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

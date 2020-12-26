@@ -1,5 +1,5 @@
 {
-  "description": "A collection of CSIDriver objects.",
+  "description": "A list of CSIDriver objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "The list of CSIDriver objects.",
+      "description": "A list of CSIDriver objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.storage.v1beta1.CSIDriver.GET"
       },
@@ -24,13 +24,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata."
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

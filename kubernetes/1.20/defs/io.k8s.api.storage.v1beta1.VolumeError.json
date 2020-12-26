@@ -2,7 +2,8 @@
   "description": "An error encountered during a volume operation.",
   "properties": {
     "message": {
-      "description": "String detailing the error encountered during `Attach` or `Detach` operation. This string may be logged, so it should not contain sensitive information.",
+      "description": "String detailing the error encountered during `attach` or `detach` operation. This string may be logged, so it should not contain sensitive information.",
+      "maxLength": 1024,
       "type": "string"
     },
     "time": {
