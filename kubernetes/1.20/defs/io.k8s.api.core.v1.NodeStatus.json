@@ -42,7 +42,7 @@
       "description": "Endpoints of daemons running on the Node."
     },
     "images": {
-      "description": "List of container images on this node",
+      "description": "List of container images on this node. The number of images that are reported here can be set via the `--node-status-max-images` flag for the kubelet.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ContainerImage"
       },

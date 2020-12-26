@@ -1,5 +1,5 @@
 {
-  "description": "A collection of ClusterRoleBindings. DEPRECATED in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.22.",
+  "description": "A list of ClusterRoleBinding objects. DEPRECATED in v1.17 in favor of `\"rbac.authorization.k8s.io/v1\"` ClusterRoleBindingList, and will no longer be served in v1.22.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of ClusterRoleBindings",
+      "description": "A list of ClusterRoleBinding objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRoleBinding.GET"
       },
@@ -24,13 +24,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard object metadata"
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
