@@ -8,25 +8,25 @@
     },
     "blockOwnerDeletion": {
       "default": false,
-      "description": "If true, AND if the owner has the 'foregroundDeletion' finalizer, then the owner cannot be deleted from the key-value store until this reference is removed.  To set this field, a user needs 'delete' permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.",
+      "description": "If `true`, AND if the owner has the `\"foregroundDeletion\"` finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. To set this field, a user needs *delete* permission of the owner, otherwise `\"422 Unprocessable Entity\"` will be returned.",
       "type": "boolean"
     },
     "controller": {
-      "description": "If true, this reference points to the managing controller.",
+      "description": "If `true`, this reference points to the managing controller.",
       "type": "boolean"
     },
     "kind": {
-      "description": "A string value representing the REST resource",
+      "description": "Kind of the referenced resource",
       "minLength": 1,
       "type": "string"
     },
     "name": {
-      "description": "Name of the referent.",
+      "description": "Name of the referenced resource",
       "minLength": 1,
       "type": "string"
     },
     "uid": {
-      "description": "UID of the referent.",
+      "description": "UID of the referenced resource",
       "minLength": 1,
       "type": "string"
     }

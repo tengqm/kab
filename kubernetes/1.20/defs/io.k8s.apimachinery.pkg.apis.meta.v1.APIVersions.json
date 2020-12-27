@@ -1,5 +1,5 @@
 {
-  "description": "A list of the available API versions",
+  "description": "APIVersions lists the versions that are available, to allow clients to discover the API at `\"/api\"`, which is the root path of the legacy `v1` API.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -33,10 +33,10 @@
     }
   },
   "required": [
-    "versions",
-    "serverAddressByClientCIDRs",
     "apiVersion",
-    "kind"
+    "kind",
+    "serverAddressByClientCIDRs",
+    "versions"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

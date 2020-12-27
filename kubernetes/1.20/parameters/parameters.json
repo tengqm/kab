@@ -82,6 +82,20 @@
     "type": "integer",
     "uniqueItems": true
   },
+  "includeObject": {
+    "default": "Metadata",
+    "description": "This parameter is used for a Table request. It decides whether to include each object along with its columnar information. Valid values are:\n\n- `\"None\"`: return no object;\n- `\"Object\"` return the full object contents;\n- `\"Metadata\"`: (the default) return the object's metadata in the PartialObjectMetadata kind in version v1beta1 of the `\"meta.k8s.io\"` API group.",
+    "enum": [
+      "Metadata",
+      "None",
+      "All"
+    ],
+    "in": "query",
+    "name": "includeObject",
+    "required": false,
+    "type": "string",
+    "uniqueItems": true
+  },
   "labelSelector": {
     "description": "A selector to restrict the list of returned objects by their labels.",
     "in": "query",

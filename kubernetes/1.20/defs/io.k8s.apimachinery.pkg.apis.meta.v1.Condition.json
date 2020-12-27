@@ -1,5 +1,5 @@
 {
-  "description": "This contains the details for one aspect of the current state of this API Resource.",
+  "description": "This contains the details for one aspect of the current state of this API Resource. This struct is intended for direct use as an array at the field path `.status.conditions`.",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -10,7 +10,7 @@
       "type": "string"
     },
     "observedGeneration": {
-      "description": "The `metadata.generation` that the condition was set based upon. For instance, if `metadata.generation` is currently 12, but the `status.conditions[x].observedGeneration` is 9, the condition is out of date with respect to the current state of the instance.",
+      "description": "The `.metadata.generation` that the condition was set based upon. For instance, if `.metadata.generation` is currently 12, but the `.status.conditions[x].observedGeneration` is 9, the condition is out of date with respect to the current state of the instance.",
       "format": "int64",
       "type": "integer"
     },
@@ -19,7 +19,7 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition, one of \"True\", \"False\", \"Unknown\".",
+      "description": "Status of the condition.",
       "enum": [
         "False",
         "True",
@@ -28,7 +28,7 @@
       "type": "string"
     },
     "type": {
-      "description": "Type of condition in CamelCase or in \"foo.example.com/CamelCase\".",
+      "description": "Type of condition in CamelCase or in `\"foo.example.com/CamelCase\"`.",
       "type": "string"
     }
   },
