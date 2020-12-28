@@ -300,26 +300,26 @@ def get_definition(api_version, group, version, defn, recursive=False):
     return jsonutil.load_json(fpath, api_version, recursive)
 
 
-def resources(api_version, group_version):
+def resources(apiv, group_version):
     groups = []
     # Get sorted groups
     for gname, gdata in DATA.get("groups", {}).items():
-        for v in gdata.get(api_version, []):
+        for v in gdata.get(apiv, []):
             curr_gv = ".".join([gname, v])
             if group_version == "all" or group_version == curr_gv:
                 groups.append((curr_gv, []))
     groups = sorted(groups)
     result = collections.OrderedDict(groups)
     for r in DATA.get("resources", []):
-        if api_version not in r["versions"]:
+        if apiv not in r["versions"]:
             continue
         gname = r["group"]
         record = {
             "name": r["name"],
             "definitions": r["definitions"],
         }
-        for v in r["versions"].get(api_version, []):
-            curr_gv = ".".join([gname, v])
+        for gver in r["versions"].get(apiv, []):
+            curr_gv = ".".join([gname, gver])
             if group_version != "all" and group_version != curr_gv:
                 continue
             result[curr_gv].append(record)

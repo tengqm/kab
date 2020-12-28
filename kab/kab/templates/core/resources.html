@@ -23,7 +23,7 @@
         <th>Resources</th>
       </tr>
     </thead>
-    <tbody style="font-family:monospace;">
+    <tbody>
       {% for G, RLIST in RESOURCES.items %}
         <tr>
           {% if RLIST|length > 0 %}
@@ -32,10 +32,25 @@
             <td style="word-break:break-word;">
               {% for R in RLIST|dictsort:"name" %}
                 {% sort R.definitions as DEFS %}
+                <div class="dropdown d-inline-block mb-1">
+                  <button class="btn btn-outline-secondary dropdown-toggle"
+                      id="id-{{ R.name }}"
+                      type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ R.name }}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="id-{{ R.name }}">
+                    {% for DEF in DEFS.values %}
+                      {% dereference API GV.0 GV.1 DEF as LINK %}
+                      <a class="dropdown-item" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% comment %}
                 {% for DEF in DEFS.values %}
                   {% dereference API GV.0 GV.1 DEF as LINK %}
                   <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
                 {% endfor %}
+                {% endcomment %}
               {% endfor %}
             </td>
           {% endif %}
