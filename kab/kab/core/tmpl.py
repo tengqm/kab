@@ -54,7 +54,7 @@ def _process_ref(parent, prop, v, api):
     grp, ver, name, display = helpers.parse_definition_id(target)
 
     new_node = {
-        "text": prop + ": " + "{" + display + "}",
+        "text": "<samp>" + prop + "</samp>: " + "{<code>" + display + "</code>}",
         "a_attr": {
             "href": "/".join([api, grp, ver, name]),
         },
@@ -110,14 +110,14 @@ def _get_object(parent, data, api):
             parent["children"].append(_new_node(p, value, True))
         elif v_type == "array":
             new_node = {
-                "text": ": ".join([p, "<i>array</i>"]),
+                "text": "<samp>" + p + "</samp>: <i>array</i>",
                 "children": [],
             }
             _get_array(new_node, v["items"], api)
             parent["children"].append(new_node)
         elif v_type == "object":
             new_node = {
-                "text": ": ".join([p, "{}"]),
+                "text": "<samp>" + p + "</samp>: {}",
                 "children": [],
             }
             _get_object(new_node, v, api)
