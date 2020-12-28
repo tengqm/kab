@@ -124,7 +124,7 @@
         </a>
       {% endif %}
     </div>
-    <div class="row px-3 ml-2">
+    <div id="tbl-properties" class="row px-3 ml-2">
       <table class="table table-sm table-striped" width="100%">
         <colgroup>
           <col style="min-width: max-content; width: 30%;" />
@@ -248,15 +248,12 @@
                 {% endif %}
               </td>
               <td>
-                <div>{% markdown_html DATA.description %}</div>
+                {% markdown_html DATA.description %}
                 {% if DATA.type == "array" %}
                   {% if DATA.items.description %}
                     <div><strong>Item description:</strong> {% markdown_html DATA.items.description %}</div>
                   {% endif %}
                 {% endif %}
-                <div>
-
-                </div>
               </td>
             </tr>
           {% endfor %}
