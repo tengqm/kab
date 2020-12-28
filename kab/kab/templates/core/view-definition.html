@@ -13,16 +13,56 @@
 
 {% block main_content %}
 
-  <nav class="navbar bg-light p-0" aria-label="breadcrumb">
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <!-- button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarDefinition" aria-controls="navbarDefinition" aria-expanded="false"
         aria-label="Toggle navigation">
        <i class="fa fa-bars"></i>
-    </button>
+    </button -->
+
+    {# other group and versions #}
+    <div class="navbar-collapse" id="navbarDefinition">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-toggle="collapse"
+              data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
+              aria-label="Toggle navigation">
+             <i class="fa fa-map-signs"></i> Tree
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navViewOtherVersions" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Other Versions
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navViewOtherVersions">
+            {% for AV, VLIST in VERSIONS.items %}
+              {% for V in VLIST %}
+                {% if V.group %}
+                  {% dereference AV V.group V.version NAME as LINK %}
+                {% else %}
+                  {% dereference AV "*" "*" NAME as LINK %}
+                {% endif %}
+                <a class="dropdown-item" href="{{ LINK.0 }}">{{ AV }}: 
+                  {% if V.group %}
+                    {{ V.group }}/{{ V.version}}
+                  {% else %}
+                    */*
+                  {% endif %}
+                </a>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </li>
+      </ul>
+    </div>
   </nav>
 
   <div class="row">
-    <div id="schema_tree" class="col-3 collapse"></div>
+    <div id="schema_tree" class="col-6 collapse"
+        style="border-right-color:gray; border-right-style:solid; border-right-width: 1px; overflow-x: scroll;"></div>
     <div id="schema_data" class="col">
       {% include "core/definition.html" %}
     </div>
@@ -90,6 +130,7 @@
       {
         "core": {
           "data": value,
+          "animation": 0,
           "check_callback": true,
         },
         "plugins": ["wholerow"]
