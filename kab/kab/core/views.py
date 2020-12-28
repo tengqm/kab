@@ -144,6 +144,7 @@ class ViewDefinition(generic.View):
         group = kwargs.pop('group')
         version = kwargs.pop('version')
         name = kwargs.pop('name')
+        partial = req.GET.get("partial", None)
 
         definition = helpers.get_definition(apiv, group, version, name)
         name_parts = name.split(".")
@@ -177,12 +178,15 @@ class ViewDefinition(generic.View):
         else:
             versions.pop(apiv)
 
+        navdata = tmpl.gen_tree(apiv, group, version, name)
+
         kind = name_parts[0]
         is_resource = helpers.is_resource(kind)
         if is_resource:
             operations = helpers.resource_operations(kind, version)
         else:
             operations = []
+
         ctx = {
             "API": apiv,
             "GROUP": group,
@@ -195,8 +199,14 @@ class ViewDefinition(generic.View):
             "IS_RESOURCE": is_resource,
             "DEFINITION": definition,
             "OPERATIONS": operations,
+            "JSON": navdata,
         }
-        return shortcuts.render(req, 'core/view-definition.html', ctx)
+        if partial is None:
+            template = 'core/view-definition.html'
+        else:
+            template = 'core/definition.html'
+
+        return shortcuts.render(req, template, ctx)
 
 
 class ViewOperation(generic.View):

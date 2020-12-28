@@ -1,20 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
   <title>APIs</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+  <!-- link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" -->
+  <link rel="stylesheet" href="{% static 'css/jstree-3.2.1.min.css' %}">
 {% endblock %}
 
 {% block main_content %}
 
 <div class="row">
   <div id="schema_tree" class="col-3"></div>
-  <div id="schema_data" class="col-9"></div>
+  <div id="schema_data" class="col">
+  </div>
 </div>
 {% endblock %}
 
 {% block javascript %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="{% static 'js/jstree-3.2.1.min.js' %}"></script>
 {{ JSON|json_script:"def-data" }}
 <script>
 
@@ -38,22 +41,11 @@ $('#schema_tree').on("select_node.jstree", function (e, data) {
     return '';
 
   $.ajax({
-    url: "/apis/definition/" + href + "/",
+    url: "/api/definition/" + href + "/",
     success: function(resp) {
       $("#schema_data").html(resp);
     },
   });
-
-  /*
-  $("#schema_tree").jstree().create_node(
-    data.node,
-    {"text": "test1", "children": []},
-    "last",
-    null,
-    true
-  );
-  */
-  // return '';
 });
 
 </script>

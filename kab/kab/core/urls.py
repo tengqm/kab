@@ -28,6 +28,7 @@ urlpatterns = [
              r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
              views.ViewDefinition.as_view(),
              name='view-definition'),
+
     urls.url(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
              views.ViewOperation.as_view(),
              name='view-operation'),
