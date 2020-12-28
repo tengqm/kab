@@ -404,7 +404,7 @@ class TestJSTree(generic.View):
     """Test view for JStree"""
 
     def get(self, req, *args, **kwargs):
-        data = tmpl.gen_tree("1.13", "core", "v1", "Pod.CREATE")
+        data = tmpl.gen_tree("1.20", "core", "v1", "Pod.CREATE")
         ctx = {
             "JSON": data,
         }
@@ -502,7 +502,7 @@ class StaticPage(generic.View):
             return http.HttpResponseRedirect(target)
 
         content = ""
-        try: 
+        try:
             with open(path, "r") as f:
                 content = MD.reset().convert(f.read())
         except Exception as ex:
@@ -529,7 +529,7 @@ class HelpPage(generic.View):
             raise exc.SuspiciousOperation("Page not found")
 
         content = ""
-        try: 
+        try:
             with open(path, "r") as f:
                 content = MD.reset().convert(f.read())
         except Exception as ex:

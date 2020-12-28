@@ -18,6 +18,7 @@ def init(data_path):
     DATA = jsonutil.load_json(path.join(data_path, "settings.json"))
     DATA.update(jsonutil.load_json(path.join(data_path, "index.json")))
 
+
 def _emptyNumeric(v):
     def_val = v.get('default', None)
     enum_vals = v.get("enum", [])

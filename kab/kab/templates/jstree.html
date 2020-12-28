@@ -7,34 +7,54 @@
 
 {% block main_content %}
 
-<div>
-  Kubernetes API Browser!
+<div class="row">
+  <div id="schema_tree" class="col-3"></div>
+  <div id="schema_data" class="col-9"></div>
 </div>
-<div id="jstree_demo_div"></div>
-
 {% endblock %}
 
 {% block javascript %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 {{ JSON|json_script:"def-data" }}
 <script>
+
 $(function () {
   var value = JSON.parse(document.getElementById('def-data').textContent);
-  console.log(value);
-  $('#jstree_demo_div').jstree(
+  $('#schema_tree').jstree(
     {
       "core": {
-        "data": value, 
+        "data": value,
+        "check_callback": true,
       },
-      "checkbox": {
-        "keep_selected_style": false
-      },
-      "plugins": ["wholerow", "checkbox"]
+      "plugins": ["wholerow"]
     }
   );
 });
-$('#jstree_demo_div').on("changed.jstree", function (e, data) {
-  console.log(data.selected);
+
+$('#schema_tree').on("select_node.jstree", function (e, data) {
+
+  var href = data.node.a_attr.href;
+  if (href === '#')
+    return '';
+
+  $.ajax({
+    url: "/apis/definition/" + href + "/",
+    success: function(resp) {
+      $("#schema_data").html(resp);
+    },
+  });
+
+  /*
+  $("#schema_tree").jstree().create_node(
+    data.node,
+    {"text": "test1", "children": []},
+    "last",
+    null,
+    true
+  );
+  */
+  // return '';
 });
+
 </script>
 {% endblock %}
