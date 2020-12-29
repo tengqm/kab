@@ -95,6 +95,7 @@
         {% block main_content %}{% endblock %}
       </div>
 
+    {% include "core/help-dialog.html" %}
     <script>
       $(function() {
         $("ul.dropdown-menu.parent-menu").mouseleave(function(){
@@ -125,6 +126,21 @@
 
         });
       });
+
+      function show_help(page) {
+        $.ajax({
+          url: "/help-page/" + page + "/",
+          type: "get",
+          async: false,
+          success: function(data) {
+            $("#help-modal-body").html(data);
+          },
+          error: function(jqxhr, textStatus, msg) {
+            $("#help-modal-body").html("<p>" + textStatus + "</p>");
+          }
+        });
+        $("#helpModal").modal();
+      }
     </script>
     {% block javascript %}{% endblock %}
   </body>

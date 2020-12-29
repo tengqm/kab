@@ -1,6 +1,6 @@
 ## Dry Run
 
-The modifying verbs (`POST`, `PUT`, `PATCH, and `DELETE`) can accept requests
+The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests
 in a dry run mode. Dry run mode helps to evaluate a request through the
 typical request stages (admission chain, validation, merge conflicts) up until
 persisting objects to storage. The response body for the request is as close
@@ -36,8 +36,7 @@ behavior.
 
 For example:
 
-```
-:::html
+```html
 POST /api/v1/namespaces/test/pods?dryRun=All
 Content-Type: application/json
 Accept: application/json
@@ -55,8 +54,7 @@ request.
 For example, to run a dry-run `PATCH` for Deployments, you must have the `PATCH`
 permission for `deployments`, as in the example of the RBAC rule below.
 
-```
-:::yaml
+```yaml
 rules:
 - apiGroups: ["extensions", "apps"]
   resources: ["deployments"]

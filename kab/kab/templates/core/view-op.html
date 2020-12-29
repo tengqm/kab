@@ -22,7 +22,8 @@
 
   <dl class="row">
     {# Description #}
-    <dt class="col-md-2 col-sm-3">Description:</dt>
+    <dt class="col-md-2 col-sm-3">Description:
+    </dt>
     <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
       {% if OP.description %}
         {% markdown_html OP.description %}
@@ -64,16 +65,41 @@
   {% endif %} <!-- othere versions -->
 
   <dl class="row">
-    {# Path and Path Parameters #}
-    <dt class="col-md-2 col-sm-3">Path:</dt>
+    <dt class="col-md-2 col-sm-3">Verb:
+      <a type="button" class="btn p-0" onclick="show_help('verbs')">
+        <i class="fa far fa-question-circle text-info"></i>
+      </a>
+    </dt>
     <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
-      <p><strong>{{ OP.verb|upper }}</strong><code> {{ OP.path}}</code></p>
+      <strong>{{ OP.verb|upper }}</strong>
+      {% if OP.verb|upper == "DELETE" %}
+        <a type="button" class="btn p-0" onclick="show_help('deletion')">
+          <i class="fa far fa-question-circle text-info"></i>
+        </a>
+      {% endif %}
+    </dd>
+
+    {# Path and Path Parameters #}
+    <dt class="col-md-2 col-sm-3">Path:
+      <a type="button" class="btn p-0" onclick="show_help('path')">
+        <i class="fa far fa-question-circle text-info"></i>
+      </a>
+    </dt>
+    <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
+      <p><code> {{ OP.path}}</code></p>
       {% if PATH %}
         <table class="table table-sm table-striped mb-0 mt-2">
           <tr class="table-secondary"><td colspan="3">Params<td></tr>
           {% for P in PATH %}
             <tr>
-              <td style="min-width:100px;"><samp>{{ P.name }}</samp></td>
+              <td style="min-width:100px;"><samp>{{ P.name }}</samp>
+                {% if P.name == "name" %}
+                  <a type="button" class="btn p-0"
+                    onclick="show_help('name')">
+                    <i class="fa far fa-question-circle text-info"></i>
+                  </a>
+                {% endif %}
+              </td>
               <td style="min-width:100px;"><code>{{ P.type }}</code></td>
               <td style="word-break:break-word;">{{ P.description }}</td>
             </tr>
@@ -96,7 +122,12 @@
 
     {# Consumes #}
     {% if OP.consumes %}
-      <dt class="col-md-2 col-sm-3">Consumes:</dt>
+      <dt class="col-md-2 col-sm-3">Consumes:
+        <a type="button" class="btn p-0"
+          onclick="show_help('content-type')">
+          <i class="fa far fa-question-circle text-info"></i>
+        </a>
+      </dt>
       <dd class="col-md-10 col-sm-9">
         <var>{{ OP.consumes|safeseq|join:", " }}</var>
       </dd>
@@ -104,9 +135,17 @@
 
     {# Produces #}
     {% if OP.produces %}
-      <dt class="col-md-2 col-sm-3">Produces:</dt>
+      <dt class="col-md-2 col-sm-3">Produces:
+          <a type="button" class="btn p-0" onclick="show_help('apigroup-long')">
+            <i class="fa far fa-question-circle text-info"></i>
+          </a>
+      </dt>
       <dd class="col-md-10 col-sm-9">
-        <var>{{ OP.produces|safeseq|join:", " }}</var>
+        <var>{{ OP.produces|safeseq|join:", " }}</var><br/>
+        <em>(Note that <a href="#" onclick="show_help('protobuf')">
+          <var>application/vnd.kubernetes.protobuf</var>
+        </a> is a kubernetes specific content-type.)
+        </em>
       </dd>
     {% endif %}
 
@@ -128,6 +167,43 @@
             <td>
               <samp>{{ P.name }}</samp>
               {% if P.required %}<span style="color:orangered">*</span>{% endif %}
+              {% if P.name == "dryRun" %}
+                <a type="button" class="btn p-0" onclick="show_help('dry-run')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "exact" %}
+                <a type="button" class="btn p-0" onclick="show_help('exact')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "export" %}
+                <a type="button" class="btn p-0" onclick="show_help('export')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "labelSelector" %}
+                <a type="button" class="btn p-0" onclick="show_help('label-selector')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "pretty" %}
+                <a type="button" class="btn p-0" onclick="show_help('pretty')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "watch" %}
+                <a type="button" class="btn p-0" onclick="show_help('watch')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "allowWatchBookmarks" %}
+                <a type="button" class="btn p-0" onclick="show_help('watch-bookmark')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "resourceVersion" %}
+                <a type="button" class="btn p-0" onclick="show_help('resource-version')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% elif P.name == "limit" or P.name == "continue" %}
+                <a type="button" class="btn p-0" onclick="show_help('pagination')">
+                  <i class="fa far fa-question-circle text-info"></i>
+                </a>
+              {% endif %}
             </td>
             <td style="min-width:100px;"><code>{{ P.type }}</code></td>
             <td>{% markdown_html P.description %}</td>

@@ -9,7 +9,7 @@ removal.
   "kind": "ConfigMap",
   "metadata": {
     "finalizers": ["url.io/neat-finalization", "other-url.io/my-finalizer"],
-    "deletionTimestamp": none,
+    "deletionTimestamp": null,
   }
 }
 ```

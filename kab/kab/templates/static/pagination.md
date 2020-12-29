@@ -1,4 +1,4 @@
-## Chunks
+## Pagination
 
 On large clusters, retrieving the collection of some resource types may result
 in very large responses that can impact the server and client. For instance, a
@@ -32,7 +32,7 @@ start from the beginning or omit the `limit` parameter.
 
 List Pods on a cluster, retrieving up to 500 Pods each time:
 
-```
+```console
 GET /api/v1/pods?limit=500
 ---
 200 OK
@@ -52,7 +52,7 @@ Content-Type: application/json
 
 Continue the previous call, retrieving the next set of 500 Pods.
 
-```
+```console
 GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
 ---
 200 OK
@@ -72,7 +72,7 @@ Content-Type: application/json
 
 Continue the previous call, retrieving the last batch of Pods:
 
-```
+```console
 GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
 ---
 200 OK
@@ -90,11 +90,11 @@ Content-Type: application/json
 }
 ```
 
-Note that the `resourceVersion` [**TODO Link**] of the list remains constant
-across each request, indicating the server is showing us a consistent snapshot
-of the Pods. Pods that are created, updated, or deleted after version `10245`
-would not be shown unless the user makes a **list** request without the
-`continue` token. This allows clients to break large requests into smaller
-chunks and then perform a **watch** operation on the full set without missing
-any updates.
+Note that the `resourceVersion` of the list remains constant across each
+request, indicating the server is showing us a consistent snapshot of the
+Pods. Pods that are created, updated, or deleted after version `10245` would
+not be shown unless the user makes a **list** request without the `continue`
+token. This allows clients to break large requests into smaller chunks and
+then perform a **watch** operation on the full set without missing any
+updates.
 

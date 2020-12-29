@@ -6,4 +6,3 @@ object.
 
 **TODO**: Explore the details of generator.
 
-

@@ -52,7 +52,7 @@ In case there is the possibility a specify content type is not supported by
 the server, clients should specify multiple content types in their `"Accept"`
 hader to support falling back to other options. For example:
 
-```
+```html
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1, application/json
 ```
 
@@ -77,7 +77,7 @@ request that the server return objects in the "Table" content type.
 
 For example, list all the namespaces in a cluster in the Table format:
 
-```
+```html
 GET /api/v1/pods
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1
 ---

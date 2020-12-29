@@ -43,13 +43,13 @@ paths below the resource.
 
 The path for a cluster-scoped subresource looks like:
 
-```
+```html
 /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE
 ```
 
 while the path for a namespace-scoped subresource looks like:
 
-```
+```html
 /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE
 ```
 
