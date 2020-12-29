@@ -58236,10 +58236,7 @@
       },
       "operations": {
         "v1": {
-          "create": "createAuthorizationV1SelfSubjectRulesReview",
-          "replace-ephemeralcontainers": "replaceCoreV1NamespacedPodEphemeralcontainers",
-          "read-ephemeralcontainers": "readCoreV1NamespacedPodEphemeralcontainers",
-          "patch-ephemeralcontainers": "patchCoreV1NamespacedPodEphemeralcontainers"
+          "create": "createAuthorizationV1SelfSubjectRulesReview"
         },
         "v1beta1": {
           "create": "createAuthorizationV1beta1SelfSubjectRulesReview"
@@ -58427,7 +58424,10 @@
           "get-portforward": "connectCoreV1GetNamespacedPodPortforward",
           "readlog": "readCoreV1NamespacedPodLog",
           "patch": "patchCoreV1NamespacedPod",
-          "proxyput-withpath": "connectCoreV1PutNamespacedPodProxyWithPath"
+          "proxyput-withpath": "connectCoreV1PutNamespacedPodProxyWithPath",
+          "replace-ephemeralcontainers": "replaceCoreV1NamespacedPodEphemeralcontainers",
+          "read-ephemeralcontainers": "readCoreV1NamespacedPodEphemeralcontainers",
+          "patch-ephemeralcontainers": "patchCoreV1NamespacedPodEphemeralcontainers"
         }
       }
     },
@@ -118807,8 +118807,8 @@
     {
       "type": "resource",
       "op_type": "replace-ephemeralcontainers",
-      "group_version": "authorization/v1",
-      "target": "SelfSubjectRulesReview",
+      "group_version": "core/v1",
+      "target": "Pod",
       "version": "1.20",
       "description": "replace the ephemeral containers of the specified Pod",
       "name": "replaceCoreV1NamespacedPodEphemeralcontainers"
@@ -123514,8 +123514,8 @@
     {
       "type": "resource",
       "op_type": "read-ephemeralcontainers",
-      "group_version": "authorization/v1",
-      "target": "SelfSubjectRulesReview",
+      "group_version": "core/v1",
+      "target": "Pod",
       "version": "1.20",
       "description": "read ephemeral containers for the specified Pod",
       "name": "readCoreV1NamespacedPodEphemeralcontainers"
@@ -125125,8 +125125,8 @@
     {
       "type": "resource",
       "op_type": "patch-ephemeralcontainers",
-      "group_version": "authorization/v1",
-      "target": "SelfSubjectRulesReview",
+      "group_version": "core/v1",
+      "target": "Pod",
       "version": "1.20",
       "description": "partially update ephemeral containers of the specified Pod",
       "name": "patchCoreV1NamespacedPodEphemeralcontainers"
