@@ -108,14 +108,14 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "A selector which must match a node's labels for the Pod to be scheduled on that node. Each key in the map must be a qualified name. Each value in the map must be no more than 63 characters. It is either an empty strying or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`, and must start and end with an alphanumeric character.",
+      "description": "A selector which must match a node's labels for the Pod to be scheduled on that node. Each key in the map must be a qualified name. Each value in the map must be no more than 63 characters. It is either an empty string or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`, and must start and end with an alphanumeric character.",
       "type": "object"
     },
     "overhead": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is alpha level as of Kubernetes v1.16, and is only honored by servers that enable the `PodOverhead` feature.",
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Alpha level as of Kubernetes v1.16, and is only honored by servers that enable the `PodOverhead` feature.",
       "type": "object"
     },
     "preemptionPolicy": {

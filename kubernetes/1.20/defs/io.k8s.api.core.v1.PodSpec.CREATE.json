@@ -106,7 +106,7 @@
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is alpha level as of Kubernetes v1.16, and is only honored by servers that enable the `PodOverhead` feature.",
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Alpha level as of Kubernetes v1.16, and is only honored by servers that enable the `PodOverhead` feature.",
       "type": "object"
     },
     "preemptionPolicy": {

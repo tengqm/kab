@@ -3,7 +3,7 @@
   "properties": {
     "allocateLoadBalancerNodePorts": {
       "default": true,
-      "description": "This defines if NodePorts will be automatically allocated for Services with type `\"LoadBalancer\"`. It may be set to `false` if the cluster load-balancer does not rely on NodePorts. This can only be set for Services type `\"LoadBalancer\"` and will be cleared if the `type` is changed to any other values. This field is alpha-level and is honored and required by servers that enable the `ServiceLBNodePortControl` feature gate.",
+      "description": "This defines if NodePorts will be automatically allocated for Services with type `\"LoadBalancer\"`. It may be set to `false` if the cluster load-balancer does not rely on NodePorts. This can only be set for Services type `\"LoadBalancer\"` and will be cleared if the `type` is changed to any other values. This field is Alpha-level and is honored and required by servers that enable the `ServiceLBNodePortControl` feature gate.",
       "type": "boolean"
     },
     "clusterIP": {
@@ -117,7 +117,7 @@
       "description": "The configurations of session affinity. It is required when `sessionAffinity` is set to `\"ClientIP\"` and it cannot be set when `sessionAffinity` is set to `\"None\"`."
     },
     "topologyKeys": {
-      "description": "A preference-order list of topology keys which implementations of Services should use to preferentially sort endpoints when accessing this Service. This field cannot be set when `externalTrafficPolicy=\"Local\"`. Topology keys must be valid label keys. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value `\"*\"` may be used to mean *any topology*. This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the `ServiceTopology` feature.",
+      "description": "A preference-order list of topology keys which implementations of Services should use to preferentially sort endpoints when accessing this Service. This field cannot be set when `externalTrafficPolicy=\"Local\"`. Topology keys must be valid label keys. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value `\"*\"` may be used to mean *any topology*. This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is Alpha-level and is only honored by servers that enable the `ServiceTopology` feature.",
       "items": {
         "type": "string"
       },

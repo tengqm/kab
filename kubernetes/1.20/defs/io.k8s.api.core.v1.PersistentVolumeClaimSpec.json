@@ -16,7 +16,7 @@
     },
     "dataSource": {
       "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
-      "description": "This field can be used to specify either:\n\n- An existing `VolumeSnapshot` object (`snapshot.storage.k8s.io/VolumeSnapshot` - Beta)\n- An existing PVC (`PersistentVolumeClaim`)\n* An existing custom resource/object that implements data population (Alpha)\n\nIn order to use custom resource types that implement data population, the `AnyVolumeDataSource` feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.\n\nThe `kind` and the `name` fields in the `dataSource` must be specified. If the `apiGroup` field is not specified or an empty string, the `kind` must be `\"PersistentVolumeClaim\"`."
+      "description": "This field can be used to specify either:\n\n- An existing `VolumeSnapshot` object (`snapshot.storage.k8s.io/VolumeSnapshot` - Beta)\n- An existing PVC (`PersistentVolumeClaim`)\n* An existing custom resource/object that implements data population (alpha)\n\nIn order to use custom resource types that implement data population, the `AnyVolumeDataSource` feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.\n\nThe `kind` and the `name` fields in the `dataSource` must be specified. If the `apiGroup` field is not specified or an empty string, the `kind` must be `\"PersistentVolumeClaim\"`."
     },
     "resources": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",

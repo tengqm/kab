@@ -46,7 +46,7 @@
       "type": "boolean"
     },
     "ephemeralContainers": {
-      "description": "List of ephemeral containers to run in this Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod spec. In order to add an ephemeral container to an existing Pod, use the Pod's `ephemeralcontainers` subresource. This field is alpha-level and is only honored by servers that enable the `EphemeralContainers` feature.",
+      "description": "List of ephemeral containers to run in this Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod spec. In order to add an ephemeral container to an existing Pod, use the Pod's `ephemeralcontainers` subresource. This field is Alpha-level and is only honored by servers that enable the `EphemeralContainers` feature.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
       },

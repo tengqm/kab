@@ -4,14 +4,14 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "rbac.authorization.k8s.io/v1alpha1"
+        "rbac.authorization.k8s.io/v1beta1"
       ],
       "type": "string"
     },
     "items": {
       "description": "A list of ClusterRoleBinding objects",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.ClusterRoleBinding.GET"
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.ClusterRoleBinding.GET"
       },
       "type": "array"
     },
@@ -38,7 +38,7 @@
     {
       "group": "rbac.authorization.k8s.io",
       "kind": "ClusterRoleBindingList",
-      "version": "v1alpha1"
+      "version": "v1beta1"
     }
   ]
 }
