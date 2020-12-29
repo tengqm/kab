@@ -42,6 +42,8 @@
               {% endif %}
             </a>
           {% endfor %}
+        {% empty %}
+          <a class="dropdown-item disabled" href="#">No other version found!</a>
         {% endfor %}
       </div>
     </div>
@@ -70,6 +72,8 @@
               {% endif %}
             </a>
           {% endfor %}
+        {% empty %}
+          <a class="dropdown-item disabled" href="#">No other version found!</a>
         {% endfor %}
       </div>
     </div>
