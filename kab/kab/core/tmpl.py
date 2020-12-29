@@ -135,6 +135,10 @@ def gen_tree(api, group, version, defn):
     data = helpers.get_definition(api, group, version, defn, False)
     root = {
         "text": defn,
+        "state": {
+            "opened": True,
+            "selected": True,
+        },
         "children": []
     }
     # we believe the root is a dict
