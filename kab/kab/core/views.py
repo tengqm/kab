@@ -100,17 +100,24 @@ class ListDefinitions(generic.View):
         gname = req.GET.get("group")
 
         result = {}
+        last_name = ""
         for item in helpers.definitions(apiv):
             if item["group"] != "":
                 gv = item["group"] + "." + item["version"]
             else:
                 gv = "*"
-            deflist = result.get(gv, [])
-            deflist.append({
-                "name": item["name"],
-                "display": item["display"]
-            })
-            result[gv] = deflist
+
+            def_dict = result.get(gv, {})
+            def_name = item["name"]
+            if "." in item["name"]:
+                def_name = item["name"].split(".")[0]
+
+            if def_name not in def_dict:
+                def_dict[def_name] = [item["name"]]
+            else:
+                def_dict[def_name].append(item["name"])
+
+            result[gv] = collections.OrderedDict(sorted(def_dict.items()))
 
         ctx = {
             "API": apiv,

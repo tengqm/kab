@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% load static %}
 {% load core_tags %}
 
@@ -24,14 +25,35 @@
       </tr>
     </thead>
     <tbody style="font-family:monospace;">
-      {% for G, DLIST in DEFINITIONS.items %}
+      {% for G, DDICT in DEFINITIONS.items %}
         <tr>
           {% group_version G as GV %}
           <td style="word-break:break-word;"><code>{{ GV.0 }}/{{ GV.1 }}</code></td>
           <td style="word-break:break-word;">
-            {% for D in DLIST %}
-              {% dereference API GV.0 GV.1 D.name as LINK %}
+            {# all items in the DDICT belong to the same group version #}
+            {% for DNAME, DDATA in DDICT.items %}
+              {% if DDATA|length_is:"1" %}
+                {% dereference API GV.0 GV.1 DDATA.0 as LINK %}
+                <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+              {% else %}
+                <div class="dropdown d-inline-block mb-1">
+                  <button class="btn btn-outline-dark btn-sm dropdown-toggle"
+                      id="id-{{ DNAME }}"
+                      type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ DNAME }}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="id-{{ R.name }}">
+                    {% for DEF in DDATA %}
+                      {% dereference API GV.0 GV.1 DEF as LINK %}
+                      <a class="dropdown-item" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+
+              <!--
               <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+              -->
             {% endfor %}
           </td>
         </tr>
