@@ -86,7 +86,7 @@ class ListResources(generic.View):
             "API": apiv,
             "RESOURCES": resources,
         }
-        return shortcuts.render(req, 'core/resources.html', ctx)
+        return shortcuts.render(req, 'core/resource-list.html', ctx)
 
 
 class ListDefinitions(generic.View):
