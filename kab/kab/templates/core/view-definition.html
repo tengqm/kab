@@ -75,79 +75,6 @@
     </div>
   </div>
 
-  {% comment %}
-  <nav class="navbar navbar-expand navbar-light bg-light">
-    {# other group and versions #}
-    <div class="navbar-collapse" id="navbarDefinition">
-      <ul class="navbar-nav mr-auto">
-
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-toggle="collapse"
-              data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
-              aria-label="Toggle navigation">
-             <i class="fa fa-map-signs"></i>
-          </a>
-        </li>
-
-        <!-- Switch to -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navSwitchTo" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Switch To
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navSwitchTo">
-            {% for AV, VLIST in VERSIONS.items %}
-              {% for V in VLIST %}
-                {% if V.group %}
-                  {% dereference AV V.group V.version NAME as LINK %}
-                {% else %}
-                  {% dereference AV "*" "*" NAME as LINK %}
-                {% endif %}
-                <a class="dropdown-item" href="{{ LINK.0 }}">{{ AV }}: 
-                  {% if V.group %}
-                    {{ V.group }}/{{ V.version}}
-                  {% else %}
-                    */*
-                  {% endif %}
-                </a>
-              {% endfor %}
-            {% endfor %}
-          </div>
-        </li>
-
-        <!-- Compare -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navCompare" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Compare
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navCompare">
-            {% for AV, VLIST in VERSIONS.items %}
-              {% for V in VLIST %}
-                {% if V.group %}
-                  {% dereference AV V.group V.version NAME as LINK %}
-                {% else %}
-                  {% dereference AV "*" "*" NAME as LINK %}
-                {% endif %}
-                <a class="dropdown-item" href="#"
-                  {% if V.group %}
-                    onclick="compare('{{ AV }}', '{{ V.group }}', '{{ V.version}}')">
-                    {{ AV }}: {{ V.group }}/{{ V.version}}</a>
-                  {% else %}
-                    onclick="compare('{{ AV }}', '*', '*')">
-                    {{ AV }}: */*</a>
-                  {% endif %}
-                </a>
-              {% endfor %}
-            {% endfor %}
-          </div>
-        </li>
-
-      </ul>
-    </div>
-  </nav>
-  {% endcomment %}
-
   <div class="row">
     <div id="schema_tree" class="col-md-6 col-sm-8 col-lg-4 collapse"
         style="border-right-color:gray; border-right-style:solid; border-right-width: 1px; overflow-x: scroll;"></div>
@@ -167,12 +94,6 @@
   window.onresize = function(ev) {
     toggleExpandButtons();
   };
-
-  /*
-  $("document").ready(function() {
-    toggleExpandButtons();
-  });
-  */
 
   function toggleExpandButtons() {
     var height = $("#appearsList").prop("scrollHeight");
@@ -231,16 +152,7 @@
     if (href === '#')
       return '';
 
-    $.ajax({
-      url: "/apis/definition/" + href + "/",
-      data: {
-        partial: true,
-      },
-      success: function(resp) {
-        $("#schema_tree").collapse("hide");
-        $("#schema_data").html(resp);
-      },
-    });
+    location.href = "/apis/definition/" + href + "/";
   });
 </script>
 {% endblock %}
