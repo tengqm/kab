@@ -13,13 +13,70 @@
 
 {% block main_content %}
 
-  <nav class="navbar navbar-expand navbar-light bg-light">
-    <!-- button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarDefinition" aria-controls="navbarDefinition" aria-expanded="false"
+  <div class="btn-toolbar mb-3 bg-light" role="toolbar" aria-label="Definition Toolbar">
+    <button class="btn btn-sm btn-outline-primary mr-2" type="button" href="#" data-toggle="collapse"
+        data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
         aria-label="Toggle navigation">
-       <i class="fa fa-bars"></i>
-    </button -->
+       <i class="fa fa-map-signs"></i>
+    </button>
 
+    <!-- Switch to -->
+    <div class="btn-group mr-2" role="group">
+      <button id="btnSwitchTo" type="button" class="btn btn-outline-secondary dropdown-toggle"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Switch To
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnSwitchTo">
+        {% for AV, VLIST in VERSIONS.items %}
+          {% for V in VLIST %}
+            {% if V.group %}
+              {% dereference AV V.group V.version NAME as LINK %}
+            {% else %}
+              {% dereference AV "*" "*" NAME as LINK %}
+            {% endif %}
+            <a class="dropdown-item" href="{{ LINK.0 }}">{{ AV }}: 
+              {% if V.group %}
+                {{ V.group }}/{{ V.version}}
+              {% else %}
+                */*
+              {% endif %}
+            </a>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Compare -->
+    <div class="btn-group" role="group">
+      <button id="btnCompare" type="button" class="btn btn-outline-secondary dropdown-toggle"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Compare
+      </button>
+      <div class="dropdown-menu" aria-labelledby="navCompare">
+        {% for AV, VLIST in VERSIONS.items %}
+          {% for V in VLIST %}
+            {% if V.group %}
+              {% dereference AV V.group V.version NAME as LINK %}
+            {% else %}
+              {% dereference AV "*" "*" NAME as LINK %}
+            {% endif %}
+            <a class="dropdown-item" href="#"
+              {% if V.group %}
+                onclick="compare('{{ AV }}', '{{ V.group }}', '{{ V.version}}')">
+                {{ AV }}: {{ V.group }}/{{ V.version}}</a>
+              {% else %}
+                onclick="compare('{{ AV }}', '*', '*')">
+                {{ AV }}: */*</a>
+              {% endif %}
+            </a>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% comment %}
+  <nav class="navbar navbar-expand navbar-light bg-light">
     {# other group and versions #}
     <div class="navbar-collapse" id="navbarDefinition">
       <ul class="navbar-nav mr-auto">
@@ -89,6 +146,7 @@
       </ul>
     </div>
   </nav>
+  {% endcomment %}
 
   <div class="row">
     <div id="schema_tree" class="col-md-6 col-sm-8 col-lg-4 collapse"
