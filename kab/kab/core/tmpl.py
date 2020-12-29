@@ -53,6 +53,15 @@ def _process_ref(parent, prop, v, api):
         target = target[14:]
     grp, ver, name, display = helpers.parse_definition_id(target)
 
+    # This is to break the circles
+    if prop != "openAPIV3Schema" and name == "JSONSchemaProps":
+        new_node = {
+            "text": "<samp>" + prop + "</samp>: " + "{<code>" + display + "</code>}",
+            "children": []
+        }
+        parent["children"].append(new_node)
+        return
+
     new_node = {
         "text": "<samp>" + prop + "</samp>: " + "{<code>" + display + "</code>}",
         "a_attr": {
@@ -60,7 +69,9 @@ def _process_ref(parent, prop, v, api):
         },
         "children": []
     }
+
     refdata = helpers.get_definition(api, grp, ver, name, False)
+
     _get_object(new_node, refdata, api)
     parent["children"].append(new_node)
 
