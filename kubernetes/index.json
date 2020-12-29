@@ -528,10 +528,10 @@
           "JobCondition",
           "ReplicaSetCondition",
           "Event.UPDATE",
-          "TokenRequestStatus",
+          "PreferAvoidPodsEntry",
           "ReplicationControllerCondition",
-          "PodDisruptionBudgetStatus",
-          "ObjectMeta.PATCH"
+          "TokenRequestStatus",
+          "PodDisruptionBudgetStatus"
         ]
       },
       "1.13": [
@@ -655,8 +655,6 @@
           "SelfSubjectAccessReview.GET"
         ],
         "1.20": [
-          "SelfSubjectAccessReview.CREATE",
-          "LocalSubjectAccessReview.CREATE",
           "LocalSubjectAccessReview.GET",
           "SubjectAccessReview.GET",
           "SelfSubjectAccessReview.GET"
@@ -2095,7 +2093,9 @@
           "LocalSubjectAccessReview.GET",
           "Event.GET",
           "RuntimeClass.GET",
+          "TokenReview.GET",
           "Namespace.GET",
+          "APIService.GET",
           "PriorityLevelConfiguration.GET",
           "StorageVersion.GET",
           "Role.GET",
@@ -2106,8 +2106,11 @@
           "PersistentVolume.GET",
           "NetworkPolicy.GET",
           "ClusterRole.GET",
+          "PartialObjectMetadata",
           "DaemonSet.GET",
           "CronJob.GET",
+          "CSIStorageCapacity.GET",
+          "EphemeralContainers",
           "LimitRange.GET",
           "Scale.GET",
           "Deployment.GET",
@@ -2117,7 +2120,6 @@
           "ControllerRevision.GET",
           "CSIDriver.GET",
           "ReplicationController.GET",
-          "TokenReview.GET",
           "EndpointSlice.GET",
           "PodSecurityPolicy.GET",
           "Binding.GET",
@@ -2889,6 +2891,7 @@
           "RoleList",
           "ServiceList",
           "FlowSchemaList",
+          "Table",
           "NamespaceList",
           "RuntimeClassList",
           "RoleBindingList",
@@ -2897,6 +2900,7 @@
           "ClusterRoleList",
           "ServiceAccountList",
           "CronJobList",
+          "CSIStorageCapacityList",
           "DaemonSetList",
           "PersistentVolumeClaimList",
           "LimitRangeList",
@@ -2910,6 +2914,7 @@
           "CSIDriverList",
           "StorageClassList",
           "CertificateSigningRequestList",
+          "PartialObjectMetadataList",
           "ReplicaSetList",
           "ResourceQuotaList",
           "EndpointsList",
@@ -3017,7 +3022,7 @@
         "1.20": [
           "ObjectMeta.UPDATE",
           "ObjectMeta.GET",
-          "ObjectMeta.PATCH"
+          "PodSignature"
         ]
       },
       "1.13": [
@@ -3936,12 +3941,13 @@
           "PodsMetricSource",
           "ValidatingWebhook",
           "AggregationRule",
-          "ReplicaSetSpec",
+          "ReplicaSetSpec.CREATE",
           "MutatingWebhook",
           "StatefulSetSpec.GET",
           "DeploymentSpec.CREATE",
           "MetricIdentifier",
           "DeploymentSpec.GET",
+          "CSIStorageCapacity.UPDATE",
           "JobSpec.CREATE",
           "DaemonSetSpec.CREATE",
           "JobSpec.UPDATE",
@@ -3949,9 +3955,13 @@
           "ObjectMetricSource",
           "StatefulSetSpec.CREATE",
           "PodDisruptionBudgetSpec",
+          "ReplicaSetSpec.UPDATE",
           "DeploymentSpec.UPDATE",
           "DaemonSetSpec.GET",
+          "CSIStorageCapacity.GET",
+          "CSIStorageCapacity.CREATE",
           "DaemonSetSpec.UPDATE",
+          "ReplicaSetSpec.GET",
           "JobSpec.GET"
         ]
       },
@@ -4619,11 +4629,11 @@
           "StorageVersion.CREATE",
           "ClusterRoleBinding.GET",
           "SubjectAccessReview.CREATE",
-          "PodTemplateSpec.CREATE",
           "PersistentVolumeClaim.CREATE",
           "SelfSubjectAccessReview.CREATE",
           "Ingress.CREATE",
           "ReplicaSet.CREATE",
+          "PodTemplateSpec.CREATE",
           "Deployment.CREATE",
           "CSINode.CREATE",
           "CSINode.UPDATE",
@@ -4638,22 +4648,20 @@
           "CronJob.CREATE",
           "JobTemplateSpec",
           "ResourceQuota.CREATE",
-          "TokenReview.GET",
           "SelfSubjectRulesReview.CREATE",
           "CertificateSigningRequest.CREATE",
-          "APIService.GET",
           "RuntimeClass.CREATE",
           "PriorityLevelConfiguration.CREATE",
           "MutatingWebhookConfiguration.CREATE",
           "PersistentVolume.CREATE",
           "Eviction",
+          "CSIStorageCapacity.CREATE",
           "Lease.CREATE",
           "StatefulSet.CREATE",
           "ClusterRole.CREATE",
           "ConfigMap.CREATE",
           "Job.CREATE",
           "HorizontalPodAutoscaler.CREATE",
-          "APIService.UPDATE",
           "TokenRequest.CREATE",
           "LimitRange.CREATE",
           "ReplicationController.CREATE",
@@ -4782,8 +4790,7 @@
         "1.20": [
           "Node.CREATE",
           "Node.GET",
-          "Node.UPDATE",
-          "Node.PATCH"
+          "Node.UPDATE"
         ]
       },
       "1.13": [
@@ -5150,8 +5157,7 @@
         "1.20": [
           "Node.CREATE",
           "Node.GET",
-          "Node.UPDATE",
-          "Node.PATCH"
+          "Node.UPDATE"
         ]
       },
       "1.13": [
@@ -5480,11 +5486,14 @@
           "PersistentVolumeSpec",
           "MetricTarget",
           "MetricValueStatus",
+          "CSIStorageCapacity.UPDATE",
           "ResourceMetricSource",
           "ResourceQuotaStatus",
           "ExternalMetricSource",
           "ContainerResourceMetricSource",
           "ObjectMetricSource",
+          "CSIStorageCapacity.GET",
+          "CSIStorageCapacity.CREATE",
           "LimitRangeItem"
         ]
       },
@@ -6333,6 +6342,7 @@
         "1.20": [
           "StatefulSetSpec.UPDATE",
           "JobSpec.UPDATE",
+          "ReplicaSetSpec.UPDATE",
           "DeploymentSpec.UPDATE",
           "PodTemplate.UPDATE",
           "DaemonSetSpec.UPDATE",
@@ -6752,6 +6762,7 @@
           "MutatingWebhookConfiguration.UPDATE",
           "ClusterRoleBinding.UPDATE",
           "PersistentVolume.UPDATE",
+          "CSIStorageCapacity.UPDATE",
           "Lease.UPDATE",
           "StatefulSet.UPDATE",
           "ConfigMap.UPDATE",
@@ -6777,6 +6788,7 @@
           "Event.UPDATE",
           "ResourceQuota.UPDATE",
           "PriorityClass.UPDATE",
+          "APIService.UPDATE",
           "ValidatingWebhookConfiguration.UPDATE",
           "Service.UPDATE",
           "Secret.UPDATE",
@@ -17782,6 +17794,9 @@
         ],
         "1.17": [
           "ReplicaSet.CREATE"
+        ],
+        "1.20": [
+          "ReplicaSet.CREATE"
         ]
       },
       "1.14": [
@@ -17845,6 +17860,13 @@
           "group": "extensions",
           "version": "v1beta1",
           "id": "io.k8s.api.extensions.v1beta1.ReplicaSetSpec.CREATE"
+        }
+      ],
+      "1.20": [
+        {
+          "group": "apps",
+          "version": "v1",
+          "id": "io.k8s.api.apps.v1.ReplicaSetSpec.CREATE"
         }
       ]
     },
@@ -17915,7 +17937,7 @@
           "ReplicationControllerSpec.CREATE"
         ],
         "1.20": [
-          "ReplicaSetSpec",
+          "ReplicaSetSpec.CREATE",
           "DeploymentSpec.CREATE",
           "PodTemplate.CREATE",
           "JobSpec.CREATE",
@@ -18836,7 +18858,6 @@
           "VolumeAttachment.UPDATE"
         ],
         "1.20": [
-          "VolumeAttachment.CREATE",
           "VolumeAttachment.GET",
           "VolumeAttachment.UPDATE"
         ]
@@ -20554,6 +20575,7 @@
           "ControllerRevision.CREATE"
         ],
         "1.20": [
+          "TableRow",
           "ControllerRevision.GET",
           "ControllerRevision.UPDATE",
           "WatchEvent",
@@ -22702,6 +22724,7 @@
           "StatefulSetSpec.GET",
           "DeploymentSpec.GET",
           "DaemonSetSpec.GET",
+          "ReplicaSetSpec.GET",
           "ReplicationControllerSpec.GET",
           "JobSpec.GET"
         ]
@@ -23820,7 +23843,8 @@
           "Pod.GET"
         ],
         "1.20": [
-          "Pod.GET"
+          "Pod.GET",
+          "Pod.UPDATE"
         ]
       },
       "1.13": [
@@ -25217,8 +25241,7 @@
         ],
         "1.20": [
           "StatefulSet.GET",
-          "StatefulSet.UPDATE",
-          "StatefulSet.CREATE"
+          "StatefulSet.UPDATE"
         ]
       },
       "1.13": [
@@ -30325,7 +30348,6 @@
         ],
         "1.20": [
           "HorizontalPodAutoscaler.GET",
-          "HorizontalPodAutoscaler.CREATE",
           "HorizontalPodAutoscaler.UPDATE"
         ]
       },
@@ -38490,9 +38512,6 @@
         ],
         "1.19": [
           "Service.GET"
-        ],
-        "1.20": [
-          "Service.GET"
         ]
       },
       "1.14": [
@@ -38531,13 +38550,6 @@
         }
       ],
       "1.19": [
-        {
-          "group": "core",
-          "version": "v1",
-          "id": "io.k8s.api.core.v1.ServiceSpec.GET"
-        }
-      ],
-      "1.20": [
         {
           "group": "core",
           "version": "v1",
@@ -38583,9 +38595,7 @@
           "ServiceSpec.CREATE"
         ],
         "1.20": [
-          "ServiceSpec.GET",
-          "ServiceSpec.UPDATE",
-          "ServiceSpec.CREATE"
+          "ServiceSpec"
         ]
       },
       "1.13": [
@@ -38683,9 +38693,7 @@
           "ServiceSpec.CREATE"
         ],
         "1.20": [
-          "ServiceSpec.GET",
-          "ServiceSpec.UPDATE",
-          "ServiceSpec.CREATE"
+          "ServiceSpec"
         ]
       },
       "1.13": [
@@ -38958,8 +38966,7 @@
           "TokenReview.CREATE"
         ],
         "1.20": [
-          "TokenReview.GET",
-          "TokenReview.CREATE"
+          "TokenReview.GET"
         ]
       },
       "1.13": [
@@ -39390,6 +39397,9 @@
         ],
         "1.17": [
           "ReplicaSet.UPDATE"
+        ],
+        "1.20": [
+          "ReplicaSet.UPDATE"
         ]
       },
       "1.14": [
@@ -39453,6 +39463,13 @@
           "group": "extensions",
           "version": "v1beta1",
           "id": "io.k8s.api.extensions.v1beta1.ReplicaSetSpec.UPDATE"
+        }
+      ],
+      "1.20": [
+        {
+          "group": "apps",
+          "version": "v1",
+          "id": "io.k8s.api.apps.v1.ReplicaSetSpec.UPDATE"
         }
       ]
     },
@@ -45418,6 +45435,9 @@
         ],
         "1.17": [
           "ReplicaSet.GET"
+        ],
+        "1.20": [
+          "ReplicaSet.GET"
         ]
       },
       "1.14": [
@@ -45481,6 +45501,13 @@
           "group": "extensions",
           "version": "v1beta1",
           "id": "io.k8s.api.extensions.v1beta1.ReplicaSetSpec.GET"
+        }
+      ],
+      "1.20": [
+        {
+          "group": "apps",
+          "version": "v1",
+          "id": "io.k8s.api.apps.v1.ReplicaSetSpec.GET"
         }
       ]
     },
@@ -46574,9 +46601,6 @@
         ],
         "1.19": [
           "Service.UPDATE"
-        ],
-        "1.20": [
-          "Service.UPDATE"
         ]
       },
       "1.13": [
@@ -46622,13 +46646,6 @@
         }
       ],
       "1.19": [
-        {
-          "group": "core",
-          "version": "v1",
-          "id": "io.k8s.api.core.v1.ServiceSpec.UPDATE"
-        }
-      ],
-      "1.20": [
         {
           "group": "core",
           "version": "v1",
@@ -47948,9 +47965,6 @@
         ],
         "1.19": [
           "Service.CREATE"
-        ],
-        "1.20": [
-          "Service.CREATE"
         ]
       },
       "1.14": [
@@ -47989,13 +48003,6 @@
         }
       ],
       "1.19": [
-        {
-          "group": "core",
-          "version": "v1",
-          "id": "io.k8s.api.core.v1.ServiceSpec.CREATE"
-        }
-      ],
-      "1.20": [
         {
           "group": "core",
           "version": "v1",
@@ -51075,13 +51082,6 @@
           "version": "v1",
           "id": "io.k8s.api.core.v1.Node.PATCH"
         }
-      ],
-      "1.20": [
-        {
-          "group": "core",
-          "version": "v1",
-          "id": "io.k8s.api.core.v1.Node.PATCH"
-        }
       ]
     },
     "ObjectMeta.PATCH": {
@@ -51105,9 +51105,6 @@
           "Node.PATCH"
         ],
         "1.19": [
-          "Node.PATCH"
-        ],
-        "1.20": [
           "Node.PATCH"
         ]
       },
@@ -51154,13 +51151,6 @@
         }
       ],
       "1.19": [
-        {
-          "group": "meta",
-          "version": "v1",
-          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.PATCH"
-        }
-      ],
-      "1.20": [
         {
           "group": "meta",
           "version": "v1",
@@ -54740,7 +54730,9 @@
           "PodSpec.GET"
         ],
         "1.20": [
-          "PodSpec.GET"
+          "PodSpec.UPDATE",
+          "PodSpec.GET",
+          "EphemeralContainers"
         ]
       },
       "1.16": [
@@ -55103,6 +55095,11 @@
           "group": "apiextensions",
           "version": "v1",
           "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool"
+        },
+        {
+          "group": "apiextensions",
+          "version": "v1beta1",
+          "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrBool"
         }
       ]
     },
@@ -55451,8 +55448,8 @@
           "JSONSchemaProps"
         ],
         "1.20": [
-          "CustomResourceValidation",
-          "JSONSchemaProps"
+          "JSONSchemaProps",
+          "CustomResourceValidation"
         ]
       },
       "1.16": [
@@ -55484,6 +55481,11 @@
         }
       ],
       "1.20": [
+        {
+          "group": "apiextensions",
+          "version": "v1beta1",
+          "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaProps"
+        },
         {
           "group": "apiextensions",
           "version": "v1",
@@ -55542,6 +55544,11 @@
           "group": "apiextensions",
           "version": "v1",
           "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON"
+        },
+        {
+          "group": "apiextensions",
+          "version": "v1beta1",
+          "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSON"
         }
       ]
     },
@@ -55592,6 +55599,11 @@
         }
       ],
       "1.20": [
+        {
+          "group": "apiextensions",
+          "version": "v1beta1",
+          "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrStringArray"
+        },
         {
           "group": "apiextensions",
           "version": "v1",
@@ -55648,6 +55660,11 @@
       "1.20": [
         {
           "group": "apiextensions",
+          "version": "v1beta1",
+          "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.ExternalDocumentation"
+        },
+        {
+          "group": "apiextensions",
           "version": "v1",
           "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ExternalDocumentation"
         }
@@ -55700,6 +55717,11 @@
         }
       ],
       "1.20": [
+        {
+          "group": "apiextensions",
+          "version": "v1beta1",
+          "id": "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.JSONSchemaPropsOrArray"
+        },
         {
           "group": "apiextensions",
           "version": "v1",
@@ -55967,7 +55989,6 @@
           "TokenRequest.GET"
         ],
         "1.20": [
-          "TokenRequest.CREATE",
           "TokenRequest.GET"
         ]
       },
@@ -56158,11 +56179,6 @@
           "ReplicaSet.CREATE",
           "ReplicaSet.UPDATE",
           "ReplicaSet.GET"
-        ],
-        "1.20": [
-          "ReplicaSet.CREATE",
-          "ReplicaSet.UPDATE",
-          "ReplicaSet.GET"
         ]
       },
       "1.18": [
@@ -56173,13 +56189,6 @@
         }
       ],
       "1.19": [
-        {
-          "group": "apps",
-          "version": "v1",
-          "id": "io.k8s.api.apps.v1.ReplicaSetSpec"
-        }
-      ],
-      "1.20": [
         {
           "group": "apps",
           "version": "v1",
@@ -57973,6 +57982,29 @@
         }
       ]
     },
+    "CSIStorageCapacity.UPDATE": {
+      "1.20": [
+        {
+          "group": "storage",
+          "version": "v1alpha1",
+          "id": "io.k8s.api.storage.v1alpha1.CSIStorageCapacity.UPDATE"
+        }
+      ]
+    },
+    "PodSignature": {
+      "1.20": [
+        {
+          "group": "core",
+          "version": "v1",
+          "id": "io.k8s.api.core.v1.PodSignature"
+        }
+      ],
+      "appearsIn": {
+        "1.20": [
+          "PreferAvoidPodsEntry"
+        ]
+      }
+    },
     "StorageVersion.UPDATE": {
       "1.20": [
         {
@@ -58002,6 +58034,160 @@
           "group": "apiserverinternal",
           "version": "v1alpha1",
           "id": "io.k8s.api.apiserverinternal.v1alpha1.StorageVersion.GET"
+        }
+      ]
+    },
+    "ServiceSpec": {
+      "appearsIn": {
+        "1.20": [
+          "Service.GET",
+          "Service.UPDATE",
+          "Service.CREATE"
+        ]
+      },
+      "1.20": [
+        {
+          "group": "core",
+          "version": "v1",
+          "id": "io.k8s.api.core.v1.ServiceSpec"
+        }
+      ]
+    },
+    "Table": {
+      "1.20": [
+        {
+          "group": "meta",
+          "version": "v1",
+          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.Table"
+        }
+      ]
+    },
+    "TableColumnDefinition": {
+      "appearsIn": {
+        "1.20": [
+          "Table"
+        ]
+      },
+      "1.20": [
+        {
+          "group": "meta",
+          "version": "v1",
+          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.TableColumnDefinition"
+        }
+      ]
+    },
+    "TableRow": {
+      "appearsIn": {
+        "1.20": [
+          "Table"
+        ]
+      },
+      "1.20": [
+        {
+          "group": "meta",
+          "version": "v1",
+          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.TableRow"
+        }
+      ]
+    },
+    "TableRowCondition": {
+      "appearsIn": {
+        "1.20": [
+          "TableRow"
+        ]
+      },
+      "1.20": [
+        {
+          "group": "meta",
+          "version": "v1",
+          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.TableRowCondition"
+        }
+      ]
+    },
+    "PartialObjectMetadata": {
+      "1.20": [
+        {
+          "group": "meta",
+          "version": "v1",
+          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.PartialObjectMetadata"
+        }
+      ],
+      "appearsIn": {
+        "1.20": [
+          "PartialObjectMetadataList"
+        ]
+      }
+    },
+    "CSIStorageCapacityList": {
+      "1.20": [
+        {
+          "group": "storage",
+          "version": "v1alpha1",
+          "id": "io.k8s.api.storage.v1alpha1.CSIStorageCapacityList"
+        }
+      ]
+    },
+    "CSIStorageCapacity.GET": {
+      "appearsIn": {
+        "1.20": [
+          "CSIStorageCapacityList"
+        ]
+      },
+      "1.20": [
+        {
+          "group": "storage",
+          "version": "v1alpha1",
+          "id": "io.k8s.api.storage.v1alpha1.CSIStorageCapacity.GET"
+        }
+      ]
+    },
+    "CSIStorageCapacity.CREATE": {
+      "1.20": [
+        {
+          "group": "storage",
+          "version": "v1alpha1",
+          "id": "io.k8s.api.storage.v1alpha1.CSIStorageCapacity.CREATE"
+        }
+      ]
+    },
+    "EphemeralContainers": {
+      "1.20": [
+        {
+          "group": "core",
+          "version": "v1",
+          "id": "io.k8s.api.core.v1.EphemeralContainers"
+        }
+      ]
+    },
+    "PreferAvoidPodsEntry": {
+      "1.20": [
+        {
+          "group": "core",
+          "version": "v1",
+          "id": "io.k8s.api.core.v1.PreferAvoidPodsEntry"
+        }
+      ],
+      "appearsIn": {
+        "1.20": [
+          "AvoidPods"
+        ]
+      }
+    },
+    "PartialObjectMetadataList": {
+      "1.20": [
+        {
+          "group": "meta",
+          "version": "v1",
+          "id": "io.k8s.apimachinery.pkg.apis.meta.v1.PartialObjectMetadataList"
+        }
+      ]
+    },
+    "AvoidPods": {
+      "1.20": [
+        {
+          "group": "core",
+          "version": "v1",
+          "id": "io.k8s.api.core.v1.AvoidPods"
         }
       ]
     }
@@ -58050,7 +58236,10 @@
       },
       "operations": {
         "v1": {
-          "create": "createAuthorizationV1SelfSubjectRulesReview"
+          "create": "createAuthorizationV1SelfSubjectRulesReview",
+          "replace-ephemeralcontainers": "replaceCoreV1NamespacedPodEphemeralcontainers",
+          "read-ephemeralcontainers": "readCoreV1NamespacedPodEphemeralcontainers",
+          "patch-ephemeralcontainers": "patchCoreV1NamespacedPodEphemeralcontainers"
         },
         "v1beta1": {
           "create": "createAuthorizationV1beta1SelfSubjectRulesReview"
@@ -61718,6 +61907,32 @@
       }
     },
     {
+      "name": "CSIStorageCapacity",
+      "definitions": {
+        "update": "CSIStorageCapacity.UPDATE",
+        "create": "CSIStorageCapacity.CREATE",
+        "get": "CSIStorageCapacity.GET"
+      },
+      "group": "storage",
+      "versions": {
+        "1.20": [
+          "v1alpha1"
+        ]
+      },
+      "operations": {
+        "v1alpha1": {
+          "listall": "listStorageV1alpha1CSIStorageCapacityForAllNamespaces",
+          "update": "replaceStorageV1alpha1NamespacedCSIStorageCapacity",
+          "deletecollection": "deleteStorageV1alpha1CollectionNamespacedCSIStorageCapacity",
+          "patch": "patchStorageV1alpha1NamespacedCSIStorageCapacity",
+          "delete": "deleteStorageV1alpha1NamespacedCSIStorageCapacity",
+          "create": "createStorageV1alpha1NamespacedCSIStorageCapacity",
+          "get": "readStorageV1alpha1NamespacedCSIStorageCapacity",
+          "list": "listStorageV1alpha1NamespacedCSIStorageCapacity"
+        }
+      }
+    },
+    {
       "name": "TokenRequest",
       "definitions": {
         "*": "TokenRequest"
@@ -62365,8 +62580,8 @@
         "v1beta1"
       ],
       "1.20": [
-        "v1",
-        "v1beta1"
+        "v1beta1",
+        "v1"
       ]
     },
     "scheduling": {
@@ -118591,6 +118806,15 @@
     },
     {
       "type": "resource",
+      "op_type": "replace-ephemeralcontainers",
+      "group_version": "authorization/v1",
+      "target": "SelfSubjectRulesReview",
+      "version": "1.20",
+      "description": "replace the ephemeral containers of the specified Pod",
+      "name": "replaceCoreV1NamespacedPodEphemeralcontainers"
+    },
+    {
+      "type": "resource",
       "op_type": "delete",
       "group_version": "coordination/v1",
       "target": "Lease",
@@ -119101,6 +119325,15 @@
       "version": "1.20",
       "description": "read the specified Role",
       "name": "readRbacAuthorizationV1beta1NamespacedRole"
+    },
+    {
+      "type": "resource",
+      "op_type": "listall",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "list or watch objects of kind CSIStorageCapacity",
+      "name": "listStorageV1alpha1CSIStorageCapacityForAllNamespaces"
     },
     {
       "type": "resource",
@@ -119719,7 +119952,7 @@
       "type": "group",
       "op_type": "readgroup",
       "target": "Apiextensions",
-      "group_version": "apiextensions/v1",
+      "group_version": "apiextensions/v1beta1",
       "description": "get information of a group",
       "name": "getApiextensionsAPIGroup"
     },
@@ -119728,7 +119961,7 @@
       "type": "group",
       "op_type": "readgroup",
       "target": "Apiextensions",
-      "group_version": "apiextensions/v1beta1",
+      "group_version": "apiextensions/v1",
       "description": "get information of a group",
       "name": "getApiextensionsAPIGroup"
     },
@@ -120361,6 +120594,15 @@
       "version": "1.20",
       "description": "read the specified Endpoints",
       "name": "readCoreV1NamespacedEndpoints"
+    },
+    {
+      "type": "resource",
+      "op_type": "update",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "replace the specified CSIStorageCapacity",
+      "name": "replaceStorageV1alpha1NamespacedCSIStorageCapacity"
     },
     {
       "type": "resource",
@@ -123009,6 +123251,15 @@
       "name": "replaceCoordinationV1beta1NamespacedLease"
     },
     {
+      "type": "resource",
+      "op_type": "deletecollection",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "delete collection of CSIStorageCapacity",
+      "name": "deleteStorageV1alpha1CollectionNamespacedCSIStorageCapacity"
+    },
+    {
       "version": "1.20",
       "type": "group",
       "op_type": "readgroup",
@@ -123262,6 +123513,15 @@
     },
     {
       "type": "resource",
+      "op_type": "read-ephemeralcontainers",
+      "group_version": "authorization/v1",
+      "target": "SelfSubjectRulesReview",
+      "version": "1.20",
+      "description": "read ephemeral containers for the specified Pod",
+      "name": "readCoreV1NamespacedPodEphemeralcontainers"
+    },
+    {
+      "type": "resource",
       "op_type": "post-attach",
       "group_version": "core/v1",
       "target": "Pod",
@@ -123385,6 +123645,15 @@
       "group_version": "admissionregistration/v1beta1",
       "description": "get available resources",
       "name": "getAdmissionregistrationV1beta1APIResources"
+    },
+    {
+      "type": "resource",
+      "op_type": "patch",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "partially update the specified CSIStorageCapacity",
+      "name": "patchStorageV1alpha1NamespacedCSIStorageCapacity"
     },
     {
       "type": "resource",
@@ -123839,6 +124108,15 @@
     {
       "type": "resource",
       "op_type": "delete",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "delete a CSIStorageCapacity",
+      "name": "deleteStorageV1alpha1NamespacedCSIStorageCapacity"
+    },
+    {
+      "type": "resource",
+      "op_type": "delete",
       "group_version": "rbac/v1beta1",
       "target": "ClusterRole",
       "version": "1.20",
@@ -124150,6 +124428,15 @@
       "version": "1.20",
       "description": "replace the specified FlowSchema",
       "name": "replaceFlowcontrolApiserverV1alpha1FlowSchema"
+    },
+    {
+      "type": "resource",
+      "op_type": "create",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "create a CSIStorageCapacity",
+      "name": "createStorageV1alpha1NamespacedCSIStorageCapacity"
     },
     {
       "type": "resource",
@@ -124531,6 +124818,15 @@
     },
     {
       "type": "resource",
+      "op_type": "get",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "read the specified CSIStorageCapacity",
+      "name": "readStorageV1alpha1NamespacedCSIStorageCapacity"
+    },
+    {
+      "type": "resource",
       "op_type": "patch",
       "group_version": "core/v1",
       "target": "LimitRange",
@@ -124738,6 +125034,15 @@
     },
     {
       "type": "resource",
+      "op_type": "list",
+      "group_version": "storage/v1alpha1",
+      "target": "CSIStorageCapacity",
+      "version": "1.20",
+      "description": "list or watch objects of kind CSIStorageCapacity",
+      "name": "listStorageV1alpha1NamespacedCSIStorageCapacity"
+    },
+    {
+      "type": "resource",
       "op_type": "get",
       "group_version": "apps/v1",
       "target": "ControllerRevision",
@@ -124816,6 +125121,15 @@
       "version": "1.20",
       "description": "replace status of the specified CertificateSigningRequest",
       "name": "replaceCertificatesV1beta1CertificateSigningRequestStatus"
+    },
+    {
+      "type": "resource",
+      "op_type": "patch-ephemeralcontainers",
+      "group_version": "authorization/v1",
+      "target": "SelfSubjectRulesReview",
+      "version": "1.20",
+      "description": "partially update ephemeral containers of the specified Pod",
+      "name": "patchCoreV1NamespacedPodEphemeralcontainers"
     },
     {
       "type": "resource",
@@ -125235,7 +125549,7 @@
   "parameters": {
     "continue": {
       "1.13": {
-        "description": "The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125243,7 +125557,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125251,7 +125565,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125259,7 +125573,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125267,7 +125581,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125275,7 +125589,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 `ResourceExpired` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125283,7 +125597,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 `ResourceExpired` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125291,7 +125605,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 `ResourceExpired` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
+        "description": "The `continue` option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the `continue` value from a previous query result with identical query parameters (except for the value of `continue`) and the server may reject a `continue` value it does not recognize. If the specified `continue` value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a `\"410 ResourceExpired\"` error together with a `continue` token. If the client needs a consistent list, it must restart their list without the `continue` field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when `watch` is true. Clients may start a watch from the last `resourceVersion` value returned by the server and not miss any modifications.",
         "in": "query",
         "name": "continue",
         "required": false,
@@ -125301,84 +125615,84 @@
     },
     "dryRun": {
       "1.13": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.14": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.15": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.16": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.17": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.18": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are:\n\n- `All`: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.19": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are:\n\n- `All`: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
+        "enum": [
+          "All"
+        ],
         "in": "query",
         "name": "dryRun",
         "required": false,
         "type": "string",
-        "enum": [
-          "All"
-        ],
         "uniqueItems": true
       },
       "1.20": {
-        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are:\n\n- `All`: all dry run stages will be processed",
+        "description": "When present, indicates that modifications should not be persisted. An invalid or unrecognized `dryRun` directive will result in an error response and no further processing of the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed.\n\n",
         "in": "query",
         "name": "dryRun",
         "required": false,
@@ -125391,7 +125705,7 @@
     },
     "exact": {
       "1.13": {
-        "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125399,7 +125713,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125407,7 +125721,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125415,7 +125729,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125423,7 +125737,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125431,7 +125745,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "Should the export be exact. Exact export maintains cluster-specific fields like 'Namespace'. DEPRECATED. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125439,7 +125753,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "Should the export be exact. Exact export maintains cluster-specific fields like 'Namespace'. DEPRECATED. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125447,7 +125761,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "Should the export be exact. Exact export maintains cluster-specific fields like 'Namespace'. DEPRECATED. Planned for removal in 1.18.",
+        "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "exact",
         "required": false,
@@ -125457,7 +125771,7 @@
     },
     "export": {
       "1.13": {
-        "description": "Should this value be exported.  Export strips fields that a user can not specify.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125465,7 +125779,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125473,7 +125787,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125481,7 +125795,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125489,7 +125803,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125497,7 +125811,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "Should this value be exported. Export strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125505,7 +125819,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "Should this value be exported. Export strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125513,7 +125827,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "Should this value be exported. Export strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
+        "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
         "in": "query",
         "name": "export",
         "required": false,
@@ -125523,7 +125837,7 @@
     },
     "fieldSelector": {
       "1.13": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125531,7 +125845,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125539,7 +125853,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125547,7 +125861,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125555,7 +125869,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125563,7 +125877,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125571,7 +125885,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125579,7 +125893,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their fields. Defaults to everything. The accepted value is a comma-separated list of *terms*. Backslash-escaped commas are treated as data instead of delimiters, and included in the returned terms with the leading backslash perserved. Each *term* consists of a *key*, an *operator*, and a *value*. The *key* cannot contain escaped special character so the first occurence of a recognized operator is used as the split point. The literal of the *value* is parsed when the *operator* is successfully extracted. A valid operator must be one of `!=`, `==` and `=`, where `==` is equivalent to `=`. When there are multiple terms in the selector list, they are combined using logical **AND** operation.",
         "in": "query",
         "name": "fieldSelector",
         "required": false,
@@ -125589,7 +125903,7 @@
     },
     "gracePeriodSeconds": {
       "1.13": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125597,7 +125911,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125605,7 +125919,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125613,7 +125927,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125621,7 +125935,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125629,7 +125943,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. Zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125637,7 +125951,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. Zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125645,7 +125959,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. Zero means delete immediately.",
+        "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified.",
         "in": "query",
         "name": "gracePeriodSeconds",
         "required": false,
@@ -125661,67 +125975,11 @@
         "required": false,
         "type": "boolean",
         "uniqueItems": true
-      },
-      "1.14": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
-      },
-      "1.15": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
-      },
-      "1.16": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
-      },
-      "1.17": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
-      },
-      "1.18": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
-      },
-      "1.19": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
-      },
-      "1.20": {
-        "description": "If true, partially initialized resources are included in the response.",
-        "in": "query",
-        "name": "includeUninitialized",
-        "required": false,
-        "type": "boolean",
-        "uniqueItems": true
       }
     },
     "labelSelector": {
       "1.13": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125729,7 +125987,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125737,7 +125995,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125745,7 +126003,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125753,7 +126011,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125761,7 +126019,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125769,7 +126027,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125777,7 +126035,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+        "description": "A selector to restrict the list of returned objects by their labels.",
         "in": "query",
         "name": "labelSelector",
         "required": false,
@@ -125787,7 +126045,7 @@
     },
     "limit": {
       "1.13": {
-        "description": "limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.\n\nThe server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125795,7 +126053,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.\n\nThe server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125803,7 +126061,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.\n\nThe server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125811,7 +126069,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.\n\nThe server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125819,7 +126077,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.\n\nThe server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125827,7 +126085,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "`limit` is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and will return all of the available results. If `limit` is specified and the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit` - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using `limit` to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125835,7 +126093,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "`limit` is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and will return all of the available results. If `limit` is specified and the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit` - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using `limit` to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125843,7 +126101,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "`limit` is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and will return all of the available results. If `limit` is specified and the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit` - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using `limit` to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+        "description": "`limit` is a maximum number of objects to return from a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a `limit` may return fewer than the requested amount of items (up to zero items) when all requested objects are filtered out and clients should only use the presence of the `continue` field to determine whether more results are available. Servers may choose not to support the `limit` argument and return all the available results. If `limit` is set but the `continue` field is empty, clients may assume that no more results are available. This field is not supported if `watch` is true.\n\nThe server guarantees that the objects returned when using `continue` will be identical to issuing a single list call without a `limit`. In other words, no objects created, modified, or deleted after the first request was issued is included in any subsequent continued requests. This is sometimes referred to as a *consistent snapshot*. It enables a client to use `limit` to receive smaller chunks of a very large result while still can see all possible objects. If objects are updated during a chunked list, the version of the object that was present at the time the first list result was calculated is returned.",
         "in": "query",
         "name": "limit",
         "required": false,
@@ -125919,7 +126177,7 @@
     },
     "orphanDependents": {
       "1.13": {
-        "description": "Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125927,7 +126185,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125935,7 +126193,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125943,7 +126201,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125951,7 +126209,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125959,7 +126217,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "This field will be DEPRECATED in 1.7, please use the `propagationPolicy`. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125967,7 +126225,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "This field will be DEPRECATED in 1.7, please use the `propagationPolicy`. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125975,7 +126233,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "This field will be DEPRECATED in 1.7, please use the `propagationPolicy`. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
+        "description": "DEPRECATED, please use the `propagationPolicy`.\n\nThis parameter indicates whether the dependent objects should be orphaned. If `true`, the \"orphan\" finalizer will be added to the object's `finalizers` list. Or else the \"orphan\" finalizer will be removed from the object's `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.",
         "in": "query",
         "name": "orphanDependents",
         "required": false,
@@ -125985,7 +126243,7 @@
     },
     "pretty": {
       "1.13": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -125993,7 +126251,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126001,7 +126259,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126009,7 +126267,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126017,7 +126275,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126025,7 +126283,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126033,7 +126291,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126041,7 +126299,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "If 'true', then the output is pretty printed.",
+        "description": "If `\"true\"`, then the output is pretty printed.",
         "in": "query",
         "name": "pretty",
         "required": false,
@@ -126051,98 +126309,98 @@
     },
     "propagationPolicy": {
       "1.13": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.14": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.18": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.19": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
-        "in": "query",
-        "name": "propagationPolicy",
-        "required": false,
-        "type": "string",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "enum": [
           "Orphan",
           "Background",
           "Foreground"
         ],
+        "in": "query",
+        "name": "propagationPolicy",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       },
       "1.20": {
-        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `Orphan`: orphan the dependents;\n- `Background`: allow the garbage collector to delete the dependents in the background;\n- `Foreground`: a cascading policy that deletes all dependents in the foreground.",
+        "description": "Whether and how garbage collection will be performed. Either this field or `orphanDependents` may be set, but not both. The default policy is decided by the existing finalizer set in the `metadata.finalizers` and the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"`: orphan the dependents;\n- `\"Background\"`: allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"`: a cascading policy that deletes all dependents in the foreground.",
         "in": "query",
         "name": "propagationPolicy",
         "required": false,
@@ -126157,7 +126415,7 @@
     },
     "resourceVersion": {
       "1.13": {
-        "description": "When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126165,7 +126423,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126173,7 +126431,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126181,7 +126439,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126189,7 +126447,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126197,7 +126455,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "When specified with a `watch` call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list:\n\n- if unset, then the result is returned from remote storage based on quorum-read flag;\n- if it is 0, then we simply return what we currently have in cache, no guarantee;\n- if set to non-zero, then the result is at least as fresh as given resourceVersion.\n",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126205,7 +126463,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "When specified with a `watch` call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list:\n\n- if unset, then the result is returned from remote storage based on quorum-read flag;\n- if it is 0, then we simply return what we currently have in cache, no guarantee;\n- if set to non-zero, then the result is at least as fresh as given resourceVersion.\n",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126213,7 +126471,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "When specified with a `watch` call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list:\n\n- if unset, then the result is returned from remote storage based on quorum-read flag;\n- if it is 0, then we simply return what we currently have in cache, no guarantee;\n- if set to non-zero, then the result is at least as fresh as given resourceVersion.\n",
+        "description": "When specified with a **watch** call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for **list**:\n\n- if unset, then the result is returned from remote storage based on quorum-read;\n- if it is `\"0\"`, the server returns the objects in cache, no guarantee;\n- if set to non-zero string, the result is at least as fresh as the given `resourceVersion`.\n",
         "in": "query",
         "name": "resourceVersion",
         "required": false,
@@ -126223,7 +126481,7 @@
     },
     "timeoutSeconds": {
       "1.13": {
-        "description": "Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126231,7 +126489,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126239,7 +126497,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126247,7 +126505,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126255,7 +126513,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126263,7 +126521,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126271,7 +126529,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126279,7 +126537,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.",
+        "description": "Timeout for the **list**/**watch** requests. This limits the duration of the API call, regardless of any activity or inactivity.",
         "in": "query",
         "name": "timeoutSeconds",
         "required": false,
@@ -126289,7 +126547,7 @@
     },
     "watch": {
       "1.13": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126297,7 +126555,7 @@
         "uniqueItems": true
       },
       "1.14": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126305,7 +126563,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126313,7 +126571,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126321,7 +126579,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126329,7 +126587,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify `resourceVersion`.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126337,7 +126595,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify `resourceVersion`.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126345,7 +126603,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify `resourceVersion`.",
+        "description": "Watch for changes to the described resources and return them as a stream of _add_, _update_, and _remove_ notifications. See also the `resourceVersion` parameter.",
         "in": "query",
         "name": "watch",
         "required": false,
@@ -126355,7 +126613,7 @@
     },
     "fieldManager": {
       "1.14": {
-        "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126363,7 +126621,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126371,7 +126629,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126379,7 +126637,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126387,7 +126645,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126395,7 +126653,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126403,7 +126661,65 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      }
+    },
+    "fieldManagerPatch": {
+      "1.14": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.15": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.16": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.17": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.18": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.19": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+        "in": "query",
+        "name": "fieldManager",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.20": {
+        "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint). This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
         "in": "query",
         "name": "fieldManager",
         "required": false,
@@ -126413,7 +126729,7 @@
     },
     "force": {
       "1.14": {
-        "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126421,7 +126737,7 @@
         "uniqueItems": true
       },
       "1.15": {
-        "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126429,7 +126745,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126437,7 +126753,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "Force is going to _force_ Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126445,7 +126761,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "Force is going to _force_ apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126453,7 +126769,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "Force is going to _force_ apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126461,7 +126777,7 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "Force is going to _force_ apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+        "description": "Force is going to *force* apply requests. It means user will re-acquire conflicting fields owned by other people. The `force` flag must be unset for non-apply patch requests.",
         "in": "query",
         "name": "force",
         "required": false,
@@ -126471,7 +126787,7 @@
     },
     "allowWatchBookmarks": {
       "1.15": {
-        "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver. This field is alpha.",
+        "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server. This field is in Alpha stage.",
         "in": "query",
         "name": "allowWatchBookmarks",
         "required": false,
@@ -126479,7 +126795,7 @@
         "uniqueItems": true
       },
       "1.16": {
-        "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver. This field is alpha.",
+        "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server. This field is in Beta stage.",
         "in": "query",
         "name": "allowWatchBookmarks",
         "required": false,
@@ -126487,7 +126803,7 @@
         "uniqueItems": true
       },
       "1.17": {
-        "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver.",
+        "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server.",
         "in": "query",
         "name": "allowWatchBookmarks",
         "required": false,
@@ -126495,7 +126811,7 @@
         "uniqueItems": true
       },
       "1.18": {
-        "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver.",
+        "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server.",
         "in": "query",
         "name": "allowWatchBookmarks",
         "required": false,
@@ -126503,7 +126819,7 @@
         "uniqueItems": true
       },
       "1.19": {
-        "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver.",
+        "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server.",
         "in": "query",
         "name": "allowWatchBookmarks",
         "required": false,
@@ -126511,11 +126827,45 @@
         "uniqueItems": true
       },
       "1.20": {
-        "description": "allowWatchBookmarks requests watch events with type 'BOOKMARK'. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. This field is ignored if the operation is not a watch or the feature gate WatchBookmarks is not enabled in apiserver.",
+        "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server.",
         "in": "query",
         "name": "allowWatchBookmarks",
         "required": false,
         "type": "boolean",
+        "uniqueItems": true
+      }
+    },
+    "resourceVersionMatch": {
+      "1.19": {
+        "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to **list** requests. It is highly recommended that `resourceVersionMatch` be set for **list** calls where `resourceVersion` is set.\n\nDefaults to unset.",
+        "in": "query",
+        "name": "resourceVersionMatch",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "1.20": {
+        "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to **list** requests. It is highly recommended that `resourceVersionMatch` be set for **list** calls where `resourceVersion` is set.\n\nDefaults to unset.",
+        "in": "query",
+        "name": "resourceVersionMatch",
+        "required": false,
+        "type": "string",
+        "uniqueItems": true
+      }
+    },
+    "includeObject": {
+      "1.20": {
+        "default": "Metadata",
+        "description": "This parameter is used for a Table request. It decides whether to include each object along with its columnar information. Valid values are:\n\n- `\"None\"`: return no object;\n- `\"Object\"` return the full object contents;\n- `\"Metadata\"`: (the default) return the object's metadata in the PartialObjectMetadata kind in version v1beta1 of the `\"meta.k8s.io\"` API group.",
+        "enum": [
+          "Metadata",
+          "None",
+          "All"
+        ],
+        "in": "query",
+        "name": "includeObject",
+        "required": false,
+        "type": "string",
         "uniqueItems": true
       }
     }

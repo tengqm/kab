@@ -75,9 +75,13 @@ RESOURCE_PATTERNS = {
     # specific to Pod
     "create{g}{v}Namespaced{r}Binding": "bind",
     "read{g}{v}Namespaced{r}Log": "readlog",
-    "get{g}{v}Namespaced{r}EphemeralContainers": "getephemeralcontainers",
-    "update{g}{v}Namespaced{r}EphemeralContainers":
-        "updateephemeralcontainers",
+    # "getCoreV1NamespacedPodEphemeralContainers": "get-ephemeralcontainers",
+    "patchCoreV1NamespacedPodEphemeralcontainers": "patch-ephemeralcontainers",
+    "readCoreV1NamespacedPodEphemeralcontainers": "read-ephemeralcontainers",
+    "replaceCoreV1NamespacedPodEphemeralcontainers":
+        "replace-ephemeralcontainers",
+    # "updateCoreV1NamespacedPodEphemeralContainers":
+    #    "update-ephemeralcontainers",
     "create{g}{v}Namespaced{r}Eviction": "evict",
     "connect{g}{v}PostNamespaced{r}Portforward": "post-portforward",
     "connect{g}{v}GetNamespaced{r}Portforward": "get-portforward",
@@ -579,7 +583,6 @@ def main():
     data = {}
     with open("settings.json", "r") as f:
         data = json.loads(f.read())
-
         INFO("API versions: " + ", ".join(data["api_versions"]))
 
     GROUP_NAMES = data["group_names"]
