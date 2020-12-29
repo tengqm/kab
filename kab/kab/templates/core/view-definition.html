@@ -14,10 +14,10 @@
 {% block main_content %}
 
   <div class="btn-toolbar mb-3 bg-light" role="toolbar" aria-label="Definition Toolbar">
-    <button class="btn btn-sm btn-outline-primary mr-2" type="button" href="#" data-toggle="collapse"
+    <button class="btn btn-outline-primary mr-2" type="button" href="#" data-toggle="collapse"
         data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
         aria-label="Toggle navigation">
-       <i class="fa fa-map-signs"></i>
+       <i class="fa faw fa-map-signs"></i>
     </button>
 
     <!-- Switch to -->
@@ -49,7 +49,7 @@
     </div>
 
     <!-- Compare -->
-    <div class="btn-group" role="group">
+    <div class="btn-group mr-2" role="group">
       <button id="btnCompare" type="button" class="btn btn-outline-secondary dropdown-toggle"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Compare
@@ -77,6 +77,12 @@
         {% endfor %}
       </div>
     </div>
+
+    <!-- try -->
+    <a class="btn btn-outline-info"
+          href="{% url 'try-resource' API GROUP VERSION NAME %}">
+      <i class="fa faw fa-code"></i>
+    </a>
   </div>
 
   <div class="row">
