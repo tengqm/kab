@@ -28,16 +28,17 @@
           <a class="nav-link" href="#" data-toggle="collapse"
               data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
               aria-label="Toggle navigation">
-             <i class="fa fa-map-signs"></i> Tree
+             <i class="fa fa-map-signs"></i>
           </a>
         </li>
 
+        <!-- Switch to -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navViewOtherVersions" role="button"
+          <a class="nav-link dropdown-toggle" href="#" id="navSwitchTo" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Other Versions
+            Switch To
           </a>
-          <div class="dropdown-menu" aria-labelledby="navViewOtherVersions">
+          <div class="dropdown-menu" aria-labelledby="navSwitchTo">
             {% for AV, VLIST in VERSIONS.items %}
               {% for V in VLIST %}
                 {% if V.group %}
@@ -56,12 +57,41 @@
             {% endfor %}
           </div>
         </li>
+
+        <!-- Compare -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navCompare" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Compare
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navCompare">
+            {% for AV, VLIST in VERSIONS.items %}
+              {% for V in VLIST %}
+                {% if V.group %}
+                  {% dereference AV V.group V.version NAME as LINK %}
+                {% else %}
+                  {% dereference AV "*" "*" NAME as LINK %}
+                {% endif %}
+                <a class="dropdown-item" href="#"
+                  {% if V.group %}
+                    onclick="compare('{{ AV }}', '{{ V.group }}', '{{ V.version}}')">
+                    {{ AV }}: {{ V.group }}/{{ V.version}}</a>
+                  {% else %}
+                    onclick="compare('{{ AV }}', '*', '*')">
+                    {{ AV }}: */*</a>
+                  {% endif %}
+                </a>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </li>
+
       </ul>
     </div>
   </nav>
 
   <div class="row">
-    <div id="schema_tree" class="col-6 collapse"
+    <div id="schema_tree" class="col-md-6 col-sm-8 col-lg-4 collapse"
         style="border-right-color:gray; border-right-style:solid; border-right-width: 1px; overflow-x: scroll;"></div>
     <div id="schema_data" class="col">
       {% include "core/definition.html" %}
