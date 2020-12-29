@@ -6,7 +6,7 @@
     <dd class="col-9 col-md-10">
       {{ KIND }}
       {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">Resource</span>{% endif %}
-        {% if "DEPRECATED" in DEFINITION.description %}  <span class="badge badge-danger" style="vertical-align: super;">DEPRECATED</span>{% endif %}
+        {% if "DEPRECATED" in DEFINITION.description|upper %}  <span class="badge badge-danger" style="vertical-align: super;">DEPRECATED</span>{% endif %}
     </dd>
     <dt class="col-3 col-md-2">Group/Version:</dt>
     <dd class="col-9 col-md-10">
@@ -66,9 +66,9 @@
           {% for PNAME, DATA in DEFINITION.properties|safedict %}
             {% escape_ref API DATA as DATA %}
             
-            <tr {% if " deprecated " in DATA.description|lower %}class="table-danger"
-                {% elif " beta " in DATA.description|lower %}class="table-warning"
-                {% elif " alpha " in DATA.description|lower %}class="table-warning"
+            <tr {% if "*DEPRECATED*" in DATA.description|lower and PNAME != "metadata" %}class="table-danger"
+                {% elif "beta-level" in DATA.description|lower %}class="table-warning"
+                {% elif "alpha-level" in DATA.description|lower %}class="table-warning"
                 {% endif %}>
               <td style="word-break:break-word;">
                 <var>
@@ -172,15 +172,18 @@
                   {% endif %}
                 {% endif %}
 
-                {% if "DEPRECATED" in DATA.description %}
+                {# Support level related #}
+                {% if "*DEPRECATED*" in DATA.description|upper and PNAME != "metadata" %}
                   <br/>
                   <p class="text-danger"><strong>DEPRECATED</strong></p>
-                {% endif %}
-
-                {% if " beta " in DATA.description|lower %}
+                {% elif "beta-level" in DATA.description|lower %}
                   <br/>
                   <p class="text-danger"><strong>Beta Feature</strong></p>
+                {% elif "alpha-level" in DATA.description|lower %}
+                  <br/>
+                  <p class="text-danger"><strong>ALpha Feature</strong></p>
                 {% endif %}
+
               </td>
               <td>
                 {% markdown_html DATA.description %}
