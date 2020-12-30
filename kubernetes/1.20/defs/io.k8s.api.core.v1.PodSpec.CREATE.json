@@ -111,7 +111,7 @@
     },
     "preemptionPolicy": {
       "default": "PreemptLowerPriority",
-      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: the Pod never preempts other Pods with lower priority;\n- `\"PreemptLowerPriority\"`: the Pod can preempt other Pods with lower priority.\n\nThis field is beta-level, gated by the `NonPreemptingPriority` feature gate.",
+      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: the Pod never preempts other Pods with lower priority;\n- `\"PreemptLowerPriority\"`: the Pod can preempt other Pods with lower priority.\n\nThis field is Beta, gated by the `NonPreemptingPriority` feature gate.",
       "enum": [
         "Never",
         "PreemptLowerPriority"
@@ -145,7 +145,7 @@
       "type": "string"
     },
     "runtimeClassName": {
-      "description": "This refers to a RuntimeClass object in the `node.k8s.io` group, which should be used to run this Pod.  If no RuntimeClass resource matches the name, the Pod will not run. If unset or empty, the `\"legacy\"` RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value must be a valid DNS subdomain. This is a beta feature as of Kubernetes v1.14.",
+      "description": "This refers to a RuntimeClass object in the `node.k8s.io` group, which should be used to run this Pod.  If no RuntimeClass resource matches the name, the Pod will not run. If unset or empty, the `\"legacy\"` RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value must be a valid DNS subdomain. This is a Beta feature as of Kubernetes v1.14.",
       "type": "string"
     },
     "schedulerName": {
