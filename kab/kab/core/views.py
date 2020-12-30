@@ -417,17 +417,6 @@ class Definitions(generic.View):
         return http.JsonResponse({"defs": defs})
 
 
-class TestJSTree(generic.View):
-    """Test view for JStree"""
-
-    def get(self, req, *args, **kwargs):
-        data = tmpl.gen_tree("1.20", "core", "v1", "Pod.CREATE")
-        ctx = {
-            "JSON": data,
-        }
-        return shortcuts.render(req, 'jstree.html', ctx)
-
-
 class TryResource(generic.View):
     """Generic view to try a resource"""
 
