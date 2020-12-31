@@ -33,7 +33,10 @@
       {% for G, DDICT in DEFINITIONS.items %}
         <tr>
           {% group_version G as GV %}
-          <td style="word-break:break-word;"><code>{{ GV.0 }}/{{ GV.1 }}</code></td>
+          <td style="word-break:break-word;">
+            <code>{{ GV.0 }}/{{ GV.1 }}</code>
+            <i class="fa fa-circle{% if "alpha" in G %} text-danger{% elif "beta" in G %} text-warning{% else %} text-success{% endif %}"></i>
+          </td>
           <td style="word-break:break-word;">
             {# all items in the DDICT belong to the same group version #}
             {% for DNAME, DDATA in DDICT.items %}
