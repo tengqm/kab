@@ -110,20 +110,24 @@
         <div class="col-md-5">
           <select class="form-control text-monospace" id="id_ops_1" name="op1">
             <option value="">---</option>
-            {% for O in OPERATIONS1.ops %}
-              <option value="{{ O.name }}"{% if OP1 == O.name%} selected{% endif %}>
-                 {{ O.name }}
-              </option>
+            {% for Res, Ops in OPERATIONS1.items %}
+              {% for O in Ops %}
+                <option value="{{ O.name }}"{% if OP1 == O.name%} selected{% endif %}>
+                   {{ O.name }}
+                </option>
+              {% endfor %}
             {% endfor %}
           </select>
         </div>
         <div class="col-md-5">
           <select class="form-control text-monospace" id="id_ops_2" name="op2">
             <option value="">---</option>
-            {% for O in OPERATIONS2.ops %}
-              <option value="{{ O.name }}"{% if OP1 == O.name%} selected{% endif %}>
-                 {{ O.name }}
-              </option>
+            {% for Res, Ops in OPERATIONS1.items %}
+              {% for O in Ops %}
+                <option value="{{ O.name }}"{% if OP2 == O.name%} selected{% endif %}>
+                   {{ O.name }}
+                </option>
+                {% endfor %}
             {% endfor %}
           </select>
         </div>

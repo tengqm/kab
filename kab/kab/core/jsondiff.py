@@ -1,6 +1,7 @@
 import collections
 import copy
 import difflib
+import json
 import logging
 import yaml
 
@@ -291,6 +292,7 @@ def compare_ops(apis, opids, root=None):
             added[p] = json_html(v)
             result["P_ADDED"] = added
 
+    LOG.info("Diff: %s", json.dumps(result, indent=2))
     return result
 
 

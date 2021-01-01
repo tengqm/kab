@@ -397,8 +397,8 @@ class CompareOperations(generic.View):
             "GROUPS2": grps2,
             "VERSIONS1": vers1,
             "VERSIONS2": vers2,
-            "OPERATIONS1": ops1,
-            "OPERATIONS2": ops2,
+            "OPERATIONS1": ops1.get(grp1 + "/" + ver1, []),
+            "OPERATIONS2": ops2.get(grp2 + "/" + ver2, []),
             "RESULT": result,
         }
         return shortcuts.render(req, 'core/compare-ops.html', ctx)
