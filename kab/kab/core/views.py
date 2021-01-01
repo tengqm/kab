@@ -351,9 +351,14 @@ class CompareOperations(generic.View):
     def post(self, req, *args, **kwargs):
         api1 = req.POST.get('api1')
         api2 = req.POST.get('api2', api1)
-        opid = req.POST.get("op")
+        grp1 = req.POST.get('group1')
+        grp2 = req.POST.get('group2', grp1)
+        ver1 = req.POST.get('version1')
+        ver2 = req.POST.get('version2', ver1)
+        opid1 = req.POST.get("op1")
+        opid2 = req.POST.get("op2", opid1)
 
-        result = jsondiff.compare_ops([api1, api2], opid)
+        result = jsondiff.compare_ops([api1, api2], [opid1, opid2])
 
         # customize description changes
         desc = []
@@ -370,13 +375,28 @@ class CompareOperations(generic.View):
             result["IDENTICAL"] = True
         ops1 = helpers.operations(api1, "all")
         ops2 = helpers.operations(api2, "all")
+        grps1 = helpers.groups(api1)
+        grps2 = helpers.groups(api2)
+        vers1 = helpers.group_versions(api1, grp1)
+        vers2 = helpers.group_versions(api2, grp2)
+        ops1 = helpers.operations(api1, grp1 + "/" + ver1)
+        ops2 = helpers.operations(api2, grp2 + "/" + ver2)
+
         ctx = {
             "APIS": helpers.apis(),
             "API": api1,
             "API1": api1,
             "API2": api2,
-            "OP1": opid,
-            "OP2": opid,
+            "GRP1": grp1,
+            "GRP2": grp2,
+            "VER1": ver1,
+            "VER2": ver2,
+            "OP1": opid1,
+            "OP2": opid2,
+            "GROUPS1": grps1,
+            "GROUPS2": grps2,
+            "VERSIONS1": vers1,
+            "VERSIONS2": vers2,
             "OPERATIONS1": ops1,
             "OPERATIONS2": ops2,
             "RESULT": result,
@@ -415,6 +435,19 @@ class Definitions(generic.View):
         defs = helpers.definitions(apiv, gname, gversion)
 
         return http.JsonResponse({"defs": defs})
+
+
+class Operations(generic.View):
+    """Json API get list operations"""
+
+    def get(self, req, **kwargs):
+        apiv = kwargs.get("api")
+        gname = req.GET.get("group")
+        gversion = req.GET.get("version")
+
+        ops = helpers.operations(apiv, "/".join([gname, gversion]))
+
+        return http.JsonResponse({"ops": ops})
 
 
 class TryResource(generic.View):

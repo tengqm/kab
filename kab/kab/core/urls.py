@@ -60,6 +60,9 @@ urlpatterns = [
     urls.url(r'^api/(?P<api>[^\/\s]*)/definitions/$',
              views.Definitions.as_view(),
              name='list-definitions-ajax'),
+    urls.url(r'^api/(?P<api>[^\/\s]*)/operations/$',
+             views.Operations.as_view(),
+             name='list-operations-ajax'),
 
     urls.url(
         r'^Denied/$',

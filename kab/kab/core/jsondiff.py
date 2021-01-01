@@ -246,14 +246,14 @@ def json_html(data):
     return pygments.highlight(data, lexer, formatter)
 
 
-def compare_ops(apis, opid, root=None):
+def compare_ops(apis, opids, root=None):
     if root is None:
         fmt = settings.DATA_DIR + "/{}/ops/{}.json"
     else:
         fmt = root + "/{}/ops/{}.json"
 
-    file0 = fmt.format(apis[0], opid)
-    file1 = fmt.format(apis[-1], opid)
+    file0 = fmt.format(apis[0], opids[0])
+    file1 = fmt.format(apis[-1], opids[-1])
 
     json1 = jsonutil.load_json(file0, apis[0], False)
     if json1 is None:

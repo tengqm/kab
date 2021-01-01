@@ -11,9 +11,12 @@
 
 {% block main_content %}
 
-  <form id="compare" action="{% url 'compare-defs' %}" method="post"
+  <form id="compare" action="{% url 'compare-ops' %}" method="post"
       class="form-horizontal collapse">
     {% csrf_token %}
+
+    <input id="id_ops1" type="hidden"/>
+    <input id="id_ops2" type="hidden"/>
 
     <fieldset id="fieldSets">
       <div class="form-group row">
@@ -45,33 +48,88 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="id_defs_1">
-          Operations:
+        <label class="col-md-2 col-form-label" for="id_groups">
+          API Groups:
         </label>
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_defs_1" name="def1">
+          <select class="form-control text-monospace" id="id_groups_1" name="group1">
             <option value="">---</option>
-            {% for O in OPERATIONS1 %}
-              <option value="{{ O.name }}"{% if OP1 == O.name%} selected{% endif %}>
-                 {{ O.name }}
+            {% for G in GROUPS1 %}
+              <option value="{{ G.name }}"{% if GRP1 == G.name%} selected{% endif %}>
+                 {{ G.name }}
               </option>
             {% endfor %}
           </select>
         </div>
 
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_defs_2" name="def2">
+          <select class="form-control text-monospace" id="id_groups_2" name="group2">
             <option value="">---</option>
-            {% for O in OPERATIONS2 %}
-              <option value="{{ O.name }}"{% if OP2 == O.name %} selected{% endif %}>
-                 {{ O.name }}
+            {% for G in GROUPS2 %}
+              <option value="{{ G.name }}"{% if GRP2 == G.name %} selected{% endif %}>
+                 {{ G.name }}
               </option>
             {% endfor %}
           </select>
         </div>
       </div>
 
+      {# Group Versions List #}
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="id_versions_1">
+          Group Versions:
+        </label>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_versions_1" name="version1">
+            <option value="">---</option>
+            {% for V in VERSIONS1 %}
+              <option value="{{ V }}"{% if VER1 == V %} selected{% endif %}>
+                 {{ V }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_versions_2" name="version2">
+            <option value="">---</option>
+            {% for V in VERSIONS2 %}
+              <option value="{{ V }}"{% if VER2 == V %} selected{% endif %}>
+                 {{ V }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      {# Operations List #}
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="id_ops_1">
+          Operations:
+        </label>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_ops_1" name="op1">
+            <option value="">---</option>
+            {% for O in OPERATIONS1.ops %}
+              <option value="{{ O.name }}"{% if OP1 == O.name%} selected{% endif %}>
+                 {{ O.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-5">
+          <select class="form-control text-monospace" id="id_ops_2" name="op2">
+            <option value="">---</option>
+            {% for O in OPERATIONS2.ops %}
+              <option value="{{ O.name }}"{% if OP1 == O.name%} selected{% endif %}>
+                 {{ O.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
     </fieldset>
+
     <div class="row py-2 text-right">
       <div class="col">
         <button type="submit" style="width:110px;" class="form-control btn btn-primary">Compare!</button>
@@ -245,8 +303,8 @@ $("#id_apis_1").change(function() {
       $("#id_versions_1").append($('<option>', {value: "", text: "---"}));
       $("#id_vers1").val("");
 
-      $("#id_defs_1").empty();
-      $("#id_defs_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_ops_1").empty();
+      $("#id_ops_1").append($('<option>', {value: "", text: "---"}));
       $("#id_defs1").val("");
 
       $.each(data["groups"], function(i, item) {
@@ -277,8 +335,8 @@ $("#id_apis_2").change(function() {
       $("#id_versions_2").append($('<option>', {value: "", text: "---"}));
       $("#id_vers2").val("");
 
-      $("#id_defs_2").empty();
-      $("#id_defs_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_ops_2").empty();
+      $("#id_ops_2").append($('<option>', {value: "", text: "---"}));
       $("#id_defs2").val("");
 
       $.each(data["groups"], function(i, item) {
@@ -306,8 +364,8 @@ $("#id_groups_1").change(function() {
       $("#id_versions_1").append($('<option>', {value: "", text: "---"}));
       $("#id_vers1").val("");
 
-      $("#id_defs_1").empty();
-      $("#id_defs_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_ops_1").empty();
+      $("#id_ops_1").append($('<option>', {value: "", text: "---"}));
       $("#id_defs1").val("");
 
       $.each(data["versions"], function(i, item) {
@@ -334,8 +392,8 @@ $("#id_groups_2").change(function() {
       $("#id_versions_2").append($('<option>', {value: "", text: "---"}));
       $("#id_vers2").val("");
 
-      $("#id_defs_2").empty();
-      $("#id_defs_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_ops_2").empty();
+      $("#id_ops_2").append($('<option>', {value: "", text: "---"}));
       $("#id_defs2").val("");
 
       $.each(data["versions"], function(i, item) {
@@ -356,7 +414,7 @@ $("#id_versions_1").change(function() {
   var group = $("#id_groups_1").find("option:selected").val();
   var version = $(this).find("option:selected").val();
   $.ajax({
-    url: "/api/" + api.trim() + "/definitions/",
+    url: "/api/" + api.trim() + "/operations/",
     type: 'get',
     async: false,
     data: {
@@ -364,18 +422,21 @@ $("#id_versions_1").change(function() {
       "version": version,
     },
     success : function(data) {
-      $("#id_defs_1").empty();
-      $("#id_defs_1").append($('<option>', {value: "", text: "---"}));
-      $("#id_defs1").val("");
+      $("#id_ops_1").empty();
+      $("#id_ops_1").append($('<option>', {value: "", text: "---"}));
+      $("#id_ops1").val("");
 
-      $.each(data["defs"], function(i, item) {
-        $("#id_defs_1").append($('<option>', {
-          value: item.name,
-          text: item.display,
-        }));
-        var v = $("#id_defs1").val();
-        v += "," + item.name + "/" + item.display;
-        $("#id_defs1").val(v);
+      var group_version = group + "/" + version;
+      $.each(data["ops"][group_version], function(i, item) {
+        $.each(item, function(k, v) {
+          $("#id_ops_1").append($('<option>', {
+            value: v.name,
+            text: v.name,
+          }));
+          var v = $("#id_ops1").val();
+          v += "," + v.name;
+          $("#id_ops1").val(v);
+        });
       });
     }
   });
@@ -385,7 +446,7 @@ $("#id_versions_2").change(function() {
   var group = $("#id_groups_2").find("option:selected").val();
   var version = $(this).find("option:selected").val();
   $.ajax({
-    url: "/api/" + api.trim() + "/definitions/",
+    url: "/api/" + api.trim() + "/operations/",
     type: 'get',
     async: false,
     data: {
@@ -393,18 +454,20 @@ $("#id_versions_2").change(function() {
       "version": version,
     },
     success : function(data) {
-      $("#id_defs_2").empty();
-      $("#id_defs_2").append($('<option>', {value: "", text: "---"}));
-      $("#id_defs2").val("");
-
-      $.each(data["defs"], function(i, item) {
-        $("#id_defs_2").append($('<option>', {
-          value: item.name,
-          text: item.display,
-        }));
-        var v = $("#id_defs2").val();
-        v += "," + item.name + "/" + item.display;
-        $("#id_defs2").val(v);
+      $("#id_ops_2").empty();
+      $("#id_ops_2").append($('<option>', {value: "", text: "---"}));
+      $("#id_ops2").val("");
+      var group_version = group + "/" + version;
+      $.each(data["ops"][group_version], function(i, item) {
+        $.each(item, function(k, v) {
+          $("#id_ops_2").append($('<option>', {
+            value: v.name,
+            text: v.name,
+          }));
+          var v = $("#id_ops2").val();
+          v += "," + v.name;
+          $("#id_ops2").val(v);
+        });
       });
     }
   });
