@@ -15,75 +15,86 @@
 
   <div class="btn-toolbar pb-3 bg-light" role="toolbar" aria-label="Definition Toolbar"
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
-    <button class="btn btn-outline-primary mr-2" type="button" href="#" data-toggle="collapse"
-        data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
-        aria-label="Toggle navigation">
-       <i class="fa faw fa-bars"></i>
-    </button>
+
+    <div class="btn-group-toggle mr-2" data-toggle="buttons">
+      <button id="btnTree" class="btn btn-outline-primary" type="button" href="#" data-toggle="collapse"
+          data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
+          aria-label="Toggle navigation">
+         <i class="fa faw fa-bars"></i>
+      </button>
+    </div>
 
     <!-- Switch to -->
-    <div class="btn-group mr-2" role="group">
-      <button id="btnSwitchTo" type="button" class="btn btn-outline-secondary dropdown-toggle"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Switch To
-      </button>
-      <div class="dropdown-menu" aria-labelledby="btnSwitchTo">
-        {% for AV, VLIST in VERSIONS.items %}
-          {% for V in VLIST %}
-            {% if V.group %}
-              {% dereference AV V.group V.version NAME as LINK %}
-            {% else %}
-              {% dereference AV "*" "*" NAME as LINK %}
-            {% endif %}
-            <a class="dropdown-item" href="{{ LINK.0 }}">{{ AV }}: 
-              {% if V.group %}
-                {{ V.group }}/{{ V.version}}
-              {% else %}
-                */*
-              {% endif %}
-            </a>
-          {% endfor %}
-        {% empty %}
-          <a class="dropdown-item disabled" href="#">No other version found!</a>
-        {% endfor %}
-      </div>
+    <div class="btn-group-toggle mr-2" data-toggle="buttons">
+      <a id="btnSwitchTo" type="button" class="btn btn-outline-secondary"
+          data-toggle="collapse" data-target="#divSwitchTo" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-eye"></i>
+      </a>
     </div>
 
     <!-- Compare -->
-    <div class="btn-group mr-2" role="group">
-      <button id="btnCompare" type="button" class="btn btn-outline-secondary dropdown-toggle"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Compare
-      </button>
-      <div class="dropdown-menu" aria-labelledby="navCompare">
-        {% for AV, VLIST in VERSIONS.items %}
-          {% for V in VLIST %}
-            {% if V.group %}
-              {% dereference AV V.group V.version NAME as LINK %}
-            {% else %}
-              {% dereference AV "*" "*" NAME as LINK %}
-            {% endif %}
-            <a class="dropdown-item" href="#"
-              {% if V.group %}
-                onclick="compare('{{ AV }}', '{{ V.group }}', '{{ V.version}}')">
-                {{ AV }}: {{ V.group }}/{{ V.version}}</a>
-              {% else %}
-                onclick="compare('{{ AV }}', '*', '*')">
-                {{ AV }}: */*</a>
-              {% endif %}
-            </a>
-          {% endfor %}
-        {% empty %}
-          <a class="dropdown-item disabled" href="#">No other version found!</a>
-        {% endfor %}
-      </div>
+    <div class="btn-group-toggle mr-2" data-toggle="buttons">
+      <a id="btnCompare" type="button" class="btn btn-outline-secondary"
+          data-toggle="collapse" data-target="#divCompare" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-exchange-alt" aria-hidden="true"></i>
+      </a>
     </div>
 
     <!-- try -->
-    <a class="btn btn-outline-info"
-          href="{% url 'try-resource' API GROUP VERSION NAME %}">
+    <a id="btnTry" class="btn btn-outline-info" type="button"
+        data-toggle="tooltip" title="View definition in YAML code editor"
+        href="{% url 'try-resource' API GROUP VERSION NAME %}">
       <i class="fa faw fa-code"></i>
     </a>
+  </div>
+
+  {# div for switch #}
+  <div id="divSwitchTo" class="collapse px-1" aria-labelledby="btnSwitchTo"
+    style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
+    <div class="row px-2" z-index="3">
+      <p class="col-12 my-2 px-1">Switch to another version of this definition:</p>
+      {% for AV, VLIST in VERSIONS.items %}
+        {% for V in VLIST %}
+          {% if V.group %}
+            {% dereference AV V.group V.version NAME as LINK %}
+          {% else %}
+            {% dereference AV "*" "*" NAME as LINK %}
+          {% endif %}
+          <a class="btn btn-outline-secondary btn-sm mx-1 my-1" role="button" href="{{ LINK.0 }}">
+            {{ AV }}: {% if V.group %}{{ V.group }}/{{ V.version}}{% else %}*/*{% endif %}
+          </a>
+        {% endfor %}
+      {% empty %}
+        <a class="disabled" href="#">No other version found!</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="divCompare" class="collapse px-1 bg-light" aria-labelledby="btnCompare"
+    style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
+    <div class="row px-2">
+      <p class="col-12 my-2 px-1">Choose another version of this definition for comparison:</p>
+      {% for AV, VLIST in VERSIONS.items %}
+        {% for V in VLIST %}
+          {% if V.group %}
+            {% dereference AV V.group V.version NAME as LINK %}
+          {% else %}
+            {% dereference AV "*" "*" NAME as LINK %}
+          {% endif %}
+          <a class="btn btn-outline-secondary btn-sm mx-1 my-1" role="button" href="#"
+            {% if V.group %}
+              onclick="compare('{{ AV }}', '{{ V.group }}', '{{ V.version}}')">
+              {{ AV }}: {{ V.group }}/{{ V.version}}</a>
+            {% else %}
+              onclick="compare('{{ AV }}', '*', '*')">
+              {{ AV }}: */*</a>
+            {% endif %}
+          </a>
+        {% endfor %}
+      {% empty %}
+        <a class="disabled" href="#">No other version found!</a>
+      {% endfor %}
+    </div>
   </div>
 
   <div class="row">
