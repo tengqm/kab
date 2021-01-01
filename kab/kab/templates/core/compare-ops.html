@@ -52,7 +52,7 @@
           API Groups:
         </label>
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_groups_1" name="group1">
+          <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_groups_1" name="group1">
             <option value="">---</option>
             {% for G in GROUPS1 %}
               <option value="{{ G.name }}"{% if GRP1 == G.name%} selected{% endif %}>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_groups_2" name="group2">
+          <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_groups_2" name="group2">
             <option value="">---</option>
             {% for G in GROUPS2 %}
               <option value="{{ G.name }}"{% if GRP2 == G.name %} selected{% endif %}>
@@ -80,7 +80,7 @@
           Group Versions:
         </label>
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_versions_1" name="version1">
+          <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_versions_1" name="version1">
             <option value="">---</option>
             {% for V in VERSIONS1 %}
               <option value="{{ V }}"{% if VER1 == V %} selected{% endif %}>
@@ -91,7 +91,7 @@
         </div>
 
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_versions_2" name="version2">
+          <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_versions_2" name="version2">
             <option value="">---</option>
             {% for V in VERSIONS2 %}
               <option value="{{ V }}"{% if VER2 == V %} selected{% endif %}>
@@ -108,7 +108,7 @@
           Operations:
         </label>
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_ops_1" name="op1">
+          <select class="form-control" style="font-size: 120%; font-family: monospace;"  id="id_ops_1" name="op1">
             <option value="">---</option>
             {% for Res, Ops in OPERATIONS1.items %}
               {% for O in Ops %}
@@ -120,7 +120,7 @@
           </select>
         </div>
         <div class="col-md-5">
-          <select class="form-control text-monospace" id="id_ops_2" name="op2">
+          <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_ops_2" name="op2">
             <option value="">---</option>
             {% for Res, Ops in OPERATIONS1.items %}
               {% for O in Ops %}
