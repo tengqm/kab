@@ -1,8 +1,8 @@
 {
-  "description": "A tuple of operations and resources. It is recommended to make sure that all the tuple expansions are valid.",
+  "description": "A tuple of `operations` and `resources`. It is recommended to make sure that all the tuple expansions are valid.",
   "properties": {
     "apiGroups": {
-      "description": "The API groups the resources belong to. '`*`' is the wildcard for all groups. If '`*`' is present, the length of the slice must be one.",
+      "description": "The API groups the resources belong to. `\"*\"` is the wildcard for all groups. If `\"*\"` is present, the length of the slice must be one.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -11,7 +11,7 @@
       "type": "array"
     },
     "apiVersions": {
-      "description": "The API versions the resources belong to. '`*`' means all versions. If '`*`' is present, the length of the slice must be one.",
+      "description": "The API versions the resources belong to. `\"*\"` means all versions. If `\"*\"` is present, the length of the slice must be one.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -20,14 +20,14 @@
       "type": "array"
     },
     "operations": {
-      "description": "The operations the admission hook cares about. `CREATE`, `UPDATE`, `DELETE`, `CONNECT` or \"`*`\" for all of those operations and any future admission operations that are added. If \"`*`\" is present, the length of the slice must be one.",
+      "description": "The operations the admission hook cares about. `\"CREATE\"`, `\"UPDATE\"`, `\"DELETE\"`, `\"CONNECT\"` or \"`*`\" for all of those operations and any future admission operations that are added. If `\"*\"` is present, the length of the slice must be one.",
       "items": {
         "enum": [
           "*",
+          "CONNECT",
           "CREATE",
-          "UPDATE",
           "DELETE",
-          "CONNECT"
+          "UPDATE"
         ],
         "minLength": 1,
         "type": "string"
@@ -36,7 +36,7 @@
       "type": "array"
     },
     "resources": {
-      "description": "A list of resources this rule applies to. For example:\n\n- '`pods`': all pods\n- '`pods/log`': the `log` subresource of pods\n- '`*`': all resources, but not subresources\n- '`pods/*`': all subresources of pods\n- '`*/scale`': all scale subresources\n- '`*/*`': all resources and their subresources.\n\nIf a wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
+      "description": "A list of resources this rule applies to. For example:\n\n- `\"pods\"` means Pods.\n- `\"pods/log\"` means the `\"log\"` subresource of Pods.\n- `\"*\"` means all resources, but not subresources.\n- `\"pods/*\"` means all subresources of Pods.\n- `\"*/scale\"` means all `\"scale\"` subresources.\n- `\"*/*\"` means all resources and their subresources.\n\nIf a wildcard is present, the validation rule will ensure resources do not overlap with each other. Depending on the enclosing object, subresources might not be allowed.",
       "items": {
         "minLength": 1,
         "type": "string"
@@ -46,7 +46,7 @@
     },
     "scope": {
       "default": "*",
-      "description": "The scope of this rule.\n\n- '`Cluster`': only cluster-scoped resources will match this rule\n- '`Namespaced`': only namespaced resources will match this rule\n- '`*`': there are no scope restrictions.\n\n Subresources match the scope of their parent resource.",
+      "description": "The scope of this rule.\n\n- `\"Cluster\"` means that only cluster-scoped resources will match this rule.\n- `\"Namespaced\"` means that only namespaced resources will match this rule.\n- `\"*\"` means that there are no scope restrictions.\n\nSubresources match the scope of their parent resource.",
       "enum": [
         "Cluster",
         "Namespaced",

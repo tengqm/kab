@@ -37,11 +37,11 @@
     },
     "namespaceSelector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "This decides whether to run the webhook on an object based on the match between the object namespace and the selector. If the object itself is a namespace, the matching is performed on `object.metadata.labels`. If the object is another cluster scoped resource, it never skips the webhook. For example, to run the webhook on any objects whose namespace is not associated with `runlevel` of '`0`' or '`1`';  you will set the selector as follows:\n\n```\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"runlevel\",\n    \"operator\": \"NotIn\",\n    \"values\": [\"0\", \"1\"]\n  }]\n}\n```\n\nIf instead you want to only run the webhook on any objects whose namespace is associated with the `environment` of '`prod`' or '`staging`', you will set the selector as follows:\n\n```\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"environment\",\n    \"operator\": \"In\",\n    \"values\":[\"prod\", \"staging\"]\n  }]\n}\n```\n\nDefault to the empty label selector, which matches everything."
+      "description": "This decides whether to run the webhook on an object based on the match between the object namespace and the selector. If the object itself is a namespace, the matching is performed on `object.metadata.labels`. If the object is another cluster scoped resource, it never skips the webhook. For example, to run the webhook on any objects whose namespace is not associated with `runlevel` of `\"0\"` or `\"1\"`;  you will set the selector as follows:\n\n```\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"runlevel\",\n    \"operator\": \"NotIn\",\n    \"values\": [\"0\", \"1\"]\n  }]\n}\n```\n\nIf instead you want to only run the webhook on any objects whose namespace is associated with the \"environment\" of \"prod\" or \"staging\", you will set the selector as follows:\n\n```\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"environment\",\n    \"operator\": \"In\",\n    \"values\": [\"prod\", \"staging\"]\n  }]\n}\n```\n\nDefault to the empty label selector, which matches everything."
     },
     "objectSelector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "This decides whether to run the webhook based on if the object has matching labels. `objectSelector` is evaluated against both the `oldObject` and `newObject` that would be sent to the webhook, and is considered to match if either object matches the selector. A null object (`oldObject` in the case of create, or `newObject` in the case of delete) or an object that cannot have labels (like a `DeploymentRollback` or a `PodProxyOptions` object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty Label selector, which matches everything."
+      "description": "This decides whether to run the webhook based on if the object has matching labels. `objectSelector` is evaluated against both the `oldObject` and `newObject` that would be sent to the webhook, and is considered to match if either object matches the selector. A `null` object (`oldObject` in the case of create, or `newObject` in the case of delete) or an object that cannot have labels (like a `DeploymentRollback` or a `PodProxyOptions` object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty Label selector, which matches everything."
     },
     "rules": {
       "description": "What operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches **any** entry defined in the `rules` list. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.",
@@ -51,7 +51,7 @@
       "type": "array"
     },
     "sideEffects": {
-      "description": "Whether this webhook has side effects. Webhooks with side effects **MUST** implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the `dryRun` attribute will be auto-rejected if they match a webhook with `sideEffects` of `\"Unknown\"` or `\"Some\"`.",
+      "description": "Whether this webhook has side effects. Webhooks with side effects **MUST** implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone.",
       "enum": [
         "None",
         "NoneOnDryRun"
@@ -68,10 +68,10 @@
     }
   },
   "required": [
-    "name",
+    "admissionReviewVersions",
     "clientConfig",
-    "sideEffects",
-    "admissionReviewVersions"
+    "name",
+    "sideEffects"
   ],
   "type": "object"
 }

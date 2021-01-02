@@ -1,5 +1,5 @@
 {
-  "description": "A list of MutatingWebhookConfiguration.",
+  "description": "A list of MutatingWebhookConfiguration objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "List of MutatingWebhookConfiguration.",
+      "description": "A list of MutatingWebhookConfiguration objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingWebhookConfiguration.GET"
       },
@@ -24,11 +24,10 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata."
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
     "items",
     "kind",

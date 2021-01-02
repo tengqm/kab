@@ -10,7 +10,7 @@
     },
     "clientConfig": {
       "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.WebhookClientConfig",
-      "description": "Information for communicating with the webhook."
+      "description": "Information for communicating with the hook."
     },
     "failurePolicy": {
       "default": "Fail",
@@ -37,7 +37,7 @@
     },
     "namespaceSelector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "This decides whether to run the webhook on an object based on the match between the object namespace to the selector. If the object itself is a namespace, the matching is performed on `metadata.labels`. If the object is another cluster scoped resource, it never skips the webhook. For example, to run the webhook on any objects whose namespace is not associated with `runlevel` of `\"0\"` or `\"1\"`;  you will set the selector as follows: \n\n```json\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"runlevel\",\n    \"operator\": \"NotIn\",\n    \"values\": [\"0\", \"1\"]\n  }]\n}\n```\n\nIf instead you want to only run the webhook on any objects whose namespace is associated with the `environment` of `\"prod\"` or `\"staging\"`, you will set the selector as follows:\n\n```json\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"environment\",\n    \"operator\": \"In\",\n    \"values\": [\"prod\", \"staging\"]\n  }]\n}\n```\n\nDefault to the empty label selector, which matches everything."
+      "description": "This decides whether to run the webhook on an object based on the match between the object namespace to the selector. If the object itself is a namespace, the matching is performed on `object.metadata.labels`. If the object is another cluster scoped resource, it never skips the webhook. For example, to run the webhook on any objects whose namespace is not associated with `runlevel` of '`0`' or '`1`';  you will set the selector as follows: \n\n```\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"runlevel\",\n    \"operator\": \"NotIn\",\n    \"values\": [\"0\", \"1\"]\n  }]\n}\n```\n\nIf instead you want to only run the webhook on any objects whose namespace is associated with the `environment` of '`prod`' or '`staging`', you will set the selector as follows:\n\n```\n\"namespaceSelector\": {\n  \"matchExpressions\": [{\n    \"key\": \"environment\",\n    \"operator\": \"In\",\n    \"values\": [\"prod\", \"staging\"]\n  }]\n}\n```\n\nDefault to the empty label selector, which matches everything."
     },
     "objectSelector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
@@ -77,10 +77,10 @@
     }
   },
   "required": [
-    "name",
+    "admissionReviewVersions",
     "clientConfig",
-    "sideEffects",
-    "admissionReviewVersions"
+    "name",
+    "sideEffects"
   ],
   "type": "object"
 }
