@@ -113,26 +113,6 @@
 {{ JSON|json_script:"def-data" }}
 
 <script>
-  window.onresize = function(ev) {
-    toggleExpandButtons();
-  };
-
-  function toggleExpandButtons() {
-    var height = $("#appearsList").prop("scrollHeight");
-    if (parseInt(height) > 35) {
-      $("#btnExpandAppears").removeClass("d-none").addClass("d-unset");
-    }
-    else {
-      $("#btnExpandAppears").removeClass("d-unset").addClass("d-none");
-    }
-    height = $("#versionList").prop("scrollHeight");
-    if (parseInt(height) > 39) {
-      $("#btnExpandVersions").removeClass("d-none").addClass("d-unset");
-    }
-    else {
-      $("#btnExpandVersions").removeClass("d-unset").addClass("d-none");
-    }
-  }
   function compare(api, gn, gv) {
     $("#form_api").val(api);
     $("#form_group").val(gn);
@@ -141,7 +121,6 @@
   }
 
   $(function () {
-    toggleExpandButtons();
     var value = JSON.parse(document.getElementById('def-data').textContent);
     $('#schema_tree').jstree(
       {
@@ -162,5 +141,15 @@
 
     location.href = "/apis/definition/" + href + "/";
   });
+
+  $("#divSwitchTo").on("show.bs.collapse", function() {
+    $("#divCompare").collapse("hide");
+    $("#btnCompare").removeClass("active");
+  });
+  $("#divCompare").on("show.bs.collapse", function() {
+    $("#divSwitchTo").collapse("hide");
+    $("#btnSwitchTo").removeClass("active");
+  });
+
 </script>
 {% endblock %}
