@@ -67,8 +67,8 @@
             {% escape_ref API DATA as DATA %}
             
             <tr {% if "*DEPRECATED*" in DATA.description|lower and PNAME != "metadata" %}class="table-danger"
-                {% elif "beta-level" in DATA.description|lower %}class="table-warning"
-                {% elif "alpha-level" in DATA.description|lower %}class="table-warning"
+                {% elif "Beta" in DATA.description|lower %}class="table-warning"
+                {% elif "Alpha" in DATA.description|lower %}class="table-warning"
                 {% endif %}>
               <td style="word-break:break-word;">
                 <var>
@@ -173,13 +173,13 @@
                 {% endif %}
 
                 {# Support level related #}
-                {% if "*DEPRECATED*" in DATA.description|upper and PNAME != "metadata" %}
+                {% if "*DEPRECATED*" in DATA.description and PNAME != "metadata" %}
                   <br/>
                   <p class="text-danger"><strong>DEPRECATED</strong></p>
-                {% elif "beta-level" in DATA.description|lower %}
+                {% elif "Beta" in DATA.description %}
                   <br/>
                   <p class="text-danger"><strong>Beta Feature</strong></p>
-                {% elif "alpha-level" in DATA.description|lower %}
+                {% elif "Alpha" in DATA.description %}
                   <br/>
                   <p class="text-danger"><strong>ALpha Feature</strong></p>
                 {% endif %}
