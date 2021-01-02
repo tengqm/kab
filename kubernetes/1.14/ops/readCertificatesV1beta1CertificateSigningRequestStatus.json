@@ -1,20 +1,28 @@
 {
-  "description": "read status of the specified CertificateSigningRequest",
   "consumes": [
     "*/*"
   ],
+  "description": "read status of the specified CertificateSigningRequest",
+  "operationId": "readCertificatesV1beta1CertificateSigningRequestStatus",
+  "parameters": [
+    {
+      "description": "name of the CertificateSigningRequest",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "certificates_v1beta1"
-  ],
-  "operationId": "readCertificatesV1beta1CertificateSigningRequestStatus",
   "responses": {
     "200": {
       "description": "OK",
@@ -26,25 +34,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status",
-  "parameters": [
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the CertificateSigningRequest",
-      "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ]
+  }
 }

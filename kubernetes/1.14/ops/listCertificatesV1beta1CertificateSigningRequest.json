@@ -1,21 +1,8 @@
 {
-  "description": "list or watch objects of kind CertificateSigningRequest",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "certificates_v1beta1"
-  ],
+  "description": "list or watch objects of kind CertificateSigningRequest",
   "operationId": "listCertificatesV1beta1CertificateSigningRequest",
   "parameters": [
     {
@@ -46,6 +33,14 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -57,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1beta1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
     "version": "v1beta1"
-  },
-  "verb": "get",
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests"
+  }
 }

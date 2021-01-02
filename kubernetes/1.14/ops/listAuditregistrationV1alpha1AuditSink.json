@@ -1,21 +1,8 @@
 {
-  "description": "list or watch objects of kind AuditSink",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf",
-    "application/json;stream=watch",
-    "application/vnd.kubernetes.protobuf;stream=watch"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "auditregistration_v1alpha1"
-  ],
+  "description": "list or watch objects of kind AuditSink",
   "operationId": "listAuditregistrationV1alpha1AuditSink",
   "parameters": [
     {
@@ -46,6 +33,14 @@
       "$ref": "#/parameters/pretty"
     }
   ],
+  "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
   "responses": {
     "200": {
       "description": "OK",
@@ -57,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "auditregistration_v1alpha1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "list",
   "x-kubernetes-group-version-kind": {
     "group": "auditregistration.k8s.io",
     "kind": "AuditSink",
     "version": "v1alpha1"
-  },
-  "verb": "get",
-  "path": "/apis/auditregistration.k8s.io/v1alpha1/auditsinks"
+  }
 }

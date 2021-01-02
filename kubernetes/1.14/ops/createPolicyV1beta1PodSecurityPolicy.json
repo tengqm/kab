@@ -1,24 +1,13 @@
 {
-  "description": "create a PodSecurityPolicy",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
+  "description": "create a PodSecurityPolicy",
   "operationId": "createPolicyV1beta1PodSecurityPolicy",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.CREATE"
@@ -33,6 +22,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/policy/v1beta1/podsecuritypolicies",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -57,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodSecurityPolicy",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/policy/v1beta1/podsecuritypolicies"
+  }
 }

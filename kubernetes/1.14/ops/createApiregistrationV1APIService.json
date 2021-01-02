@@ -1,24 +1,13 @@
 {
-  "description": "create an APIService",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apiregistration_v1"
-  ],
+  "description": "create an APIService",
   "operationId": "createApiregistrationV1APIService",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService.CREATE"
@@ -33,6 +22,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/apiregistration.k8s.io/v1/apiservices",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -57,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiregistration_v1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "apiregistration.k8s.io",
     "kind": "APIService",
     "version": "v1"
-  },
-  "verb": "post",
-  "path": "/apis/apiregistration.k8s.io/v1/apiservices"
+  }
 }

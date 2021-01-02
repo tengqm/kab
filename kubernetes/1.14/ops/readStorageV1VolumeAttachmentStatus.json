@@ -1,20 +1,28 @@
 {
-  "description": "read status of the specified VolumeAttachment",
   "consumes": [
     "*/*"
   ],
+  "description": "read status of the specified VolumeAttachment",
+  "operationId": "readStorageV1VolumeAttachmentStatus",
+  "parameters": [
+    {
+      "description": "name of the VolumeAttachment",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/storage.k8s.io/v1/volumeattachments/{name}/status",
   "produces": [
     "application/json",
     "application/yaml",
     "application/vnd.kubernetes.protobuf"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1"
-  ],
-  "operationId": "readStorageV1VolumeAttachmentStatus",
   "responses": {
     "200": {
       "description": "OK",
@@ -26,25 +34,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "VolumeAttachment",
     "version": "v1"
-  },
-  "verb": "get",
-  "path": "/apis/storage.k8s.io/v1/volumeattachments/{name}/status",
-  "parameters": [
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the VolumeAttachment",
-      "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "$ref": "#/parameters/pretty"
-    }
-  ]
+  }
 }
