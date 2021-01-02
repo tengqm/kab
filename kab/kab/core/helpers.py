@@ -364,7 +364,9 @@ def operations(api_version, group_version):
         else:
             opdict[op["target"]] = ops
 
-        data[op["group_version"]] = opdict
+        opd = collections.OrderedDict(sorted(opdict.items()))
+        data[op["group_version"]] = opd
+            
 
     return collections.OrderedDict(sorted(data.items()))
 
