@@ -66,12 +66,13 @@ def traverse(major, minor0, minor1):
         path0 = os.path.join(v0, ARGS.data_type)
         for file0 in pathlib.Path(path0).glob(ARGS.file):
             basename = os.path.basename(file0)
+            key = os.path.splitext(basename)[0]
             file1 = os.path.join(v1, ARGS.data_type, basename)
             if not os.path.isfile(file1):
-                if basename not in result:
-                    result[basename] = {v1: {"status": "DELETED"}}
+                if key not in result:
+                    result[key] = {v1: {"status": "DELETED"}}
                 else:
-                    result[basename][v1] = {"status": "DELETED"}
+                    result[key][v1] = {"status": "DELETED"}
                 continue
 
             if ARGS.data_type == "defs":
@@ -85,8 +86,7 @@ def traverse(major, minor0, minor1):
                 # d = jsonpatch.JsonPatch.from_diff(j1, j2)
                 # res = json.loads(d.to_string())
             elif ARGS.data_type == "ops":
-                opid = os.path.splitext(basename)[0]
-                res = jsondiff.compare_ops([v0, v1], opid, root=".")
+                res = jsondiff.compare_ops([v0, v1], [key], root=".")
             else:
                 # j1 = jsonutil.load_json(file0, v0, root=".")
                 # j2 = jsonutil.load_json(file1, v1, root=".")
@@ -95,29 +95,30 @@ def traverse(major, minor0, minor1):
                 res = jsondiff.compare([v0, v1], file0, file1, root=".")
 
             if res:
-                if basename not in result:
-                    result[basename] = {
+                if key not in result:
+                    result[key] = {
                         v1: {"status": "CHANGED", "changes": res}
                     }
                 else:
-                    result[basename][v1] = {
+                    result[key][v1] = {
                         "status": "CHANGED",
                         "changes": res
                     }
             else:
-                if basename not in result:
-                    result[basename] = {v1: None}
+                if key not in result:
+                    result[key] = {v1: None}
                 else:
-                    result[basename][v1] = None
+                    result[key][v1] = None
 
 
         path1 = os.path.join(v1, ARGS.data_type)
         for f in pathlib.Path(path1).glob(ARGS.file):
-            basename = os.path.basename(f)
-            if basename not in result:
-                result[basename] = {v1: {"status": "ADDED"}}
-            elif result[basename][v1] is None:
-                result[basename].pop(v1)
+            basename1 = os.path.basename(f)
+            key1 = os.path.splitext(basename1)[0]
+            if key1 not in result:
+                result[key1] = {v1: {"status": "ADDED"}}
+            elif result[key1][v1] is None:
+                result[key1].pop(v1)
 
         # Done?
         if minor_to == minor1:
