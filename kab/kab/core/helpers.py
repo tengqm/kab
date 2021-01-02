@@ -381,8 +381,12 @@ def get_operation(api_version, name, root=None):
                 data.update(op)
             else:
                 versions = data.get("other_versions", [])
-                versions.append(op["version"])
-                data["other_versions"] = versions
+                # Append the version only if not exist. For operations like
+                # get<GroupName>APIGroup, there can be duplicates for
+                # different API group versions
+                if op["version"] not in versions:
+                    versions.append(op["version"])
+                    data["other_versions"] = versions
 
     if not data:
         return {}

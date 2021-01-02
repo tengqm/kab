@@ -236,7 +236,6 @@ class ViewOperation(generic.View):
             "VERSIONS": op["other_versions"],
             # 'EXTENSIONS': .extensions,
         }
-
         return shortcuts.render(req, 'core/view-op.html', ctx)
 
 
