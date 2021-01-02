@@ -224,9 +224,12 @@ class ViewOperation(generic.View):
         name = kwargs.pop('name')
         op = helpers.get_operation(apiv, name)
         params = helpers.parse_params(apiv, op["spec"])
+        gv_list = op["group_version"].split("/")
         ctx = {
             "API": apiv,
             "OP": op["spec"],
+            "GROUP_NAME": gv_list[0],
+            "GROUP_VERSION": gv_list[1],
             'PATH': [p for p in params if p['in'] == 'path'],
             'QUERY': [p for p in params if p['in'] == 'query'],
             'BODY': [p for p in params if p['in'] == 'body'],
