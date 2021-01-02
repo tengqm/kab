@@ -20,7 +20,7 @@
       <button id="btnTree" class="btn btn-outline-primary" type="button" href="#" data-toggle="collapse"
           data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
           aria-label="Toggle navigation">
-         <i class="fa faw fa-bars"></i>
+         <i class="fa faw fa-project-diagram"></i>
       </button>
     </div>
 
@@ -36,7 +36,7 @@
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnCompare" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divCompare" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-exchange-alt" aria-hidden="true"></i>
+        <i class="fa fa-equals" aria-hidden="true"></i>
       </a>
     </div>
 
@@ -49,7 +49,7 @@
   </div>
 
   {# div for switch #}
-  <div id="divSwitchTo" class="collapse px-1" aria-labelledby="btnSwitchTo"
+  <div id="divSwitchTo" class="collapse px-1 bg-light" aria-labelledby="btnSwitchTo"
     style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="row px-2" z-index="3">
       <p class="col-12 my-2 px-1">Switch to another version of this definition:</p>
@@ -60,7 +60,7 @@
           {% else %}
             {% dereference AV "*" "*" NAME as LINK %}
           {% endif %}
-          <a class="btn btn-outline-secondary btn-sm mx-1 my-1" role="button" href="{{ LINK.0 }}">
+          <a class="btn btn-secondary btn-sm mx-1 my-1" role="button" href="{{ LINK.0 }}">
             {{ AV }}: {% if V.group %}{{ V.group }}/{{ V.version}}{% else %}*/*{% endif %}
           </a>
         {% endfor %}
@@ -81,7 +81,7 @@
           {% else %}
             {% dereference AV "*" "*" NAME as LINK %}
           {% endif %}
-          <a class="btn btn-outline-secondary btn-sm mx-1 my-1" role="button" href="#"
+          <a class="btn btn-secondary btn-sm mx-1 my-1" role="button" href="#"
             {% if V.group %}
               onclick="compare('{{ AV }}', '{{ V.group }}', '{{ V.version}}')">
               {{ AV }}: {{ V.group }}/{{ V.version}}</a>
