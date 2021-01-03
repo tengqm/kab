@@ -1,5 +1,5 @@
 {
-  "description": "A resource containing a list of `ControllerRevision` objects.",
+  "description": "A list of ControllerRevision objects",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "The list of ControllerRevisions",
+      "description": "A list of ControllerRevision objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.apps.v1.ControllerRevision.GET"
       },
@@ -24,7 +24,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard List metadata."
+      "description": "Standard list metadata"
     }
   },
   "required": [

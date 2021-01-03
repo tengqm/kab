@@ -2,12 +2,12 @@
   "description": "The current status of a ReplicaSet.",
   "properties": {
     "availableReplicas": {
-      "description": "The number of available replicas (ready for at least `minReadySeconds`) for this replica set.",
+      "description": "The number of available replicas (ready for at least `minReadySeconds`) for this ReplicaSet.",
       "format": "int32",
       "type": "integer"
     },
     "conditions": {
-      "description": "The latest available observations of a replica set's current state.",
+      "description": "The latest observations of a ReplicaSet's state.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSetCondition"
       },
@@ -16,17 +16,17 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "fullyLabeledReplicas": {
-      "description": "The number of pods that have labels matching the labels of the pod template of the replicaset.",
+      "description": "The number of Pods that have labels matching the `labels` of the Pod template of the ReplicaSet.",
       "format": "int32",
       "type": "integer"
     },
     "observedGeneration": {
-      "description": "The generation of the most recently observed ReplicaSet.",
+      "description": "The most recent generation observed by the ReplicaSet controller.",
       "format": "int64",
       "type": "integer"
     },
     "readyReplicas": {
-      "description": "The number of ready replicas for this replica set.",
+      "description": "The number of ready replicas for this ReplicaSet.",
       "format": "int32",
       "type": "integer"
     },
