@@ -1,22 +1,22 @@
 {
-  "description": "The specification of a horizontal pod autoscaler (HPA).",
+  "description": "The specification of a horizontal Pod autoscaler (HPA).",
   "properties": {
     "maxReplicas": {
-      "description": "Upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than `minReplicas`.",
+      "description": "Upper limit for the number of Pods that can be set by the autoscaler; cannot be smaller than `minReplicas`.",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
     },
     "minReplicas": {
       "default": 1,
-      "description": "Lower limit for the number of pods that can be set by the autoscaler.",
+      "description": "Lower limit for the number of Pods that can be set by the autoscaler.",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
     },
     "scaleTargetRef": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v1.CrossVersionObjectReference",
-      "description": "Reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource."
+      "description": "Reference to scaled resource; horizontal Pod autoscaler will learn the current resource consumption and will set the desired number of Pods by using its `scale` subresource."
     },
     "targetCPUUtilizationPercentage": {
       "description": "Target average CPU utilization (represented as a percentage of requested CPU) over all the Pods; if not specified the default autoscaling policy will be used.",
@@ -25,8 +25,8 @@
     }
   },
   "required": [
-    "scaleTargetRef",
-    "maxReplicas"
+    "maxReplicas",
+    "scaleTargetRef"
   ],
   "type": "object"
 }

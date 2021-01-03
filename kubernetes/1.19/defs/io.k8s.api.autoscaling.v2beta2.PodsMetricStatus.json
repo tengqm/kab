@@ -3,7 +3,7 @@
   "properties": {
     "current": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricValueStatus",
-      "description": "The current value for the given metric"
+      "description": "The current value for the given `metric`"
     },
     "metric": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricIdentifier",
@@ -11,8 +11,8 @@
     }
   },
   "required": [
-    "metric",
-    "current"
+    "current",
+    "metric"
   ],
   "type": "object"
 }

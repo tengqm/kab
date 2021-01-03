@@ -1,5 +1,5 @@
 {
-  "description": "The current value of a metric describing each Pod in the current scale target (for example, `transactions-processed-per-second`).",
+  "description": "The current value of a metric describing each Pod in the current scale target (for example, `\"transactions-processed-per-second\"`).",
   "properties": {
     "currentAverageValue": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
@@ -16,8 +16,8 @@
     }
   },
   "required": [
-    "metricName",
-    "currentAverageValue"
+    "currentAverageValue",
+    "metricName"
   ],
   "type": "object"
 }

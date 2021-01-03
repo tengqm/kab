@@ -1,5 +1,5 @@
 {
-  "description": "ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in `requests` and `limits`, describing each Pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target. Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the '`pods`' source.",
+  "description": "ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in `requests` and `limits`, describing each Pod in the current scale target (e.g. CPU or memory). The values will be averaged together before being compared to the target. Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source.",
   "properties": {
     "name": {
       "description": "The name of the resource in question.",
@@ -13,7 +13,7 @@
     },
     "targetAverageValue": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
-      "description": "The target value of the average of the resource metric across all relevant Pods, as a raw value (instead of as a percentage of the request), similar to the '`pods`' metric source type."
+      "description": "The target value of the average of the resource metric across all relevant Pods, as a raw value (instead of as a percentage of the request), similar to the `\"pods\"` metric source type."
     }
   },
   "required": [

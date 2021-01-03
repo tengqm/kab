@@ -2,16 +2,16 @@
   "description": "Information for identifying a referenced resource.",
   "properties": {
     "apiVersion": {
-      "description": "The version of the schema for the object representation",
+      "description": "API group and version of the referent",
       "type": "string"
     },
     "kind": {
-      "description": "A string value representing the REST resource",
+      "description": "Kind of the referent.",
       "minLength": 1,
       "type": "string"
     },
     "name": {
-      "description": "Name of the referent. The kind cannot be '`.`' or '`..`' and it cannot contain '`/`' or '`%`'.",
+      "description": "Name of the referent. The value cannot be `\".\"` or `\"..\"`, and it can not contain `'/'` or `'%'`.",
       "minLength": 1,
       "type": "string"
     }

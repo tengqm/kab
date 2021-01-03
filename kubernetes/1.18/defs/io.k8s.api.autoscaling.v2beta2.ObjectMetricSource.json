@@ -3,7 +3,7 @@
   "properties": {
     "describedObject": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.CrossVersionObjectReference",
-      "description": "The reference to the object to be evaluated."
+      "description": "A reference to the object to be evaluated."
     },
     "metric": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.MetricIdentifier",
@@ -16,8 +16,8 @@
   },
   "required": [
     "describedObject",
-    "target",
-    "metric"
+    "metric",
+    "target"
   ],
   "type": "object"
 }

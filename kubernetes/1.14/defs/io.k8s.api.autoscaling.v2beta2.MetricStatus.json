@@ -15,11 +15,12 @@
     },
     "resource": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.ResourceMetricStatus",
-      "description": "This refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target. Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the '`pods`' source."
+      "description": "This refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target. Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source."
     },
     "type": {
-      "description": "The type of metric source.",
+      "description": "The type of metric source. It will be one of `\"External\"`, `\"Object\"`, `\"Pods\"` or `\"Resource\"`, each corresponds to a matching field in the object.",
       "enum": [
+        "External",
         "Object",
         "Pods",
         "Resource"

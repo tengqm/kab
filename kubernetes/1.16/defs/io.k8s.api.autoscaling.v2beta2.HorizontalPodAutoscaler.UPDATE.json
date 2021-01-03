@@ -1,5 +1,5 @@
 {
-  "description": "The configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.",
+  "description": "The configuration for a horizontal Pod autoscaler, which automatically manages the replica count of any resource implementing the `scale` subresource based on the `metrics` specified.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,11 +17,11 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object metadata"
+      "description": "Standard object metadata. The `name` must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec",
-      "description": "The specification for the behaviour of the autoscaler."
+      "description": "Specification of the behavior of the autoscaler"
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerStatus",

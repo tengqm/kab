@@ -7,23 +7,25 @@
     },
     "object": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ObjectMetricSource",
-      "description": "Reference to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object)."
+      "description": "Reference to a metric describing a single Kubernetes object (for example, `\"hits-per-second\"` on an Ingress object)."
     },
     "pods": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.PodsMetricSource",
-      "description": "Reference to a metric describing each Pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value."
+      "description": "Reference to a metric describing each Pod in the current scale target (for example, `\"transactions-processed-per-second\"`). The values will be averaged together before being compared to the target value."
     },
     "resource": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ResourceMetricSource",
-      "description": "Reference to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory). Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `pods` source."
+      "description": "Reference to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory). Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source."
     },
     "type": {
-      "description": "The type of metric source. Each value mapping to a matching field in the object.",
+      "description": "The type of metric source. It should be one of `\"External\"`, `\"Object\"`, `\"Pods\"` or `\"Resource\"`, each mapping to a matching field in the object.",
       "enum": [
+        "External",
         "Object",
         "Pods",
         "Resource"
       ],
+      "minLength": 1,
       "type": "string"
     }
   },

@@ -1,5 +1,5 @@
 {
-  "description": "The current status of a horizontal pod autoscaler.",
+  "description": "The current status of a HorizontalPodAutoscaler",
   "properties": {
     "conditions": {
       "description": "The set of conditions required for this autoscaler to scale its target. It indicates whether or not those conditions are met.",
@@ -27,18 +27,21 @@
     },
     "lastScaleTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed."
+      "description": "Last time the HorizontalPodAutoscaler scaled the number of Pods; used by the autoscaler to control how often the number of Pods is changed."
     },
     "observedGeneration": {
-      "description": "The most recent generation observed by this autoscaler.",
+      "description": "Most recent generation observed by this autoscaler.",
       "format": "int64",
       "type": "integer"
     }
   },
   "required": [
+    "conditions",
+    "currentMetrics",
     "currentReplicas",
     "desiredReplicas",
-    "conditions"
+    "lastScaleTime",
+    "observedGeneration"
   ],
   "type": "object"
 }

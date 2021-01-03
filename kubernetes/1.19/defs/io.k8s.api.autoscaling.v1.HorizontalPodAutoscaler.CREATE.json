@@ -1,5 +1,5 @@
 {
-  "description": "The configuration for a horizontal pod autoscaler (HPA).",
+  "description": "The configuration for a horizontal Pod autoscaler (HPA).",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,11 +17,11 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata"
+      "description": "Standard object metadata. The `name` must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscalerSpec",
-      "description": "Specification of the behaviour of the autoscaler"
+      "description": "Specification of the behavior of the autoscaler"
     }
   },
   "required": [
