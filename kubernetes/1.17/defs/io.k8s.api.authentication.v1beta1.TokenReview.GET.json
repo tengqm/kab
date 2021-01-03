@@ -1,5 +1,5 @@
 {
-  "description": "TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.",
+  "description": "TokenReview attempts to authenticate a token to a known user. **Note**: TokenReview requests may be cached by the webhook token authenticator plugin in the API server.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -29,9 +29,10 @@
     }
   },
   "required": [
-    "spec",
     "apiVersion",
-    "kind"
+    "kind",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
