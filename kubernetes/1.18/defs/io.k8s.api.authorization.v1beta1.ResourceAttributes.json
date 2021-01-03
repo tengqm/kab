@@ -2,31 +2,31 @@
   "description": "The authorization attributes available for resource requests",
   "properties": {
     "group": {
-      "description": "The API group of the `resource`. '`*`' means all.",
+      "description": "The API group of the `resource`. `\"*\"` means all.",
       "type": "string"
     },
     "name": {
-      "description": "The name of the resource being requested for a '`get`' request or deleted for a '`delete`' request. '' (empty) means all.",
+      "description": "The name of the resource being requested for a `\"get\"` request or deleted for a `\"delete\"` request. `\"\"` (empty) means all.",
       "type": "string"
     },
     "namespace": {
-      "description": "The namespace of the action being requested. Currently, there is no distinction between no namespace and all namespaces. Empty string ('') is defaulted for LocalSubjectAccessReviews. Value should be empty string ('') for cluster-scoped resources. Empty string ('') means 'all' for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview",
+      "description": "The namespace of the action being requested. Currently, there is no distinction between no namespace and all namespaces. Empty string (`\"\"`) is defaulted for `LocalSubjectAccessReviews`. Value should be empty string (`\"\"`) for cluster-scoped resources. Empty string (`\"\"`) means *all* for namespace scoped resources from a `SubjectAccessReview` or `SelfSubjectAccessReview`.",
       "type": "string"
     },
     "resource": {
-      "description": "One of the existing resource types. '`*`' means all.",
+      "description": "One of the existing resource types. `\"*\"` means all.",
       "type": "string"
     },
     "subresource": {
-      "description": "One of the existing resource types. '' means none.",
+      "description": "One of the existing resource types. `\"\"` means none.",
       "type": "string"
     },
     "verb": {
-      "description": "A kubernetes resource API verb, like: `get`, `list`, `watch`, `create`, `update`, `delete`, `proxy`. '`*`' means all.",
+      "description": "A kubernetes resource API verb, like: `\"get\"`, `\"list\"`, `\"watch\"`, `\"create\"`, `\"update\"`, `\"delete\"`, `\"proxy\"`. `\"*\"` means all.",
       "type": "string"
     },
     "version": {
-      "description": "The API version of the `resource`. '`*`' means all.",
+      "description": "The API version of the `resource`. `\"*\"` means all.",
       "type": "string"
     }
   },
