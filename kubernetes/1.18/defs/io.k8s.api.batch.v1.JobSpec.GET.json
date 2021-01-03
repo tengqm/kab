@@ -9,19 +9,19 @@
     },
     "backoffLimit": {
       "default": 6,
-      "description": "The number of retries before marking this Job failed",
+      "description": "The number of retries before marking this Job as failed",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     },
     "completions": {
-      "description": "The desired number of successfully finished Pods the Job should be run with.  Setting to nil means that the success of any Pod signals the success of all Pods, and allows `parallelism` to have any positive value. Setting to 1 means that `parallelism` is limited to 1 and the success of that Pod signals the success of the Job. This field cannot be updated.",
+      "description": "The desired number of successfully finished Pods the Job should be run with. Setting to `nil` means that the success of any Pod signals the success of all Pods, and allows `parallelism` to have any positive value. Setting to `1` means that `parallelism` is limited to 1 and the success of that Pod signals the success of the Job. This field cannot be updated.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     },
     "manualSelector": {
-      "description": "This controls the generation of Pod labels and Pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When `false` or unset, the system pick labels unique to this Job and appends those labels to the pod template. When `true`, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other Jobs to not function correctly. However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.",
+      "description": "This controls the generation of Pod labels and Pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When `false` or unset, the system pick labels unique to this Job and appends those labels to the Pod template. When `true`, the user is responsible for picking unique labels and specifying the `selector`. Failure to pick a unique label may cause this and other Jobs to not function correctly. However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.",
       "type": "boolean"
     },
     "parallelism": {
@@ -32,22 +32,28 @@
     },
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The selector must match the labels defined on the Pod template. This field cannot be updated."
+      "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The `selector` must match the `labels` defined on the Pod template. This field cannot be updated."
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
       "description": "Describes the Pod that will be created when executing a Job. This field cannot be updated."
     },
     "ttlSecondsAfterFinished": {
-      "description": "This limits the lifetime of a Job that has finished execution (either '`Complete`' or '`Failed`'). If this field is set, the specified seconds after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the `TTLAfterFinished` feature.",
+      "description": "This limits the lifetime of a Job that has finished execution (either `\"Complete\"` or `\"Failed\"`). If this field is set, the specified seconds after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. `finalizers`) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is Alpha level and is only honored by servers that enable the `TTLAfterFinished` feature gate.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     }
   },
   "required": [
+    "activeDeadlineSeconds",
+    "backoffLimit",
+    "completions",
+    "manualSelector",
+    "parallelism",
     "selector",
-    "template"
+    "template",
+    "ttlSecondsAfterFinished"
   ],
   "type": "object"
 }

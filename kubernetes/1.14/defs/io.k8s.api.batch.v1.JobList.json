@@ -1,5 +1,5 @@
 {
-  "description": "A collection of Jobs.",
+  "description": "A list of Job objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "The list of Jobs.",
+      "description": "A list of Job objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.batch.v1.Job.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

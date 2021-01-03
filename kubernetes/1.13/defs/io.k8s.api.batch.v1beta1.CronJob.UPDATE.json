@@ -1,5 +1,5 @@
 {
-  "description": "The configuration of a single CronJob.",
+  "description": "The configuration of a CronJob.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata. The `name` can be at most 52 characters long because the CronJob controller will append a 11-character suffix to the name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJobSpec",

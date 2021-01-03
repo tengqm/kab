@@ -1,5 +1,5 @@
 {
-  "description": "JobCondition describes current state of a job.",
+  "description": "JobCondition describes the current state of a Job.",
   "properties": {
     "lastProbeTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -14,7 +14,7 @@
       "type": "string"
     },
     "reason": {
-      "description": "(brief) reason for the condition's last transition.",
+      "description": "The (brief) reason for the condition's last transition.",
       "type": "string"
     },
     "status": {
@@ -38,8 +38,8 @@
     }
   },
   "required": [
-    "type",
-    "status"
+    "status",
+    "type"
   ],
   "type": "object"
 }
