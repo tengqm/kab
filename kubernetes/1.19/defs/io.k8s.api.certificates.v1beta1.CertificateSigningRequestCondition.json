@@ -17,17 +17,17 @@
       "type": "string"
     },
     "status": {
-      "description": "Status of the condition. `Approved`, `Denied`, and `Failed` conditions may not be \"False\" or \"Unknown\". If unset, should be treated as \"True\".",
       "default": "True",
+      "description": "Status of the condition. `\"Approved\"`, `\"Denied\"`, and `\"Failed\"` conditions may not be `\"False\"` or `\"Unknown\"`. If unset, should be treated as `\"True\"`.",
       "enum": [
-        "True",
         "False",
+        "True",
         "Unknown"
       ],
       "type": "string"
     },
     "type": {
-      "description": "Type of the condition.",
+      "description": "Request approval state",
       "enum": [
         "Approved",
         "Denied",
