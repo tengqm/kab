@@ -13,10 +13,10 @@
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "Reference to a Secret object containing parameters used to connect to OpenStack. Both `namespace` and `name` must be specified in the object."
+      "description": "Reference to a Secret object containing parameters used to connect to OpenStack. Both `namespace` and `name` must be specified as valid DNS_LABEL strings."
     },
     "volumeID": {
-      "description": "Identifier for Cinder volume.",
+      "description": "The identifier for the Cinder volume.",
       "minLength": 1,
       "type": "string"
     }

@@ -2,16 +2,18 @@
   "description": "The source location of a volume to mount, managed by an external CSI driver",
   "properties": {
     "driver": {
-      "description": "The name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.",
+      "description": "The name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster. The name must be a valid DNS subdomain name.",
+      "maxLength": 63,
+      "minLength": 1,
       "type": "string"
     },
     "fsType": {
-      "description": "Filesystem type to mount. Ex. 'ext4', 'xfs', 'ntfs'. If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.",
+      "description": "Filesystem type to mount. Ex. `\"ext4\"`, `\"xfs\"`, `\"ntfs\"`. If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.",
       "type": "string"
     },
     "nodePublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
-      "description": "A reference to the Secret containing sensitive information to be passed to the CSI driver to complete the CSI `NodePublishVolume` and `NodeUnpublishVolume` calls. If the Secret object contains more than one Secret, all Secret references are passed."
+      "description": "A reference to the Secret containing sensitive information to be passed to the CSI driver to complete the CSI `NodePublishVolume()` and `NodeUnpublishVolume()` calls. If the Secret object contains more than one Secret, all Secret references are passed. When specified, the `name` field must be specified as a valid DNS subdomain name."
     },
     "readOnly": {
       "default": false,

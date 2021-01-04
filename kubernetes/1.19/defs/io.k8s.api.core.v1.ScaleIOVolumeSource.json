@@ -1,5 +1,5 @@
 {
-  "description": "ScaleIOVolumeSource represents a persistent ScaleIO volume",
+  "description": "ScaleIOVolumeSource represents a ScaleIO volume",
   "properties": {
     "fsType": {
       "default": "xfs",
@@ -7,7 +7,7 @@
       "type": "string"
     },
     "gateway": {
-      "description": "The host address of the ScaleIO API Gateway.",
+      "description": "The host address of the ScaleIO API gateway.",
       "minLength": 1,
       "type": "string"
     },
@@ -17,21 +17,21 @@
     },
     "readOnly": {
       "default": false,
-      "description": "Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+      "description": "Defaults to `false` (read/write). `readOnly` here will force the `readOnly` setting in `volumeMounts`.",
       "type": "boolean"
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
-      "description": "SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail."
+      "description": "SecretRef references to the Secret for ScaleIO user and other sensitive information. If this is not provided, login operation will fail."
     },
     "sslEnabled": {
       "default": false,
-      "description": "Flag to enable/disable SSL communication with Gateway",
+      "description": "Flag to enable/disable SSL communication with `gateway`",
       "type": "boolean"
     },
     "storageMode": {
       "default": "ThinProvisioned",
-      "description": "Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned.",
+      "description": "Indicates whether the storage for a volume should be thick provisioned or thin provisioned.",
       "enum": [
         "ThickProvisioned",
         "ThinProvisioned"
@@ -54,8 +54,8 @@
   },
   "required": [
     "gateway",
-    "system",
-    "secretRef"
+    "secretRef",
+    "system"
   ],
   "type": "object"
 }

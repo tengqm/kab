@@ -1,17 +1,17 @@
 {
-  "description": "ResourceFieldSelector represents container resources (cpu, memory) and their output format",
+  "description": "ResourceFieldSelector represents container resources (`cpu`, `memory`) and their output format",
   "properties": {
     "containerName": {
-      "description": "Container name: required for volumes, optional for env vars",
+      "description": "The container name. This is required when injecting the data as volume into Pods, and it is optional when injecting the data as environment variables into Pods.",
       "type": "string"
     },
     "divisor": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
       "default": "1",
-      "description": "Specifies the output format of the exposed resources. For CPU, it can be '1m' or '1'; for memory or ephemeral-storage, it can be one of 1, 1k, 1M, 1G, 1T, 1P, 1E, 1Ki, 1Mi, 1Gi, 1Ti, 1Pi, 1Ei; for '"
+      "description": "Specifies the output format of the exposed resources. For `\"cpu\"`, it can be `\"1m\"` or `\"1\"`; for `\"memory\"`, `\"ephemeral-storage\"` or hugepage resources (i.e. prefixed with `\"requests.hugepages-\"` or `\"limits.hugepages-\"`), it can be one of `\"1\"`, `\"1k\"`, `\"1M\"`, `\"1G\"`, `\"1T\"`, `\"1P\"`, `\"1E\"`, `\"1Ki\"`, `\"1Mi\"`, `\"1Gi\"`, `\"1Ti\"`, `\"1Pi\"`, `\"1Ei\"`'."
     },
     "resource": {
-      "description": "Resource to select. It can be 'limits.cpu', 'requests.cpu', 'limits.memory', 'requests.memory', 'limits.ephemeral-storage', 'requests.ephemeral-storage', ",
+      "description": "Resource to select. It can be `\"limits.cpu\"`, `\"requests.cpu\"`, `\"limits.memory\"`, `\"requests.memory\"`, `\"limits.ephemeral-storage\"`, `\"requests.ephemeral-storage\"`. If the feature gate `DownwardAPIHugePages` is enabled, the resource can be prefixed by `\"requests.hugepages-\"` or `\"limits.hugepages-\"`.",
       "minLength": 1,
       "type": "string"
     }

@@ -1,5 +1,5 @@
 {
-  "description": "A Fibre Channel volume to mount. Fibre Channel volumes can only be mounted as `ReadWriteOnce`. Fibre Channel volumes support ownership management and SELinux relabeling.",
+  "description": "A Fibre Channel volume to mount. Fibre Channel volumes can only be mounted as `\"ReadWriteOnce\"`. Fibre Channel volumes support ownership management and SELinux relabeling.  Either `wwids` or combination of `targetWWNs` and `lun` must be set, but not both.",
   "properties": {
     "fsType": {
       "default": "ext4",
@@ -26,7 +26,7 @@
       "type": "array"
     },
     "wwids": {
-      "description": "FC volume world wide identifiers (WWIDs). Either WWIDs or combination of `targetWWNs` and `lun` must be set, but not both.",
+      "description": "FC volume world wide identifiers (WWIDs).",
       "items": {
         "type": "string"
       },

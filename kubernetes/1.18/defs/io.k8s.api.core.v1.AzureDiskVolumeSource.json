@@ -1,5 +1,5 @@
 {
-  "description": "An Azure data disk mounted on the node and bind mount to the pod.",
+  "description": "An Azure data disk mounted on the node and bind mount to the Pod.",
   "properties": {
     "cachingMode": {
       "description": "Host caching mode.",
@@ -11,12 +11,12 @@
       "type": "string"
     },
     "diskName": {
-      "description": "The name of the data disk in the blob storage",
+      "description": "The name of the data disk in the blob storage.",
       "minLength": 1,
       "type": "string"
     },
     "diskURI": {
-      "description": "The URI of the data disk in the blob storage",
+      "description": "The URI of the data disk in the blob storage. ",
       "minLength": 1,
       "type": "string"
     },
@@ -27,7 +27,7 @@
     },
     "kind": {
       "default": "Shared",
-      "description": "A string value representing the REST resource",
+      "description": "Expected values are:\n\n- `\"Shared\"`: multiple blob disks per storage account\n- `\"Dedicated\"`: single blob disk per storage account\n- `\"Managed\"`: Azure managed data disk (only in managed availability set).\n\nThe `diskURI` is of format `\"/subscriptions/<ID>/resourcegroups/<NAME>/providers/microsoft.compute/disks/<DISK-ID>\"` for managed disk. For other kinds, the `diskURI` should look like `\"https://<ACCOUNT>.blob.core.windows.net/<CONTAINER>/<DISK>.vhd\"`.",
       "enum": [
         "Dedicated",
         "Managed",
@@ -37,7 +37,7 @@
     },
     "readOnly": {
       "default": false,
-      "description": "Force the volume to be mouned in read-only mode.",
+      "description": "Force the volume to be mounted in read-only mode.",
       "type": "boolean"
     }
   },

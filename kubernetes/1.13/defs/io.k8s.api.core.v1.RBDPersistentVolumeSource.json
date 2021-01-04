@@ -1,9 +1,9 @@
 {
-  "description": "A Rados Block Device (RBD) mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.",
+  "description": "A Rados Block Device (RBD) mount that lasts the lifetime of a Pod. RBD volumes support ownership management and SELinux relabeling.",
   "properties": {
     "fsType": {
       "default": "ext4",
-      "description": "Filesystem type of the volume to mount. Tip: Ensure that the filesystem type is supported by the host operating system.",
+      "description": "Filesystem type of the volume to mount. The filesystem type must be supported by the host operating system.",
       "type": "string"
     },
     "image": {
@@ -35,7 +35,7 @@
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "The name of the authentication secret for RBDUser. If provided overrides `keyring`."
+      "description": "The name of the authentication Secret for RBDUser. If provided overrides `keyring`."
     },
     "user": {
       "default": "admin",
@@ -44,8 +44,8 @@
     }
   },
   "required": [
-    "monitors",
-    "image"
+    "image",
+    "monitors"
   ],
   "type": "object"
 }

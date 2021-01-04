@@ -7,14 +7,14 @@
       "type": "string"
     },
     "fsType": {
-      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. The default filesystem depends on FlexVolume script.",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. The default filesystem depends on the FlexVolume script.",
       "type": "string"
     },
     "options": {
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Extra command options if any. If the key contains '`/`', the subsring before '`/`' is treated as the namespace. The namespace must not have suffix like '`k8s.io`' or '`kubernetes.io`' which are reserved.",
+      "description": "Extra command options if any. If the key contains `'/'`, the subsring before `'/'` is treated as the namespace. The namespace must not have suffix like `\"k8s.io\"` or `\"kubernetes.io\"` which are reserved.",
       "type": "object"
     },
     "readOnly": {
@@ -24,7 +24,7 @@
     },
     "secretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "A reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts."
+      "description": "A reference to the Secret object containing sensitive information to pass to the plugin scripts. This may be empty if no Secret object is specified. If the Secret object contains more than one secret, all secrets are passed to the plugin scripts."
     }
   },
   "required": [

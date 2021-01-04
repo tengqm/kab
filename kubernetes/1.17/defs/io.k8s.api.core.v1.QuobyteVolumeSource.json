@@ -1,5 +1,5 @@
 {
-  "description": "A Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.",
+  "description": "A Quobyte mount that lasts the lifetime of a Pod. Quobyte volumes do not support ownership management or SELinux relabeling.",
   "properties": {
     "group": {
       "description": "Group to map volume access to. Default is no group",
@@ -11,7 +11,7 @@
       "type": "boolean"
     },
     "registry": {
-      "description": "A single or multiple Quobyte registry services which act as the central registries for volumes, specified as a string as '`host:port`' pair (multiple entries are separated with commas).",
+      "description": "A single or multiple Quobyte registry services which act as the central registries for volumes, specified as a string as `\"host:port\"` pair (multiple entries are separated with commas).",
       "minLength": 1,
       "type": "string"
     },
@@ -21,7 +21,7 @@
       "type": "string"
     },
     "user": {
-      "description": "User to map volume access to. Defaults to serivceaccount user",
+      "description": "User to map volume access to. Defaults to SerivceAccount user",
       "type": "string"
     },
     "volume": {
