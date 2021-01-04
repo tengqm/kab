@@ -6,11 +6,11 @@
       "description": "The time when the current Lease was acquired."
     },
     "holderIdentity": {
-      "description": "The identity of the holder of a current Lease.",
+      "description": "The identity of the current holder of the Lease.",
       "type": "string"
     },
     "leaseDurationSeconds": {
-      "description": "A duration that candidates for a Lease need to wait to force acquire it. This is measure against time of last observed `renewTime`.",
+      "description": "A duration that candidates for a Lease need to wait before it can qcquire the Lease by force. This is measured against the last observed `renewTime`.",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
@@ -23,7 +23,7 @@
     },
     "renewTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
-      "description": "A time when the current holder of a lease has last updated the Lease."
+      "description": "The time when the current holder last updated the Lease."
     }
   },
   "type": "object"
