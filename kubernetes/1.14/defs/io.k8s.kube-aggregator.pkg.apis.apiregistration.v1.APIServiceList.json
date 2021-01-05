@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "The list of APIService objects",
+      "description": "A list of APIService objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

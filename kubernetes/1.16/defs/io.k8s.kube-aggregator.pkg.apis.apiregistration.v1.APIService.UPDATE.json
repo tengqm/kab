@@ -16,8 +16,8 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata where `name` must be '`version.group`'."
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata. The `name` must be `<spec.version>.<spec.group>`."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceSpec",
@@ -31,7 +31,7 @@
   "required": [
     "apiVersion",
     "kind",
-    "sepc"
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

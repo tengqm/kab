@@ -1,5 +1,5 @@
 {
-  "description": "The state of an APIService at a particular point",
+  "description": "The state of an APIService at a particular point in time",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -24,13 +24,16 @@
     },
     "type": {
       "description": "Type is the type of the condition.",
+      "enum": [
+        "Available"
+      ],
       "minLength": 1,
       "type": "string"
     }
   },
   "required": [
-    "type",
-    "status"
+    "status",
+    "type"
   ],
   "type": "object"
 }
