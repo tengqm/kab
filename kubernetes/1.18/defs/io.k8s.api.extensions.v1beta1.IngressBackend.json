@@ -1,17 +1,17 @@
 {
-  "description": "Information about the service serving the backend for a given Ingress.",
+  "description": "Information about the Service serving the backend for a given Ingress. Either `resource` should be specified, or `serviceName` and `servicePort` should be specified, but not both.",
   "properties": {
     "resource": {
       "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
       "description": "An object reference to another Kubernetes resource in the namespace of the Ingress object. If `resource` is specified, `serviceName` and `servicePort` must not be specified."
     },
     "serviceName": {
-      "description": "The name of the referenced service.",
+      "description": "The name of the referenced Service.",
       "type": "string"
     },
     "servicePort": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
-      "description": "The port of the referenced service."
+      "description": "The port of the referenced Service."
     }
   },
   "type": "object"
