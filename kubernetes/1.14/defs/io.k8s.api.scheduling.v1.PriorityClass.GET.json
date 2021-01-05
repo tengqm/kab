@@ -13,7 +13,7 @@
       "type": "string"
     },
     "globalDefault": {
-      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`, the smallest value of such global default PriorityClasses will be used as the default one.",
       "type": "boolean"
     },
     "kind": {
@@ -25,7 +25,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "value": {
       "description": "The value of this priority class. This is the actual priority that Pods receive when they have the name of this class in their Pod spec.",
@@ -34,9 +34,10 @@
     }
   },
   "required": [
-    "value",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "value"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

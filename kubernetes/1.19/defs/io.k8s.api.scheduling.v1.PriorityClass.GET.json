@@ -13,7 +13,7 @@
       "type": "string"
     },
     "globalDefault": {
-      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`, the smallest value of such global default PriorityClasses will be used as the default one.",
       "type": "boolean"
     },
     "kind": {
@@ -25,11 +25,11 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "preemptionPolicy": {
       "default": "PreemptLowerPriority",
-      "description": "The policy for preempting Pods with lower priority. This field is beta-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
+      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: Pod never preempts other Pods with lower priority.\n- `\"PreemptLowerPriority\"`: Pod can preempt other Pods with lower priority.\n\nThis field is Beta-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
       "enum": [
         "Never",
         "PreemptLowerPriority"
@@ -43,9 +43,10 @@
     }
   },
   "required": [
-    "value",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "value"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

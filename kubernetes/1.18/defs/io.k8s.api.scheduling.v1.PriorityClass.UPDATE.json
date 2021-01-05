@@ -13,7 +13,7 @@
       "type": "string"
     },
     "globalDefault": {
-      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default one.",
+      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`, the smallest value of such global default PriorityClasses will be used as the default one.",
       "type": "boolean"
     },
     "kind": {
@@ -25,11 +25,11 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object's metadata. The name must be a valid DNS subdomain. Name prefixed with '`system-`' are reserved for predefined system priority classes, e.g. '`system-cluster-critical`' (2000000000), '`system-node-critical`' (2000001000)."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain. Name prefixed with `\"system-\"` are reserved for predefined system priority classes, i.e.\n\n- `\"system-cluster-critical\"` (2000000000): used for system critical Pods that must run in the cluster, but can be moved to another node if necessary.\n- `\"system-node-critical\"` (2000001000): used for system critical Pods that must not be moved from their current node.\n"
     },
     "preemptionPolicy": {
       "default": "PreemptLowerPriority",
-      "description": "The policy for preempting Pods with lower priority. This field is alpha-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
+      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: Pod never preempts other Pods with lower priority.\n- `\"PreemptLowerPriority\"`: Pod can preempt other Pods with lower priority.\n\nThis field is Alpha-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
       "enum": [
         "Never",
         "PreemptLowerPriority"
@@ -43,9 +43,9 @@
     }
   },
   "required": [
-    "value",
     "apiVersion",
-    "kind"
+    "kind",
+    "value"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

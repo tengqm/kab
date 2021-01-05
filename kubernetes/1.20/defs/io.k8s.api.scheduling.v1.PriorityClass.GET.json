@@ -29,7 +29,7 @@
     },
     "preemptionPolicy": {
       "default": "PreemptLowerPriority",
-      "description": "The policy for preempting Pods with lower priority. This field is Beta-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
+      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: Pod never preempts other Pods with lower priority.\n- `\"PreemptLowerPriority\"`: Pod can preempt other Pods with lower priority.\n\nThis field is Beta-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
       "enum": [
         "Never",
         "PreemptLowerPriority"
@@ -46,7 +46,6 @@
     "apiVersion",
     "kind",
     "metadata",
-    "preemptionPolicy",
     "value"
   ],
   "type": "object",
