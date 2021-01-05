@@ -1,5 +1,5 @@
 {
-  "description": "Role is a namespaced, logical grouping of policy rules that can be referenced as a unit by a RoleBinding.",
+  "description": "Role is a namespaced, logical group of policy rules.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,10 +17,10 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "rules": {
-      "description": "The policy rules defined for this Role",
+      "description": "All the policy rules for this Role",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1alpha1.PolicyRule"
       },
@@ -28,9 +28,9 @@
     }
   },
   "required": [
-    "rules",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

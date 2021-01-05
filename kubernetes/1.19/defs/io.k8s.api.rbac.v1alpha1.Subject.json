@@ -1,8 +1,8 @@
 {
-  "description": "A reference to the object or user identity. This can either hold a direct API object reference, or a value for non-objects such as user and group names.",
+  "description": "A reference to a subject or user identity. This can either hold a direct API object reference, or a value for non-objects such as user and group names.",
   "properties": {
     "apiVersion": {
-      "description": "The API group and version of the referenced subject. Defaults to '`v1`' for ServiceAccount subjects. Defaults to '`rbac.authorization.k8s.io/v1alpha1`' for User and Group subjects.",
+      "description": "The API group and version of the referenced subject. Defaults to `\"v1\"` for ServiceAccount subjects. Defaults to `\"rbac.authorization.k8s.io/v1alpha1\"` for User and Group subjects.",
       "type": "string"
     },
     "kind": {
@@ -16,12 +16,12 @@
       "type": "string"
     },
     "name": {
-      "description": "Name of the referenced object. If `kind` is '`ServiceAccount`', the name must be a valid ServiceAccount name.",
+      "description": "Name of the referenced object. If `kind` is `\"ServiceAccount\"`, the `name` must be a valid ServiceAccount name.",
       "minLength": 1,
       "type": "string"
     },
     "namespace": {
-      "description": "Namespace of the referenced object. If the object kind is '`User`' or '`Group`' which are not namespaced, this value must be empty.",
+      "description": "Namespace of the referenced object. If the object kind is `\"User\"` or `\"Group\"` which are not namespaced, this value must be empty.",
       "type": "string"
     }
   },

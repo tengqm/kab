@@ -21,7 +21,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata. The name must be a valid path segment name."
     },
     "rules": {
       "description": "All the policy rules for this ClusterRole",
@@ -33,7 +33,8 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

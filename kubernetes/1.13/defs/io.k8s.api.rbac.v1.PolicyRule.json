@@ -1,36 +1,38 @@
 {
-  "description": "Information that describes a policy rule. Rules can either apply to API resources (such as '`pods`' or '`secrets`') or non-resource URL paths (such as '`/api`'),  but not both.",
+  "description": "Information that describes a policy rule. Rules can either apply to API resources (such as `\"pods\"` or `\"secrets\"`) or non-resource URL paths (such as '\"/api\"'),  but not both.",
   "properties": {
     "apiGroups": {
       "description": "The name of the API group that contains the resources. If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. This field is required when `nonResourceURLs` is empty.",
       "items": {
         "type": "string"
       },
+      "minItems": 1,
       "type": "array"
     },
     "nonResourceURLs": {
-      "description": "A set of partial URLs that a user should have access to. Wildcards ('`*`') are allowed, but only as the full, final step in the path. Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. If this field is not empty, other fields including `apiGroups`, `resources`, `resourceNames` must be empty.",
+      "description": "A set of partial URLs that a user should have access to. Wildcards (`\"*\"`) are allowed, but only as the full, final step in the path. Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. If this field is not empty, other fields including `apiGroups`, `resources`, `resourceNames` must be empty.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "resourceNames": {
-      "description": "A white list of names that the rule applies to. An empty set means that everything is allowed.",
+      "description": "A list of resource names the rule applies to. An empty set means that everything is allowed.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "resources": {
-      "description": "A list of resources this rule applies to. '`*`' represents all resources. This field cannot be empty when `nonResourceURLs` is empty.",
+      "description": "A list of resources this rule applies to. `\"*\"` represents all resources. This field cannot be empty when `nonResourceURLs` is empty.",
       "items": {
         "type": "string"
       },
+      "minItems": 1,
       "type": "array"
     },
     "verbs": {
-      "description": "A list of verbs that apply to ALL the resource kinds and attribute restrictions contained in this rule. '`*`' represents all verbs.",
+      "description": "A list of verbs that apply to **ALL** the resource kinds and attribute restrictions contained in this rule. `\"*\"` means all verbs.",
       "items": {
         "type": "string"
       },
@@ -39,6 +41,7 @@
     }
   },
   "required": [
+    "apiGroups",
     "verbs"
   ],
   "type": "object"

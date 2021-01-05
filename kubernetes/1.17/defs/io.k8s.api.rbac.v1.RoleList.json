@@ -1,5 +1,5 @@
 {
-  "description": "A collection of Roles",
+  "description": "A list of Role objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of Roles",
+      "description": "A list of Role objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1.Role.GET"
       },
@@ -24,13 +24,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard object's metadata."
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadta"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

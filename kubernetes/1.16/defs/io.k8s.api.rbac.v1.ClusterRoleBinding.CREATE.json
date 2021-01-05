@@ -17,14 +17,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "roleRef": {
       "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleRef",
       "description": "The reference to a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error. This field cannot be updated."
     },
     "subjects": {
-      "description": "References to the objects the ClusterRole applies to.",
+      "description": "References to the subjects the ClusterRole applies to.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.rbac.v1.Subject"
       },
@@ -32,9 +32,10 @@
     }
   },
   "required": [
-    "roleRef",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "roleRef"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
