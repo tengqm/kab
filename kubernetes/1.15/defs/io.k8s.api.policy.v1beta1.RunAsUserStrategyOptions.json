@@ -1,8 +1,8 @@
 {
-  "description": "The type and options for running workloads as some users.",
+  "description": "The rule and options for running workloads as some users.",
   "properties": {
     "ranges": {
-      "description": "List of allowed UIDs that may be used. If you would like to force a single UID then supply a single range with the same `start` and `end`. Required when `rule` is set to '`MustRunAs`'.",
+      "description": "List of allowed UIDs. If you would like to force a single UID then supply a single range with the same `start` and `end`. Required when `rule` is set to `\"MustRunAs\"`.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.IDRange"
       },

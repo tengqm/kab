@@ -1,14 +1,14 @@
 {
-  "description": "Information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.",
+  "description": "The status of a PodDisruptionBudget which may trail the actual state of a system.",
   "properties": {
     "currentHealthy": {
-      "description": "current number of healthy Pods",
+      "description": "The current number of healthy Pods",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     },
     "desiredHealthy": {
-      "description": "minimum desired number of healthy Pods",
+      "description": "The minimum desired number of healthy Pods",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
@@ -21,13 +21,13 @@
       "type": "object"
     },
     "disruptionsAllowed": {
-      "description": "Number of pod disruptions that are currently allowed.",
+      "description": "Number of Pod disruptions that are currently allowed.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     },
     "expectedPods": {
-      "description": "Total number of pods counted by this disruption budget",
+      "description": "Total number of Pods counted by this disruption budget",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
@@ -39,8 +39,8 @@
     }
   },
   "required": [
-    "disruptionsAllowed",
     "currentHealthy",
+    "disruptionsAllowed",
     "desiredHealthy",
     "expectedPods"
   ],

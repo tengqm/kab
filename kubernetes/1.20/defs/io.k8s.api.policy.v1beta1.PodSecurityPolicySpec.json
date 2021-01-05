@@ -36,7 +36,7 @@
       "type": "array"
     },
     "allowedProcMountTypes": {
-      "description": "An allowlist of proc mount types. Empty or nil indicates that only the `\"Default\"` may be used. This requires the `ProcMountType` feature flag to be enabled.",
+      "description": "An allowlist of proc mount types. Empty or nil indicates that only the `\"Default\"` may be used. This is an Alpha field that requires the `ProcMountType` feature flag to be enabled.",
       "items": {
         "description": "The type of proc mount to use for containers. The `\"Default\"` value means to use the container runtime defaults for read-only paths and masked paths.",
         "enum": [

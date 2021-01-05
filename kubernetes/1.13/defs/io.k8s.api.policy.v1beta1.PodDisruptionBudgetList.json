@@ -1,5 +1,5 @@
 {
-  "description": "A collection of PodDisruptionBudgets.",
+  "description": "A list of PodDisruptionBudget objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of PodDisruptionBudget objects",
+      "description": "A list of PodDisruptionBudget objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
