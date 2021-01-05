@@ -1,5 +1,5 @@
 {
-  "description": "APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.",
+  "description": "A list of APIGroup objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "groups": {
-      "description": "groups is a list of APIGroup.",
+      "description": "A list of APIGroup objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup"
       },
@@ -25,8 +25,8 @@
     }
   },
   "required": [
-    "groups",
     "apiVersion",
+    "groups",
     "kind"
   ],
   "type": "object",

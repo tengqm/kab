@@ -15,7 +15,7 @@
     },
     "details": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.StatusDetails",
-      "description": "Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type."
+      "description": "Extended data associated with the `reason`. Each `reason` may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type."
     },
     "kind": {
       "description": "A string value representing the REST resource",
@@ -33,14 +33,35 @@
       "description": "Standard list metadata."
     },
     "reason": {
-      "description": "A machine-readable description of why this operation is in the 'Failure' status. If this value is empty there is no information available. A reason clarifies an HTTP status code but does not override it.",
+      "description": "A machine-readable description of why this operation is in the `\"Failure\"` status. If this value is empty there is no information available. A reason clarifies an HTTP status code but does not override it. The reasons defined are:\n\n- `\"\"`: The server has declined to indicate a specific reason. The `details` field may contain other information about this error. Status code: 500.\n- `\"Unauthorized\"`: The server can be reached and understood the request, but requires the user to present appropriate authorization credentials (identified by the `\"WWW-Authenticate\"` header) in order for the action to be completed. If the user has specified credentials on the request, the server considers them insufficient. Status code: 401.\n- `\"Forbidden\"`: The server can be reached and understood the request, but refuses to take any further action. It is the result of the server being configured to deny access for some reason to the requested resource by the client. In the `details`, you can check the `kind` field for a string representing the `kind` of the forbidden resource. On some operations, this may differ from the requested resource. The `id` field in the `details may contain the identifier of the forbidden resource. Status code: 403.\n- `\"Not Found\"`: One or more resources required for the operation cannot be found. In the `details`, you can check the `kind` string which is the `kind` of the missing resource. On some operations, this may differ from the requested resource. The `details.id` may have the identifier of the missing resource. Status code: 404.\n- `\"AlreadyExists\"`: The resource you are creating already exists. The `details.kind` has the `kind` of the conflicting resource, and the `details.id` may have the identifier of the conflicting resource. Status code: 409.\n- `\"Conflict\"`: The requested operation cannot be completed due to a conflict in the operation. The client may need to alter the request. Each resource may define custom `details` that indicate the nature of the conflict. Status code: 409.\n- `\"Gone\"`: The mans the item is no longer available at the server and no forwarding address is known. Status code: 410.\n- `\"Invalid\"`: The requested create or update operation cannot be completed due to invalid data provided as part of the request. The client may need to alter the request. When set, the client may use the `details.message` field as a summary of the issues encountered. The `details.kind` field contains the `kind` of the invalid resource; the `details.id` field contains the identifer of the invalid resource; and the `details.causes` may contain one or more entires indicating the data in the provided resource that was invalid. Status code: 422.\n- `\"ServerTimeout\"`: The server can be reached and understood the request, but cannot complete the action in a reasonable time. The client should retry the request. This is may be due to temporary server load or a transient communication issue with another server. Status code 500 is used because the HTTP spec provides no suitable server-requested client retry and the 5xx class represents actionable errors. The `details.kind` provides the `kind` of the resource being acted on. The `details.id` string has the operation that is being attempted. The `details.retryAfterSeconds` contains the number of seconds before the operation should be retried. Status code: 500.\n- `\"Timeout\"`: The request could not be completed within the given time. Clients can get this response only when they specified a `timeout` param in the request, or if the server cannot complete the operation within a reasonable amount of time. The request might succeed with an increased value of `timeout` param. The client *should* wait at least the number of seconds specified by the `details.retryAfterSeconds` field. Status code: 504.\n - `\"TooManyRequests\"`: The server experienced too many requests within a given window and that the client must wait to perform the action again. A client may always retry the request that led to this error, although the client should wait at least the number of seconds specified by the `details.retryAfterSeconds` field. Status code: 429.\n- `\"BadRequest\"`: The request itself was invalid, because the request doesn't make any sense, for example deleting a read-only object. This is different than `\"Invalid\"` above which indicates that the API call could possibly succeed, but the data was invalid. API calls that return `\"BadRequest\"` can never succeed. Status code: 400.\n- `\"MethodNotAllowed\"`: The action the client attempted to perform on the resource was not supported by the code - for instance, attempting to delete a resource that can only be created. API calls that return `\"MethodNotAllowed\"` can never succeed. Status code: 405.\n- `\"NotAcceptable\"`: The `accept` types indicated by the client were not acceptable to the server - for instance, attempting to receive \"protobuf\" for a resource that supports only JSON and YAML. API calls that return `\"NotAcceptable\"` can never succeed. Status code: 406.\n- `\"RequestEntityTooLarge\"`: The request entity is too large. Status code: 413.\n- `\"UnsupportedMediaType\"`: The `\"content-type\"` sent by the client is not acceptable to the server - for instance, attempting to send \"protobuf\" for a resource that supports only JSON and YAML. API calls that return `\"UnsupportedMediaType\"` can never succeed. Status code: 415.\n- `\"InternalError\"`: An internal error occurred, it is unexpected and the outcome of the call is unknown. The `details.causes` field has the original error. Status code: 50 \n- `\"Expired\"`: The request is invalid because the content you are requesting has expired and is no longer available. It is typically associated with watches that can't be serviced. Status code: 410.\n- `\"ServiceUnavailable\"`: The request itself was valid, but the requested service is unavailable at this time. Retrying the request after some time might succeed. Status code: 503.\n",
+      "enum": [
+        "",
+        "Unauthorized",
+        "Forbidden",
+        "NotFound",
+        "AlreadyExists",
+        "Conflict",
+        "Gone",
+        "Invalid",
+        "ServerTimeout",
+        "Timeout",
+        "TooManyRequests",
+        "BadRequest",
+        "MethodNotAllowed",
+        "NotAcceptable",
+        "RequestEntityTooLarge",
+        "UnsupportedMediaType",
+        "InternalError",
+        "Expired",
+        "ServiceUnavailable"
+      ],
       "type": "string"
     },
     "status": {
-      "description": "Status of the operation. One of: 'Success' or 'Failure'.",
+      "description": "Status of the operation.",
       "enum": [
-        "Success",
-        "Failure"
+        "Failure",
+        "Success"
       ],
       "type": "string"
     }

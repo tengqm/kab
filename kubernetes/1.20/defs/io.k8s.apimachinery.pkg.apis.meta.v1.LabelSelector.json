@@ -2,7 +2,7 @@
   "description": "A label selector is a label query over a set of resources. The result of `matchLabels` and `matchExpressions` are ANDed. An empty label selector matches all objects. A null label selector matches no objects. Note that there are two different styles of label selectors used in versioned types:\n\n- an older style which is represented as just a string in versioned types;- a newer style that is structured.\n\nLabelSelector is an internal representation for the latter (newer) style.",
   "properties": {
     "matchExpressions": {
-      "description": "L list of label selector requirements. The requirements are ANDed.",
+      "description": "A list of label selector requirements. The requirements are ANDed.",
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement"
       },

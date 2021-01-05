@@ -1,8 +1,8 @@
 {
-  "description": "A label selector is a label query over a set of resources. The result of `matchLabels` and `matchExpressions` are ANDed. An empty label selector matches all objects. A null label selector matches no objects.",
+  "description": "A label selector is a label query over a set of resources. The result of `matchLabels` and `matchExpressions` are ANDed. An empty label selector matches all objects. A null label selector matches no objects. Note that there are two different styles of label selectors used in versioned types:\n\n- an older style which is represented as just a string in versioned types;- a newer style that is structured.\n\nLabelSelector is an internal representation for the latter (newer) style.",
   "properties": {
     "matchExpressions": {
-      "description": "`matchExpressions` is a list of label selector requirements. The requirements are ANDed.",
+      "description": "A list of label selector requirements. The requirements are ANDed.",
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement"
       },
@@ -12,7 +12,7 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "`matchLabels` is a map of key,value pairs. A single key,value in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose key field is \"key\", the operator is \"In\", and the `values` array contains only \"value\". The requirements are ANDed.",
+      "description": "A map of `<key, value>` pairs. A single `<key,value>` in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose `key` field is `\"key\"`, the `operator` is `\"In\"`, and the `values` array contains only `[\"value\"]`. The requirements are ANDed.",
       "type": "object"
     }
   },

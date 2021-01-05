@@ -3,14 +3,14 @@
   "properties": {
     "object": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension",
-      "description": "Object is:\n\n- new state of the object if `type` is '`Added`' or '`Modified`'\n- the state of the object immediately before deletion if `type` is '`Deleted`'.\n- If Type is Error, *status* is recommended; other types may make sense depending on context."
+      "description": "Object is:\n\n- new state of the object if `type` is `\"ADDED\"` or `\"MODIFIED\"`\n- the state of the object immediately before deletion if `type` is `\"DELETED\"`.\n- If `type` is `\"ERROR\"`, *status* is recommended; other types may make sense depending on context."
     },
     "type": {
       "enum": [
-        "Added",
-        "Deleted",
-        "Error",
-        "Modified"
+        "ADDED",
+        "DELETED",
+        "ERROR",
+        "MODIFIED"
       ],
       "minLength": 1,
       "type": "string"

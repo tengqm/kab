@@ -1,20 +1,16 @@
 {
-  "description": "Metadata for patch operation.",
+  "description": "Metadata that all persisted resources must have, which includes all objects users create.",
   "properties": {
     "annotations": {
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
+      "description": "An unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
       "type": "object"
     },
     "clusterName": {
-      "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now. It can be provided in a patch operation, but the value provided must be identical to the existing value.",
+      "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now. It can be provided in a `PATCH` operation, but the value provided must be identical to the existing value.",
       "type": "string"
-    },
-    "creationTimestamp": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "creationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. It is populated by the system, read-only. Null for lists. Its value is immutable once set."
     },
     "deletionGracePeriodSeconds": {
       "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when `deletionTimestamp` is also set. May only be shortened. Read-only.",
@@ -35,7 +31,7 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "generateName": {
-      "description": "An optional prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the `name` field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return '201 Created' or '500' with Reason 'ServerTimeout' indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the 'Retry-After' header). Applied only if `name` is not specified. It is ignored for a PATCH operation.",
+      "description": "An optional prefix, used by the server, to generate a unique name **only if** the `name` field has not been provided. If this field is used, the `name` returned to the client will be different than the `name` passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the `name` field, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified and the generated name exists, the server will **NOT** return a `\"409\"`. Instead, it will either return `\"201 Created\"` or `\"500\"` with reason `\"ServerTimeout\"` indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the `\"Retry-After\"` header).",
       "type": "string"
     },
     "generation": {
@@ -47,7 +43,7 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects.  Both the key and the value must consist of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character. The key must be between 1 and 63 characters. The key can have '/' in it thus referred to as 'qualified name'. The prefix part of a qualified name must be a valid DNS subdomain name. The value must be less than 64 characters with empty string allowed.",
+      "description": "Map of string keys and values that can be used to organize and categorize (scope and select) objects. Both the key and the value must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`, and must start and end with an alphanumeric character. The key must be between 1 and 63 characters. The key can have `'/'` in it thus referred to as *qualified name*. The prefix part of a qualified name must be a valid DNS subdomain name. The value must be less than 64 characters with empty string allowed.",
       "type": "object"
     },
     "managedFields": {
@@ -66,7 +62,7 @@
       "type": "string"
     },
     "ownerReferences": {
-      "description": "List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, an entry in this list will point to the controller, with the controller field set to true. There cannot be more than one managing controller.",
+      "description": "List of objects depended by this object. If **all** objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, an entry in this list will point to the controller, with the `controller` field set to `true`. There cannot be more than one managing controller.",
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference"
       },
@@ -75,7 +71,7 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "uid": {
-      "description": "UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations. Populated by the system. Read-only. When updating an existing object, its value must match the current value.",
+      "description": "A value unique in time and space for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations. Populated by the system. Read-only. When updating an existing object, its value must match the current value.",
       "type": "string"
     }
   },

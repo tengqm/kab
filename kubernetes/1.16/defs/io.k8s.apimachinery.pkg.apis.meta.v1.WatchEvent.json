@@ -3,14 +3,14 @@
   "properties": {
     "object": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension",
-      "description": "Object is:\n\n- new state of the object if `type` is '`Added`' or '`Modified`'\n- the state of the object immediately before deletion if `type` is '`Deleted`'.\n- If Type is Error, *status* is recommended; other types may make sense depending on context."
+      "description": "Object is:\n\n- new state of the object if `type` is `\"ADDED\"` or `\"MODIFIED\"`\n- the state of the object immediately before deletion if `type` is `\"DELETED\"`.\n- If `type` is `\"ERROR\"`, *status* is recommended; other types may make sense depending on context."
     },
     "type": {
       "enum": [
-        "Added",
-        "Deleted",
-        "Error",
-        "Modified"
+        "ADDED",
+        "DELETED",
+        "ERROR",
+        "MODIFIED"
       ],
       "minLength": 1,
       "type": "string"
@@ -30,17 +30,27 @@
     {
       "group": "admission.k8s.io",
       "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "admission.k8s.io",
+      "kind": "WatchEvent",
       "version": "v1beta1"
     },
     {
       "group": "admissionregistration.k8s.io",
       "kind": "WatchEvent",
-      "version": "v1alpha1"
+      "version": "v1"
     },
     {
       "group": "admissionregistration.k8s.io",
       "kind": "WatchEvent",
       "version": "v1beta1"
+    },
+    {
+      "group": "apiextensions.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
     },
     {
       "group": "apiextensions.k8s.io",
@@ -135,7 +145,17 @@
     {
       "group": "coordination.k8s.io",
       "kind": "WatchEvent",
+      "version": "v1"
+    },
+    {
+      "group": "coordination.k8s.io",
+      "kind": "WatchEvent",
       "version": "v1beta1"
+    },
+    {
+      "group": "discovery.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
     },
     {
       "group": "events.k8s.io",
@@ -158,6 +178,21 @@
       "version": "v1"
     },
     {
+      "group": "networking.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
+      "group": "node.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1alpha1"
+    },
+    {
+      "group": "node.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1beta1"
+    },
+    {
       "group": "policy",
       "kind": "WatchEvent",
       "version": "v1beta1"
@@ -176,6 +211,11 @@
       "group": "rbac.authorization.k8s.io",
       "kind": "WatchEvent",
       "version": "v1beta1"
+    },
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "WatchEvent",
+      "version": "v1"
     },
     {
       "group": "scheduling.k8s.io",

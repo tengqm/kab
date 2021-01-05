@@ -2,7 +2,7 @@
   "description": "A workflow-id, a field set and the group version of the resource that the field set applies to.",
   "properties": {
     "apiVersion": {
-      "description": "The version of the schema for the object representation",
+      "description": "The version of the resource that this field set applies to. The format is `\"group/version\"` just like the top-level of `apiVersion` field. It is necessary to track the version of a field set because it cannot be automatically converted.",
       "type": "string"
     },
     "fields": {
@@ -24,7 +24,7 @@
     },
     "time": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The timestamp when these fields were set. It should always be empty if `operation` is '`Apply`'."
+      "description": "The timestamp when these fields were set. It should always be empty if `operation` is `\"Apply\"`."
     }
   },
   "type": "object"

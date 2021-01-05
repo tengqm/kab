@@ -1,23 +1,23 @@
 {
-  "description": "StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.",
+  "description": "StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The `reason` field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.",
   "properties": {
     "causes": {
-      "description": "The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.",
+      "description": "The `causes` array includes more details associated with the status `reason`. Not all reasons may provide detailed causes.",
       "items": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.StatusCause"
       },
       "type": "array"
     },
     "group": {
-      "description": "The group attribute of the resource associated with the status StatusReason.",
+      "description": "The group attribute of the resource associated with the status `reason.",
       "type": "string"
     },
     "kind": {
-      "description": "A string value representing the REST resource",
+      "description": "The kind attribute of the resource associated with the status `reason`. On some operations may differ from the requested resource `kind`.",
       "type": "string"
     },
     "name": {
-      "description": "The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).",
+      "description": "The name attribute of the resource associated with the status `reason` (when there is a single name which can be described).",
       "type": "string"
     },
     "retryAfterSeconds": {
@@ -26,7 +26,7 @@
       "type": "integer"
     },
     "uid": {
-      "description": "UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids",
+      "description": "UID of the resource. (when there is a single resource which can be described).",
       "type": "string"
     }
   },
