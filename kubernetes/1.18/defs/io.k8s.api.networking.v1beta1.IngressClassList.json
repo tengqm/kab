@@ -1,5 +1,5 @@
 {
-  "description": "IngressClassList is a collection of IngressClasses.",
+  "description": "A list of IngressClass objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for this representation of an object.",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "Items is the list of IngressClass objects.",
+      "description": "A list of IngressClass objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClass.GET"
       },
@@ -31,7 +31,8 @@
   "required": [
     "apiVersion",
     "items",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

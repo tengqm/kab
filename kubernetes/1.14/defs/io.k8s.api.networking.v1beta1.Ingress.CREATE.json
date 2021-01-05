@@ -1,5 +1,5 @@
 {
-  "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.",
+  "description": "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, offer name-based virtual hosting etc.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata. The name must be a valid DNS subdomain."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressSpec",
@@ -30,7 +30,9 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

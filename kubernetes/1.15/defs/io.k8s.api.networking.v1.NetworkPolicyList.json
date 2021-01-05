@@ -1,5 +1,5 @@
 {
-  "description": "A collection of NetworkPolicy objects.",
+  "description": "A list of NetworkPolicy objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of schema objects.",
+      "description": "A list of NetworkPolicy objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicy.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

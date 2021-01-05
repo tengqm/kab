@@ -1,8 +1,8 @@
 {
-  "description": "IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to `true`, new Ingress resources without a class specified will be assigned this default class.",
+  "description": "IngressClass represents the class of the Ingress, referenced by the Ingress spec. The `\"ingressclass.kubernetes.io/is-default-class\"` annotation can be used to indicate that an IngressClass should be considered *default*. When a single IngressClass resource has this annotation set to `true`, new Ingress resources without a class specified will be assigned this default class.",
   "properties": {
     "apiVersion": {
-      "description": "The versioned schema for this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "networking.k8s.io/v1beta1"
       ],
@@ -17,16 +17,18 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata. The name must be a valid DNS subdomain name."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClassSpec",
-      "description": "Spec is the desired state of the IngressClass."
+      "description": "The desired state of the IngressClass."
     }
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

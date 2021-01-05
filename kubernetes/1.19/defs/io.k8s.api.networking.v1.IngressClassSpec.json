@@ -1,8 +1,8 @@
 {
-  "description": "Information about the class of an Ingress.",
+  "description": "Information about the IngressClass.",
   "properties": {
     "controller": {
-      "description": "The name of the controller that should handle this class. This allows for different 'flavors' to be controlled by the same controller. For example, you may have different `parameters` for the same controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. 'acme.io/ingress-controller'. This field is immutable.",
+      "description": "The name of the controller that should handle this class. This allows for different *flavors* to be controlled by the same controller. For example, you may have different `parameters` for the same controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. `\"acme.io/ingress-controller\". This field is immutable.",
       "maxLength": 250,
       "type": "string"
     },
