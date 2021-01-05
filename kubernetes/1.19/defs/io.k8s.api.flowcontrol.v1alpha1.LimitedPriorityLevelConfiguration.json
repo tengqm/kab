@@ -1,16 +1,16 @@
 {
-  "description": "This specifies how to handle requests that are subject to limits, including how requests for this priority level are limited and what should be done with requests that exceed the limit.",
+  "description": "This specifies how to handle requests that are subject to limits. It addresses two issues:\n\n- How are requests for this priority level limited?\n- What should be done with requests that exceed the limit?\n",
   "properties": {
     "assuredConcurrencyShares": {
       "default": 30,
-      "description": "`assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time. ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) for each such priority level where ACV is the number of requests that may be executing at a time:\n\n```\n   ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )\n```\nBigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL).",
+      "description": "`assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be processed at a given time. ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) for each such priority level where the ACV means the number of requests that may be executing at a time:\n\n```\nACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )\n```\n\nBigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL).",
       "format": "int32",
       "minimum": 1,
       "type": "integer"
     },
     "limitResponse": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1alpha1.LimitResponse",
-      "description": "This indicates what to do with requests that can not be executed right now"
+      "description": "This indicates what to do with requests that can not be executed right now."
     }
   },
   "required": [
