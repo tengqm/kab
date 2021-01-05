@@ -3,10 +3,10 @@
   "properties": {
     "acceptedNames": {
       "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionNames",
-      "description": "The names that are actually being used to serve discovery. They may be different than the `names` in spec."
+      "description": "The names that are actually used to serve discovery. They may be different than the `names` in the `spec`."
     },
     "conditions": {
-      "description": "This indicates state for particular aspects of a CustomResourceDefinition",
+      "description": "The state for particular aspect of the CustomResourceDefinition",
       "items": {
         "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionCondition"
       },
@@ -20,5 +20,9 @@
       "type": "array"
     }
   },
+  "required": [
+    "acceptedNames",
+    "storedVersions"
+  ],
   "type": "object"
 }

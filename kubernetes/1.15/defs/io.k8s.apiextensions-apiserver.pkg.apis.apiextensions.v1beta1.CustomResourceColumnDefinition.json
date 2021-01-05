@@ -11,15 +11,15 @@
       "type": "string"
     },
     "format": {
-      "description": "An optional OpenAPI type definition for this column. The '`name`' format is applied to the primary identifier column to assist in clients identifying column is the resource name.",
+      "description": "An OpenAPI type definition for this column. The `\"name\"` format is applied to the primary identifier column to assist in clients identifying column for the resource name.",
       "enum": [
-        "int32",
-        "int64",
-        "float",
-        "double",
         "byte",
         "date",
         "date-time",
+        "double",
+        "float",
+        "int32",
+        "int64",
         "password"
       ],
       "type": "string"
@@ -37,20 +37,20 @@
     "type": {
       "description": "An OpenAPI type definition for this column.",
       "enum": [
+        "boolean",
+        "date",
         "integer",
         "number",
-        "string",
-        "boolean",
-        "date"
+        "string"
       ],
       "minLength": 1,
       "type": "string"
     }
   },
   "required": [
+    "JSONPath",
     "name",
-    "type",
-    "JSONPath"
+    "type"
   ],
   "type": "object"
 }

@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata.  Its name MUST be in the format `<.spec.name>.<.spec.group>`"
+      "description": "Standard object metadata"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionSpec",
@@ -29,9 +29,11 @@
     }
   },
   "required": [
-    "spec",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

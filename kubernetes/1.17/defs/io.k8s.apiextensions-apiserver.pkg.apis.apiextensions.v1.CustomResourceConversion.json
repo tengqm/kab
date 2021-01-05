@@ -2,7 +2,7 @@
   "description": "This describes how to convert different versions of a CustomResource.",
   "properties": {
     "strategy": {
-      "description": "The conversion strategy specifies how custom resources are converted between versions.\n- \"`None`\": the converter only change the `apiVersion` and would not touch any other field in the custom resource.\n- \"`Webhook`\": the API Server will call an external webhook to do the conversion. Additional information is specified in `webhook`. This requires `preserveUnknownFields` to be false and `spec.conversion.webhook` to be set.",
+      "description": "The conversion strategy.\n\n- `\"None\"` means the converter only change the `\"apiVersion\"` and would not touch any other fields in the CustomResource;\n- `\"Webhook\"` means that the API server will call an external webhook to do the conversion. Additional information is specified in `webhook`. This requires `preserveUnknownFields` to be `false` and `spec.conversion.webhook` to be set.\n\nIf `spec.preserveUnknownFields` is `true`, this must be `\"None\"`.",
       "enum": [
         "None",
         "Webhook"

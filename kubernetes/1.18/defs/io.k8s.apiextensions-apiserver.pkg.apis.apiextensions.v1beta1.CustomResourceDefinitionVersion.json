@@ -9,7 +9,7 @@
       "type": "array"
     },
     "name": {
-      "description": "The version name, e.g. '`v1`', '`v2beta1`', etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true. The value must be a valid DNS label.",
+      "description": "The version name, e.g. `\"v1\"`, `\"v2beta1\"`, etc. The custom resources are served under this version at `\"/apis/<group>/<version>/...\"` if `served` is `true`. The value must be a valid DNS label and it must be unique among all versions.",
       "minLength": 1,
       "type": "string"
     },
@@ -22,7 +22,7 @@
       "type": "boolean"
     },
     "storage": {
-      "description": "This flag indicates that the `version` is used as storage version. There must be exactly one version with `storage` set to true.",
+      "description": "This flag indicates that this version should be used when persisting custom resources to storage. There must be exactly one version with `storage` set to `true`.",
       "type": "boolean"
     },
     "subresources": {

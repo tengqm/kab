@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "A list of CustomResourceDefinition objects",
+      "description": "A list of CustomResourceDefinition objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinition.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

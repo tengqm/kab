@@ -1,5 +1,5 @@
 {
-  "description": "CustomResourceDefinitionCondition contains details for the current condition of this pod.",
+  "description": "Details for the current condition of a resource.",
   "properties": {
     "lastTransitionTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -14,7 +14,7 @@
       "type": "string"
     },
     "status": {
-      "description": "Status is the status of the condition. Can be True, False, Unknown.",
+      "description": "The status of the condition.",
       "enum": [
         "False",
         "True",
@@ -23,14 +23,21 @@
       "type": "string"
     },
     "type": {
-      "description": "Type is the type of the condition.",
+      "description": "The type of the condition.\n\n- `\"Established\"`: The resource has become active. A resource is established when all names are accepted without a conflict for the first time. A resource stays established until deleted, even during a later `\"NamesAccepted\"` due to changed names. Note that not all names can be changed.\n- `\"NamesAccepted\"`: The names chosen for this CustomResourceDefinition do not conflict with others in the group and are therefore accepted.\n- `\"NoStructuralSchema\"`: This means that one or more OpenAPI schema is not structural. A schema is structural if it specifies types for all values, with the only exceptions of those with `x-kubernetes-int-or-string: true`(for fields which can be either integer or string), or `x-kubernetes-preserve-unknown-fields: true` (for raw, unspecified JSON values). In a structural schema, there is no `type`, `additionalProperties`, `nullable` or `x-kubernetes-*` vendor extensions specified under `allOf`, `anyOf`, `oneOf` or `not`. In the v1 API version, non-structural schemas are not allowed.\n- `\"Terminating\"`: This means the CustomResourceDefinition has been deleted and is cleaning up.\n- `\"KubernetesAPIApprovalPolicyConformant\"`: This indicates that an API in `\"*.k8s.io\"` or `\"*.kubernetes.io\"` is or is not approved. For CRDs outside tohse groups, this condition will not be set. For CRDs inside those groups, the condition will be true if `.metadata.annotations[\"api-approved.kubernetes.io\"]` is set to a URL, othersise it will be false.\n",
+      "enum": [
+        "Established",
+        "KubernetesAPIApprovalPolicyConformant",
+        "NamesAccepted",
+        "NoStructuralSchema",
+        "Terminating"
+      ],
       "minLength": 1,
       "type": "string"
     }
   },
   "required": [
-    "type",
-    "status"
+    "status",
+    "type"
   ],
   "type": "object"
 }

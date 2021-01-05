@@ -12,7 +12,7 @@
       "type": "string"
     },
     "path": {
-      "description": "An URL path at which the webhook will be contacted.",
+      "description": "An URL path at which the webhook will be contacted. The path must start with a `'/'` and it cannot be `\"//\"`.",
       "type": "string"
     },
     "port": {
@@ -25,8 +25,8 @@
     }
   },
   "required": [
-    "namespace",
-    "name"
+    "name",
+    "namespace"
   ],
   "type": "object"
 }

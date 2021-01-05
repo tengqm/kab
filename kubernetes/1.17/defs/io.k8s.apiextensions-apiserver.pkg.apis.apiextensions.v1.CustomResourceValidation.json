@@ -3,7 +3,7 @@
   "properties": {
     "openAPIV3Schema": {
       "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps",
-      "description": "The OpenAPI v3 schema to use for validation and pruning."
+      "description": "The OpenAPI v3 schema to use for validation and pruning. If the `status` subresource is enabled, the root of the schema must be a `\"object\"` and it can only contain fields like `\"description\"`, `\"type\"`, `\"format\"`, `\"title\"`, `\"maximum\"`, `\"exclusiveMaximum\"`, `\"minimum\"`, `\"exclusiveMinimum\"`, `\"maxLength\"`, `\"minLength\"`, `\"pattern\"`, `\"maxItems\"`, `\"minItems\"`, `\"uniqueItems\"`, `\"multipleOf\"`, `\"required\"`, `\"items\"`, `\"properties\"`, `\"externalDocs\"`, `\"example\"`, `\"x-preserve-unknown-fields\"`. The root element cannot be nullable."
     }
   },
   "type": "object"

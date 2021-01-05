@@ -12,12 +12,12 @@
       "type": "string"
     },
     "path": {
-      "description": "An optional URL path which will be sent in any request to this service.",
+      "description": "An URL path at which the webhook will be contacted. The path must start with a `'/'` and it cannot be `\"//\"`.",
       "type": "string"
     },
     "port": {
       "default": 443,
-      "description": "If specified, the port on the service that hosting webhook.",
+      "description": "An optional service port at which the webhook will be contacted.",
       "format": "int32",
       "maximum": 65535,
       "minimum": 1,
@@ -25,8 +25,8 @@
     }
   },
   "required": [
-    "namespace",
-    "name"
+    "name",
+    "namespace"
   ],
   "type": "object"
 }
