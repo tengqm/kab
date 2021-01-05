@@ -3,20 +3,22 @@
   "properties": {
     "allocatable": {
       "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeNodeResources",
-      "description": "The volume resources of a node that are available for scheduling. This field is beta."
+      "description": "The volume resources of a Node that are available for scheduling. This field is Beta-level."
     },
     "name": {
-      "description": "The name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI `GetPluginName()` call for that driver. The value must be a valid DNS subdomain.",
+      "description": "The name of the CSI driver that this object refers to. This **MUST** be the same name returned by the CSI `GetPluginName()` call for that driver. The value must be a valid DNS subdomain. The name must be unique in the same CSINode.",
+      "maxLength": 63,
+      "minLength": 1,
       "type": "string"
     },
     "nodeID": {
-      "description": "ID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as 'node1', but the storage system may refer to the same node as 'nodeA'. When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. 'nodeA' instead of 'node1'.",
+      "description": "ID of the Node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for Nodes. For example, Kubernetes may refer to a given Node as `\"node1\"`, but the storage system may refer to the same node as `\"nodeA\"`. When Kubernetes issues a command to the storage system to attach a volume to a specific Node, it can use this field to refer to the Node name using the ID that the storage system will understand, e.g. `\"nodeA\"` instead of `\"node1\"`.",
       "maxLength": 128,
       "minLength": 1,
       "type": "string"
     },
     "topologyKeys": {
-      "description": "The list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. '`company.com/zone`', '`company.com/region`'). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own Node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the Node object and pass back to the driver. It is possible for different Nodes to use different topology keys. This can be empty if driver does not support topology.",
+      "description": "The list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. `\"company.com/zone\"`, `\"company.com/region\"`). When a driver is initialized on a Node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own Node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the Node object and pass back to the driver. It is possible for different Nodes to use different topology keys. This can be empty if driver does not support topology.",
       "items": {
         "description": "The key must be a qualified name",
         "minLength": 1,

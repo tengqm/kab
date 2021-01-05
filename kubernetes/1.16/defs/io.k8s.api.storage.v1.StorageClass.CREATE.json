@@ -6,7 +6,7 @@
       "type": "boolean"
     },
     "allowedTopologies": {
-      "description": "Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty list means there is no topology restriction. This field is only honored by servers that enable the `VolumeScheduling` feature.",
+      "description": "Restrict the Node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty list means there is no topology restriction. This field is only honored by servers that enable the `VolumeScheduling` feature.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.TopologySelectorTerm"
       },
@@ -28,10 +28,10 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata"
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
     },
     "mountOptions": {
-      "description": "Dynamically provisioned PersistentVolumes of this storage class are created with these mount options, e.g. ['`ro`', '`soft`']. Not validated - mount of the PVs will simply fail if an option is invalid.",
+      "description": "Dynamically provisioned PersistentVolumes of this storage class are created with these mount options, e.g. `[\"ro\", \"soft\"]`. Not validated - mount of the PVs will simply fail if an option is invalid.",
       "items": {
         "type": "string"
       },
@@ -41,7 +41,8 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "The parameters for the provisioner that creates volumes of this storage class. Keys cannot be empty. The number of parameters cannot exceed 512 and the total length including keys and values must not exceed 256 KB. This field cannot be updated.",
+      "description": "The parameters for the provisioner that creates volumes of this StorageClass. Keys cannot be empty. The total length including keys and values must not exceed 256 KB. This field cannot be updated.",
+      "maxItems": 512,
       "type": "object"
     },
     "provisioner": {
@@ -51,7 +52,7 @@
     },
     "reclaimPolicy": {
       "default": "Delete",
-      "description": "Dynamically provisioned PersistentVolumes of this storage class are created with this reclaim policy. It is up to the volume plugin to reject provisioning for storage classes with impossible reclaim policies. This field cannot be updated.",
+      "description": "Dynamically provisioned PersistentVolumes of this StorageClass are created with this reclaim policy. It is up to the volume plugin to reject provisioning for StorageClasses with impossible reclaim policies. This field cannot be updated.",
       "enum": [
         "Delete",
         "Retain"
@@ -60,7 +61,7 @@
     },
     "volumeBindingMode": {
       "default": "Immediate",
-      "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
+      "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitingForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
       "enum": [
         "Immediate",
         "WaitingForFirstConsumer"

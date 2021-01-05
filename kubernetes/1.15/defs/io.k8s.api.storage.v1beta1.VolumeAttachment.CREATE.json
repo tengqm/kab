@@ -1,5 +1,5 @@
 {
-  "description": "The intent to attach or detach the specified volume to/from the specified node.\n\nVolumeAttachment objects are non-namespaced.",
+  "description": "The intent to attach or detach the specified volume to/from the specified Node. VolumeAttachment objects are non-namespaced.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object metadata"
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.storage.v1beta1.VolumeAttachmentSpec",
@@ -25,9 +25,10 @@
     }
   },
   "required": [
-    "spec",
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

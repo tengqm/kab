@@ -1,8 +1,8 @@
 {
-  "description": "A collection of CSIDriver objects.",
+  "description": "A list of CSIDriver objects.",
   "properties": {
     "apiVersion": {
-      "description": "The version of the schema for this representation of an object.",
+      "description": "The version of the schema for the object representation",
       "enum": [
         "storage.k8s.io/v1"
       ],
@@ -29,8 +29,9 @@
   },
   "required": [
     "apiVersion",
+    "items",
     "kind",
-    "items"
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

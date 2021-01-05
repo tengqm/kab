@@ -1,5 +1,5 @@
 {
-  "description": "CSINodeList is a collection of CSINode objects.",
+  "description": "A list of CSINode objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "items is the list of CSINode",
+      "description": "A list of CSINode objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.storage.v1.CSINode.GET"
       },
@@ -24,13 +24,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

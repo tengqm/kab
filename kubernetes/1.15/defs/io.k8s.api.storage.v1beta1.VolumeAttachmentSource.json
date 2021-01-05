@@ -3,10 +3,10 @@
   "properties": {
     "inlineVolumeSpec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeSpec",
-      "description": "The information needed to attach a persistent volume defined by a Pod's inline VolumeSource. This field is populated only for the `CSIMigration` feature. It contains translated fields from a Pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the `CSIMigration` feature."
+      "description": "Information for attaching a persistent volume defined by a Pod's inline VolumeSource. This field is populated only for the `CSIMigration` feature. It contains translated fields from a Pod's inline VolumeSource to a PersistentVolumeSpec. This field is Alpha-level and is only honored by servers that enabled the `CSIMigration` feature."
     },
     "persistentVolumeName": {
-      "description": "Name of the persistent volume to attach. The name must be a valid DNS subdomain.",
+      "description": "Name of the persistent volume to attach. The name must be a valid DNS subdomain. This must be specified when the `CSIMigration` feature gate is not enabled.",
       "minLength": 1,
       "type": "string"
     }
