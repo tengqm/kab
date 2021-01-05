@@ -7,15 +7,15 @@
     },
     "fieldRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectFieldSelector",
-      "description": "Selects a field of the pod: supports `metadata.name`, `metadata.namespace`, `metadata.labels`, `metadata.annotations`, `metadata.uid`, `spec.host`, `spec.nodeName`, `spec.restartPolicy`, `spec.schedulerName`, `spec.serviceAccountName`, `status.phase`, `status.hostIP`, `status.podIP`, `status.podIPs`."
+      "description": "Selects a field of the Pod: supports `\"metadata.name\"`, `\"metadata.namespace\"`, `\"metadata.labels['<KEY>']\"`, `\"metadata.annotations['<KEY>']\"`, `\"spec.nodeName\"`, `\"spec.serviceAccountName\"`, `\"status.hostIP\"`, `\"status.podIP\"`, `\"status.podIPs\"`."
     },
     "resourceFieldRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceFieldSelector",
-      "description": "Selects a resource of the container: only resources limits and requests (`limits.cpu`, `limits.memory`, `limits.ephemeral-storage`, `requests.cpu`, `requests.memory` and `requests.ephemeral-storage`) are currently supported."
+      "description": "Selects a resource of the container: only resources `limits` and `requests` are suppored: `\"limits.cpu\"`, `\"limits.memory\"`, `\"limits.ephemeral-storage\"`, `\"requests.cpu\"`, `\"requests.memory\"` and `\"requests.ephemeral-storage\"`."
     },
     "secretKeyRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretKeySelector",
-      "description": "Selects a key of a secret in the pod's namespace"
+      "description": "Selects a key of a Secret in the Pod's namespace"
     }
   },
   "type": "object"

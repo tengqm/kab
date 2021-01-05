@@ -31,7 +31,7 @@
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "A description of the persistent volume's resources and capacity. The capacity can only contain `\"storage\"` and the value must be a positive quantity. This must be specified for regular volumes, but CANNOT be specified for inline volumes ",
+      "description": "A description of the persistent volume's resources and capacity. The capacity can only contain `\"storage\"` and the value must be a positive quantity. This must be specified for regular volumes, but CANNOT be specified for inline volumes.",
       "type": "object"
     },
     "cephfs": {
@@ -116,11 +116,11 @@
     },
     "quobyte": {
       "$ref": "#/definitions/io.k8s.api.core.v1.QuobyteVolumeSource",
-      "description": "A quobyte mount on the node that shares a Pod's lifetime"
+      "description": "A quobyte mount on the node that shares a Pod's lifetime."
     },
     "rbd": {
       "$ref": "#/definitions/io.k8s.api.core.v1.RBDPersistentVolumeSource",
-      "description": "A Rados Block Device mounted on the node that shares a Pod's lifetime"
+      "description": "A Rados Block Device mounted on the node that shares a Pod's lifetime."
     },
     "scaleIO": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ScaleIOPersistentVolumeSource",
@@ -132,11 +132,11 @@
     },
     "storageos": {
       "$ref": "#/definitions/io.k8s.api.core.v1.StorageOSPersistentVolumeSource",
-      "description": "A StorageOS volume that is attached to the node and mounted into the Pod"
+      "description": "A StorageOS volume that is attached to the node and mounted into the Pod."
     },
     "volumeMode": {
       "default": "Filesystem",
-      "description": "This defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. This must be `\"filesystem\"` for inline volumes. This cannot be updated.",
+      "description": "This defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. This must be `\"Filesystem\"` for inline volumes. This cannot be updated.",
       "enum": [
         "Block",
         "Filesystem"

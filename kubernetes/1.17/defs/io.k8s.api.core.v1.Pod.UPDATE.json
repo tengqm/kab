@@ -1,5 +1,5 @@
 {
-  "description": "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto nodes.",
+  "description": "Pod is a collection of Containers that can run on a host.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,11 +17,15 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata. When updating a Pod,\n\n- If the Pod has an annotation `\"container.apparmor.security.beta.kubernetes.io/\"`, the annotation cannot be removed or changed. If the Pod doesn't have this annotation, it cannot be added.\n- If the Pod alreay has an annotation `\"kubernetes.io/config.mirror\"`, the annotation cannot be changed or removed. If the Pod doesn't have this annotation, it cannot be added.\n"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodSpec.UPDATE",
       "description": "Specification of the desired behavior of the pod."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodStatus",
+      "description": "Most recently observed status of the Pod. This data may not be up to date."
     }
   },
   "required": [

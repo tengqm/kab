@@ -9,7 +9,7 @@
     },
     "affinity": {
       "$ref": "#/definitions/io.k8s.api.core.v1.Affinity",
-      "description": "If specified, the Pod's scheduling constraints"
+      "description": "If specified, the Pod's scheduling constraints."
     },
     "automountServiceAccountToken": {
       "description": "Flag indicating whether a service account token should be automatically mounted.",
@@ -115,7 +115,7 @@
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Alpha level as of Kubernetes v1.16, and is only honored by servers that enable the `PodOverhead` feature.",
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Beta field, and is only honored by servers that enable the `PodOverhead` feature.",
       "type": "object"
     },
     "preemptionPolicy": {
@@ -171,7 +171,7 @@
     },
     "setHostnameAsFQDN": {
       "default": false,
-      "description": "If `true` the Pod's hostname will be configured as the Pod's fully qualified domain name (FQDN), rather than the leaf name which is the default. For Linux containers, this means setting the FQDN in the `hostname` field of the kernel (the `nodename` field of struct `utsname`). In Windows containers, this means setting the registry value of hostname for the registry key `\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\"` to FQDN. If a Pod does not have FQDN, this has no effect.",
+      "description": "If `true` the Pod's hostname will be configured as the Pod's fully qualified domain name (FQDN), rather than the leaf name which is the default. For Linux containers, this means setting the FQDN in the `hostname` field of the kernel (the `nodename` field of struct `utsname`). In Windows containers, this means setting the registry value of hostname for the registry key `\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\"` to FQDN. If a Pod does not have FQDN, this has no effect. This field is Beta, gated by the `SetHostnameAsFQDN` feature gated.",
       "type": "boolean"
     },
     "shareProcessNamespace": {
@@ -185,7 +185,7 @@
     },
     "terminationGracePeriodSeconds": {
       "default": 30,
-      "description": "A period of tie during which the Pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the Pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process.",
+      "description": "A period of time during which the Pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the Pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process.",
       "minimum": 0,
       "format": "int64",
       "type": "integer"

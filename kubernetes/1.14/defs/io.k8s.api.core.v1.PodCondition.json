@@ -28,21 +28,20 @@
       "type": "string"
     },
     "type": {
-      "description": "The type of the condition.",
+      "description": "The type of the condition.\n\n-`\"ContainersReady\"`: all containers in the Pod are ready.\n- `\"Initialized\"`: all init-containers in the Pod have successfully started.\n- `\"PodScheduled\"`: the Pod has been scheduled to run on a node.\n- `\"Ready\"`: the Pod is able to service requests and should be added to the load balancing pools of all matching Services.\n",
       "enum": [
         "ContainersReady",
         "Initialized",
         "PodScheduled",
-        "Ready",
-        "Unschedulable"
+        "Ready"
       ],
       "minLength": 1,
       "type": "string"
     }
   },
   "required": [
-    "type",
-    "status"
+    "status",
+    "type"
   ],
   "type": "object"
 }

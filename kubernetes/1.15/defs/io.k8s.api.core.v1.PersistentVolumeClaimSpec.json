@@ -16,26 +16,26 @@
     },
     "dataSource": {
       "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
-      "description": "This field requires the VolumeSnapshotDataSource feature gate to be enabled. Currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. The data source must come from either `PersistentVolumeClaim` of 'core'(``) group, or `VolumeSnapshort` of `snapshot.storage.k8s.io` group."
+      "description": "Currently VolumeSnapshot is the only supported data source. If the provisioner can support VolumeSnapshot data source, it will create a new volume and data will be restored to the volume at the same time. If the provisioner does not support VolumeSnapshot data source, volume will not be created and the failure will be reported as an event. The data source must come from either `PersistentVolumeClaim` of \"core\" (`\"\"`) group, or `VolumeSnapshort` of `\"snapshot.storage.k8s.io\"` group. This field requires the `VolumeSnapshotDataSource` feature gate to be enabled."
     },
     "resources": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
-      "description": "The minimum resources the volume should have. The `requests.storage` must be specified."
+      "description": "The minimum resources the volume should have. The `requests.storage` must be specified as a positive quantity value."
     },
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
       "description": "A label query over volumes to be considered for binding."
     },
     "storageClassName": {
-      "description": "Name of the StorageClass required by the claim. The name must be a valid DNS subdomain.",
+      "description": "Name of the StorageClass required by the claim. The name must be a valid DNS subdomain, if specified.",
       "type": "string"
     },
     "volumeMode": {
-      "default": "filesystem",
-      "description": "Type of volume required by the claim.",
+      "default": "Filesystem",
+      "description": "Type of volume required by the claim. This is a Beta feature.",
       "enum": [
-        "block",
-        "filesytem"
+        "Block",
+        "Filesystem"
       ],
       "type": "string"
     },
@@ -45,7 +45,8 @@
     }
   },
   "required": [
-    "accessModes"
+    "accessModes",
+    "resources"
   ],
   "type": "object"
 }

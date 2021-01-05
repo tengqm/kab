@@ -1,5 +1,5 @@
 {
-  "description": "A named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.",
+  "description": "Service is a named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which Pods will answer requests sent through the proxy.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,10 +17,10 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.core.v1.ServiceSpec.GET",
+      "$ref": "#/definitions/io.k8s.api.core.v1.ServiceSpec",
       "description": "Spec defines the behavior of a service."
     },
     "status": {
@@ -30,7 +30,10 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

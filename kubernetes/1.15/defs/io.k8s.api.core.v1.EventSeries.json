@@ -1,5 +1,5 @@
 {
-  "description": "EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.",
+  "description": "EventSeries contain information on series of Events, i.e. thing that was/is happening continuously for some time.",
   "properties": {
     "count": {
       "description": "Number of occurrences in this series up to the last heartbeat time",
@@ -9,7 +9,20 @@
     "lastObservedTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
       "description": "Time of the last occurrence observed"
+    },
+    "state": {
+      "description": "State of this series. *DEPRECATED*: planned removal for 1.18",
+      "enum": [
+        "Finished",
+        "Ongoing",
+        "Unknown"
+      ],
+      "type": "string"
     }
   },
+  "required": [
+    "count",
+    "lastObservedTime"
+  ],
   "type": "object"
 }

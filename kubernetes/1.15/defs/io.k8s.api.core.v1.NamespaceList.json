@@ -1,5 +1,5 @@
 {
-  "description": "NamespaceList is a list of Namespaces.",
+  "description": "A list of Namespace objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+      "description": "A list of Namespace objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.Namespace.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

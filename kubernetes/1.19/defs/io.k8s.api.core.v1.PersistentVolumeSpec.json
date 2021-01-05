@@ -1,5 +1,5 @@
 {
-  "description": "The specification of a persistent volume. One and only one volume type must be specified. The volume source cannot be updated once created.",
+  "description": "The specification of a PersistentVolume. One and only one volume type must be specified. The volume source cannot be updated once created.",
   "properties": {
     "accessModes": {
       "description": "The ways the volume can be mounted.",
@@ -9,48 +9,50 @@
           "ReadWriteMany",
           "ReadWriteOnce"
         ],
+        "minLength": 1,
         "type": "string"
       },
+      "minItems": 1,
       "type": "array"
     },
     "awsElasticBlockStore": {
       "$ref": "#/definitions/io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource",
-      "description": "An AWS disk resource that is attached to a kubelet's host machine and then exposed to the pod."
+      "description": "An AWS disk resource that is attached to a kubelet's host machine and then exposed to the Pod."
     },
     "azureDisk": {
       "$ref": "#/definitions/io.k8s.api.core.v1.AzureDiskVolumeSource",
-      "description": "An Azure data disk mounted on the node and bind mounted to the pod."
+      "description": "An Azure data disk mounted on the node and bind mounted to the Pod."
     },
     "azureFile": {
       "$ref": "#/definitions/io.k8s.api.core.v1.AzureFilePersistentVolumeSource",
-      "description": "An Azure file service mounted on the node and bind mounted to the pod."
+      "description": "An Azure file service mounted on the node and bind mounted to the Pod."
     },
     "capacity": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "A description of the persistent volume's resources and capacity. The capacity can only contain '`storage`'.",
+      "description": "A description of the persistent volume's resources and capacity. The capacity can only contain `\"storage\"` and the value must be a positive quantity. This must be specified for regular volumes, but CANNOT be specified for inline volumes.",
       "type": "object"
     },
     "cephfs": {
       "$ref": "#/definitions/io.k8s.api.core.v1.CephFSPersistentVolumeSource",
-      "description": "A Ceph FS mounted on the node that shares a pod's lifetime"
+      "description": "A Ceph FS mounted on the node that shares a Pod's lifetime"
     },
     "cinder": {
       "$ref": "#/definitions/io.k8s.api.core.v1.CinderPersistentVolumeSource",
-      "description": "A cinder volume attached and mounted on node."
+      "description": "A Cinder volume attached and mounted on node."
     },
     "claimRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "Part of a bi-directional binding between `PersistentVolume` and `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative bind between a PV and a PVC."
+      "description": "Part of a bi-directional binding between a `PersistentVolume` and a `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative binding between a PV and a PVC. This cannot be specified for inline volumes."
     },
     "csi": {
       "$ref": "#/definitions/io.k8s.api.core.v1.CSIPersistentVolumeSource",
-      "description": "Storage that is handled by an external CSI driver."
+      "description": "Storage that is handled by an external CSI driver. For inline volumes, this has to be specified."
     },
     "fc": {
       "$ref": "#/definitions/io.k8s.api.core.v1.FCVolumeSource",
-      "description": "A fibre channel resource that is attached to a node and then exposed to the pod."
+      "description": "A FC (fibre channel) resource that is attached to a node and then exposed to the Pod."
     },
     "flexVolume": {
       "$ref": "#/definitions/io.k8s.api.core.v1.FlexPersistentVolumeSource",
@@ -58,15 +60,15 @@
     },
     "flocker": {
       "$ref": "#/definitions/io.k8s.api.core.v1.FlockerVolumeSource",
-      "description": "A flocker volume attached to a node and exposed to the pod for its usage."
+      "description": "A flocker volume attached to a node and exposed to the Pod."
     },
     "gcePersistentDisk": {
       "$ref": "#/definitions/io.k8s.api.core.v1.GCEPersistentDiskVolumeSource",
-      "description": "A GCE disk resource that is attached to a node and then exposed to the pod."
+      "description": "A GCE disk resource that is attached to a node and exposed to the Pod."
     },
     "glusterfs": {
       "$ref": "#/definitions/io.k8s.api.core.v1.GlusterfsPersistentVolumeSource",
-      "description": "A Glusterfs volume that is attached to a node and exposed to the pod."
+      "description": "A Glusterfs volume that is attached to a node and exposed to the Pod."
     },
     "hostPath": {
       "$ref": "#/definitions/io.k8s.api.core.v1.HostPathVolumeSource",
@@ -74,7 +76,7 @@
     },
     "iscsi": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ISCSIPersistentVolumeSource",
-      "description": "An ISCSI disk that is attached to a node and then exposed to the pod."
+      "description": "An ISCSI disk that is attached to a node and then exposed to the Pod."
     },
     "local": {
       "$ref": "#/definitions/io.k8s.api.core.v1.LocalVolumeSource",
@@ -93,10 +95,10 @@
     },
     "nodeAffinity": {
       "$ref": "#/definitions/io.k8s.api.core.v1.VolumeNodeAffinity",
-      "description": "Constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This can be updated if not set yet."
+      "description": "Constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of Pods that use this volume. This cannot be used on an inline volume. This cannot be used on a `local` volume. This can be updated if not set yet."
     },
     "persistentVolumeReclaimPolicy": {
-      "description": "What happens to a persistent volume when released from its claim. Valid options are '`Retain`' (default for manually created `PersistentVolume`s), '`Delete`' (default for dynamically provisioned `PersistentVolume`s), and '`Recycle`' (deprecated). '`Recycle`' must be supported by the volume plugin underlying this `PersistentVolume`. HostPath volume mounts of '`/`' cannot be used with the `Recycle` policy.",
+      "description": "What happens to a persistent volume when released from its claim. Valid options are:\n\n- `\"Retain\"`: default for manually created `PersistentVolume`s. For inline volumes, this is the **only** choice.\n- `\"Delete\"`: default for dynamically provisioned `PersistentVolume`s\n- `\"Recycle\"`': an option that is abandoned. `\"Recycle\"` must be supported by the volume plugin backing this `PersistentVolume`. `hostPath` volume mounts of `\"/\"` cannot be used with the `\"Recycle\"` policy.",
       "enum": [
         "Delete",
         "Recycle",
@@ -114,30 +116,30 @@
     },
     "quobyte": {
       "$ref": "#/definitions/io.k8s.api.core.v1.QuobyteVolumeSource",
-      "description": "A quobyte mount on the node that shares a pod's lifetime"
+      "description": "A quobyte mount on the node that shares a Pod's lifetime."
     },
     "rbd": {
       "$ref": "#/definitions/io.k8s.api.core.v1.RBDPersistentVolumeSource",
-      "description": "A Rados Block Device mounted on the node that shares a pod's lifetime"
+      "description": "A Rados Block Device mounted on the node that shares a Pod's lifetime."
     },
     "scaleIO": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ScaleIOPersistentVolumeSource",
       "description": "A ScaleIO persistent volume attached and mounted on the nodes."
     },
     "storageClassName": {
-      "description": "Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.",
+      "description": "Name of a StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass. The string must be a valid DNS subdomain name. This CANNOT be specified on an inline volume.",
       "type": "string"
     },
     "storageos": {
       "$ref": "#/definitions/io.k8s.api.core.v1.StorageOSPersistentVolumeSource",
-      "description": "A StorageOS volume that is attached to the node and mounted into the pod"
+      "description": "A StorageOS volume that is attached to the node and mounted into the Pod."
     },
     "volumeMode": {
       "default": "Filesystem",
-      "description": "This defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. This cannot be updated.",
+      "description": "This defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. This must be `\"Filesystem\"` for inline volumes. This cannot be updated.",
       "enum": [
-        "device",
-        "filesystem"
+        "Block",
+        "Filesystem"
       ],
       "type": "string"
     },

@@ -1,5 +1,5 @@
 {
-  "description": "The cluster validation information. DEPRECATED: This API is deprecated in v1.19+.",
+  "description": "The cluster validation information. *DEPRECATED*: This API is deprecated in v1.19+.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -26,12 +26,14 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     }
   },
   "required": [
     "apiVersion",
-    "kind"
+    "conditions",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

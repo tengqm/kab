@@ -2,11 +2,11 @@
   "description": "Windows-specific options and credentials.",
   "properties": {
     "gmsaCredentialSpec": {
-      "description": "Where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the `gmsaCredentialSpecName` field. This field cannot be an empty string and its maximum length is 64 K.",
+      "description": "Where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the `gmsaCredentialSpecName` field. This field cannot be an empty string and its maximum length is 64 K. This field is Beta-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
       "type": "string"
     },
     "gmsaCredentialSpecName": {
-      "description": "The name of the GMSA credential spec to use. The string must be a valid DNS subdomain name.",
+      "description": "The name of the GMSA credential spec to use. The string must be a valid DNS subdomain name. This field is Beta-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
       "type": "string"
     },
     "runAsUserName": {

@@ -1,5 +1,5 @@
 {
-  "description": "EventList is a list of events.",
+  "description": "A list of Event objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "List of events",
+      "description": "A list of Event objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.Event.GET"
       },
@@ -30,7 +30,8 @@
   "required": [
     "apiVersion",
     "items",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

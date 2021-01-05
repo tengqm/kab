@@ -1,14 +1,18 @@
 {
-  "description": "A waiting state of a container.",
+  "description": "A waiting state of a Container",
   "properties": {
     "message": {
-      "description": "Message regarding why the container is not yet running.",
+      "description": "Message regarding why the Container is not yet running.",
       "type": "string"
     },
     "reason": {
-      "description": "(brief) reason the container is not yet running.",
+      "description": "A (brief) reason the Container is not yet running.",
       "type": "string"
     }
   },
+  "required": [
+    "message",
+    "reason"
+  ],
   "type": "object"
 }

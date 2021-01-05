@@ -1,5 +1,5 @@
 {
-  "description": "A template for creating copies of a predefined pod.",
+  "description": "A template for creating copies of a predefined Pod.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,16 +17,18 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata. The `name` must be a valid DNS subdomain name."
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
-      "description": "Template defines the pods that will be created from this pod template."
+      "description": "Template defines the Pods that will be created from this Pod template."
     }
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "template"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

@@ -1,15 +1,15 @@
 {
-  "description": "A single application container that you want to run within a pod.",
+  "description": "A container to run within a Pod.",
   "properties": {
     "args": {
-      "description": "Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
+      "description": "Arguments to the `command`. The docker image's CMD is used if this is not provided. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The `$(VAR_NAME)` syntax can be escaped with a double `$$`, i.e: `$$(VAR_NAME)`. Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "command": {
-      "description": "Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
+      "description": "Entrypoint array. The docker image's `ENTRYPOINT` is used if this is not provided. The command is **NOT** executed within a shell. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The `$(VAR_NAME)` syntax can be escaped with a double `$$`, i.e: `$$(VAR_NAME)`. Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
       "items": {
         "type": "string"
       },
@@ -25,18 +25,18 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "envFrom": {
-      "description": "List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.",
+      "description": "List of sources to populate environment variables in the container. The keys defined within a source must be a valid DNS subdomain name. They must consist of alphanumeric characters, `'.'`, `'-'`, or `'_'`. They cannot start with `\"..\"` or a digit. They cannot be `\".\"` or `\"..\"`. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an `env` with a duplicate key will take precedence. Cannot be updated.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.EnvFromSource"
       },
       "type": "array"
     },
     "image": {
-      "description": "Docker image name. The special value `' '` can be used for some advanced use cases.",
+      "description": "Container image name. The special value `\" \"` is reserved to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.",
       "type": "string"
     },
     "imagePullPolicy": {
-      "description": "Image pull policy. Defaults to '`Always`' if '`:latest`' tag is specified, or '`IfNotPresent`' otherwise. Cannot be updated.",
+      "description": "Image pull policy. Defaults to `\"Always\"` if the `\":latest\"` tag is specified, or `\"IfNotPresent\"` otherwise. Cannot be updated.",
       "enum": [
         "Always",
         "IfNotPresent",
@@ -53,12 +53,12 @@
       "description": "Periodic probe of container liveness. Container will be restarted if the probe fails. Can be NULL. It cannot be used on an init container. Cannot be updated. "
     },
     "name": {
-      "description": "Name of the container. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.",
+      "description": "Name of the container. Each container in a Pod must have a unique name (DNS_LABEL). Cannot be updated.",
       "minLength": 1,
       "type": "string"
     },
     "ports": {
-      "description": "List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default '0.0.0.0' address inside a container will be accessible from the network. Cannot be updated.",
+      "description": "List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here does **NOT** prevent that port from being exposed. Any port which is listening on the default `\"0.0.0.0\"` address inside a container will be accessible from the network. Cannot be updated.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ContainerPort"
       },
@@ -73,7 +73,7 @@
     },
     "readinessProbe": {
       "$ref": "#/definitions/io.k8s.api.core.v1.Probe",
-      "description": "Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. This cannot be used against an init container. Cannot be updated."
+      "description": "Periodic probe of container service readiness. Container will be removed from Service endpoints if the probe fails. This cannot be used against an init container. Cannot be updated."
     },
     "resources": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
@@ -81,30 +81,30 @@
     },
     "securityContext": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext",
-      "description": "Security options the pod should run with."
+      "description": "Security options the Pod should run with."
     },
     "startupProbe": {
       "$ref": "#/definitions/io.k8s.api.core.v1.Probe",
-      "description": "This indicates that the Pod has been successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the `livenessProbe` failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be set on an init container. This cannot be updated. The `successThreshold`, if specified, must be 1. This is an beta feature enabled by the `StartupProbe` feature flag."
+      "description": "This probe indicates that the Pod has been successfully initialized. If specified, no other probes are executed until this probe completes successfully. If this probe fails, the Pod will be restarted, just as if the `livenessProbe` failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be set on an init container. This cannot be updated. The `successThreshold`, if specified, must be 1."
     },
     "stdin": {
       "default": false,
-      "description": "Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF.",
+      "description": "Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF.\n\nThis is a variable for interactive containers. It has specialized use-cases (e.g. debugging) and should not be used for general purpose containers.",
       "type": "boolean"
     },
     "stdinOnce": {
       "default": false,
-      "description": "Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF.",
+      "description": "Whether the container runtime should close the stdin channel after it has been opened by a single `attach`. When `stdin` is true the stdin stream will remain open across multiple `attach` sessions. If `stdinOnce` is set to `true`, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF.\n\nThis is a variable for interactive containers. It has specialized use-cases (e.g. debugging) and should not be used for general purpose containers.",
       "type": "boolean"
     },
     "terminationMessagePath": {
       "default": "/dev/termination-log",
-      "description": "Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Cannot be updated.",
+      "description": "The mount path in the container's filesystem for a termination log file. The container's termination message will be written into this file. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Cannot be updated.",
       "type": "string"
     },
     "terminationMessagePolicy": {
       "default": "File",
-      "description": "Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Cannot be updated.",
+      "description": "This attribute indicates how the termination message should be populated.\n\n- `\"File\"`: use the contents of `terminationMessagePath` file to populate the container status message on both success and failure.\n- `\"FallbackToLogsOnError\"`: use the last chunk of container log output if the termination message file is empty and the container exited with an error.\n\nThe log output is limited to 2048 bytes or 80 lines, whichever is smaller. Cannot be updated.",
       "enum": [
         "FallbackToLogsOnError",
         "File"
@@ -113,11 +113,11 @@
     },
     "tty": {
       "default": false,
-      "description": "Whether this container should allocate a TTY for itself, also requires 'stdin' to be true.",
+      "description": "Whether this container should allocate a TTY for itself. When this is set to `true`, the `stdin` attribute has to be `true` as well.\n\nThis is a variable for interactive containers. It has specialized use-cases (e.g. debugging) and should not be used for general purpose containers.",
       "type": "boolean"
     },
     "volumeDevices": {
-      "description": "volumeDevices is the list of block devices to be used by the container.",
+      "description": "The list of block devices to be used by the container.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.VolumeDevice"
       },
@@ -140,8 +140,8 @@
     }
   },
   "required": [
-    "name",
-    "image"
+    "image",
+    "name"
   ],
   "type": "object"
 }

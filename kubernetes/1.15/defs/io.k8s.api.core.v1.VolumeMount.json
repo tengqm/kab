@@ -1,14 +1,14 @@
 {
-  "description": "A mounting of a volume within a container.",
+  "description": "The mounting of a volume into a container.",
   "properties": {
     "mountPath": {
-      "description": "Path within the container at which the volume should be mounted.  Must not contain ':'. The mounting point must be unique in the container and it cannot overlap with those of the volumeDevices.",
+      "description": "Path within the container at which the volume should be mounted. Must not contain `\":\"`. The mounting point must be unique in the container and it cannot overlap with those from the container's `volumeDevices`.",
       "minLength": 1,
       "type": "string"
     },
     "mountPropagation": {
       "default": "None",
-      "description": "mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, None is used. Bidirectional mount propagation is only available to privileged containers. This field is beta in 1.10.",
+      "description": "This attribute determines how mounts are propagated from the host to container and the other way around. `\"Bidirectional\"` mount propagation is only available to privileged containers, i.e., the `securityContext.privileged` is `true`. This field is Beta in 1.10.",
       "enum": [
         "Bidirectional",
         "HostToContainer",
@@ -17,28 +17,28 @@
       "type": "string"
     },
     "name": {
-      "description": "This must match the name of a volume. The name cannot overlap with that of volumeDevices.",
+      "description": "This must match the `name` of a volume. The name cannot overlap with any of the container's `volumeDevices`.",
       "minLength": 1,
       "type": "string"
     },
     "readOnly": {
       "default": false,
-      "description": "Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.",
+      "description": "Mounted read-only if `true`, read-write otherwise (`false` or unspecified).",
       "type": "boolean"
     },
     "subPath": {
       "default": "",
-      "description": "Path within the volume from which the container's volume should be mounted. Default value '' means the volume's root. This path cannot contain '..' or prefixed with '/'. In future, a 'subPathExpr' property is added as well which is mutual exclusive to subPath.",
+      "description": "Path within the volume from which the container's volume should be mounted. Default value `\"\"` means the volume's root. This path cannot contain `\"..\"` or prefixed with `\"/\"`. This `subPath` property is mutual exclusive to the `subPathExpr` property.",
       "type": "string"
     },
     "subPathExpr": {
-      "description": "Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to `subPath` but environment variable references `$(VAR_NAME)` are expanded using the container's environment. Defaults to '' (volume's root). `subPathExpr` and `subPath` are mutually exclusive. The path must be relative path and it cannot contain '`..`' or prefix with '`..`'. This field is beta in 1.15.",
+      "description": "Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to the `subPath` property but environment variable references `$(VAR_NAME)` are expanded using the container's environment. Defaults to `\"\"` (volume's root). `subPathExpr` and `subPath` are mutually exclusive. The path must be relative path and it cannot contain `\"..\"` or prefix with `\"..\"`.",
       "type": "string"
     }
   },
   "required": [
-    "name",
-    "mountPath"
+    "mountPath",
+    "name"
   ],
   "type": "object"
 }

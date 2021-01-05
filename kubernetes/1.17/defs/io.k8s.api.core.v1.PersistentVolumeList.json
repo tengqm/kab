@@ -1,5 +1,5 @@
 {
-  "description": "A list of PersistentVolume items",
+  "description": "A list of PersistentVolume objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "List of persistent volumes",
+      "description": "A list of PersistentVolume objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolume.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadat"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

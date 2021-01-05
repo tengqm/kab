@@ -12,12 +12,12 @@
       "type": "string"
     },
     "containerRuntimeVersion": {
-      "description": "Container runtime version as reported by the node through runtime remote API (e.g. '`docker://1.5.0`').",
+      "description": "Container runtime version as reported by the node through runtime remote API (e.g. `\"docker://1.5.0\"`).",
       "minLength": 1,
       "type": "string"
     },
     "kernelVersion": {
-      "description": "Kernel version as reported by the node from 'uname -r' (e.g. '`3.16.0-0.bpo.4-amd64`').",
+      "description": "Kernel version as reported by the node from `uname -r` (e.g. `\"3.16.0-0.bpo.4-amd64\"`).",
       "minLength": 1,
       "type": "string"
     },
@@ -32,7 +32,7 @@
       "type": "string"
     },
     "machineID": {
-      "description": "Machine ID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id",
+      "description": "Machine ID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from [man(5) machine-id](http://man7.org/linux/man-pages/man5/machine-id.5.html).",
       "minLength": 1,
       "type": "string"
     },
@@ -42,27 +42,27 @@
       "type": "string"
     },
     "osImage": {
-      "description": "OS image reported by the node from /etc/os-release (e.g. '`Debian GNU/Linux 7 (wheezy)`').",
+      "description": "OS image reported by the node from /etc/os-release (e.g. `\"Debian GNU/Linux 7 (wheezy)\"`).",
       "minLength": 1,
       "type": "string"
     },
     "systemUUID": {
-      "description": "System UUID reported by the node. For unique machine identification, machineID is preferred. This field is specific to Red Hat hosts.",
+      "description": "System UUID reported by the node. For unique machine identification, `machineID` is preferred. This field is specific to Red Hat hosts.",
       "minLength": 1,
       "type": "string"
     }
   },
   "required": [
-    "machineID",
-    "systemUUID",
+    "architecture",
     "bootID",
-    "kernelVersion",
-    "osImage",
     "containerRuntimeVersion",
+    "kernelVersion",
     "kubeletVersion",
     "kubeProxyVersion",
+    "machineID",
     "operatingSystem",
-    "architecture"
+    "osImage",
+    "systemUUID"
   ],
   "type": "object"
 }

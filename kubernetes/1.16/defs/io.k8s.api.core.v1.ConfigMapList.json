@@ -1,5 +1,5 @@
 {
-  "description": "ConfigMapList is a resource containing a list of ConfigMap objects.",
+  "description": "A list of ConfigMap objects",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "Items is the list of ConfigMaps.",
+      "description": "A list of ConfigMap objects",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

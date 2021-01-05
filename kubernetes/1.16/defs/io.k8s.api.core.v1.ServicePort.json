@@ -2,22 +2,22 @@
   "description": "Information on service's port.",
   "properties": {
     "name": {
-      "description": "The name of this port within the service. This must be a DNS label. All ports within a service spec must have unique names. When considering the endpoints for a Service, this must match the `name` field in EndpointPort objects. Optional if only one `ports` is defined on this service.",
+      "description": "The name of this port within the Service. This must be a DNS label and unique among all ports within a Service `spec` when specified. When considering the endpoints for a Service, this must match the `name` field in the EndpointPort objects. This field is optional if only one `ports` is defined on this Service.",
       "type": "string"
     },
     "nodePort": {
-      "description": "The port on each node on which this service is exposed when `type` is '`NodePort`' or '`LoadBalancer'`. Default is to auto-allocate a port if the type of this service requires one. If explicitly specified, no duplicate node port number is allowed. The system will attempt to allocate the specified port to the service if it is not in use or else creation of the service will fail. For `ClusterIP` type of service, this field cannot be used.",
+      "description": "The port on each node on which this Service is exposed when `type` is `\"NodePort\"` or `\"LoadBalancer\"`. This cannot be specified if the Service type is `\"ClusterIP\"`. Usually assigned by the system if the Service requires one. If a value is manually specified, in-range, and not in use it will be used, otherwise the operation will fail. If this field is specified when creating a Service which does not need it, the Service creation will fail. This field will be wiped when updating a Service to a type which no longer needs it (e.g. changing `type` from `\"NodePort\"` to `\"ClusterIP\"`).",
       "format": "int32",
       "type": "integer"
     },
     "port": {
-      "description": "The port that will be exposed by this service. The value cannot be the port number used by kubelet. The (port, protocol) tuple must be unique in the array.",
+      "description": "The port that is exposed by the Service. The value cannot be the port number used by the kubelet which defaults to `10250`. The (`port`, `protocol`) tuple must be unique in the `ports` list for the Service.",
       "format": "int32",
       "type": "integer"
     },
     "protocol": {
       "default": "TCP",
-      "description": "The protocol for this port. When service type is '`LoadBalancer`', all ports must have the same protocol.",
+      "description": "The protocol for this port. When the Service `type` is `\"LoadBalancer\"`, all ports must have the same protocol.",
       "enum": [
         "SCTP",
         "TCP",
@@ -27,7 +27,7 @@
     },
     "targetPort": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
-      "description": "Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. If it is a string, it must be not empty and no more than 15 characters. It must contain only alphanumeric characters and hyphens. Port name will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the `port` field is used (an identity map). This field is ignored for services with `clusterIP` set to '`None`', and should be omitted or set equal to the `port` field."
+      "description": "Number or name of the port used to access Pods targeted by the Service. The port number must be in the range of 1 to 65535. If it is a string, it must be not empty and no more than 15 characters. It must contain only alphanumeric characters and hyphens. Port name will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the `port` field is used (an identity map). This field is ignored for Services with `clusterIP` set to `\"None\"` (i.e. *headless*), and should be omitted or set equal to the `port` field."
     }
   },
   "required": [

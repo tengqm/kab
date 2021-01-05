@@ -1,20 +1,20 @@
 {
-  "description": "The attributes that a node is created with.",
+  "description": "The attributes a Node is created with.",
   "properties": {
     "configSource": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeConfigSource",
-      "description": "If specified, the source to get node configuration from. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field"
+      "description": "If specified, the source to get Node configuration from. The `DynamicKubeletConfig` feature gate must be enabled for the kubelet to use this field."
     },
     "podCIDR": {
       "description": "The Pod IP range assigned to the Node.",
       "type": "string"
     },
     "providerID": {
-      "description": "ID of the node assigned by the cloud provider in the format: `<ProviderName>://<ProviderSpecificNodeID>`",
+      "description": "ID of the Node assigned by the cloud provider in the format: `\"<ProviderName>://<ProviderSpecificNodeID>\"`.",
       "type": "string"
     },
     "taints": {
-      "description": "If specified, the node's taints.",
+      "description": "If specified, the Node's taints. The taints in the list must have `effect` specified. The tuple of (`key`, `effect`) in the list must be unique.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.Taint"
       },
@@ -22,7 +22,7 @@
     },
     "unschedulable": {
       "default": false,
-      "description": "Unschedulable controls node schedulability of new pods. By default, node is schedulable.",
+      "description": "Unschedulable controls Node schedulability of new pods. By default, Node is schedulable.",
       "type": "boolean"
     }
   },

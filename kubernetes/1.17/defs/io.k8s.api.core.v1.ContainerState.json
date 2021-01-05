@@ -1,17 +1,17 @@
 {
-  "description": "A possible state of container. Only one of its members may be specified. If none of them is specified, the default one is '`waiting`'.",
+  "description": "A possible state of the Container. Only one of its members may be specified. If none of them is specified, the default one is `\"waiting\"`.",
   "properties": {
     "running": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateRunning",
-      "description": "Details about a running container"
+      "description": "Details about a running Container"
     },
     "terminated": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateTerminated",
-      "description": "Details about a terminated container"
+      "description": "Details about a terminated Container. When updating, if the Pod's `reatartPolicy` is not `\"Always\"` and the container has terminated, the server checks if the container's exit code is non zero. If the the Pod's `restartPolciy` is `\"OnFailure\"` and the container's exit code is non zero, updating the container to a non-terminated state is allowed, or else the server rejects the update request."
     },
     "waiting": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateWaiting",
-      "description": "Details about a waiting container"
+      "description": "Details about a waiting Container"
     }
   },
   "type": "object"

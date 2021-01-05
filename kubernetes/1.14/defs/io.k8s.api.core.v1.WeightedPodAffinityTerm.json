@@ -1,12 +1,12 @@
 {
-  "description": "The weights of all of the matched terms are added per-node to find the most preferred node(s)",
+  "description": "The `weight`s of all of the matched `podAffinityTerm`s are added per-node to find the most preferred node(s)",
   "properties": {
     "podAffinityTerm": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinityTerm",
-      "description": "Required. A pod affinity term, associated with the corresponding weight."
+      "description": "A Pod affinity term, associated with the corresponding weight."
     },
     "weight": {
-      "description": "Weight associated with matching the corresponding term, in the range 1-100.",
+      "description": "Weight associated with matching the corresponding term.",
       "format": "int32",
       "maximum": 100,
       "minimum": 1,

@@ -1,8 +1,8 @@
 {
-  "description": "The details for the current status of a container.",
+  "description": "The detailed status of a Container.",
   "properties": {
     "containerID": {
-      "description": "Container's ID in the format '`docker://<container_id>`'.",
+      "description": "Container's ID in the format `\"docker://<container_id>\"`",
       "type": "string"
     },
     "image": {
@@ -18,20 +18,20 @@
       "description": "Details about the container's last termination condition."
     },
     "name": {
-      "description": "The name for the container which is unique in a pod. Cannot be updated.",
+      "description": "The name for the Container which is unique in the Pod. Cannot be updated.",
       "type": "string"
     },
     "ready": {
-      "description": "Specifies whether the container has passed its readiness probe.",
+      "description": "Specifies whether the Container has passed its readiness probe.",
       "type": "boolean"
     },
     "restartCount": {
-      "description": "The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.",
+      "description": "The number of times the Container has been restarted, currently based on the number of dead Containers that have not yet been removed. Note that this is calculated from dead Containers. But those Containers are subject to garbage collection. This value will get capped at 5 by GC.",
       "format": "int32",
       "type": "integer"
     },
     "started": {
-      "description": "Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no `startupProbe` is defined.",
+      "description": "Specifies whether the Container has passed its startup probe. Initialized as `false`, becomes `true` after `startupProbe` is considered successful. Resets to `false` when the Container is restarted, or if kubelet loses state temporarily. Is always `true` when no `startupProbe` is defined.",
       "type": "boolean"
     },
     "state": {
@@ -40,11 +40,15 @@
     }
   },
   "required": [
+    "containerID",
+    "image",
+    "imageID",
+    "lastState",
     "name",
     "ready",
     "restartCount",
-    "image",
-    "imageID"
+    "started",
+    "state"
   ],
   "type": "object"
 }

@@ -1,5 +1,5 @@
 {
-  "description": "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).",
+  "description": "Node is a worker node in Kubernetes. Each Node will have a unique identifier in the cache (i.e. in etcd).",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,20 +17,23 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSpec",
-      "description": "Spec defines the behavior of a node."
+      "description": "Spec defines the behavior of a Node."
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.core.v1.NodeStatus",
-      "description": "Most recently observed status of the node."
+      "description": "Most recently observed status of the Node."
     }
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

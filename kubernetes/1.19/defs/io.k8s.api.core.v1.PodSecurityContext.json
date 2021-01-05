@@ -1,14 +1,14 @@
 {
-  "description": "Pod-level security attributes and common container settings. Some fields are also present in `container.securityContext`. Field values of `container.securityContext` take precedence over field values of `pod.securityContext`.",
+  "description": "Pod-level security attributes and settings common to all containers. Some fields are also present in the `securityContext` field of a container's `spec`. Container level settings take precedence over field values specified at Pod level.",
   "properties": {
     "fsGroup": {
-      "description": "A special supplemental group that applies to all containers in a Pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the Pod:\n\n1. The owning GID will be the `fsGroup`;\n1. The `setgid` bit is set (new files created in the volume will be owned by `fsGroup`);\n1. The permission bits are OR'd with \"`rw-rw----`\";\n\nIf unset, the Kubelet will not modify the ownership and permissions of any volume.",
+      "description": "A special supplemental group that applies to all containers in a Pod. Some volume types allow the kubelet to change the ownership of that volume to be owned by the Pod:\n\n1. The owning GID will be the `fsGroup`;\n1. The `setgid` bit is set (new files created in the volume will be owned by `fsGroup`);\n1. The permission bits are OR'd with `\"rw-rw----\"`;\n\nIf unset, the kubelet will not modify the ownership and permissions of any volume. The group ID must be between 0 and 1^32 - 1.",
       "format": "int64",
       "type": "integer"
     },
     "fsGroupChangePolicy": {
       "default": "Always",
-      "description": "The behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support `fsGroup` based ownership (and permissions). It will have no effect on ephemeral volume types such as: \"`secret`\", \"`configmaps`\" and \"`emptydir`\".",
+      "description": "The behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support `fsGroup` based ownership (and permissions). It will have no effect on ephemeral volume types such as: `\"secret\"`, `\"configmap\"` and `\"emptydir\"`.",
       "enum": [
         "Always",
         "OnRootMismatch"
@@ -16,7 +16,7 @@
       "type": "string"
     },
     "runAsGroup": {
-      "description": "The group ID (GID) to run the entry point of the container process. Uses runtime default if unset. May also be set in `container.securityContext`.",
+      "description": "The group ID (GID) to run the entry point of the container process. Uses runtime default if unset. May also be set in `securityContext` of a container. The group ID must be between 0 and 1^32 - 1.",
       "format": "int64",
       "type": "integer"
     },
@@ -25,7 +25,7 @@
       "type": "boolean"
     },
     "runAsUser": {
-      "description": "The user ID (UID) to run the entry point of the container process. Defaults to user specified in image metadata if unspecified. May also be set in `container.securityContext`.",
+      "description": "The user ID (UID) to run the entry point of the container process. Defaults to user specified in image metadata if unspecified. May also be set in `securityContext` of a container. The user ID must be between 0 and 1^32 - 1.",
       "format": "int64",
       "type": "integer"
     },
@@ -35,10 +35,10 @@
     },
     "seccompProfile": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SeccompProfile",
-      "description": "The seccomp options to use by the containers in this pod."
+      "description": "The seccomp options to use by the containers in this Pod."
     },
     "supplementalGroups": {
-      "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.",
+      "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Each group ID must be between 0 and 1^32 - 1.",
       "items": {
         "format": "int64",
         "type": "integer"
@@ -46,7 +46,7 @@
       "type": "array"
     },
     "sysctls": {
-      "description": "A list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. The name of each item must be unique in the array.",
+      "description": "A list of namespaced sysctls used for the Pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. The `name` of each item must be unique in the array.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.Sysctl"
       },

@@ -73,8 +73,8 @@
       "default": "File",
       "description": "This attribute indicates how the termination message should be populated.\n\n- `\"File\"`: use the contents of `terminationMessagePath` file to populate the container status message on both success and failure.\n- `\"FallbackToLogsOnError\"`: use the last chunk of container log output if the termination message file is empty and the container exited with an error.\n\nThe log output is limited to 2048 bytes or 80 lines, whichever is smaller. Cannot be updated.",
       "enum": [
-        "File",
-        "FallbackToLogsOnError"
+        "FallbackToLogsOnError",
+        "File"
       ],
       "type": "string"
     },

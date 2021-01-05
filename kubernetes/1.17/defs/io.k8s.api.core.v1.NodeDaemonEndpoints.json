@@ -3,8 +3,11 @@
   "properties": {
     "kubeletEndpoint": {
       "$ref": "#/definitions/io.k8s.api.core.v1.DaemonEndpoint",
-      "description": "Endpoint on which Kubelet is listening."
+      "description": "Endpoint on which kubelet is listening."
     }
   },
+  "required": [
+    "kubeletEndpoint"
+  ],
   "type": "object"
 }

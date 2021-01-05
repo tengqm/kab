@@ -1,14 +1,18 @@
 {
-  "description": "EventSource contains information for an event.",
+  "description": "EventSource contains information for an Event.",
   "properties": {
     "component": {
-      "description": "Component from which the event is generated.",
+      "description": "Component from which the Event is generated.",
       "type": "string"
     },
     "host": {
-      "description": "Node name on which the event is generated.",
+      "description": "Node name on which the Event is generated.",
       "type": "string"
     }
   },
+  "required": [
+    "component",
+    "host"
+  ],
   "type": "object"
 }

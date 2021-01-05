@@ -1,21 +1,22 @@
 {
-  "description": "The security configuration that is applied to a container. Some fields are present in both securityContext and podSecurityContext. When both are set, the values in securityContext take precedence.",
+  "description": "The security configuration for the container. Some fields are present in both `securityContext` of the container and the `securityContext` of the enclosing Pod. When both are set, the values in container's `securityContext` take precedence.",
   "properties": {
     "allowPrivilegeEscalation": {
-      "description": "AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. allowPrivilegeEscalation is always true when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN. If `privileged` is set to True, this cannot be False.",
+      "description": "This controls whether a process can gain more privileges than its parent process. This bool directly controls if the `no_new_privs` flag will be set on the container process. `allowPrivilegeEscalation` is always `true` when the container: 1) runs with as `securityContext.privileged` set to `true`, 2) has `CAP_SYS_ADMIN` in its `securityContext.capabilities.add`. If `privileged` is set to `true`, this cannot be `false`.",
       "type": "boolean"
     },
     "capabilities": {
       "$ref": "#/definitions/io.k8s.api.core.v1.Capabilities",
-      "description": "The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime."
+      "description": "The capabilities to add/drop when running the container. Defaults to the default set of capabilities granted by the container runtime."
     },
     "privileged": {
       "default": false,
-      "description": "Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. The cluster policy 'allowPrivileged' must be set to True to allow privileged containers.",
+      "description": "Run the container in privileged mode. Processes in a privileged container are essentially equivalent to `root` on the host. The API server must have `--allow--privileged` flag set to `true` to allow privileged containers.",
       "type": "boolean"
     },
     "procMount": {
-      "description": "procMount denotes the type of proc mount to use for the containers. The default is 'Default', which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.",
+      "default": "Default",
+      "description": "This denotes the type of proc mount to use for the containers. The valid options are:\n\n- `\"Default\"`: use the container runtime defaults for read-only paths and masked paths for `\"/proc\"`. Most container runtimes mask certain paths in `\"/proc\"` to avoid accidental security exposure of special devices or information. This requires the `ProcMountType` feature gate to be enabled.\n- `\"Unmasked\"`: bypass the default masking behavior of the container runtime and ensures the newly created `\"/proc\"` the container stays intact with no modifications.",
       "enum": [
         "Default",
         "Unmasked"
@@ -24,30 +25,32 @@
     },
     "readOnlyRootFilesystem": {
       "default": false,
-      "description": "Whether this container has a read-only root filesystem.",
+      "description": "Whether this container has a read-only root filesystem. This allows a container to restrict the locations that an application can write files to, ensuring the persistent data can only be written to mounted volumes.",
       "type": "boolean"
     },
     "runAsGroup": {
-      "description": "The group ID (GID) to run the entry point of the container process. Uses runtime default if unset. May also be set in PodSecurityContext. The value must be within the scope of a 32-bit non-negative integer.",
-      "format": "int64",
+      "description": "The group ID (GID) to run the entry point of the container process. Uses runtime default if unset. May also be set in the `securityContext` of the enclosing Pod. The value must be within the scope of a 32-bit non-negative integer.",
+      "format": "int32",
+      "minimum": 0,
       "type": "integer"
     },
     "runAsNonRoot": {
-      "description": "Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.",
+      "description": "Indicates that the container **MUST** run as a non-root user. If `true`, the kubelet will validate the image at runtime to ensure that it does not run as UID `0` (`root`). It will fail to start the container if it does. If unset or `false`, no such validation will be performed. May also be set in the `securityContext` of the enclosing Pod.",
       "type": "boolean"
     },
     "runAsUser": {
-      "description": "The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext. The value must be within the scope of a 32-bit non-negative integer.",
-      "format": "int64",
+      "description": "The user ID (UID) to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in the `securityContext` of the enclosing Pod. The value must be within the scope of a 32-bit non-negative integer.",
+      "format": "int32",
+      "minimum": 0,
       "type": "integer"
     },
     "seLinuxOptions": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SELinuxOptions",
-      "description": "The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext."
+      "description": "The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in the `securityContext` of the enclosing Pod."
     },
     "windowsOptions": {
       "$ref": "#/definitions/io.k8s.api.core.v1.WindowsSecurityContextOptions",
-      "description": "Windows security options."
+      "description": "The Windows specific settings to apply to the container. If unspecified, the options from the `securityContext` of the enclosing Pod will be used."
     }
   },
   "type": "object"

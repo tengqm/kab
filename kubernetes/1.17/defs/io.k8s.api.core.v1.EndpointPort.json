@@ -2,7 +2,7 @@
   "description": "An object that describes a single port.",
   "properties": {
     "name": {
-      "description": "The name of this port. This must match the `name` field in the corresponding Service port. Must be a valid DNS-1123 label. Optional only if one port is defined, otherwise it is required.",
+      "description": "The name of this port. This must match the `name` field in the corresponding Service port. Must be a valid DNS-1123 label. Optional only if one `port` is defined, otherwise it is required.",
       "type": "string"
     },
     "port": {
@@ -14,7 +14,7 @@
     },
     "protocol": {
       "default": "TCP",
-      "description": "The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.",
+      "description": "The IP protocol for this port.",
       "enum": [
         "SCTP",
         "TCP",

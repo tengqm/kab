@@ -1,5 +1,5 @@
 {
-  "description": "Condition information for a node.",
+  "description": "Condition information for a Node.\n\n**Note**: Currently, there are not enough information to decide node condition. In the future, some new conditions may get added. The proposed condition types are: `\"NodeReady\"`, `\"NodeLive\"`, `\"NodeReachable\"`, `\"NodeSchedulable\"`, `\"NodeRunnable\"`.",
   "properties": {
     "lastHeartbeatTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -14,7 +14,7 @@
       "type": "string"
     },
     "reason": {
-      "description": "(brief) reason for the condition's last transition.",
+      "description": "A (brief) reason for the condition's last transition.",
       "type": "string"
     },
     "status": {
@@ -32,15 +32,16 @@
         "Ready",
         "MemoryPressure",
         "DiskPressure",
-        "NetworkUnavailable"
+        "NetworkUnavailable",
+        "PIDPressure"
       ],
       "minLength": 1,
       "type": "string"
     }
   },
   "required": [
-    "type",
-    "status"
+    "status",
+    "type"
   ],
   "type": "object"
 }

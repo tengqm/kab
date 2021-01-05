@@ -1,8 +1,8 @@
 {
-  "description": "The node this Taint is attached to has the 'effect' on any pod that does not tolerate the Taint.",
+  "description": "The node this Taint is attached to has the `effect` on any Pod that does not tolerate the Taint.",
   "properties": {
     "effect": {
-      "description": "The effect of the taint on pods that do not tolerate the taint. Valid effects are `NoSchedule`, `PreferNoSchedule` and `NoExecute`.",
+      "description": "The effect of the taint on Pods that do not tolerate the taint.",
       "enum": [
         "NoExecute",
         "NoSchedule",
@@ -11,24 +11,23 @@
       "type": "string"
     },
     "key": {
-      "description": "The taint key to be applied to a node.",
+      "description": "The taint key to be applied to a node. The string must be a qualified name. It must consist of alphanumeric characters, `'-'`, `'_'`, or `'.'` and must start and end with an alphanumeric character. The prefix, if exists, must be a valid DNS subdomain name. The name part may have at most 63 characters.",
       "minLength": 1,
       "type": "string"
     },
     "timeAdded": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
-      "description": "The time at which the taint was added. It is only written for `NoExecute` taints."
+      "description": "The time at which the taint was added. It is only written for `\"NoExecute\"` taints."
     },
     "value": {
-      "description": "The taint value corresponding to the taint key.",
-      "minLength": 1,
+      "description": "The taint value corresponding to the taint key. The value must be an empty string or consists of alphanumeric characters, `'-'`, `'_'` or `'.'`, and it must start and end with an alphanumeric character.",
+      "maxLength": 63,
       "type": "string"
     }
   },
   "required": [
-    "key",
     "effect",
-    "value"
+    "key"
   ],
   "type": "object"
 }

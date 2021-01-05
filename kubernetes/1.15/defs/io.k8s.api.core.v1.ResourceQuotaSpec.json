@@ -5,22 +5,22 @@
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "The set of desired hard limits for each named resource. The resource name must be a standard resource type or fully qualified name. All quantity values must be non-negative. For integer resources, the value cannot contain milli-value.",
+      "description": "The set of desired hard limits for each named resource. The resource name must be a standard quota resources or fully qualified name. All quantity values must be non-negative. For integer resources, the value cannot contain milli-value. The standard quota resources are `\"cpu\"`, `\"memory\"`, `\"ephemeral-storage\"`, `\"requests.cpu\"`, `\"requests.memory\"`, `\"requests.storage\"`, `\"requests.ephemeral-storage\"`, `\"limits.cpu\"`, `\"limits.memory\"`, `\"limits.ephemeral-storage\"`, `\"pods\"`, `\"resourcequotas\"`, `\"services\"`, `\"replicationcontrollers\"`, `\"secrets\"`, `\"persistentvolumeclaims\"`, `\"configmaps\"`, `\"services.nodeports\"`, `\"services.loadbalancers\"`.",
       "type": "object"
     },
     "scopeSelector": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ScopeSelector",
-      "description": "A collection of filters like scopes for matching objects tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified) must match."
+      "description": "A collection of filters like `scopes` for matching objects tracked by a quota but expressed using scope selectors operator in combination with possible values. For a resource to match, both `scopes` AND `scopeSelector` (if specified) must match."
     },
     "scopes": {
-      "description": "A collection of filters that for matching objects tracked by a quota. An empty list matches all objects. For a resource to match, both scopes AND scopeSelector (if specified) must match. For standard resources, when scopes contain Terminating, NotTerminating, NotBestEffort or PriorityClass, the resource in hard can be one of 'cpu', 'memory', 'limits.cpu', 'limits.memory', 'requests.cpu', 'requests.memory' or 'pods'. When scopes contain BestEffort, the resource name in hard can only be 'pods'. 'Terminating' conflicts with 'NonTerminating' and 'BestEffort' conflicts with 'NotBestEffort'. This field is immutable so cannot be updated.",
+      "description": "A collection of filters that for matching objects tracked by a quota. An empty list matches all objects. For a resource to match, both `scopes` AND `scopeSelector` (if specified) must match. For standard resources, when `scopes` contain `\"Terminating\"`, `\"NotTerminating\"`, `\"NotBestEffort\"` or `\"PriorityClass\"`, the resource in `hard` can be one of `\"cpu\"`, `\"memory\"`, `\"limits.cpu\"`, `\"limits.memory\"`, `\"requests.cpu\"`, `\"requests.memory\"` or `\"pods\"`. When `scopes` contain `\"BestEffort\"`, the resource name in `hard` can only be `\"pods\"`. `\"Terminating\"` conflicts with `\"NonTerminating\"` and `\"BestEffort\"` conflicts with `\"NotBestEffort\"`. This field is immutable so cannot be updated.",
       "items": {
         "enum": [
-          "Terminating",
-          "NotTerminating",
           "BestEffort",
           "NotBestEffort",
-          "PriorityClass"
+          "NotTerminating",
+          "PriorityClass",
+          "Terminating"
         ],
         "type": "string"
       },

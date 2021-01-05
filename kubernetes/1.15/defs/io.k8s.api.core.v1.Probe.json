@@ -1,5 +1,5 @@
 {
-  "description": "A health check to be performed against a container to determine whether it is alive or ready to receive traffic.",
+  "description": "A health check to be performed against a container to determine whether it is alive or ready to receive traffic. One and only one of the `exec`, `httpGet` and `tcpSocket` action can be specified.",
   "properties": {
     "exec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ExecAction",
@@ -14,7 +14,7 @@
     },
     "httpGet": {
       "$ref": "#/definitions/io.k8s.api.core.v1.HTTPGetAction",
-      "description": "This specifies the HTTP GET request to perform."
+      "description": "This specifies the HTTP request to perform."
     },
     "initialDelaySeconds": {
       "description": "Number of seconds after the container has started before liveness probes are initiated.",
@@ -38,7 +38,7 @@
     },
     "tcpSocket": {
       "$ref": "#/definitions/io.k8s.api.core.v1.TCPSocketAction",
-      "description": "TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported"
+      "description": "This specifies an action involving a TCP port. TCP hooks not yet supported"
     },
     "timeoutSeconds": {
       "default": 1,

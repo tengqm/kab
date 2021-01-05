@@ -17,7 +17,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata. The name must be a valid DNS subdomain name."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuotaSpec",
@@ -25,13 +25,14 @@
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuotaStatus",
-      "description": "Status defines the actual enforced quota and its current usage."
+      "description": "The actual enforced quota and its current usage."
     }
   },
   "required": [
     "apiVersion",
     "kind",
-    "metadata"
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
