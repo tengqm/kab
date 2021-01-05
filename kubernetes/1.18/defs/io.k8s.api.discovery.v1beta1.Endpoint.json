@@ -16,7 +16,7 @@
       "description": "Information about the current status of the Endpoint."
     },
     "hostname": {
-      "description": "The hostname of this Endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same `hostname` should be considered fungible (e.g. multiple A values in DNS). Must be a valid DNS label (RFC 1123).",
+      "description": "The hostname of this Endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same `hostname` should be considered fungible (e.g. multiple A values in DNS). The value must be lowercase and a valid DNS label when specified.",
       "type": "string"
     },
     "targetRef": {
@@ -27,7 +27,7 @@
       "additionalProperties": {
         "type": "string"
       },
-      "description": "Arbitrary topology information associated with the endpoint. These key/value pairs must conform with the [label format](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels). Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys:\n\n- \"`kubernetes.io/hostname`\": the hostname of the node where the endpoint is located. This should match the corresponding node label.\n- \"`topology.kubernetes.io/zone`\": the zone where the endpoint is located. This should match the corresponding node label.\n- \"`topology.kubernetes.io/region`\": the region where the endpoint is located. This should match the corresponding node label.\n",
+      "description": "Arbitrary topology information associated with the endpoint. These key/value pairs must conform with the [label format](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/). Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys:\n\n- `\"kubernetes.io/hostname\"`: the hostname of the Node where the endpoint is located. This should match the corresponding label on the Node.\n- `\"topology.kubernetes.io/zone\"`: the zone where the endpoint is located. This should match the corresponding label on the Node.\n- `\"topology.kubernetes.io/region\"`: the region where the endpoint is located. This should match the corresponding label on the Node.\n\nThis field is *DEPRECATED* and will be removed in future API versions.",
       "type": "object"
     }
   },

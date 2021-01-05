@@ -1,5 +1,5 @@
 {
-  "description": "A list of endpoint slices",
+  "description": "A list of EndpointSlice objects",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "List of endpoint slices",
+      "description": "A list of EndpointSlice objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
       },
@@ -30,8 +30,9 @@
   },
   "required": [
     "apiVersion",
+    "items",
     "kind",
-    "items"
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
