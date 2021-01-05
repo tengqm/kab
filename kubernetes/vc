@@ -1,0 +1,27 @@
+#!/bin/bash
+
+cp 1.20/defs/$1 1.19/defs
+
+if [ "$2" \< "1.19" ]; then 
+  cp 1.20/defs/$1 1.18/defs
+fi
+
+if [ "$2" \< "1.18" ]; then 
+  cp 1.20/defs/$1 1.17/defs
+fi
+
+if [ "$2" \< "1.17" ]; then 
+  cp 1.20/defs/$1 1.16/defs
+fi
+
+if [ "$2" \< "1.16" ]; then 
+  cp 1.20/defs/$1 1.15/defs
+fi
+
+if [ "$2" \< "1.15" ]; then 
+  cp 1.20/defs/$1 1.14/defs
+fi
+
+if [ "$2" \< "1.14" ]; then 
+  cp 1.20/defs/$1 1.13/defs
+fi
