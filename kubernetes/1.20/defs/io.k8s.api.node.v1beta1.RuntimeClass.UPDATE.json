@@ -26,7 +26,7 @@
     },
     "overhead": {
       "$ref": "#/definitions/io.k8s.api.node.v1beta1.Overhead",
-      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field is Alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the `PodOverhead` feature."
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field is Beta-level since v1.18, and is only honored by servers that enable the `PodOverhead` feature gate."
     },
     "scheduling": {
       "$ref": "#/definitions/io.k8s.api.node.v1beta1.Scheduling",
@@ -36,7 +36,8 @@
   "required": [
     "apiVersion",
     "handler",
-    "kind"
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
