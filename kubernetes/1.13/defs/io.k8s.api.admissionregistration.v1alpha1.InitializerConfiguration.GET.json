@@ -1,5 +1,5 @@
 {
-  "description": "InitializerConfiguration describes the configuration of initializers.",
+  "description": "InitializerConfiguration describes the configuration of Initializers.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "initializers": {
-      "description": "A list of resources and their default initializers. The list is order sensitive. When merging multiple InitializerConfigurations, we sort the initializers from different InitializerConfigurations by the name of the InitializerConfigurations; the order of the initializers from the same InitializerConfiguration is preserved.",
+      "description": "A list of resources and their default Initializers. The list is order sensitive. When merging multiple InitializerConfigurations, we sort the Initializers from different InitializerConfigurations by the name of the InitializerConfigurations; the order of the Initializers from the same InitializerConfiguration is preserved.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.Initializer"
       },
@@ -31,7 +31,9 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "initializers",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

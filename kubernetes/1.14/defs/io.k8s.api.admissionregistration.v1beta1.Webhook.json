@@ -5,7 +5,7 @@
       "default": [
         "v1beta1"
       ],
-      "description": "An ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.",
+      "description": "An ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the `failurePolicy`.",
       "items": {
         "type": "string"
       },
@@ -13,11 +13,11 @@
     },
     "clientConfig": {
       "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.WebhookClientConfig",
-      "description": "Definition about how to communicate with the webhook."
+      "description": "Information for communicating with the webhook."
     },
     "failurePolicy": {
       "default": "Ignore",
-      "description": "Definition about how to handle unrecognized errors from the admission endpoint",
+      "description": "How to handle unrecognized errors from the admission endpoint",
       "enum": [
         "Fail",
         "Ignore"
@@ -25,7 +25,7 @@
       "type": "string"
     },
     "name": {
-      "description": "The name of the admission webhook. Name should be fully qualified, e.g., '`imagepolicy.kubernetes.io`', where '`imagepolicy`' is the name of the webhook, and '`kubernetes.io`' is the name of the organization.",
+      "description": "The name of the admission webhook. Name should be fully qualified, e.g., `\"imagepolicy.kubernetes.io\"`, where `\"imagepolicy\"` is the name of the webhook, and `\"kubernetes.io\"` is the name of the organization.",
       "minLength": 1,
       "type": "string"
     },
@@ -34,7 +34,7 @@
       "description": "A selector for deciding whether to run the webhook on an object based on its namespace matching. If the object itself is a Namespace, the matching is performed on `object.metadata.labels`. If the object is another cluster-scoped resource, it never skips the webhook. Default to the empty label selector, which matches everything."
     },
     "rules": {
-      "description": "This describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ `rule`. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.",
+      "description": "This describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches **any** `rule`. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.RuleWithOperations"
       },
@@ -42,7 +42,7 @@
     },
     "sideEffects": {
       "default": "Unknown",
-      "description": "Whether this webhook has any side effects. Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the `dryRun` attribute will be auto-rejected if they match a webhook with `sideEffects` of '`Unknown`' or '`Some`'.",
+      "description": "Whether this webhook has any side effects. Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the `dryRun` attribute will be auto-rejected if they match a webhook with `sideEffects` of `\"Unknown\"` or `\"Some\"`.",
       "enum": [
         "None",
         "NoneOnDryRun",
@@ -53,7 +53,7 @@
     },
     "timeoutSeconds": {
       "default": 30,
-      "description": "The timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.",
+      "description": "The timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the `failurePolicy`.",
       "format": "int32",
       "maximum": 30,
       "minimum": 1,
@@ -61,8 +61,8 @@
     }
   },
   "required": [
-    "name",
-    "clientConfig"
+    "clientConfig",
+    "name"
   ],
   "type": "object"
 }

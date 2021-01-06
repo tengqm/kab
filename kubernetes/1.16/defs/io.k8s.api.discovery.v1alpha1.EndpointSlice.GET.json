@@ -1,5 +1,5 @@
 {
-  "description": "EndpointSlice represents a subset of the endpoints that implement a Service. For a given Service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of Endpoints.",
+  "description": "EndpointSlice represents a subset of the endpoints that implement a Service. For a given Service there may be multiple EndpointSlice objects, selected by `labels`, which must be joined to produce the full set of Endpoints.",
   "properties": {
     "addressType": {
       "default": "IP",
@@ -34,10 +34,10 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata. The name must be a valid DNS subdomain."
     },
     "ports": {
-      "description": "The list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates 'all ports'.",
+      "description": "The list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When `ports` is empty, it indicates that there are no defined ports. When a port is defined with a `nil` port value, it indicates 'all ports'.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.discovery.v1alpha1.EndpointPort"
       },
@@ -50,7 +50,9 @@
     "addressType",
     "apiVersion",
     "endpoints",
-    "kind"
+    "kind",
+    "metadata",
+    "ports"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

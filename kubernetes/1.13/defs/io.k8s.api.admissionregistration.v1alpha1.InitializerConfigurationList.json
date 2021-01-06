@@ -1,5 +1,5 @@
 {
-  "description": "A collection of InitializerConfiguration.",
+  "description": "A list of InitializerConfiguration objects.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "List of InitializerConfiguration objects.",
+      "description": "A list of InitializerConfiguration objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.InitializerConfiguration.GET"
       },
@@ -28,9 +28,10 @@
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
