@@ -2,7 +2,7 @@
   "description": "The configuration of how audit events are logged",
   "properties": {
     "level": {
-      "description": "The Level that all requests are recorded at.",
+      "description": "The level that all requests are recorded at.",
       "enum": [
         "Metadata",
         "None",
@@ -16,10 +16,10 @@
       "description": "A list of stages for which events are created.",
       "items": {
         "enum": [
+          "Panic",
           "RequestReceived",
-          "ResponseStarted",
           "ResponseComplete",
-          "Panic"
+          "ResponseStarted"
         ],
         "minLength": 1,
         "type": "string"

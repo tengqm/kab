@@ -9,7 +9,7 @@
       "type": "string"
     },
     "items": {
-      "description": "List of AuditSink objects.",
+      "description": "A list of AuditSink objects.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.auditregistration.v1alpha1.AuditSink.GET"
       },
@@ -23,13 +23,15 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
     }
   },
   "required": [
-    "items",
     "apiVersion",
-    "kind"
+    "items",
+    "kind",
+    "metadata"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
