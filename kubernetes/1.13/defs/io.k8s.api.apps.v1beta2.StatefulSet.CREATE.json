@@ -1,5 +1,5 @@
 {
-  "description": "A set of pods with consistent identities. Identities are defined as:\n\n- Network: A single stable DNS and hostname.\n- Storage: As many VolumeClaims as requested.\n\nThe StatefulSet guarantees that a given network identity will always map to the same storage identity.\nDEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet.",
+  "description": "A StatefulSet is a set of Pods with consistent identities. Identities are defined as:\n\n- Network: A single stable DNS and hostname.\n- Storage: As many volume claims as requested.\n\nA StatefulSet guarantees that a given network identity will always map to the same storage identity.\n\n*DEPRECATED* - This group version of StatefulSet is deprecated by `apps/v1` StatefulSet.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -16,11 +16,12 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.apps.v1beta2.StatefulSetSpec.CREATE",
-      "description": "The desired identities of pods in this set."
+      "description": "The desired behavior of this StatefulSet."
     },
     "status": {
       "$ref": "#/definitions/io.k8s.api.apps.v1beta2.StatefulSetStatus",
@@ -29,7 +30,9 @@
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

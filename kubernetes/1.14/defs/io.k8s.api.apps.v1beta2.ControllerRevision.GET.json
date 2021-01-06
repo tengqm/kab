@@ -1,5 +1,5 @@
 {
-  "description": "An immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validating all requests that attempt to mutate the `data` field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers. DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision.",
+  "description": "An immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a `ControllerRevision` has been successfully created, it can not be updated. The API server will fail validating all requests that attempt to mutate the `data` field. A `ControllerRevision` object may be deleted. Note that, due to its use by both the `DaemonSet` and `StatefulSet` controllers for update and rollback, this object is Beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers. *DEPRECATED* - This group version of ControllerRevision is deprecated by `apps/v1` ControllerRevision.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -21,7 +21,7 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "revision": {
       "description": "The revision of the state represented by `data`.",
@@ -31,9 +31,11 @@
     }
   },
   "required": [
-    "revision",
     "apiVersion",
-    "kind"
+    "data",
+    "kind",
+    "metadata",
+    "revision"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

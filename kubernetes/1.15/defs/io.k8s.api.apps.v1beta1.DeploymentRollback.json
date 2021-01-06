@@ -1,5 +1,5 @@
 {
-  "description": "DEPRECATED. DeploymentRollback stores the information required to rollback a deployment.",
+  "description": "*DEPRECATED*. DeploymentRollback stores the information required to rollback a deployment.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -16,19 +16,19 @@
       "type": "string"
     },
     "name": {
-      "description": "This must match the name of a deployment.",
+      "description": "This must match the name of a Deployment.",
       "minLength": 1,
       "type": "string"
     },
     "rollbackTo": {
       "$ref": "#/definitions/io.k8s.api.apps.v1beta1.RollbackConfig",
-      "description": "The config of this deployment rollback."
+      "description": "The config of this Deployment rollback."
     },
     "updatedAnnotations": {
       "additionalProperties": {
         "type": "string"
       },
-      "description": "The annotations to be updated to a deployment",
+      "description": "The annotations to be updated to a Deployment",
       "type": "object"
     }
   },

@@ -3,18 +3,18 @@
   "properties": {
     "minReadySeconds": {
       "default": 0,
-      "description": "Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available.",
+      "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 which means a Pod will be considered available as soon as it is ready.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     },
     "paused": {
-      "description": "Indicates that the Deployment is paused.",
+      "description": "Indicates that the Deployment is paused and will not be processed by the Deployment controller.",
       "type": "boolean"
     },
     "progressDeadlineSeconds": {
       "default": 600,
-      "description": "The maximum time in seconds for a Deployment to make progress before it is considered to be failed. The Deployment controller will continue to process failed Deployments and a condition with a `ProgressDeadlineExceeded` reason will be surfaced in the Deployment Status. Note that progress will not be estimated during the time a Deployment is paused. The value must be greater than the `minReadySeconds`.",
+      "description": "The maximum time in seconds for a Deployment to make progress before it is considered to be failed. The Deployment controller will continue to process failed Deployments and a condition with a `\"ProgressDeadlineExceeded\"` reason will be surfaced in the Deployment `status`. Note that progress will not be estimated during the time a Deployment is paused. The value must be greater than the `minReadySeconds`.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
@@ -35,23 +35,30 @@
     },
     "rollbackTo": {
       "$ref": "#/definitions/io.k8s.api.apps.v1beta1.RollbackConfig",
-      "description": "DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done."
+      "description": "*DEPRECATED*. The config this Deployment is rolling back to. Will be cleared after rollback is done."
     },
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "Label selector for Pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this Deployment. The `matchLabels` and `matchExpressions` cannot be both empty."
+      "description": "Label selector for Pods. Existing ReplicaSets whose Pods are selected by this will be the ones affected by this Deployment. The `matchLabels` and `matchExpressions` cannot be both empty."
     },
     "strategy": {
       "$ref": "#/definitions/io.k8s.api.apps.v1beta1.DeploymentStrategy",
-      "description": "The deployment strategy to use to replace existing pods with new ones.",
+      "description": "The deployment strategy to use when replacing existing Pods with new ones.",
       "x-kubernetes-patch-strategy": "retainKeys"
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
-      "description": "A template describes the pods that will be created."
+      "description": "A template describes the Pods that will be created."
     }
   },
   "required": [
+    "minReadySeconds",
+    "paused",
+    "progressDeadlineSeconds",
+    "replicas",
+    "revisionHistoryLimit",
+    "selector",
+    "strategy",
     "template"
   ],
   "type": "object"

@@ -1,5 +1,5 @@
 {
-  "description": "The configuration of a daemon set. DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet.",
+  "description": "The configuration of a DaemonSet. *DEPRECATED* - This group version of DaemonSet is deprecated by `apps/v1` DaemonSet.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
@@ -17,16 +17,18 @@
     },
     "metadata": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-      "description": "Standard object's metadata."
+      "description": "Standard object metadata"
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.apps.v1beta2.DaemonSetSpec.CREATE",
-      "description": "The desired behavior of this daemon set."
+      "description": "The desired behavior of this DaemonSet."
     }
   },
   "required": [
     "apiVersion",
-    "kind"
+    "kind",
+    "metadata",
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
