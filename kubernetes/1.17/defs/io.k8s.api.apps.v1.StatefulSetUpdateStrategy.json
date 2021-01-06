@@ -7,7 +7,7 @@
     },
     "type": {
       "default": "RollingUpdate",
-      "description": "Type of the update strategy.\n\n- `\"RollingUpdate\"`' means that the update will be applied to all Pods with respect to the StatefulSet ordering constraints. New Pods will be created froom the `updateRevision`.\n- `\"OnDelete\"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSet's spec when they are manually deleted, using the version specified in `currentRevision`.\n",
+      "description": "Type of the update strategy.\n\n- `\"RollingUpdate\"` means that the update will be applied to all Pods with respect to the StatefulSet ordering constraints. New Pods will be created froom the `updateRevision`.\n- `\"OnDelete\"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSet's spec when they are manually deleted, using the version specified in `currentRevision`.\n",
       "enum": [
         "OnDelete",
         "RollingUpdate"

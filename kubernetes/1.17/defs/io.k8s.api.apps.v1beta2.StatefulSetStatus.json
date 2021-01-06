@@ -2,13 +2,13 @@
   "description": "The current state of a StatefulSet.",
   "properties": {
     "collisionCount": {
-      "description": "The count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest controller revision. When updated, this field cannot be decremented.",
+      "description": "The count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest `ControllerRevision`. When updated, this field cannot be decremented.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
     },
     "conditions": {
-      "description": "The latest available observations of a statefulset's current state.",
+      "description": "The latest observations of a StatefulSet's state.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.apps.v1beta2.StatefulSetCondition"
       },
@@ -27,13 +27,13 @@
       "type": "string"
     },
     "observedGeneration": {
-      "description": "The most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.",
+      "description": "The most recent generation observed by the StatefulSet controller. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.",
       "format": "int64",
       "minimum": 0,
       "type": "integer"
     },
     "readyReplicas": {
-      "description": "The number of Pods created by the StatefulSet controller that have a '`Ready`' condition. Cannot be greater than `replicas`.",
+      "description": "The number of Pods created by the StatefulSet controller that have a `\"Ready\"` condition. Cannot be greater than `replicas`.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
