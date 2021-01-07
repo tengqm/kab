@@ -48,6 +48,7 @@ def parse_version(ver):
         return -1, -1
     return int(vs[0]), int(vs[1])
 
+
 def traverse(major, minor0, minor1):
     helpers.init(".")
     result = {}
@@ -133,6 +134,7 @@ def traverse(major, minor0, minor1):
             minor_to -= 1
 
     return result
+
 
 def main():
     global ARGS
