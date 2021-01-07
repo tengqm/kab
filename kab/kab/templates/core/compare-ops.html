@@ -162,7 +162,7 @@
       </div>
     </div>
 
-    <table class="table table-sm table-striped" width="100%">
+    <table class="table" width="100%">
       <tbody>
         {% if "IDENTICAL" in RESULT %}
           <tr class="table-info">
@@ -187,7 +187,7 @@
                       aria-controls="added-{{ A }}"> <i class="fa fw fa-angle-double-down"></i>
                   </a>
                   <div class="collapse" id="added-{{ A }}">
-                    {{ D|safe }} 
+                    {% json_html D %}
                   </div>
                 </li>
               {% endfor %}
@@ -214,7 +214,7 @@
                       aria-controls="removed-{{ R }}"> <i class="fa fw fa-angle-double-down"></i>
                   </a>
                   <div class="collapse" id="removed-{{ R }}">
-                    {{ D|safe }} 
+                    {% json_html D %}
                   </div>
                 </li>
               {% endfor %}
@@ -223,8 +223,8 @@
           </tr>
         {% endif %}
 
-        {% if "PCHANGED" in RESULT %}
-          <tr>
+        {% if "P_CHANGED" in RESULT %}
+          <tr class="table-active">
             <td colspan="2">
               <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
                   aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
@@ -233,19 +233,35 @@
           </tr>
           <tr id="fieldsChanged" class="collapse">
             <td colspan="2" class="py-0">
-              <table class="table table-unstriped">
-                {% for D in RESULT.P_CHANGED %}
-                  {% for K, V in D.items %}
-                    <tr>
-                      <td>
-                        <var>{{ K }}</var>
-                      </td>
-                      <td>
-                        <strong>From:</strong> {{ V.BEFORE }} <strong> To: </strong>{{ V.AFTER }}
-                      </td>
-                    </tr>
-                  {% endfor %}
+              <table class="table table-sm table-hover" width="100%"> <!-- style="table-layout:fixed;" -->
+                <thead>
+                  <tr><th></th><th>From</th><th>To</th></tr>
+                </thead>
+                <tbody>
+                {% for K, V in RESULT.P_CHANGED.items %}
+                  <tr>
+                    <td >
+                      <var>{{ K }}</var>
+                    </td>
+                    <td>
+                      <dl class="row">
+                        {% for K0, V0 in V.BEFORE.items %}
+                          <dt class="col-3">{{ K0 }}</dt>
+                          <dd class="col-9">{{ V0 }}</dd>
+                        {% endfor %}
+                      </dl>
+                    </td>
+                    <td>
+                      <dl class="row">
+                        {% for K0, V0 in V.AFTER.items %}
+                          <dt class="col-3">{{ K0 }}</dt>
+                          <dd class="col-9">{{ V0 }}</dd>
+                        {% endfor %}
+                      </dl>
+                    </td>
+                  </tr>
                 {% endfor %}
+                </tbody>
               </table>
             </td>
           </tr>

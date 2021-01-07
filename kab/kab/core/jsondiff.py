@@ -306,7 +306,7 @@ def compare_ops(apis, opids, root=None):
     for p, v in parameters1.items():
         if p not in parameters2:
             removed = result.get("P_REMOVED", {})
-            removed[p] = jsonutil.json_html(v)
+            removed[p] = v
             result["P_REMOVED"] = removed
         elif parameters1[p] != parameters2[p]:
             changed = result.get("P_CHANGED", {})
@@ -319,7 +319,7 @@ def compare_ops(apis, opids, root=None):
     for p, v in parameters2.items():
         if p not in parameters1:
             added = result.get("P_ADDED", {})
-            added[p] = jsonutil.json_html(v)
+            added[p] = v
             result["P_ADDED"] = added
 
     return result

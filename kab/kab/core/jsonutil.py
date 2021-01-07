@@ -1,11 +1,7 @@
 import json
 import logging
-import yaml
 
 from django.conf import settings
-import pygments
-from pygments import formatters
-from pygments import lexers
 
 LOG = logging.getLogger(__name__)
 
@@ -71,21 +67,3 @@ def load_json(fn, apiv=None, recursive=True, root=None):
             new_v = v
         result[k] = new_v
     return result
-
-
-def json_html(data):
-    if not data:
-        return ""
-
-    if not isinstance(data, str):
-        data = yaml.dump(data, indent=2, default_flow_style=False)
-
-    if data.strip() == "":
-        return ""
-
-    lexer = lexers.YamlLexer()
-    formatter = formatters.HtmlFormatter(style="colorful")
-    return pygments.highlight(data, lexer, formatter)
-
-
-
