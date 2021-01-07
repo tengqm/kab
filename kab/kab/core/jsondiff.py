@@ -2,9 +2,11 @@ import collections
 import copy
 import json
 import logging
+import os
 
 from django.conf import settings
 
+from kab import consts
 from kab.core import helpers
 from kab.core import jsonutil
 
@@ -277,7 +279,7 @@ def compare_ops(apis, opids, root=None):
     }
     """
     if root is None:
-        fmt = settings.DATA_DIR + "/{}/ops/{}.json"
+        fmt = helpers.DATA_PATH + "/{}/ops/{}.json"
     else:
         fmt = root + "/{}/ops/{}.json"
 
@@ -319,5 +321,74 @@ def compare_ops(apis, opids, root=None):
             added = result.get("P_ADDED", {})
             added[p] = jsonutil.json_html(v)
             result["P_ADDED"] = added
+
+    return result
+
+
+def _parse_version(version):
+    """Split version into major and minor"""
+    vs = version.split(".")
+    if len(vs) != 2:
+        return -1, -1
+    return int(vs[0]), int(vs[1])
+
+
+def history(data_type, fname, ver_to, ver_from=None):
+    """Get history of a particular definition or operation.
+
+    :param data_type: "defs" or "ops"
+    :param fname: the base name of the file to compare.
+    :param ver_to: the last version number string.
+    :param ver_from": the first version number string, optional.
+    """
+    if ver_from is None:
+        ver_from = consts.API_VERSIONS[0]
+
+    vmajor0, vminor0 = _parse_version(ver_from)
+    vmajor1, vminor1 = _parse_version(ver_to)
+
+    if (vminor0 == vminor1) and (vmajor0 == vmajor1):
+        LOG.error("the two versions specified cannot be the same")
+        return None
+
+    minor_from = vminor0
+    minor_to = vminor0 + 1
+    key = os.path.splitext(fname)[0]
+    result = {}
+    while True:
+        v0 = str(vmajor0) + "." + str(minor_from)
+        v1 = str(vmajor1) + "." + str(minor_to)
+
+        file0 = os.path.join(helpers.DATA_PATH, v0, data_type, fname)
+        file1 = os.path.join(helpers.DATA_PATH, v1, data_type, fname)
+
+        if not os.path.isfile(file0):
+            if os.path.isfile(file1):
+                result[v1] = {"status": "ADDED"}
+        elif not os.path.isfile(file1):
+            if os.path.isfile(file0):
+                result[v1] = {"status": "DELETED"}
+        else:
+            if data_type == "defs":
+                res = compare([v0, v1], file0, file1)
+
+                # The following is jsonpatch, the difference generated for
+                # description fields is not good. We can improve the
+                # module to generate something similar to JSON Patch format.
+                # j1 = jsonutil.load_json(file0, v0, root=".")
+                # j2 = jsonutil.load_json(file1, v1, root=".")
+                # d = jsonpatch.JsonPatch.from_diff(j1, j2)
+                # res = json.loads(d.to_string())
+            elif data_type == "ops":
+                res = compare_ops([v0, v1], [key])
+
+            if res:
+                result[v1] = {"status": "CHANGED", "changes": res}
+
+        # Done?
+        if minor_to == vminor1:
+            break
+        minor_from += 1
+        minor_to +=1
 
     return result

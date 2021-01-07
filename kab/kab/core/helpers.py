@@ -11,12 +11,15 @@ from kab.core import jsonutil
 
 LOG = logging.getLogger(__name__)
 DATA = None
+DATA_PATH = ""
 
 
 # Configuration Loaders
 def init(data_path):
     global DATA
+    global DATA_PATH
 
+    DATA_PATH = data_path
     DATA = jsonutil.load_json(path.join(data_path, "settings.json"))
     DATA.update(jsonutil.load_json(path.join(data_path, "index.json")))
 
