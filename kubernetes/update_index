@@ -182,7 +182,8 @@ def update_appears_in(apiv, def_id, parent):
         dentry["appearsIn"].setdefault(apiv, [])
         parent_list = dentry["appearsIn"][apiv]
         if parent not in parent_list:
-            dentry["appearsIn"][apiv].append(parent)
+            parent_list.append(parent)
+            dentry["appearsIn"][apiv] = sorted(parent_list)
     else:
         dentry = {
             "appearsIn": {
