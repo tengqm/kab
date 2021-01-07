@@ -1,15 +1,9 @@
 import collections
 import copy
-import difflib
 import json
 import logging
-import yaml
 
 from django.conf import settings
-import markdown
-import pygments
-from pygments import formatters
-from pygments import lexers
 
 from kab.core import helpers
 from kab.core import jsonutil
@@ -106,6 +100,35 @@ class Diff(object):
 
 
 def compare_data(json1, json2):
+    """Return the difference between two JSON.
+
+    The result looks like:
+    {
+      "ADDED": [
+         "foo.bar",
+         "zoo"
+      ],
+      "REMOVED": [
+         "car.path[*].field"
+      ],
+      "DESCRIPTION": {
+          "field.path1": {
+              "BEFORE": "text1",
+              "AFTER": "text2"
+          },
+          "(The resource)": {
+              "BEFORE": "old text",
+              "AFTER": "new text"
+          }
+      },
+      "CHANGED": [
+         "field.path": {
+            "BEFORE": "something",
+            "AFTER": "else"
+         }
+      ]
+    }
+    """
     # first round check removed properties and changed values
     diff1 = Diff(json1, json2, True).difference
     # second round check newly added properties
@@ -144,6 +167,7 @@ def compare_data(json1, json2):
                 }
             }
         else:
+            # handle pseudo jsonpath for object properties and array items
             value = value.replace("properties.", "")
             value = value.replace(".items.", "[*].")
 
@@ -212,7 +236,7 @@ def compare_defs(apis, groups, versions, kinds, root=None):
     return compare(apis, file0, file1, root=root)
 
 
-def populate_parameters(apiv, param_list):
+def _populate_parameters(apiv, param_list):
     param_dict = helpers.parameters(apiv)
 
     data = {}
@@ -232,22 +256,26 @@ def populate_parameters(apiv, param_list):
     return collections.OrderedDict(sorted(data.items()))
 
 
-def json_html(data):
-    if not data:
-        return ""
-
-    if not isinstance(data, str):
-        data = yaml.dump(data, indent=2, default_flow_style=False)
-
-    if data.strip() == "":
-        return ""
-
-    lexer = lexers.YamlLexer()
-    formatter = formatters.HtmlFormatter(style="colorful")
-    return pygments.highlight(data, lexer, formatter)
-
-
 def compare_ops(apis, opids, root=None):
+    """Returns the diff between any two operations.
+
+    The returned result looks like:
+    {
+       /* basic JSON diff for operation definition JSON */
+       "P_ADDED": {
+          "p1": "<HTML formatted text>",
+          "p2": "<HTML formatted desc>"
+        },
+        "P_REMOVED": {
+          "p0": "<HTML formatted text>"
+        },
+        "P_CHANGED": {
+          "p3": {
+            "BEFORE": "raw data",
+            "AFTER": "raw data"
+          }
+    }
+    """
     if root is None:
         fmt = settings.DATA_DIR + "/{}/ops/{}.json"
     else:
@@ -264,19 +292,19 @@ def compare_ops(apis, opids, root=None):
     if json2 is None:
         return None
 
+    # basic JSON diff
     params1 = json1.pop("parameters", [])
     params2 = json2.pop("parameters", [])
-
-    parameters1 = populate_parameters(apis[0], params1)
-    parameters2 = populate_parameters(apis[-1], params2)
-
-    # basic JSON diff
     result = compare_data(json1, json2)
+
+    # handle the parameters
+    parameters1 = _populate_parameters(apis[0], params1)
+    parameters2 = _populate_parameters(apis[-1], params2)
 
     for p, v in parameters1.items():
         if p not in parameters2:
             removed = result.get("P_REMOVED", {})
-            removed[p] = json_html(v)
+            removed[p] = jsonutil.json_html(v)
             result["P_REMOVED"] = removed
         elif parameters1[p] != parameters2[p]:
             changed = result.get("P_CHANGED", {})
@@ -289,37 +317,7 @@ def compare_ops(apis, opids, root=None):
     for p, v in parameters2.items():
         if p not in parameters1:
             added = result.get("P_ADDED", {})
-            added[p] = json_html(v)
+            added[p] = jsonutil.json_html(v)
             result["P_ADDED"] = added
 
-    LOG.info("Diff: %s", json.dumps(result, indent=2))
     return result
-
-
-def compare_text(text1, text2):
-    """Compare two markdown texts and return the diff as annotated HTML."""
-    d1 = markdown.markdown(text1, extensions=["extra"])
-    d2 = markdown.markdown(text2, extensions=["extra"])
-    if d1.startswith("<p>") and d1.endswith("</p>"):
-        d1 = d1[3:-4]
-    if d2.startswith("<p>") and d2.endswith("</p>"):
-        d2 = d2[3:-4]
-
-    sm = difflib.SequenceMatcher(lambda x: x == " ", d1, d2)
-
-    output = []
-    for opcode, a0, a1, b0, b1 in sm.get_opcodes():
-        if opcode == 'equal':
-            output.append(sm.a[a0:a1])
-        elif opcode == 'insert':
-            output.append("<ins>" + sm.b[b0:b1] + "</ins>")
-        elif opcode == 'delete':
-            output.append("<del>" + sm.a[a0:a1] + "</del>")
-        elif opcode == 'replace':
-            output.append("<ins>" + sm.b[b0:b1] + "</ins>" +
-                          "<del>" + sm.a[a0:a1] + "</del>")
-        else:
-            LOG.error("Unknown opcode")
-
-    res = ''.join(output)
-    return res
