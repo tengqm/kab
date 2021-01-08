@@ -1,6 +1,5 @@
 import collections
 import copy
-import json
 import logging
 import os
 
@@ -333,16 +332,18 @@ def _parse_version(version):
     return int(vs[0]), int(vs[1])
 
 
-def history(data_type, fname, ver_to, ver_from=None):
+def history(data_type, fname, ver_to=None, ver_from=None):
     """Get history of a particular definition or operation.
 
     :param data_type: "defs" or "ops"
     :param fname: the base name of the file to compare.
-    :param ver_to: the last version number string.
+    :param ver_to: the last version number string, optional.
     :param ver_from": the first version number string, optional.
     """
     if ver_from is None:
         ver_from = consts.API_VERSIONS[0]
+    if ver_to is None:
+        ver_to = consts.API_VERSIONS[-1]
 
     vmajor0, vminor0 = _parse_version(ver_from)
     vmajor1, vminor1 = _parse_version(ver_to)
@@ -389,6 +390,6 @@ def history(data_type, fname, ver_to, ver_from=None):
         if minor_to == vminor1:
             break
         minor_from += 1
-        minor_to +=1
+        minor_to += 1
 
     return result

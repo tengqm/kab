@@ -344,3 +344,11 @@ def sort(value):
     elif isinstance(value, list):
         return sorted(value)
     return value
+
+
+@register.simple_tag()
+def rich_diff(v1, v2):
+    t1 = markdown_html(v1)
+    t2 = markdown_html(v2)
+    d = helpers.compare_text(t1, t2)
+    return safestring.mark_safe(d)

@@ -100,7 +100,6 @@ class ListDefinitions(generic.View):
         gname = req.GET.get("group")
 
         result = {}
-        last_name = ""
         for item in helpers.definitions(apiv):
             if item["group"] != "":
                 gv = item["group"] + "." + item["version"]
@@ -212,6 +211,38 @@ class ViewDefinition(generic.View):
             template = 'core/view-definition.html'
         else:
             template = 'core/definition.html'
+
+        return shortcuts.render(req, template, ctx)
+
+
+class DefinitionHistory(generic.View):
+    """Generic view to display a definition"""
+
+    def get(self, req, *args, **kwargs):
+        group = kwargs.pop('group')
+        version = kwargs.pop('version')
+        name = kwargs.pop('name')
+
+        fn = helpers.get_definition_name(group, version, name)
+        result = jsondiff.history("defs", fn)
+
+        if not result:
+            # definition is not found
+            ctx = {
+                "TYPE": "Definition",
+                "GROUP": group,
+                "VERSION": version,
+                "NAME": name,
+            }
+            return shortcuts.render(req, 'notfound.html', ctx)
+
+        ctx = {
+            "GROUP": group,
+            "VERSION": version,
+            "NAME": name,
+            "DIFFDATA": result,
+        }
+        template = 'core/def-history.html'
 
         return shortcuts.render(req, template, ctx)
 

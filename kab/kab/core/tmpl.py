@@ -52,18 +52,18 @@ def _process_ref(parent, prop, v, api):
     if target.startswith("#/definitions/"):
         target = target[14:]
     grp, ver, name, display = helpers.parse_definition_id(target)
-
+    tmpl = "<samp>{}</samp>: &lt;<code>{}</code>&gt;"
     # This is to break the circles
     if prop != "openAPIV3Schema" and name == "JSONSchemaProps":
         new_node = {
-            "text": "<samp>" + prop + "</samp>: " + "{<code>" + display + "</code>}",
+            "text": tmpl.format(prop, display),
             "children": []
         }
         parent["children"].append(new_node)
         return
 
     new_node = {
-        "text": "<samp>" + prop + "</samp>: " + "{<code>" + display + "</code>}",
+        "text": tmpl.format(prop, display),
         "a_attr": {
             "href": "/".join([api, grp, ver, name]),
         },

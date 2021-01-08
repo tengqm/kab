@@ -1,14 +1,16 @@
-<table class="table table-sm table-striped" width="100%">
+{% load core_tags %}
+
+<table class="table table-borderless table-sm mb-0" width="100%">
   <tbody>
     {% if "ADDED" in RESULT %}
-      <tr class="table-info">
+      <tr class="table-success">
         <td colspan="2">
-          <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
-             aria-controls="fieldsAdded"><i class="far fa-plus-square"></i></a>
+          <a data-toggle="collapse" href="#fields-added-{{ APIV|slugify }}" aria-expanded="false"
+              aria-controls="fields-added-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
           Fields Added <span class="badge badge-info">{{ RESULT.ADDED|length }}</span>
         </td>
       </tr>
-      <tr class="collapse" id="fieldsAdded">
+      <tr class="collapse" id="fields-added-{{ APIV|slugify }}">
         <td>
           <ul>
           {% for A in RESULT.ADDED %}
@@ -20,34 +22,34 @@
     {% endif %}
 
     {% if "REMOVED" in RESULT %}
-      <tr class="table-warning">
+      <tr class="table-danger">
         <td colspan="2">
-          <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
-              aria-controls="fieldsRemoved"><i class="far fa-plus-square"></i></a>
+          <a data-toggle="collapse" href="#fields-removed-{{ APIV|slugify }}" aria-expanded="false"
+              aria-controls="fields-removed-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
           </a>
           Fields Removed <span class="badge badge-danger">{{ RESULT.REMOVED|length }}</span>
         </td>
       </tr>
-      <tr class="collapse" id="fieldsRemoved">
+      <tr class="collapse" id="fields-removed-{{ APIV|slugify }}">
         <td colspan="2">
           <ul>
-          {% for R in RESULT.REMOVED %}
-            <li><var>{{ R }}</var></li>
-          {% endfor %}
+            {% for R in RESULT.REMOVED %}
+              <li><var>{{ R }}</var></li>
+            {% endfor %}
           </ul>
         </td>
       </tr>
     {% endif %}
 
     {% if "CHANGED" in RESULT %}
-      <tr>
+      <tr class="table-info">
         <td colspan="2">
-          <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
-              aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
+          <a data-toggle="collapse" href="#fields-changed-{{ APIV|slugify }}" aria-expanded="false"
+              aria-controls="fields-changed-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
           Fields Changed <span class="badge badge-info">{{ RESULT.CHANGED|length }}</span>
         </td>
       </tr>
-      <tr id="fieldsChanged" class="collapse">
+      <tr id="fields-changed-{{ APIV|slugify }}" class="collapse">
         <td colspan="2" class="py-0">
           <table class="table table-unstriped">
             {% for D in RESULT.CHANGED %}
@@ -69,27 +71,29 @@
     {% endif %}
 
     {% if "DESCRIPTION" in RESULT %}
-      <tr>
+      <tr class="table-info">
         <td colspan="2">
-          <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
-              aria-controls="descChanges"><i class="far fa-plus-square"></i></a>
+          <a data-toggle="collapse" href="#desc-changes-{{ APIV|slugify }}" aria-expanded="false"
+              aria-controls="desc-changes-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
           Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
         </td>
       </tr>
-      <tr class="collapse" id="descChanges">
+      <tr id="desc-changes-{{ APIV|slugify }}" class="collapse">
         <td colspan="2">
-          <table>
+          <table class="table-striped mb-0">
             <tbody>
-          {% for D in RESULT.DESCRIPTION %}
-            {% for K, V in D.items %}
-              <tr>
-                <td><var>{{ K }}</var></td>
-                <td>{{ V|safe }}</td>
-              </tr>
-            {% endfor %}
-          {% endfor %}
+              {% for D in RESULT.DESCRIPTION %}
+                {% for K, V in D.items %}
+                  <tr>
+                    <td colspan="2"><var>{{ K }}</var></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td><td>{% rich_diff V.BEFORE V.AFTER %}</td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
             </tbody>
-          <table>
+          </table>
         </td>
       </tr>
     {% endif %}

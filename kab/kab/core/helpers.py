@@ -288,8 +288,7 @@ def definition_appears_in(apiv, defn):
     return sorted(data, key=lambda r: r["name"])
 
 
-def get_definition(api_version, group, version, defn, recursive=False):
-    # def_name is too short, need full path
+def get_definition_name(group, version, defn):
     if defn == "Info":
         fn = "io.k8s.apimachinery.pkg.version.Info"
     elif defn == "IntOrString":
@@ -301,8 +300,14 @@ def get_definition(api_version, group, version, defn, recursive=False):
     else:
         gpath = group_path(group)
         fn = gpath + "." + version + "." + defn
-    fpath = path.join("data", api_version, "defs", fn + ".json")
-    return jsonutil.load_json(fpath, api_version, recursive)
+    return fn + ".json"
+
+
+def get_definition(apiv, group, version, defn, recursive=False):
+    # def_name is too short, need full path
+    fn = get_definition_name(group, version, defn)
+    fpath = path.join("data", apiv, "defs", fn)
+    return jsonutil.load_json(fpath, apiv, recursive)
 
 
 def resources(apiv, group_version):
@@ -371,7 +376,6 @@ def operations(api_version, group_version):
 
         opd = collections.OrderedDict(sorted(opdict.items()))
         data[op["group_version"]] = opd
-            
 
     return collections.OrderedDict(sorted(data.items()))
 
