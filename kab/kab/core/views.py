@@ -165,6 +165,8 @@ class ViewDefinition(generic.View):
                 found = True
             elif v["group"] == group and v["version"] == version:
                 found = True
+            elif v["group"] == "" and v["version"] == "version":
+                found = True
             else:
                 vlist.append(v)
 
@@ -260,7 +262,7 @@ class ViewOperation(generic.View):
             "API": apiv,
             "OP": op["spec"],
             "GROUP_NAME": gv_list[0],
-            "GROUP_VERSION": gv_list[1],
+            "GROUP_VERSION": "*" if len(gv_list) == 1 else gv_list[1],
             'PATH': [p for p in params if p['in'] == 'path'],
             'QUERY': [p for p in params if p['in'] == 'query'],
             'BODY': [p for p in params if p['in'] == 'body'],
