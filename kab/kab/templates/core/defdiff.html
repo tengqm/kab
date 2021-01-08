@@ -1,113 +1,98 @@
-    <table class="table table-sm table-striped" width="100%">
-      <tbody>
-        {% if "ADDED" in RESULT %}
-          <tr class="table-info">
-            <td colspan="2">
-              <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
-                 aria-controls="fieldsAdded">Fields Added
-                <span class="badge badge-info">
-                    {{ RESULT.ADDED|length }}
-                </span>
-              </a>
-            </td>
-          </tr>
-          <tr class="collapse" id="fieldsAdded">
-            <td>
-              <ul>
-              {% for A in RESULT.ADDED %}
-                <li><var>{{ A }}</var></li>
-              {% endfor %}
-              </ul>
-            </td>
-          </tr>
-        {% endif %}
+<table class="table table-sm table-striped" width="100%">
+  <tbody>
+    {% if "ADDED" in RESULT %}
+      <tr class="table-info">
+        <td colspan="2">
+          <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
+             aria-controls="fieldsAdded"><i class="far fa-plus-square"></i></a>
+          Fields Added <span class="badge badge-info">{{ RESULT.ADDED|length }}</span>
+        </td>
+      </tr>
+      <tr class="collapse" id="fieldsAdded">
+        <td>
+          <ul>
+          {% for A in RESULT.ADDED %}
+            <li><var>{{ A }}</var></li>
+          {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    {% endif %}
 
-        {% if "REMOVED" in RESULT %}
-          <tr class="table-warning">
-            <td colspan="2">
-              <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
-                 aria-controls="fieldsRemoved">Fields Removed
-                <span class="badge badge-danger">
-                  {{ RESULT.REMOVED|length }}
-                </span>
-              </a>
-            </td>
-          </tr>
-          <tr class="collapse" id="fieldsRemoved">
-            <td colspan="2">
-              <ul>
-              {% for R in RESULT.REMOVED %}
-                <li><var>{{ R }}</var></li>
-              {% endfor %}
-              </ul>
-            </td>
-          </tr>
-        {% endif %}
+    {% if "REMOVED" in RESULT %}
+      <tr class="table-warning">
+        <td colspan="2">
+          <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
+              aria-controls="fieldsRemoved"><i class="far fa-plus-square"></i></a>
+          </a>
+          Fields Removed <span class="badge badge-danger">{{ RESULT.REMOVED|length }}</span>
+        </td>
+      </tr>
+      <tr class="collapse" id="fieldsRemoved">
+        <td colspan="2">
+          <ul>
+          {% for R in RESULT.REMOVED %}
+            <li><var>{{ R }}</var></li>
+          {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    {% endif %}
 
-        {% if "CHANGED" in RESULT %}
-          <tr>
-            <td colspan="2">Fields Changed
-              <span class="badge badge-info">
-                  {{ RESULT.CHANGED|length }}
-              </span>
-            </td>
-          </tr>
-          {% for D in RESULT.CHANGED %}
+    {% if "CHANGED" in RESULT %}
+      <tr>
+        <td colspan="2">
+          <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
+              aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
+          Fields Changed <span class="badge badge-info">{{ RESULT.CHANGED|length }}</span>
+        </td>
+      </tr>
+      <tr id="fieldsChanged" class="collapse">
+        <td colspan="2" class="py-0">
+          <table class="table table-unstriped">
+            {% for D in RESULT.CHANGED %}
+              {% for K, V in D.items %}
+                <tr>
+                  <td>
+                    <var>{{ K }}</var>
+                  </td>
+                  <td>
+                    <strong>From:</strong> <var>{{ V.BEFORE }}</var>
+                    <strong> To: </strong> <var>{{ V.AFTER }}</var>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endfor %}
+          </table>
+        </td>
+      </tr>
+    {% endif %}
+
+    {% if "DESCRIPTION" in RESULT %}
+      <tr>
+        <td colspan="2">
+          <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
+              aria-controls="descChanges"><i class="far fa-plus-square"></i></a>
+          Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
+        </td>
+      </tr>
+      <tr class="collapse" id="descChanges">
+        <td colspan="2">
+          <table>
+            <tbody>
+          {% for D in RESULT.DESCRIPTION %}
             {% for K, V in D.items %}
               <tr>
-                <td>
-                  <var>
-                    {{ K }}
-                  </var>
-                </td>
-                <td>
-                  <p><strong>From:</strong></p>{{ V.BEFORE }} <BR/>
-                  <p><strong>To:</strong></p>{{ V.AFTER }}
-                </td>
+                <td><var>{{ K }}</var></td>
+                <td>{{ V|safe }}</td>
               </tr>
             {% endfor %}
           {% endfor %}
-        {% endif %}
+            </tbody>
+          <table>
+        </td>
+      </tr>
+    {% endif %}
 
-        {% if "DESCRIPTION" in RESULT %}
-          <tr>
-            <td colspan="2">
-              <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
-                  aria-controls="descChanges"> Description Changes
-                <span class="badge badge-info">
-                  {{ RESULT.DESCRIPTION|length }}
-                </span>
-              </a>
-            </td>
-          </tr>
-          <tr class="collapse" id="descChanges">
-            <td colspan="2">
-              <table>
-                <tbody>
-              {% for D in RESULT.DESCRIPTION %}
-                {% for K, V in D.items %}
-                  <tr>
-                    <td>
-                      <var>
-                        {{ K }}
-                      </var>
-                    </td>
-                    <td>
-                      {{ V|safe }}
-                      {% comment %}
-                      <p><strong>From:</strong></p>{{ V.BEFORE }} <BR/>
-                      <p><strong>To:</strong></p>{{ V.AFTER }}
-                      {% endcomment %}
-                    </td>
-                  </tr>
-                {% endfor %}
-              {% endfor %}
-                </tbody>
-              <table>
-            </td>
-          </tr>
-        {% endif %}
-
-      </tbody>
-    </table>
-
+  </tbody>
+</table>

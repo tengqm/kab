@@ -308,7 +308,7 @@ class CompareDefinitions(generic.View):
         for r in result.get("DESCRIPTION", []):
             obj = {}
             for k, v in r.items():
-                obj[k] = jsondiff.compare_text(v["BEFORE"], v["AFTER"])
+                obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"])
             desc.append(obj)
         if len(desc) > 0:
             result["DESCRIPTION"] = desc
@@ -367,7 +367,7 @@ class CompareOperations(generic.View):
         for r in result.get("DESCRIPTION", []):
             obj = {}
             for k, v in r.items():
-                obj[k] = jsondiff.compare_text(v["BEFORE"], v["AFTER"])
+                obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"])
             desc.append(obj)
         if len(desc) > 0:
             result["DESCRIPTION"] = desc
