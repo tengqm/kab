@@ -4,6 +4,11 @@
 
 {% block title %}
   <title>Operation: {{ API }} - {{ OP.operationId }}</title>
+<style>
+p {
+    margin-bottom: 0.3rem !important;
+}
+</style>
 {% endblock %}
 
 {% block main_content %}
@@ -66,11 +71,11 @@
     </div>
   </div>
 
-  <dl class="row">
+  <dl class="row mb-0">
     {# Description #}
     <dt class="col-md-2 col-sm-3">Description:
     </dt>
-    <dd class="col-md-10 col-sm-9" style="word-break:break-word;">
+    <dd class="col-md-10 col-sm-9 condense" style="word-break:break-word;">
       {% if OP.description %}
         {% markdown_html OP.description %}
       {% else %}
