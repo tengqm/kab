@@ -8,14 +8,63 @@
 
 {% block main_content %}
 
-  <!-- nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"></a></li>
-      <li class="breadcrumb-item">{{ API }}</li>
-      <li class="breadcrumb-item"><a href='{% url "list-operations" API 'all' %}'>Operations</a></li>
-      <li class="breadcrumb-item active">{{ OP.operationId }}</li>
-    </ol>
-  </nav -->
+  <div class="btn-toolbar pb-3 bg-light" role="toolbar" aria-label="OperationToolbar"
+      style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
+
+    <!-- Switch to -->
+    <div class="btn-group-toggle mr-2" data-toggle="buttons">
+      <a id="btnSwitchTo" type="button" class="btn btn-outline-secondary"
+          data-toggle="collapse" data-target="#divSwitchTo" aria-haspopup="true" aria-expanded="false">
+        <i data-toggle="tooltip" title="Switch to another version of this operation"
+          class="fas fa-fw fa-code-branch"></i>
+      </a>
+    </div>
+
+    <!-- Compare -->
+    <div class="btn-group-toggle mr-2" data-toggle="buttons">
+      <a id="btnCompare" type="button" class="btn btn-outline-secondary"
+          data-toggle="collapse" data-target="#divCompare" aria-haspopup="true" aria-expanded="false">
+        <i data-toggle="tooltip" title="Compare to another version of this operation"
+          class="fas fa-fw fa-exchange-alt" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <!-- History -->
+    <a id="btnHistory" class="btn btn-outline-secondary mr-2" type="button"
+        href="{% url 'definition-history' GROUP VERSION NAME %}">
+      <i data-toggle="tooltip" title="View history of the operation"
+        class="fas fa-fw fa-history"></i>
+    </a>
+  </div>
+
+  {# div for switch #}
+  <div id="divSwitchTo" class="collapse px-1 bg-light" aria-labelledby="btnSwitchTo"
+    style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
+    <div class="row px-2" z-index="3">
+      <p class="col-12 my-2 px-1">Switch to another version of this definition:</p>
+      {% for AV in VERSIONS%}
+        <a class="btn btn-secondary btn-sm mx-1 my-1" role="button"
+          href="{% url 'view-operation' AV OP.operationId %}">
+          {{ AV }}</a>
+      {% empty %}
+        <a class="disabled" href="#">No other version found!</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="divCompare" class="collapse px-1 bg-light" aria-labelledby="btnCompare"
+    style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
+    <div class="row px-2">
+      <p class="col-12 my-2 px-1">Choose another version of this definition for comparison:</p>
+      {% for AV in VERSIONS %}
+        <a class="btn btn-secondary btn-sm mx-1 my-1" role="button" href="#"
+            onclick="compareOp('{{ AV }}')">{{ AV }}</a>
+        </a>
+      {% empty %}
+        <a class="disabled" href="#">No other version found!</a>
+      {% endfor %}
+    </div>
+  </div>
 
   <dl class="row">
     {# Description #}
@@ -29,37 +78,6 @@
       {% endif %}
     </dd>
   </dl>
-
-  {# other versions #}
-  <div class="row px-3" style="font-weight: 700;">Other Versions:</div>
-  {% if not VERSIONS %}
-    <div id="versions" class="row px-3 ml-2">None</div>
-  {% else %}
-    <div id="versions" class="row px-3 ml-2">
-      <div id="versionList" class="collapse col-12 p-0">
-        <div class="row col-12">
-          {% for AV in VERSIONS %}
-            <div class="input-group input-group-sm col-lg-2 col-md-3 col-sm-4 col-6 px-2 mb-2">
-              <input type="text" class="form-control" value="{{ AV }}" readonly />
-              <div class="input-group-append">
-                <a class="btn btn-outline-secondary"
-                   href="{% url 'view-operation' AV OP.operationId %}"><i class="fa fa-eye"></i></a>
-                <a class="btn btn-outline-secondary" href="#" onclick="compareOp('{{ AV }}')" >
-                  <i class="fa fa-exchange-alt"></i>
-                </a>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div id="expandVersions" class="col-12 text-right">
-        <button id="btnExpandVersions" type="button" class="btn btn-light btn-sm collapsed"
-            data-toggle="collapse" data-target="#versionList"
-            aria-expanded="false" aria-controls="versionList">
-        </button>
-      </div>
-    </div>
-  {% endif %} <!-- othere versions -->
 
   <dl class="row">
     <dt class="col-md-2 col-sm-3">Verb:
