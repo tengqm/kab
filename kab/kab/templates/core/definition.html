@@ -53,8 +53,8 @@
     <div id="tbl-properties" class="row px-3 ml-2">
       <table class="table table-sm table-striped" width="100%">
         <colgroup>
-          <col style="min-width: max-content; width: 30%;" />
-          <col style="word-break: break-word;"/>
+          <col style="min-width: max-content; width: 20%;" />
+          <col style="word-break: break-word; width: 100%;"/>
         </colgroup>
         <thead>
           <tr class="table-active"r>
@@ -70,7 +70,7 @@
                 {% elif "Beta" in DATA.description|lower %}class="table-warning"
                 {% elif "Alpha" in DATA.description|lower %}class="table-warning"
                 {% endif %}>
-              <td style="word-break:break-word;">
+              <td>
                 <var>
                   {{ PNAME }}{% if PNAME in DEFINITION.required %}<span style="color:red;">*</span>{% endif %}
                 </var>

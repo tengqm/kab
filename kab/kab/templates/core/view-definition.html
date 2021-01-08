@@ -15,9 +15,8 @@
 
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <button id="btnTree" class="btn btn-outline-primary" type="button" href="#" data-toggle="collapse"
-          data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false"
-          aria-label="Toggle navigation">
-         <i class="fas fa-fw fa-project-diagram"></i>
+          data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false">
+         <i data-toggle="tooltip" title="Toggle navigation tree" class="fas fa-fw fa-project-diagram"></i>
       </button>
     </div>
 
@@ -25,7 +24,7 @@
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnSwitchTo" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divSwitchTo" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-fw fa-eye"></i>
+        <i data-toggle="tooltip" title="Switch to other versions of the Definition" class="fas fa-fw fa-eye"></i>
       </a>
     </div>
 
@@ -33,22 +32,23 @@
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnCompare" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divCompare" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-fw fa-equals" aria-hidden="true"></i>
+        <i data-toggle="tooltip" title="Compare to other versions of the definition (resource"
+          class="fas fa-fw fa-equals" aria-hidden="true"></i>
       </a>
     </div>
 
     <!-- History -->
-    <a id="btnHistory" class="btn btn-outline-info" type="button"
-        data-toggle="tooltip" title="View history of the definition (resource)"
+    <a id="btnHistory" class="btn btn-outline-secondary mr-2" type="button"
         href="{% url 'definition-history' GROUP VERSION NAME %}">
-      <i class="fas fa-fw fa-history"></i>
+      <i data-toggle="tooltip" title="View history of the definition (resource)"
+        class="fas fa-fw fa-history"></i>
     </a>
 
     <!-- try -->
     <a id="btnTry" class="btn btn-outline-info" type="button"
-        data-toggle="tooltip" title="View definition in YAML code editor"
         href="{% url 'try-resource' API GROUP VERSION NAME %}">
-      <i class="fas fa-fw fa-code"></i>
+      <i data-toggle="tooltip" title="View definition in YAML code editor"
+        class="fas fa-fw fa-code"></i>
     </a>
   </div>
 
