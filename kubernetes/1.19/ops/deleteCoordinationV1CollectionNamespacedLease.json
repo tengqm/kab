@@ -6,9 +6,6 @@
   "operationId": "deleteCoordinationV1CollectionNamespacedLease",
   "parameters": [
     {
-      "$ref": "#/parameters/allowWatchBookmarks"
-    },
-    {
       "in": "body",
       "name": "body",
       "schema": {
@@ -43,10 +40,10 @@
       "$ref": "#/parameters/resourceVersion"
     },
     {
-      "$ref": "#/parameters/timeoutSeconds"
+      "$ref": "#/parameters/resourceVersionMatch"
     },
     {
-      "$ref": "#/parameters/watch"
+      "$ref": "#/parameters/timeoutSeconds"
     },
     {
       "$ref": "#/parameters/namespace"
