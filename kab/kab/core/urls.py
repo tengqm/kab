@@ -34,6 +34,10 @@ urlpatterns = [
              views.DefinitionHistory.as_view(),
              name='definition-history'),
 
+    urls.url(r"^apis/history/op/(?P<name>[^\/\s]*)/$",
+             views.OperationHistory.as_view(),
+             name='op-history'),
+
     urls.url(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
              views.ViewOperation.as_view(),
              name='view-operation'),

@@ -248,7 +248,7 @@ def _populate_parameters(apiv, param_list):
         pref = p.pop("$ref")
         param_name = pref[13:]
         if param_name not in param_dict:
-            LOG.error("Parameter %s not found!", param_name)
+            LOG.warning("Parameter %s not found!", param_name)
             continue
         item = copy.deepcopy(p)
         item.update(param_dict.get(param_name))

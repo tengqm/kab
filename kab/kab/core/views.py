@@ -250,7 +250,7 @@ class DefinitionHistory(generic.View):
 
 
 class ViewOperation(generic.View):
-    """Generic view to display a definition"""
+    """Generic view to display an operation""" 
 
     def get(self, req, *args, **kwargs):
         apiv = kwargs.pop('api')
@@ -270,6 +270,21 @@ class ViewOperation(generic.View):
             # 'EXTENSIONS': .extensions,
         }
         return shortcuts.render(req, 'core/view-op.html', ctx)
+
+
+class OperationHistory(generic.View):
+    """Generic view to display an operation"""
+
+    def get(self, req, *args, **kwargs):
+        name = kwargs.pop('name')
+
+        result = jsondiff.history("ops", name + ".json")
+        LOG.info(result)
+        ctx = {
+            "NAME": name,
+            "DIFFDATA": result,
+        }
+        return shortcuts.render(req, 'core/op-history.html', ctx)
 
 
 class CompareDefinitions(generic.View):

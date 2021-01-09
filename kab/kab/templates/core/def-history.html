@@ -13,7 +13,7 @@
   <div>
     {% for APIV, DIFFITEM in DIFFDATA.items %}
       <div class="card">
-        <div class="card-header" id="heading-{{ APIV|slugify }}">
+        <div class="card-header p-2" id="heading-{{ APIV|slugify }}">
           <h3 class="mb-0">
             <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                 data-target="#collapse-{{ APIV|slugify }}" aria-controls="collapse-{{ APIV|slugify }}"
@@ -24,7 +24,7 @@
         </div> <!-- card-header -->
 
         <div id="collapse-{{ APIV|slugify }}" class="collapse" aria-labelledby="heading-{{ APIV|slugify }}">
-          <div class="card-body">
+          <div class="card-body p-2">
             {% if DIFFITEM.status == "ADDED" %}
               <P>Added in this version.</P>
             {% elif DIFFITEM.status == "DELETED" %}

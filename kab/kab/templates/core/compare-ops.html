@@ -148,6 +148,7 @@
         <i class="fa fa-chevron-circle-down"></i>
       </button>
     </h4>
+
     <div class="row my-3 alert alert-secondary">
       <div class="col text-right">
         <var>{{ OP1 }}</var> 
@@ -158,149 +159,19 @@
       </div>
       <div class="col text-left">
         <var>{{ OP2 }}</var>
-        in <em> {{ API2 }}</em>
+        in <em>{{ API2 }}</em>
       </div>
     </div>
 
-    <table class="table" width="100%">
-      <tbody>
-        {% if "IDENTICAL" in RESULT %}
-          <tr class="table-info">
-            <td>The two operations are <em>identical</em>!</td>
-          </tr>
-        {% endif %}
-
-        {% if "P_ADDED" in RESULT %}
-          <tr class="table-info">
-            <td colspan="2">
-              <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
-                 aria-controls="fieldsAdded"><i class="far fa-plus-square"></i></a>
-              Parameters Added <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_ADDED|length }}</span>
-            </td>
-          </tr>
-          <tr class="collapse" id="fieldsAdded">
-            <td>
-              <ul>
-              {% for A, D in RESULT.P_ADDED.items %}
-                <li><var>{{ A }}</var>
-                  <a role="button" data-toggle="collapse" data-target="#added-{{ A }}" aria-expanded="false"
-                      aria-controls="added-{{ A }}"> <i class="fa fw fa-angle-double-down"></i>
-                  </a>
-                  <div class="collapse" id="added-{{ A }}">
-                    {% json_html D %}
-                  </div>
-                </li>
-              {% endfor %}
-              </ul>
-            </td>
-          </tr>
-        {% endif %}
-
-        {% if "P_REMOVED" in RESULT %}
-          <tr class="table-warning">
-            <td colspan="2">
-              <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
-                  aria-controls="fieldsRemoved"><i class="far fa-plus-square"></i></a>
-              </a>
-              Parameters Removed <span class="badge badge-danger" style="vertical-align: super;">{{ RESULT.P_REMOVED|length }}</span>
-            </td>
-          </tr>
-          <tr class="collapse" id="fieldsRemoved">
-            <td colspan="2">
-              <ul>
-              {% for R, D in RESULT.P_REMOVED.items %}
-                <li><var>{{ R }}</var>
-                  <a role="button" data-toggle="collapse" data-target="#removed-{{ R }}" aria-expanded="false"
-                      aria-controls="removed-{{ R }}"> <i class="fa fw fa-angle-double-down"></i>
-                  </a>
-                  <div class="collapse" id="removed-{{ R }}">
-                    {% json_html D %}
-                  </div>
-                </li>
-              {% endfor %}
-              </ul>
-            </td>
-          </tr>
-        {% endif %}
-
-        {% if "P_CHANGED" in RESULT %}
-          <tr class="table-active">
-            <td colspan="2">
-              <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
-                  aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
-              Parameters Changed <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_CHANGED|length }}</span>
-            </td>
-          </tr>
-          <tr id="fieldsChanged" class="collapse">
-            <td colspan="2" class="py-0">
-              <table class="table table-sm table-hover" width="100%"> <!-- style="table-layout:fixed;" -->
-                <thead>
-                  <tr><th></th><th>From</th><th>To</th></tr>
-                </thead>
-                <tbody>
-                {% for K, V in RESULT.P_CHANGED.items %}
-                  <tr>
-                    <td >
-                      <var>{{ K }}</var>
-                    </td>
-                    <td>
-                      <dl class="row">
-                        {% for K0, V0 in V.BEFORE.items %}
-                          <dt class="col-3">{{ K0 }}</dt>
-                          <dd class="col-9">{{ V0 }}</dd>
-                        {% endfor %}
-                      </dl>
-                    </td>
-                    <td>
-                      <dl class="row">
-                        {% for K0, V0 in V.AFTER.items %}
-                          <dt class="col-3">{{ K0 }}</dt>
-                          <dd class="col-9">{{ V0 }}</dd>
-                        {% endfor %}
-                      </dl>
-                    </td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        {% endif %}
-
-        {% if "DESCRIPTION" in RESULT %}
-          <tr>
-            <td colspan="2">
-              <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
-                  aria-controls="descChanges"><i class="far fa-plus-square"></i></a>
-              Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
-            </td>
-          </tr>
-          <tr class="collapse" id="descChanges">
-            <td colspan="2">
-              <table>
-                <tbody>
-              {% for D in RESULT.DESCRIPTION %}
-                {% for K, V in D.items %}
-                  <tr>
-                    <td>
-                      <var>
-                        {{ K }}
-                      </var>
-                    </td>
-                    <td>
-                      {% markdown_html V %}
-                    </td>
-                  </tr>
-                {% endfor %}
-              {% endfor %}
-                </tbody>
-              <table>
-            </td>
-          </tr>
-        {% endif %}
-
-      </tbody>
-    </table>
+    {% if "IDENTICAL" in RESULT %}
+      <table class="table" width="100%">
+        <tr class="table-info">
+          <td>The two operations are <em>identical</em>!</td>
+        </tr>
+      </table>
+    {% else %}
+      {% include "core/op-diff.html" %}
+    {% endif %}
 
   {% endif %}
 
