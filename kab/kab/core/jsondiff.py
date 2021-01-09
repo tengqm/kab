@@ -130,6 +130,7 @@ def compare_data(json1, json2):
       ]
     }
     """
+
     # first round check removed properties and changed values
     diff1 = Diff(json1, json2, True).difference
     # second round check newly added properties
@@ -202,7 +203,8 @@ def compare(apis, file1, file2, root=None):
     return compare_data(json1, json2)
 
 
-def compare_defs(apis, groups, versions, kinds, root=None):
+def _definition_filename(api, group, version, kind, root=None):
+
     if root is None:
         if settings.configured:
             fmt = settings.DATA_DIR + "/{}/defs/{}.json"
@@ -210,34 +212,31 @@ def compare_defs(apis, groups, versions, kinds, root=None):
             fmt = "data/{}/defs/{}.json"
     else:
         fmt = root + "/{}/defs/{}.json"
-    if kinds[0] == "Info":
-        fn0 = "io.k8s.apimachinery.pkg.version.Info"
-    elif kinds[0] == "IntOrString":
-        fn0 = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
-    elif kinds[0] == "RawExtension":
-        fn0 = "io.k8s.apimachinery.pkg.runtime.RawExtension"
-    elif kinds[0] == "Quantity":
-        fn0 = "io.k8s.apimachinery.pkg.api.resource.Quantity"
-    else:
-        fn0 = ".".join([groups[0], versions[0], kinds[0]])
-    file0 = fmt.format(apis[0], fn0)
 
-    if kinds[-1] == "Info":
-        fn1 = "io.k8s.apimachinery.pkg.version.Info"
-    elif kinds[-1] == "IntOrString":
-        fn1 = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
-    elif kinds[-1] == "RawExtension":
-        fn1 = "io.k8s.apimachinery.pkg.runtime.RawExtension"
-    elif kinds[-1] == "Quantity":
-        fn1 = "io.k8s.apimachinery.pkg.api.resource.Quantity"
+    if kind == "Info":
+        fn = "io.k8s.apimachinery.pkg.version.Info"
+    elif kind == "IntOrString":
+        fn = "io.k8s.apimachinery.pkg.util.intstr.IntOrString"
+    elif kind == "RawExtension":
+        fn = "io.k8s.apimachinery.pkg.runtime.RawExtension"
+    elif kind == "Quantity":
+        fn = "io.k8s.apimachinery.pkg.api.resource.Quantity"
     else:
-        fn1 = ".".join([groups[-1], versions[-1], kinds[-1]])
-    file1 = fmt.format(apis[-1], fn1)
+        fn = ".".join([group, version, kind])
+
+    return fmt.format(api, fn)
+
+
+def compare_defs(apis, groups, versions, kinds, root=None):
+
+    file0 = _definition_filename(apis[0], groups[0], versions[0], kinds[0])
+    file1 = _definition_filename(apis[-1], groups[-1], versions[-1], kinds[-1])
 
     return compare(apis, file0, file1, root=root)
 
 
 def _populate_parameters(apiv, param_list):
+
     param_dict = helpers.parameters(apiv)
 
     data = {}
@@ -277,6 +276,7 @@ def compare_ops(apis, opids, root=None):
           }
     }
     """
+
     if root is None:
         fmt = helpers.DATA_PATH + "/{}/ops/{}.json"
     else:
@@ -326,6 +326,7 @@ def compare_ops(apis, opids, root=None):
 
 def _parse_version(version):
     """Split version into major and minor"""
+
     vs = version.split(".")
     if len(vs) != 2:
         return -1, -1
@@ -340,6 +341,7 @@ def history(data_type, fname, ver_to=None, ver_from=None):
     :param ver_to: the last version number string, optional.
     :param ver_from": the first version number string, optional.
     """
+
     if ver_from is None:
         ver_from = consts.API_VERSIONS[0]
     if ver_to is None:
