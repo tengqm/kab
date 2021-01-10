@@ -1,24 +1,13 @@
 {
-  "description": "create a PodDisruptionBudget",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "policy_v1beta1"
-  ],
+  "description": "create a PodDisruptionBudget",
   "operationId": "createPolicyV1beta1NamespacedPodDisruptionBudget",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudget.CREATE"
@@ -28,14 +17,17 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
-    },
-    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -60,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "policy_v1beta1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodDisruptionBudget",
     "version": "v1beta1"
-  },
-  "verb": "post",
-  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets"
+  }
 }

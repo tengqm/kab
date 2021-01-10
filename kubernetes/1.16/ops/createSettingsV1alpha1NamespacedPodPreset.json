@@ -1,24 +1,13 @@
 {
-  "description": "create a PodPreset",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "settings_v1alpha1"
-  ],
+  "description": "create a PodPreset",
   "operationId": "createSettingsV1alpha1NamespacedPodPreset",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.settings.v1alpha1.PodPreset.CREATE"
@@ -28,14 +17,17 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/includeUninitialized"
-    },
-    {
       "$ref": "#/parameters/namespace"
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -60,12 +52,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "settings_v1alpha1"
+  ],
+  "verb": "post",
   "x-kubernetes-action": "post",
   "x-kubernetes-group-version-kind": {
     "group": "settings.k8s.io",
     "kind": "PodPreset",
     "version": "v1alpha1"
-  },
-  "verb": "post",
-  "path": "/apis/settings.k8s.io/v1alpha1/namespaces/{namespace}/podpresets"
+  }
 }
