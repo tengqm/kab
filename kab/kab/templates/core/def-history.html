@@ -38,6 +38,11 @@
           </div>  <!-- card-body -->
         </div>  <!-- colllapse-apiv -->
       </div> <!-- card -->
+
+    {% empty %}
+      <div class="alert alert-success" role="alert">
+        The definition has not changed between the version {{ START_API }} and {{ END_API }}.
+      </div>
     {% endfor %}
   </div> <!-- accordion -->
 

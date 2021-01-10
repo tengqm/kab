@@ -15,6 +15,7 @@ from django import urls
 from django.views import generic
 import markdown
 
+from kab import consts
 from kab.core import helpers
 from kab.core import jsondiff
 from kab.core import tmpl
@@ -228,8 +229,8 @@ class DefinitionHistory(generic.View):
         fn = helpers.get_definition_name(group, version, name)
         result = jsondiff.history("defs", fn)
 
-        if not result:
-            # definition is not found
+        if result is None:
+            # definition is not found or identical
             ctx = {
                 "TYPE": "Definition",
                 "GROUP": group,
@@ -243,6 +244,8 @@ class DefinitionHistory(generic.View):
             "VERSION": version,
             "NAME": name,
             "DIFFDATA": result,
+            "START_API": consts.API_VERSIONS[0],
+            "END_API": consts.API_VERSIONS[-1],
         }
         template = 'core/def-history.html'
 
@@ -283,6 +286,8 @@ class OperationHistory(generic.View):
         ctx = {
             "NAME": name,
             "DIFFDATA": result,
+            "START_API": consts.API_VERSIONS[0],
+            "END_API": consts.API_VERSIONS[-1],
         }
         return shortcuts.render(req, 'core/op-history.html', ctx)
 
