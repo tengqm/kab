@@ -17,11 +17,13 @@ With the API, you can:
 ## The OpenAPI Specification
 
 The official API specification is generated in the
-[OpenAPI V2](https://www.openapis.org/) format from the Go source code.
+<a href="https://www.openapis.org/" target="_blank">OpenAPI V2</a>
+format from the Go source code.
 
 ## Invocation
 
 You can use the <kbd>kubectl</kbd> command line interface to invoke the API
 and you can use other tools as well. There are
-[client libraries](https://kubernetes.io/docs/reference/using-api/client-libraries)
+<a href="https://kubernetes.io/docs/reference/using-api/client-libraries"
+target="_blank">client libraries</a>
 to use if you are writing applications to invoke the API.

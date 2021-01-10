@@ -17,6 +17,10 @@ There are several API groups in Kubernetes:
 - The named groups are at REST path `/apis/$GROUP_NAME/$VERSION` and use
   `apiVersion: $GROUP_NAME/$VERSION` (for example, `apiVersion: batch/v1`).
 
+Kubernetes reserves the use of empty group name (`""`), single word group
+names (e.g. `"apps"`) and group names ending with `".k8s.io"`. A group name
+must be lower case and be valid DNS subdomains.
+
 ### Discovery of API Groups
 
 API groups along with their supported versions can be discovered at the API path

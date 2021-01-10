@@ -1,12 +1,12 @@
 ## Resource
 
-Most API resources are objects.  A small number of types of resources are
+Most API resources are *object*s.  A small number of types of resources are
 "virtual" concepts. They represent operations rather than objects, such as a
 permission check.  All objects have a unique name to allow idempotent
 creation, but virtual resources may not have unique names if they are not
 retrievable or do not rely on idempotency.
 
-API resources are distinguished by their API group, resource kind, namespace
+API resources are distinguished by their API group, resource type, namespace
 (for namespaced resources), and name. The API server may serve the same
 underlying data through multiple API versions and handle the conversion
 between API versions transparently. All these different versions are actually
@@ -25,9 +25,11 @@ namespace scope.
 
 ### Resource Types
 
-A *resource type* is the name used in the API path, e.g. `pods`,
-`namespaces`. All resource types have a concrete schema which is
-called a *kind*.
+A *resource type* is the name used in the API path. It is usually lower-cased
+plural noun. For example, `pods`, `namespaces`, and `services`.
+
+All resource types have a concrete schema defined in JSON which is called a
+*kind*.
 
 A list of instances of a resource type is known as a *collection*.
 A single instance of the resource type is called a *resource*.
