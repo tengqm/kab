@@ -124,7 +124,7 @@ class ListDefinitions(generic.View):
             "GROUP": gname,
             "DEFINITIONS": collections.OrderedDict(sorted(result.items())),
         }
-        return shortcuts.render(req, 'core/definition-list.html', ctx)
+        return shortcuts.render(req, 'core/def-list.html', ctx)
 
 
 class ListOperations(generic.View):
@@ -140,7 +140,7 @@ class ListOperations(generic.View):
             "API": apiv,
             "OPS": operations,
         }
-        return shortcuts.render(req, 'core/operation-list.html', ctx)
+        return shortcuts.render(req, 'core/op-list.html', ctx)
 
 
 class ViewDefinition(generic.View):
@@ -211,9 +211,9 @@ class ViewDefinition(generic.View):
             "JSON": navdata,
         }
         if partial is None:
-            template = 'core/view-definition.html'
+            template = 'core/def-view.html'
         else:
-            template = 'core/definition.html'
+            template = 'core/def-details.html'
 
         return shortcuts.render(req, template, ctx)
 
@@ -272,7 +272,7 @@ class ViewOperation(generic.View):
             "VERSIONS": op["other_versions"],
             # 'EXTENSIONS': .extensions,
         }
-        return shortcuts.render(req, 'core/view-op.html', ctx)
+        return shortcuts.render(req, 'core/op-view.html', ctx)
 
 
 class OperationHistory(generic.View):

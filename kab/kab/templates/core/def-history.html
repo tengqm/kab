@@ -32,7 +32,7 @@
             {% elif DIFFITEM.status == "CHANGED" %}
               {# The RESULT is rendered in the included template #}
               {% with DIFFITEM.changes as RESULT %}
-                {% include "core/defdiff.html" %}
+                {% include "core/def-diff.html" %}
               {% endwith %}
             {% endif %}
           </div>  <!-- card-body -->
