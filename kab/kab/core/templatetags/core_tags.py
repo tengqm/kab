@@ -166,7 +166,7 @@ def json_html(json_data):
 @register.simple_tag()
 def markdown_html(mddoc):
     try:
-        html = markdown.markdown(mddoc, extensions=["extra"])
+        html = markdown.markdown(str(mddoc), extensions=["extra"])
         return safestring.mark_safe(html)
     except Exception as ex:
         LOG.exception(ex)
@@ -348,7 +348,15 @@ def sort(value):
 
 @register.simple_tag()
 def rich_diff(v1, v2):
-    t1 = markdown_html(v1)
-    t2 = markdown_html(v2)
+    LOG.info(str(v1))
+    LOG.info(str(v2))
+    t1 = markdown_html(str(v1))
+    t2 = markdown_html(str(v2))
     d = helpers.compare_text(t1, t2)
     return safestring.mark_safe(d)
+
+
+@register.filter(is_safe=True)
+def member(value, member):
+    """Style adjustments"""
+    return value.get(member, "")

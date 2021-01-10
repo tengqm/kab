@@ -14,29 +14,25 @@
     {% for APIV, DIFFITEM in DIFFDATA.items %}
       <div class="card">
         <div class="card-header p-2" id="heading-{{ APIV|slugify }}">
-          <h3 class="mb-0">
-            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                data-target="#collapse-{{ APIV|slugify }}" aria-controls="collapse-{{ APIV|slugify }}"
-                aria-expanded="true">
-              {{ APIV }}
-            </button>
-          </h3>
-        </div> <!-- card-header -->
+          <h5 class="mb-0">{{ APIV }}</h5>
+        </div>
 
-        <div id="collapse-{{ APIV|slugify }}" class="collapse" aria-labelledby="heading-{{ APIV|slugify }}">
-          <div class="card-body p-2">
-            {% if DIFFITEM.status == "ADDED" %}
-              <P>Added in this version.</P>
-            {% elif DIFFITEM.status == "DELETED" %}
-              <P>Removed in this version.</P>
-            {% elif DIFFITEM.status == "CHANGED" %}
-              {# The RESULT is rendered in the included template #}
-              {% with DIFFITEM.changes as RESULT %}
-                {% include "core/def-diff.html" %}
-              {% endwith %}
-            {% endif %}
-          </div>  <!-- card-body -->
-        </div>  <!-- colllapse-apiv -->
+        <div class="card-body p-2">
+          {% if DIFFITEM.status == "ADDED" %}
+            <div class="alert alert-success" role="alert">
+              Added in this version.
+            </div>
+          {% elif DIFFITEM.status == "DELETED" %}
+            <div class="alert alert-danger" role="alert">
+              Removed in this version.
+            </div>
+          {% elif DIFFITEM.status == "CHANGED" %}
+            {# The RESULT is rendered in the included template #}
+            {% with DIFFITEM.changes as RESULT %}
+              {% include "core/def-diff.html" %}
+            {% endwith %}
+          {% endif %}
+        </div>  <!-- card-body -->
       </div> <!-- card -->
 
     {% empty %}

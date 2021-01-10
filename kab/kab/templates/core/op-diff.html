@@ -14,12 +14,15 @@
         <td class="p-0">
           <ul>
           {% for A, D in RESULT.P_ADDED.items %}
-            <li><var>{{ A }}</var>
+            <li class="py-1"><var>{{ A }}</var>
               <a role="button" data-toggle="collapse" data-target="#added-{{ A }}" aria-expanded="false"
-                  aria-controls="added-{{ A }}"> <i class="fa fw fa-angle-double-down"></i>
+                  aria-controls="added-{{ A }}"> <i class="fa fw fa-chevron-circle-down"></i>
               </a>
-              <div class="collapse" id="added-{{ A }}">
-                {% json_html D %}
+              <div class="collapse row ml-2" id="added-{{ A }}">
+                {% for PK, PV in D.items %}
+                  <div class="col-lg-2 col-md-3 col-sm-4"><B>{{ PK }}:</B></div>
+                  <div class="col-lg-10 col-md-9 col-sm-8">{% markdown_html PV %}</div>
+                {% endfor %}
               </div>
             </li>
           {% endfor %}
@@ -30,7 +33,7 @@
 
     {% if "P_REMOVED" in RESULT %}
       <tr class="table-warning">
-        <td colspan="2">
+        <td>
           <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
               aria-controls="fieldsRemoved"><i class="far fa-plus-square"></i></a>
           </a>
@@ -38,15 +41,18 @@
         </td>
       </tr>
       <tr class="collapse" id="fieldsRemoved">
-        <td class="p-0" colspan="2">
+        <td class="p-0">
           <ul>
           {% for R, D in RESULT.P_REMOVED.items %}
-            <li><var>{{ R }}</var>
+            <li class="py-1"><var>{{ R }}</var>
               <a role="button" data-toggle="collapse" data-target="#removed-{{ R }}" aria-expanded="false"
-                  aria-controls="removed-{{ R }}"> <i class="fa fw fa-angle-double-down"></i>
+                  aria-controls="removed-{{ R }}"> <i class="fa fw fa-chevron-circle-down"></i>
               </a>
-              <div class="collapse" id="removed-{{ R }}">
-                {% json_html D %}
+              <div class="collapse row ml-2" id="removed-{{ R }}">
+                {% for PK, PV in D.items %}
+                  <div class="col-lg-2 col-md-3 col-sm-4"><B>{{ PK }}:</B></div>
+                  <div class="col-lg-10 col-md-9 col-sm-8">{% markdown_html PV %}</div>
+                {% endfor %}
               </div>
             </li>
           {% endfor %}
@@ -57,7 +63,7 @@
 
     {% if "P_CHANGED" in RESULT %}
       <tr class="table-info">
-        <td colspan="2">
+        <td>
           <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
               aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
           Parameters Changed <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_CHANGED|length }}</span>
@@ -65,35 +71,24 @@
       </tr>
       <tr id="fieldsChanged" class="collapse">
         <td colspan="2" class="p-0">
-          <table class="table table-sm table-hover mb-0" width="100%">
-            <thead>
-              <tr><th></th><th>From</th><th>To</th></tr>
-            </thead>
-            <tbody>
+          <ul>
             {% for K, V in RESULT.P_CHANGED.items %}
-              <tr>
-                <td >
-                  <var>{{ K }}</var>
-                </td>
-                <td>
-                  <dl class="row">
-                    {% for K0, V0 in V.BEFORE.items %}
-                      <dt class="col-3">{{ K0 }}</dt>
-                      <dd class="col-9">{{ V0 }}</dd>
+            <li class="py-1"><var>{{ K }}</var>
+              <a role="button" data-toggle="collapse" data-target="#changed-{{ K }}" aria-expanded="false"
+                  aria-controls="changed-{{ K }}"> <i class="fa fw fa-chevron-circle-down"></i>
+              </a>
+              <div class="collapse row" id="changed-{{ K }}">
+                  <div class="row ml-2">
+                    {% for KD in V.BEFORE.keys %}
+                      {% with V0=V.BEFORE|member:KD V1=V.AFTER|member:KD %}
+                        <div class="col-lg-2 col-md-3 col-sm-4"><B>{{ KD }}:</B></div>
+                        <div class="col-lg-10 col-md-9 col-sm-8">{% rich_diff V0 V1 %}</div>
+                      {% endwith %}
                     {% endfor %}
-                  </dl>
-                </td>
-                <td>
-                  <dl class="row">
-                    {% for K0, V0 in V.AFTER.items %}
-                      <dt class="col-3">{{ K0 }}</dt>
-                      <dd class="col-9">{{ V0 }}</dd>
-                    {% endfor %}
-                  </dl>
+                  </div>
                 </td>
               </tr>
             {% endfor %}
-            </tbody>
           </table>
         </td>
       </tr>
@@ -101,14 +96,14 @@
 
     {% if "CHANGED" in RESULT %}
       <tr class="table-info">
-        <td colspan="2">
+        <td>
           <a data-toggle="collapse" href="#opChanges" aria-expanded="false"
               aria-controls="opChanges"><i class="far fa-plus-square"></i></a>
           Changes <span class="badge badge-info">{{ RESULT.CHANGED |length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="opChanges">
-        <td class="p-0" colspan="2">
+        <td class="p-0">
           <table class="table mb-0">
             <tbody>
           {% for D in RESULT.CHANGED %}
@@ -133,14 +128,14 @@
 
     {% if "DESCRIPTION" in RESULT %}
       <tr class="table-info">
-        <td colspan="2">
+        <td>
           <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
               aria-controls="descChanges"><i class="far fa-plus-square"></i></a>
           Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="descChanges">
-        <td class="p-0" colspan="2">
+        <td class="p-0">
           <table class="table mb-0">
             <tbody>
           {% for D in RESULT.DESCRIPTION %}

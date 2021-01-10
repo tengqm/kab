@@ -309,9 +309,11 @@ def compare_ops(apis, opids, root=None):
             result["P_REMOVED"] = removed
         elif parameters1[p] != parameters2[p]:
             changed = result.get("P_CHANGED", {})
+            items1 = sorted(parameters1[p].items())
+            items2 = sorted(parameters2[p].items())
             changed[p] = {
-                "BEFORE": parameters1[p],
-                "AFTER": parameters2[p]
+                "BEFORE": collections.OrderedDict(sorted(items1)),
+                "AFTER": collections.OrderedDict(sorted(items2)),
             }
             result["P_CHANGED"] = changed
 
