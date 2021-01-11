@@ -13,20 +13,22 @@ have additional restrictions on their names.
 ### DNS Subdomain Names
 
 The name must be able to be used as a DNS subdomain name as defined in
-[RFC 1123](https://tools.ietf.org/html/rfc1123). This means that name must:
+<a href="https://tools.ietf.org/html/rfc1123" target="_blank">RFC 1123</a>.
+This means that name must:
 
 - contain at most 253 characters
-- contain only lowercase alphanumeric characters, '`-`' or '`.`'
+- contain only lowercase alphanumeric characters, `'-'` or `'.'`
 - start with an alphanumeric character
 - end with an alphanumeric character
 
 ### DNS Label Names
 
 The name must follow the DNS label standard as defined in
-[RFC 1123](https://tools.ietf.org/html/rfc1123). The means the name must:
+<a href="https://tools.ietf.org/html/rfc1123" target="_blank">RFC 1123</a>.
+The means the name must:
 
 - contain at most 63 characters
-- contain only lowercase alphanumeric character or '`-`'
+- contain only lowercase alphanumeric character or `'-'`
 - start with an alphanumeric character
 - end with an alphanumeric character
 
@@ -35,3 +37,16 @@ The name must follow the DNS label standard as defined in
 The name must be able to be safely encoded as a path segment. In other words,
 the name may not be "`.`" or "`..`" and the name may not contain '`/`' or
 '`%`'.
+
+### Port Name
+
+An IANA\_SVC\_NAME as defined by
+<a href="https://tools.ietf.org/rfc/rfc6335.txt" target="_blank">RFC6335</a>,
+suitable for naming a port. The requirements are:
+
+- contain at most 15 characters
+- contain only lowercase alphanumeric characters and `'-'`
+- start with an alphanumeric character
+- end with an alphanumeric character
+- contain no adjacent `'-'` characters
+- contain at least one character (`a`-`z`)
