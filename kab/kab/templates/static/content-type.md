@@ -2,17 +2,35 @@
 
 ### Request Format
 
-Requests sent to the API server can be encoded in one of the following
-formats:
+POST and PUT requests sent to the API server can be encoded in one of the
+following formats:
 
 - `"application/json"`: Request payload is encoded in JSON format.
 - `"application/yaml"`: Request payload is encoded in YAML.
 - `"application/vnd.kubernetes.protobuf"`: Request payload is encoded in
-  [Protobuf](https://developers.google.com/protocol-buffers) format.
+  <a href="https://developers.google.com/protocol-buffers" target="_blank">
+  Protobuf</a> format.
   Not all resource types support the "Protobuf" encoding, specifically those
   defined via Custom Resource Definitions or those are API extensions.
 
-** TODO: There are other patch formats
+For PATCH requests, the content type can be one of the following:
+
+- `"application/json-patch+json"`: JSON patch as defined by the
+  <a href="https://tools.ietf.org/html/rfc6902" target="_blank">
+  RFC6902</a>
+- `"application/merge-patch+json"`: Merge patch as defined by the
+  <a href="https://tools.ietf.org/html/rfc7386" target="_blank">
+  RFC7386</a>.
+- `"application/strategic-merge-patch+json"`: Stategic merge patch which is an
+  extension to the standard merge patch.
+- `"application/apply-patch+yaml"`: A special type of YAML indicating
+  a server-side-apply (SSA) request. When there are conflicts during such an
+  operation, the apply fails. A server-side-apply request need to provide the
+  `fieldManager` query parameter and the object provided cannot have
+  `managedFields` in it. For more information about server side apply,
+  please refer to the
+  <a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/"
+  target="_blank">official documentation</a>.
 
 If the specified `"Content-Type"` is supported by the server, the same
 `"Content-Type"` header is returned; otherwise the server may return the
@@ -129,3 +147,7 @@ Content-Type: application/json
 For resource types that do not have a custom Table definition on the server, a
 default "Table" response is returned consisting of the resource's `name` and
 `creationTimestamp` fields.
+
+For more detailed definition of the Table output format, please refer to
+<a href="{% url 'view-definition' API "meta" "v1" "Table" %}">the Table
+</a> definition.
