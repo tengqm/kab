@@ -1,39 +1,28 @@
 {
-  "description": "replace status of the specified PersistentVolumeClaim",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
+  "description": "replace status of the specified PersistentVolumeClaim",
   "operationId": "replaceCoreV1NamespacedPersistentVolumeClaimStatus",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the PersistentVolumeClaim",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,6 +30,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,12 +54,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "PersistentVolumeClaim",
     "version": "v1"
-  },
-  "verb": "put",
-  "path": "/api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status"
+  }
 }

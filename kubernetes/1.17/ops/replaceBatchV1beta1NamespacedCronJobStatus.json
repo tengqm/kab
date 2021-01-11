@@ -1,39 +1,28 @@
 {
-  "description": "replace status of the specified CronJob",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "batch_v1beta1"
-  ],
+  "description": "replace status of the specified CronJob",
   "operationId": "replaceBatchV1beta1NamespacedCronJobStatus",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.UPDATE"
+        "$ref": "#/definitions/io.k8s.api.batch.v1beta1.CronJob.GET"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the CronJob",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -41,6 +30,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -59,12 +54,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1beta1"
+  ],
+  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "batch",
     "kind": "CronJob",
     "version": "v1beta1"
-  },
-  "verb": "put",
-  "path": "/apis/batch/v1beta1/namespaces/{namespace}/cronjobs/{name}/status"
+  }
 }
