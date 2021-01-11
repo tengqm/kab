@@ -31,11 +31,30 @@ Type: *array of string*
 
 This annotates an array with the `x-kubernetes-list-type: map` by specifying
 the keys to index the map. This tag MUST only be used on lists that have the
-`"x-kubernetes-list-type"` extension set to `"map"`. Also, the values
-specified for this attribute must be a scalar typed field of the child
-structure (no nesting is supported). The properties specified must either be
-required or have a default value, to ensure those properties are present for
-all list items.
+`x-kubernetes-list-type` extension property set to `"map"`. Also, the value
+specified for this property must be list of strings, where each element in the
+list must be a property that either is required or has a default value. The
+reason is to ensure those properties are present for all list items.
+
+For example, the following is the `ports` definition for a `Container`:
+
+```json
+{
+  "ports": {
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerPort"
+      },
+      "type": "array",
+      "x-kubernetes-list-map-keys": [
+        "containerPort",
+        "protocol"
+      ],
+      "x-kubernetes-list-type": "map",
+      "x-kubernetes-patch-merge-key": "containerPort",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+}
+```
 
 ### `x-kubernetes-list-type`
 
@@ -44,7 +63,7 @@ Type: *string*
 This annotates an array to further describe its topology. This extension must
 only be used on lists and may have 3 possible values:
 
-1. `"atomic"`: the list is treated as a single entity, like a scalar. Atomic
+1. `"atomic"`: The list is treated as a single entity, like a scalar. Atomic
    lists will be entirely replaced when updated. This extension may be used on
    any type of list (struct, scalar, ...).
 1. `"set"`: Sets are lists that must not have multiple items with the same
@@ -61,14 +80,14 @@ Defaults to `"atomic"` for lists.
 
 Type: *string*
 
-This annotates an object to further describe its topology. This extension must
-only be used when `type` is `"object"` and may have 2 possible values:
+This annotates an object/map to further describe its topology. This extension
+may only be used when `type` is `"object"` and may have 2 possible values:
 
 1. `"granular"`: These maps are actual maps (key-value pairs) and each fields
    are independent from each other (they can each be manipulated by separate
-   actors). This is the *default* behaviour for all maps.
-1. `"atomic"`: the list is treated as a single entity, like a scalar. Atomic
-   maps will be entirely replaced when updated.
+   actors). This is the *default* behavior for all maps.
+1. `"atomic"`: The map is treated as a single entity. Atomic maps will be
+   entirely replaced when updated.
 
 ### `x-kubernetes-preserve-unknown-fields`
 
@@ -119,15 +138,69 @@ specified.
 }
 ```
 
+### `x-kubernetes-patch-strategy`
+
+type: *string*
+
+This property specifies the strategy for updating a list using strategic merge
+patch operations. The value is a comma separated list of strings where each
+string can be one of:
+
+- `"merge"`: When this string is contained in the property, the list of
+  objects will get merged. When this string is not found in the property
+  value, the default strategy will be replacing the whole list completely.
+
+- `"retainKeys"`: this directive is for union types to clear mutual exclusive
+  fields. When this is specified, fields that are not inluded in a PATCH
+  operation will be cleared. The fields that are included in the `$retainKeys`
+  directive are merged with the object. All fields in the `$retainKeys`
+  directive must be a superset or the same as the fields present in the PATCH.
+
+For example, the following patch updates the `strategy` property of a
+Deployment from `"RollingUpdate"` to `"Recreate"`. Since the `"type"` is
+explicitly set in the `$retainKeys` directive, fields other than `type` are
+all purged, including the `rollingUpdate` property.
+
+```yaml
+spec:
+  strategy:
+    $retainKeys:
+      - type
+    type: Recreate
+```
 
 ### `x-kubernetes-patch-merge-key`
 
 type: *string*
 
+Used on lists that have the value `"merge"` contained in its extended property
+`x-kubernetes-patch-strategy`. It tells the API server which field is used as
+the key of an object in the list. Objects with same key value will get merged
+when a strategic merge patch is applied.
 
 ### `x-kubernetes-group-version-kind`
 
 type: *list of maps*
 
+This property can be used on operations and definitions that are
+associated with a Kubernetes resource. The map contains information about the
+specific group, version and kind of the resource. For example,
 
+```json
+{
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "version": "v1",
+    "kind": "Pod"
+  }
+}
+```
 
+### `x-kubernetes-action`
+
+type: *string*
+
+This property can be used on operations that are associated with a Kubernetes
+resource. The action string can be one of `get`, `list`, `put`, `patch`,
+`post`, `delete`, `deletecollection`, `watch`, `watchlist`, `proxy` or
+`connect`.
