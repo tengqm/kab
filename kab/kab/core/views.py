@@ -11,6 +11,7 @@ from django.conf import settings
 from django.core import exceptions as exc
 from django import http
 from django import shortcuts
+from django import template
 from django import urls
 from django.views import generic
 import markdown
@@ -253,7 +254,7 @@ class DefinitionHistory(generic.View):
 
 
 class ViewOperation(generic.View):
-    """Generic view to display an operation""" 
+    """Generic view to display an operation"""
 
     def get(self, req, *args, **kwargs):
         apiv = kwargs.pop('api')
@@ -592,16 +593,19 @@ class StaticPage(generic.View):
             target = urls.reverse("list-apis")
             return http.HttpResponseRedirect(target)
 
-        content = ""
+        data = ""
         try:
             with open(path, "r") as f:
-                content = MD.reset().convert(f.read())
+                data = f.read()
         except Exception as ex:
             LOG.warning("Failed parsing markdown %s: %s", path, str(ex))
-            content = ""
+            data = ""
 
+        ctx = template.Context({"API": consts.API_VERSIONS[-1]})
+        data = template.Template(data).render(ctx)
+        content = MD.reset().convert(data)
         ctx = {
-            "TITLE": "Title",
+            "TITLE": page,
             "CONTENT": content,
         }
         return shortcuts.render(req, 'core/static-container.html', ctx)
