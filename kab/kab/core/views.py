@@ -282,7 +282,6 @@ class OperationHistory(generic.View):
         name = kwargs.pop('name')
 
         result = jsondiff.history("ops", name + ".json")
-        LOG.info(result)
         ctx = {
             "NAME": name,
             "DIFFDATA": result,
@@ -521,7 +520,6 @@ class TryResource(generic.View):
         # TODO: pop up warning if not resource
 
         schema = helpers.get_definition(apiv, group, version, name, True)
-        LOG.info(json.dumps(schema, indent=2))
         json_obj = helpers.empty_json(schema)
         yaml_str = yaml.dump(json_obj, indent=2, default_flow_style=False)
         yaml_str = yaml_str.replace("\r", "\n")
@@ -546,7 +544,6 @@ class ExportManifest(generic.View):
             raise exc.SuspiciousOperation("Unknown resource kind")
 
         raw_data = req.GET.get("data", None)
-        LOG.info(raw_data)
         if raw_data:
             try:
                 data = base64.b64decode(raw_data).decode()
