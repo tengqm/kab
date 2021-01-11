@@ -47,7 +47,17 @@ Almost all object resource types support the standard HTTP verbs - `GET`,
     <tr>
       <td><tt>PUT</tt></td>
       <td><B>update</B></td>
-      <td>Update a resource, also referred to as <B>replace</B>.</td>
+      <td>Update a resource, also referred to as <B>replace</B>.
+          The whole object must be specified. If a field is omitted, it is
+          assumed that the client wants to clear that field's value. In other
+          words, the PUT verb does *NOT* accept partial updates. Modification
+          of just part of an object may be achieved by GETing the resource,
+          modifying part of the <code>spec</code>,
+          <code>metadata.labels</code>, <code>metadata.annotations</code> and
+          then PUTing it back. Some objects may expose alternative resource
+          representations that allow mutation of the <code>status</code>, or
+          performing custom actions on the object.
+      </td>
     </tr>
     <tr>
       <td><tt>PATCH</tt></td>
