@@ -4,6 +4,8 @@ Every Kubernetes object has a `resourceVersion` string field representing the
 version of that resource as stored in the underlying database. Clients can use
 this field to determine when objects have changed, or to express data
 consistency requirements when getting, listing and watching resources.
+A resource version is only valid within a single namespace on a single kind of
+resource.
 
 ### Used in Requests
 
