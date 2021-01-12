@@ -197,8 +197,8 @@ def api_summary(apiv):
         res_count += len(vlist)
 
     op_count = 0
-    for op in DATA["operations"]:
-        if apiv in op["versions"]:
+    for op, opdata in DATA["operations"].items():
+        if apiv in opdata["versions"]:
             op_count += 1
 
     return {
