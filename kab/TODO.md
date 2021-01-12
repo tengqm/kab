@@ -1,7 +1,5 @@
 TODO list
 
-[ ] Process x-kubernetes-action, x-kubernetes-group-version-kind extensions
-[ ] Related operations for a given operation
 [ ] Popup field info on definition comparison screen
 [ ] Search prototype for definitions, operations
 [ ] Develop Dockerfile for packaging and release
@@ -10,14 +8,17 @@ TODO list
 [ ] Filter operations based on resource variants
 [ ] Refactor helpers code into classes
 [ ] Add badge to deprecated API groups
-[ ] Use `meta.k8s.io` as the group name for meta API objects.
-    E.g. ListOptions, DeleteOptions, List, Status, WatchEvent, Scale
 [ ] When compare operations, add links to removed or added parameters?
 [ ] When compare definitions, add links for the added/removed fields.
 [ ] Cross verify the parameters allowed for DELETE, LIST, CREATE, PUT, GET operations
 [ ] Fix all 'oneOf', 'allOf' definitions
 [ ] Fix API response based on apimachinery.pkg.apis.meta.v1.Status
 [ ] Rescan all cross version diffs for data.
+[ ] POST object with the same name will always result in a 409.
+[ ] Use `meta.k8s.io` as the group name for meta API objects.
+    E.g. ListOptions, DeleteOptions, List, Status, WatchEvent, Scale
+[ ] Document field selector. It is specified as a string for the list
+    operation.
 [x] Document the kubernetes extensions:
   * x-kubernetes-list-type: map | atomic | set
   * x-kubernetes-map-type: ganualar | atomic
@@ -40,5 +41,5 @@ TODO list
 [x] Add back ignored definitions/operations in 1.18
 [x] Add badge to deprecated API resources
 [x] Comparison of operations between two versions
-[ ] Document field selector. It is specified as a string for the list
-    operation.
+[x] Related operations for a given operation
+

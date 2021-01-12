@@ -280,6 +280,16 @@ p {
     </dd>
     {% endif %}
 
+    {% if RELATED %}
+    <dt class="col-md-2 col-sm-3">Related Operations:</dt>
+    <dd class="col-md-10 col-sm-9">
+      {% for K, V in RELATED.items %}
+        <a class="btn btn-outline-secondary btn-sm mb-1 mx-1 text-monospace" role="button"
+          href="{% url 'view-operation' API V %}">{{ K }}</a>
+      {% endfor %}
+    </dd>
+    {% endif %}
+
   </dl>
 
   {% if OP.extensions %}
@@ -305,6 +315,7 @@ p {
       </div> <!-- card-body -->
     </div>  <!-- card -->
   {% endif %}
+
 
   <form id="form-compare-op" action="{% url 'compare-ops' %}" method="post">
     {% csrf_token %}

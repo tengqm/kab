@@ -262,15 +262,19 @@ class ViewOperation(generic.View):
         op = helpers.get_operation(apiv, name)
         params = helpers.parse_params(apiv, op["spec"])
         gv_list = op["group_version"].split("/")
+        group_name = gv_list[0]
+        group_version = "*" if len(gv_list) == 1 else gv_list[1]
+        related = helpers.related_ops(name, op["target"], group_version)
         ctx = {
             "API": apiv,
             "OP": op["spec"],
-            "GROUP_NAME": gv_list[0],
-            "GROUP_VERSION": "*" if len(gv_list) == 1 else gv_list[1],
+            "GROUP_NAME": group_name,
+            "GROUP_VERSION": group_version,
             'PATH': [p for p in params if p['in'] == 'path'],
             'QUERY': [p for p in params if p['in'] == 'query'],
             'BODY': [p for p in params if p['in'] == 'body'],
             "VERSIONS": op["versions"],
+            "RELATED": related,
         }
         return shortcuts.render(req, 'core/op-view.html', ctx)
 

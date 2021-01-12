@@ -396,6 +396,23 @@ def get_operation(api_version, name, root=None):
     return data
 
 
+def related_ops(name, resource, group_version):
+    data = {}
+    for res in DATA["resources"]:
+        if res["name"] == resource:
+            data = res.get("operations", {}).get(group_version, {})
+            break
+
+    k = None
+    for op, opid in data.items():
+        if opid == name:
+            k = op
+    if k is not None:
+        data.pop(k)
+
+    return collections.OrderedDict(sorted(data.items()))
+
+
 def parameters(api_version):
     result = {}
     for k, v in DATA["parameters"].items():
