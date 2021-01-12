@@ -5,7 +5,8 @@ their corresponding `Content-Type` header:
 
 - JSON Patch: `Content-Type: application/json-patch+json`;
 - Merge Patch: `Content-Type: application/merge-patch+json`;
-- Strategic Merge Patch: `Content-Type: application/strategic-merge-patch+json`.
+- Strategic Merge Patch: `Content-Type: application/strategic-merge-patch+json`;
+- Server Side Apply Patch: `Content-Type: application/apply-patch+yaml`.
 
 ### JSON Patch
 
@@ -43,6 +44,18 @@ the current content.
 With merge patches, it is not possible to patch part of a resource that is not
 an object, such as to replace just some of the values in an array.
 
+Below is an example of merge patch that will replace the existing containers
+list in a Deployment by a list with a new container.
+
+```yaml
+spec:
+  template:
+    spec:
+      containers:
+      - name: new-container
+        image: nginx:1.16.1
+```
+
 ### Strategic Merge Patch
 
 This is a custom implementation of the Merge Patch. It is used by the
@@ -58,3 +71,37 @@ For more details, check the
 <a
 href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md"
 target="_blank">design document</a>
+
+The following is an example strategic merge patch that will change the update
+strategy for a Deployment from `RollingUpdate` to `Recreate`. The
+`$retainKeys` directive is to specify that all keys except for `type` under
+`strategy` should be removed.
+
+```yaml
+spec:
+  strategy:
+    $retainKeys:
+    - type
+    type: Recreate
+```
+
+### Server Side Apply Patch
+
+A special type of YAML indicating a server-side-apply (SSA) request. When
+there are conflicts during such an operation, the apply fails. A
+server-side-apply request need to provide the `fieldManager` query parameter
+and the object provided cannot have `managedFields` in it. For more
+information about server side apply, please refer to the
+<a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/"
+target="_blank">official documentation</a>.
+
+Blow is an example of a server side apply patch:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
