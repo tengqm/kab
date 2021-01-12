@@ -6,16 +6,11 @@
     "application/apply-patch+yaml"
   ],
   "description": "partially update the specified PodDisruptionBudget",
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
   "operationId": "patchPolicyV1beta1NamespacedPodDisruptionBudget",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -25,12 +20,12 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the PodDisruptionBudget",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -38,6 +33,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -56,12 +57,11 @@
   "tags": [
     "policy_v1beta1"
   ],
+  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "policy",
     "kind": "PodDisruptionBudget",
     "version": "v1beta1"
-  },
-  "verb": "patch",
-  "path": "/apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}"
+  }
 }

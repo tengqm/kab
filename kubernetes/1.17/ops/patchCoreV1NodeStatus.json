@@ -1,27 +1,16 @@
 {
-  "description": "partially update status of the specified Node",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json",
     "application/apply-patch+yaml"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
+  "description": "partially update status of the specified Node",
   "operationId": "patchCoreV1NodeStatus",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.core.v1.NodeStatus"
@@ -31,16 +20,22 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the Node",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/api/v1/nodes/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -53,12 +48,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "Node",
     "version": "v1"
-  },
-  "verb": "patch",
-  "path": "/api/v1/nodes/{name}/status"
+  }
 }

@@ -1,24 +1,13 @@
 {
-  "description": "replace the specified CertificateSigningRequest",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "certificates_v1beta1"
-  ],
+  "description": "replace the specified CertificateSigningRequest",
   "operationId": "replaceCertificatesV1beta1CertificateSigningRequest",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.UPDATE"
@@ -28,16 +17,22 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the CertificateSigningRequest",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -56,12 +51,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1beta1"
+  ],
+  "verb": "put",
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
     "version": "v1beta1"
-  },
-  "verb": "put",
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}"
+  }
 }

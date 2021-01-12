@@ -1,24 +1,13 @@
 {
-  "description": "create a ConfigMap",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
+  "description": "create a ConfigMap",
   "operationId": "createCoreV1NamespacedConfigMap",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMap.CREATE"
@@ -31,6 +20,12 @@
       "$ref": "#/parameters/namespace"
     }
   ],
+  "path": "/api/v1/namespaces/{namespace}/configmaps",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
   "responses": {
     "201": {
       "description": "Created",
@@ -42,6 +37,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "post",
-  "path": "/api/v1/namespaces/{namespace}/configmaps"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "post"
 }

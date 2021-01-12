@@ -1,24 +1,13 @@
 {
-  "description": "delete a ConfigMap",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
+  "description": "delete a ConfigMap",
   "operationId": "deleteCoreV1NamespacedConfigMap",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
@@ -36,12 +25,12 @@
       "$ref": "#/parameters/propagationPolicy"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the ConfigMap",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/namespace"
@@ -49,6 +38,12 @@
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/configmaps/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -67,6 +62,11 @@
       "description": "Unauthorized"
     }
   },
-  "verb": "delete",
-  "path": "/api/v1/namespaces/{namespace}/configmaps/{name}"
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "delete"
 }
