@@ -1,18 +1,33 @@
 {
-  "description": "send PATCH requests to proxy of Service",
   "consumes": [
     "*/*"
   ],
+  "description": "send PATCH requests to proxy of Service",
+  "operationId": "connectCoreV1PatchNamespacedServiceProxy",
+  "parameters": [
+    {
+      "description": "name of the Service",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is `http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`. Path is `_search?q=user:kimchy`.",
+      "in": "query",
+      "name": "path",
+      "type": "string",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy",
   "produces": [
     "*/*"
   ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "core_v1"
-  ],
-  "operationId": "connectCoreV1PatchNamespacedServiceProxy",
   "responses": {
     "200": {
       "description": "OK",
@@ -24,32 +39,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "patch",
   "x-kubernetes-action": "connect",
   "x-kubernetes-group-version-kind": {
     "group": "",
     "kind": "ServiceProxyOptions",
     "version": "v1"
-  },
-  "verb": "patch",
-  "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy",
-  "parameters": [
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "name of the Service",
-      "name": "name",
-      "in": "path",
-      "required": true
-    },
-    {
-      "$ref": "#/parameters/namespace"
-    },
-    {
-      "uniqueItems": true,
-      "type": "string",
-      "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is `http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`. Path is `_search?q=user:kimchy`.",
-      "name": "path",
-      "in": "query"
-    }
-  ]
+  }
 }

@@ -1,19 +1,8 @@
 {
-  "description": "read the specified StorageClass",
   "consumes": [
     "*/*"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "storage_v1"
-  ],
+  "description": "read the specified StorageClass",
   "operationId": "readStorageV1StorageClass",
   "parameters": [
     {
@@ -23,16 +12,22 @@
       "$ref": "#/parameters/export"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the StorageClass",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/storage.k8s.io/v1/storageclasses/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -45,12 +40,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
+  "verb": "get",
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "storage.k8s.io",
     "kind": "StorageClass",
     "version": "v1"
-  },
-  "verb": "get",
-  "path": "/apis/storage.k8s.io/v1/storageclasses/{name}"
+  }
 }

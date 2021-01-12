@@ -1,27 +1,16 @@
 {
-  "description": "partially update status of the specified CustomResourceDefinition",
   "consumes": [
     "application/json-patch+json",
     "application/merge-patch+json",
     "application/strategic-merge-patch+json",
     "application/apply-patch+yaml"
   ],
-  "produces": [
-    "application/json",
-    "application/yaml",
-    "application/vnd.kubernetes.protobuf"
-  ],
-  "schemes": [
-    "https"
-  ],
-  "tags": [
-    "apiextensions_v1beta1"
-  ],
+  "description": "partially update status of the specified CustomResourceDefinition",
   "operationId": "patchApiextensionsV1beta1CustomResourceDefinitionStatus",
   "parameters": [
     {
-      "name": "body",
       "in": "body",
+      "name": "body",
       "required": true,
       "schema": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
@@ -31,16 +20,22 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "uniqueItems": true,
-      "type": "string",
       "description": "name of the CustomResourceDefinition",
-      "name": "name",
       "in": "path",
-      "required": true
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
     },
     {
       "$ref": "#/parameters/pretty"
     }
+  ],
+  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
   ],
   "responses": {
     "200": {
@@ -53,12 +48,17 @@
       "description": "Unauthorized"
     }
   },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiextensions_v1beta1"
+  ],
+  "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "apiextensions.k8s.io",
     "kind": "CustomResourceDefinition",
     "version": "v1beta1"
-  },
-  "verb": "patch",
-  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}/status"
+  }
 }
