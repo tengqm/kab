@@ -9,8 +9,9 @@ their corresponding `Content-Type` header:
 
 ### JSON Patch
 
-As defined in [RFC6902](https://tools.ietf.org/html/rfc6902), a JSON patch is
-a sequence of operations that are executed on a resource. For example,
+As defined in <a href="https://tools.ietf.org/html/rfc6902" target="_blank">
+RFC6902</a>, a JSON patch is a sequence of operations that are executed on a
+resource. For example,
 
 ```json
 {
@@ -22,10 +23,25 @@ a sequence of operations that are executed on a resource. For example,
 
 ### Merge Patch
 
-As defined in [RFC7386](https://tools.ietf.org/html/rfc6902), a Merge Patch is
-a partial representation of the resource. The submitted JSON is *merged* with
-the current resource to create a new one, then the new one is saved.
+As defined in <a href="https://tools.ietf.org/html/rfc7386" target="_blank">
+RFC7386</a>, a merge Patch is a partial representation of the resource. The
+submitted JSON is *merged* with the current resource to create a new one, then
+the new one is saved.
 
+A JSON merge patch describes changes to be made using a syntax that closely
+mimics the resource being modified. The API server determines the exact set of
+changes being requested by comparing the content of the provided patch against
+the current content.
+
+- If the provided patch contains members that do not appear within the target,
+  those members are added.
+- If the target does contain the member, the value is replaced.
+- Null values in the patch are an indicator to remove the existing values in
+  the target. This means a merge patch is not appropriate for resources that
+  make explicit use of null values.
+
+With merge patches, it is not possible to patch part of a resource that is not
+an object, such as to replace just some of the values in an array.
 
 ### Strategic Merge Patch
 
