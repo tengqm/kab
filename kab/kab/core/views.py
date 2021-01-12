@@ -270,8 +270,7 @@ class ViewOperation(generic.View):
             'PATH': [p for p in params if p['in'] == 'path'],
             'QUERY': [p for p in params if p['in'] == 'query'],
             'BODY': [p for p in params if p['in'] == 'body'],
-            "VERSIONS": op["other_versions"],
-            # 'EXTENSIONS': .extensions,
+            "VERSIONS": op["versions"],
         }
         return shortcuts.render(req, 'core/op-view.html', ctx)
 

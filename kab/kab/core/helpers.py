@@ -198,7 +198,7 @@ def api_summary(apiv):
 
     op_count = 0
     for op in DATA["operations"]:
-        if op["version"] == apiv:
+        if apiv in op["versions"]:
             op_count += 1
 
     return {
@@ -348,9 +348,9 @@ def resource_operations(resource, group_version):
 
 def operations(api_version, group_version):
     data = {}
-    for op in DATA.get("operations", []):
+    for opid, op in DATA["operations"].items():
         # filter version
-        if op["version"] != api_version:
+        if api_version not in op["versions"]:
             continue
         # filter group_version
         if group_version != "all" and group_version != op["group_version"]:
@@ -367,7 +367,7 @@ def operations(api_version, group_version):
             "op_type": op["op_type"],
             "description": op["description"],
             "target": op["target"],
-            "name": op["name"]})
+            "name": opid})
 
         if op_type == "group":
             opdict["group"] = ops
@@ -381,24 +381,14 @@ def operations(api_version, group_version):
 
 
 def get_operation(api_version, name, root=None):
-    data = {
-        "other_versions": []
-    }
-    for op in DATA.get("operations", []):
-        if op["name"] == name:
-            if op["version"] == api_version:
-                data.update(op)
-            else:
-                versions = data.get("other_versions", [])
-                # Append the version only if not exist. For operations like
-                # get<GroupName>APIGroup, there can be duplicates for
-                # different API group versions
-                if op["version"] not in versions:
-                    versions.append(op["version"])
-                    data["other_versions"] = versions
+    data = DATA["operations"].get(name, {})
 
     if not data:
         return {}
+
+    if api_version in data["versions"]:
+       data["versions"].remove(api_version)
+
     if root is None:
         root = settings.DATA_DIR
     path = "{}/{}/ops/{}.json".format(root, api_version, name)

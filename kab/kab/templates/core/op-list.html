@@ -21,13 +21,16 @@
       <div class="card">
         <div class="card-header row" id="group-{{ G|slugify }}">
           <div class="col-auto" style="align-self: center;">
-            <a href="#" data-toggle="collapse" data-target="#ops-{{ G|slugify }}"
-                style="vertical-align: middle;"
-                aria-expanded="true" aria-controls="ops-{{ G|slugify }}">
-              <i class="fa fa-fw fa-plus-square"></i></a>
             <code>{{ G }}</code>
+            {% if "/" in G %}
+              <a href="#" style="vertical-align: middle;"
+                  data-toggle="collapse" data-target="#ops-{{ G|slugify }}"
+                  aria-expanded="true" aria-controls="ops-{{ G|slugify }}">
+                <i class="fa fa-fw fa-plus-square"></i></a>
+              {% endif %}
           </div>
           <div class="col-auto">
+            {# group operations #}
             {% for OP in OPDICT.group %}
               <a class="btn btn-outline-secondary btn-sm" role="button"
                 href="{% url 'view-operation' API OP.name %}"
@@ -39,48 +42,33 @@
           </div>
         </div>
       </div>
-      
-      <div id="ops-{{ G|slugify }}" class="collapse"
-          aria-labelledby="group-{{ G|slugify }}" data-parent="#operationList">
-        <div class="card card-body py-0 row-cols-2">
-          <table class="table mb-0" style="border-width: 0;table-layout: auto; border-collapse: collapse; width:100%">
-            {% for OPT, OPLIST in OPDICT.items %}
-              {% if OPT != "group" %}
-                <tr>
-                  <td><var>{{ OPT }}</var></td>
-                  <td style="width:100%">
-                    {% for OP in OPLIST|dictsort:"op_type" %}
-                      <a class="btn btn-outline-secondary btn-sm my-1" role="button"
-                        href="{% url 'view-operation' API OP.name %}"
-                        data-toggle="tooltip" data-placement="top"
-                        title="{{ OP.description }}">
-                        {{ OP.op_type }}
-                      </a>
-                    {% endfor %}
-                  </td>
-                </tr>
-              {% endif %}
-            {% endfor %}
-          </table>
-            <!--
-              <div class="row m-2">
-                <div class="col-auto m-1 py-1">
-                  <var>{{ OPT }}</var>
-                </div>
-                <div class="col">
-                  {% for OP in OPLIST|dictsort:"op_type" %}
-                    <a class="btn btn-outline-secondary btn-sm my-1" role="button"
-                      href="{% url 'view-operation' API OP.name %}"
-                      data-toggle="tooltip" data-placement="top"
-                      title="{{ OP.description }}">
-                      {{ OP.op_type }}
-                    </a>
-                  {% endfor %}
-                </div>
-              </div>
-            -->
+
+      {% if "/" in G %} {# group '*' or unversioned doesn't have chidren #}
+        <div id="ops-{{ G|slugify }}" class="collapse"
+            aria-labelledby="group-{{ G|slugify }}" data-parent="#operationList">
+          <div class="card card-body py-0 row-cols-2">
+            <table class="table mb-0" style="border-width: 0;table-layout: auto; border-collapse: collapse; width:100%">
+              {% for OPT, OPLIST in OPDICT.items %}
+                {% if OPT != "group" %}
+                  <tr>
+                    <td><var>{{ OPT }}</var></td>
+                    <td style="width:100%">
+                      {% for OP in OPLIST|dictsort:"op_type" %}
+                        <a class="btn btn-outline-secondary btn-sm my-1" role="button"
+                          href="{% url 'view-operation' API OP.name %}"
+                          data-toggle="tooltip" data-placement="top"
+                          title="{{ OP.description }}">
+                          {{ OP.op_type }}
+                        </a>
+                      {% endfor %}
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </table>
+          </div>
         </div>
-      </div>
+      {% endif %}
     {% endfor %}
   </div> <!-- operationList -->
 {% endblock %}

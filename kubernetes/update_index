@@ -25,8 +25,9 @@ GROUPS = {}
 # Each entry contains name, variant, definitions, and versions list
 RESOURCES = []
 
-# Each entry contains name, variant, definitions, and versions list
-OPERATIONS = []
+# Dict entry contains type, op_type, target, group_version, description and
+# supported versions
+OPERATIONS = {}
 
 # Each entry keyed by name and contains definitions, and versions list
 PARAMETERS = {}
@@ -391,64 +392,88 @@ def _handle_special_ops(version, fn):
     fname = fn[:-5]
     opdata = load_json(version, fn)
     if fname == "getCoreAPIVersions":
-        OPERATIONS.append({
-            "version": version,
+        op_dict = {
             "type": "group",
             "op_type": "getversions",
             "target": "core",
             "group_version": "core/v1",
             "description": opdata.get("description", ""),
-            "name": fname,
-        })
+        }
+        add_operation(version, fname, op_dict)
         return
    
     if fname == "getAPIVersions":
-        OPERATIONS.append({
-            "version": version,
+        op_dict = {
             "type": "group",
             "op_type": "listgroups",
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
-            "name": fname,
-        })
+        }
+        add_operation(version, fname, op_dict)
         return
 
     if fname == "getCodeVersion":
-        OPERATIONS.append({
-            "version": version,
+        op_dict = {
             "type": "group",
             "op_type": "getversion",
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
-            "name": fname,
-        })
+        }
+        add_operation(version, fname, op_dict)
         return
 
     if fname == "logFileHandler":
-        OPERATIONS.append({
-            "version": version,
+        op_dict = {
             "type": "group",
             "op_type": "logfile",
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
-            "name": fname,
-        })
+        }
+        add_operation(version, fname, op_dict)
         return
 
     if fname == "logFileListHandler":
-        OPERATIONS.append({
-            "version": version,
+        op_dict = {
             "type": "group",
             "op_type": "logfilelist",
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
-            "name": fname,
-        })
+        }
+        add_operation(version, fname, op_dict)
         return
+
+
+def add_operation(version, name, op):
+    global OPERATIONS
+
+    if name not in OPERATIONS:
+        op["versions"] = [version]
+        OPERATIONS[name] = op
+        return
+
+    current = OPERATIONS[name]
+
+    # verify
+    if (current["type"] != op["type"] or
+            current["op_type"] != op["op_type"] or
+            current["target"] != op["target"] or
+            current["group_version"] != op["group_version"] or
+            current["description"] != op["description"]):
+        ERROR("  Operation %s changed.\n  %s\n  %s", name,
+              str(current), str(op))
+        return
+
+    vlist = current["versions"]
+    if version not in vlist:
+        vlist.append(version)
+        current["versions"] = sorted(vlist)
+        OPERATIONS[name] = current
+
+    return
 
 
 def load_operations(version):
@@ -490,14 +515,19 @@ def load_operations(version):
 
                     gdata["operations"][gv] = ops
                     opdata = load_json(version, fn)
-                    OPERATIONS.append({
-                        "version": version,
+                    # differentiate readgroup from listresources
+                    if otype == "readgroup":
+                        group_version = gname.lower()
+                    else:
+                        group_version = gname.lower() + "/" + gv
+                    op_dict = {
                         "type": "group",
                         "op_type": otype,
                         "target": gname,
-                        "group_version": g_name + "/" + gv,
-                        "description": opdata.get("description", ""),
-                        "name": fname})
+                        "group_version": group_version,
+                        "description": opdata.get("description", "")
+                    }
+                    add_operation(version, fname, op_dict)
                     found = True
                     break
 
@@ -540,15 +570,14 @@ def load_operations(version):
                 res["operations"][gv] = ops
 
                 opdata = load_json(version, fn)
-                OPERATIONS.append({
+                op_dict = {
                     "type": "resource",
                     "op_type": otype,
                     "group_version": res["group"] + "/" + gv,
                     "target": res_name,
-                    "version": version,
                     "description": opdata.get("description", ""),
-                    "name": fname})
-
+                }
+                add_operation(version, fname, op_dict)
                 break
 
             if found:
@@ -607,7 +636,7 @@ def main():
     }
 
     with open("index.json", "w") as f:
-        json.dump(data, f, indent=2)
+        json.dump(data, f, indent=2, sort_keys=True)
 
 
 if __name__ == "__main__":
