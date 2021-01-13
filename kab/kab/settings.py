@@ -106,7 +106,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-LOG_DIR = os.path.join(KAB_ROOT, 'log')
+LOG_DIR = os.path.join(APP_DIR, 'log')
 
 LOGGING = {
     'version': 1,
