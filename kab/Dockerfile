@@ -29,39 +29,40 @@ RUN apt-get update -y && \
 # ADD manifests/nginx/nginx.conf /etc/nginx/nginx.conf
 # ADD manifests/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-ENV KAB_LOG_DIR /var/log
+
+ENV KAB_ROOT /app
+RUN mkdir -p $KAB_ROOT
+
+ENV KAB_LOG_DIR $KAB_ROOT/log
 RUN mkdir -p $KAB_LOG_DIR
 
-ENV APP_HOME /app
-RUN mkdir -p $APP_HOME
-
 # NOTE: The following ADD contents are sorted by change frequency
-COPY kab/LICENSE kab/manage.py $APP_HOME/
-ADD kab/dist $APP_HOME/dist
+COPY kab/LICENSE kab/manage.py $KAB_ROOT/
+ADD kab/dist $KAB_ROOT/dist
 
-RUN mkdir -p $APP_HOME/data
-RUN mkdir -p $APP_HOME/data/1.13
-RUN mkdir -p $APP_HOME/data/1.14
-RUN mkdir -p $APP_HOME/data/1.15
-RUN mkdir -p $APP_HOME/data/1.16
-RUN mkdir -p $APP_HOME/data/1.17
-RUN mkdir -p $APP_HOME/data/1.18
-RUN mkdir -p $APP_HOME/data/1.19
-RUN mkdir -p $APP_HOME/data/1.20
+RUN mkdir -p $KAB_ROOT/data
+RUN mkdir -p $KAB_ROOT/data/1.13
+RUN mkdir -p $KAB_ROOT/data/1.14
+RUN mkdir -p $KAB_ROOT/data/1.15
+RUN mkdir -p $KAB_ROOT/data/1.16
+RUN mkdir -p $KAB_ROOT/data/1.17
+RUN mkdir -p $KAB_ROOT/data/1.18
+RUN mkdir -p $KAB_ROOT/data/1.19
+RUN mkdir -p $KAB_ROOT/data/1.20
 
-ADD kubernetes/1.13 $APP_HOME/data/1.13
-ADD kubernetes/1.14 $APP_HOME/data/1.14
-ADD kubernetes/1.15 $APP_HOME/data/1.15
-ADD kubernetes/1.16 $APP_HOME/data/1.16
-ADD kubernetes/1.17 $APP_HOME/data/1.17
-ADD kubernetes/1.18 $APP_HOME/data/1.18
-ADD kubernetes/1.19 $APP_HOME/data/1.19
-ADD kubernetes/1.20 $APP_HOME/data/1.20
+ADD kubernetes/1.13 $KAB_ROOT/data/1.13
+ADD kubernetes/1.14 $KAB_ROOT/data/1.14
+ADD kubernetes/1.15 $KAB_ROOT/data/1.15
+ADD kubernetes/1.16 $KAB_ROOT/data/1.16
+ADD kubernetes/1.17 $KAB_ROOT/data/1.17
+ADD kubernetes/1.18 $KAB_ROOT/data/1.18
+ADD kubernetes/1.19 $KAB_ROOT/data/1.19
+ADD kubernetes/1.20 $KAB_ROOT/data/1.20
 
-COPY kubernetes/index.json $APP_HOME/data
-COPY kubernetes/settings.json $APP_HOME/data
+COPY kubernetes/index.json $KAB_ROOT/data
+COPY kubernetes/settings.json $KAB_ROOT/data
 
-WORKDIR $APP_HOME
+WORKDIR $KAB_ROOT
 
 # Install KAB
 RUN pip3 install "setuptools>=40.2.0" && \

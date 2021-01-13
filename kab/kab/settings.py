@@ -6,7 +6,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+APP_DIR = os.environ.get("KAB_ROOT", BASE_DIR)
+DATA_DIR = os.path.join(APP_DIR, "data")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'a&97-j214&*@+z8^gp&%oi3zt4beqpebk=&cdxb*t&*(2n9*#s'
@@ -105,7 +106,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-LOG_DIR = os.environ.get('KAB_LOG_DIR', os.path.join(BASE_DIR, 'log'))
+LOG_DIR = os.path.join(KAB_ROOT, 'log')
 
 LOGGING = {
     'version': 1,
