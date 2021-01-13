@@ -5,7 +5,7 @@ version of that resource as stored in the underlying database. Clients can use
 this field to determine when objects have changed, or to express data
 consistency requirements when getting, listing and watching resources.
 A resource version is only valid within a single namespace on a single kind of
-resource.
+resource. It is changed by the server every time an object is modified.
 
 ### Used in Requests
 
@@ -41,6 +41,13 @@ For a *list* operation:
   object collection;
 - If `resourceVersion` is set to a value other than "0", it means returning an
   object collection whose version is not older than the specified one.
+
+For a *put* or *patch* operation, the provided `resourceVersion` is compared
+to the current value. If it doesn't match, the update operation fails with a
+`"409 StatusConflict"`. This is to ensure that there have not been other
+successful mutations to the resource during a read/modify/write cycle.
+The client is expected to *get* the resource again, apply the changes afresh,
+and try submitting again.
 
 However, when the `resourceVersionMatch` parameter (added in v1.19) is
 specified, you have to specify `resourceVersion`.
