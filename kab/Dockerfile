@@ -46,6 +46,8 @@ RUN mkdir -p $APP_HOME/data/1.15
 RUN mkdir -p $APP_HOME/data/1.16
 RUN mkdir -p $APP_HOME/data/1.17
 RUN mkdir -p $APP_HOME/data/1.18
+RUN mkdir -p $APP_HOME/data/1.19
+RUN mkdir -p $APP_HOME/data/1.20
 
 ADD kubernetes/1.13 $APP_HOME/data/1.13
 ADD kubernetes/1.14 $APP_HOME/data/1.14
@@ -53,6 +55,8 @@ ADD kubernetes/1.15 $APP_HOME/data/1.15
 ADD kubernetes/1.16 $APP_HOME/data/1.16
 ADD kubernetes/1.17 $APP_HOME/data/1.17
 ADD kubernetes/1.18 $APP_HOME/data/1.18
+ADD kubernetes/1.19 $APP_HOME/data/1.19
+ADD kubernetes/1.20 $APP_HOME/data/1.20
 
 COPY kubernetes/index.json $APP_HOME/data
 COPY kubernetes/settings.json $APP_HOME/data
