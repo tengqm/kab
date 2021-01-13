@@ -32,21 +32,21 @@ RUN apt-get update -y && \
 ENV KAB_ROOT /app
 
 ENV KAB_LOG_DIR $KAB_ROOT/log
-RUN mkdir -p $KAB_ROOT &&
+RUN mkdir -p $KAB_ROOT && \
     mkdir -p $KAB_LOG_DIR
 
 # NOTE: The following ADD contents are sorted by change frequency
 COPY kab/LICENSE kab/manage.py $KAB_ROOT/
 ADD kab/dist $KAB_ROOT/dist
 
-RUN mkdir -p $KAB_ROOT/data &&
-    mkdir -p $KAB_ROOT/data/1.13 &&
-    mkdir -p $KAB_ROOT/data/1.14 &&
-    mkdir -p $KAB_ROOT/data/1.15 &&
-    mkdir -p $KAB_ROOT/data/1.16 &&
-    mkdir -p $KAB_ROOT/data/1.17 &&
-    mkdir -p $KAB_ROOT/data/1.18 &&
-    mkdir -p $KAB_ROOT/data/1.19 &&
+RUN mkdir -p $KAB_ROOT/data && \
+    mkdir -p $KAB_ROOT/data/1.13 && \
+    mkdir -p $KAB_ROOT/data/1.14 && \
+    mkdir -p $KAB_ROOT/data/1.15 && \
+    mkdir -p $KAB_ROOT/data/1.16 && \
+    mkdir -p $KAB_ROOT/data/1.17 && \
+    mkdir -p $KAB_ROOT/data/1.18 && \
+    mkdir -p $KAB_ROOT/data/1.19 && \
     mkdir -p $KAB_ROOT/data/1.20
 
 ADD kubernetes/1.13 $KAB_ROOT/data/1.13
