@@ -133,10 +133,12 @@
           type: "get",
           async: false,
           success: function(data) {
-            $("#help-modal-body").html(data);
+            $("#helpModalBody").html(data);
+            $("#helpMaximize").attr("href", "/page/" + page);
           },
           error: function(jqxhr, textStatus, msg) {
-            $("#help-modal-body").html("<p>" + textStatus + "</p>");
+            $("#helpModalBody").html("<p>" + textStatus + "</p>");
+            $("#helpMaximize")
           }
         });
         $("#helpModal").modal();
