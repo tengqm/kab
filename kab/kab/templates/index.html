@@ -6,8 +6,46 @@
 
 {% block main_content %}
 
-<div>
-  Kubernetes API Browser!
+<div class="m-4" align="center">
+  <H3>Welcome to Kubernetes API Browser ver {{ kab_version }}!</H3>
+</div>
+
+<div class="row">
+  <div class="offset-sm-2 col-sm-8">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Features Overview</h4>
+      </div>
+      <div class="card-body">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="mb-1">Complete reference for versions
+              <a href="{% url 'list-apis' %}"><i class="fa fa-chevron-circle-right"></i></a>
+            </h5>
+            <ul>
+              <li>API definitionsfrom version {{ FIRST_API }} to version {{ LAST_API }}.
+              </li>
+              <li>Concise specification manually verified against implementation.</li>
+              <li>Browse through definition hierarchy tree.</li>
+              <li>Explore history of a definition or an operation.</li>
+              <li>Quick switch to other versions or variants of a definition or operation.</li>
+              <li>Compare between versions or variants of a definition or an operation.</li>
+            </ul> 
+          </div>
+          <div class="list-group-item">
+            <h5 class="mb-1">Kubernetes specific API concepts
+              <a href="{% url 'static-page' 'index' %}"><i class="fa fa-chevron-circle-right"></i></a>
+            </h5>
+            <ul>
+              <li>Common concepts for verbs, path, content type, responses etc.</li>
+              <li>Kubernetes specific extensions such as naming, versioning, paging, etc.</li>
+              <li>Concepts can be called out when browsing API details and they can be browsed.</li>
+            </ul>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

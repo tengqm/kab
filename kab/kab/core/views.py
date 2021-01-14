@@ -30,7 +30,11 @@ class Home(generic.View):
     """Generic view for home page"""
 
     def get(self, req, *qrgs, **kwargs):
-        return shortcuts.render(req, 'index.html')
+        ctx = {
+            "FIRST_API": consts.API_VERSIONS[0],
+            "LAST_API": consts.API_VERSIONS[-1],
+        }
+        return shortcuts.render(req, 'index.html', ctx)
 
 
 class ListAPIs(generic.View):
