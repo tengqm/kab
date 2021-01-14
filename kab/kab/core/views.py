@@ -26,8 +26,11 @@ MD = markdown.Markdown(
     extensions=["codehilite", "tables", "fenced_code", "toc"])
 
 
-def home(req):
-    return shortcuts.redirect(urls.reverse('list-apis'))
+class Home(generic.View):
+    """Generic view for home page"""
+
+    def get(self, req, *qrgs, **kwargs):
+        return shortcuts.render(req, 'index.html')
 
 
 class ListAPIs(generic.View):

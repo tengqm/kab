@@ -4,7 +4,7 @@ from django.views import generic
 from kab.core import views
 
 urlpatterns = [
-    urls.url(r'^$', views.home, name='home'),
+    urls.url(r'^$', views.Home.as_view(), name='home'),
 
     urls.url(r'^apis/apis/$',
              views.ListAPIs.as_view(),
