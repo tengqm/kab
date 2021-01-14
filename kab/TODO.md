@@ -2,9 +2,7 @@ TODO list
 
 [ ] Popup field info on definition comparison screen
 [ ] Search prototype for definitions, operations
-[ ] Develop Dockerfile for packaging and release
 [ ] Generate sample resource with checkboxed treeview
-[ ] Document patch operations
 [ ] Filter operations based on resource variants
 [ ] Refactor helpers code into classes
 [ ] Add badge to deprecated API groups
@@ -14,7 +12,6 @@ TODO list
 [ ] Fix all 'oneOf', 'allOf' definitions
 [ ] Fix API response based on apimachinery.pkg.apis.meta.v1.Status
 [ ] Rescan all cross version diffs for data.
-[ ] POST object with the same name will always result in a 409.
 [ ] Use `meta.k8s.io` as the group name for meta API objects.
     E.g. ListOptions, DeleteOptions, List, Status, WatchEvent, Scale
 [ ] Document field selector. It is specified as a string for the list
@@ -30,6 +27,8 @@ TODO list
   * x-kubernetes-int-or-string:
   * x-kubernetes-embedded-resource:
   * x-kubernetes-unions: {"discriminator": <discriminator>, "fields-to-discriminateBy": {<field>: <discriminator>, }}
+[x] Document patch operations
+[x] Develop Dockerfile for packaging and release
 [x] Document `application/apply-patch+yaml` content type.
 [x] More general comparison of group-versions.
 [x] Debug the extra resource named "Info"
