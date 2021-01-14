@@ -72,6 +72,10 @@ The specification for each API contains the following components:
         <a href="{% url 'static-page' 'uid' %}">unique ID</a> and a
         <a href="{% url 'static-page' 'resource-version' %}">resource version</a>.
       </li>
+      <li>For some long running requestions, the data transferred between the
+        servers and the clients could be binary
+        <a href="{% url 'static-page' 'stream' %}">streams</a>.
+      </li>
     </ul>
   </li>
   <li>the query strings (also called <i>parameters</i>), such as:
