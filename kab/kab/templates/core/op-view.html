@@ -273,8 +273,12 @@ p {
             <td>
             {% if data.schema %}
               {% escape_ref API data.schema as RESP %}
-              <a class="btn btn-outline-dark btn-sm" role="button"
-                   href="{{ RESP.REF.0 }}">{{ RESP.REF.1 }}</a>
+              {% if "REF" in RESP %}
+                <a class="btn btn-outline-dark btn-sm" role="button"
+                     href="{{ RESP.REF.0 }}">{{ RESP.REF.1 }}</a>
+              {% elif "type" in RESP %}
+                <code>{{ RESP.type }}
+              {% endif %}
             {% endif %}
             </td>
           </tr>
