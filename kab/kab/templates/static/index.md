@@ -1,6 +1,7 @@
 ## API Concepts
 
 ### 1. Overview
+
 The Kubernetes API is a resource-based (RESTful) programmatic interface
 provided through HTTP.
 The REST API is the fundamental fabric of Kubernetes, exposed by the API server.

@@ -209,26 +209,46 @@ The verbs defined for subresources differ depending on the object.
 It is NOT possible to access sub-resources across multiple resources.
 Generally a new, "virtual" resource type would be used if that becomes necessary.
 
-**TODO**: Node has `proxy`, `metrics`, `spec`, `stats`, `log` subresources.
+A `Node` resource has `proxy`, `metrics`, `spec`, `stats`, `log` subresources.
 These subresources are part of the kubelet API.
 
 ### Non-Resource Request Verbs
 
-- `logFileHandler`  
-- `logFileListHandler`  
-- `getCoreAPIVersions` 
-- `getAPIVersions` 
-- `getCodeVersion` 
-- `getServiceAccountIssuerOpenIDConfiguration`
-- `getServiceAccountIssuerOpenIDKeyset`
+- `logFileHandler`: retrieve a specific log file at the specified path
+  (<a href="{% url 'view-operation' API 'logFileHandler' %}"><i class="fa fa-eye"></i></a>)
+- `logFileListHandler`: list log files exposed at the API server node
+  (<a href="{% url 'view-operation' API 'logFileListHandler' %}"><i class="fa fa-eye"></i></a>)
+- `getCoreAPIVersions`: list available versions of the "core" API group
+  (<a href="{% url 'view-operation' API 'getCoreAPIVersions' %}"><i class="fa fa-eye"></i></a>)
+- `getAPIVersions`: list API groups available on the API server
+  (<a href="{% url 'view-operation' API 'getAPIVersions' %}"><i class="fa fa-eye"></i></a>)
+- `getCodeVersion`: retrieve version information about the API server
+  (<a href="{% url 'view-operation' API 'getCodeVersion' %}"><i class="fa fa-eye"></i></a>)
+- `getServiceAccountIssuerOpenIDConfiguration`: get service account issuer OpenID configuration
+  (<a href="{% url 'view-operation' API 'getServiceAccountIssuerOpenIDConfiguration' %}"><i class="fa fa-eye"></i></a>)
+- `getServiceAccountIssuerOpenIDKeyset`: get service account issuer OpenID
+  JSON Web Key Set
+  (<a href="{% url 'view-operation' API 'getServiceAccountIssuerOpenIDKeyset' %}"><i class="fa fa-eye"></i></a>)
 
-The following API is not documented:
+The following APIs are useful for debugging a cluster:
 
-- `/debug/pprof` returns the debug profile.
-- `/readyz` 
-- `/livez`
-- `/livez/<component>`: https://kubernetes.io/docs/reference/using-api/health-checks/#individual-health-checks
-
-https://kubernetes.io/docs/reference/using-api/health-checks/#api-endpoints-for-health
-
-
+- `/debug/pprof`: returns the debug profile.
+- `/healthz`: returns the overall health status of the API server. You can use the
+  `verbose` query string to output all known components and their health status.
+- `/healthz/<component>`: returns the health status of the specified component.
+  The `<component>` can be discovered using the `verbose` query string on `/healthz`.
+  If the component specified is not recognized by the API server, a 404 is returned.
+- `/readyz`: an endpoint for checking the readiness of the API server. You can
+  use the `verbose` query string to output all known components and their
+  readiness status.
+- `/readyz/<component>`: returns the readiness of the component specified.
+  The `<component>` can be discovered using the `verbose` query string on `/readyz`.
+  If the component specified is unknown to the API server, a 404 is returned.
+- `/livez`: an endpoint for checking the liveness of the API server.
+  You can use the `verbose` query string to instruct a verbose output for all
+  known components and their status. You can also use the
+  `exclude=<component>` query string to filter out a particular component from
+  the output.
+- `/livez/<component>`: the `<component>` can be discovered using the
+  `verbose` query string on `/livez`. If the component specified is not
+  recognized by the API server, a 404 is returned.
