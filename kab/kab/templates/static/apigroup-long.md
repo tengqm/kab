@@ -41,8 +41,6 @@ CamelCase of the API group name and `<Version>` is the CamelCase API group
 version. For example, the `"getAppsV1APIResources"`
 [operation](/apis/operation/1.20/getAppsV1APIResources/).
 
-**TODO: List of API Groups**
-
 ### Enabling/Disabling API Groups
 
 Certain resources and API groups are enabled by default. You can enable or

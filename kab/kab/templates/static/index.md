@@ -62,8 +62,8 @@ The specification for each API contains the following components:
         may be an <a href="{% url 'static-page' 'object' %}">object</a>.
       </li>
       <li>An object is identified by its <a href="{% url 'static-page' 'name' %}">name</a>.
-        For some objects, the name can be automatically
-        <a href="{% url 'static-page' 'generate-name' %}">generated</a>.
+        For some objects, the name can be automatically generated completely or partially
+        generated when `metadata.generateName` is specified.
       </li>
       <li>An object usually has a schema definition which is called a
         <a href="{% url 'static-page' 'kind' %}">kind</a>.

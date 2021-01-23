@@ -1,5 +1,6 @@
 TODO list
 
+[ ] List of API groups
 [ ] Popup field info on definition comparison screen
 [ ] Search prototype for definitions, operations
 [ ] Generate sample resource with checkboxed treeview
