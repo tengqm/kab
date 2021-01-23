@@ -2,7 +2,7 @@ TODO list
 
 [ ] List of API groups
 [ ] Popup field info on definition comparison screen
-[ ] Search prototype for definitions, operations
+[ ] In page filtering for definitions, operations
 [ ] Generate sample resource with checkboxed treeview
 [ ] Filter operations based on resource variants
 [ ] Refactor helpers code into classes
