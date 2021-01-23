@@ -2,12 +2,12 @@
 
 There are several parts in the HTTP paths for an API request:
 
-- **GROUP**: The API group **TODO Link**
-- **VERSION**: The API group version **TODO Link**
-- **RESOURCEYPTE**: The resource type **TODO Link**
+- **GROUP**: The <a href="{% url 'static-page' 'apigroup' %}">API group</a>
+- **VERSION**: The <a href="{% url 'static-page' 'apiversion' %}">API group version </a>
+- **RESOURCEYPTE**: The <a href="{% url 'static-page' 'resource' %}">resource type</a>
 - **NAMESPACE**: The namespace for namespaced resources.
-- **NAME**: The name of the resource. **TODO Link**
-- **SUBRESOURCE**: The name of the sub-resource, if any. **TODO Link**
+- **NAME**: The <a href="{% url 'static-page' 'name' %}">name of the resource</a>
+- **SUBRESOURCE**: The name of the sub-resource, if any.
 
 The following paths are used to retrieve collections and resources.
 
