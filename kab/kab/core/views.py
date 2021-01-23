@@ -267,6 +267,8 @@ class ViewOperation(generic.View):
         apiv = kwargs.pop('api')
         name = kwargs.pop('name')
         op = helpers.get_operation(apiv, name)
+        if not op:
+            raise exc.SuspiciousOperation("Unknown operation")
         params = helpers.parse_params(apiv, op["spec"])
         gv_list = op["group_version"].split("/")
         group_name = gv_list[0]

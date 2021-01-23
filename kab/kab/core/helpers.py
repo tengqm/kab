@@ -384,6 +384,7 @@ def get_operation(api_version, name, root=None):
     data = DATA["operations"].get(name, {})
 
     if not data:
+        LOG.error("Operation '%s' not found", name)
         return {}
 
     if api_version in data["versions"]:
