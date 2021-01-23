@@ -23,10 +23,11 @@ the server to return the next chunk of results. By continuing until the server
 returns an empty `continue` value the client can consume the full set of
 results.
 
-Like a **watch** (**TODO Link**) operation, a `continue` token will expire
-after a short amount of time (by default 5 minutes) and return a **410 Gone**
-if more results cannot be returned. In this case, the client will need to
-start from the beginning or omit the `limit` parameter.
+Like a <a href="{% url 'static-page' 'watch' %}"><B>watch</B></a> operation,
+a `continue` token will expire after a short amount of time (by default 5
+minutes) and return a **410 Gone** if more results cannot be returned. In this
+case, the client will need to start from the beginning or omit the `limit`
+parameter.
 
 ### Example
 
