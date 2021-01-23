@@ -221,6 +221,14 @@ def groups(api_version):
     return sorted(result, key=lambda g: g["name"])
 
 
+def group_full_name(group):
+
+    for g in DATA.get("group_names", []):
+        if g["name"] == group:
+            return g["display"]
+    return group
+
+
 def group_path(group_name):
     for g in DATA.get("group_names", []):
         if g["name"] == group_name:

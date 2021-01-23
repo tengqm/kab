@@ -165,6 +165,7 @@ class ViewDefinition(generic.View):
         name_parts = name.split(".")
         appears_in = helpers.definition_appears_in(apiv, name)
         versions = helpers.definition_versions(name)
+        group_fn = helpers.group_full_name(group)
 
         # filter out current group and version
         found = False
@@ -206,6 +207,7 @@ class ViewDefinition(generic.View):
 
         ctx = {
             "API": apiv,
+            "FULL_GROUP": group_fn,
             "GROUP": group,
             "VERSION": version,
             "APPEARS_IN": appears_in,
@@ -235,6 +237,7 @@ class DefinitionHistory(generic.View):
         name = kwargs.pop('name')
 
         fn = helpers.get_definition_name(group, version, name)
+        group_fn = helpers.group_full_name(group)
         result = jsondiff.history("defs", fn)
 
         if result is None:
@@ -249,6 +252,7 @@ class DefinitionHistory(generic.View):
 
         ctx = {
             "GROUP": group,
+            "FULL_GROUP": group_fn,
             "VERSION": version,
             "NAME": name,
             "DIFFDATA": result,
