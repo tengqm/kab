@@ -10,14 +10,13 @@ schema changes. The following descriptions cover both formats.
 
 The API versioning and software versioning are indirectly related. The
 <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/identifiers.md"
-target="_blank">API and release versioning proposal</a>
+target="_blank">API and release versioning proposal
+<i class='fa fa-external-link-alt'></a>
 describes the relationship between API versioning and software versioning.
 
 Different API versions indicate different levels of stability and support. You
 can find more information about the criteria for each level in the
 API Changes documentation.
-
-**TODO: Link to API changes doc**
 
 Here's a summary of each level:
 
