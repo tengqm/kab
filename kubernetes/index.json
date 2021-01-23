@@ -64285,7 +64285,7 @@
       ]
     },
     "getAPIVersions": {
-      "description": "get available API versions",
+      "description": "get available API groups",
       "group_version": "*",
       "op_type": "listgroups",
       "target": "*",
@@ -64823,7 +64823,7 @@
       ]
     },
     "getCodeVersion": {
-      "description": "get the code version",
+      "description": "get the version information about the API server",
       "group_version": "*",
       "op_type": "getversion",
       "target": "*",
@@ -64890,7 +64890,7 @@
       ]
     },
     "getCoreAPIVersions": {
-      "description": "get available API versions",
+      "description": "get available API versions for the core API group",
       "group_version": "core/v1",
       "op_type": "getversions",
       "target": "core",
@@ -65358,6 +65358,26 @@
         "1.17",
         "1.18",
         "1.19",
+        "1.20"
+      ]
+    },
+    "getServiceAccountIssuerOpenIDConfiguration": {
+      "description": "get service account issuer OpenID configuration, also known as the 'OIDC discovery doc'",
+      "group_version": "*",
+      "op_type": "openidconfig",
+      "target": "*",
+      "type": "group",
+      "versions": [
+        "1.20"
+      ]
+    },
+    "getServiceAccountIssuerOpenIDKeyset": {
+      "description": "get service account issuer OpenID JSON Web Key Set (contains public token verification keys)",
+      "group_version": "*",
+      "op_type": "openidkeyset",
+      "target": "*",
+      "type": "group",
+      "versions": [
         "1.20"
       ]
     },
@@ -67854,7 +67874,7 @@
       ]
     },
     "logFileHandler": {
-      "description": "",
+      "description": "retrieve a log file at the specified log path",
       "group_version": "*",
       "op_type": "logfile",
       "target": "*",
@@ -67871,7 +67891,7 @@
       ]
     },
     "logFileListHandler": {
-      "description": "",
+      "description": "list log files that are exposed for client to examine",
       "group_version": "*",
       "op_type": "logfilelist",
       "target": "*",

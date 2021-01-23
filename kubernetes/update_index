@@ -446,6 +446,28 @@ def _handle_special_ops(version, fn):
         add_operation(version, fname, op_dict)
         return
 
+    if fname == "getServiceAccountIssuerOpenIDConfiguration":
+        op_dict = {
+            "type": "group",
+            "op_type": "openidconfig",
+            "target": "*",
+            "group_version": "*",
+            "description": opdata.get("description", ""),
+        }
+        add_operation(version, fname, op_dict)
+        return
+
+    if fname == "getServiceAccountIssuerOpenIDKeyset":
+        op_dict = {
+            "type": "group",
+            "op_type": "openidkeyset",
+            "target": "*",
+            "group_version": "*",
+            "description": opdata.get("description", ""),
+        }
+        add_operation(version, fname, op_dict)
+        return
+
 
 def add_operation(version, name, op):
     global OPERATIONS
