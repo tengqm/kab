@@ -82,6 +82,13 @@
 
 {% block javascript %}
 <script>
+  $(function() {
+    $("#filterText").keypress(function(e) {
+      if (event.which == 13) {
+        filter_ops();
+      }
+    });
+  });
 
   function filter_ops() {
     var txt = $("#filterText").val().toLowerCase();

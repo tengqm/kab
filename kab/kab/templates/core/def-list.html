@@ -12,7 +12,8 @@
   <div class="btn-toolbar pb-3 bg-light justify-content-end" role="toolbar" aria-label="Definition Toolbar"
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="input-group">
-      <input id="filterText" type="text" class="form-control" placeholder="Filter" aria-label="Filter">
+      <input id="filterText" type="text" class="form-control" placeholder="Filter"
+        aria-label="Filter">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" onclick="filter_defs()"><i class="fa fa-filter"></i></button>
         <button class="btn btn-outline-secondary" type="button" onclick="reset()">Reset</button>
@@ -75,6 +76,13 @@
 {% block javascript %}
 <script>
 
+$(function() {
+  $("#filterText").keypress(function(e) {
+    if (event.which == 13) {
+      filter_defs();
+    }
+  });
+});
 function filter_defs() {
   var txt = $("#filterText").val().toLowerCase();
   $("a.deflink").each(function(index, ele) {
