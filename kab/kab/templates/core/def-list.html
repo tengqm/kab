@@ -12,9 +12,11 @@
   <div class="btn-toolbar pb-3 bg-light justify-content-end" role="toolbar" aria-label="Definition Toolbar"
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="input-group">
-      <div class="input-group-text" role="group" id="btnGroupAddon"><i class="fa fa-filter"></i></div>
-      <input id="filterText" type="text" class="form-control" placeholder="Filter"
-        aria-label="Filter" aria-describedby="btnGroupAddon">
+      <input id="filterText" type="text" class="form-control" placeholder="Filter" aria-label="Filter">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="filter_defs()"><i class="fa fa-filter"></i></button>
+        <button class="btn btn-outline-secondary" type="button" onclick="reset()">Reset</button>
+      </div>
     </div>
   </div>
 
@@ -42,7 +44,7 @@
             {% for DNAME, DDATA in DDICT.items %}
               {% if DDATA|length_is:"1" %}
                 {% dereference API GV.0 GV.1 DDATA.0 as LINK %}
-                <a class="btn btn-outline-secondary btn-sm mb-1 deflink" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+                <a class="btn btn-outline-dark btn-sm mb-1 deflink" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
               {% else %}
                 <div class="dropdown d-inline-block mb-1 deflink" data-def="{{ DNAME}} ">
                   <button class="btn btn-outline-dark btn-sm dropdown-toggle"
@@ -58,10 +60,6 @@
                   </div>
                 </div>
               {% endif %}
-
-              <!--
-              <a class="btn btn-outline-secondary btn-sm mb-1" role="button" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
-              -->
             {% endfor %}
           </td>
         </tr>
@@ -77,36 +75,40 @@
 {% block javascript %}
 <script>
 
-$(function() {
-  $("#filterText").on('input', function() {
-    var txt = $("#filterText").val().toLowerCase();
-    $("a.deflink").each(function(index, ele) {
-      var reftext = $(ele).text().toLowerCase();
-      if (reftext.indexOf(txt) >= 0) {
-        $(ele).addClass("d-inline-block").removeClass("d-none");
-      } else {
-        $(ele).addClass("d-none").removeClass("d-inline-block");
-      }
-    });
-    $("div.deflink").each(function(index, ele) {
-      var reftext = $(ele).attr("data-def").toLowerCase();
-      if (reftext.indexOf(txt) >= 0) {
-        $(ele).addClass("d-inline-block").removeClass("d-none");
-      } else {
-        $(ele).addClass("d-none").removeClass("d-inline-block");
-      }
-    });
-    $("#defTable tbody").children().each(function(row, tr) {
-      var td = $(tr).children().eq(1);
-      var btns = $(td).children(".d-inline-block").length;
-      if (btns == 0) {
-        $(tr).addClass("d-none").removeClass("d-table-row");
-      }
-      else {
-        $(tr).addClass("d-table-row").removeClass("d-none");
-      }
-    });
+function filter_defs() {
+  var txt = $("#filterText").val().toLowerCase();
+  $("a.deflink").each(function(index, ele) {
+    var reftext = $(ele).text().toLowerCase();
+    if (reftext.indexOf(txt) >= 0) {
+      $(ele).addClass("d-inline-block").removeClass("d-none");
+    } else {
+      $(ele).addClass("d-none").removeClass("d-inline-block");
+    }
   });
-});
+  $("div.deflink").each(function(index, ele) {
+    var reftext = $(ele).attr("data-def").toLowerCase();
+    if (reftext.indexOf(txt) >= 0) {
+      $(ele).addClass("d-inline-block").removeClass("d-none");
+    } else {
+      $(ele).addClass("d-none").removeClass("d-inline-block");
+    }
+  });
+  $("#defTable tbody").children().each(function(row, tr) {
+    var td = $(tr).children().eq(1);
+    var btns = $(td).children(".d-inline-block").length;
+    if (btns == 0) {
+      $(tr).addClass("d-none").removeClass("d-table-row");
+    }
+    else {
+      $(tr).addClass("d-table-row").removeClass("d-none");
+    }
+  });
+}
+
+function reset() {
+  $("#filterText").val("");
+  filter_defs();
+}
+
 </script>
 {% endblock %}

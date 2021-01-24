@@ -8,68 +8,148 @@
 
 {% block main_content %}
 
-  <!-- nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"></a></li>
-      <li class="breadcrumb-item">{{ API }}</li>
-      <li class="breadcrumb-item active">Operations</li>
-    </ol>
-  </nav -->
+  <div class="btn-toolbar pb-3 bg-light justify-content-end" role="toolbar" aria-label="Operations Toolbar"
+      style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
+    <div class="input-group">
+      <input id="filterText" type="text" class="form-control" placeholder="Filter" aria-label="Filter">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="filter_ops()"><i class="fa fa-filter"></i></button>
+        <button class="btn btn-outline-secondary" type="button" onclick="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
 
-  <div class="accordion" id="operationList">
-    {% for G, OPDICT in OPS.items %}
-      <div class="card">
-        <div class="card-header row" id="group-{{ G|slugify }}">
-          <div class="col-auto" style="align-self: center;">
+  <table id="opTable" class="table table-sm" width="100%">
+    <thead>
+      <tr class="table-active">
+        <th style="width:20%">Group/Version
+          <button type="button" class="btn" onclick="show_help('apigroup')">
+            <i class="fa far fa-question-circle text-info"></i>
+          </button>
+        </th>
+        <th>Operations</th>
+      </tr>
+    </thead>
+
+    <tbody style="font-family:monospace;">
+      {% for G, OPDICT in OPS.items %}
+        <tr>
+          <td style="word-break:break-word;">
             <code>{{ G }}</code>
-            {% if "/" in G %}
-              <a href="#" style="vertical-align: middle;"
-                  data-toggle="collapse" data-target="#ops-{{ G|slugify }}"
-                  aria-expanded="true" aria-controls="ops-{{ G|slugify }}">
-                <i class="fa fa-fw fa-plus-square"></i></a>
-              {% endif %}
-          </div>
-          <div class="col-auto">
+            <i class="fa fa-circle{% if "alpha" in G %} text-danger{% elif "beta" in G %} text-warning{% else %} text-success{% endif %}"></i>
+          </td>
+          <td style="word-break:break-word;">
             {# group operations #}
             {% for OP in OPDICT.group %}
-              <a class="btn btn-outline-secondary btn-sm" role="button"
-                href="{% url 'view-operation' API OP.name %}"
-                data-toggle="tooltip" data-placement="top"
-                title="{{ OP.description }}">
+              <a class="btn btn-outline-dark my-1 btn-sm d-inline-block" role="button"
+                href="{% url 'view-operation' API OP.name %}">
                 {{ OP.op_type }}
               </a>
             {% endfor %}
-          </div>
-        </div>
-      </div>
 
-      {% if "/" in G %} {# group '*' or unversioned doesn't have chidren #}
-        <div id="ops-{{ G|slugify }}" class="collapse"
-            aria-labelledby="group-{{ G|slugify }}" data-parent="#operationList">
-          <div class="card card-body py-0 row-cols-2">
-            <table class="table mb-0" style="border-width: 0;table-layout: auto; border-collapse: collapse; width:100%">
-              {% for OPT, OPLIST in OPDICT.items %}
-                {% if OPT != "group" %}
-                  <tr>
-                    <td><var>{{ OPT }}</var></td>
-                    <td style="width:100%">
-                      {% for OP in OPLIST|dictsort:"op_type" %}
-                        <a class="btn btn-outline-secondary btn-sm my-1" role="button"
-                          href="{% url 'view-operation' API OP.name %}"
-                          data-toggle="tooltip" data-placement="top"
-                          title="{{ OP.description }}">
+            {# resource operations #}
+            {% for OPT, OPLIST in OPDICT.items %}
+              {% if OPT != "group" %}
+                <div class="dropdown d-inline-block mb-1 resop" data-def="{{ OPT}} ">
+                  <button class="btn btn-outline-dark btn-sm dropdown-toggle"
+                      id="id-{{ OPT }}"
+                      type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ OPT }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="id-{{ OPT }}">
+                    {% for OP in OPLIST|dictsort:"op_type" %}
+                      <li>
+                        <a class="dropdown-item"
+                          href="{% url 'view-operation' API OP.name %}">
                           {{ OP.op_type }}
                         </a>
-                      {% endfor %}
-                    </td>
-                  </tr>
-                {% endif %}
-              {% endfor %}
-            </table>
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-  </div> <!-- operationList -->
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">No operations found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
 
+{% block javascript %}
+<script>
+
+  function filter_ops() {
+    var txt = $("#filterText").val().toLowerCase();
+    var keywords = txt.split(/\s+/);
+
+    // iterate all rows
+    $("table tbody tr").each(function(i, tr) {
+      var gv = $(tr).children().eq(0).text().toLowerCase().trim();
+
+      // loop through all group operation (a)
+      $(tr).children().eq(1).children("a").each(function(j, link) {
+        var op = $(link).text().trim();
+        var target = op + " " + gv;
+        found = true;
+        for (ki in keywords) {
+          if (target.indexOf(keywords[ki]) < 0) {
+            found = false;
+            break;
+          }
+        };
+        if (found == true) {
+          $(link).removeClass("d-none").addClass("d-inline-block");
+        } else {
+          $(link).removeClass("d-inline-block").addClass("d-none");
+        }
+      });
+
+      // loop through all resource operation (buttons)
+      $(tr).children().eq(1).children(".resop").each(function(j, btn) {
+        var res = $(btn).children().eq(0).text().trim().toLowerCase();
+
+        // loop through all operations
+        $(btn).children().eq(1).children().each(function(k, item){
+          var op = $(item).children().eq(0).text().trim();
+          var target = op + " " + res + " " + gv;
+          found = true;
+          for (ki in keywords) {
+            if (target.indexOf(keywords[ki]) < 0) {
+              found = false;
+              break;
+            }
+          };
+          if (found == true) {
+            $(item).removeClass("d-none").addClass("d-block");
+          } else {
+            $(item).removeClass("d-block").addClass("d-none");
+          }
+        });
+
+        var nActive =  $(btn).children().eq(1).children(".d-block").length;
+        if (nActive == 0) {
+          $(btn).removeClass("d-inline-block").addClass("d-none");
+        } else {
+          $(btn).removeClass("d-none").addClass("d-inline-block");
+        }
+      });
+
+      var opsCount = $(tr).children().eq(1).children(".d-inline-block").length;
+      if (opsCount == 0) {
+        $(tr).addClass("d-none").removeClass("d-table-row");
+      } else {
+        $(tr).addClass("d-table-row").removeClass("d-none");
+      }
+    });
+  }
+  function reset() {
+    $("#filterText").val("");
+    filter_ops();
+  }
+</script>
+{% endblock %}
