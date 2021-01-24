@@ -539,9 +539,9 @@ def load_operations(version):
                     opdata = load_json(version, fn)
                     # differentiate readgroup from listresources
                     if otype == "readgroup":
-                        group_version = gname.lower()
+                        group_version = g_name.lower()
                     else:
-                        group_version = gname.lower() + "/" + gv
+                        group_version = g_name.lower() + "/" + gv
                     op_dict = {
                         "type": "group",
                         "op_type": otype,
