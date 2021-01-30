@@ -11,7 +11,8 @@
   <div class="btn-toolbar pb-3 bg-light justify-content-end" role="toolbar" aria-label="Operations Toolbar"
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="input-group">
-      <input id="filterText" type="text" class="form-control" placeholder="Filter" aria-label="Filter">
+      <input id="filterText" type="text" class="form-control" placeholder="Filter"
+          aria-label="Filter" onkeydown="return tryFilter(event)">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" onclick="filter_ops()"><i class="fa fa-filter"></i></button>
         <button class="btn btn-outline-secondary" type="button" onclick="reset()">Reset</button>
@@ -82,13 +83,6 @@
 
 {% block javascript %}
 <script>
-  $(function() {
-    $("#filterText").keypress(function(e) {
-      if (event.which == 13) {
-        filter_ops();
-      }
-    });
-  });
 
   function filter_ops() {
     var txt = $("#filterText").val().toLowerCase();
@@ -154,9 +148,21 @@
       }
     });
   }
+
   function reset() {
     $("#filterText").val("");
     filter_ops();
   }
+
+  function tryFilter(evt) {
+    evt = (evt) ? evt : ((window.event) ? window.event : "");
+    var key = evt.keyCode? evt.keyCode : evt.which;
+    if (key == 13) {
+      filter_ops();
+      return false
+    }
+    return true;
+  }
+
 </script>
 {% endblock %}

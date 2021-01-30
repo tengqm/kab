@@ -13,7 +13,7 @@
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="input-group">
       <input id="filterText" type="text" class="form-control" placeholder="Filter"
-        aria-label="Filter">
+        aria-label="Filter" onkeydown="return tryFilter(event)">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button" onclick="filter_defs()"><i class="fa fa-filter"></i></button>
         <button class="btn btn-outline-secondary" type="button" onclick="reset()">Reset</button>
@@ -74,49 +74,53 @@
 {% endblock %}
 
 {% block javascript %}
+
 <script>
+  function filter_defs() {
+    var txt = $("#filterText").val().toLowerCase();
+    $("a.deflink").each(function(index, ele) {
+      var reftext = $(ele).text().toLowerCase();
+      if (reftext.indexOf(txt) >= 0) {
+        $(ele).addClass("d-inline-block").removeClass("d-none");
+      } else {
+        $(ele).addClass("d-none").removeClass("d-inline-block");
+      }
+    });
+    $("div.deflink").each(function(index, ele) {
+      var reftext = $(ele).attr("data-def").toLowerCase();
+      if (reftext.indexOf(txt) >= 0) {
+        $(ele).addClass("d-inline-block").removeClass("d-none");
+      } else {
+        $(ele).addClass("d-none").removeClass("d-inline-block");
+      }
+    });
+    $("#defTable tbody").children().each(function(row, tr) {
+      var td = $(tr).children().eq(1);
+      var btns = $(td).children(".d-inline-block").length;
+      if (btns == 0) {
+        $(tr).addClass("d-none").removeClass("d-table-row");
+      }
+      else {
+        $(tr).addClass("d-table-row").removeClass("d-none");
+      }
+    });
+  }
 
-$(function() {
-  $("#filterText").keypress(function(e) {
-    if (event.which == 13) {
+  function reset() {
+    $("#filterText").val("");
+    filter_defs();
+  }
+
+
+  function tryFilter(evt) {
+    evt = (evt) ? evt : ((window.event) ? window.event : "");
+    var key = evt.keyCode? evt.keyCode : evt.which;
+    if (key == 13) {
       filter_defs();
+      return false
     }
-  });
-});
-function filter_defs() {
-  var txt = $("#filterText").val().toLowerCase();
-  $("a.deflink").each(function(index, ele) {
-    var reftext = $(ele).text().toLowerCase();
-    if (reftext.indexOf(txt) >= 0) {
-      $(ele).addClass("d-inline-block").removeClass("d-none");
-    } else {
-      $(ele).addClass("d-none").removeClass("d-inline-block");
-    }
-  });
-  $("div.deflink").each(function(index, ele) {
-    var reftext = $(ele).attr("data-def").toLowerCase();
-    if (reftext.indexOf(txt) >= 0) {
-      $(ele).addClass("d-inline-block").removeClass("d-none");
-    } else {
-      $(ele).addClass("d-none").removeClass("d-inline-block");
-    }
-  });
-  $("#defTable tbody").children().each(function(row, tr) {
-    var td = $(tr).children().eq(1);
-    var btns = $(td).children(".d-inline-block").length;
-    if (btns == 0) {
-      $(tr).addClass("d-none").removeClass("d-table-row");
-    }
-    else {
-      $(tr).addClass("d-table-row").removeClass("d-none");
-    }
-  });
-}
-
-function reset() {
-  $("#filterText").val("");
-  filter_defs();
-}
+    return true;
+  }
 
 </script>
 {% endblock %}
