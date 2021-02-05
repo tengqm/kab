@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib import messages
 import markdown
 
+from kab import consts
 from kab.core import jsonutil
 
 LOG = logging.getLogger(__name__)
@@ -166,11 +167,11 @@ def xlat_errors(req, form, used=True):
 
 
 def apis():
-    return DATA.get("api_versions", [])
+    return [item[0] for item in consts.API_VERSIONS]
 
 
 def latest_api():
-    return DATA["api_versions"][-1]
+    return consts.API_VERSIONS[-1][0]
 
 
 def api_summary(apiv):

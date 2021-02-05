@@ -31,8 +31,8 @@ class Home(generic.View):
 
     def get(self, req, *qrgs, **kwargs):
         ctx = {
-            "FIRST_API": consts.API_VERSIONS[0],
-            "LAST_API": consts.API_VERSIONS[-1],
+            "FIRST_API": consts.API_VERSIONS[0][0],
+            "LAST_API": consts.API_VERSIONS[-1][0],
         }
         return shortcuts.render(req, 'index.html', ctx)
 
@@ -42,8 +42,10 @@ class ListAPIs(generic.View):
 
     def get(self, req, *args, **kwargs):
         result = {}
-        for apiv in helpers.apis():
+        for api in consts.API_VERSIONS:
+            apiv, rel_date = api[0], api[1]
             result[apiv] = helpers.api_summary(apiv)
+            result[apiv]["release_date"] = rel_date
         ctx = {
             "APIS": result,
         }
@@ -256,8 +258,8 @@ class DefinitionHistory(generic.View):
             "VERSION": version,
             "NAME": name,
             "DIFFDATA": result,
-            "START_API": consts.API_VERSIONS[0],
-            "END_API": consts.API_VERSIONS[-1],
+            "START_API": consts.API_VERSIONS[0][0],
+            "END_API": consts.API_VERSIONS[-1][0],
         }
         template = 'core/def-history.html'
 
@@ -302,8 +304,8 @@ class OperationHistory(generic.View):
         ctx = {
             "NAME": name,
             "DIFFDATA": result,
-            "START_API": consts.API_VERSIONS[0],
-            "END_API": consts.API_VERSIONS[-1],
+            "START_API": consts.API_VERSIONS[0][0],
+            "END_API": consts.API_VERSIONS[-1][0],
         }
         return shortcuts.render(req, 'core/op-history.html', ctx)
 
@@ -617,7 +619,7 @@ class StaticPage(generic.View):
             LOG.warning("Failed parsing markdown %s: %s", path, str(ex))
             data = ""
 
-        ctx = template.Context({"API": consts.API_VERSIONS[-1]})
+        ctx = template.Context({"API": consts.API_VERSIONS[-1][0]})
         data = template.Template(data).render(ctx)
         content = MD.reset().convert(data)
         ctx = {

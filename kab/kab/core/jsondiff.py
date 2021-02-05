@@ -345,9 +345,9 @@ def history(data_type, fname, ver_to=None, ver_from=None):
     """
 
     if ver_from is None:
-        ver_from = consts.API_VERSIONS[0]
+        ver_from = consts.API_VERSIONS[0][0]
     if ver_to is None:
-        ver_to = consts.API_VERSIONS[-1]
+        ver_to = consts.API_VERSIONS[-1][0]
 
     vmajor0, vminor0 = _parse_version(ver_from)
     vmajor1, vminor1 = _parse_version(ver_to)
@@ -367,12 +367,10 @@ def history(data_type, fname, ver_to=None, ver_from=None):
         file0 = os.path.join(helpers.DATA_PATH, v0, data_type, fname)
         file1 = os.path.join(helpers.DATA_PATH, v1, data_type, fname)
 
-        if not os.path.isfile(file0):
-            if os.path.isfile(file1):
-                result[v1] = {"status": "ADDED"}
-        elif not os.path.isfile(file1):
-            if os.path.isfile(file0):
-                result[v1] = {"status": "DELETED"}
+        if not os.path.isfile(file0) and os.path.isfile(file1):
+            result[v1] = {"status": "ADDED"}
+        elif not os.path.isfile(file1) and os.path.isfile(file0):
+            result[v1] = {"status": "DELETED"}
         else:
             if data_type == "defs":
                 res = compare([v0, v1], file0, file1)

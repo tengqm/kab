@@ -11,6 +11,7 @@
     <thead>
       <tr>
         <th class="text-center" scope="col">API Version</th>
+        <th class="text-center" scope="col">Release Date</th>
         <th class="text-center" scope="col">API Groups</th>
         <th class="text-center" scope="col">Resources</th>
         <th class="text-center" scope="col">Definitions</th>
@@ -20,7 +21,8 @@
     <tbody>
       {% for AV, AD in APIS.items %}
         <tr>
-          <th class="text-center" scope="row">{{ AV }}</th>
+          <td class="text-center" scope="row">{{ AV }}</td>
+          <td class="text-center" scope="row">{{ AD.release_date }}</td>
           <td class="text-center">{{ AD.groups }}</td>
           <td class="text-center">
             <a href="{% url 'list-resources' AV 'all' %}">{{ AD.resources }}</a>
