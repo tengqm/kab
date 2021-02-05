@@ -1,0 +1,1315 @@
+CHANGES
+=======
+
+0.4.0
+-----
+
+* Allow enter to perform search
+* Fix requirements
+* Add pretty description
+* Update requirements
+* Tag 0.4.0
+* Allow operations and definitions to be filtered
+* Use abbreviated group name for resources
+* Upgrade django
+* Allow filtering of definitions
+* Fix parsing of DEPRECATE/Alpha/Beta
+* Fix apis overview page and the rendering of non structured response
+* Fix display of api group name
+* Fix a TODO item
+* Fix some static pages
+* Complete verbs static page
+* Fix processor for two special operations
+* Improve handling of operation that is not found
+* Update description for getCodeVersion operation
+* Update description for getAPIVersions operation
+* Add description to logFileListHandler operation
+* Add description for logFileHandler operation
+* Update description for getCoreAPIVersions
+* Rename apiversion-long to apiversion
+* Rename apigroup-long to apigroup
+* Update a TODO item
+* Clean pending todo items for static pages
+* Add static page about streams
+* Update Status description
+* Update TODO
+* Update home page view and concepts index view
+* Revise links to home view
+* Link status to pop up help dialog
+* Start dev for 0.3
+* Allow help dialog to be maximized
+* Add status static page
+
+0.2.0
+-----
+
+* Fix settings file
+* Fix Dockerfile
+* Improve Dockerfile
+* Fix relative directories
+* Update requirements to include wheel
+* Update Docker file for wheel package
+* Update version to 0.2.0
+* Fix API summary
+* Show related operations for a given one
+* Optimize the list of operations into a dict
+* Fix operation description inconsistency
+* Added some examples for the 'patches' static page
+* Update description for Patch type (all versions)
+* Fix incorrectly specified patch body
+* Sort keys for 1.17 operations
+* Sort keys for 1.16 operations
+* Ensure 1.15 ops have keys sorted
+* Remove PATCH definitions and fix patch for 1.13
+* Update UID static page
+* Update description for patch operation
+* Improve the name page for concept
+* Update the latest todo list
+* Misc improvements to the static concept pages
+* Improve description about the PUT verb
+* Add more extensions to the static page
+* Add new content type we know so far
+* Allow static page to have a title
+* Allow Django templates in static pages
+* Add static help page for patches
+* Fix CSR Approval payload
+* Fix update status operation
+* Drop a few LOG calls from the views module
+* Add extensions static page (to be completed)
+* Upgrade version of markdown
+* Polish history view
+* Tidy up template naming for consistency
+* Remove 'includeUnitialized' parameter in 1.14-1.20
+* Fix bad operation definition
+* Fix some static pages
+* Fix empty title for some static pages
+* Fix handling of empty history
+* Avoid touching status for UPDATE/PUT operations
+* Make sure 'status' is not included in CREATE requests
+* deletetionTimestamp cannot be set when create object
+* Fix deletecollection and list operations in 1.19
+* Update deletecollection and list operations for 1.20
+* Improve code style and resource list view
+* Add support for operation history view
+* Improve spacing in operation view
+* Update for Info definition
+* Improve handling of special groups
+* Switch to toolbar for operation view
+* Improve tooltip for Definition toolbar
+* History view for definitions
+* Move definition diff view out of compare template
+* Tune parameter diff display
+* Add history function for definition/operation
+* Fix data error in APIs
+* Optimize json comparison code
+* Drop old scripts
+* Update index building script and result
+* Update data that were incorrect
+* Last batch of data update for API spec
+* Update data for apps v1beta1 and v1beta2 (all versions)
+* Update data for apps/v1beta1 apps/v1beta2 in 1.17
+* Update data for auditregistration API group (all versions)
+* Update data for settings API group (all versions)
+* Tool and record for API spec sync
+* Update data for apiregistration API group (all versions)
+* Update data for meta and apimachinery (all versions)
+* Update data for apiextensions API group (all versions)
+* Update data for storage API group (all versions)
+* Update data for scheduling API group (all versions)
+* Update data for rbac API group (all versions)
+* Update data for policy API group (all versions)
+* Update data for node API group (all versions)
+* Update data for networking API group (all versions)
+* Update data for flowcontrol API group (all versions)
+* Update data for Ingress in extension API group (all versions)
+* Update data for events API groups (all versions)
+* Update data for discovery API group (all versions)
+* Update data for core/v1 API group (all versions)
+* Update data for core v1 Volume and PV resources (all versions)
+* Update data for coordination API groups for all versions
+* Update data for certificates API groups all versions
+* Update data for batch API group (all versions)
+* Update data for autoscaling API group (all versions)
+* Update data for authorization API groups for all versions
+* Update data for authentication API groups for all versions
+* Update data for apps/v1 for all versions
+* Accurately parse alpha/beta/deprecated fields
+* Update data for admissionregistration API group
+* Fix bug in operation comparison
+* Make sure operations are dumped with keys sorted
+* Fix bug related to duplicate API group versions
+* Fix operation comparison
+* Clean the mess of paragraph margins
+* Sort operations by definitions in the list
+* Tweak button appearance in view-definitions
+* Ensure tool buttons are fixed width
+* Upgrade fontawesome version
+* Upgrade fontawesome to 5.15.1
+* Revise version selection into divs
+* Tweak comparison form
+* Fix listing of operations when comparison
+* Fix comparison of operations
+* Fix a typo
+* Improve titles for pages
+* Tweak lists
+* More content for resource-list page
+* Tune header style for static pages
+* Add labels, common-labels, taints static page
+* Remove jstree testing url/view/tmpl
+* Polish the toolbar border and icon
+* Formalize spelling of Beta features
+* Formalize the spelling of Alpha support
+* Formalize the spelling of DEPRECATED
+* Uniform the display for support levels
+* Add toolbar 'test' command for definition
+* Rename sources.html to resource-list.html for consistency
+* Improve help dialog
+* Update and link help pages for common concepts
+* Update index for operations newly added in 1.20
+* Deal with emply list for other versions
+* Break circles for JSON schema props reference
+* Fix typo in 1.20 definition
+* Condense definitions list
+* Auto select and open the root node in nav tree
+* Force goto new href when clicking in nav tree
+* Revise definition menu to toolbar
+* Replace version switch and compare
+* Fix data gliches in 1.20
+* Add dropdown for version switch
+* Condense resource display
+* Integrate jstree into definition view
+* Update template generation for code style
+* Locally cache jstree css and js
+* Record data change to 1.20 definitions
+* Misc change to templates
+* Add glossary for container-resource
+* Change appearance of code
+* Improve the jstree navigation
+* Enable 1.20 data
+* Update data for apiregistration API group 1.20
+* Update data for meta v1 1.20
+* Update data for apiextensions-apiserver API groups 1.20
+* Update data for storage API group 1.20
+* Update data for scheduling API group 1.20
+* Update data for rbac API group 1.20
+* Update data for rbac v1 1.20
+* Update data for policy API group (v1beta1) 1.20
+* Update node API groups 1.20
+* Update data for networking API group 1.20
+* Update data for flowcontrol API groups 1.20
+* Update for discovery/v1beta1 group version 1.20
+* Update data for extensions/v1beta1 API group
+* Update data for events API  1.20
+* Updata data for core v1 API group
+* Update data for Lease resource
+* Add storage/v1alpha1 CSIStorageCapacity resource and ops
+* Fix list of parameters
+* Add core v1 EphemeralContainers resource
+* Add updated 1.20 orig data
+* Drop old 1.20orig
+* Update data for certificates API group 1.20
+* Update data for CronJob in 1.20
+* Fix data for autoscaling v2beta1/2 in 1.20
+* Update data for apiserverinternal v1alpha1 in 1.20
+* Updata data for batch v1 API group
+* Update data for authentication API group in 1.20
+* Update data for authorization API group 1.20
+* Update data for autoscaling API group 1.20
+* Update data for apps/v1 in 1.20
+* Update daemonset data 1.20
+* Set default data type to defs
+* Add support for help side panel
+* Update metadata field for all 1.20
+* Update ControllerRevision
+* Update 1.19 1.20 for admissionregistration
+* Formalize 1.19 1.20 [1]
+* Update combined swagger JSONs
+* Drop a sample JSON file
+* Update patch operation for fieldManager reference 1.14
+* Update patch operation for fieldManager reference 1.15
+* Update patch operation for fieldManager reference 1.16
+* Update patch operation for fieldManager reference 1.17
+* Update patch operation for fieldManager reference 1.18
+* Update patch operation for fieldManager reference 1.19
+* Update patch operation for fieldManager reference
+* Add 'fieldManagerPatch' parameter to 1.14-1.19
+* Update to data for 1.13
+* Update fieldManager description for patch in 1.14
+* Update fieldManager for patch operations in 1.15
+* Update description of fieldManager for patch in 1.16
+* Update fieldManager description for patch in 1.17
+* Update fieldManager for patch operations 1.18
+* Removed a warning from decompose script
+* Update decomposed data for 1.20
+* Fix processing of fieldManager
+* Fix namespace parameter
+* Update fieldManager reference for patch operations 1.19
+* resourceVersionMatch is available in 1.19
+* Update description of fieldManager for 1.14, 1.15
+* Update description of export
+* Update description for dryRun
+* Update description for continue and exact
+* Update allowBookmarks parameter for 1.15 and 1.16
+* Update description to watch
+* Update description to \`timeoutSeconds\`
+* Update description for propagation policy
+* Update description of \`pretty\`
+* Sync description of resourceVersion
+* Replicate parameter change to orphanDependents
+* Fix parameters JSON for 1.20
+* Unify definition of \`continue\`
+* Unify label selector
+* Fix label-selector markdown
+* New static page for field selection
+* Remove includeUninitialized from 1.14-1.20
+* Unify gracePeriodSeconds
+* Unify the force parameter
+* Update fieldSelector description
+* Add tool for copy over field definitions
+* Update to fieldManager parameter
+* Update parameter export and exact for 1.17-1.20
+* Update dryRun for 1.17-1.20
+* Fix port.py and rename it to port.py
+* Update WatchEvent
+* Partial fix parameters 1.17-1.20
+* Improve links to definitions
+* Update port.py with automation
+* Add codehilite stylesheet to show code
+* Add some static API concepts pages for reference
+* Rework static pages using markdown
+* Fix error in helpers
+* Update index and fix issues in 1.20
+* RuntimeClass in node/v1
+* Operations for PriorityLevelConfiguration in v1beta1
+* Operations for v1beta1 FlowSchema
+* PriorityLevelConfiguration in the v1beta1 group
+* FlowSchema related types in v1beta1
+* New 'ports' field added to core/v1 LoadBalancerIngress
+* Update to autoscaling/v2beta2 MetricSpec and MetricStatus
+* Update to v2beta1 version of autoscaling MetricSpec and MetricStatus
+* Operations for internalapiserver/v1alpha1 StorageVersion
+* StorageVersion resource definition in 1.20
+* Added two new operations related to OpenID
+* Add tokenRequest field to CSIDriverSpec (v1, v1beta1)
+* New Condition type added and referenced in ServiceStatus
+* Clarification to batch/v1 JobStatus fields
+* StartupProbe in core/v1 Container is GA
+* Update description for core/v1 Event
+* Update description to core/v1 PersistentVolumeClaimSpec
+* Description change to core/v1 PodSecurityContext
+* 'resources' no longer required by core/v1 ProjectedVolumeSource
+* Update description to core/v1 ServicePort
+* Changes to core/v1 ServiceSpec
+* Changes to discovery/v1beta1 Endpoint type
+* New fields added to discovery/v1beta1 EndpointConditions type
+* Update description to events/v1 Event type
+* Update description for events/v1beta1 Event type
+* Fix port.py for operation IDs
+* Update to 1.20 RuntimeClass/RuntimeClassSpec
+* Update 1.20 DeleteOptions
+* Initialize data for 1.20
+* Add an icon for object fields
+* Update help for change-desc script
+* Initial version for checking diffs between versions
+* Avoid hardcoded data directory
+* Removed an old script
+* Update corev1 ConfigMapNodeConfigSource
+* Update metav1 Time description
+* Update core v1 Taint description
+* Update NodeSepc description
+* Fix propagationPolicy format
+* Update DeleteOptions description
+* Static contents for API concepts
+* Ignore bin directory
+* Experimenting searching
+* Basic support to hosting static concept pages
+* Update API spec
+* APIService in v1beta1 group
+* Fix APIService definition
+* Update APIServiceSpec
+* Fix ServiceReference definition
+* APIService definition fix
+* Archive 18-19 diff
+* Add new version for 1.19
+* APIService change
+* Update settings and index data
+* Fixed errors in 1.19
+* Weird change to APIServiceSpec string field ..
+* WatchEvent list changes
+* Fix typo in ObjectMeta
+* New fields for CRDVersion of v1beta1
+* CRD of v1beta1 is to be removed in 1.22
+* deprecated, deprecatedWarning for CRDVersion
+* new fields on CSIDriverSpec added (1.19)
+* PriorityClass preemptionPolicy is now beta
+* rbac v1beta1 deprecation timeline deferred to 1.22
+* Role, RoleBinding, RoleBindingList, RoleList deprecation timeline
+* ClusterRule, ClusterRoleBinding deprecation timeline set
+* Stupid BLM change
+* Trivial
+* Minor changes to 1.19 networking resources
+* Ingress, IngressClass graduation in 1.19
+* Description changes to Event in v1beta1 group
+* New Event resource type in events.v1 group
+* Changes to EndpointSliceList array type customization
+* Continue working on the go version
+* Changes to Volume struct
+* TopologySpreadConstraint description changed
+* Updates to ServiceSpec descriptions
+* ServicePort appProtocol is now beta
+* SecurityContext gets new field seccompProfile
+* SecretVolumeSource mode description changed 1.19
+* Secret immutable is beta in 1.19
+* New type SeccompProfile in 1.19
+* Description change for mode bits in ProjectedVolumeSource
+* Changes to PodSpec in 1.19
+* seccompProfile field in PodSecurityContext 1.19
+* EphemeralVolumeSource in 1.19
+* KeyToPath.mode description changed
+* EventSeries state marked removal in 1.18
+* EnvVarSource changes in 1.19
+* EndpointPort.appProtocol is beta in 1.19
+* Changes to ComponentStatus and ConfigMap resources in 1.19
+* Changes to certificates/v1beta1 types in 1.19
+* Improve parsing of fieldManager parameter
+* 1.19 original (aug 21st)
+* Initial copy over for 1.19 from 1.18
+* Add go mod file
+* Trivial fix to 1.18 docs
+* Go version of the KAB tool -- init
+* Ignore pkg directory for go source
+* Gen doc for kubelet configuration
+* Stop populating objects with default properties
+* Fix object yaml representation
+* Refactor JSON utils code and empty object gen
+* Fix PEP8 errors
+* Fix version switch from api overview page
+
+0.1
+---
+
+* Fix Dockerfile
+* Fix models file
+* Update requirements
+* Make sure static files are include
+* Fix log settings for docker
+* Tune build script
+* Add build facilities
+* Update readme
+* Enable manifest to be exported
+* Hook resource testing view
+* Polish operation view page
+* Improve support to patching objects
+* Util script for porting spec across versions
+* Update some resources in admissionregistration/v1
+* Update admissionregistration/v1beta1 RuleWithOperations
+* Update admissionregistration.v1beta1 WebhookClientConfig
+* Update apps.v1.StatefulSet
+* Update authorization.v1.ResourceRule
+* Update authorization.v1beta1.ResourceRule
+* Update certificates.v1beta1.CertificateSigningRequestSpec
+* Update core.v1.ConfigMapEnvSource
+* Update core.v1.ConfigMapProjection
+* Update core.v1.ConfigMapVolumeSource
+* Update core.v1.EndpointSubset
+* Update core.v1.Endpoints
+* Update core.v1.GCEPersistentDiskVolumeSource
+* Update core.v1.GitRepoVolumeSource
+* Update core.v1.PodSecurityContext
+* Update core.v1.PodStatus
+* Update  core.v1.SecretEnvSource
+* Update core.v1.SecretProjection
+* Update core.v1.SecretVolumeSource
+* Update discovery.v1beta1.Endpoint
+* Upudate two flowcontrol resources
+* Update networking.v1.NetworkPolicyPeer
+* Update networking.v1beta1.HTTPIngressPath
+* Update networking.v1beta1.IngressRule
+* Update policy.v1beta1.AllowedHostPath
+* Update policy.v1beta1.PodSecurityPolicySpec
+* Update storage.v1.CSIDriverSpec
+* Update storage.v1.StorageClass
+* Update storage.v1.VolumeAttachment
+* Update storage.v1alpha1.VolumeAttachment
+* Update storage.v1beta1.CSIDriverSpec
+* update storage.v1beta1.VolumeAttachment
+* Update io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceConversion
+* Update io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps
+* Update io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion
+* Update WebhookClientConfig
+* Update io.k8s.apimachinery.pkg.api.resource.Quantity
+* Update io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta
+* Update io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta
+* Update io.k8s.apimachinery.pkg.apis.meta.v1.StatusCause
+* Update io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent
+* Update io.k8s.apimachinery.pkg.runtime.RawExtension
+* Improve 1.18 spec data
+* Improve support to k8s specific extensions
+* Experimental view for jstree and YAML editor
+* Basic support to YAML editor
+* Fix helpers logic
+* Hint div for added/removed parameters
+* Improve comparison of operations
+* Properly format 1.18 operations
+* Refactor text comparison logic into an utility function
+* Improve description comparison
+* Support latest API in definition list view
+* Revise TODO list
+* Improve definition view
+* Update TODO list
+* Initial support to operation comparison
+* Handling of non-grouped definitions
+* Handling of special operations
+* Fix indexing of some special pod operations
+* Remove some garbage files
+* Fix typos in last round
+* getExtensionsAPIGroup API in 1.18
+* Drop some operations that do not exist
+* scheduling/v1beta1 in 1.18
+* scheduling/v1beta1 in 1.17
+* scheduling/v1beta1 in 1.16
+* scheduling/v1beta in 1.15
+* scheduling/v1beta1 in 1.14
+* node/v1alpha1 in 1.18
+* node/v1alpha1 in 1.17
+* node/v1alpha1 in 1.16
+* node/v1alpha1 in 1.15
+* node/v1alpha1 in 1.14
+* Clean merged operations from 1.13 pipeline
+* logFileListHandler API across verions
+* logFileHandler API across versions
+* getCodeVersion API across all versions
+* core.v1/Binding operations
+* Fix return value type from delete operations
+* Updated swagger for all versions
+* storage/v1beta1 in 1.18
+* storage/v1beta1 in 1.17
+* storage/v1beta1 in 1.16
+* Add missing operation to 1.14
+* storage/v1beta1 in 1.15
+* storage/v1beta1 in 1.14
+* storage/v1beta1 in 1.13
+* storage/v1alpha1 in 1.18
+* storage/v1alpha1 in 1.17
+* storage/v1alpha1 in 1.16
+* storage/v1alpha1 in 1.15
+* storage/v1alpha1 in 1.14
+* storage/v1alpha1 in 1.13
+* scheduling/v1alpha1 in 1.18
+* scheduling/v1alpha1 in 1.17
+* scheduling/v1alpha1 in 1.16
+* scheduling/v1alpha1 in 1.15
+* scheduling/v1alpha1 in 1.14
+* scheduling/v1alpha1 in 1.13
+* rbac/v1beta1 in 1.18
+* rbac/v1beta1 in 1.17
+* rbac/v1beta1 in 1.16
+* rbac/v1beta1 in 1.15
+* rbac/v1beta1 in 1.14
+* rbac/v1beta1 in 1.13
+* Fix rbac/v1alpha1 Subject in all versions
+* rbac/v1alpha1 in 1.18
+* rbac/v1alpha1 in 1.17
+* rbac/v1alpha1 in 1.16
+* rbac/v1alpha1 in 1.15
+* rbac/v1alpha1 in 1.14
+* Operations for rbac/v1alpha1 in 1.13
+* rbac/v1alpha1 definitions in 1.13
+* Delete garbage files and fixed file location
+* Fix typo in some APIs and regenerate the API swagger file
+* Add missing API in 1.18
+* extensions/v1beta1 in 1.17
+* extensions/v1beta1 in 1.16
+* extensions/v1beta1 in 1.15
+* extensions/v1beta1 in 1.14
+* Operations for extensions/v1beta1 in 1.13
+* Fix typo in PSP
+* Fix description for NetworkPolicyPort
+* Fix typo related to ReplicaSet spec
+* Fix typos related to Deployment
+* Fix typo for DaemonSet resources
+* extensions/v1beta1 definitions 1.13
+* batch/v2alpha1 in 1.18
+* batch/v2alpha1 in 1.17
+* batch/v2alpha1 in 1.16
+* batch/v2alpha1 in 1.15
+* batch/v2alpha1 in 1.14
+* Minor tweak to cronjob replace operation across versions
+* batch/v2alpha1 in 1.13
+* autoscaling/v2beta1 in 1.18
+* autoscaling/v2beta1 in 1.17
+* autoscaling/v2beta1 in 1.16
+* autoscaling/v2beta1 in 1.15
+* autoscaling/v2beta1 in 1.14
+* autoscaling/v2beta1 in 1.13
+* HPA resource description fix (1.13-1.18)
+* autoscaling/v2beta1 1.13 (part 1)
+* Fix description in CrossVersionObjectReference across versions
+* authorization/v1beta1 in 1.18
+* authorization/v1beta1 in 1.17
+* authorization/v1beta1 in 1.16
+* authorization/v1beta1 in 1.15
+* authorization/v1beta1 in 1.14
+* Authorization/v1beta1 in 1.13
+* authentication/v1beta1 in 1.18
+* authentication/v1beta1 in 1.17
+* authentication/v1beta1 in 1.16
+* authentication/v1beta1 in 1.15
+* authentication/v1beta1 in 1.14
+* authentication v1beta1 in 1.13
+* Fix reference errors in apps/v1beta1 and apps/v1beta2
+* apps/v1beta2 in 1.17
+* apps/v1beta2 in 1.16
+* apps/v1beta2 support in 1.15
+* Operations for apps/v1beta2 in 1.14
+* Definitions of apps/v1beta2 in 1.14
+* One more TODO item
+* Operations for apps/v1beta2 in 1.13
+* Update deprecation info for some resources
+* Definitions apps/v1beta2 in 1.13
+* apps/v1beta1 in 1.17
+* apps/v1beta1 in 1.16
+* apps/v1beta1 in 1.15
+* Operations for apps/v1beta1 in 1.14
+* Fix 1.13 ops parametesr
+* Sort operation JSON in 1.13
+* Operations for apps/v1beta1 in 1.13
+* apps/v1beta1 resources in 1.13
+* Apiregistration v1beta1 in 1.18
+* Apiregistration v1beta1 in 1.17
+* Apiregistration v1beta1 in 1.16
+* Apiregistration v1beta1 in 1.15
+* Add new TODO
+* Apiregistration v1beta1 in 1.14
+* Normalize APIregistration operations
+* Amend APIServiceCondition
+* API Registration v1beta1 (1.13) definitions and operations
+* Add a TODO file
+* New index file for Ingress in extensions group
+* Polish comparison view
+* Mask groups with no resources, e.g. meta/v1
+* Minor tweak to code
+* Tune IngressRule description
+* Fix typo
+* Ingress resource and ops for extensions/v1beta1 in 1.18
+* Ingress resource and ops for extensions/v1beta1 in 1.17
+* Ingress resource and op in extensions/v1beta1 for 1.16
+* Ingress for extensions/v1beta1 in 1.15
+* Fix error in HTTPIngressValue json
+* Operations for Ingress in extensions.v1beta1 1.14
+* Ingress for extensions.v1beta1 in 1.14
+* Support getAPIVersions and getCoreAPIVersions operations
+* Add getAPIVersions operation
+* Tune operation list view
+* URL for switching APIs freely
+* Added utility function for sorting data
+* Revise operation list
+* Make switching API more flexible
+* Add 'LATEST\_API' to processors
+* Update templates
+* Fix popper js inclusion for debugging mode
+* Tune style for samp
+* Tune templates for resource and definition lists
+* API summary table
+* Sort definitions by group
+* Improve definition view
+* Tune look & feel and fixed some bugs
+* Change description list for TopologySpreadConstraint
+* Initial version of KAB
+* Initial version of update\_index script
+* Initial version of settings JSON
+* Updated index JSON
+* Fix objectmeta data description drifts
+* Update progress spreadsheet
+* Fix typo in API for 1.13 and 1.14
+* Reorg 1.13 definitions pipeline
+* Remove extensions API group API from 1.18
+* Update 1.14-1.18 for missing non-resource operations
+* Fix 1.18 api description for IngressClassSpec
+* Add operations for ServiceProxy in 1.13
+* Add operations for PodProxy in 1.13
+* Added operations for Pod portfoward
+* Add operations for Pod Exec APIs in 1.13
+* Remove two operations from pipeline for 1.13
+* Add NodeProxy operations for 1.13
+* Added operations for Pod attach
+* Add missing definitions in 1.13
+* Move swagger json for recreated version
+* Rename directories
+* Tool for batch changing the apiVersion and kind fields
+* Difference between 1.17 and 1.18 (commented)
+* Updated progress for 1.18
+* Ensure the generated spec is sorted
+* Recreated version of 1.18 API reference
+* Changes to the 1.18 operations
+* Create storage.v1.CSIDriver
+* Create networking.v1beta1.IngressClass
+* "service" is optional now in APIServiceSpec
+* CRD status field change on apiextensions.v1beta1
+* Description change to a field in JSONSchemaProps type
+* CRD status fields change
+* New CSIDriver and CSIDriverList resource in storage.v1
+* Minor change to PDB status description
+* Minor change to the IngressTLS port field
+* IngressClassName added to the Ingress spec in networking.v1beta1
+* Description changed on networking.v1beta1.IngressRule
+* IngressClass and IngresClassList resource in networking.v1beta1 group
+* resource field added to IngressBackend type
+* pathType added to HTTPIngressPath type
+* IPV6 address as comment for IPBlock
+* Minor changes to flowcontrol v1alpha1 API
+* Default value changed on EndpointPort.ApplicationProtocol
+* Field maturity change in WindowsSecurityContextOptions
+* Value field on Taint is no longer required
+* AppProtocol field added to ServicePort type
+* Immutable Secret
+* TopologySpreadConstraints on PodSpec is now Beta
+* New fsGroupChangePolicy field added to PodSecurityContext
+* Description changed to PVCSpec.dataSource
+* LimitRangeItem msut have 'type' specified
+* volumeDevices in EphemeralContainer now GA
+* AppProtocol added to EndpointPort type
+* volumeDevices in Container is now GA
+* StartupProbe in Container is now Beta
+* Immutable ConfigMap
+* Changes to autoscaling v2beta2 in 1.18
+* Copied 1.17rev as 1.18 base
+* Add diff between 1.17 and 1.18
+* A script for viewing the API spec
+* The progress spreadsheet
+* Rename the output from decompose process
+* Tune ObjectReference in 1.17
+* Initial check for 1.18.0 API decomposed
+* Recreated spec for 1.13-1.17
+* Change description of apiVersion and kind for 1.17
+* Change description for apiVersion and kind for 1.16
+* Change description for apiVersion and kind for 1.15
+* Change description for apiVersion and kind for 1.14
+* Unify apiVersion and kind description
+* Fix basic versions for 1.13 and 1.14
+* Fix oneOf issues in 1.13 API
+* Fix nits in 1.13 API
+* Fix oneOf problem in 1.14 API
+* Fix nits in 1.14 API
+* Fix oneOf problem in 1.15 API
+* Fix nits in 1.15 API
+* Continue fix nits in 1.16 API
+* Fix nits in 1.16 spec
+* Remove garbage file in 1.17 api
+* Fix nits in 1.17 specification
+* Fix nits in 1.17 specification
+* Add a script tool
+* Complete 1.17 revision
+* Changes to readCoreV1NamespacedPodLog operation in 1.17
+* Changes to ObjectMeta in 1.17
+* Changes to JSONSchemaProps with new fields in 1.17
+* CRD no longer has scope defaults in 1.17
+* Drop storage.k8s.io/v1beta1 API group, deprecated in 1.17
+* runAsUserName is now beta in WindowsSecurityContextOptions 1.17
+* subpathExpr in VolumeMount is GA in 1.17
+* TopologyKeys added to ServiceSpec in 1.17
+* Changes to PodSpec in 1.17
+* Changes to EnvVarSource in 1.17
+* Trivial vix
+* Fix parameters in 1.14
+* Fix parameter changes in 1.15
+* Fix 1.16 operation parameter changes
+* Changes to operation parameters in 1.17
+* New operations in flowcontrol.apiserver.k8s.io/v1alpha1 in 1.17
+* New flowcontrol.apiserver.k8s.io/v1alpha1 PriorityLevelConfiguration resource in 1.17
+* flowocontrol.k8s.io/v1alpha1 FlowSchema resource. 1.17
+* flowocontrol.k8s.io/v1alpha1 FlowSchema resource. 1.17
+* New storage.k8s.io/v1 resources CSINode and API. 1.17
+* discovery.k8s.io API group promoted to v1beta1 from v1alpha1 in 1.17
+* Initialize 1.17 revision
+* Conclude the revision of 1.16
+* Fix NodeStatus changes in 1.16
+* New content-type added to patch operations in 1.16
+* Description changes to apiextensions/v1beta1 resources in 1.16
+* Mark Mutating/ValidatingWebhookConfiguration in v1beta1 version deprecated in 1.16
+* New apiextensions.k8s.io/v1 API group
+* Changes to apimachinery ListMeta 1.16
+* Change to apimachinery ManagedFieldsEntry in 1.16
+* Apimachinery ObjectMeta managedFields and selfLink description changed
+* Changes to apimachinery RawExtension in 1.16
+* Changes to \`minReplicas\` in HorizontalPodAutoscalerSpec for 1.16, including v1 and v2beta2
+* Changes to storage.k8s.io/v1beta1 CSIDriverSpec in 1.16
+* Description change to ServicePort, new fields to WindowsSecurityContextOptions. 1.16
+* Description change on v1/Probe successThreshold. 1.16
+* Description changed on Pod.spec initContainers. 1.16
+* Update description of PodSecurityContext.windowsOptions in 1.16
+* New field \`podCIDRs' added to Node.spec in 1.16
+* Changes to v1/Lifecycle preStop description 1.16
+* Change EdnpointPort's name description 1.16
+* Added 'startupProbe' field to Container struct for 1.16
+* Added 'startupProbe' field to Container struct for 1.16
+* Remove 'initializers' from ObjectMeta in 1.16
+* Added 'scheduling' field to node.k8s.io/v1beta1 RuntimeClass resource 1.16
+* Add 'overhead' field to node.k8s.io/v1beta1 RuntimeClass resource 1.16
+* Resources and operations for discovery.k8s.io/v1alpha1 API group in 1.16
+* Added 'overhead' field to Pod spec in 1.16
+* Amend Pods spec change in 1.16 for topologySpreadConstraints
+* Add 'allocatable' field to the CSINodeDriver resource in 1.16
+* Add TopologySpreadConstraint to Pod spec in 1.16
+* PodIPs added to Pod status struct in 1.16
+* Condition field added to Namespace status in 1.16
+* EphemeralContainer support in 1.16
+* New resource and API added to authentication.k8s.io/v1 1.16
+* Operations for admissionregistration/v1 API group 1.16
+* ValidatingWebhook related resources in admissionregistration/v1 for 1.16
+* Type MutatingWebhookConfiguration from admissionregistration/v1 in 1.16
+* Initialize 1.16 revision
+* Complete 1.15 revision
+* Changes to list operations in 1.15
+* Changes to deleteCollection operations in 1.15
+* Changes to ListMeta in APIs, effective in 1.15
+* Changes to apiregistration/v1 ServiceReference by adding port, 1.15
+* Changes to apiextensions-apiserver/v1beta1 in 1.15
+* Changes to CR and CRDs in 1.15
+* inlineVolume field added to VolumeAttachmentSource in 1.15
+* state in events/v1beta1 EventSeries is now deprecated
+* VolumeMount subpathExpr is now beta field in 1.15
+* Changes to PodSpec in 1.15
+* runtimeClassName is beta in 1.14
+* PreemptionPolicy in scheduling/v1 PriorityClass 1.15
+* EventSeries.state is deprecated and will remove in 1.18
+* New field added to CSIPersistentVolumeSource in 1.15
+* WebhookClientConfig not longer defaults to 443 auditregistration/v1alpha1 1.15
+* New \`port\` field in ServiceReference auditregistration/v1alpha1 1.15
+* allowedCSIDrivers is an alpha in 1.15
+* Added runtimeClass field to PodSecurityPolicySpec in 1.15
+* WindowsSecurityContextOptions added to SecurityContext in 1.15
+* Update WebhookClientConfig in admissionregistration/v1beta1 for 1.15
+* Add \`port\` to ServiceReference in admissionregistration/v1beta1 for 1.15
+* Changes to Admission Webhook resources in 1.15 (1)
+* Initialize 1.15 revision
+* Use 1.15.0 for 1.15 release
+* Conclude 1.14 revision
+* Update 1.14 status
+* Update Preconditions struct in 1.14
+* Update ObjectMeta.initializers status in 1.14
+* Amend APIResource struct
+* Amend CRConversion struct in 1.14
+* Drop scheduling.k8s.io/v1beta1 which is deprecated by scheduling.k8s.io/v1
+* \`roles\` are no longer required in Role or ClusterRole in 1.14
+* Ingress in extensions/v1beta1 is deprecated
+* Amend VolumeMount in 1.14
+* Amend ServiceSpec in 1.14
+* Amend QuobyteVolumeSource struct in 1.14
+* Change to Lifecycle.preStop in 1.14
+* Changes to Webhook definition in 1.14
+* Amend RuleWithOperations definition in 1.14
+* New 'managedFields' field added to ObjectMeta in 1.14
+* APIs for storage.k8s.io/v1beta1 CSINode resource
+* API for storage.k8s.io/v1beta1 CSIDriver
+* New scheduling.k8s.io/v1 API group
+* APIs for node.k8s.io/v1beta1 group
+* Ingress in networking.k8s.io/v1beta1
+* Change to PodSecurityPolicy in 1.14
+* CSI volume source in 1.14
+* API for coordination.k8s.io/v1 group
+* admissionregistration.k8s.io/v1alpha1 is removed in 1.14
+* Initial revision to 1.14
+* Complete 1.13 revision
+* Revise compose script for validation
+* Fix nits in revised version of 1.13 APIs
+* Add missing data to 1.13 revision
+* Improve validation for compose script
+* Summarize changes from 1.14 to 1.15
+* Sumarize changes from 1.13 to 1.14
+* Summarize 1.15-1.16 changes
+* Add 1.17 definitions
+* Amend Rule validation
+* APIs for autoscaling/v2beta2 API group
+* Types for autoscaling/v2beta2 API group
+* APIs for admissionregistration.k8s.io/v1alpha1 API group
+* API for extensions/v1beta1 Ingress resource
+* APIs for settings.k8s.io/v1alpha1 API group
+* APIs for scheduling.k8s.io/v1beta1 API group
+* APIs for events.k8s.io/v1beta1 API group
+* APIs for certificates.k8s.io/v1beta1 API group
+* APIs for batch/v1beta1 API group
+* APIs for auditregistration.k8s.io/v1alpha1 API group
+* APIs for apiextensions.k8s.io/v1beta1 API group
+* APIs for admissionregistration.k8s.io/v1beta ValidatingWebhookConfiguration resource
+* API for admissionregistration.k8s.io/v1beta1 MutatingWebhookConfiguration
+* APIs for the rbac.authorization.k8s.io/v1 RoleBinding resource
+* APIs for rbac.authorization.k8s.io/v1 Role resource
+* APIs for rbac.authorization.k8s.io/v1 ClusterRoleBinding resource
+* API for rbac.authorization.k8s.io/v1 ClusterRole resource
+* APIs for coordination.k8s.io/v1beta1 API group
+* APIs for policy/v1beta1 PodDisruptionBudget resource
+* APIs for policy/v1beta1 PodSecurityPolicy resource
+* APIs for autoscaling/v1 API group
+* APIs for apiregistration.k8s.io/v1 API group
+* APIs for authorization.k8s.io/v1 API group
+* API for quthorization.k8s.io/v1 LocalSubjectAccessReview
+* APIs for the authentication.k8s.io/v1 API group
+* APIs for networking.k8s.io/v1 NetworkPolicy resource
+* APIs for storage.k8s.io/v1 VolumeAttachment resource
+* APIs for storage.k8s.io/v1 StorageClass resource
+* API for batch/v1 APIResource
+* APIs for batch/v1 Job resource
+* API for apps/v1 APIResource
+* APIs for apps/v1 ControllerRevision resource
+* APIs for apps/v1 StatefulSet resource
+* APIs for apps/v1 ReplicaSet
+* APIs for apps/v1 DaemonSet
+* Deployment condition enum
+* Refine condition and status struct under core v1
+* Scale subresource of apps/v1 Deployment
+* Deployment status sub-resources API
+* Other APIs for apps/v1 Deployment
+* Create apps/v1 Deployment API
+* Remove watch APIs from apps v1 group
+* APIs for version and group discovery
+* API resource API for core v1
+* APIs for core v1 PersistentVolume
+* API for namespace subresources
+* Core V1 ComponentStatus APIs
+* APIs for all namespaces Core V1 resources
+* Drop deprecated watch APIs in core v1 group
+* Delete collections in Core V1
+* Reorg operations in pipeline
+* APIs for core v1 PVC
+* API for core v1 namespaced service
+* APIs for subresources for core v1 Pod
+* APIs for core v1 PodTemplate
+* APIs for core v1 Pod
+* Other APIs for core v1 RC
+* read, patch, replace, delete, list for core v1 RC
+* Create Core V1 ReplicationController
+* API for core v1 ResourceQuota
+* Core V1 ServiceAccount APIs
+* Other APIs for LimitRange
+* Create namespaced LimitRange
+* Core v1 namespaced endoints API
+* Cleanse Binding API
+* Finish core V1 secret APIs
+* More APIs for secret
+* Create core v1 namespaced secret
+* Other APIs for core v1 Event
+* createCoreV1NamespacedEvent API
+* Add diff results
+* Spec for 1.16
+* spec for 1.14 and 1.15
+* Secret create and update
+* Namespace APIs
+* Node APIs
+* Split Node definition
+* PUT core.v1.ConfigMap
+* Remove watch all namespaces ConfigMap (deprecated)
+* Done two more operations: core.v1.ConfigMap
+* Remove watch core.v1.ConfigMapList (deprecated)
+* Remove watch core.v1.ConfigMap (deprecated)
+* More operations for core.v1.ConfigMap
+* Move ConfigMapKeySelector
+* Destruct dependencies
+* Add APIMachinery Version Info
+* Add APIMachinery WatchEvent
+* Add APIMachinery Patch
+* Add APIMachinery DeleteOptions
+* Add APIMachinery Preconditions
+* Add APIMachinery APIVersions
+* Add APIMachinery APIGroupList
+* Add APIMachinery APIResourceList
+* Add APIMachinery APIResource
+* Add APIMachinery APIGroup
+* Add APIMachinery ServerAddressByClientCIDR
+* Add APIMachinery GroupVersionForDiscovery
+* Add API Extension CustomResourceDefinitionVersion
+* Add API Extension CustomResourceDefinitionList
+* Add API Extension CustomResourceDefinitionCondition
+* Add API Extension CustomResourceDefinitionConditionStatus
+* Add API Extension CustomResourceDefinitionCondition
+* Add API Extension CustomResourceDefinitionSpec
+* Add API Extension CustomResourceDefinitionNames
+* Add API Extension CustomResourceValidation
+* Add API Extension CustomResourceSubresources
+* Add API Extension CustomResourceSubresourceStatus
+* Add API Extension CustomResourceSubresourceScale
+* Add API Extension CustomResourceConversion
+* Add API Extension WebhookClientConfig
+* Add API Extension ServiceReference
+* Add API Extenstion CustomResourceColumnDefinition
+* Add AutoScaling HorizontalPodAutoscalerList
+* Add AutoScaling HorizontalPodAutoscaler
+* Add AutoScaling HorizontalPodAutoscalerStatus
+* Add AutoScaling MetricStatus
+* Add AutoScaling ObjectMetricStatus
+* Add AutoScaling ResourceMetricStatus
+* Add AutoScaling PodsMetricStatus
+* Add AutoScaling HorizontalPodAutoscalerCondition
+* Add AutoScaling HorizontalPodAutoscalerSpec
+* Add AutoScaling MetricSpec
+* Add AutoScaling ResourceMetricSource
+* Add AutoScaling PodsMetricSource
+* Add AutoScaling ObjectMetricSource
+* Add AutoScaling ExternalMetricStatus
+* Add AutoScaling MetricValueStatus
+* Add AutoScaling ExternalMetricSource
+* Add AutoScaling MetricTarget
+* Add AutoScaling MetricIdentifier
+* Add AutoScaling CrossVersionObjectReference
+* Add Scheduling PriorityClassList
+* Add Scheduling PriorityClass
+* Add Policy Eviction
+* Add Policy PodDisruptionBudgetList
+* Add Policy PodDisruptionBudget
+* Add Policy PodDisruptionBudgetStatus
+* Add Policy PodDisruptionBudgetSpec
+* Add Policy PodSecurityPolicyList
+* Add Policy PodSecurityPolicy
+* Add Policy PodSecurityPolicySpec
+* Add Policy HostPortRange
+* Add Policy FSGroupStrategyOptions
+* Add Policy AllowedFlexVolume
+* Add Policy AllowedHostPath
+* Add Policy SupplementalGroupsStrategyOptions
+* Add Policy RunAsUserStrategyOptions
+* Add Policy RunAsGroupStrategyOptions
+* Add Policy IDRange
+* Add Policy SELinuxStrategyOptions
+* Add events EventList
+* Add events Event
+* Add events EventSeries
+* Add certificates CertificateSigningRequestList
+* Add certificates CertificateSigningRequest
+* Add certificates CertificateSigningRequestStatus
+* Add certificates CertificateSigningRequestCondition
+* Add certificates CertificateSigningRequestSpec
+* Add Coordination LeaseList
+* Add Coordination Lease
+* Add Coordination LeaseSpec
+* Add Batch CronJobList
+* Add Batch CronJob
+* Add Batch CronJobStatus
+* Add Batch CronJobSpec
+* Add Batch JobTemplateSpec
+* Add Aggregation APIServiceList
+* Add Aggregation APIService
+* Add Aggregation APIServiceStatus
+* Add Aggregation APIServiceCondition
+* Add Aggregation APIServiceSpec
+* Add Aggregation ServiceReference
+* Add Storage VolumeAttachementList
+* Add Storage VolumeAttachement
+* Add Storage VolumeError
+* Add Storage VolumeAttachmentStatus
+* Add Storage VolumeAttachmentSpec
+* Add Storage StorageClassList
+* Add Storage StorageClass
+* Add RBAC RoleBindingList
+* Add RBAC RoleBinding
+* Add RBAC RoleList
+* Add RBAC Role
+* Add RBAC ClusterRoleList
+* Add RBAC ClusterRoleList
+* Add RBAC ClusterRoleBindingList
+* Add RBAC ClusterRoleBinding
+* Add RBAC RoleRef
+* Add RBAC Subject
+* Add RBAC ClusterRole
+* Add RBAC PolicyRule
+* Add RBAC AggregationRule
+* Add networking NetworkPolicyList
+* Add networking NetworkPolicy
+* Add networking NetworkPolicySpec
+* Add networking NetworkPolicyEgressRule
+* Add networking NetworkPolicyIngressRule
+* Add networking NetworkPolicyPort
+* Add networking NetworkPolicyPeer
+* Add networking IPBlock
+* Add Batch JobList
+* Add Batch Job
+* Add Batch JobStatus
+* Add Batch JobCondition
+* Add Batch JobSpec
+* Add Autoscale HorizontalPodAutoscalerList
+* Add Autoscale HorizontalPodAutoscaler
+* Add Autoscale HorizontalPodAutoscalerStatus
+* Add Autoscale HorizontalPodAutoscalerSpec
+* Add Autoscale CrossVersionObjectReference
+* Add Autoscale Scale
+* Add Autoscale ScaleStatus
+* Add Autoscale ScaleSpec
+* Add Authz SelfSubjectRulesReview
+* Add Authz SubjectRulesReviewStatus
+* Add Authz NonResourceRule
+* Add Authz ResourceRule
+* Add Authz SelfSubjectRulesReviewSpec
+* Add Authz SelfSubjectAccessReview
+* Add Authz SelfSubjectAccessReviewSpec
+* Add Authz LocalSubjectAccessReview
+* Add Authz SubjectAccessReview
+* Add Authz SubjectAccessReviewStatus
+* Add Authz SubjectAccessReviewSpec
+* Add Authz NonResourceAttributes
+* Add Authz ResourceAttributes
+* Add Authn TokenReview
+* Add Authn TokenReviewStatus
+* Add Authn TokenReviewSpec
+* Add Authn UserInfo
+* Add Audit AuditSinkList
+* Add Audit AuditSink
+* Add Audit AuditSinkSpec
+* Add Audit Webhook
+* Add Audit WebhooThrottleConfig
+* Add Audit WebhookClientConfig
+* Add Audit ServiceReference
+* Add Audit Policy
+* Add Admission ValidatingWebhookConfigrationList
+* Add Admission ValidatingWebhookConfigration
+* Add Admission MutatingWebhookConfigrationList
+* Add Admission MutatingWebhookConfigration
+* Add Admission Webhook
+* Add Admission RuleWithOperations
+* Add Admission WebhookClientConfig
+* Add Admission ServiceReference
+* Add Admission InitializerConfigurationList
+* Add Admission InitializerConfiguration
+* Add Admission Initializer
+* Add Admission Rule
+* Add StatefulSetList
+* Add StatefulSet
+* Add StatefulSetStatus
+* Add StatefulSetCondition
+* Add StatefulSetSpec
+* Add StatefulSetUpdateStrategy
+* Add RollingUpdateStatefulSetStrategy
+* Add ReplicaSetList
+* Add ReplicaSet
+* Add ReplicaSetStatus
+* Add ReplicaSetCondition
+* Add ReplicaSetSpec
+* Add DeploymentList
+* Add Deployment
+* Add DeploymentStatus
+* Add DeploymentCondition
+* Add DeploymentSpec
+* Add DeploymentStrategy
+* Add RollingUpdateDeployment
+* Add DaemonSetList
+* Add DaemonSet
+* Add DaemonSetStatus
+* Add DaemonSetCondition
+* Add DaemonSetSpec
+* Add DaemonSetUpdateStrategy
+* Add RollingUpdateDaemonSet
+* Add ControllerRevisionList
+* Add ControllerRevision
+* Add RawExtension
+* Add TopologySelectorTerm
+* Add TopologySelectorLabelRequirement
+* Add ServicePort
+* Add ServiceList
+* Add ServiceAccountList
+* Add ServiceAccount
+* Add Service
+* Add ServiceStatus
+* Add ServiceSpec
+* Add SessionAffinityConfig
+* Add SecretList
+* Add SecretKeySelector
+* Add Secret
+* Add ResourceQuotaList
+* Add ResourceQuota
+* Add ResourceQuotaStatus
+* Add ResourceQuotaSpec
+* Add ScopeSelector
+* Add ScopedResourceSelectorRequirement
+* Add ReplicationControllerList
+* Add ReplicationController
+* Add ReplicationControllerStatus
+* Add ReplicationControllerCondition
+* Add ReplicationControllerSpec
+* Add PodTemplateList
+* Add PodTemplate
+* Add PodTemplateSpec
+* Add PodList
+* Add Pod
+* Add PodStatus
+* Add PodCondition
+* Add PodSpec
+* Add Volume
+* Add StorageOSVolumeSource
+* Add SecretVolumeSource
+* Add ScaleIOVolumeSource
+* Add RBDVolumeSource
+* Add ProjectedVolumeSource
+* Add VolumeProjection
+* Add ServiceAccountTokenProjection
+* Add SecretProjection
+* Add Toleration
+* Add PodSecurityContext
+* Add Sysctl
+* Add PodReadinessGate
+* Add PodDNSConfig
+* Add PodDNSConfigOption
+* Add PersistentVolumeList
+* Add PersistentVolumeClaimVolumeSource
+* add todo item
+* Add PersistentVolumeClaimList
+* Add PersistentVolumeClaim
+* Add PersistentVolumeClaimStatus
+* Add PersistentVolumeClaimCondition
+* Add PersistentVolumeClaimSpec
+* Add TypedLocalObjectReference
+* Add PersistentVolume
+* Add PersistentVolumeStatus
+* Add PersistentVolumeSpec
+* Add VsphereVirtualDiskVolumeSource
+* Add StorageOSPersistentVolumeSource
+* Add ScaleIOPersistentVolumeSource
+* Add RBDPersistentVolumeSource
+* Add QuobyteVolumeSource
+* Add PortworxVolumeSource
+* Add PhotonPersistentDiskVolumeSource
+* Add VolumeNodeAffinity
+* Add NodeList
+* Add Node
+* Add NodeStatus
+* Add NodeSystemInfo
+* Add NodeDaemonEndpoints
+* Add NodeConfigStatus
+* Add NodeCondition
+* Add NodeAddress
+* Add NodeSpec
+* Add Taint
+* Add NodeConfigSource
+* Add NamespaceList
+* Add Namespace
+* Add NamespaceStatus
+* Add NamespaceSpec
+* Add NFSVolumeSource
+* Add LocalVolumeSource
+* Add LoadBalancerStatus
+* Add LoadBalancerIngress
+* Add LimitRangeList
+* Add LimitRange
+* Add LimitRangeSpec
+* Add LimitRangeItem
+* Add ISCSIVolumeSource
+* Add LocalObjectReference
+* Add ISCSIPersistentVolumeSource
+* Add HostPathVolumeSource
+* Add HostAlias
+* Add GlusterfsVolumeSource
+* Add GlusterfsPersistentVolumeSource
+* Add GitRepoVolumeSource
+* Add GCEPersistentDiskVolumeSource
+* Add FlockerVolumeSource
+* Add FlexVolumeSource
+* Add FlexPersistentVolumeSource
+* Add FCVolumeSource
+* Add EventSource
+* Add EventSeries
+* Add EventList
+* Add Event
+* Add MicroTime
+* Add EndpointsList
+* Add Endpoints
+* Add EndpointSubset
+* Add EndpointPort
+* Add EndpointAddress
+* Add EmptyDirVolumeSource
+* Add DownwardAPIVolumeSource
+* Add DownwardAPIProjection
+* Add DownwardAPIVolumeFile
+* Add DaemonEndpoint
+* Add ContainerStatus
+* Add ContainerState
+* Add ContainerStateWaiting
+* Add ContainerStateTerminated
+* Add ContainerStateRunning
+* Add ContainerImage
+* Add Container
+* Add VolumeMount
+* Add VolumeDevice
+* Add SecurityContext
+* Add SELinuxOptions
+* Add ResourceRequirements
+* Add ContainerPort
+* Add Probe
+* Add Lifecycle
+* Add Handler
+* Add TCPSocketAction
+* Add HTTPGetAction
+* Add HTTPHeader
+* Add IntOrString
+* Add ExecAction
+* Add EnvFromSource
+* Add SecretEnvSource
+* Add EnvVar
+* Add EnvVarSource
+* Add ResourceFieldSelector
+* Add Quantity
+* Add ObjectFieldSelector
+* Add ConfigMapVolumeSource
+* Add KeyToPath
+* add ConfigMapProjection
+* Add ConfigMapNodeConfigSource
+* Add ConfigMapList
+* Add ConfigMapKeySelector
+* Add ConfigMapEnvSource
+* Add ComponentStatusList
+* Add ComponentStatus
+* Add ComponentCondition
+* Add ClientIPConfig
+* Add CinderVolumeSource
+* Add CinderPersistentVolumeSource
+* Add CephFSVolumeSource
+* Add CephFSPersistentVolumeSource
+* Add Capabilities
+* Add CSIPersistentVolumeSource
+* Add SecretReference
+* Add Binding
+* Add ObjectReference
+* Add AzureFileVolumeSource
+* Add AzureFilePersistentVolumeSource
+* Add AzureDiskVolumeSource
+* Add AttachedVolume
+* Add Affinity
+* Add PodAntiAffinity
+* Add PodAffinity
+* Add WeightedPodAffinityTerm
+* Add PodAffinityTerm
+* Add LabelSelector
+* Add LabelSelectorRequirement
+* Add NodeAffinity
+* Add NodeSelector
+* Add PreferredSchedulingTerm
+* Add NodeSelectorTerm
+* Add NodeSelectorRequirement
+* Finish AWSElasticBlockStoreVolumeSource
+* Finish ConfigMap
+* Finish Initiallizers
+* Finish Status
+* Finish ListMeta
+* Finish StatusDetails
+* Finish StatusCause
+* Finish Time
+* Finish Initializer
+* Finish OwnerReference
+* Finish ObjectMeta
+* Refresh updated definitions 1.13
+* Improve decompose script
+* Update 1.13 parsing result
+* Added parameters JSON
+* create and delete operation for ConfigMap
+* WIP - ConfigMap create body
+* Pipeline for 1.13 schema
+* Skip irrelevant parameters for POST operation
+* ConfigMap resource
+* ObjectMeta and related structure
+* Add recreated swagger to version control
+* Add missing 'type' object to resources
+* Fix mistake in apiversion/kind injection
+* Dump basic information from swagger
+* Remove circular referenence completely
+* Dump parameters and security sections
+* Add 'apiVersion', 'kind' to required properties
+* Inject default group, version and kind
+* Filter deprecated definitions for K8s
+* Initial data for k8s 1.13
+* Initial commit
