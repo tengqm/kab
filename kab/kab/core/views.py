@@ -1,3 +1,16 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import base64
 import collections
 import copy
@@ -484,6 +497,20 @@ class APIGroups(generic.View):
         apiv = kwargs.get("api")
         groups = helpers.groups(apiv)
         return http.JsonResponse({"groups": groups})
+
+
+class APIHistory(generic.View):
+    """Generic view to display an operation"""
+
+    def get(self, req, *args, **kwargs):
+        version= kwargs.pop('version')
+        result = jsondiff.full_history(version)
+        ctx = {
+            "DIFFDATA": result,
+            "START_API": consts.API_VERSIONS[0][0],
+            "END_API": consts.API_VERSIONS[-1][0],
+        }
+        return shortcuts.render(req, 'core/full-history.html', ctx)
 
 
 class GroupVersions(generic.View):

@@ -1,3 +1,16 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import collections
 import copy
 import logging
@@ -391,6 +404,71 @@ def history(data_type, fname, ver_to=None, ver_from=None):
         # Done?
         if minor_to == vminor1:
             break
+        minor_from += 1
+        minor_to += 1
+
+    return result
+
+
+def full_history(ver_to, ver_from=None):
+
+    # deduce ver_from
+    if ver_from is None:
+        ver_from = consts.API_VERSIONS[0][0]
+
+    result = {
+        "DEFS": {},
+        "OPS": {},
+    }
+
+    # handle defs
+    fns = []
+    path0 = os.path.join(helpers.DATA_PATH, ver_from, "defs")
+    for f in os.listdir(path0):
+        if f not in fns:
+            fns.append(f)
+        
+        result["DEFS"][f] = history("defs", f, ver_to, ver_from)
+
+    vmajor0, vminor0 = _parse_version(ver_from)
+    vmajor1, vminor1 = _parse_version(ver_to)
+    minor_from = vminor0
+    minor_to = vminor0 + 1
+    while minor_to < vminor1:
+        v0 = str(vmajor0) + "." + str(minor_from)
+        v1 = str(vmajor1) + "." + str(minor_to)
+        path1 = os.path.join(helpers.DATA_PATH, v1, "defs")
+        for f in os.listdir(path1):
+            if f in fns:
+                continue
+            fns.append(f)
+        result["DEFS"][f] = history("defs", f, ver_to, v1)
+
+        minor_from += 1
+        minor_to += 1
+
+    # handle ops
+    fns = []
+    path0 = os.path.join(helpers.DATA_PATH, ver_from, "ops")
+    for f in os.listdir(path0):
+        if f not in fns:
+            fns.append(f)
+        result["OPS"][f] = history("ops", f, ver_to, ver_from)
+
+    vmajor0, vminor0 = _parse_version(ver_from)
+    vmajor1, vminor1 = _parse_version(ver_to)
+    minor_from = vminor0
+    minor_to = vminor0 + 1
+    while minor_to < vminor1:
+        v0 = str(vmajor0) + "." + str(minor_from)
+        v1 = str(vmajor1) + "." + str(minor_to)
+        path1 = os.path.join(helpers.DATA_PATH, v1, "ops")
+        for f in os.listdir(path1):
+            if f in fns:
+                continue
+            fns.append(f)
+        result["OPS"][f] = history("ops", f, ver_to, v1)
+
         minor_from += 1
         minor_to += 1
 
