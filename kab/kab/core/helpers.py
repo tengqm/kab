@@ -17,7 +17,6 @@ import logging
 from os import path
 
 from django.conf import settings
-from django.contrib import messages
 import markdown
 
 from kab import consts
@@ -28,8 +27,10 @@ DATA = None
 DATA_PATH = ""
 
 
-# Configuration Loaders
 def init(data_path):
+    '''
+    Configuration Loader
+    '''
     global DATA
     global DATA_PATH
 
@@ -121,62 +122,6 @@ class NullStream:
 
     def flush(self):
         pass
-
-
-def _validateArray(schema):
-    items = schema.get('items', {})
-    if not isinstance(items, dict):
-        return ("the definition must be a dict, please remove the '[' and ']' "
-                "characteres and try again")
-    ele_type = items.get('type', None)
-    if ele_type is None:
-        return None
-    if ele_type == "object":
-        return _validateObject(items)
-    if ele_type == "array":
-        return _validateArray(items)
-    return None
-
-
-def _validateObject(schema):
-    properties = schema.get('properties', {})
-
-    res = None
-    for name, value in properties.items():
-        ele_type = value.get('type')
-        if ele_type == 'array':
-            res = _validateArray(value)
-        elif ele_type == 'object':
-            res = _validateObject(value)
-        if res is not None:
-            return "'%s' - %s" % (name, res)
-
-    return res
-
-
-def check_schema(schema):
-    """Stricter validator for schema."""
-    res = None
-    ele = schema.get('type')
-    if ele == 'object':
-        res = _validateObject(schema)
-    elif ele == "array":
-        res = _validateArray(schema)
-    return res
-
-
-def xlat_errors(req, form, used=True):
-
-    for field, error in form.errors.get_json_data().items():
-        location = ""
-        if field != "__all__":
-            location = field + ": "
-        msg = location + error[0]['message']
-        messages.add_message(req, messages.ERROR, msg)
-    errors = messages.get_messages(req)
-    if used:
-        errors.used = True
-    return errors
 
 
 def apis():
@@ -462,8 +407,10 @@ def definition_display_name(def_name):
     return def_name, display_name, variant
 
 
-# parse the name of a definition, returns its group, version and kind
 def parse_definition_id(def_id):
+    '''
+    Parse the name of a definition, returns its group, version and kind
+    '''
 
     if (def_id.endswith(".CREATE") or def_id.endswith(".UPDATE") or
             def_id.endswith(".GET") or def_id.endswith(".PATCH")):
@@ -511,7 +458,9 @@ def is_resource(def_name):
 
 
 def compare_text(text1, text2):
-    """Compare two markdown texts and return the diff as annotated HTML."""
+    """
+    Compare two markdown texts and return the diff as annotated HTML.
+    """
     d1 = markdown.markdown(text1, extensions=["extra"])
     d2 = markdown.markdown(text2, extensions=["extra"])
     if d1.startswith("<p>") and d1.endswith("</p>"):

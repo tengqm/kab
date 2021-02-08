@@ -340,7 +340,9 @@ def compare_ops(apis, opids, root=None):
 
 
 def _parse_version(version):
-    """Split version into major and minor"""
+    """
+    Split version into major and minor
+    """
 
     vs = version.split(".")
     if len(vs) != 2:
@@ -373,7 +375,7 @@ def history(data_type, fname, ver_to=None, ver_from=None):
     minor_to = vminor0 + 1
     key = os.path.splitext(fname)[0]
     result = {}
-    while True:
+    while minor_to <= vminor1:
         v0 = str(vmajor0) + "." + str(minor_from)
         v1 = str(vmajor1) + "." + str(minor_to)
 
@@ -401,9 +403,6 @@ def history(data_type, fname, ver_to=None, ver_from=None):
             if res:
                 result[v1] = {"status": "CHANGED", "changes": res}
 
-        # Done?
-        if minor_to == vminor1:
-            break
         minor_from += 1
         minor_to += 1
 
@@ -416,6 +415,7 @@ def _history(ver0, ver1):
     defs = {}
     d0 = {}
     d1 = {}
+
     # 1.1 first round scan
     for k, v in helpers.DATA["definitions"].items():
         for r in v.get(ver0, []):
@@ -465,10 +465,29 @@ def _history(ver0, ver1):
 
     # 2. handle operations
     ops = []
-    # 2.1 first round scan
+
+    # 2.1 check status of all operations
     for k, v in helpers.DATA["operations"].items():
+        versions = v.get("versions", [])
+        status = None
+        if (ver0 in versions) and (ver1 not in versions):
+            status = "Removed"
+        elif (ver0 not in versions) and (ver1 in versions):
+            status = "Added"
+        elif (ver0 in versions) and (ver1 in versions):
+            diff = compare_ops([ver0, ver1], [k])
+            if diff is None:
+                continue
+            if len(diff) == 0:
+                continue
+            status = "Changed"
+
+        if status is None:
+            continue
+
         gv_list = v["group_version"].split("/")
-        data = {
+        ops.append({
+            "status": status,
             "id": k,
             "group": gv_list[0],
             "version": gv_list[-1],
@@ -476,48 +495,29 @@ def _history(ver0, ver1):
             "target": v["target"],
             "type": v["type"],
             "description": v["description"],
-        }
-        versions = v.get("versions", [])
-        if (ver0 in versions) and (ver1 not in versions):
-            data["status"] = "Removed"
-        elif (ver0 not in versions) and (ver1 in versions):
-            data["status"] = "Added"
-        elif (ver0 in versions) and (ver1 in versions):
-            diff = compare_ops([ver0, ver1], [k])
-            if diff is None:
-                continue
-            if len(diff) == 0:
-                continue
-            data["status"] = "Changed"
-        if 'status' in data:
-            ops.append(data)
+        })
+
     # 2.2 sort ops by group and version
-    ops1 = sorted(ops, key=lambda k: (k["group"], k["op"]))
-    # ordered_ops = collections.OrderedDict(ops1)
+    sorted_ops = sorted(ops, key=lambda k: (k["group"], k["op"]))
+
     return {
         "DEFS": defs,
-        "OPS": ops1,
+        "OPS": sorted_ops
     }
 
 
 def api_history(ver_to, ver_from=None):
 
-    # deduce ver_from
-    if ver_from is None:
-        ver_from = consts.API_VERSIONS[0][0]
-
-    vmajor0, vminor0 = _parse_version(ver_from)
-    vmajor1, vminor1 = _parse_version(ver_to)
-
-    # TODO: remove this hack
+    # TODO: enable ver_from
+    vmajor, vminor1 = _parse_version(ver_to)
     vminor0 = vminor1 - 1
 
     minor_from = vminor0
     minor_to = vminor0 + 1
     result = {}
     while minor_to <= vminor1:
-        v0 = str(vmajor0) + "." + str(minor_from)
-        v1 = str(vmajor1) + "." + str(minor_to)
+        v0 = str(vmajor) + "." + str(minor_from)
+        v1 = str(vmajor) + "." + str(minor_to)
         result[(v0, v1)] = _history(v0, v1)
 
         minor_from += 1

@@ -11,11 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
-
 from django import apps
-
-LOG = logging.getLogger(__name__)
 
 
 class Config(apps.AppConfig):
