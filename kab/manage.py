@@ -5,6 +5,9 @@ import sys
 
 
 def main():
+    os.environ.setdefault(
+        'KAB_KEY',
+        'a3b&*(2n9zt&97-j214&*@+z8&%ob*4=&t*^gpeqpebk#sicdx')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'kab.settings')
     try:
         from django.core.management import execute_from_command_line

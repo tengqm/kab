@@ -21,7 +21,7 @@ APP_DIR = os.environ.get("KAB_ROOT", BASE_DIR)
 DATA_DIR = os.path.join(APP_DIR, "data")
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a&97-j214&*@+z8^gp&%oi3zt4beqpebk=&cdxb*t&*(2n9*#s'
+SECRET_KEY = os.environ.get("KAB_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
