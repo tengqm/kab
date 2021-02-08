@@ -503,12 +503,10 @@ class APIHistory(generic.View):
     """Generic view to display an operation"""
 
     def get(self, req, *args, **kwargs):
-        version= kwargs.pop('version')
-        result = jsondiff.full_history(version)
+        version = kwargs.pop('version')
+        result = jsondiff.api_history(version)
         ctx = {
-            "DIFFDATA": result,
-            "START_API": consts.API_VERSIONS[0][0],
-            "END_API": consts.API_VERSIONS[-1][0],
+            "DATA": result,
         }
         return shortcuts.render(req, 'core/full-history.html', ctx)
 

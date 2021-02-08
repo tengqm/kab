@@ -3,7 +3,7 @@
 {% load core_tags %}
 
 {% block title %}
-  <title>History: {{ NAME }}</title>
+  <title>History</title>
 <style>
 p {
   margin-bottom: .2rem;
@@ -13,37 +13,159 @@ p {
 
 {% block main_content %}
 
-<h4 align="center">History of <samp>{{ NAME }}</samp></h4>
+{# The follow loop is a placeholder for more than one version comparison #}
+{% for APIV, CHANGE in DATA.items %}
 
-<div>
-  {% for APIV, DIFFITEM in DIFFDATA.items %}
-    <div class="card">
-      <div class="card-header p-2" id="heading-{{ APIV|slugify }}">
-        <h5 class="mb-0">{{ APIV }}</h5>
-      </div> <!-- card-header -->
+  <h4 align="center">API changes from {{ APIV.0 }} to {{ APIV.1 }}</h4>
 
-      <div class="card-body p-2">
-        {% if DIFFITEM.status == "ADDED" %}
-          <div class="alert alert-success" role="alert">
-            Added in this version.
-          </div>
-        {% elif DIFFITEM.status == "DELETED" %}
-          <div class="alert alert-danger" role="alert">
-            Removed in this version.
-          </div>
-        {% elif DIFFITEM.status == "CHANGED" %}
-          {# The RESULT is rendered in the included template #}
-          {% with DIFFITEM.changes as RESULT %}
-            {% include "core/op-diff.html" %}
-          {% endwith %}
-        {% endif %}
-      </div>  <!-- card-body -->
-    </div> <!-- card -->
-  {% empty %}
-    <div class="alert alert-success" role="alert">
-      The operation has not changed between the version  {{ START_API }} and {{ END_API }}.
-    </div>
-  {% endfor %}
-</div>
+  <h5>Definition Changes</h5>
 
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <th>Definition</th>
+      <th style="min-width: 130px;">Type</th>
+      <th width="100%">Related</th>
+    </thead>
+    <tbody>
+      {% for GVK, ITEM in CHANGE.DEFS.items %}
+        <tr>
+          <td><B><samp>{{ GVK.2 }}</samp></B><BR/><samp class="text-muted">{{ GVK.0 }}/{{ GVK.1 }}</samp></td>
+          <td {% if ITEM.status == "Added" %}class="text-success"
+            {% elif ITEM.status == "Removed" %}class="text-danger"
+            {% endif %}>
+
+            {{ ITEM.status }}<BR/>
+            {% if GVK.0 %}
+              {% dereference APIV.0 GVK.0 GVK.1 GVK.2 as LINK0 %}
+              {% dereference APIV.1 GVK.0 GVK.1 GVK.2 as LINK1 %}
+            {% else %}
+              {% dereference APIV.0 "*" "*" GVK.2 as LINK0 %}
+              {% dereference APIV.1 "*" "*" GVK.2 as LINK1 %}
+            {% endif %}
+
+            {% if ITEM.status == "Changed" or ITEM.status == "Removed" %}
+              <a class="badge bg-primary text-white" href="{{ LINK0.0 }}">{{ APIV.0 }}</a>
+            {% else %}
+              <span class="badge bg-secondary text-white-50">{{ APIV.0 }}</span>
+            {% endif %}
+
+            {% if ITEM.status == "Changed" %}
+              <a class="badge bg-info text-white" href="#"
+                  onclick="comp_defs('{{APIV.0}}', '{{APIV.1}}', '{{GVK.0}}', '{{GVK.1}}', '{{GVK.2}}')">
+
+                <i class="fas fa-fw fa-exchange-alt"></i>
+              </a>
+            {% else %}
+              <span class="badge bg-secondary text-white-50"><i class="fas fa-fw fa-exchange-alt"></i></span>
+            {% endif %}
+
+            {% if ITEM.status == "Added" or ITEM.status == "Changed" %}
+              <a class="badge bg-primary text-white" href="{{ LINK1.0 }}">{{ APIV.1 }}</a>
+            {% else %}
+              <span class="badge bg-secondary text-white-50">{{ APIV.1 }}</span>
+            {% endif %}
+          </td>
+          <td>
+            <var>{{ ITEM.appearsIn|safeseq|join:", " }}</var>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h5>Operation Changes</h5>
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <th>Operation</th>
+      <th style="min-width: 130px;">Type</th>
+      <th width="100%">Description</th>
+    </thead>
+    <tbody>
+      {% for ITEM in CHANGE.OPS %}
+        <tr>
+          <td><B><samp>{{ ITEM.target }}:{{ ITEM.op }}</samp></B><BR/><samp class="text-muted">{{ ITEM.group }}/{{ ITEM.version }}</samp></td>
+          <td {% if ITEM.status == "Added" %}class="text-success"
+            {% elif ITEM.status == "Removed" %}class="text-danger"
+            {% endif %}>
+
+            {{ ITEM.status }}<BR/>
+
+            {% if ITEM.status == "Changed" or ITEM.status == "Removed" %}
+            <a class="badge bg-primary text-white" href="{% url 'view-operation' APIV.0 ITEM.id %}">{{ APIV.0 }}</a>
+            {% else %}
+              <span class="badge bg-secondary text-white-50">{{ APIV.0 }}</span>
+            {% endif %}
+
+            {% if ITEM.status == "Changed" %}
+              <a class="badge bg-info text-white" href="#"
+                  onclick="comp_ops('{{APIV.0}}', '{{APIV.1}}', '{{ITEM.group}}', '{{ITEM.version}}', '{{ITEM.id}}')">
+
+                <i class="fas fa-fw fa-exchange-alt"></i>
+              </a>
+            {% else %}
+              <span class="badge bg-secondary text-white-50"><i class="fas fa-fw fa-exchange-alt"></i></span>
+            {% endif %}
+
+            {% if ITEM.status == "Added" or ITEM.status == "Changed" %}
+              <a class="badge bg-primary text-white" href="{% url 'view-operation' APIV.1 ITEM.id %}">{{ APIV.1 }}</a>
+            {% else %}
+              <span class="badge bg-secondary text-white-50">{{ APIV.1 }}</span>
+            {% endif %}
+          </td>
+          <td>
+            {{ ITEM.description }}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endfor %}
+
+<form id="form-comp-def" action="{% url 'compare-defs' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" id="api0" name="api1" value="" />
+  <input type="hidden" id="api1" name="api2" value="" />
+  <input type="hidden" id="grp0" name="group1" value="" />
+  <input type="hidden" id="grp1" name="group2" value="" />
+  <input type="hidden" id="ver0" name="version1" value="" />
+  <input type="hidden" id="ver1" name="version2" value="" />
+  <input type="hidden" id="def0" name="def1" value="" />
+  <input type="hidden" id="def1" name="def2" value="" />
+</form>
+
+  <form id="form-comp-op" action="{% url 'compare-ops' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" id="opapi0" name="api1" value="{{ API }}" />
+    <input type="hidden" id="opapi1" name="api2" value="" />
+    <input type="hidden" id="opid" name="op1" value="" />
+    <input type="hidden" id="opgrp" name="group1" value="" />
+    <input type="hidden" id="opver" name="version1" value="" />
+  </form>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+  function comp_defs(api0, api1, gn, gv, def) {
+    $("#api0").val(api0);
+    $("#api1").val(api1);
+    $("#grp0").val(gn);
+    $("#grp1").val(gn);
+    $("#ver0").val(gv);
+    $("#ver1").val(gv);
+    $("#def0").val(def);
+    $("#def1").val(def);
+    $("#form-comp-def").submit();
+  }
+  function comp_ops(api0, api1, gn, gv, op) {
+    $("#opapi0").val(api0);
+    $("#opapi1").val(api1);
+    $("#opgrp").val(gn);
+    $("#opver").val(gv);
+    $("#opid").val(op);
+    $("#form-comp-op").submit();
+  }
+
+</script>
 {% endblock %}

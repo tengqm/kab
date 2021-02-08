@@ -410,7 +410,7 @@ def get_operation(api_version, name, root=None):
         return {}
 
     if api_version in data["versions"]:
-       data["versions"].remove(api_version)
+        data["versions"].remove(api_version)
 
     if root is None:
         root = settings.DATA_DIR

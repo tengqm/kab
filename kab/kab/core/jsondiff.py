@@ -196,7 +196,7 @@ def compare_data(json1, json2):
     return result
 
 
-def compare(apis, file1, file2, root=None):
+def compare(apis, file1, file2, root=None, recursive=True):
     """Compare two JSON files.
 
     :param apis: The APIs for the two files.
@@ -205,11 +205,11 @@ def compare(apis, file1, file2, root=None):
     :returns: None if either one of the data cannot be loaded.
     """
 
-    json1 = jsonutil.load_json(file1, apis[0], root=root)
+    json1 = jsonutil.load_json(file1, apis[0], root=root, recursive=recursive)
     if json1 is None:
         return None
 
-    json2 = jsonutil.load_json(file2, apis[-1], root=root)
+    json2 = jsonutil.load_json(file2, apis[-1], root=root, recursive=recursive)
     if json2 is None:
         return None
 
@@ -298,11 +298,11 @@ def compare_ops(apis, opids, root=None):
     file0 = fmt.format(apis[0], opids[0])
     file1 = fmt.format(apis[-1], opids[-1])
 
-    json1 = jsonutil.load_json(file0, apis[0], False)
+    json1 = jsonutil.load_json(file0, apis[0], recursive=False)
     if json1 is None:
         return None
 
-    json2 = jsonutil.load_json(file1, apis[-1], False)
+    json2 = jsonutil.load_json(file1, apis[-1], recursive=False)
     if json2 is None:
         return None
 
@@ -410,64 +410,115 @@ def history(data_type, fname, ver_to=None, ver_from=None):
     return result
 
 
-def full_history(ver_to, ver_from=None):
+def _history(ver0, ver1):
+
+    # 1. handle definitions
+    defs = {}
+    d0 = {}
+    d1 = {}
+    # 1.1 first round scan
+    for k, v in helpers.DATA["definitions"].items():
+        for r in v.get(ver0, []):
+            appears_in = v.get("appearsIn", {}).get(ver0, [])
+            data = {
+                "id": r["id"],
+                "appearsIn": appears_in,
+            }
+            d0[(r["group"], r["version"], k)] = data
+
+        for r in v.get(ver1, []):
+            appears_in = v.get("appearsIn", {}).get(ver0, [])
+            data = {
+                "id": r["id"],
+                "appearsIn": appears_in,
+            }
+            d1[(r["group"], r["version"], k)] = data
+
+    # 1.2 second round scan
+    for gvk, v in d0.items():
+        if gvk not in d1:  # dropped
+            defs[gvk] = v
+            defs[gvk]["status"] = "Removed"
+            continue
+        if settings.configured:
+            fmt = settings.DATA_DIR + "/{}/defs/{}.json"
+        else:
+            fmt = "data/{}/defs/{}.json"
+        f0 = fmt.format(ver0, v["id"])
+        f1 = fmt.format(ver1, v["id"])
+        diff = compare([ver0, ver1], f0, f1, recursive=False)
+        if diff is None:
+            continue
+        if len(diff) == 0:
+            continue
+
+        # definition changed
+        defs[gvk] = v
+        defs[gvk]["status"] = "Changed"
+
+    # 1.3 third round scan, for added definitions
+    for gvk, v in d1.items():
+        if gvk in d0:
+            continue
+        defs[gvk] = v
+        defs[gvk]["status"] = "Added"
+
+    # 2. handle operations
+    ops = []
+    # 2.1 first round scan
+    for k, v in helpers.DATA["operations"].items():
+        gv_list = v["group_version"].split("/")
+        data = {
+            "id": k,
+            "group": gv_list[0],
+            "version": gv_list[-1],
+            "op": v["op_type"],
+            "target": v["target"],
+            "type": v["type"],
+            "description": v["description"],
+        }
+        versions = v.get("versions", [])
+        if (ver0 in versions) and (ver1 not in versions):
+            data["status"] = "Removed"
+        elif (ver0 not in versions) and (ver1 in versions):
+            data["status"] = "Added"
+        elif (ver0 in versions) and (ver1 in versions):
+            diff = compare_ops([ver0, ver1], [k])
+            if diff is None:
+                continue
+            if len(diff) == 0:
+                continue
+            data["status"] = "Changed"
+        if 'status' in data:
+            ops.append(data)
+    # 2.2 sort ops by group and version
+    ops1 = sorted(ops, key=lambda k: (k["group"], k["op"]))
+    # ordered_ops = collections.OrderedDict(ops1)
+    return {
+        "DEFS": defs,
+        "OPS": ops1,
+    }
+
+
+def api_history(ver_to, ver_from=None):
 
     # deduce ver_from
     if ver_from is None:
         ver_from = consts.API_VERSIONS[0][0]
 
-    result = {
-        "DEFS": {},
-        "OPS": {},
-    }
-
-    # handle defs
-    fns = []
-    path0 = os.path.join(helpers.DATA_PATH, ver_from, "defs")
-    for f in os.listdir(path0):
-        if f not in fns:
-            fns.append(f)
-        
-        result["DEFS"][f] = history("defs", f, ver_to, ver_from)
-
     vmajor0, vminor0 = _parse_version(ver_from)
     vmajor1, vminor1 = _parse_version(ver_to)
+
+    # TODO: remove this hack
+    vminor0 = vminor1 - 1
+
     minor_from = vminor0
     minor_to = vminor0 + 1
-    while minor_to < vminor1:
+    result = {}
+    while minor_to <= vminor1:
         v0 = str(vmajor0) + "." + str(minor_from)
         v1 = str(vmajor1) + "." + str(minor_to)
-        path1 = os.path.join(helpers.DATA_PATH, v1, "defs")
-        for f in os.listdir(path1):
-            if f in fns:
-                continue
-            fns.append(f)
-        result["DEFS"][f] = history("defs", f, ver_to, v1)
-
-        minor_from += 1
-        minor_to += 1
-
-    # handle ops
-    fns = []
-    path0 = os.path.join(helpers.DATA_PATH, ver_from, "ops")
-    for f in os.listdir(path0):
-        if f not in fns:
-            fns.append(f)
-        result["OPS"][f] = history("ops", f, ver_to, ver_from)
-
-    vmajor0, vminor0 = _parse_version(ver_from)
-    vmajor1, vminor1 = _parse_version(ver_to)
-    minor_from = vminor0
-    minor_to = vminor0 + 1
-    while minor_to < vminor1:
-        v0 = str(vmajor0) + "." + str(minor_from)
-        v1 = str(vmajor1) + "." + str(minor_to)
-        path1 = os.path.join(helpers.DATA_PATH, v1, "ops")
-        for f in os.listdir(path1):
-            if f in fns:
-                continue
-            fns.append(f)
-        result["OPS"][f] = history("ops", f, ver_to, v1)
+        result[(v0, v1)] = _history(v0, v1)
 
         minor_from += 1
         minor_to += 1
