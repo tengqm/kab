@@ -5,7 +5,7 @@ set -e
 KAB_VERSION=$1
 
 URL=$2
-REPO_URL=${URL:-'git@github.ibm.com:crl-cloud-team/kab.git'}
+REPO_URL=${URL:-'git@github.com:tengqm/KAB.git'}
 
 if [ ""$KAB_VERSION == "" ] ; then
     echo -e "Please specify the tag for build:\n\n $0 <tag> [<url>]\n"
