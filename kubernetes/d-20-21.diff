@@ -1,0 +1,912 @@
+diff -r 1.20orig/defs/io.k8s.api.admissionregistration.v1.MutatingWebhook.json 1.21orig/defs/io.k8s.api.admissionregistration.v1.MutatingWebhook.json
+47c47
+<       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.",
+---
+>       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.",
+diff -r 1.20orig/defs/io.k8s.api.admissionregistration.v1.ValidatingWebhook.json 1.21orig/defs/io.k8s.api.admissionregistration.v1.ValidatingWebhook.json
+43c43
+<       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.",
+---
+>       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.",
+diff -r 1.20orig/defs/io.k8s.api.admissionregistration.v1beta1.MutatingWebhook.json 1.21orig/defs/io.k8s.api.admissionregistration.v1beta1.MutatingWebhook.json
+47c47
+<       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.",
+---
+>       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.",
+diff -r 1.20orig/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingWebhook.json 1.21orig/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingWebhook.json
+43c43
+<       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.",
+---
+>       "description": "SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.",
+diff -r 1.20orig/defs/io.k8s.api.apps.v1.RollingUpdateDaemonSet.json 1.21orig/defs/io.k8s.api.apps.v1.RollingUpdateDaemonSet.json
+3a4,7
+>     "maxSurge": {
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+>       "description": "The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is an alpha field and requires enabling DaemonSetUpdateSurge feature gate."
+>     },
+6c10
+<       "description": "The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update."
+---
+>       "description": "The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding down to a minimum of one. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update."
+Only in 1.21orig/defs: io.k8s.api.batch.v1.CronJob.json
+Only in 1.21orig/defs: io.k8s.api.batch.v1.CronJobList.json
+Only in 1.21orig/defs: io.k8s.api.batch.v1.CronJobSpec.json
+Only in 1.21orig/defs: io.k8s.api.batch.v1.CronJobStatus.json
+diff -r 1.20orig/defs/io.k8s.api.batch.v1.JobSpec.json 1.21orig/defs/io.k8s.api.batch.v1.JobSpec.json
+5c5
+<       "description": "Specifies the duration in seconds relative to the startTime that the job may be active before the system tries to terminate it; value must be positive integer",
+---
+>       "description": "Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.",
+13a14,17
+>     "completionMode": {
+>       "description": "CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.\n\n`NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.\n\n`Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.alpha.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.\n\nThis field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.",
+>       "type": "string"
+>     },
+31a36,39
+>     "suspend": {
+>       "description": "Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.",
+>       "type": "boolean"
+>     },
+diff -r 1.20orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.21orig/defs/io.k8s.api.batch.v1.JobStatus.json
+8a9,12
+>     "completedIndexes": {
+>       "description": "CompletedIndexes holds the completed indexes when .spec.completionMode = \"Indexed\" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as \"1,3-5,7\".",
+>       "type": "string"
+>     },
+14c18
+<       "description": "The latest available observations of an object's current state. When a job fails, one of the conditions will have type == \"Failed\". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
+---
+>       "description": "The latest available observations of an object's current state. When a Job fails, one of the conditions will have type \"Failed\" and status true. When a Job is suspended, one of the conditions will have type \"Suspended\" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type \"Complete\" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/",
+18a23
+>       "x-kubernetes-list-type": "atomic",
+29c34
+<       "description": "Represents time when the job was acknowledged by the job controller. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC."
+---
+>       "description": "Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC."
+Only in 1.21orig/defs: io.k8s.api.batch.v1.JobTemplateSpec.json
+diff -r 1.20orig/defs/io.k8s.api.batch.v1beta1.CronJobStatus.json 1.21orig/defs/io.k8s.api.batch.v1beta1.CronJobStatus.json
+9c9,10
+<       "type": "array"
+---
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+13a15,18
+>     },
+>     "lastSuccessfulTime": {
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+>       "description": "Information when was the last time the job successfully completed."
+Only in 1.20orig/defs: io.k8s.api.batch.v2alpha1.CronJob.json
+Only in 1.20orig/defs: io.k8s.api.batch.v2alpha1.CronJobList.json
+Only in 1.20orig/defs: io.k8s.api.batch.v2alpha1.CronJobSpec.json
+Only in 1.20orig/defs: io.k8s.api.batch.v2alpha1.CronJobStatus.json
+Only in 1.20orig/defs: io.k8s.api.batch.v2alpha1.JobTemplateSpec.json
+diff -r 1.20orig/defs/io.k8s.api.core.v1.ConfigMap.json 1.21orig/defs/io.k8s.api.core.v1.ConfigMap.json
+27c27
+<       "description": "Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.",
+---
+>       "description": "Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.",
+diff -r 1.20orig/defs/io.k8s.api.core.v1.Container.json 1.21orig/defs/io.k8s.api.core.v1.Container.json
+74c74
+<       "description": "Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/"
+---
+>       "description": "Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+diff -r 1.20orig/defs/io.k8s.api.core.v1.LimitRangeList.json 1.21orig/defs/io.k8s.api.core.v1.LimitRangeList.json
+12c12
+<       "description": "Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+---
+>       "description": "Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+diff -r 1.20orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json 1.21orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json
+7a8,11
+>     "namespaceSelector": {
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+>       "description": "A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means \"this pod's namespace\". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled."
+>     },
+9c13
+<       "description": "namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means \"this pod's namespace\"",
+---
+>       "description": "namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means \"this pod's namespace\"",
+diff -r 1.20orig/defs/io.k8s.api.core.v1.ResourceRequirements.json 1.21orig/defs/io.k8s.api.core.v1.ResourceRequirements.json
+8c8
+<       "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+---
+>       "description": "Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+15c15
+<       "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/",
+---
+>       "description": "Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+diff -r 1.20orig/defs/io.k8s.api.core.v1.Secret.json 1.21orig/defs/io.k8s.api.core.v1.Secret.json
+20c20
+<       "description": "Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil. This is a beta field enabled by ImmutableEphemeralVolumes feature gate.",
+---
+>       "description": "Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.",
+38c38
+<       "description": "stringData allows specifying non-binary secret data in string form. It is provided as a write-only convenience method. All keys and values are merged into the data field on write, overwriting any existing values. It is never output when reading from the API.",
+---
+>       "description": "stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.",
+diff -r 1.20orig/defs/io.k8s.api.core.v1.ServiceSpec.json 1.21orig/defs/io.k8s.api.core.v1.ServiceSpec.json
+28c28
+<       "description": "externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires Type to be",
+---
+>       "description": "externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be \"ExternalName\".",
+39a40,43
+>     "internalTrafficPolicy": {
+>       "description": "InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. \"Cluster\" routes internal traffic to a Service to all endpoints. \"Local\" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is \"Cluster\".",
+>       "type": "string"
+>     },
+51a56,59
+>     "loadBalancerClass": {
+>       "description": "loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. \"internal-vip\" or \"example.com/internal-vip\". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.",
+>       "type": "string"
+>     },
+Only in 1.21orig/defs: io.k8s.api.discovery.v1.Endpoint.json
+Only in 1.21orig/defs: io.k8s.api.discovery.v1.EndpointConditions.json
+Only in 1.21orig/defs: io.k8s.api.discovery.v1.EndpointPort.json
+Only in 1.21orig/defs: io.k8s.api.discovery.v1.EndpointSlice.json
+Only in 1.21orig/defs: io.k8s.api.discovery.v1.EndpointSliceList.json
+diff -r 1.20orig/defs/io.k8s.api.events.v1.Event.json 1.21orig/defs/io.k8s.api.events.v1.Event.json
+44c44,45
+<       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+---
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+>       "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+80d80
+<     "metadata",
+diff -r 1.20orig/defs/io.k8s.api.events.v1beta1.Event.json 1.21orig/defs/io.k8s.api.events.v1beta1.Event.json
+44c44,45
+<       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"
+---
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+>       "description": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+80d80
+<     "metadata",
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.FlowDistinguisherMethod.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchema.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchemaCondition.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchemaList.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchemaSpec.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.FlowSchemaStatus.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.GroupSubject.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.LimitResponse.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.LimitedPriorityLevelConfiguration.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.NonResourcePolicyRule.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PolicyRulesWithSubjects.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfiguration.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationCondition.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationList.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationReference.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationSpec.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.PriorityLevelConfigurationStatus.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.QueuingConfiguration.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.ResourcePolicyRule.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.ServiceAccountSubject.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.Subject.json
+Only in 1.20orig/defs: io.k8s.api.flowcontrol.v1alpha1.UserSubject.json
+Only in 1.21orig/defs: io.k8s.api.networking.v1.IngressClassParametersReference.json
+diff -r 1.20orig/defs/io.k8s.api.networking.v1.IngressClassSpec.json 1.21orig/defs/io.k8s.api.networking.v1.IngressClassSpec.json
+9c9
+<       "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
+---
+>       "$ref": "#/definitions/io.k8s.api.networking.v1.IngressClassParametersReference",
+diff -r 1.20orig/defs/io.k8s.api.networking.v1.NetworkPolicyPort.json 1.21orig/defs/io.k8s.api.networking.v1.NetworkPolicyPort.json
+3a4,8
+>     "endPort": {
+>       "description": "If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate \"NetworkPolicyEndPort\".",
+>       "format": "int32",
+>       "type": "integer"
+>     },
+6c11
+<       "description": "The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers."
+---
+>       "description": "The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched."
+diff -r 1.20orig/defs/io.k8s.api.networking.v1.NetworkPolicySpec.json 1.21orig/defs/io.k8s.api.networking.v1.NetworkPolicySpec.json
+23c23
+<       "description": "List of rule types that the NetworkPolicy relates to. Valid options are \"Ingress\", \"Egress\", or \"Ingress,Egress\". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ \"Egress\" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include \"Egress\" (since such a policy would not include an Egress section and would otherwise default to just [ \"Ingress\" ]). This field is beta-level in 1.8",
+---
+>       "description": "List of rule types that the NetworkPolicy relates to. Valid options are [\"Ingress\"], [\"Egress\"], or [\"Ingress\", \"Egress\"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ \"Egress\" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include \"Egress\" (since such a policy would not include an Egress section and would otherwise default to just [ \"Ingress\" ]). This field is beta-level in 1.8",
+Only in 1.21orig/defs: io.k8s.api.networking.v1beta1.IngressClassParametersReference.json
+diff -r 1.20orig/defs/io.k8s.api.networking.v1beta1.IngressClassSpec.json 1.21orig/defs/io.k8s.api.networking.v1beta1.IngressClassSpec.json
+9c9
+<       "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
+---
+>       "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClassParametersReference",
+diff -r 1.20orig/defs/io.k8s.api.policy.v1beta1.PodDisruptionBudgetStatus.json 1.21orig/defs/io.k8s.api.policy.v1beta1.PodDisruptionBudgetStatus.json
+3a4,16
+>     "conditions": {
+>       "description": "Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute\n              the number of allowed disruptions. Therefore no disruptions are\n              allowed and the status of the condition will be False.\n- InsufficientPods: The number of pods are either at or below the number\n                    required by the PodDisruptionBudget. No disruptions are\n                    allowed and the status of the condition will be False.\n- SufficientPods: There are more pods than required by the PodDisruptionBudget.\n                  The condition will be True, and the number of allowed\n                  disruptions are provided by the disruptionsAllowed property.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-map-keys": [
+>         "type"
+>       ],
+>       "x-kubernetes-list-type": "map",
+>       "x-kubernetes-patch-merge-key": "type",
+>       "x-kubernetes-patch-strategy": "merge"
+>     },
+diff -r 1.20orig/defs/io.k8s.api.policy.v1beta1.PodSecurityPolicy.json 1.21orig/defs/io.k8s.api.policy.v1beta1.PodSecurityPolicy.json
+2c2
+<   "description": "PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.",
+---
+>   "description": "PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.",
+diff -r 1.20orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json 1.21orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json
+13c13
+<       "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" iff the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.",
+---
+>       "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" if the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.",
+21c21
+<       "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.",
+---
+>       "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.",
+diff -r 1.20orig/defs/io.k8s.api.storage.v1.VolumeAttachmentSource.json 1.21orig/defs/io.k8s.api.storage.v1.VolumeAttachmentSource.json
+6c6
+<       "description": "inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature."
+---
+>       "description": "inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature."
+diff -r 1.20orig/defs/io.k8s.api.storage.v1alpha1.CSIStorageCapacity.json 1.21orig/defs/io.k8s.api.storage.v1alpha1.CSIStorageCapacity.json
+2c2
+<   "description": "CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.\n\nFor example this can express things like: - StorageClass \"standard\" has \"1234 GiB\" available in \"topology.kubernetes.io/zone=us-east1\" - StorageClass \"localssd\" has \"10 GiB\" available in \"kubernetes.io/hostname=knode-abc123\"\n\nThe following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero\n\nThe producer of these objects can decide which approach is more suitable.\n\nThis is an alpha feature and only available when the CSIStorageCapacity feature is enabled.",
+---
+>   "description": "CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.\n\nFor example this can express things like: - StorageClass \"standard\" has \"1234 GiB\" available in \"topology.kubernetes.io/zone=us-east1\" - StorageClass \"localssd\" has \"10 GiB\" available in \"kubernetes.io/hostname=knode-abc123\"\n\nThe following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero\n\nThe producer of these objects can decide which approach is more suitable.\n\nThey are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.",
+21a22,25
+>     "maximumVolumeSize": {
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+>       "description": "MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.\n\nThis is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim."
+>     },
+diff -r 1.20orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json 1.21orig/defs/io.k8s.api.storage.v1beta1.CSIDriverSpec.json
+13c13
+<       "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" iff the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.",
+---
+>       "description": "If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" if the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.",
+21c21
+<       "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is an alpha field and only available when the CSIStorageCapacity feature is enabled. The default is false.",
+---
+>       "description": "If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.\n\nThe check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.\n\nAlternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.\n\nThis is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.",
+Only in 1.21orig/defs: io.k8s.api.storage.v1beta1.CSIStorageCapacity.json
+Only in 1.21orig/defs: io.k8s.api.storage.v1beta1.CSIStorageCapacityList.json
+diff -r 1.20orig/defs/io.k8s.api.storage.v1beta1.VolumeAttachmentSource.json 1.21orig/defs/io.k8s.api.storage.v1beta1.VolumeAttachmentSource.json
+6c6
+<       "description": "inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature."
+---
+>       "description": "inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature."
+diff -r 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.21orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+145,149d144
+<       "group": "batch",
+<       "kind": "DeleteOptions",
+<       "version": "v2alpha1"
+<     },
+<     {
+172c167
+<       "version": "v1alpha1"
+---
+>       "version": "v1"
+diff -r 1.20orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.21orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
+124,128d123
+<       "group": "batch",
+<       "kind": "WatchEvent",
+<       "version": "v2alpha1"
+<     },
+<     {
+151c146
+<       "version": "v1alpha1"
+---
+>       "version": "v1"
+Only in 1.21orig/ops: createBatchV1NamespacedCronJob.json
+Only in 1.20orig/ops: createBatchV2alpha1NamespacedCronJob.json
+Only in 1.21orig/ops: createDiscoveryV1NamespacedEndpointSlice.json
+Only in 1.20orig/ops: createFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: createFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.21orig/ops: createStorageV1beta1NamespacedCSIStorageCapacity.json
+diff -r 1.20orig/ops/deleteAppsV1CollectionNamespacedDeployment.json 1.21orig/ops/deleteAppsV1CollectionNamespacedDeployment.json
+85c85
+< }
+---
+> }
+\ No newline at end of file
+Only in 1.21orig/ops: deleteBatchV1CollectionNamespacedCronJob.json
+Only in 1.21orig/ops: deleteBatchV1NamespacedCronJob.json
+Only in 1.20orig/ops: deleteBatchV2alpha1CollectionNamespacedCronJob.json
+Only in 1.20orig/ops: deleteBatchV2alpha1NamespacedCronJob.json
+Only in 1.21orig/ops: deleteDiscoveryV1CollectionNamespacedEndpointSlice.json
+Only in 1.21orig/ops: deleteDiscoveryV1NamespacedEndpointSlice.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1alpha1CollectionFlowSchema.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1alpha1CollectionPriorityLevelConfiguration.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: deleteFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.21orig/ops: deleteStorageV1beta1CollectionNamespacedCSIStorageCapacity.json
+Only in 1.21orig/ops: deleteStorageV1beta1NamespacedCSIStorageCapacity.json
+Only in 1.20orig/ops: getBatchV2alpha1APIResources.json
+Only in 1.21orig/ops: getDiscoveryV1APIResources.json
+Only in 1.20orig/ops: getFlowcontrolApiserverV1alpha1APIResources.json
+Only in 1.21orig/ops: listBatchV1CronJobForAllNamespaces.json
+Only in 1.21orig/ops: listBatchV1NamespacedCronJob.json
+Only in 1.20orig/ops: listBatchV2alpha1CronJobForAllNamespaces.json
+Only in 1.20orig/ops: listBatchV2alpha1NamespacedCronJob.json
+Only in 1.21orig/ops: listDiscoveryV1EndpointSliceForAllNamespaces.json
+Only in 1.21orig/ops: listDiscoveryV1NamespacedEndpointSlice.json
+Only in 1.20orig/ops: listFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: listFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.21orig/ops: listStorageV1beta1CSIStorageCapacityForAllNamespaces.json
+Only in 1.21orig/ops: listStorageV1beta1NamespacedCSIStorageCapacity.json
+Only in 1.21orig/ops: patchBatchV1NamespacedCronJob.json
+Only in 1.21orig/ops: patchBatchV1NamespacedCronJobStatus.json
+Only in 1.20orig/ops: patchBatchV2alpha1NamespacedCronJob.json
+Only in 1.20orig/ops: patchBatchV2alpha1NamespacedCronJobStatus.json
+Only in 1.21orig/ops: patchDiscoveryV1NamespacedEndpointSlice.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1alpha1FlowSchemaStatus.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: patchFlowcontrolApiserverV1alpha1PriorityLevelConfigurationStatus.json
+Only in 1.21orig/ops: patchStorageV1beta1NamespacedCSIStorageCapacity.json
+diff -r 1.20orig/ops/readAdmissionregistrationV1MutatingWebhookConfiguration.json 1.21orig/ops/readAdmissionregistrationV1MutatingWebhookConfiguration.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAdmissionregistrationV1ValidatingWebhookConfiguration.json 1.21orig/ops/readAdmissionregistrationV1ValidatingWebhookConfiguration.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAdmissionregistrationV1beta1MutatingWebhookConfiguration.json 1.21orig/ops/readAdmissionregistrationV1beta1MutatingWebhookConfiguration.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAdmissionregistrationV1beta1ValidatingWebhookConfiguration.json 1.21orig/ops/readAdmissionregistrationV1beta1ValidatingWebhookConfiguration.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readApiextensionsV1CustomResourceDefinition.json 1.21orig/ops/readApiextensionsV1CustomResourceDefinition.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readApiextensionsV1beta1CustomResourceDefinition.json 1.21orig/ops/readApiextensionsV1beta1CustomResourceDefinition.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readApiregistrationV1APIService.json 1.21orig/ops/readApiregistrationV1APIService.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readApiregistrationV1beta1APIService.json 1.21orig/ops/readApiregistrationV1beta1APIService.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAppsV1NamespacedControllerRevision.json 1.21orig/ops/readAppsV1NamespacedControllerRevision.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAppsV1NamespacedDaemonSet.json 1.21orig/ops/readAppsV1NamespacedDaemonSet.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAppsV1NamespacedDeployment.json 1.21orig/ops/readAppsV1NamespacedDeployment.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAppsV1NamespacedReplicaSet.json 1.21orig/ops/readAppsV1NamespacedReplicaSet.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAppsV1NamespacedStatefulSet.json 1.21orig/ops/readAppsV1NamespacedStatefulSet.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAutoscalingV1NamespacedHorizontalPodAutoscaler.json 1.21orig/ops/readAutoscalingV1NamespacedHorizontalPodAutoscaler.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAutoscalingV2beta1NamespacedHorizontalPodAutoscaler.json 1.21orig/ops/readAutoscalingV2beta1NamespacedHorizontalPodAutoscaler.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json 1.21orig/ops/readAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+Only in 1.21orig/ops: readBatchV1NamespacedCronJob.json
+Only in 1.21orig/ops: readBatchV1NamespacedCronJobStatus.json
+diff -r 1.20orig/ops/readBatchV1NamespacedJob.json 1.21orig/ops/readBatchV1NamespacedJob.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readBatchV1beta1NamespacedCronJob.json 1.21orig/ops/readBatchV1beta1NamespacedCronJob.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+Only in 1.20orig/ops: readBatchV2alpha1NamespacedCronJob.json
+Only in 1.20orig/ops: readBatchV2alpha1NamespacedCronJobStatus.json
+diff -r 1.20orig/ops/readCertificatesV1CertificateSigningRequest.json 1.21orig/ops/readCertificatesV1CertificateSigningRequest.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCertificatesV1beta1CertificateSigningRequest.json 1.21orig/ops/readCertificatesV1beta1CertificateSigningRequest.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoordinationV1NamespacedLease.json 1.21orig/ops/readCoordinationV1NamespacedLease.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoordinationV1beta1NamespacedLease.json 1.21orig/ops/readCoordinationV1beta1NamespacedLease.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1Namespace.json 1.21orig/ops/readCoreV1Namespace.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedConfigMap.json 1.21orig/ops/readCoreV1NamespacedConfigMap.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedEndpoints.json 1.21orig/ops/readCoreV1NamespacedEndpoints.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedEvent.json 1.21orig/ops/readCoreV1NamespacedEvent.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedLimitRange.json 1.21orig/ops/readCoreV1NamespacedLimitRange.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedPersistentVolumeClaim.json 1.21orig/ops/readCoreV1NamespacedPersistentVolumeClaim.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedPod.json 1.21orig/ops/readCoreV1NamespacedPod.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedPodTemplate.json 1.21orig/ops/readCoreV1NamespacedPodTemplate.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedReplicationController.json 1.21orig/ops/readCoreV1NamespacedReplicationController.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedResourceQuota.json 1.21orig/ops/readCoreV1NamespacedResourceQuota.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedSecret.json 1.21orig/ops/readCoreV1NamespacedSecret.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedService.json 1.21orig/ops/readCoreV1NamespacedService.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1NamespacedServiceAccount.json 1.21orig/ops/readCoreV1NamespacedServiceAccount.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1Node.json 1.21orig/ops/readCoreV1Node.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readCoreV1PersistentVolume.json 1.21orig/ops/readCoreV1PersistentVolume.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+Only in 1.21orig/ops: readDiscoveryV1NamespacedEndpointSlice.json
+diff -r 1.20orig/ops/readDiscoveryV1beta1NamespacedEndpointSlice.json 1.21orig/ops/readDiscoveryV1beta1NamespacedEndpointSlice.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readEventsV1NamespacedEvent.json 1.21orig/ops/readEventsV1NamespacedEvent.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readEventsV1beta1NamespacedEvent.json 1.21orig/ops/readEventsV1beta1NamespacedEvent.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readExtensionsV1beta1NamespacedIngress.json 1.21orig/ops/readExtensionsV1beta1NamespacedIngress.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+Only in 1.20orig/ops: readFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1alpha1FlowSchemaStatus.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: readFlowcontrolApiserverV1alpha1PriorityLevelConfigurationStatus.json
+diff -r 1.20orig/ops/readFlowcontrolApiserverV1beta1FlowSchema.json 1.21orig/ops/readFlowcontrolApiserverV1beta1FlowSchema.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json 1.21orig/ops/readFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readInternalApiserverV1alpha1StorageVersion.json 1.21orig/ops/readInternalApiserverV1alpha1StorageVersion.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNetworkingV1IngressClass.json 1.21orig/ops/readNetworkingV1IngressClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNetworkingV1NamespacedIngress.json 1.21orig/ops/readNetworkingV1NamespacedIngress.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNetworkingV1NamespacedNetworkPolicy.json 1.21orig/ops/readNetworkingV1NamespacedNetworkPolicy.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNetworkingV1beta1IngressClass.json 1.21orig/ops/readNetworkingV1beta1IngressClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNetworkingV1beta1NamespacedIngress.json 1.21orig/ops/readNetworkingV1beta1NamespacedIngress.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNodeV1RuntimeClass.json 1.21orig/ops/readNodeV1RuntimeClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNodeV1alpha1RuntimeClass.json 1.21orig/ops/readNodeV1alpha1RuntimeClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readNodeV1beta1RuntimeClass.json 1.21orig/ops/readNodeV1beta1RuntimeClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readPolicyV1beta1NamespacedPodDisruptionBudget.json 1.21orig/ops/readPolicyV1beta1NamespacedPodDisruptionBudget.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readPolicyV1beta1PodSecurityPolicy.json 1.21orig/ops/readPolicyV1beta1PodSecurityPolicy.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readSchedulingV1PriorityClass.json 1.21orig/ops/readSchedulingV1PriorityClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readSchedulingV1alpha1PriorityClass.json 1.21orig/ops/readSchedulingV1alpha1PriorityClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readSchedulingV1beta1PriorityClass.json 1.21orig/ops/readSchedulingV1beta1PriorityClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1CSIDriver.json 1.21orig/ops/readStorageV1CSIDriver.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1CSINode.json 1.21orig/ops/readStorageV1CSINode.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1StorageClass.json 1.21orig/ops/readStorageV1StorageClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1VolumeAttachment.json 1.21orig/ops/readStorageV1VolumeAttachment.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1alpha1NamespacedCSIStorageCapacity.json 1.21orig/ops/readStorageV1alpha1NamespacedCSIStorageCapacity.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1alpha1VolumeAttachment.json 1.21orig/ops/readStorageV1alpha1VolumeAttachment.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1beta1CSIDriver.json 1.21orig/ops/readStorageV1beta1CSIDriver.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1beta1CSINode.json 1.21orig/ops/readStorageV1beta1CSINode.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+Only in 1.21orig/ops: readStorageV1beta1NamespacedCSIStorageCapacity.json
+diff -r 1.20orig/ops/readStorageV1beta1StorageClass.json 1.21orig/ops/readStorageV1beta1StorageClass.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+diff -r 1.20orig/ops/readStorageV1beta1VolumeAttachment.json 1.21orig/ops/readStorageV1beta1VolumeAttachment.json
+9,14d8
+<       "$ref": "#/parameters/exact"
+<     },
+<     {
+<       "$ref": "#/parameters/export"
+<     },
+<     {
+Only in 1.21orig/ops: replaceBatchV1NamespacedCronJob.json
+Only in 1.21orig/ops: replaceBatchV1NamespacedCronJobStatus.json
+Only in 1.20orig/ops: replaceBatchV2alpha1NamespacedCronJob.json
+Only in 1.20orig/ops: replaceBatchV2alpha1NamespacedCronJobStatus.json
+Only in 1.21orig/ops: replaceDiscoveryV1NamespacedEndpointSlice.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1alpha1FlowSchemaStatus.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: replaceFlowcontrolApiserverV1alpha1PriorityLevelConfigurationStatus.json
+Only in 1.21orig/ops: replaceStorageV1beta1NamespacedCSIStorageCapacity.json
+Only in 1.21orig/ops: watchBatchV1CronJobListForAllNamespaces.json
+Only in 1.21orig/ops: watchBatchV1NamespacedCronJob.json
+Only in 1.21orig/ops: watchBatchV1NamespacedCronJobList.json
+Only in 1.20orig/ops: watchBatchV2alpha1CronJobListForAllNamespaces.json
+Only in 1.20orig/ops: watchBatchV2alpha1NamespacedCronJob.json
+Only in 1.20orig/ops: watchBatchV2alpha1NamespacedCronJobList.json
+Only in 1.21orig/ops: watchDiscoveryV1EndpointSliceListForAllNamespaces.json
+Only in 1.21orig/ops: watchDiscoveryV1NamespacedEndpointSlice.json
+Only in 1.21orig/ops: watchDiscoveryV1NamespacedEndpointSliceList.json
+Only in 1.20orig/ops: watchFlowcontrolApiserverV1alpha1FlowSchema.json
+Only in 1.20orig/ops: watchFlowcontrolApiserverV1alpha1FlowSchemaList.json
+Only in 1.20orig/ops: watchFlowcontrolApiserverV1alpha1PriorityLevelConfiguration.json
+Only in 1.20orig/ops: watchFlowcontrolApiserverV1alpha1PriorityLevelConfigurationList.json
+Only in 1.21orig/ops: watchStorageV1beta1CSIStorageCapacityListForAllNamespaces.json
+Only in 1.21orig/ops: watchStorageV1beta1NamespacedCSIStorageCapacity.json
+Only in 1.21orig/ops: watchStorageV1beta1NamespacedCSIStorageCapacityList.json
