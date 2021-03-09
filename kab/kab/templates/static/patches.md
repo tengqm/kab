@@ -11,8 +11,8 @@ their corresponding `Content-Type` header:
 ### JSON Patch
 
 As defined in <a href="https://tools.ietf.org/html/rfc6902" target="_blank">
-RFC6902</a>, a JSON patch is a sequence of operations that are executed on a
-resource. For example,
+RFC6902 <i class='fa fa-external-link-alt'></i></a>, a JSON patch is a
+sequence of operations that are executed on a resource. For example,
 
 ```json
 {
@@ -25,9 +25,9 @@ resource. For example,
 ### Merge Patch
 
 As defined in <a href="https://tools.ietf.org/html/rfc7386" target="_blank">
-RFC7386</a>, a merge Patch is a partial representation of the resource. The
-submitted JSON is *merged* with the current resource to create a new one, then
-the new one is saved.
+RFC7386 <i class='fa fa-external-link-alt'></i></a>, a merge Patch is a
+partial representation of the resource. The submitted JSON is *merged* with
+the current resource to create a new one, then the new one is saved.
 
 A JSON merge patch describes changes to be made using a syntax that closely
 mimics the resource being modified. The API server determines the exact set of
@@ -68,9 +68,8 @@ can be customized using the `x-kubernetes-patch-strategy` and the
 
 A strategic merge patch supports multiple directives.
 For more details, check the
-<a
-href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md"
-target="_blank">design document</a>
+<a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md"
+target="_blank">design document <i class='fa fa-external-link-alt'></i></a>
 
 The following is an example strategic merge patch that will change the update
 strategy for a Deployment from `RollingUpdate` to `Recreate`. The
@@ -93,7 +92,7 @@ server-side-apply request need to provide the `fieldManager` query parameter
 and the object provided cannot have `managedFields` in it. For more
 information about server side apply, please refer to the
 <a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/"
-target="_blank">official documentation</a>.
+target="_blank">official documentation <i class='fa fa-external-link-alt'></i></a>.
 
 Blow is an example of a server side apply patch:
 

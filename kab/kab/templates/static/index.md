@@ -31,7 +31,7 @@ The specification for each API contains the following components:
         RESTful Web services.
       </li>
       <li>The handling of the <a href="{% url 'static-page' 'patches' %}">
-        PATCH</a> verb is a source of complexity. The body of the request
+        <code>PATCH</code></a> verb is a source of complexity. The body of the request
         differs when the patch type is different.
       </li>
     </ul>
@@ -56,7 +56,8 @@ The specification for each API contains the following components:
         structrures for higher level concepts.
       </li>
       <li>Kubernetes has <a href="{% url 'static-page' 'extensions' %}">extensions</a>
-        to the basic <a href="https://www.openapis.org/" target="_blank">OpenAPI</a>
+        to the basic <a href="https://www.openapis.org/" target="_blank">OpenAPI
+        <i class='fa fa-external-link-alt'></i></a>
         specification.
       </li>
       <li>An API <a href="{% url 'static-page' 'resource' %}">resource</a>
@@ -85,7 +86,7 @@ The specification for each API contains the following components:
      </li>
      <li><a href="{% url 'static-page' 'exact' %}">exact</a>: specify whether
        the <code>export</code> parameter should maintain cluster-specific fields
-       like<code>namespace</code>.
+       like <code>namespace</code>.
      </li>
      <li><a href="{% url 'static-page' 'export' %}">export</a>: specify
         whether the value should be exported.
@@ -125,5 +126,4 @@ and you can use other tools as well. There are
 <a href="https://kubernetes.io/docs/reference/using-api/client-libraries"
 target="_blank">client libraries <i class='fa fa-external-link-alt'></i></a>
 to use if you are writing applications to invoke the API.
-
 

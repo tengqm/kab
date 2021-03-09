@@ -4,7 +4,8 @@ Some of the API operations exposed by Kubernetes involve transfer of binary
 streams between the client and a container, including `attach`, `exec`,
 `portforward` and `logging`. The API exposes certain operations over
 upgradable HTTP connections (described in
-<a href="https://tools.ietf.org/html/rfc2817" target="_blank">RFC2817</a>)
+<a href="https://tools.ietf.org/html/rfc2817" target="_blank">
+RFC2817 <i class='fa fa-external-link-alt'></i></a>)
 via the WebSocket and SPDY protocols. These actions are exposed as
 subresources with their associated verbs (`exec`, `log`, `attach` and
 `portforward`) are requested via a `GET` and `POST`. The `GET` operation is

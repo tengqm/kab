@@ -9,7 +9,7 @@ following formats:
 - `"application/yaml"`: Request payload is encoded in YAML.
 - `"application/vnd.kubernetes.protobuf"`: Request payload is encoded in
   <a href="https://developers.google.com/protocol-buffers" target="_blank">
-  Protobuf</a> format.
+  Protobuf <i class='fa fa-external-link-alt'></i></a> format.
   Not all resource types support the "Protobuf" encoding, specifically those
   defined via Custom Resource Definitions or those are API extensions.
 
@@ -17,10 +17,10 @@ For PATCH requests, the content type can be one of the following:
 
 - `"application/json-patch+json"`: JSON patch as defined by the
   <a href="https://tools.ietf.org/html/rfc6902" target="_blank">
-  RFC6902</a>
+  RFC6902 <i class='fa fa-external-link-alt'></i></a>
 - `"application/merge-patch+json"`: Merge patch as defined by the
   <a href="https://tools.ietf.org/html/rfc7386" target="_blank">
-  RFC7386</a>.
+  RFC7386 <i class='fa fa-external-link-alt'></i></a>.
 - `"application/strategic-merge-patch+json"`: Stategic merge patch which is an
   extension to the standard merge patch.
 - `"application/apply-patch+yaml"`: A special type of YAML indicating
@@ -30,7 +30,7 @@ For PATCH requests, the content type can be one of the following:
   `managedFields` in it. For more information about server side apply,
   please refer to the
   <a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/"
-  target="_blank">official documentation</a>.
+  target="_blank">official documentation <i class='fa fa-external-link-alt'></i></a>.
 
 If the specified `"Content-Type"` is supported by the server, the same
 `"Content-Type"` header is returned; otherwise the server may return the
