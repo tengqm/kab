@@ -1,0 +1,56 @@
+{
+  "description": "A column for server side printing.",
+  "properties": {
+    "description": {
+      "description": "A human readable description of the column.",
+      "type": "string"
+    },
+    "format": {
+      "description": "An OpenAPI type definition for this column. The `\"name\"` format is applied to the primary identifier column to assist in clients identifying column for the resource name.",
+      "enum": [
+        "byte",
+        "date",
+        "date-time",
+        "double",
+        "float",
+        "int32",
+        "int64",
+        "password"
+      ],
+      "type": "string"
+    },
+    "jsonPath": {
+      "description": "A simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column. A valid JSON path always starts with `'.'`.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "A human readable name for the column.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "priority": {
+      "description": "An integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "type": {
+      "description": "An OpenAPI type definition for this column.",
+      "enum": [
+        "boolean",
+        "date",
+        "integer",
+        "number",
+        "string"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "jsonPath",
+    "name",
+    "type"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,18 @@
+{
+  "description": "A peer to allow traffic to/from. If `ipBlock` is specified, the `namespaceSelector` or the `podSelector` cannot be specified.",
+  "properties": {
+    "ipBlock": {
+      "$ref": "#/definitions/io.k8s.api.networking.v1.IPBlock",
+      "description": "This defines a policy on a particular IP block. If this field is set then neither of the other fields can be set."
+    },
+    "namespaceSelector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "Selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces. If `podSelector` is also set, then the NetworkPolicyPeer as a whole selects the Pods matching `podSelector` in the namespaces selected by `namespaceSelector`. Otherwise it selects all Pods in the namespaces selected by `namespaceSelector`."
+    },
+    "podSelector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all Pods. If `namespaceSelector` is also set, then the NetworkPolicyPeer as a whole selects the Pods matching `podSelector` in the namespaces selected by `namespaceSelector`. Otherwise it selects the Pods matching `podSelector` in the policy's own namespace."
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,25 @@
+{
+  "description": "Represents a Glusterfs mount that lasts the lifetime of a Pod. Glusterfs volumes do not support ownership management or SELinux relabeling.",
+  "properties": {
+    "endpoints": {
+      "description": "The endpoint name that details Glusterfs topology.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "path": {
+      "description": "The Glusterfs volume path.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the Glusterfs volume to be mounted with read-only permissions.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "endpoints",
+    "path"
+  ],
+  "type": "object"
+}

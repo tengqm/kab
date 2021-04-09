@@ -1,0 +1,14 @@
+{
+  "description": "IngressBackend describes all endpoints for a given service and port. One and only one of `resource` and `service` backends must be specified.",
+  "properties": {
+    "resource": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
+      "description": "An object reference to another Kubernetes resource in the namespace of the Ingress object. This is a mutual exclusive setting with `service`. The `kind` and `name` fields are required and they must be valid path segment names. The `apiGroup`, when specified, must be a valid DNS subdomain name."
+    },
+    "service": {
+      "$ref": "#/definitions/io.k8s.api.networking.v1.IngressServiceBackend",
+      "description": "A reference to a Service as a backend. This is a mutually exclusive setting with `resource`."
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,32 @@
+{
+  "description": "This describes how to convert different versions of a CustomResource.",
+  "properties": {
+    "conversionReviewVersions": {
+      "default": [
+        "v1beta1"
+      ],
+      "description": "An ordered list of preferred conversion review versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, conversion will fail for this object. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "strategy": {
+      "description": "The conversion strategy.\n\n- `\"None\"` means the converter only change the `\"apiVersion\"` and would not touch any other fields in the CustomResource;\n- `\"Webhook\"` means that the API server will call an external webhook to do the conversion. Additional information is specified in `webhookClientConfig`. This requires the `preserveUnknownFields` to be false.",
+      "enum": [
+        "None",
+        "Webhook"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "webhookClientConfig": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.WebhookClientConfig",
+      "description": "This describes how to call the conversion webhook. Required when `strategy` is set to `\"Webhook\"`."
+    }
+  },
+  "required": [
+    "strategy"
+  ],
+  "type": "object"
+}

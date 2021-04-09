@@ -1,0 +1,38 @@
+{
+  "description": "An object that defines the max disruption that can be caused to a collection of Pods",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "policy/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodDisruptionBudget"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodDisruptionBudgetSpec",
+      "description": "Specification of the desired behavior of the PodDisruptionBudget."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "policy",
+      "kind": "PodDisruptionBudget",
+      "version": "v1beta1"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "description": "The DNS parameters of a pod in addition to those generated from dnsPolicy.",
+  "properties": {
+    "nameservers": {
+      "description": "A list of DNS name server IP addresses. This will be appended to the base `nameservers` generated from `dnsPolicy`. Duplicated `nameservers` will be removed. When `dnsPolicy` is set to `\"None\"`, there must be at least one name server specified here. Each item must be a valid IP address.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 3,
+      "type": "array"
+    },
+    "options": {
+      "description": "A list of DNS resolver options. This will be merged with the base options generated from `dnsPolicy`. Duplicated entries will be removed. Resolution options given in `options` will override those that appear in the base `dnsPolicy`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodDNSConfigOption"
+      },
+      "type": "array"
+    },
+    "searches": {
+      "description": "A list of DNS search domains for hostname lookup. This will be appended to the base search paths generated from `dnsPolicy`. Duplicated search paths will be removed. The search list, when joined using `\" \"`, cannot exceed 256 characters. It is okay for an item to have a trailing `'.'`. Every item must be a valid DNS subdomain name, excluding the trailing `'.'`.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 6,
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

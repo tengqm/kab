@@ -1,0 +1,47 @@
+{
+  "description": "RoleBinding references a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via `subjects` and namespace information by which namespace it exists in. RoleBindings in a given namespace only have effect in that namespace. *DEPRECATED* in v1.17 in favor of `\"rbac.authorization.k8s.io/v1\"` RoleBinding, and will no longer be served in v1.22.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "rbac.authorization.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "RoleBinding"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata"
+    },
+    "roleRef": {
+      "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.RoleRef",
+      "description": "The reference to a Role in the current namespace or a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error."
+    },
+    "subjects": {
+      "description": "References to the subjects the Role applies to.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.rbac.v1beta1.Subject"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "roleRef"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "rbac.authorization.k8s.io",
+      "kind": "RoleBinding",
+      "version": "v1beta1"
+    }
+  ]
+}

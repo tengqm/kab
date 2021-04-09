@@ -1,0 +1,21 @@
+{
+  "description": "The current state of a CronJob.",
+  "properties": {
+    "active": {
+      "description": "A list of references to currently running Jobs.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
+      },
+      "type": "array"
+    },
+    "lastScheduleTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The last time the Job was successfully scheduled."
+    }
+  },
+  "required": [
+    "active",
+    "lastScheduleTime"
+  ],
+  "type": "object"
+}

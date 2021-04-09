@@ -1,0 +1,39 @@
+{
+  "description": "A description of the access request. Exactly one of `resourceAttributes` and `nonResourceAttributes` must be set. At least one of `user` and `groups` must be specified.",
+  "properties": {
+    "extra": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "description": "This contains some extra information about the user, returned from the authenticator. Since that is input to the authorizer it needs a reflection here.",
+      "type": "object"
+    },
+    "groups": {
+      "description": "The groups for testing. At least one of `user` or `groups` must be specified.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "nonResourceAttributes": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.NonResourceAttributes",
+      "description": "Information for a non-resource access request"
+    },
+    "resourceAttributes": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.ResourceAttributes",
+      "description": "Information for a resource access request"
+    },
+    "uid": {
+      "description": "UID of the requesting user.",
+      "type": "string"
+    },
+    "user": {
+      "description": "The user for testing. At least one of `user` or `groups` must be specified. If you specify `user` but not `groups`, then is it interpreted as \"What if User were not a member of any groups\"?",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

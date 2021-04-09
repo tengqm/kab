@@ -1,0 +1,17 @@
+{
+  "description": "The Service port referenced. Either `name` or `number` must be specified.",
+  "properties": {
+    "name": {
+      "description": "The name of the port on the Service. This is a mutually exclusive setting with `number`. When specified, the name string must be a non-empty string and no more than 15 characters long. It must contain only `\"[-a-z0-9]\"` and must contain at least one letter `\"[a-z]\"`. It must not start or end with a hyphen, or contain adjacent hyphens. **Note**: Kubernetes only allow lower-case characters, even though RFC 6335 is case insensitive.",
+      "type": "string"
+    },
+    "number": {
+      "description": "The numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with `name`.",
+      "format": "int32",
+      "maximum": 65535,
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

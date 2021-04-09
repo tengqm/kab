@@ -1,0 +1,96 @@
+{
+  "description": "Information about the status of a Pod. Status may trail the actual state of a system, especially if the node that hosts the Pod cannot contact the control plane.",
+  "properties": {
+    "conditions": {
+      "description": "Current service state of Pod.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "containerStatuses": {
+      "description": "The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
+      },
+      "type": "array"
+    },
+    "ephemeralContainerStatuses": {
+      "description": "Status for any ephemeral containers that have run in this Pod. This field is Alpha-level and is only populated by servers that enable the `EphemeralContainers` feature.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
+      },
+      "type": "array"
+    },
+    "hostIP": {
+      "description": "IP address of the node to which the Pod is assigned. Empty if not yet scheduled.",
+      "type": "string"
+    },
+    "initContainerStatuses": {
+      "description": "The list has one entry per init container in the manifest. The most recent successful init container will have `ready: true`, the most recently started container will have `startTime` set.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
+      },
+      "type": "array"
+    },
+    "message": {
+      "description": "A human readable message indicating details about why the Pod is in this condition.",
+      "type": "string"
+    },
+    "nominatedNodeName": {
+      "description": "This is set only when this Pod preempts other Pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the Pod will be scheduled on this node. Scheduler may decide to place the Pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority Pod that is created after preemption. As a result, this field may be different than `spec.nodeName` when the Pod is scheduled.",
+      "type": "string"
+    },
+    "phase": {
+      "description": "A simple, high-level summary of where the Pod is in its lifecycle. The `conditions` array, the `reason` and `message` fields, and the individual `containerStatuses` arrays contain more details about the Pod's status. Possible phase values:\n\n- `\"Pending\"`: The Pod has been accepted by the Kubernetes system, but one or more of the Container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while.\n- `\"Running\"`: The Pod has been bound to a Node, and all of the Containers have been created. At least one Container is still running, or is in the process of starting or restarting.\n- `\"Succeeded\"`: All Containers in the Pod have terminated in success, and will not be restarted.\n- `\"Failed\"`: All Containers in the Pod have terminated, and at least one Container has terminated in failure. The Container either exited with non-zero status or was terminated by the system.\n- `\"Unknown\"`: For some reason the state of the Pod could not be obtained, typically due to an error in communicating with the Node of the Pod.",
+      "enum": [
+        "Failed",
+        "Pending",
+        "Running",
+        "Succeeded",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "podIP": {
+      "description": "The IP address allocated to the Pod. Routable at least within the cluster. Empty if not yet allocated.",
+      "type": "string"
+    },
+    "podIPs": {
+      "description": "The IP addresses allocated to the Pod. If this field is specified, the 0th entry must match the `podIP` field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodIP"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "ip",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "qosClass": {
+      "description": "The Quality of Service (QOS) classification assigned to the Pod based on resource requirements.",
+      "enum": [
+        "BestEffort",
+        "Burstable",
+        "Guaranteed"
+      ],
+      "type": "string"
+    },
+    "reason": {
+      "description": "A brief CamelCase message indicating details about why the Pod is in this state. e.g. `\"Evicted\"`.",
+      "type": "string"
+    },
+    "startTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "RFC 3339 date and time at which the Pod was acknowledged by the kubelet. This is before the kubelet pulled the container image(s) for the Pod."
+    }
+  },
+  "required": [
+    "conditions",
+    "containerStatuses",
+    "message",
+    "phase",
+    "reason"
+  ],
+  "type": "object"
+}

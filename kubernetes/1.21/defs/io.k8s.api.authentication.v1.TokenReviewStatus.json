@@ -1,0 +1,28 @@
+{
+  "description": "The result of the token authentication request.",
+  "properties": {
+    "audiences": {
+      "description": "The audience identifiers chosen by the authenticator that are compatible with both the TokenReview and `token`. An identifier is any identifier in the intersection of the `audiences` in the TokenReview's `spec` and the token's `audiences`. A client of the TokenReview API that sets the `spec.audiences` field should validate that a compatible audience identifier is returned in the `status.audiences` field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty `status.audiences` field where `status.authenticated` is `\"true\"`, the token is valid against the audience of the Kubernetes API server.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "authenticated": {
+      "description": "This indicates that the token was associated with a known user.",
+      "type": "boolean"
+    },
+    "error": {
+      "description": "This indicates that the token couldn't be checked",
+      "type": "string"
+    },
+    "user": {
+      "$ref": "#/definitions/io.k8s.api.authentication.v1.UserInfo",
+      "description": "The UserInfo associated with the provided token."
+    }
+  },
+  "required": [
+    "audiences"
+  ],
+  "type": "object"
+}

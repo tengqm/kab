@@ -1,0 +1,83 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "connect GET requests to attach of Pod",
+  "operationId": "connectCoreV1GetNamespacedPodAttach",
+  "parameters": [
+    {
+      "description": "The container in which to execute the command. Defaults to only container if there is only one container in the pod.",
+      "in": "query",
+      "name": "container",
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "description": "Name of the Pod",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "description": "Flag indicates that stderr is to be redirected for the attach call. Defaults to true.",
+      "in": "query",
+      "name": "stderr",
+      "type": "boolean",
+      "uniqueItems": true
+    },
+    {
+      "description": "Flag indicates whethere the stdin stream of the Pod is to be redirected for the attach call. Defaults to false.",
+      "in": "query",
+      "name": "stdin",
+      "type": "boolean",
+      "uniqueItems": true
+    },
+    {
+      "description": "Flag indicates whether the stdout is to be redirected for the attach call. Defaults to true.",
+      "in": "query",
+      "name": "stdout",
+      "type": "boolean",
+      "uniqueItems": true
+    },
+    {
+      "description": "This indicates that a TTY will be allocated for the attach call. This is passed through the container runtime so the TTY is allocated on the worker node by the container runtime. Defaults to false.",
+      "in": "query",
+      "name": "tty",
+      "type": "boolean",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/attach",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PodAttachOptions",
+    "version": "v1"
+  }
+}

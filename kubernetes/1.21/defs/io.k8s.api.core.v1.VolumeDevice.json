@@ -1,0 +1,20 @@
+{
+  "description": "VolumeDevice describes a mapping of a raw block device within a container.",
+  "properties": {
+    "devicePath": {
+      "description": "The path inside the container that the device will be mapped to. The path must be unique inside a container. The path cannot contain `\"..\"` in it. It cannot overlap with the paths in the container's `volumeMounts`.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name must match the `name` of a `persistentVolumeClaim` volume in the Pod. It must be unique in the scope of the container. It cannot overlap with names in the container's `volumeMounts`.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "devicePath",
+    "name"
+  ],
+  "type": "object"
+}

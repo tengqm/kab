@@ -1,0 +1,39 @@
+{
+  "description": "A ReplicaSet ensures that a specified number of pod replicas are running at any given time.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "apps/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ReplicaSet"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata. If the `labels` are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.ReplicaSetSpec.UPDATE",
+      "description": "The specification of the desired behavior of the ReplicaSet."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "apps",
+      "kind": "ReplicaSet",
+      "version": "v1"
+    }
+  ]
+}

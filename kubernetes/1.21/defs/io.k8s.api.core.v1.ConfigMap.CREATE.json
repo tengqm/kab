@@ -1,0 +1,55 @@
+{
+  "description": "ConfigMap holds configuration data for Pods to consume. The total size of `data` and `binaryData` must be less than 1 MB.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "binaryData": {
+      "additionalProperties": {
+        "format": "byte",
+        "type": "string"
+      },
+      "description": "The `binaryData` field contains the binary data. Each key must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`. Each key can have at most 253 characters and it cannot be `\".\"`, `\"..\"` and it cannot start with `\"..\"`. This field can contain byte sequences that are not in the UTF-8 range. The keys stored in `binaryData` must not overlap with the ones in the `data` field.",
+      "type": "object"
+    },
+    "data": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "The `data` field contains the configuration data. Each key must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`. Each key can have at most 253 characters and it cannot be `\".\"`, `\"..\"` and it cannot start with `\"..\"`. Values with non-UTF-8 byte sequences must use the `binaryData` field. The keys stored in `data` must not overlap with the keys in the `binaryData` field.",
+      "type": "object"
+    },
+    "immutable": {
+      "description": "If set to `true`, ensures that data stored in the ConfigMap cannot be updated (only the object metadata can be modified). If not set to `true`, the field can be modified at any time. Defaulted to `null`. This is a Beta field enabled by the `ImmutableEphemeralVolumes` feature gate.",
+      "type": "boolean"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ConfigMap"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. The name of a ConfigMap must be a valid DNS subdomain."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "ConfigMap",
+      "version": "v1"
+    }
+  ]
+}

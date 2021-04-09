@@ -1,0 +1,11 @@
+{
+  "description": "Spec to control the desired behavior of DaemonSet rolling update.",
+  "properties": {
+    "maxUnavailable": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+      "default": 1,
+      "description": "The maximum number of DaemonSet Pods that can be unavailable during the update. Value can be an absolute number or a percentage of total number of DaemonSet Pods at the start of the update. Absolute number is calculated from percentage by rounding up. This cannot be 0. Example: when this is set to \"30%\", at most 30% of the total number of nodes that should be running the DaemonSet Pod (i.e. `status.desiredNumberScheduled`) can have their Pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet Pods and then brings up new DaemonSet Pods in their place. Once the new Pods are available, it then proceeds onto other DaemonSet Pods, thus ensuring that at least 70% of original number of DaemonSet Pods are available at all times during the update."
+    }
+  },
+  "type": "object"
+}

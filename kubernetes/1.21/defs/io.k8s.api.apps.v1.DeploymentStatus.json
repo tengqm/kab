@@ -1,0 +1,57 @@
+{
+  "description": "The most recently observed status of the Deployment.",
+  "properties": {
+    "availableReplicas": {
+      "description": "Total number of available Pods (ready for at least `minReadySeconds`) targeted by this Deployment. It cannot be greater than the desired replicas or the ready replicas.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "collisionCount": {
+      "description": "Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet. When updated, this value cannot be decremented.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "conditions": {
+      "description": "The latest observations of a Deployment's state.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "observedGeneration": {
+      "description": "The generation observed by the Deployment controller.",
+      "format": "int64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "readyReplicas": {
+      "description": "Total number of ready Pods targeted by this Deployment. This cannot be greater than the desired `replicas`.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "replicas": {
+      "description": "Total number of non-terminated Pods targeted by this Deployment (their labels match the `selector`).",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "unavailableReplicas": {
+      "description": "Total number of unavailable Pods targeted by this Deployment. This is the total number of Pods that are still required for the Deployment to have 100% available capacity. They may either be Pods that are running but not yet available or Pods that still have not been created.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "updatedReplicas": {
+      "description": "Total number of non-terminated Pods targeted by this Deployment that have the desired template spec. Must be less than the desired `replicas`.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

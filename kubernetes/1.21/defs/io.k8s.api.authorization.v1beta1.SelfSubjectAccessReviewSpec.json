@@ -1,0 +1,14 @@
+{
+  "description": "A description of the access request. One and only one of `nonResourceAttributes` and `resourceAttributes` should be specified.",
+  "properties": {
+    "nonResourceAttributes": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.NonResourceAttributes",
+      "description": "Information for a non-resource access request"
+    },
+    "resourceAttributes": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1beta1.ResourceAttributes",
+      "description": "Information for a resource access request"
+    }
+  },
+  "type": "object"
+}

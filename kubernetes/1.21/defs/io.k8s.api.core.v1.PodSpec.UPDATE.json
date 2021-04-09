@@ -1,0 +1,228 @@
+{
+  "description": "The new specification of a Pod. When updating a Pod, only the `containers[*].image`, `initContainers[*].image`,`activeDeadlineSeconds` or the `tolerations` fields can be changed.",
+  "properties": {
+    "activeDeadlineSeconds": {
+      "description": "Duration in seconds the Pod may be active on the node relative to `startTime` before the system will actively try to mark it failed and kill associated containers. Value must be a positive 32-bit integer. This is not supported in `ReplicationController`, `Deployment`, `ReplicaSet`, `DaemonSet` or `StatefulSet`. When updating, this field can be updated from nil to a positive value, or from a positive value to a smaller, non-negative value.",
+      "format": "int64",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "affinity": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.Affinity",
+      "description": "If specified, the Pod's scheduling constraints."
+    },
+    "automountServiceAccountToken": {
+      "description": "Flag indicating whether a service account token should be automatically mounted.",
+      "type": "boolean"
+    },
+    "containers": {
+      "description": "List of containers in the Pod. Containers currently cannot be added or removed. There must be at least one container in a Pod. Cannot be updated.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Container"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "dnsConfig": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodDNSConfig",
+      "description": "Specifies the DNS parameters of a Pod. Parameters specified here will be merged to the generated DNS configuration based on `dnsPolicy`. If `dnsPolicy` is set to `\"None\"`, this must be provided."
+    },
+    "dnsPolicy": {
+      "default": "ClusterFirst",
+      "description": "Set DNS policy for the Pod. DNS parameters given in `dnsConfig` will be merged with the policy selected with `dnsPolicy`. To have DNS options set along with `hostNetwork`, you have to specify DNS policy explicitly to `\"ClusterFirstWithHostNet\"`. If `dnsPolicy` is set to `\"None\"`, `dnsConfig` must be specified.",
+      "enum": [
+        "ClusterFirst",
+        "ClusterFirstWithHostNet",
+        "Default",
+        "None"
+      ],
+      "type": "string"
+    },
+    "enableServiceLinks": {
+      "default": true,
+      "description": "This flag indicates whether information about services should be injected into Pod's environment variables, matching the syntax of Docker links.",
+      "type": "boolean"
+    },
+    "ephemeralContainers": {
+      "description": "List of ephemeral containers to run in the Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. Ephemeral containers should not be relied upon for fundamental Pod services, so fields like `lifecycle`, `readinessProbe`, `livenessProbe`, `startupProbe`, `resources` and `ports` are disallowed. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod `spec`. In order to add anephemeral container to an existing pod, use the Pod's `ephemeralcontainers` subresource. When updating a Pod, the existing `ephemeralcontainers` cannot be changed or removed. This field is Alpha-level and is only honored by servers that enable the `EphemeralContainers` feature.",  
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "hostAliases": {
+      "description": "A list of hosts and IPs that will be injected into the Pod's `hosts` file. This is only valid for non-`hostNetwork` Pods.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.HostAlias"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "ip",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "hostIPC": {
+      "default": false,
+      "description": "Use the host's IPC namespace.",
+      "type": "boolean"
+    },
+    "hostNetwork": {
+      "default": false,
+      "description": "Host networking requested for this Pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified.",
+      "type": "boolean"
+    },
+    "hostPID": {
+      "default": false,
+      "description": "Use the host's PID namespace.",
+      "type": "boolean"
+    },
+    "hostname": {
+      "description": "The hostname of the Pod. When specified, the value must be a valid DNS label. If not specified, the Pod's hostname will be set to a system-defined value.",
+      "type": "string"
+    },
+    "imagePullSecrets": {
+      "description": "A list of references to Secrets in the same namespace for pulling images used by this Pod. If specified, these Secrets will be passed to individual puller implementations. For example, in the case of docker, only `\"kubernetes.io/dockerconfigjson\"` type of Secrets are honored. For each entry in the list, only the `name` field may be set.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "initContainers": {
+      "description": "List of initialization containers in the Pod. Init containers are executed in order prior to application containers being started. If any init container fails, the Pod is considered to have failed and is handled according to its `restartPolicy`. Init containers may not have `lifecycle` actions, `readinessProbe`, `livenessProbe` or `startupProbe`. The `resources.requests` of an init container are taken into account during scheduling by finding the highest `request`/`limit` for each resource type, and then using the max of of that value or the sum of the application containers. `resources.limits` are applied to init containers in a similar fashion. The name of an init container cannot conflict with other init containers, ephemeral containers or application containers. Init containers currently cannot be added, removed.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Container"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "nodeName": {
+      "description": "If this is not empty, the scheduler simply schedules this Pod onto that node, assuming that it fits resource requirements. The value must be a valid DNS subdomain name. When updating, this field cannot be changed directly.",
+      "type": "string"
+    },
+    "nodeSelector": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "A selector which must match a node's labels for the Pod to be scheduled on that node. Each key in the map must be a qualified name. Each value in the map must be no more than 63 characters. It is either an empty string or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`, and must start and end with an alphanumeric character.",
+      "type": "object"
+    },
+    "overhead": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Beta field, and is only honored by servers that enable the `PodOverhead` feature.",
+      "type": "object"
+    },
+    "preemptionPolicy": {
+      "default": "PreemptLowerPriority",
+      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: the Pod never preempts other Pods with lower priority;\n- `\"PreemptLowerPriority\"`: the Pod can preempt other Pods with lower priority.\n\nThis field is Beta, gated by the `NonPreemptingPriority` feature gate.",
+      "enum": [
+        "Never",
+        "PreemptLowerPriority"
+      ],
+      "type": "string"
+    },
+    "priority": {
+      "description": "The priority value. Various system components use this field to find the priority of the Pod. When the 'Priority' Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "priorityClassName": {
+      "description": "The Pod's priority class. The value must be a valid DNS subdomain. The value `\"system-node-critical\"` and `\"system-cluster-critical\"` are two special keywords which indicate the highest priorities with the former being the highest priority. Any other values must match the name of a PriorityClass object. If not specified, the Pod priority will be default or zero if there is no default.",
+      "type": "string"
+    },
+    "readinessGates": {
+      "description": "If specified, all readiness gates will be evaluated for Pod readiness. A Pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to `\"True\"`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodReadinessGate"
+      },
+      "type": "array"
+    },
+    "restartPolicy": {
+      "default": "Always",
+      "description": "Restart policy for all containers within the Pod. For ReplicationController, Deployment, DaemonSet, ReplicaSet and StatefulSet, the `restartPolicy` must be `\"Always\"`. For Job, the `restartPolicy` must be `\"OnFailure\"` or `\"Never\"`.",
+      "enum": [
+        "Always",
+        "Never",
+        "OnFailure"
+      ],
+      "type": "string"
+    },
+    "runtimeClassName": {
+      "description": "This refers to a RuntimeClass object in the `node.k8s.io` group, which should be used to run this Pod.  If no RuntimeClass resource matches the name, the Pod will not run. If unset or empty, the `\"legacy\"` RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value must be a valid DNS subdomain. This is a Beta feature as of Kubernetes v1.14.",
+      "type": "string"
+    },
+    "schedulerName": {
+      "description": "If specified, the Pod will be dispatched by specified scheduler. If not specified, the Pod will be dispatched by default scheduler.",
+      "type": "string"
+    },
+    "securityContext": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodSecurityContext",
+      "description": "Pod-level security attributes and settings common to all containers. Defaults to empty."
+    },
+    "serviceAccountName": {
+      "description": "The name of the ServiceAccount to use to run this Pod. The value must be a valid DNS subdomain name.",
+      "type": "string"
+    },
+    "setHostnameAsFQDN": {
+      "default": false,
+      "description": "If `true` the Pod's hostname will be configured as the Pod's fully qualified domain name (FQDN), rather than the leaf name which is the default. For Linux containers, this means setting the FQDN in the `hostname` field of the kernel (the `nodename` field of struct `utsname`). In Windows containers, this means setting the registry value of hostname for the registry key `\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\"` to FQDN. If a Pod does not have FQDN, this has no effect. This field is Beta, gated by the `SetHostnameAsFQDN` feature gated.",
+      "type": "boolean"
+    },
+    "shareProcessNamespace": {
+      "default": false,
+      "description": "Share a single process namespace between all of the containers in a Pod. When this is set containers will be able to view and signal processes from other containers in the same Pod, and the first process in each container will not be assigned PID 1. `hostPID` and `shareProcessNamespace` cannot both be set.",
+      "type": "boolean"
+    },
+    "subdomain": {
+      "description": "If specified, the value must be a valid DNS label. The fully qualified Pod hostname will be `\"<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>\"`. If not specified, the Pod will not have a domain name at all.",
+      "type": "string"
+    },
+    "terminationGracePeriodSeconds": {
+      "default": 30,
+      "description": "A period of time during which the Pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the Pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process.",
+      "minimum": 0,
+      "format": "int64",
+      "type": "integer"
+    },
+    "tolerations": {
+      "description": "The Pod's tolerations.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Toleration"
+      },
+      "type": "array"
+    },
+    "topologySpreadConstraints": {
+      "description": "This describes how a group of Pods are to spread across topology domains. Scheduler will schedule Pods in a way which abides by the constraints. All items in the list are AND'ed. The tuple `(topologyKey, whenUnsatisfiable)` must be unique in the list.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint"
+      },
+      "type": "array",
+      "x-kubernetes-list-map-keys": [
+        "topologyKey",
+        "whenUnsatisfiable"
+      ],
+      "x-kubernetes-list-type": "map",
+      "x-kubernetes-patch-merge-key": "topologyKey",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "volumes": {
+      "description": "List of volumes that can be mounted by containers in the Pod.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Volume"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge,retainKeys"
+    }
+  },
+  "required": [
+    "containers"
+  ],
+  "type": "object"
+}

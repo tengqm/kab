@@ -1,0 +1,46 @@
+{
+  "description": "The cluster validation information. *DEPRECATED*: This API is deprecated in v1.19+.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "conditions": {
+      "description": "List of component conditions observed",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ComponentCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ComponentStatus"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "conditions",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "ComponentStatus",
+      "version": "v1"
+    }
+  ]
+}

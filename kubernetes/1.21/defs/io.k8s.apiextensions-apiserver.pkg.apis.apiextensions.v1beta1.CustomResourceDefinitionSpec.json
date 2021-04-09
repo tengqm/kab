@@ -1,0 +1,64 @@
+{
+  "description": "This describes how a user wants their resource to appear",
+  "properties": {
+    "additionalPrinterColumns": {
+      "description": "Additional columns returned in table output. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceColumnDefinition"
+      },
+      "type": "array"
+    },
+    "conversion": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceConversion",
+      "description": "The conversion settings for the CRD."
+    },
+    "group": {
+      "description": "The API group of the defined custom resource. The custom resources are served under `\"/apis/<group>/...\"`. Must match the name of the CustomResourceDefinition (in the form `\"<names.plural>.<group>\"`). The value must be a valid DNS subdomain and it must contain at least one dot.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "names": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionNames",
+      "description": "The resource and kind names for the custom resource."
+    },
+    "preserveUnknownFields": {
+      "default": true,
+      "description": "This indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. `apiVersion`, `kind`, `metadata` and known fields inside `metadata` are always preserved. If false, schemas must be defined for all versions. Defaults to `true` in v1beta for backwards compatibility. *DEPRECATED*: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `\"x-kubernetes-preserve-unknown-fields: true\"` extension.",
+      "type": "boolean"
+    },
+    "scope": {
+      "default": "Namespaced",
+      "description": "Scope indicates whether this custom resource is cluster or namespace scoped.",
+      "enum": [
+        "Cluster",
+        "Namespaced"
+      ],
+      "type": "string"
+    },
+    "subresources": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceSubresources",
+      "description": "What subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive."
+    },
+    "validation": {
+      "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceValidation",
+      "description": "The schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive."
+    },
+    "version": {
+      "description": "The API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. *DEPRECATED*: use `versions` instead.",
+      "type": "string"
+    },
+    "versions": {
+      "description": "The list of all supported versions for this resource. If `version` field is provided, this field is optional. All versions must use the same validation schema for now. i.e., top level `validation` field is applied to all of these `versions`. The version `name` will be used to compute the order. If the version string is 'kube-like', it will sort above non 'kube-like' version strings, which are ordered lexicographically. A 'Kube-like' version starts with a '`v`', then are followed by a number (the major version), then optionally the string '`alpha`' or '`beta`' and another number (the minor version). These are sorted first by `GA > beta > alpha` (where `GA` is a version with no suffix such as '`beta`' or '`alpha`'), and then by comparing major version, then minor version. An example sorted list of versions: '`v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10`'.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinitionVersion"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "group",
+    "names",
+    "scope"
+  ],
+  "type": "object"
+}

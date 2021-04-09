@@ -1,0 +1,59 @@
+{
+  "description": "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer. *DEPRECATED* - This group version of PriorityClass is deprecated by `\"scheduling.k8s.io/v1\"` PriorityClass.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "scheduling.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "description": {
+      "description": "An arbitrary string that usually provides guidelines on using this priority class.",
+      "type": "string"
+    },
+    "globalDefault": {
+      "description": "Flag indicating whether this PriorityClass should be considered as the default priority for Pods. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`, the smallest value of such global default PriorityClasses will be used as the default one.",
+      "type": "boolean"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PriorityClass"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. The name must be a valid DNS subdomain. Name prefixed with `\"system-\"` are reserved for predefined system priority classes, i.e.\n\n- `\"system-cluster-critical\"` (2000000000): used for system critical Pods that must run in the cluster, but can be moved to another node if necessary.\n- `\"system-node-critical\"` (2000001000): used for system critical Pods that must not be moved from their current node.\n"
+    },
+    "preemptionPolicy": {
+      "default": "PreemptLowerPriority",
+      "description": "The policy for preempting Pods with lower priority.\n\n- `\"Never\"`: Pod never preempts other Pods with lower priority.\n- `\"PreemptLowerPriority\"`: Pod can preempt other Pods with lower priority.\n\nThis field is Beta-level and is only honored by servers that enable the `NonPreemptingPriority` feature.",
+      "enum": [
+        "Never",
+        "PreemptLowerPriority"
+      ],
+      "type": "string"
+    },
+    "value": {
+      "description": "The value of this priority class. This is the actual priority that Pods receive when they have the name of this class in their Pod spec. Other than the system predefined priority classes, user defined priority classes cannot have `value` greater than 1000000000. The value cannot be changed in an update operation.",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "value"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "scheduling.k8s.io",
+      "kind": "PriorityClass",
+      "version": "v1alpha1"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "description": "An item that specifies a min/max usage limit for any resource that matches a kind. For each item, the resource name has to follow some rules. For each resource type:\n\n- the `max` value must be no smaller than the `min` value, if both are specified;\n- the `defaultRequest` value must be greater than the `min` value, if both are specified;\n- the `defaultRequest` value must be smaller than the `max` value, if both are specified.\n- the `defaultRequest` must be smaller than the `default` value, if both are specified.\n- the `default` value must be must be greater than the `min` value, if both are specified.\n- the `default` value must be smaller than the `max` value, if both are specified.\nFor GPU, hugepages and other resources that are not allowed to overcommit, the `default` value and the `defaultRequest` value must match, if both are specified.\n",
+  "properties": {
+    "default": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "Default resource requirement limit value by resource name if resource limits is omitted. This field cannot be specified when `type` is `\"Pod\"`.",
+      "type": "object"
+    },
+    "defaultRequest": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The default resource requirement request value by resource name if resource requests is omitted. This field cannot be specified when `type` is `\"Pod\"`.",
+      "type": "object"
+    },
+    "max": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "Max usage constraints on this kind by resource name.",
+      "type": "object"
+    },
+    "maxLimitRequestRatio": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "If specified, the named resource must have requests and limits that are both non-zero where `limits` divided by `requests` is less than or equal to the enumerated value; this represents the max burst for the named resource. The value must be no less than 1.",
+      "type": "object"
+    },
+    "min": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "Min usage constraints on this kind by resource name.",
+      "type": "object"
+    },
+    "type": {
+      "description": "Type of resource that this limit applies to. This has to be a qualified resource name (containing at least one `'/'`) or a standard limit type, i.e. one of `\"Pod\"`, `\"Container\"` and `\"PersistentVolumeClaim\"`. The `type` value must be unique in the `limits` list.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+}

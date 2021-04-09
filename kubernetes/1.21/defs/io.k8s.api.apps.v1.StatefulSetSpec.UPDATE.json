@@ -1,0 +1,58 @@
+{
+  "description": "The specification of a StatefulSet.",
+  "properties": {
+    "podManagementPolicy": {
+      "default": "OrderedReady",
+      "description": "This controls how Pods are created during initial scale up, when replacing Pods on nodes, or when scaling down. The default policy is `\"OrderedReady\"`, where Pods are created in increasing order and the controller will wait until each Pod is ready before continuing. When scaling down, the Pods are removed in the opposite order. The alternative policy is `\"Parallel\"` which will create Pods in parallel to match the desired scale without waiting, and on scale down will delete all Pods at once. Cannot be updated.",
+      "enum": [
+        "OrderedReady",
+        "Parallel"
+      ],
+      "type": "string"
+    },
+    "replicas": {
+      "default": 1,
+      "description": "The desired number of replicas of the given `template`. These are replicas in the sense that they are instantiations of the same `template`, but individual replicas also have a consistent identity.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "The maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied spec version. Cannot be updated.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "selector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "A label query over Pods that should match the `replicas` count. It must match the Pod template's `labels`. Cannot be updated."
+    },
+    "serviceName": {
+      "description": "The name of the Service that governs this StatefulSet. This Service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: `\"pod-specific-string.serviceName.default.svc.cluster.local\"` where '`\"pod-specific-string\"`' is managed by the StatefulSet controller. Cannot be updated.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "template": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
+      "description": "An object that describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet. Currently only check if the `metadata.labels` are set."
+    },
+    "updateStrategy": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",
+      "description": "The update strategy that will be employed to update Pods in the StatefulSet when a revision is made to `template`."
+    },
+    "volumeClaimTemplates": {
+      "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) `volumeMount` in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "selector",
+    "serviceName",
+    "template"
+  ],
+  "type": "object"
+}
