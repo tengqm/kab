@@ -6,16 +6,22 @@
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference"
       },
-      "type": "array"
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
     },
     "lastScheduleTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
       "description": "The last time the Job was successfully scheduled."
+    },
+    "lastSuccessfulTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "The last time the Job successfully completed."
     }
   },
   "required": [
     "active",
-    "lastScheduleTime"
+    "lastScheduleTime",
+    "lastSuccessfulTime"
   ],
   "type": "object"
 }

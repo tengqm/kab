@@ -5,8 +5,12 @@
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
       "description": "A label query over a set of Pods."
     },
+    "namespaceSelector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the `namespaces` field. null selector and null or empty `namespaces` list means \"this Pod's namespace\". An empty selector (`{}`) matches all namespaces. This field is Alpha level and is only honored when the `\"PodAffinityNamespaceSelector\"` feature gate is enabled."
+    },
     "namespaces": {
-      "description": "Which namespaces the `labelSelector` applies to; null or empty list means *this Pod's namespace*.",
+      "description": "A static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by `namespaceSelector`. null or empty namespaces list and null `namespaceSelector` means \"this Pod's namespace\"",
       "items": {
         "type": "string"
       },

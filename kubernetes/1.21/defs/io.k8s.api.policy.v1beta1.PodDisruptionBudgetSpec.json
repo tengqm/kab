@@ -11,7 +11,8 @@
     },
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-      "description": "Label query over Pods whose evictions are managed by this PDB."
+      "description": "Label query over Pods whose evictions are managed by the disruption budget. A null selector selects no Pods. An empty selector (`{}1) also selects no Pods, which differs from standard behavior of selecting all Pods. In `policy/v1`, an empty selector will select all Pods in the namespace.",
+      "x-kubernetes-patch-strategy": "replace"
     }
   },
   "type": "object"

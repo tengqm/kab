@@ -185,7 +185,7 @@
     },
     "terminationGracePeriodSeconds": {
       "default": 30,
-      "description": "A period of tie during which the Pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the Pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process.",
+      "description": "Optional duration in seconds the Pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is `nil`, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the Pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process.",
       "minimum": 0,
       "format": "int64",
       "type": "integer"

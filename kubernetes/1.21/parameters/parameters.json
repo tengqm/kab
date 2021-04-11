@@ -26,22 +26,6 @@
     ],
     "uniqueItems": true
   },
-  "exact": {
-    "description": "Should the export be exact. Exact export maintains cluster-specific fields like `namespace`. DEPRECATED. Planned for removal in 1.18.",
-    "in": "query",
-    "name": "exact",
-    "required": false,
-    "type": "boolean",
-    "uniqueItems": true
-  },
-  "export": {
-    "description": "Should this value be exported. `export` strips fields that a user can not specify. DEPRECATED. Planned for removal in 1.18.",
-    "in": "query",
-    "name": "export",
-    "required": false,
-    "type": "boolean",
-    "uniqueItems": true
-  },
   "fieldManager": {
     "description": "`fieldManager` is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by [Go Unicode](https://golang.org/pkg/unicode/#IsPrint).",
     "in": "query",
