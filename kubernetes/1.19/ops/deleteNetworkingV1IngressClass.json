@@ -2,22 +2,27 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace the specified IngressClass",
-  "operationId": "replaceNetworkingV1beta1IngressClass",
+  "description": "delete an IngressClass",
+  "operationId": "deleteNetworkingV1IngressClass",
   "parameters": [
     {
       "in": "body",
       "name": "body",
-      "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClass.UPDATE"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
     },
     {
-      "$ref": "#/parameters/fieldManager"
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "description": "name of the IngressClass",
@@ -31,7 +36,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/networking.k8s.io/v1beta1/ingressclasses/{name}",
+  "path": "/apis/networking.k8s.io/v1/ingressclasses/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -41,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClass.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
-    "201": {
-      "description": "Updated",
+    "202": {
+      "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClass.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -58,13 +63,13 @@
     "https"
   ],
   "tags": [
-    "networking_v1beta1"
+    "networking_v1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "networking.k8s.io",
     "kind": "IngressClass",
-    "version": "v1beta1"
+    "version": "v1"
   }
 }
