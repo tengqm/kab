@@ -1,20 +1,29 @@
 {
   "consumes": [
-    "*/*"
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json",
+    "application/apply-patch+yaml"
   ],
-  "description": "replace status of the specified CertificateSigningRequest",
-  "operationId": "replaceCertificatesV1beta1CertificateSigningRequestStatus",
+  "description": "partially update status of the specified CertificateSigningRequest",
+  "operationId": "patchCertificatesV1CertificateSigningRequestStatus",
   "parameters": [
     {
       "in": "body",
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManagerPatch"
+    },
+    {
+      "$ref": "#/parameters/force"
     },
     {
       "description": "name of the CertificateSigningRequest",
@@ -28,7 +37,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status",
+  "path": "/apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/status",
   "produces": [
     "application/json",
     "application/yaml",
@@ -38,13 +47,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
-      }
-    },
-    "201": {
-      "description": "Updated",
-      "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequest.GET"
       }
     },
     "401": {
@@ -55,13 +58,13 @@
     "https"
   ],
   "tags": [
-    "certificates_v1beta1"
+    "certificates_v1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
-    "version": "v1beta1"
+    "version": "v1"
   }
 }

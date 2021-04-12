@@ -2,19 +2,27 @@
   "consumes": [
     "*/*"
   ],
-  "description": "replace status of the specified CertificateSigningRequest",
-  "operationId": "replaceCertificatesV1beta1CertificateSigningRequestStatus",
+  "description": "delete a CertificateSigningRequest",
+  "operationId": "deleteCertificatesV1CertificateSigningRequest",
   "parameters": [
     {
       "in": "body",
       "name": "body",
-      "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
       }
     },
     {
       "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
     },
     {
       "description": "name of the CertificateSigningRequest",
@@ -28,7 +36,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/certificates.k8s.io/v1beta1/certificatesigningrequests/{name}/status",
+  "path": "/apis/certificates.k8s.io/v1/certificatesigningrequests/{name}",
   "produces": [
     "application/json",
     "application/yaml",
@@ -38,13 +46,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
-    "201": {
-      "description": "Updated",
+    "202": {
+      "description": "Accepted",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.certificates.v1beta1.CertificateSigningRequest.GET"
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
       }
     },
     "401": {
@@ -55,13 +63,13 @@
     "https"
   ],
   "tags": [
-    "certificates_v1beta1"
+    "certificates_v1"
   ],
-  "verb": "put",
-  "x-kubernetes-action": "put",
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
   "x-kubernetes-group-version-kind": {
     "group": "certificates.k8s.io",
     "kind": "CertificateSigningRequest",
-    "version": "v1beta1"
+    "version": "v1"
   }
 }
