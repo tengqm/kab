@@ -97,6 +97,45 @@ class SwitchAPI(generic.View):
         return http.HttpResponseRedirect(new_target)
 
 
+class DownloadSpec(generic.View):
+    """Generic view for downloading API spec"""
+
+    def get(self, req, *args, **kwargs):
+        apiv = kwargs.get('api')
+        if not apiv:
+            apiv = helpers.latest_api()
+
+        fmt = kwargs.get('fmt')
+        if not fmt:
+            fmt = 'json'
+
+        path = os.path.join(settings.BASE_DIR, "data", apiv, "swagger.json")
+        obj = {}
+        try:
+            with open(path, "r") as f:
+                obj = json.load(f)
+        except Exception:
+            raise exc.SuspiciousOperation("Data is not valid YAML")
+
+        if fmt == "json":
+            content_type = "application/json"
+            result = json.dumps(obj, indent=2)
+        elif fmt == "yaml":
+            content_type = "application/yaml"
+            yml = yaml.YAML()
+            yml.default_flow_style = False
+            dumper = helpers.NullStream()
+            yml.dump(obj, dumper)
+            result = dumper.buf
+        else:
+            raise exc.SuspiciousOperation("Unsupported format '%s'" % fmt)
+
+        resp = http.HttpResponse(result, content_type=content_type)
+        fn = "swagger-{}.{}".format(apiv, fmt)
+        resp['Content-Disposition'] = 'attachment; filename="%s"' % fn
+        return resp
+
+
 class ListResources(generic.View):
     """Generic view for listing API resources"""
 

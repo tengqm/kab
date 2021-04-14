@@ -12,6 +12,7 @@
       <tr>
         <th class="text-center" scope="col">API Version</th>
         <th class="text-center" scope="col">Release Date</th>
+        <th class="text-center" scope="col">Spec</th>
         <th class="text-center" scope="col">Changes</th>
         <th class="text-center" scope="col">API Groups</th>
         <th class="text-center" scope="col">Resources</th>
@@ -24,6 +25,7 @@
         <tr>
           <td class="text-center" scope="row">{{ AV }}</td>
           <td class="text-center" scope="row">{{ AD.release_date }}</td>
+          <td class="text-center"><a href="{% url 'download-spec' AV 'json' %}"><i class="fa fa-save"></i></a></td>
           <td class="text-center" scope="row">
             <a href="{% url 'full-history' AV  %}">Changes</a>
           </td>
