@@ -1,22 +1,30 @@
-TODO list
+# TODO list
 
+## Future
+
+[ ] Document the feature gates.
+[ ] Investigate the difference between swagger and OpenAPI v3.
 [ ] List of API groups
 [ ] Popup field info on definition comparison screen
 [ ] In page filtering for definitions, operations
 [ ] Generate sample resource with checkboxed treeview
 [ ] Filter operations based on resource variants
 [ ] Refactor helpers code into classes
-[ ] Add badge to deprecated API groups
 [ ] When compare operations, add links to removed or added parameters?
 [ ] When compare definitions, add links for the added/removed fields.
 [ ] Cross verify the parameters allowed for DELETE, LIST, CREATE, PUT, GET operations
 [ ] Fix all 'oneOf', 'allOf' definitions
 [ ] Fix API response based on apimachinery.pkg.apis.meta.v1.Status
-[ ] Rescan all cross version diffs for data.
 [ ] Use `meta.k8s.io` as the group name for meta API objects.
     E.g. ListOptions, DeleteOptions, List, Status, WatchEvent, Scale
 [ ] Document field selector. It is specified as a string for the list
     operation.
+
+## Done
+
+[x] Allow download specification as JSON.
+[x] Rescan all cross version diffs for data.
+[x] Add badge to deprecated API groups
 [x] Document the kubernetes extensions:
   * x-kubernetes-list-type: map | atomic | set
   * x-kubernetes-map-type: ganualar | atomic
