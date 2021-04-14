@@ -61,7 +61,7 @@ example, for the definition (resource) `io.k8s.api.storage.v1.CSIDriver`, the
 
 ```json
 {
-  "apiVersion": 
+  "apiVersion": {
     "description": "The version of the schema for the object representation",
     "enum": [
       "storage.k8s.io/v1"
