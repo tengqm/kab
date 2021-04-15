@@ -109,7 +109,7 @@ class DownloadSpec(generic.View):
         if not fmt:
             fmt = 'json'
 
-        path = os.path.join(settings.BASE_DIR, "data", apiv, "swagger.json")
+        path = os.path.join(settings.DATA_DIR, apiv, "swagger.json")
         obj = {}
         try:
             with open(path, "r") as f:
