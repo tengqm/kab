@@ -135,6 +135,21 @@ class DownloadSpec(generic.View):
         resp['Content-Disposition'] = 'attachment; filename="%s"' % fn
         return resp
 
+class ListGroups(generic.View):
+    """Generic view for listing API groups"""
+
+    def get(self, req, *args, **kwargs):
+        apiv = kwargs.get('api')
+        if not apiv:
+            apiv = helpers.latest_api()
+
+        groups = helpers.groups(apiv)
+        ctx = {
+            "API": apiv,
+            "GROUPS": groups,
+        }
+        return shortcuts.render(req, 'core/group-list.html', ctx)
+
 
 class ListResources(generic.View):
     """Generic view for listing API resources"""

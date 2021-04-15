@@ -171,12 +171,16 @@ def api_summary(apiv):
 def groups(api_version):
     result = []
     group_data = DATA.get("group_names", [])
-    for k, v in DATA.get("groups", {}).items():
+    for group_name, v in DATA.get("groups", {}).items():
         if api_version not in v:
             continue
+        g_data = {
+            "versions": sorted(v[api_version])
+        }
         for r in group_data:
-            if r["name"] == k:
-                result.append(r)
+            if r["name"] == group_name:
+                g_data.update(r)
+                result.append(g_data)
     return sorted(result, key=lambda g: g["name"])
 
 

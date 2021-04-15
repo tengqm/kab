@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load core_tags %}
+
+{% block title %}
+  <title>API groups in {{ API }}</title>
+{% endblock %}
+
+{% block main_content %}
+
+  <!--
+  <div class="btn-toolbar pb-1 bg-light" role="toolbar" aria-label="Groups Toolbar"
+      style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px; font-size:90%;">
+    <label class="align-self-center"><i class="fa fa-circle text-danger"></i> =Alpha</label>&nbsp;
+    <label class="align-self-center"><i class="fa fa-circle text-warning"></i> =Beta</label>&nbsp;
+    <label class="align-self-center"><i class="fa fa-circle text-success"></i> =GA</label>
+    <div class="input-group ml-auto">
+      <input id="filterText" type="text" class="form-control" placeholder="Filter"
+        aria-label="Filter" onkeydown="return tryFilter(event)">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="filter_defs()"><i class="fa fa-filter"></i></button>
+        <button class="btn btn-outline-secondary" type="button" onclick="reset()">Reset</button>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <table id="groupable" class="table table-sm" width="100%">
+    <thead>
+      <tr class="table-active">
+        <th style="width:20%">Name
+          <button type="button" class="btn" onclick="show_help('apigroup')">
+            <i class="fa far fa-question-circle text-info"></i>
+          </button>
+        </th>
+        <th>Display Name
+          <i class="fa far fa-question-circle text-info" data-toggle="tooltip"
+              title="The string to use as the 'apiVersion' when specifying a resource"></i>
+        </th>
+        <th>Versions</th>
+      </tr>
+    </thead>
+    <tbody style="font-family:monospace;">
+      {% for G in GROUPS %}
+        <tr>
+          <td style="word-break:break-word;">
+            <samp>{{ G.name }}</samp>
+          </td>
+          <td style="word-break:break-word;">
+            <samp>"{{ G.display }}"</samp>
+          </td>
+          <td style="word-break:break-word;">
+            {% for V in G.versions %}
+            <samp>{{ V }}</samp><i class="fa fa-circle{% if "alpha" in V %} text-danger{% elif "beta" in V %} text-warning{% else %} text-success{% endif %}"></i>
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No API groups found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

@@ -29,7 +29,9 @@
           <td class="text-center" scope="row">
             <a href="{% url 'full-history' AV  %}">Changes</a>
           </td>
-          <td class="text-center">{{ AD.groups }}</td>
+          <td class="text-center">
+            <a href="{% url 'list-groups' AV %}">{{ AD.groups }}</a>
+          </td>
           <td class="text-center">
             <a href="{% url 'list-resources' AV 'all' %}">{{ AD.resources }}</a>
           </td>
