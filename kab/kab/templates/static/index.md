@@ -82,16 +82,19 @@ The specification for each API contains the following components:
   </li>
   <li>the query strings (also called <i>parameters</i>), such as:
     <ul>
-     <li><a href="{% url 'static-page' 'dry-run' %}">dry-run</a>
+     <li><a href="{% url 'static-page' 'dry-run' %}">dry-run</a>: evaluates a
+      request through the typical request stages up till persisting objects to
+      storage.
      </li>
      <li><a href="{% url 'static-page' 'exact' %}">exact</a>: specify whether
        the <code>export</code> parameter should maintain cluster-specific fields
-       like <code>namespace</code>.
+       like <code>namespace</code>. This parameter is removed in 1.21.
      </li>
      <li><a href="{% url 'static-page' 'export' %}">export</a>: specify
-        whether the value should be exported.
+        whether the value should be exported. This parameter is removed in 1.21.
      </li>
-     <li><a href="{% url 'static-page' 'pretty' %}">pretty</a>: .
+     <li><a href="{% url 'static-page' 'pretty' %}">pretty</a>: pretty prints
+       JSON content for human reading.
      </li>
      <li><code>limit</code> and <code>continue</code> for splitting large
        response into <a href="{% url 'static-page' 'pagination' %}">chunks</a>.
