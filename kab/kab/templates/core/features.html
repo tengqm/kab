@@ -9,7 +9,7 @@
 
 {% block main_content %}
 
-  <table id="table" class="table table-sm" width="100%">
+  <table id="table" class="table table-sm table-bordered" width="100%">
     <thead>
       <tr class="table-active">
         <th>Name</th>
@@ -29,8 +29,8 @@
             <samp>{{ DATA.default }}</samp>
           </td>
           <td style="word-break:break-word;">
-            <samp>{{ DATA.stage }}</samp>
             <i class="fa fa-circle{% if DATA.stage == "Alpha" %} text-danger{% elif DATA.stage == "Beta"%} text-warning{% endif %}"></i>
+            <samp>{{ DATA.stage }}</samp>
           </td>
           <td>{{ DATA.since }}</td>
           <td>{{ DATA.description }}</td>
