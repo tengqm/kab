@@ -9,14 +9,14 @@
 
 {% block main_content %}
 
-  <table id="groupable" class="table table-sm" width="100%">
+  <table id="table" class="table table-sm" width="100%">
     <thead>
       <tr class="table-active">
         <th>Name</th>
         <th>Default</th>
         <th>Stage</th>
         <th>Since</th>
-        <th width="50%">Description</th>
+        <th class="sorter-false" width="50%">Description</th>
       </tr>
     </thead>
     <tbody>
@@ -45,4 +45,22 @@
 {% endblock %}
 
 {% block javascript %}
+<script src="{% static 'js/jquery.tablesorter.js' %}"></script>
+<script>
+  $(document).ready(function() {
+    $("#table").tablesorter({
+      theme: "blue",
+      widgets: ["filter"],
+      widgetOptions : {
+        filter_excludeFilter : {
+          // target a column by class name or column index (zero-based)
+          '.title': 'range',
+
+          // separate multiple filter types using spaces
+          2 : 'range notMatch exact'
+        }
+      }
+    });
+  });
+</script>
 {% endblock %}
