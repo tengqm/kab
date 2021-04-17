@@ -1,0 +1,2032 @@
+{
+    "features": {
+        "APIListChunking": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.8"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.9",
+                "to": null
+            },
+            "description": "Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks."
+        },
+        "APIPriorityAndFairness": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable managing request concurrency with prioritization and fairness at each server. (Renamed from `RequestManagement`)"
+        },
+        "APIResponseCompression": {
+            "Alpha": {
+                "default": false,
+                "from": "1.7",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": null
+            },
+            "description": "Compress the API responses for `LIST` or `GET` requests"
+        },
+        "APIServerIdentity": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Assign each API server an ID in a cluster"
+        },
+        "Accelerators": {
+            "Alpha": {
+                "default": false,
+                "from": "1.6",
+                "to": "1.10"
+            },
+            "Deprecated": {
+                "from": "1.11"
+            },
+            "description": "Enable Nvidia GPU support when using Docker"
+        },
+        "AdvancedAuditing": {
+            "Alpha": {
+                "default": false,
+                "from": "1.7",
+                "to": "1.7"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.8",
+                "to": "1.11"
+            },
+            "GA": {
+                "from": "1.12"
+            },
+            "description": "Enable [advanced auditing](https://k8s.io/docs/tasks/debug-application-cluster/audit/#advanced-audit)"
+        },
+        "AffinityInAnnotations": {
+            "Alpha": {
+                "default": false,
+                "from": "1.6",
+                "to": "1.7"
+            },
+            "Deprecated": {
+                "from": "1.8"
+            },
+            "description": "Enable setting [Pod affinity or anti-affinity](https://k8s.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)"
+        },
+        "AllowExtTrafficLocalEndpoints": {
+            "Beta": {
+                "default": false,
+                "from": "1.4",
+                "to": "1.6"
+            },
+            "GA": {
+                "from": "1.7"
+            },
+            "description": "Enable a service to route external requests to node local endpoints"
+        },
+        "AllowInsecureBackendProxy": {
+            "Beta": {
+                "default": true,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Enable the users to skip TLS verification of kubelets on Pod log requests"
+        },
+        "AnyVolumeDataSource": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": null
+            },
+            "description": "Enable use of any custom resource as the `dataSource` of PersistentVolumeClaim"
+        },
+        "AppArmor": {
+            "Beta": {
+                "default": true,
+                "from": "1.4",
+                "to": null
+            },
+            "description": "Enable AppArmor based mandatory access control on Linux nodes when using Docker"
+        },
+        "AttachVolumeLimit": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable volume plugins to report limits on number of volumes that can be attached to a node"
+        },
+        "BalanceAttachedNodeVolumes": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": null
+            },
+            "description": "Include volume count on node to be considered for balanced resource allocation while scheduling. A node which has closer CPU, memory utilization, and volume count is favored by the scheduler while making decisions."
+        },
+        "BlockVolume": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.12"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.13",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enable the definition and consumption of raw block devices in Pods. See [Raw Block Volume Support](https://k8s.io/docs/concepts/storage/persistent-volumes/#raw-block-volume-support) for more details."
+        },
+        "BoundServiceAccountTokenVolume": {
+            "Alpha": {
+                "default": false,
+                "from": "1.13",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Migrate ServiceAccount volumes to use a projected volume consisting of a ServiceAccountTokenVolumeProjection. Cluster admins can use metric `serviceaccount_stale_tokens_total` to monitor workloads that are depending on the extended tokens. If there are no such workloads, turn off extended tokens by starting `kube-apiserver` with flag `--service-account-extend-token-expiration=false`."
+        },
+        "CPUManager": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": null
+            },
+            "description": "Enable container level CPU affinity support, see [CPU Management Policies](https://k8s.io/docs/tasks/administer-cluster/cpu-management-policies/) for more details."
+        },
+        "CRIContainerLogRotation": {
+            "Alpha": {
+                "default": false,
+                "from": "1.10",
+                "to": "1.10"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.11",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Enable container log rotation for CRI container runtime. The default max size of a log file is 10MB and the default max number of log files allowed for a container is 5. These values can be configured in the kubelet config. See the [logging at node level](https://k8s.io/docs/concepts/cluster-administration/logging/#logging-at-the-node-level) documentation for more details."
+        },
+        "CSIBlockVolume": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enable external CSI volume drivers to support block storage."
+        },
+        "CSIDriverRegistry": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enable all logic related to the CSIDriver API object in \"csi.storage.k8s.io\""
+        },
+        "CSIInlineVolume": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": null
+            },
+            "description": "Enable CSI Inline volumes support for Pods."
+        },
+        "CSIMigration": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.16"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins"
+        },
+        "CSIMigrationAWS": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.16"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports falling back to in-tree EBS plugin if a node does not have EBS CSI plugin installed and configured. Requires `CSIMigration` feature flag enabled."
+        },
+        "CSIMigrationAWSComplete": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Stops registering the EBS in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin.  Requires CSIMigration and CSIMigrationAWS feature flags enabled and EBS CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSIMigrationAzureDisk": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin.  Supports falling back to in-tree AzureDisk plugin if a node does not have AzureDisk CSI plugin installed and configured. Requires the `CSIMigration` feature flag enabled."
+        },
+        "CSIMigrationAzureDiskComplete": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Stops registering the Azure-Disk in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature flags enabled and AzureDisk CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSIMigrationAzureFile": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin.  Supports falling back to in-tree AzureFile plugin if a node does not have AzureFile CSI plugin installed and configured. Requires the `CSIMigration` feature flag enabled."
+        },
+        "CSIMigrationAzureFileComplete": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Stops registering the Azure-File in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature flags  enabled and AzureFile CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSIMigrationGCE": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.16"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling back to in-tree GCE plugin if a node does not have PD CSI plugin installed and configured. Requires the `CSIMigration` feature flag enabled."
+        },
+        "CSIMigrationGCEComplete": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Stops registering the GCE-PD in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.  Requires CSIMigration and CSIMigrationGCE feature flags enabled and PD CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSIMigrationOpenStack": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.17"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.18",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports falling back to in-tree Cinder plugin if a node does not have Cinder CSI plugin installed and configured. Requires the `CSIMigration` feature flag enabled."
+        },
+        "CSIMigrationOpenStackComplete": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Stops registering the Cinder in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Cinder in-tree plugin to Cinder CSI plugin.  Requires CSIMigration and CSIMigrationOpenStack feature flags enabled and Cinder CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSIMigrationvSphere": {
+            "Beta": {
+                "default": false,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Enables shims and translation logic to route volume operations from the vSphere in-tree plugin to vSphere CSI plugin.  Supports falling back to in-tree vSphere plugin if a node does not have vSphere CSI plugin installed and configured. Requires `CSIMigration` feature flag enabled."
+        },
+        "CSIMigrationvSphereComplete": {
+            "Beta": {
+                "default": false,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Stops registering the vSphere in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSINodeInfo": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable all logic related to the CSINodeInfo API object in \"csi.storage.k8s.io\"."
+        },
+        "CSIPersistentVolume": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.12"
+            },
+            "GA": {
+                "from": "1.13"
+            },
+            "description": "Enable discovering and mounting volumes provisioned through a Container Storage Interface(CSI) compatible volume plugin"
+        },
+        "CSIServiceAccountToken": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable CSI drivers to receive the pods' service account token that they mount volumes for."
+        },
+        "CSIStorageCapacity": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables CSI drivers to publish storage capacity information and the Kubernetes scheduler to use that information when scheduling Pods."
+        },
+        "CSIVolumeFSGroupPolicy": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Allows CSIDrivers to use the `fsGroupPolicy` field.  This field controls whether volumes created by a CSIDriver support volume ownership and permission modifications when these volumes are mounted."
+        },
+        "CSIVolumeHealth": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable support for CSI volume health monitoring on node."
+        },
+        "ConfigurableFSGroupPolicy": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Allows user to configure volume permission change policy for fsGroups when mounting a volume in a Pod."
+        },
+        "CronJobControllerV2": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Use an alternative implementation of the CronJob controller. Otherwise, version 1 of the same controller is selected.  The version 2 controller provides experimental performance improvements."
+        },
+        "CustomCPUCFSQuotaPeriod": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": null
+            },
+            "description": "Enable nodes to change `cpuCFSQuotaPeriod` in kubelet config file."
+        },
+        "CustomPodDNS": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.13"
+            },
+            "GA": {
+                "from": "1.14"
+            },
+            "description": "Enable customizing the DNS settings for a Pod using its `dnsConfig` property."
+        },
+        "CustomResourceDefaulting": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable CRD support for default values in OpenAPI v3 validation schemas."
+        },
+        "CustomResourcePublishOpenAPI": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "GA": {
+                "from": "1.16"
+            },
+            "description": "Enables publishing of CRD OpenAPI specs."
+        },
+        "CustomResourceSubresources": {
+            "Alpha": {
+                "default": false,
+                "from": "1.10",
+                "to": "1.10"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.11",
+                "to": "1.15"
+            },
+            "GA": {
+                "from": "1.16"
+            },
+            "description": "Enable `/status` and `/scale` subresources on resources created from a CustomResourceDefinition"
+        },
+        "CustomResourceValidation": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.8"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.9",
+                "to": "1.15"
+            },
+            "GA": {
+                "from": "1.16"
+            },
+            "description": "Enable schema based validation on resources created from a CustomResourceDefinition"
+        },
+        "CustomResourceWebhookConversion": {
+            "Alpha": {
+                "default": false,
+                "from": "1.13",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "GA": {
+                "from": "1.16"
+            },
+            "description": "Enable webhook-based conversion on resources created from a CustomResourceDefinition"
+        },
+        "DefaultPodTopologySpread": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enables the use of `PodTopologySpread` scheduling plugin to do default spreading"
+        },
+        "DevicePlugins": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": null
+            },
+            "description": "Enable the [device-plugins](https://k8s.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) based resource provisioning on nodes."
+        },
+        "DisableAcceleratorUsageMetrics": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Disable accelerator metrics collected by the kubelet"
+        },
+        "DownwardAPIHugePages": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables usage of hugepages in [downward API](https://k8s.io/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)"
+        },
+        "DryRun": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.12"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.13",
+                "to": "1.18"
+            },
+            "GA": {
+                "from": "1.19"
+            },
+            "description": "Enable server-side [dry run](https://k8s,io/docs/reference/using-api/api-concepts/#dry-run) requests so that validation, merging, and mutation can be tested without committing."
+        },
+        "DynamicAuditing": {
+            "Alpha": {
+                "default": false,
+                "from": "1.13",
+                "to": "1.18"
+            },
+            "Deprecated": {
+                "from": "1.19"
+            },
+            "description": "Used to enable dynamic auditing."
+        },
+        "DynamicKubeletConfig": {
+            "Alpha": {
+                "default": false,
+                "from": "1.4",
+                "to": "1.10"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.11",
+                "to": null
+            },
+            "description": "Enable the dynamic configuration of kubelet. See [Reconfigure kubelet](https://k8s,io/docs/tasks/administer-cluster/reconfigure-kubelet/) for more details"
+        },
+        "DynamicProvisioningScheduling": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Deprecated": {
+                "from": "1.12"
+            },
+            "description": "Extend the default scheduler to be aware of volume topology and handle PV provisioning.  This feature is superseded by the `VolumeScheduling` feature completely in v1.12."
+        },
+        "DynamicVolumeProvisioning": {
+            "Alpha": {
+                "default": true,
+                "from": "1.3",
+                "to": "1.7"
+            },
+            "GA": {
+                "from": "1.8"
+            },
+            "description": "Enable the [dynamic provisioning](https://k8s.io/docs/concepts/storage/dynamic-provisioning/) of persistent volumes to Pods."
+        },
+        "EfficientWatchResumption": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Allows for storage-originated bookmark (progress notify) events to be delivered to the users. This is only applied to watch operations."
+        },
+        "EnableAggregatedDiscoveryTimeout": {
+            "Deprecated": {
+                "default": true,
+                "from": "1.16"
+            },
+            "description": "Enable the five second timeout on aggregated discovery calls. This is a shortlived feature gate that is deprecated when introduced."
+        },
+        "EnableEquivalenceClassCache": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.14"
+            },
+            "Deprecated": {
+                "from": "1.15"
+            },
+            "description": "Enable the scheduler to cache equivalence of nodes when scheduling Pods."
+        },
+        "EndpointSlice": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.18",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Enables EndpointSlices for more scalable and extensible network endpoints."
+        },
+        "EndpointSliceNodeName": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Enables EndpointSlice `nodeName` field."
+        },
+        "EndpointSliceProxying": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "When enabled, kube-proxy running on Linux will use EndpointSlices as the primary data source instead of Endpoints, enabling scalability and performance improvements. See [Enabling Endpoint Slices](https://k8s.io/docs/tasks/administer-cluster/enabling-endpointslices/)."
+        },
+        "EndpointSliceTerminatingCondition": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enables EndpointSlice `terminating` and `serving` condition fields."
+        },
+        "EphemeralContainers": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": null
+            },
+            "description": "Enable the ability to add ephemeral containers to running Pods."
+        },
+        "EvenPodsSpread": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.18",
+                "to": "1.18"
+            },
+            "GA": {
+                "from": "1.19"
+            },
+            "description": "Enable Pods to be scheduled evenly across topology domains. See [Pod Topology Spread Constraints](https://k8s.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/)."
+        },
+        "ExecProbeTimeout": {
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Ensure kubelet respects exec probe timeouts.  This feature gate exists in case any of your existing workloads depend on a now-corrected fault where Kubernetes ignored exec probe timeouts. See [readiness probes](https://k8s.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)."
+        },
+        "ExpandCSIVolumes": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": null
+            },
+            "description": "Enable the expanding of CSI volumes."
+        },
+        "ExpandInUsePersistentVolumes": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": null
+            },
+            "description": "Enable expanding in-use PVCs. See [Resizing an in-use PersistentVolumeClaim](https://k8s.io/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)."
+        },
+        "ExpandPersistentVolumes": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.10"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.11",
+                "to": null
+            },
+            "description": "Enable the expanding of persistent volumes. See [Expanding Persistent Volumes Claims](https://k8s.io/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)."
+        },
+        "ExperimentalCriticalPodAnnotation": {
+            "Alpha": {
+                "default": false,
+                "from": "1.5",
+                "to": "1.12"
+            },
+            "Deprecated": {
+                "from": "1.13"
+            },
+            "description": "Enable annotating specific pods as *critical* so that their scheduling is guaranteed. This feature is deprecated by Pod Priority and Preemption as of v1.13."
+        },
+        "ExperimentalHostUserNamespaceDefaulting": {
+            "Alpha": {
+                "default": false,
+                "from": "1.5",
+                "to": null
+            },
+            "description": "Enabling the defaulting user namespace to host. This is for containers that are using other host namespaces, host mounts, or containers that are privileged or using specific non-namespaced capabilities (e.g. `MKNODE`, `SYS_MODULE` etc.). This should only be enabled if user namespace remapping is enabled in the Docker daemon."
+        },
+        "GCERegionalPersistentDisk": {
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.12"
+            },
+            "GA": {
+                "from": "1.13"
+            },
+            "description": "Enable the regional PD feature on GCE."
+        },
+        "GenericEphemeralVolume": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables ephemeral, inline volumes that support all features of normal volumes (can be provided by third-party storage vendors, storage capacity tracking, restore from snapshot, etc.)."
+        },
+        "GracefulNodeShutdown": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables support for graceful shutdown in kubelet.  During a system shutdown, kubelet will attempt to detect the shutdown event and gracefully terminate pods running on the node. See [Graceful Node Shutdown](https://k8s.io/docs/concepts/architecture/nodes/#graceful-node-shutdown) for more details."
+        },
+        "HPAContainerMetrics": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable the `HorizontalPodAutoscaler` to scale based on metrics from individual containers in target Pods."
+        },
+        "HPAScaleToZero": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": null
+            },
+            "description": "Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler` resources when using custom or external metrics."
+        },
+        "HugePageStorageMediumSize": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Enable support for multiple sizes pre-allocated [huge pages](https://k8s.io/docs/tasks/manage-hugepages/scheduling-hugepages/)."
+        },
+        "HugePages": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.13"
+            },
+            "GA": {
+                "from": "1.14"
+            },
+            "description": "Enable the allocation and consumption of pre-allocated [huge pages](https://k8s.io/docs/tasks/manage-hugepages/scheduling-hugepages/)."
+        },
+        "HyperVContainer": {
+            "Alpha": {
+                "default": false,
+                "from": "1.10",
+                "to": "1.19"
+            },
+            "Deprecated": {
+                "from": "1.20"
+            },
+            "description": "Enable [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) for Windows containers."
+        },
+        "IPv6DualStack": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable dual stack support for IPv6."
+        },
+        "ImmutableEphemeralVolumes": {
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Allows for marking individual Secrets and ConfigMaps as immutable for better safety and performance."
+        },
+        "IndexedJob": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Allows the Job controllers to manage Pod completions per completion index."
+        },
+        "IngressClassNamespacedParams": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Allow namespace-scoped parameters reference in `IngressClass` resouce. This feature adds two fields - `Scope` and `Namespace` to `IngressClass.spec.parameters`."
+        },
+        "Initializers": {
+            "Alpha": {
+                "default": false,
+                "from": "1.7",
+                "to": "1.13"
+            },
+            "Deprecated": {
+                "from": "1.14"
+            },
+            "description": "Allow asynchronous coordination of object creation using the Initializers admission plugin."
+        },
+        "KubeletConfigFile": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.9"
+            },
+            "Deprecated": {
+                "from": "1.10"
+            },
+            "description": "Enable loading kubelet configuration from a file specified using a config file. See [setting kubelet parameters via a config file](https://k8s.io/docs/tasks/administer-cluster/kubelet-config-file/) for more details."
+        },
+        "KubeletCredentialProviders": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable kubelet exec credential providers for image pull credentials."
+        },
+        "KubeletPluginsWatcher": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.12"
+            },
+            "GA": {
+                "from": "1.13"
+            },
+            "description": "Enable probe-based plugin watcher utility to enable kubelet to discover plugins such as [CSI volume drivers](https://k8s.io/docs/concepts/storage/volumes/#csi)."
+        },
+        "KubeletPodResources": {
+            "Alpha": {
+                "default": false,
+                "from": "1.13",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the kubelet's pod resources gRPC endpoint."
+        },
+        "KubeletPodResourcesGetAllocatable": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable the kubelet's pod resources `GetAllocatableResources` functionality. With informations about the allocatable resources, clients can properly track the free compute resources on a node."
+        },
+        "LegacyNodeRoleBehavior": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "When disabled, legacy behavior in service load balancers and node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`."
+        },
+        "LocalStorageCapacityIsolation": {
+            "Alpha": {
+                "default": false,
+                "from": "1.7",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": null
+            },
+            "description": "Enable the consumption of local ephemeral storage and also the `sizeLimit` property of an emptyDir volume."
+        },
+        "LocalStorageCapacityIsolationFSQuotaMonitoring": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": null
+            },
+            "description": "When `LocalStorageCapacityIsolation` is enabled for local ephemeral storage and the backing filesystem for emptyDir volumes supports project quotas and they are enabled, use project quotas to monitor emptyDir volume storage consumption rather than filesystem walk for better performance and accuracy."
+        },
+        "LogarithmicScaleDown": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable semi-random selection of pods to evict on controller scaledown based on logarithmic bucketing of pod timestamps."
+        },
+        "MixedProtocolLBService": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable using different protocols in the same `LoadBalancer` type Service instance."
+        },
+        "MountContainers": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.16"
+            },
+            "Deprecated": {
+                "from": "1.17"
+            },
+            "description": "Enable using utility containers on host as the volume mounter."
+        },
+        "MountPropagation": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.11"
+            },
+            "GA": {
+                "from": "1.12"
+            },
+            "description": "Enable sharing volume mounted by one container to other containers or Pods."
+        },
+        "NamespaceDefaultLabelName": {
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Configure the API Server to set an immutable label `kubernetes.io/metadata.name` on all namespaces, containing the namespace name."
+        },
+        "NetworkPolicyEndPort": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable use of the field `endPort` in NetworkPolicy objects, allowing the selection of a port range instead of a single port."
+        },
+        "NodeDisruptionExclusion": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Enable use of the Node label `node.kubernetes.io/exclude-disruption` which prevents nodes from being evacuated during zone failures."
+        },
+        "NodeLease": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable the new Lease API to report node heartbeats, which could be used as a node health signal."
+        },
+        "NonPreemptingPriority": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Enable `preemptionPolicy` field for PriorityClass and Pod."
+        },
+        "PVCProtection": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.9"
+            },
+            "Deprecated": {
+                "from": "1.10"
+            },
+            "description": "Enable the prevention of a PersistentVolumeClaim (PVC) from being deleted when it is still used by any Pod. Evolved into the `StorageObjectInUseProtection` gate in v1.10."
+        },
+        "PersistentLocalVolumes": {
+            "Alpha": {
+                "default": false,
+                "from": "1.7",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.13"
+            },
+            "GA": {
+                "from": "1.14"
+            },
+            "description": "Enable the usage of `local` volume type in Pods.  Pod affinity has to be specified if requesting a `local` volume."
+        },
+        "PodAffinityNamespaceSelector": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable the Pod affinity namespace selector and CrossNamespacePodAffinity quota scope features."
+        },
+        "PodDeletionCost": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable the [Pod Deletion Cost](https://k8s.io/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost) feature which allows users to influence ReplicaSet downscaling order."
+        },
+        "PodDisruptionBudget": {
+            "Alpha": {
+                "default": false,
+                "from": "1.3",
+                "to": "1.4"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.5",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Enable the [PodDisruptionBudget](https://k8s.io/docs/tasks/run-application/configure-pdb/) feature."
+        },
+        "PodOverhead": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.18",
+                "to": null
+            },
+            "description": "Enable the [PodOverhead](https://k8s.io/docs/concepts/scheduling-eviction/pod-overhead/) feature to account for pod overheads."
+        },
+        "PodPriority": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.10"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.11",
+                "to": "1.13"
+            },
+            "GA": {
+                "from": "1.14"
+            },
+            "description": "Enable the descheduling and preemption of Pods based on their [priorities](https://k8s.io/docs/concepts/configuration/pod-priority-preemption/)."
+        },
+        "PodReadinessGates": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.13"
+            },
+            "GA": {
+                "from": "1.14"
+            },
+            "description": "Enable the setting of `PodReadinessGate` field for extending Pod readiness evaluation.  See [Pod readiness gate](https://k8s.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate) for more details."
+        },
+        "PodShareProcessNamespace": {
+            "Alpha": {
+                "default": false,
+                "from": "1.10",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable the setting of `shareProcessNamespace` in a Pod for sharing a single process namespace between containers running in a pod.  More details can be found in [share process namespace between containers in a Pod](https://k8s.io/docs/tasks/configure-pod-container/share-process-namespace/)."
+        },
+        "ProbeTerminationGracePeriod": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable [setting probe-level `terminationGracePeriodSeconds`](https://k8s.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationGracePeriodSeconds) on Pods."
+        },
+        "ProcMountType": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": null
+            },
+            "description": "Enables control over the type proc mounts for containers by setting the `procMount` field of a SecurityContext."
+        },
+        "QOSReserved": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": null
+            },
+            "description": "Allows resource reservations at the QoS level preventing pods at lower QoS levels from bursting into resources requested at higher QoS levels (memory only for now)."
+        },
+        "RemainingItemCount": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": null
+            },
+            "description": "Allow the API servers to show a count of remaining items in the response to a chunked list request."
+        },
+        "RemoveSelfLink": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Deprecates and removes `selfLink` from ObjectMeta and ListMeta."
+        },
+        "RequestManagement": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.16"
+            },
+            "description": "Enables managing request concurrency with prioritization and fairness at each API server. Deprecated by `APIPriorityAndFairness` since v1.17."
+        },
+        "ResourceLimitsPriorityFunction": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.18"
+            },
+            "Deprecated": {
+                "from": "1.19"
+            },
+            "description": "Enable a scheduler priority function that assigns a lowest possible score of 1 to a node that satisfies at least one of the input Pod's cpu and memory limits. The intent is to break ties between nodes with same scores."
+        },
+        "ResourceQuotaScopeSelectors": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable resource quota scope selectors."
+        },
+        "RootCAConfigMap": {
+            "Alpha": {
+                "default": false,
+                "from": "1.13",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Configure the `kube-controller-manager` to publish a ConfigMap named `kube-root-ca.crt` to every namespace. This ConfigMap contains a CA bundle used for verifying connections to the kube-apiserver."
+        },
+        "RotateKubeletClientCertificate": {
+            "Beta": {
+                "default": true,
+                "from": "1.8",
+                "to": "1.18"
+            },
+            "GA": {
+                "from": "1.19"
+            },
+            "description": "Enable the rotation of the client TLS certificate on the kubelet."
+        },
+        "RotateKubeletServerCertificate": {
+            "Alpha": {
+                "default": false,
+                "from": "1.7",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": null
+            },
+            "description": "Enable the rotation of the server TLS certificate on the kubelet."
+        },
+        "RunAsGroup": {
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": null
+            },
+            "description": "Enable control over the primary group ID set on the init processes of containers."
+        },
+        "RuntimeClass": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the [RuntimeClass](https://k8s.io/docs/concepts/containers/runtime-class/) feature for selecting container runtime configurations."
+        },
+        "SCTPSupport": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enables the SCTP `protocol` value in Pod, Service, Endpoints, EndpointSlice, and NetworkPolicy definitions."
+        },
+        "ScheduleDaemonSetPods": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable DaemonSet Pods to be scheduled by the default scheduler instead of the DaemonSet controller."
+        },
+        "ServerSideApply": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": null
+            },
+            "description": "Enables the [Sever Side Apply (SSA)](https://k8s.io/docs/reference/using-api/server-side-apply/) feature on the API Server."
+        },
+        "ServiceAccountIssuerDiscovery": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Enable OIDC discovery endpoints (issuer and JWKS URLs) for the service account issuer in the API server."
+        },
+        "ServiceAppProtocol": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enables the `AppProtocol` field on Services and Endpoints."
+        },
+        "ServiceInternalTrafficPolicy": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables the `internalTrafficPolicy` field on Services"
+        },
+        "ServiceLBNodePortControl": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enables the `allocateLoadBalancerNodePorts` field on Services."
+        },
+        "ServiceLoadBalancerClass": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables the `loadBalancerClass` field on Services. See [specifying class of load balancer implementation](https://k8s.io/docs/concepts/services-networking/service/#specifying-class-of-load-balancer-implementation-load-balancer-class) for more details."
+        },
+        "ServiceLoadBalancerFinalizer": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable finalizer protection for Service load balancers."
+        },
+        "ServiceNodeExclusion": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.18"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Enable the exclusion of nodes from load balancers created by a cloud provider. A node is eligible for exclusion if labelled with \"`node.kubernetes.io/exclude-from-external-load-balancers`\"."
+        },
+        "ServiceTopology": {
+            "Alpha": {
+                "default": false,
+                "from": "1.17",
+                "to": null
+            },
+            "description": "Enable service to route traffic based upon the Node topology of the cluster. See [ServiceTopology](https://k8s.io/docs/concepts/services-networking/service-topology/) for more details."
+        },
+        "SetHostnameAsFQDN": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable setting Fully Qualified Domain Name(FQDN) as the hostname of a pod by specifying its `setHostnameFQDN` field."
+        },
+        "SizeMemoryBackedVolumes": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable kubelets to determine the size limit for memory-backed volumes (mainly `emptyDir` volumes)."
+        },
+        "StartupProbe": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.18",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the [startup](https://k8s.io/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet."
+        },
+        "StorageObjectInUseProtection": {
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.10"
+            },
+            "GA": {
+                "from": "1.11"
+            },
+            "description": "Postpone the deletion of PersistentVolume or PersistentVolumeClaim objects if they are still being used."
+        },
+        "StorageVersionAPI": {
+            "Alpha": {
+                "default": false,
+                "from": "1.20",
+                "to": null
+            },
+            "description": "Enable the storage version API."
+        },
+        "StorageVersionHash": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": null
+            },
+            "description": "Allow API servers to expose the storage version hash in the discovery."
+        },
+        "StreamingProxyRedirects": {
+            "Beta": {
+                "default": true,
+                "from": "1.6",
+                "to": "1.18"
+            },
+            "Deprecated": {
+                "from": "1.19"
+            },
+            "description": "Instructs the API server to intercept (and follow) redirects from the backend (kubelet) for streaming requests. Examples of streaming requests include the `exec`, `attach` and `port-forward` requests."
+        },
+        "SupportIPVSProxyMode": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.10"
+            },
+            "GA": {
+                "from": "1.11"
+            },
+            "description": "Enable providing in-cluster service load balancing using IPVS."
+        },
+        "SupportNodePidsLimit": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the support to limiting PIDs on the Node.  The parameter `pid=<number>` in the `--system-reserved` and `--kube-reserved` options can be specified to ensure that the specified number of process IDs will be reserved for the system as a whole and for Kubernetes system daemons respectively."
+        },
+        "SupportPodPidsLimit": {
+            "Alpha": {
+                "default": false,
+                "from": "1.10",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the support to limiting PIDs in Pods."
+        },
+        "SuspendJob": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable support to suspend and resume Jobs."
+        },
+        "Sysctls": {
+            "Beta": {
+                "default": true,
+                "from": "1.11",
+                "to": "1.20"
+            },
+            "GA": {
+                "from": "1.21"
+            },
+            "description": "Enable support for namespaced kernel parameters (sysctls) that can be set for each Pod."
+        },
+        "TTLAfterFinished": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": null
+            },
+            "description": "Allow a [TTL controller](https://k8s.io/docs/concepts/workloads/controllers/ttlafterfinished/) to clean up resources after they finish execution."
+        },
+        "TaintBasedEvictions": {
+            "Alpha": {
+                "default": false,
+                "from": "1.6",
+                "to": "1.12"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.13",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enable evicting pods from nodes based on taints on Nodes and tolerations on Pods."
+        },
+        "TaintNodesByCondition": {
+            "Alpha": {
+                "default": false,
+                "from": "1.8",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable automatic tainting nodes based on node conditions."
+        },
+        "TokenRequest": {
+            "Alpha": {
+                "default": false,
+                "from": "1.10",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the `TokenRequest` endpoint on service account resources."
+        },
+        "TokenRequestProjection": {
+            "Alpha": {
+                "default": false,
+                "from": "1.11",
+                "to": "1.11"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.12",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable the injection of service account tokens into a Pod through a [`projected` volume](https://k8s.io/docs/concepts/storage/volumes/#projected)"
+        },
+        "TopologyAwareHints": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enables topology aware routing based on topology hints in EndpointSlices. See [Topology Aware Hints](https://k8s.io/docs/concepts/services-networking/topology-aware-hints/) for more details."
+        },
+        "TopologyManager": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.18",
+                "to": null
+            },
+            "description": "Enable a mechanism to coordinate fine-grained hardware resource assignments for different components in Kubernetes. See [Control Topology Management Policies on a node](https://k8s.io/docs/tasks/administer-cluster/topology-manager/)."
+        },
+        "ValidateProxyRedirects": {
+            "description": "This flag controls whether the API server should validate that redirects are only followed to the same host. Only used if the `StreamingProxyRedirects` flag is enabled.",
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.13"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.14",
+                "to": null
+            }
+        },
+        "VolumeCapacityPriority": {
+            "Alpha": {
+                "default": false,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "Enable support for prioritizing nodes in different topologies based on available PV capacity."
+        },
+        "VolumePVCDataSource": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enable support for specifying an existing PVC as a DataSource."
+        },
+        "VolumeScheduling": {
+            "Alpha": {
+                "default": false,
+                "from": "1.9",
+                "to": "1.9"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.10",
+                "to": "1.12"
+            },
+            "GA": {
+                "from": "1.13"
+            },
+            "description": "Enable volume topology aware scheduling and make the PersistentVolumeClaim (PVC) binding aware of scheduling decisions. It also enables the usage of [`local`](https://k8s.io/docs/concepts/storage/volumes/#local) volume type when used together with the `PersistentLocalVolumes` feature gate."
+        },
+        "VolumeSnapshotDataSource": {
+            "Alpha": {
+                "default": false,
+                "from": "1.12",
+                "to": "1.16"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.17",
+                "to": "1.19"
+            },
+            "GA": {
+                "from": "1.20"
+            },
+            "description": "Enable volume snapshot data source support."
+        },
+        "VolumeSubpath": {
+            "GA": {
+                "from": "1.10"
+            },
+            "description": "Allow mounting a subpath of a volume in a container"
+        },
+        "VolumeSubpathEnvExpansion": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.14"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.15",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable `subPathExpr` field for expanding environment variables into a `subPath`."
+        },
+        "WarningHeaders": {
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Allow sending warning headers in API responses."
+        },
+        "WatchBookmark": {
+            "Alpha": {
+                "default": false,
+                "from": "1.15",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": "1.16"
+            },
+            "GA": {
+                "from": "1.17"
+            },
+            "description": "Enable support for watch bookmark events."
+        },
+        "WinDSR": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": null
+            },
+            "description": "Allows kube-proxy to create DSR loadbalancers for Windows."
+        },
+        "WinOverlay": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.19"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.19",
+                "to": null
+            },
+            "description": "Allows kube-proxy to run in overlay mode for Windows."
+        },
+        "WindowsEndpointSliceProxying": {
+            "Alpha": {
+                "default": false,
+                "from": "1.19",
+                "to": "1.20"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.21",
+                "to": null
+            },
+            "description": "When enabled, kube-proxy running on Windows will use EndpointSlices as the primary data source instead of Endpoints, enabling scalability and performance improvements. See [Enabling EndpointSlices](https://k8s.io/docs/tasks/administer-cluster/enabling-endpointslices/)."
+        },
+        "WindowsGMSA": {
+            "Alpha": {
+                "default": false,
+                "from": "1.14",
+                "to": "1.15"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.16",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enables passing of GMSA credential specs from pods to container runtimes."
+        },
+        "WindowsRunAsUserName": {
+            "Alpha": {
+                "default": false,
+                "from": "1.16",
+                "to": "1.16"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.17",
+                "to": "1.17"
+            },
+            "GA": {
+                "from": "1.18"
+            },
+            "description": "Enable support for running applications in Windows containers with as a non-default user. See [Configuring RunAsUserName](https://k8s.io/docs/tasks/configure-pod-container/configure-runasusername) for more details."
+        }
+    },
+    "overview": "Feature gates are a set of key=value pairs that describe Kubernetes features. You can turn these features on or off using the `--feature-gates` command line flag on every Kubernetes components or the corresponding flags in their configuration files. For example:\n\n```shell\n--feature-gates=\"...,DynamicKubeletConfig=true\"\n```\n\n"
+}
