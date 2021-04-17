@@ -490,3 +490,89 @@ def compare_text(text1, text2):
 
     res = ''.join(output)
     return res
+
+
+def _VGT(v1, v2):
+    p1 = v1.split(".")
+    p2 = v2.split(".")
+    if int(p1[0]) == int(p2[0]):
+        return int(p1[1]) > int(p2[1])
+    return int(p1[0]) > int(p2[0])
+
+
+def _VGE(v1, v2):
+    p1 = v1.split(".")
+    p2 = v2.split(".")
+    if int(p1[0]) == int(p2[0]):
+        return int(p1[1]) > int(p2[1])
+    return int(p1[0]) > int(p2[0])
+
+
+def features(apiv, include_all=False):
+    global DATA_PATH
+
+    data  = jsonutil.load_json(path.join(DATA_PATH, "features.json"))
+    result = {}
+    for fname, fdata in data["features"].items():
+        # check Alpha
+        alpha = fdata.get("Alpha", {})
+        afrom = alpha.get("from", "0.0")
+        LOG.info("a %s %s", fname, afrom)
+        if _VGT(afrom, apiv):
+            continue
+        ato = alpha.get("to", "0.0")
+        if ato is None or _VGE(ato, apiv):
+            result[fname] = {
+                "default": alpha["default"],
+                "stage": "Alpha",
+                "since": afrom,
+                "description": fdata["description"],
+            }
+            continue
+
+        # check Beta
+        beta = fdata.get("Beta", {})
+        bfrom = beta.get("from", "0.0")
+        if _VGT(bfrom, apiv):
+            continue
+        bto = beta.get("to", "0.0")
+        if bto is None or _VGE(bto, apiv):
+            result[fname] = {
+                "default": beta["default"],
+                "stage": "Beta",
+                "since": bfrom,
+                "description": fdata["description"],
+            }
+            continue
+
+        if not include_all:
+           continue
+
+        # check GA
+        ga = fdata.get("GA", {})
+        gfrom = ga.get("from", "0.0")
+        if _VGT(gfrom, apiv):
+            continue
+        if gfrom != 0.0:
+            result[fname] = {
+                "default": "-",
+                "stage": "GA",
+                "since": gfrom,
+                "description": fdata["description"],
+            }
+            continue
+
+        # check Deprecated
+        deprecated = fdata.get("Deprecated", {})
+        dfrom = deprecated.get("from", "0.0")
+        if _VGT(dfrom, apiv):
+            continue
+        if dfrom != 0.0:
+            result[fname] = {
+                "default": "-",
+                "stage": "Deprecated",
+                "since": dfrom,
+                "description": fdata["description"],
+            }
+
+    return result

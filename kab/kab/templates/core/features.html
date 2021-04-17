@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load core_tags %}
+
+{% block title %}
+  <title>Feature gates in {{ API }}</title>
+{% endblock %}
+
+{% block main_content %}
+
+  <table id="groupable" class="table table-sm" width="100%">
+    <thead>
+      <tr class="table-active">
+        <th>Name</th>
+        <th>Default</th>
+        <th>Stage</th>
+        <th>Since</th>
+        <th width="50%">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for NAME, DATA in FEATURES.items %}
+        <tr>
+          <td style="word-break:break-word;">
+            <samp>{{ NAME }}</samp>
+          </td>
+          <td style="word-break:break-word;">
+            <samp>{{ DATA.default }}</samp>
+          </td>
+          <td style="word-break:break-word;">
+            <samp>{{ DATA.stage }}</samp>
+            <i class="fa fa-circle{% if DATA.stage == "Alpha" %} text-danger{% elif DATA.stage == "Beta"%} text-warning{% endif %}"></i>
+          </td>
+          <td>{{ DATA.since }}</td>
+          <td>{{ DATA.description }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No Features Found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

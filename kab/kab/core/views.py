@@ -135,6 +135,7 @@ class DownloadSpec(generic.View):
         resp['Content-Disposition'] = 'attachment; filename="%s"' % fn
         return resp
 
+
 class ListGroups(generic.View):
     """Generic view for listing API groups"""
 
@@ -218,6 +219,22 @@ class ListOperations(generic.View):
             "OPS": operations,
         }
         return shortcuts.render(req, 'core/op-list.html', ctx)
+
+
+class Features(generic.View):
+    """Generic view to display feature gates"""
+
+    def get(self, req, *args, **kwargs):
+        apiv = kwargs.get('api')
+        if not apiv:
+            apiv = helpers.latest_api()
+
+        features = helpers.features(apiv)
+        ctx = {
+            "API": apiv,
+            "FEATURES": features,
+        }
+        return shortcuts.render(req, 'core/features.html', ctx)
 
 
 class ViewDefinition(generic.View):

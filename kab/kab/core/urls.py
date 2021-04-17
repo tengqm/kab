@@ -31,28 +31,33 @@ urlpatterns = [
     urls.url(r'^help-page/(?P<page>[^\/\s]*)/$',
              views.HelpPage.as_view(),
              name='help-page'),
+
     urls.url(r'^apis/groups/(?P<api>[^\/\s]*)/$',
              views.ListGroups.as_view(),
              name='list-groups'),
+
     urls.url(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListResources.as_view(),
              name='list-resources'),
+
     urls.url(r'^apis/definitions/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
              views.ListDefinitions.as_view(),
              name='list-definitions'),
-    urls.url(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
-             views.ListOperations.as_view(),
-             name='list-operations'),
     urls.url(r"^apis/definition/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
              r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
              views.ViewDefinition.as_view(),
              name='view-definition'),
-
     urls.url(r"^apis/history/def/(?P<group>[^\/\s]*)/"
              r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
              views.DefinitionHistory.as_view(),
              name='definition-history'),
 
+    urls.url(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+             views.ListOperations.as_view(),
+             name='list-operations'),
+    urls.url(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
+             views.ViewOperation.as_view(),
+             name='view-operation'),
     urls.url(r"^apis/history/op/(?P<name>[^\/\s]*)/$",
              views.OperationHistory.as_view(),
              name='op-history'),
@@ -61,9 +66,9 @@ urlpatterns = [
              views.APIHistory.as_view(),
              name='full-history'),
 
-    urls.url(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
-             views.ViewOperation.as_view(),
-             name='view-operation'),
+    urls.url(r"^apis/features/(?P<api>[^\/\s]*)/$",
+             views.Features.as_view(),
+             name='feature-gates'),
 
     urls.url(r'^apis/switch/(?P<api>[^\/\s]*)/$',
              views.SwitchAPI.as_view(),
