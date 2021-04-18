@@ -511,7 +511,7 @@ def _VGE(v1, v2):
 def features(apiv, include_all=False):
     global DATA_PATH
 
-    data  = jsonutil.load_json(path.join(DATA_PATH, "features.json"))
+    data = jsonutil.load_json(path.join(DATA_PATH, "features.json"))
     result = {}
     for fname, fdata in data["features"].items():
         # check Alpha
@@ -546,7 +546,7 @@ def features(apiv, include_all=False):
             continue
 
         if not include_all:
-           continue
+            continue
 
         # check GA
         ga = fdata.get("GA", {})
