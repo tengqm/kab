@@ -517,7 +517,6 @@ def features(apiv, include_all=False):
         # check Alpha
         alpha = fdata.get("Alpha", {})
         afrom = alpha.get("from", "0.0")
-        LOG.info("a %s %s", fname, afrom)
         if _VGT(afrom, apiv):
             continue
         ato = alpha.get("to", "0.0")
