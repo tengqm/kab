@@ -62,6 +62,7 @@ ADD kubernetes/1.21 $KAB_ROOT/data/1.21
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
+COPY kubernetes/features.json $KAB_ROOT/data
 
 WORKDIR $KAB_ROOT
 
