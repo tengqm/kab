@@ -33,7 +33,7 @@
             <samp>{{ DATA.stage }}</samp>
           </td>
           <td>{{ DATA.since }}</td>
-          <td>{{ DATA.description }}</td>
+          <td>{{ DATA.description|safe }}</td>
         </tr>
       {% empty %}
         <tr>

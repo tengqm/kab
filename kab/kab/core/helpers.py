@@ -461,16 +461,19 @@ def is_resource(def_name):
     return def_name in DATA["kinds"]
 
 
+def _markdown(text):
+    t = markdown.markdown(text, extensions=["extra"])
+    if t.startswith("<p>") and t.endswith("</p>"):
+        t = t[3:-4]
+    return t
+
+
 def compare_text(text1, text2):
     """
     Compare two markdown texts and return the diff as annotated HTML.
     """
-    d1 = markdown.markdown(text1, extensions=["extra"])
-    d2 = markdown.markdown(text2, extensions=["extra"])
-    if d1.startswith("<p>") and d1.endswith("</p>"):
-        d1 = d1[3:-4]
-    if d2.startswith("<p>") and d2.endswith("</p>"):
-        d2 = d2[3:-4]
+    d1 = _markdown(text1)
+    d2 = _markdown(text2)
 
     sm = difflib.SequenceMatcher(lambda x: x == " ", d1, d2)
 
@@ -519,13 +522,16 @@ def features(apiv, include_all=False):
         afrom = alpha.get("from", "0.0")
         if _VGT(afrom, apiv):
             continue
+
+        # convert description
+        desc = _markdown(fdata["description"])
         ato = alpha.get("to", "0.0")
         if ato is None or _VGE(ato, apiv):
             result[fname] = {
                 "default": alpha["default"],
                 "stage": "Alpha",
                 "since": afrom,
-                "description": fdata["description"],
+                "description": desc,
             }
             continue
 
@@ -540,7 +546,7 @@ def features(apiv, include_all=False):
                 "default": beta["default"],
                 "stage": "Beta",
                 "since": bfrom,
-                "description": fdata["description"],
+                "description": desc,
             }
             continue
 
@@ -557,7 +563,7 @@ def features(apiv, include_all=False):
                 "default": "-",
                 "stage": "GA",
                 "since": gfrom,
-                "description": fdata["description"],
+                "description": desc,
             }
             continue
 
@@ -571,7 +577,7 @@ def features(apiv, include_all=False):
                 "default": "-",
                 "stage": "Deprecated",
                 "since": dfrom,
-                "description": fdata["description"],
+                "description": desc,
             }
 
     return result
