@@ -27412,10 +27412,10 @@
         },
         "volumeBindingMode": {
           "default": "Immediate",
-          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitingForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
+          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -27500,7 +27500,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -27585,7 +27585,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -29124,10 +29124,10 @@
         },
         "volumeBindingMode": {
           "default": "Immediate",
-          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitingForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
+          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -29212,7 +29212,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -29297,7 +29297,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -75046,162 +75046,6 @@
           "policy_v1"
         ],
         "x-kubernetes-action": "list",
-        "x-kubernetes-group-version-kind": {
-          "group": "policy",
-          "kind": "PodDisruptionBudget",
-          "version": "v1"
-        }
-      }
-    },
-    "/apis/policy/v1/watch/namespaces/{namespace}/poddisruptionbudgets": {
-      "get": {
-        "consumes": [
-          "*/*"
-        ],
-        "description": "watch individual changes to a list of PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead.",
-        "operationId": "watchPolicyV1NamespacedPodDisruptionBudgetList",
-        "parameters": [
-          {
-            "$ref": "#/parameters/allowWatchBookmarks"
-          },
-          {
-            "$ref": "#/parameters/continue"
-          },
-          {
-            "$ref": "#/parameters/fieldSelector"
-          },
-          {
-            "$ref": "#/parameters/labelSelector"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "$ref": "#/parameters/namespace"
-          },
-          {
-            "$ref": "#/parameters/pretty"
-          },
-          {
-            "$ref": "#/parameters/resourceVersion"
-          },
-          {
-            "$ref": "#/parameters/resourceVersionMatch"
-          },
-          {
-            "$ref": "#/parameters/timeoutSeconds"
-          },
-          {
-            "$ref": "#/parameters/watch"
-          }
-        ],
-        "produces": [
-          "application/json",
-          "application/yaml",
-          "application/vnd.kubernetes.protobuf",
-          "application/json;stream=watch",
-          "application/vnd.kubernetes.protobuf;stream=watch"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "schemes": [
-          "https"
-        ],
-        "tags": [
-          "policy_v1"
-        ],
-        "x-kubernetes-action": "watchlist",
-        "x-kubernetes-group-version-kind": {
-          "group": "policy",
-          "kind": "PodDisruptionBudget",
-          "version": "v1"
-        }
-      }
-    },
-    "/apis/policy/v1/watch/namespaces/{namespace}/poddisruptionbudgets/{name}": {
-      "get": {
-        "consumes": [
-          "*/*"
-        ],
-        "description": "watch changes to an object of kind PodDisruptionBudget. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
-        "operationId": "watchPolicyV1NamespacedPodDisruptionBudget",
-        "parameters": [
-          {
-            "$ref": "#/parameters/allowWatchBookmarks"
-          },
-          {
-            "$ref": "#/parameters/continue"
-          },
-          {
-            "$ref": "#/parameters/fieldSelector"
-          },
-          {
-            "$ref": "#/parameters/labelSelector"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "description": "name of the PodDisruptionBudget",
-            "in": "path",
-            "name": "name",
-            "required": true,
-            "type": "string",
-            "uniqueItems": true
-          },
-          {
-            "$ref": "#/parameters/namespace"
-          },
-          {
-            "$ref": "#/parameters/pretty"
-          },
-          {
-            "$ref": "#/parameters/resourceVersion"
-          },
-          {
-            "$ref": "#/parameters/resourceVersionMatch"
-          },
-          {
-            "$ref": "#/parameters/timeoutSeconds"
-          },
-          {
-            "$ref": "#/parameters/watch"
-          }
-        ],
-        "produces": [
-          "application/json",
-          "application/yaml",
-          "application/vnd.kubernetes.protobuf",
-          "application/json;stream=watch",
-          "application/vnd.kubernetes.protobuf;stream=watch"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "schemes": [
-          "https"
-        ],
-        "tags": [
-          "policy_v1"
-        ],
-        "x-kubernetes-action": "watch",
         "x-kubernetes-group-version-kind": {
           "group": "policy",
           "kind": "PodDisruptionBudget",
