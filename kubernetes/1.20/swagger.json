@@ -27414,10 +27414,10 @@
         },
         "volumeBindingMode": {
           "default": "Immediate",
-          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitingForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
+          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -27502,7 +27502,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -27587,7 +27587,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -28905,10 +28905,10 @@
         },
         "volumeBindingMode": {
           "default": "Immediate",
-          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitingForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
+          "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -28993,7 +28993,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
@@ -29078,7 +29078,7 @@
           "description": "How PersistentVolumeClaims should be provisioned and bound. This field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
           "enum": [
             "Immediate",
-            "WaitingForFirstConsumer"
+            "WaitForFirstConsumer"
           ],
           "type": "string"
         }
