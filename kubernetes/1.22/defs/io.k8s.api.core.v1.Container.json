@@ -2,14 +2,14 @@
   "description": "A container to run within a Pod.",
   "properties": {
     "args": {
-      "description": "Arguments to the `command`. The docker image's CMD is used if this is not provided. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The `$(VAR_NAME)` syntax can be escaped with a double `$$`, i.e: `$$(VAR_NAME)`. Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
+      "description": "Arguments to the `command`. The docker image's CMD is used if this is not provided. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double dollar (`$$`) are reduced to a single dollar (`$`), which allows for escabing the `$(VAR_NAME)` syntax: i.e. \"`$$(VAR_NAME)`\" will produce the string literal \"`$(VAR_NAME)`\". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "command": {
-      "description": "Entrypoint array. The docker image's `ENTRYPOINT` is used if this is not provided. The command is **NOT** executed within a shell. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The `$(VAR_NAME)` syntax can be escaped with a double `$$`, i.e: `$$(VAR_NAME)`. Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
+      "description": "Entrypoint array. The Docker image's `ENTRYPOINT` is used if this is not provided. The command is **NOT** executed within a shell. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double dollars (`$$`) are reduced to a single dollar (`$`), which allows for escaping the `$(VAR_NAME)` syntax: i.e. the \"`$(VAR_NAME)`\" will produce the string literal \"`$(VAR_NAME)`\". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
       "items": {
         "type": "string"
       },
@@ -81,7 +81,7 @@
     },
     "securityContext": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecurityContext",
-      "description": "Security options the Pod should run with."
+      "description": "The security options the container should be run with. If set, the fields of `securityContext` override the equivalent fields of Pod `securityContext`. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/"
     },
     "startupProbe": {
       "$ref": "#/definitions/io.k8s.api.core.v1.Probe",

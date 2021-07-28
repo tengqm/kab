@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainers"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.UPDATE"
       }
     },
     {
@@ -20,7 +20,7 @@
       "$ref": "#/parameters/fieldManager"
     },
     {
-      "description": "name of the Pod",
+      "description": "Name of the Pod",
       "in": "path",
       "name": "name",
       "required": true,
@@ -44,13 +44,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainers"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.GET"
       }
     },
     "201": {
       "description": "Created",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainers"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.GET"
       }
     },
     "401": {
@@ -67,7 +67,7 @@
   "x-kubernetes-action": "put",
   "x-kubernetes-group-version-kind": {
     "group": "",
-    "kind": "EphemeralContainers",
+    "kind": "Pod",
     "version": "v1"
   }
 }

@@ -26,6 +26,10 @@
       "minLength": 1,
       "type": "string"
     },
+    "subresource": {
+      "description": "The name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the `apiVersion` field is not related to the `subresource` field and it always corresponds to the version of the main resource.",
+      "type": "string"
+    },
     "time": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
       "description": "The timestamp when these fields were set. It should always be empty if `operation` is `\"Apply\"`."

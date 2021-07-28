@@ -1,6 +1,12 @@
 {
   "description": "The current state of a StatefulSet.",
   "properties": {
+    "availableReplicas": {
+      "description": "Total number of available Pods (ready for at least `minReadySeconds`) targeted by this StatefulSet. This is an Alpha field and requires enabling the `StatefulSetMinReadySeconds` feature gate.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
     "collisionCount": {
       "description": "The count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest `ControllerRevision`. When updated, this field cannot be decremented.",
       "format": "int32",

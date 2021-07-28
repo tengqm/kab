@@ -5,8 +5,8 @@
     "application/strategic-merge-patch+json",
     "application/apply-patch+yaml"
   ],
-  "description": "partially update the specified CustomResourceDefinition",
-  "operationId": "patchApiextensionsV1beta1CustomResourceDefinition",
+  "description": "partially update approval of the specified CertificateSigningRequest",
+  "operationId": "patchCertificatesV1CertificateSigningRequestApproval",
   "parameters": [
     {
       "in": "body",
@@ -20,7 +20,13 @@
       "$ref": "#/parameters/dryRun"
     },
     {
-      "description": "name of the CustomResourceDefinition",
+      "$ref": "#/parameters/fieldManagerPatch"
+    },
+    {
+      "$ref": "#/parameters/force"
+    },
+    {
+      "description": "name of the CertificateSigningRequest",
       "in": "path",
       "name": "name",
       "required": true,
@@ -31,7 +37,7 @@
       "$ref": "#/parameters/pretty"
     }
   ],
-  "path": "/apis/apiextensions.k8s.io/v1beta1/customresourcedefinitions/{name}",
+  "path": "/apis/certificates.k8s.io/v1/certificatesigningrequests/{name}/approval",
   "produces": [
     "application/json",
     "application/yaml",
@@ -41,7 +47,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1beta1.CustomResourceDefinition.GET"
+        "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequest.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequest.GET"
       }
     },
     "401": {
@@ -52,13 +64,13 @@
     "https"
   ],
   "tags": [
-    "apiextensions_v1beta1"
+    "certificates_v1"
   ],
   "verb": "patch",
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
-    "group": "apiextensions.k8s.io",
-    "kind": "CustomResourceDefinition",
-    "version": "v1beta1"
+    "group": "certificates.k8s.io",
+    "kind": "CertificateSigningRequest",
+    "version": "v1"
   }
 }

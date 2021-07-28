@@ -3,7 +3,7 @@
   "properties": {
     "allocateLoadBalancerNodePorts": {
       "default": true,
-      "description": "This defines if NodePorts will be automatically allocated for Services with type `\"LoadBalancer\"`. It may be set to `false` if the cluster load-balancer does not rely on NodePorts. This can only be set for Services type `\"LoadBalancer\"` and will be cleared if the `type` is changed to any other values. This field is Alpha-level and is honored and required by servers that enable the `ServiceLBNodePortControl` feature gate.",
+      "description": "This defines if `NodePorts` will be automatically allocated for services with type `LoadBalancer`. It may be set to `false` if the cluster load-balancer does not rely on NodePorts. If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type `LoadBalancer` and will be cleared if the type is changed to any other type. This field is Beta-level and is only honored by servers that enable the `ServiceLBNodePortControl` feature gate.",
       "type": "boolean"
     },
     "clusterIP": {
@@ -79,7 +79,7 @@
       "type": "string"
     },
     "loadBalancerSourceRanges": {
-      "description": "Only applies to `\"LoadBalancer\"` type of Services. If specified and supported by the platform, traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. Every entry must be a valid CIDR expression. This field will be ignored if the cloud-provider does not support the feature.",
+      "description": "If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature.",
       "items": {
         "type": "string"
       },
@@ -109,7 +109,8 @@
         "type": "string"
       },
       "description": "Service traffic will be routed to Pods with label keys and values matching this selector. If empty or not present, the Service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. This field is ignored if Service `type` is `\"ExternalName\"`.",
-      "type": "object"
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
     },
     "sessionAffinity": {
       "default": "None",
@@ -124,14 +125,6 @@
     "sessionAffinityConfig": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SessionAffinityConfig",
       "description": "The configurations of session affinity. It is required when `sessionAffinity` is set to `\"ClientIP\"` and it cannot be set when `sessionAffinity` is set to `\"None\"`."
-    },
-    "topologyKeys": {
-      "description": "A preference-order list of topology keys which implementations of Services should use to preferentially sort endpoints when accessing this Service. This field cannot be set when `externalTrafficPolicy=\"Local\"`. Topology keys must be valid label keys. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value `\"*\"` may be used to mean *any topology*. This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is Alpha-level and is only honored by servers that enable the `ServiceTopology` feature.",
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 16,
-      "type": "array"
     },
     "type": {
       "default": "ClusterIP",

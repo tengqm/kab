@@ -9,6 +9,10 @@
       "description": "The name of the GMSA credential spec to use. The string must be a valid DNS subdomain name. This field is Beta-level and is only honored by servers that enable the `WindowsGMSA` feature flag.",
       "type": "string"
     },
+    "hostProcess": {
+      "description": "This determines if a container should be run as a 'Host Process' container. This field is Alpha-level and will only be honored by components that enable the `WindowsHostProcessContainers` feature gate. Setting this field without the feature gate will result in errors when validating the Pod. All of a Pod's containers must have the same effective `hostProcess` value (it is not allowed to have a mix of `hostProcess` containers and non-`hostProcess` containers). In addition, if `hostProcess` is true then `hostNetwork` must also be set to true.",
+      "type": "boolean"
+    },
     "runAsUserName": {
       "description": "The Windows user name to run the entrypoint of the container. Defaults to the `user` defined in image metadata if unspecified. May also be set in the `securityContext` of the enclosing Pod. This string cannot be empty string; it cannot contain control characters; it cannot contain more than one backslash. The domain name, when specified, must be no more than 256 characters and it must either match the NetBios or the DNS format. The user name part can be no more than 104 characters. The name cannot only contain periods or spaces and it cannot contain characters like `/\\:;|=,+*?<>@[]`.",
       "type": "string"

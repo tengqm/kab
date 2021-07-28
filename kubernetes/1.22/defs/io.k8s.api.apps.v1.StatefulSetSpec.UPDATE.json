@@ -1,6 +1,13 @@
 {
   "description": "The specification of a StatefulSet.",
   "properties": {
+    "minReadySeconds": {
+      "default": 0,
+      "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready). This is an Alpha field and requires enabling `StatefulSetMinReadySeconds` feature gate. This field can be updated.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
     "podManagementPolicy": {
       "default": "OrderedReady",
       "description": "This controls how Pods are created during initial scale up, when replacing Pods on nodes, or when scaling down. The default policy is `\"OrderedReady\"`, where Pods are created in increasing order and the controller will wait until each Pod is ready before continuing. When scaling down, the Pods are removed in the opposite order. The alternative policy is `\"Parallel\"` which will create Pods in parallel to match the desired scale without waiting, and on scale down will delete all Pods at once. Cannot be updated.",
@@ -12,7 +19,7 @@
     },
     "replicas": {
       "default": 1,
-      "description": "The desired number of replicas of the given `template`. These are replicas in the sense that they are instantiations of the same `template`, but individual replicas also have a consistent identity.",
+      "description": "The desired number of replicas of the given `template`. These are replicas in the sense that they are instantiations of the same `template`, but individual replicas also have a consistent identity. This field can be updated.",
       "format": "int32",
       "minimum": 0,
       "type": "integer"
@@ -35,11 +42,11 @@
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
-      "description": "An object that describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet. Currently only check if the `metadata.labels` are set."
+      "description": "An object that describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet. Currently only check if the `metadata.labels` are set. This field can be updated."
     },
     "updateStrategy": {
       "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",
-      "description": "The update strategy that will be employed to update Pods in the StatefulSet when a revision is made to `template`."
+      "description": "The update strategy that will be employed to update Pods in the StatefulSet when a revision is made to `template`. This field can be updated."
     },
     "volumeClaimTemplates": {
       "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) `volumeMount` in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",

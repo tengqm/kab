@@ -109,13 +109,14 @@
         "type": "string"
       },
       "description": "A selector which must match a node's labels for the Pod to be scheduled on that node. Each key in the map must be a qualified name. Each value in the map must be no more than 63 characters. It is either an empty string or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`, and must start and end with an alphanumeric character.",
-      "type": "object"
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
     },
     "overhead": {
       "additionalProperties": {
         "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
       },
-      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Beta field, and is only honored by servers that enable the `PodOverhead` feature.",
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass. This field will be auto-populated at admission time by the `RuntimeClass` admission controller. If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod create requests. The `RuntimeClass` admission controller will reject Pod create requests which have the `overhead` already set. If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated as zero. This field is Beta field as of v1.18, and is only honored by servers that enable the `PodOverhead` feature.",
       "type": "object"
     },
     "preemptionPolicy": {
@@ -154,7 +155,7 @@
       "type": "string"
     },
     "runtimeClassName": {
-      "description": "This refers to a RuntimeClass object in the `node.k8s.io` group, which should be used to run this Pod.  If no RuntimeClass resource matches the name, the Pod will not run. If unset or empty, the `\"legacy\"` RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value must be a valid DNS subdomain. This is a Beta feature as of Kubernetes v1.14.",
+      "description": "This refers to a RuntimeClass object in the `node.k8s.io` group, which should be used to run this Pod.  If no RuntimeClass resource matches the name, the Pod will not run. If unset or empty, the `\"legacy\"` RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. The value must be a valid DNS subdomain. This field is Beta level since v1.14.",
       "type": "string"
     },
     "schedulerName": {
@@ -171,7 +172,7 @@
     },
     "setHostnameAsFQDN": {
       "default": false,
-      "description": "If `true` the Pod's hostname will be configured as the Pod's fully qualified domain name (FQDN), rather than the leaf name which is the default. For Linux containers, this means setting the FQDN in the `hostname` field of the kernel (the `nodename` field of struct `utsname`). In Windows containers, this means setting the registry value of hostname for the registry key `\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\"` to FQDN. If a Pod does not have FQDN, this has no effect. This field is Beta, gated by the `SetHostnameAsFQDN` feature gated.",
+      "description": "If `true` the Pod's hostname will be configured as the Pod's fully qualified domain name (FQDN), rather than the leaf name which is the default. For Linux containers, this means setting the FQDN in the `hostname` field of the kernel (the `nodename` field of struct `utsname`). In Windows containers, this means setting the registry value of hostname for the registry key `\"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\"` to FQDN. If a Pod does not have FQDN, this has no effect. This field is Beta, gated by the `SetHostnameAsFQDN` feature gate.",
       "type": "boolean"
     },
     "shareProcessNamespace": {

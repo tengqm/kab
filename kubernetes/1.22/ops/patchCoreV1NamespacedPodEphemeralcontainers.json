@@ -26,7 +26,7 @@
       "$ref": "#/parameters/force"
     },
     {
-      "description": "name of the Pod for which the ephemeral containers are to to be updated",
+      "description": "Name of the Pod for which the ephemeral containers are to to be updated",
       "in": "path",
       "name": "name",
       "required": true,
@@ -50,7 +50,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainers"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.GET"
       }
     },
     "401": {
@@ -67,7 +73,7 @@
   "x-kubernetes-action": "patch",
   "x-kubernetes-group-version-kind": {
     "group": "",
-    "kind": "EphemeralContainers",
+    "kind": "Pod",
     "version": "v1"
   }
 }

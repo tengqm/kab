@@ -21,7 +21,7 @@
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequestSpec",
-      "description": "The certificate request itself and some additional information. It is immutable after creation. Only the `request`, `signerName`, and `usages` fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users."
+      "description": "The certificate request itself and some additional information. It is immutable after creation. Only the `request`, `signerName`, `expirationSeconds` and `usages` fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users."
     }
   },
   "required": [

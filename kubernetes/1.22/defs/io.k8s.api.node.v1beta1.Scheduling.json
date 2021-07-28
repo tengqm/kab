@@ -6,7 +6,8 @@
         "type": "string"
       },
       "description": "Labels that must be present on Nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a Node matched by this selector. The RuntimeClass `nodeSelector` is merged with a Pod's existing `nodeSelector`. Any conflicts will cause the Pod to be rejected during admission.",
-      "type": "object"
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
     },
     "tolerations": {
       "description": "The tolerations to be appended (excluding duplicates) to Pods running with this RuntimeClass during admission, effectively unioning the set of Nodes tolerated by the Pod and the RuntimeClass. Duplications in the list is treated as invalid.",

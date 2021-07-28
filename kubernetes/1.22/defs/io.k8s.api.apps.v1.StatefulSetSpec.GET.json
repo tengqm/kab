@@ -1,6 +1,13 @@
 {
   "description": "The specification of a StatefulSet.",
   "properties": {
+    "minReadySeconds": {
+      "default": 0,
+      "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready). This is an Alpha field and requires enabling `StatefulSetMinReadySeconds` feature gate. This field can be updated.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
     "podManagementPolicy": {
       "default": "OrderedReady",
       "description": "This controls how Pods are created during initial scale up, when replacing Pods on nodes, or when scaling down. The default policy is `\"OrderedReady\"`, where Pods are created in increasing order and the controller will wait until each Pod is ready before continuing. When scaling down, the Pods are removed in the opposite order. The alternative policy is `\"Parallel\"` which will create Pods in parallel to match the desired scale without waiting, and on scale down will delete all Pods at once. Cannot be updated.",

@@ -6,7 +6,7 @@
       "description": "The referenced service endpoint to which the traffic will be forwarded to."
     },
     "path": {
-      "description": "An extended POSIX regex (as defined by IEEE Std 1003.1) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional \"path\" part of a URL as defined by RFC 3986. The path must begin with a `'/'`. When unspecified, all paths from incoming requests are matched.",
+      "description": "An extended POSIX regex (as defined by IEEE Std 1003.1) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional \"path\" part of a URL as defined by RFC 3986. The path must begin with a `'/'` and must be present when `pathType` is \"Exact\" or \"Prefix\".",
       "type": "string"
     },
     "pathType": {
@@ -21,7 +21,8 @@
     }
   },
   "required": [
-    "backend"
+    "backend",
+    "pathType"
   ],
   "type": "object"
 }

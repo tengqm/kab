@@ -6,7 +6,7 @@
   "operationId": "readCoreV1NamespacedPodEphemeralcontainers",
   "parameters": [
     {
-      "description": "name of the Pod from which to read ephemeral containers",
+      "description": "Name of the Pod from which to read ephemeral containers",
       "in": "path",
       "name": "name",
       "required": true,
@@ -30,7 +30,7 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainers"
+        "$ref": "#/definitions/io.k8s.api.core.v1.Pod.GET"
       }
     },
     "401": {
@@ -47,7 +47,7 @@
   "x-kubernetes-action": "get",
   "x-kubernetes-group-version-kind": {
     "group": "",
-    "kind": "EphemeralContainers",
+    "kind": "Pod",
     "version": "v1"
   }
 }

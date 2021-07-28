@@ -1,5 +1,5 @@
 {
-  "description": "A list of label queries over Nodes. The results are OR'ed from all terms.",
+  "description": "The union of the results of one or more label queries over a set of Nodes. It represents the OR of the selectors represented by the node selector terms.",
   "properties": {
     "nodeSelectorTerms": {
       "description": "A list of NodeSelectorTerms.",
@@ -13,5 +13,6 @@
   "required": [
     "nodeSelectorTerms"
   ],
-  "type": "object"
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
 }

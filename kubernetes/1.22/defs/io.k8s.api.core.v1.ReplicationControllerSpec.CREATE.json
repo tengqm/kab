@@ -20,7 +20,8 @@
         "type": "string"
       },
       "description": "Label keys and values for Pods that must match in order to be controlled by this ReplicationController. If `selector` is empty, it defaults to the labels present on the `template`. If `selector` is not empty, it must match the `labels` defined on the `template`.",
-      "type": "object"
+      "type": "object",
+      "x-kubernetes-map-type": "atomic"
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
