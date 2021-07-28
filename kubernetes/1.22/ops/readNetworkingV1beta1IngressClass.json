@@ -1,0 +1,50 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified IngressClass",
+  "operationId": "readNetworkingV1beta1IngressClass",
+  "parameters": [
+    {
+      "description": "name of the IngressClass",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/networking.k8s.io/v1beta1/ingressclasses/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.networking.v1beta1.IngressClass.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "networking_v1beta1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "networking.k8s.io",
+    "kind": "IngressClass",
+    "version": "v1beta1"
+  }
+}

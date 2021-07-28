@@ -1,0 +1,38 @@
+{
+  "description": "The Pod this toleration attached to can tolerate any Taint that matches the triple (`key`,`value`,`effect`) using the matching `operator`.",
+  "properties": {
+    "effect": {
+      "description": "The taint effect to match.\n\n- `\"\"`: Empty string means matching all taint effects.\n- `\"NoSchedule\"`: Do not allow new Pods to schedule onto the Node unlesss they tolerate the taint, but allow Pods submitted to kubelet without going through the scheduler to start, and allow all already-running Pods to continue running.\n- `\"NoExecute\"`: Evict any already-running Pods that do not tolerate the taint. Currently enforced by the NodeController.\n- `\"PreferNoSchedule\"`: The scheduler tries not to schedule new Pods onto the node, rather than prohibiting new Pods from being scheduled to the node entirely. This is enforced by the scheduler.\n",
+      "enum": [
+        "",
+        "NoExecute",
+        "NoSchedule",
+        "PreferNoSchedule"
+      ],
+      "type": "string"
+    },
+    "key": {
+      "description": "The taint key that the toleration applies to. If the `key` is empty, `operator` must be `\"Exists\"`; this combination means to match all values and all keys. If it is not empty, it must be a valid label name.",
+      "type": "string"
+    },
+    "operator": {
+      "default": "Equal",
+      "description": "A key's relationship to the value. The value can be\n\n- `\"Equal\"` (default), the `value` property must be a valid label value.\n- `\"Exists\"`: equivalent to wildcard for `value`, it means a Pod can tolerate all taints of a particular category, so the `value` field must be empty.\n- `\"\"`: An empty `operator` is equivalent to `\"Equal\"`.\n",
+      "enum": [
+        "Equal",
+        "Exists"
+      ],
+      "type": "string"
+    },
+    "tolerationSeconds": {
+      "description": "A period of time the toleration tolerates the taint. When this field is set, the `effect` must be `\"NoExecute\"`. By default, it is not set, which means tolerating the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "value": {
+      "description": "The taint value the toleration matches to. If the operator is `\"Exists\"`, the value should be empty (`\"\"`), otherwise just a regular string.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

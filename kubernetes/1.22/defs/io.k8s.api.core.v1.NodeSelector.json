@@ -1,0 +1,17 @@
+{
+  "description": "A list of label queries over Nodes. The results are OR'ed from all terms.",
+  "properties": {
+    "nodeSelectorTerms": {
+      "description": "A list of NodeSelectorTerms.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "nodeSelectorTerms"
+  ],
+  "type": "object"
+}

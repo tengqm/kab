@@ -1,0 +1,41 @@
+{
+  "description": "Storage version of a specific resource.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "internal.apiserver.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "StorageVersion"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "The name is `<group>.<resource>` where `<group>` must be a valid DNS subdomain name and `<resource>` must be a valid DNS_LABEL."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.apiserverinternal.v1alpha1.StorageVersionSpec",
+      "description": "This field is an empty spec. It is here to comply with Kubernetes API style."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "internal.apiserver.k8s.io",
+      "kind": "StorageVersion",
+      "version": "v1alpha1"
+    }
+  ]
+}

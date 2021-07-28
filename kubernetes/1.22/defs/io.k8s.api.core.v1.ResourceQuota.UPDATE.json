@@ -1,0 +1,39 @@
+{
+  "description": "ResourceQuota sets aggregate quota restrictions enforced per namespace",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ResourceQuota"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ResourceQuotaSpec",
+      "description": "Spec defines the desired quota."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "ResourceQuota",
+      "version": "v1"
+    }
+  ]
+}

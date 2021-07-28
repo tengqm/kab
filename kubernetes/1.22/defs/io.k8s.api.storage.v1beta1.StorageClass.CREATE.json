@@ -1,0 +1,85 @@
+{
+  "description": "The parameters for a class of storage for which PersistentVolumes can be dynamically provisioned. StorageClasses are non-namespaced; the name of the storage class according to etcd is in `matadata.name`.",
+  "properties": {
+    "allowVolumeExpansion": {
+      "description": "Flag indicating whether the storage class allows volume expand",
+      "type": "boolean"
+    },
+    "allowedTopologies": {
+      "description": "Restrict the Node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty list means there is no topology restriction. This field is only honored by servers that enable the `VolumeScheduling` feature.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.TopologySelectorTerm"
+      },
+      "type": "array"
+    },
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "storage.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "StorageClass"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata"
+    },
+    "mountOptions": {
+      "description": "Dynamically provisioned PersistentVolumes of this storage class are created with these mount options, e.g. `[\"ro\", \"soft\"]`. Not validated - mount of the PVs will simply fail if an option is invalid.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "parameters": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "The parameters for the provisioner that creates volumes of this StorageClass. Keys cannot be empty. The total length including keys and values must not exceed 256 KB. This field cannot be updated.",
+      "maxItems": 512,
+      "type": "object"
+    },
+    "provisioner": {
+      "description": "The type of the provisioner. The value must be a qualified name. This field cannot be updated.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "reclaimPolicy": {
+      "default": "Delete",
+      "description": "Dynamically provisioned PersistentVolumes of this StorageClass are created with this reclaim policy. It is up to the volume plugin to reject provisioning for StorageClasses with impossible reclaim policies. This field cannot be updated.",
+      "enum": [
+        "Delete",
+        "Retain"
+      ],
+      "type": "string"
+    },
+    "volumeBindingMode": {
+      "default": "Immediate",
+      "description": "How PersistentVolumeClaims should be provisioned and bound.\n\n- `\"Immediate\"`: this indicates that PersistentVolumeClaims should be immediately provisioned and bound;\n- `\"WaitForFirstConsumer\"`: this indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PersistentVolumeClaim. The volume provisioning and binding will occur during Pod scheduling.\n\nThis field is only honored by servers that enable the `VolumeScheduling` feature. This field cannot be updated.",
+      "enum": [
+        "Immediate",
+        "WaitForFirstConsumer"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "provisioner"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "storage.k8s.io",
+      "kind": "StorageClass",
+      "version": "v1beta1"
+    }
+  ]
+}

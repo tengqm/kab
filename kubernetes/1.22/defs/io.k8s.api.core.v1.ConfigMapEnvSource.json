@@ -1,0 +1,18 @@
+{
+  "description": "ConfigMapEnvSource populates the environment variables of a container with data from a ConfigMap in the same namespace. The key-value pairs in the ConfigMap's `data` field will be represented as environment variables.",
+  "properties": {
+    "name": {
+      "description": "Name of the referenced ConfigMap. The name must be a valid DNS subdomain name.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "optional": {
+      "description": "Specify whether the ConfigMap must be defined",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

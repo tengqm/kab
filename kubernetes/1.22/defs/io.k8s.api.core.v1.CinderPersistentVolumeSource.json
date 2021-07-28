@@ -1,0 +1,28 @@
+{
+  "description": "An existing Cinder volume resource in Openstack. The volume must also be in the same region as the node. Cinder volumes support ownership management and SELinux relabeling.",
+  "properties": {
+    "fsType": {
+      "default": "ext4",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system.",
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the volume to be mounted in read-only model.",
+      "type": "boolean"
+    },
+    "secretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
+      "description": "Reference to a Secret object containing parameters used to connect to OpenStack. Both `namespace` and `name` must be specified as valid DNS_LABEL strings."
+    },
+    "volumeID": {
+      "description": "The identifier for the Cinder volume.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "volumeID"
+  ],
+  "type": "object"
+}

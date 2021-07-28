@@ -1,0 +1,30 @@
+{
+  "description": "The current status of a persistent volume.",
+  "properties": {
+    "message": {
+      "description": "A human-readable message indicating details about why the volume is in this state.",
+      "type": "string"
+    },
+    "phase": {
+      "description": "This indicates if a volume is available, bound to a claim, or released by a claim.\n\n- `\"Available\"`: the PV is not yet bound, held by the binder to match to a PVC.\n- `\"Bound\"`: the PV is bound to a PVC.\n- `\"Failed\"`: the PV has failed to be correctly recycled or deleted after being released from a PVC.\n- `\"Released\"`: The previously bound PVC for this PV was deleted. Such volumes are supposed to be recycled before becoming available again. This phase is used by the PVC binder to signal to another process to reclaim the resource.\n- `\"Pending\"`: The PV is not yet available.\n",
+      "enum": [
+        "Available",
+        "Bound",
+        "Failed",
+        "Released",
+        "Pending"
+      ],
+      "type": "string"
+    },
+    "reason": {
+      "description": "A brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "message",
+    "phase",
+    "reason"
+  ],
+  "type": "object"
+}

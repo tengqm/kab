@@ -1,0 +1,58 @@
+{
+  "description": "A health check to be performed against a container to determine whether it is alive or ready to receive traffic. One and only one of the `exec`, `httpGet` and `tcpSocket` action can be specified.",
+  "properties": {
+    "exec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ExecAction",
+      "description": "This specifies the action to take."
+    },
+    "failureThreshold": {
+      "default": 3,
+      "description": "Minimum consecutive failures for the probe to be considered failed after having succeeded.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "httpGet": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.HTTPGetAction",
+      "description": "This specifies the HTTP request to perform."
+    },
+    "initialDelaySeconds": {
+      "description": "Number of seconds after the container has started before liveness probes are initiated.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "periodSeconds": {
+      "default": 10,
+      "description": "How often (in seconds) to perform the probe.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "successThreshold": {
+      "default": 1,
+      "description": "Minimum consecutive successes for the probe to be considered successful after having failed. Must be 1 for liveness and startup probes.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "tcpSocket": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.TCPSocketAction",
+      "description": "This specifies an action involving a TCP port. TCP hooks not yet supported"
+    },
+    "terminationGracePeriodSeconds": {
+      "description": "Optional duration in seconds the Pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the Pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is `nil`, the Pod's `terminationGracePeriodSeconds` will be used. Otherwise, this value overrides the value provided by the Pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is an Alpha field and requires enabling `\"ProbeTerminationGracePeriod\"` feature gate.",
+      "format": "int64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "timeoutSeconds": {
+      "default": 1,
+      "description": "Number of seconds after which the probe times out.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

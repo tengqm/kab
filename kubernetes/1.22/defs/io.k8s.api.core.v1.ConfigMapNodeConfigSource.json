@@ -1,0 +1,35 @@
+{
+  "description": "The information to reference a ConfigMap as the config source for a Node.",
+  "properties": {
+    "kubeletConfigKey": {
+      "description": "The key of the referenced ConfigMap that corresponds to the `KubeletConfiguration` structure. The string must consists of alphanumeric characters, `'-'`, `'_'` or `'.'`. The string cannot be `\".\"` or `\"..\"` and it cannot start with `\"..\"`.",
+      "maxLength": 253,
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the referenced ConfigMap. The string must be a valid DNS subdomain.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "Namespace of the referenced ConfigMap. The string must be a valid DNS_LABEL.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "resourceVersion": {
+      "description": "Resource version of the referenced ConfigMap. This field is forbidden in `node.spec`, and required in `node.status`.",
+      "type": "string"
+    },
+    "uid": {
+      "description": "UID of the referenced ConfigMap. This field is forbidden in `node.spec`, and required in `node.status`.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kubeletConfigKey",
+    "name",
+    "namespace"
+  ],
+  "type": "object"
+}

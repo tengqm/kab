@@ -1,0 +1,25 @@
+{
+  "description": "Selects a key from a ConfigMap.",
+  "properties": {
+    "key": {
+      "description": "The key to select. The string must be a valid DNS subdomain name no more than 253 characters. It must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`. It cannot be `\".\"` or `\"..\"` or prefixed with `\"..\"`.",
+      "maxLength": 253,
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the referenced ConfigMap. The name must be a valid DNS subdomain name.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "optional": {
+      "description": "Specify whether the ConfigMap and its key must be defined",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "key",
+    "name"
+  ],
+  "type": "object"
+}

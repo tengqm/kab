@@ -1,0 +1,41 @@
+{
+  "description": "The intent to attach or detach the specified volume to/from the specified Node. VolumeAttachment objects are non-namespaced.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "storage.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "VolumeAttachment"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.storage.v1.VolumeAttachmentSpec",
+      "description": "Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system. This field cannot be updated."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "storage.k8s.io",
+      "kind": "VolumeAttachment",
+      "version": "v1"
+    }
+  ]
+}

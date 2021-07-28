@@ -1,0 +1,43 @@
+{
+  "description": "The current status of a PersistentVolumeClaim.",
+  "properties": {
+    "accessModes": {
+      "description": "The actual access modes of the volume backing the PVC.",
+      "items": {
+        "enum": [
+          "ReadOnlyMany",
+          "ReadWriteMany",
+          "ReadWriteOnce"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "capacity": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The actual resource capacity of the underlying volume.",
+      "type": "object"
+    },
+    "conditions": {
+      "description": "Current condition of the PVC. If the underlying PV is being resized then the `condition` will be set to `\"ResizeStarted\"`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "phase": {
+      "description": "The current phase of PersistentVolumeClaim.\n\n- `\"Bound\"`: The PVC is already bound;\n - `\"Pending\"`: The PVC is not yet bound;\n- `\"Lost\"`: The PVC has lost its underlying PersistentVolume. The claim was bound to a PersistentVolume and the volume does not exist any longer and all data on it was lost.\n",
+      "enum": [
+        "Bound",
+        "Lost",
+        "Pending"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

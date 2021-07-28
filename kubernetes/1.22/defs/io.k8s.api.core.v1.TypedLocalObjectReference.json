@@ -1,0 +1,24 @@
+{
+  "description": "Information for locating the typed referenced object inside the same namespace.",
+  "properties": {
+    "apiGroup": {
+      "description": "The group for the resource being referenced. If not specified, the specified `kind` must be in the `\"core\"` API group.",
+      "type": "string"
+    },
+    "kind": {
+      "description": "The kind for the resoruce being referenced.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of resource being referenced",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "name"
+  ],
+  "type": "object"
+}
