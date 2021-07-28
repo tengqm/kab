@@ -1,0 +1,79 @@
+{
+  "consumes": [
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json",
+    "application/apply-patch+yaml"
+  ],
+  "description": "partially update the specified PodTemplate",
+  "operationId": "patchCoreV1NamespacedPodTemplate",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManagerPatch"
+    },
+    {
+      "$ref": "#/parameters/force"
+    },
+    {
+      "description": "name of the PodTemplate",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/podtemplates/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplate"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PodTemplate",
+    "version": "v1"
+  }
+}
