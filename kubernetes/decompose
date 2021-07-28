@@ -265,14 +265,23 @@ def main():
     # remove circular reference
     data["definitions"].pop("io.k8s.apiextensions-apiserver.pkg.apis."
                             "apiextensions.v1beta1.JSONSchemaProps", None)
-    data["definitions"][
-        "io.k8s.apiextensions-apiserver.pkg.apis."
-        "apiextensions.v1beta1.CustomResourceValidation"
-    ]["properties"]["openAPIV3Schema"]["type"] = "object"
-    data["definitions"][
-        "io.k8s.apiextensions-apiserver.pkg.apis."
-        "apiextensions.v1beta1.CustomResourceValidation"
-    ]["properties"]["openAPIV3Schema"].pop("$ref", None)
+    data["definitions"].pop("io.k8s.apiextensions-apiserver.pkg.apis."
+                            "apiextensions.v1.JSONSchemaProps", None)
+    crv_v1beta1 = ("io.k8s.apiextensions-apiserver.pkg.apis." +
+                   "apiextensions.v1beta1.CustomResourceValidation")
+    crv_d = data["definitions"].get(crv_v1beta1, None)
+    if crv_d:
+        p = data["definitions"][crv_v1beta1]["properties"]
+        p["openAPIV3Schema"]["type"] = "object"
+        p["openAPIV3Schema"].pop("$ref", None)
+
+    crv_v1 = ("io.k8s.apiextensions-apiserver.pkg.apis." +
+                   "apiextensions.v1.CustomResourceValidation")
+    crv_d = data["definitions"].get(crv_v1, None)
+    if crv_d:
+        p = data["definitions"][crv_v1]["properties"]
+        p["openAPIV3Schema"]["type"] = "object"
+        p["openAPIV3Schema"].pop("$ref", None)
 
     # extract parameters into spec level
     data = extract_parameters(data)
