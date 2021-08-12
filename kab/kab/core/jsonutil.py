@@ -67,8 +67,8 @@ def load_json(fn, apiv=None, recursive=True, root=None):
     try:
         with open(fn, "r") as f:
             data = json.load(f)
-    except Exception:
-        LOG.error("Cannot read file: %s", fn)
+    except Exception as ex:
+        LOG.error("Cannot read file %s: %s", fn, str(ex))
         return None
 
     if not recursive:
