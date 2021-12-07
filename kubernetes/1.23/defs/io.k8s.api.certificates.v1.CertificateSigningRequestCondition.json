@@ -1,0 +1,30 @@
+{
+  "properties": {
+    "lastUpdateTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Timestamp of the last update to this condition"
+    },
+    "message": {
+      "description": "Human readable message with details about the request state",
+      "type": "string"
+    },
+    "reason": {
+      "description": "Brief reason for the request state",
+      "type": "string"
+    },
+    "type": {
+      "description": "Request approval state. Known conditions are \"Approved\", \"Denied\", and \"Failed\".\n\nPossible enum values:\n\n- `\"Approved\"` indicates the request was approved and should be issued by the signer. It is added via the `/approval` subresource.\n- `\"Denied\"` indicates the request was denied and should not be issued by the signer. It is added via the `/approval` subresource.\n- `\"Failed\"` indicates the signer failed to issue the certificate. It is added via the `/status` subresource.\n\n`Approved` and `Denied` conditions are mutually exclusive. `Approved`, `Denied`, and `Failed` conditions cannot be removed once added.\n\nOnly one condition of a given type is allowed.",
+      "enum": [
+        "Approved",
+        "Denied",
+        "Failed"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+}

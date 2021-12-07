@@ -1,0 +1,41 @@
+{
+  "description": "A template for creating copies of a predefined Pod.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodTemplate"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. The `name` must be a valid DNS subdomain name."
+    },
+    "template": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
+      "description": "Template defines the Pods that will be created from this Pod template."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "template"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "PodTemplate",
+      "version": "v1"
+    }
+  ]
+}

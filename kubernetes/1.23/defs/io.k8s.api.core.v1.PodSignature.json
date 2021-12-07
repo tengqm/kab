@@ -1,0 +1,10 @@
+{
+  "description": "This describes the class of Pods that should avoid this node.",
+  "properties": {
+    "podController": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference",
+      "description": "Reference to controller whose Pods should avoid this node. The `controller` field must point to a controller."
+    }
+  },
+  "type": "object"
+}

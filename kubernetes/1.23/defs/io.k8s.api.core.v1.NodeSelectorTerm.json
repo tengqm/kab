@@ -1,0 +1,21 @@
+{
+  "description": "A Node selection term. A null or empty term matches no Node. The requirements in the term are AND'ed.",
+  "properties": {
+    "matchExpressions": {
+      "description": "A list of Node selector based on Node's labels.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
+      },
+      "type": "array"
+    },
+    "matchFields": {
+      "description": "A list of Node selector based on Node's fields.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
+}

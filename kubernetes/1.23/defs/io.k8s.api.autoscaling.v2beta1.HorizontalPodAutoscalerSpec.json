@@ -1,0 +1,34 @@
+{
+  "description": "The specification of a HorizontalPodAutoscaler (HPA).",
+  "properties": {
+    "maxReplicas": {
+      "description": "The upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less than `minReplicas`.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "metrics": {
+      "description": "The specifications to use for calculating the desired replica count. The maximum replica count across all metrics will be used. The desired replica count is calculated through multiplying the ratio between the target value and the current value by the current number of Pods. Ergo, metrics used must decrease as the Pod count is increased, and vice-versa. See the individual metric source types for more information about how each `type` of metric must respond.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.MetricSpec"
+      },
+      "type": "array"
+    },
+    "minReplicas": {
+      "default": 1,
+      "description": "The lower limit for the number of replicas to which the autoscaler can scale down. `minReplicas` is allowed to be 0 if the alpha feature gate `HPAScaleToZero` is enabled and at least one `\"Object\"` or `\"External\"` metric is configured. Scaling is active as long as at least one metric value is available.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "scaleTargetRef": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.CrossVersionObjectReference",
+      "description": "This points to the target resource to scale, and is used to identify the Pods for which metrics should be collected, as well as to actually change the replica count."
+    }
+  },
+  "required": [
+    "maxReplicas",
+    "scaleTargetRef"
+  ],
+  "type": "object"
+}

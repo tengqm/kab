@@ -1,0 +1,46 @@
+{
+  "description": "Node is a worker node in Kubernetes. Each Node will have a unique identifier in the cache (i.e. in etcd).",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Node"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeSpec",
+      "description": "Spec defines the behavior of a Node."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeStatus",
+      "description": "Most recently observed status of the Node."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "Node",
+      "version": "v1"
+    }
+  ]
+}

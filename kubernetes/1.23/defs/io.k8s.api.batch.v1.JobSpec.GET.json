@@ -1,0 +1,73 @@
+{
+  "description": "This describes how the Job execution will look like.",
+  "properties": {
+    "activeDeadlineSeconds": {
+      "description": "The duration in seconds relative to the `startTime` that the Job may be continuously active before the system tries to terminate it. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.",
+      "format": "int64",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "backoffLimit": {
+      "default": 6,
+      "description": "The number of retries before marking this Job as failed",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "completionMode": {
+      "default": "NonIndexed",
+      "description": "This specifies how Pod completions are tracked.\n\n- `\"NonIndexed\"` means that the Job is considered complete when there have been `.spec.completions` successfully completed Pods. Each Pod completion is homologous to each other.\n- `\"Indexed\"` means that the Pods of a Job get an associated completion index from 0 to `(.spec.completions - 1)`, available in the annotation `\"batch.kubernetes.io/job-completion-index\"`. The Job is considered complete when there is one successfully completed Pod for each index. When value is `\"Indexed\"`, `.spec.completions` must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, the Pod name takes the form `<job-name>-<index>-<random-string>` and the Pod host name takes the form `<job-name>-<index>`.\n\nThis field is Beta and is controlled by the \"IndexedJob\" feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.",
+      "enum": [
+        "NonIndexed",
+        "Indexed"
+      ],
+      "type": "string"
+    },
+    "completions": {
+      "description": "The desired number of successfully finished Pods the Job should be run with. Setting to `nil` means that the success of any Pod signals the success of all Pods, and allows `parallelism` to have any positive value. Setting to `1` means that `parallelism` is limited to 1 and the success of that Pod signals the success of the Job. This field cannot be updated.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "manualSelector": {
+      "description": "This controls the generation of Pod labels and Pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When `false` or unset, the system pick labels unique to this Job and appends those labels to the Pod template. When `true`, the user is responsible for picking unique labels and specifying the `selector`. Failure to pick a unique label may cause this and other Jobs to not function correctly. However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.",
+      "type": "boolean"
+    },
+    "parallelism": {
+      "description": "The maximum desired number of Pods the Job should run at any given time. The actual number of Pods running in steady state will be less than this number when `((.spec.completions - .status.successful) < .spec.parallelism)`, i.e. when the work left to do is less than max `parallelism`.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "selector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The `selector` must match the `labels` defined on the Pod template. This field cannot be updated."
+    },
+    "suspend": {
+      "default": false,
+      "description": "This specifies whether the Job controller should create Pods or not. If a Job is created with `suspend` set to `true`, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from `false` to `true`), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the `startTime` field of the Job, effectively resetting the `activeDeadlineSeconds` timer too. This field is Beta level, gated by the `\"SuspendJob\"` feature gate.",
+      "type": "boolean"
+    },
+    "template": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET",
+      "description": "Describes the Pod that will be created when executing a Job. This field cannot be updated."
+    },
+    "ttlSecondsAfterFinished": {
+      "description": "This limits the lifetime of a Job that has finished execution (either `\"Complete\"` or `\"Failed\"`). If this field is set, the specified seconds after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. `finalizers`) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "activeDeadlineSeconds",
+    "backoffLimit",
+    "completions",
+    "manualSelector",
+    "parallelism",
+    "selector",
+    "template",
+    "ttlSecondsAfterFinished"
+  ],
+  "type": "object"
+}

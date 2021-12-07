@@ -1,0 +1,27 @@
+{
+  "description": "retrieve a log file at the specified log path",
+  "operationId": "logFileHandler",
+  "parameters": [
+    {
+      "description": "path to the log",
+      "in": "path",
+      "name": "logpath",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/logs/{logpath}",
+  "responses": {
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "logs"
+  ],
+  "verb": "get"
+}

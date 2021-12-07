@@ -1,0 +1,23 @@
+{
+  "description": "The current status of a Namespace.",
+  "properties": {
+    "conditions": {
+      "description": "The latest available observations of a Namespace's current state.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NamespaceCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "phase": {
+      "description": "The current lifecycle phase of the Namespace.\n\nPossible enum values:\n\n- `\"Active\"` means the namespace is available for use in the system\n- `\"Terminating\"` means the namespace is undergoing graceful termination.",
+      "enum": [
+        "Active",
+        "Terminating"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

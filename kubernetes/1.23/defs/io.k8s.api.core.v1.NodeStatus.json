@@ -1,0 +1,80 @@
+{
+  "description": "Information about the current status of the Node.",
+  "properties": {
+    "addresses": {
+      "description": "List of addresses reachable to the node. Queried from cloud provider, if available.\n\n**Note**: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeAddress"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "allocatable": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The node resources that are available for scheduling. All quantity values must be non-negative. Defaults to value in `capacity'.",
+      "type": "object"
+    },
+    "capacity": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The total resources on the node. All quantity values must be non-negative.",
+      "type": "object"
+    },
+    "conditions": {
+      "description": "An array of current observed node conditions.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "config": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeConfigStatus",
+      "description": "Status of the config assigned to the node via the `DynamicKubeletConfig` feature."
+    },
+    "daemonEndpoints": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeDaemonEndpoints",
+      "description": "Endpoints of daemons running on the Node."
+    },
+    "images": {
+      "description": "List of container images on this node. The number of images that are reported here can be set via the `--node-status-max-images` flag for the kubelet.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerImage"
+      },
+      "type": "array"
+    },
+    "nodeInfo": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeSystemInfo",
+      "description": "Set of IDs/UUIDs to uniquely identify the node."
+    },
+    "phase": {
+      "description": "The recently observed lifecycle phase of the Node. The field is never populated, and now is *DEPRECATED*.\n\nPossible enum values:\n- `\"Pending\"` means the node has been created/added by the system, but not configured.\n- `\"Running\"` means the node has been configured and has Kubernetes components running.\n- `\"Terminated\"` means the node has been removed from the cluster.",
+      "enum": [
+          "Pending",
+          "Running",
+          "Terminated"
+      ],
+      "type": "string"
+    },
+    "volumesAttached": {
+      "description": "List of volumes that are attached to the node.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.AttachedVolume"
+      },
+      "type": "array"
+    },
+    "volumesInUse": {
+      "description": "List of attachable volumes in use (mounted) by the node.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

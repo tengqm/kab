@@ -1,0 +1,46 @@
+{
+  "description": "A list of APIResource objects. It is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "groupVersion": {
+      "description": "The group and version this APIResourceList is for.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "APIResourceList"
+      ],
+      "type": "string"
+    },
+    "resources": {
+      "description": "A list of APIResource objects and if they are namespaced.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResource"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "groupVersion",
+    "kind",
+    "resources"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "APIResourceList",
+      "version": "v1"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "description": "The detailed status of a Container.",
+  "properties": {
+    "containerID": {
+      "description": "Container's ID in the format `\"docker://<container_id>\"`",
+      "type": "string"
+    },
+    "image": {
+      "description": "The name of the image the container is running.",
+      "type": "string"
+    },
+    "imageID": {
+      "description": "ID of the container's image.",
+      "type": "string"
+    },
+    "lastState": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ContainerState",
+      "description": "Details about the container's last termination condition."
+    },
+    "name": {
+      "description": "The name for the Container which is unique in the Pod. Cannot be updated.",
+      "type": "string"
+    },
+    "ready": {
+      "description": "Specifies whether the Container has passed its readiness probe.",
+      "type": "boolean"
+    },
+    "restartCount": {
+      "description": "The number of times the Container has been restarted.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "started": {
+      "description": "Specifies whether the Container has passed its startup probe. Initialized as `false`, becomes `true` after `startupProbe` is considered successful. Resets to `false` when the Container is restarted, or if kubelet loses state temporarily. Is always `true` when no `startupProbe` is defined.",
+      "type": "boolean"
+    },
+    "state": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ContainerState",
+      "description": "Details about the container's current condition."
+    }
+  },
+  "required": [
+    "containerID",
+    "image",
+    "imageID",
+    "lastState",
+    "name",
+    "ready",
+    "restartCount",
+    "started",
+    "state"
+  ],
+  "type": "object"
+}
