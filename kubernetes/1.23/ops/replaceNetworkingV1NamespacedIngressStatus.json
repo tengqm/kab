@@ -10,7 +10,7 @@
       "name": "body",
       "required": true,
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress.UPDATE"
       }
     },
     {
@@ -47,13 +47,13 @@
     "200": {
       "description": "OK",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress.GET"
       }
     },
     "201": {
-      "description": "Created",
+      "description": "Updated",
       "schema": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress"
+        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress.GET"
       }
     },
     "401": {
