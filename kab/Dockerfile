@@ -55,8 +55,8 @@ ADD kubernetes/1.18 $KAB_ROOT/data/1.18
 ADD kubernetes/1.19 $KAB_ROOT/data/1.19
 ADD kubernetes/1.20 $KAB_ROOT/data/1.20
 ADD kubernetes/1.21 $KAB_ROOT/data/1.21
-ADD kubernetes/1.21 $KAB_ROOT/data/1.22
-ADD kubernetes/1.21 $KAB_ROOT/data/1.23
+ADD kubernetes/1.22 $KAB_ROOT/data/1.22
+ADD kubernetes/1.23 $KAB_ROOT/data/1.23
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
