@@ -34,8 +34,11 @@ def process_definitions(data):
     for fn in files:
         basename, ext = os.path.splitext(fn)
         fullname = os.path.join(defdir, fn)
-        with open(fullname, "r") as f:
-            defs[basename] = json.loads(f.read())
+        try:
+            with open(fullname, "r") as f:
+                defs[basename] = json.loads(f.read())
+        except Exception as ex:
+            print("\033[31mFailed file: %s, %s\033[0m" % (fullname, str(ex)))
 
     data["definitions"] = defs
     return
