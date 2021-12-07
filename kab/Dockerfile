@@ -46,7 +46,8 @@ RUN mkdir -p $KAB_ROOT/data && \
     mkdir -p $KAB_ROOT/data/1.19 && \
     mkdir -p $KAB_ROOT/data/1.20 && \
     mkdir -p $KAB_ROOT/data/1.21 && \
-    mkdir -p $KAB_ROOT/data/1.22
+    mkdir -p $KAB_ROOT/data/1.22 && \
+    mkdir -p $KAB_ROOT/data/1.23
 
 ADD kubernetes/1.16 $KAB_ROOT/data/1.16
 ADD kubernetes/1.17 $KAB_ROOT/data/1.17
@@ -55,6 +56,7 @@ ADD kubernetes/1.19 $KAB_ROOT/data/1.19
 ADD kubernetes/1.20 $KAB_ROOT/data/1.20
 ADD kubernetes/1.21 $KAB_ROOT/data/1.21
 ADD kubernetes/1.21 $KAB_ROOT/data/1.22
+ADD kubernetes/1.21 $KAB_ROOT/data/1.23
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
