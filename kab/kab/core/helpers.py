@@ -550,6 +550,21 @@ def features(apiv, include_all=False):
             }
             continue
 
+        # check Beta1
+        beta1 = fdata.get("Beta1", {})
+        bfrom1 = beta1.get("from", "0.0")
+        if _VGT(bfrom1, apiv):
+            continue
+        bto1 = beta1.get("to", "0.0")
+        if bto1 is None or _VGE(bto1, apiv):
+            result[fname] = {
+                "default": beta1["default"],
+                "stage": "Beta",
+                "since": bfrom,
+                "description": desc,
+            }
+            continue
+
         if not include_all:
             continue
 
