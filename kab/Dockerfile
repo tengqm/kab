@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 # RUN apk add --update --no-cache python3 py3-pip && \
 #     ln -sf python3 /usr/bin/python && \
 #   python3 -m ensurepip && \
-#   pip3 install --no-cache --upgrade pip setuptools
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 # TODO(Qiming): Reenable the nginx
 # setup nginx
@@ -71,7 +71,7 @@ WORKDIR $KAB_ROOT
 
 # Install KAB
 RUN pip3 install "setuptools>=40.2.0" && \
-    pip3 install dist/KAB-0.9.0.whl && \
+    pip3 install dist/KAB-*.whl && \
     rm -rf dist
 
 EXPOSE 8000
