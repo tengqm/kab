@@ -1,10 +1,15 @@
-FROM ubuntu:18.04
+FROM python:3-alpine
 
+ENV PYTHONUNBUFFERED=1
 # install python3, pip3
-RUN apt-get update -y && \
-        apt-get install -y --no-install-recommends python3 python3-pip vim-tiny python3-wheel && \
-        pip3 install --upgrade pip && \
-        rm -rf /var/lib/apt/lists/*
+# RUN apt-get update -y && \
+#        apt-get install -y --no-install-recommends python3 python3-pip python3-wheel && \
+#        pip3 install --upgrade pip && \
+#        rm -rf /var/lib/apt/lists/*
+# RUN apk add --update --no-cache python3 py3-pip && \
+#     ln -sf python3 /usr/bin/python && \
+#   python3 -m ensurepip && \
+#   pip3 install --no-cache --upgrade pip setuptools
 
 # TODO(Qiming): Reenable the nginx
 # setup nginx
@@ -66,7 +71,7 @@ WORKDIR $KAB_ROOT
 
 # Install KAB
 RUN pip3 install "setuptools>=40.2.0" && \
-    pip3 install dist/KAB*.whl && \
+    pip3 install dist/KAB-0.9.0.whl && \
     rm -rf dist
 
 EXPOSE 8000
