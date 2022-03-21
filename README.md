@@ -19,6 +19,14 @@ The Kubernetes API Browser (KAB) tool is designed to resolve the above
 problems by providing an interactive browser backed by manually optimized
 specification contents.
 
+The usage of this tool is simple:
+
+```
+docker run -p 8000:8000 quay.io/tengqm/kab
+```
+
+Then point your browser to 'http://localhost:8000' and start exploring.
+
 ## 1. Problems of Generated OpenAPI Specification
 
 The Kubernetes API specification is generated from Go source code comments,
