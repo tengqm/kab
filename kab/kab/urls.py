@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf import urls
+from django import urls
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    urls.url(r'', urls.include('kab.core.urls'))
+    urls.re_path(r'', urls.include('kab.core.urls'))
 ]

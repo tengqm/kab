@@ -11,97 +11,98 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf import urls
+from django.urls import include
+from django.urls import re_path
 from django.views import generic
 
 from kab.core import views
 
 urlpatterns = [
-    urls.url(r'^$', views.Home.as_view(), name='home'),
+    re_path(r'^$', views.Home.as_view(), name='home'),
 
-    urls.url(r'^apis/apis/$',
-             views.ListAPIs.as_view(),
-             name='list-apis'),
-    urls.url(r'^apis/apis/download/(?P<api>[^\n\s]*)/(?P<fmt>\w+)/$',
-             views.DownloadSpec.as_view(),
-             name='download-spec'),
-    urls.url(r'^page/(?P<page>[^\/\s]*)/$',
-             views.StaticPage.as_view(),
-             name='static-page'),
-    urls.url(r'^help-page/(?P<page>[^\/\s]*)/$',
-             views.HelpPage.as_view(),
-             name='help-page'),
+    re_path(r'^apis/apis/$',
+            views.ListAPIs.as_view(),
+            name='list-apis'),
+    re_path(r'^apis/apis/download/(?P<api>[^\n\s]*)/(?P<fmt>\w+)/$',
+            views.DownloadSpec.as_view(),
+            name='download-spec'),
+    re_path(r'^page/(?P<page>[^\/\s]*)/$',
+            views.StaticPage.as_view(),
+            name='static-page'),
+    re_path(r'^help-page/(?P<page>[^\/\s]*)/$',
+            views.HelpPage.as_view(),
+            name='help-page'),
 
-    urls.url(r'^apis/groups/(?P<api>[^\/\s]*)/$',
-             views.ListGroups.as_view(),
-             name='list-groups'),
+    re_path(r'^apis/groups/(?P<api>[^\/\s]*)/$',
+            views.ListGroups.as_view(),
+            name='list-groups'),
 
-    urls.url(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
-             views.ListResources.as_view(),
-             name='list-resources'),
+    re_path(r'^apis/resources/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+            views.ListResources.as_view(),
+            name='list-resources'),
 
-    urls.url(r'^apis/definitions/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
-             views.ListDefinitions.as_view(),
-             name='list-definitions'),
-    urls.url(r"^apis/definition/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
-             r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
-             views.ViewDefinition.as_view(),
-             name='view-definition'),
-    urls.url(r"^apis/history/def/(?P<group>[^\/\s]*)/"
-             r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
-             views.DefinitionHistory.as_view(),
-             name='definition-history'),
+    re_path(r'^apis/definitions/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+            views.ListDefinitions.as_view(),
+            name='list-definitions'),
+    re_path(r"^apis/definition/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
+            r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
+            views.ViewDefinition.as_view(),
+            name='view-definition'),
+    re_path(r"^apis/history/def/(?P<group>[^\/\s]*)/"
+            r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
+            views.DefinitionHistory.as_view(),
+            name='definition-history'),
 
-    urls.url(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
-             views.ListOperations.as_view(),
-             name='list-operations'),
-    urls.url(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
-             views.ViewOperation.as_view(),
-             name='view-operation'),
-    urls.url(r"^apis/history/op/(?P<name>[^\/\s]*)/$",
-             views.OperationHistory.as_view(),
-             name='op-history'),
+    re_path(r'^apis/operations/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/$',
+            views.ListOperations.as_view(),
+            name='list-operations'),
+    re_path(r'^apis/operation/(?P<api>[^\/\s]*)/(?P<name>[^\/\s]*)/$',
+            views.ViewOperation.as_view(),
+            name='view-operation'),
+    re_path(r"^apis/history/op/(?P<name>[^\/\s]*)/$",
+            views.OperationHistory.as_view(),
+            name='op-history'),
 
-    urls.url(r"^apis/history/api/(?P<version>[^\/\s]*)/$",
-             views.APIHistory.as_view(),
-             name='full-history'),
+    re_path(r"^apis/history/api/(?P<version>[^\/\s]*)/$",
+            views.APIHistory.as_view(),
+            name='full-history'),
 
-    urls.url(r"^apis/features/(?P<api>[^\/\s]*)/$",
-             views.Features.as_view(),
-             name='feature-gates'),
+    re_path(r"^apis/features/(?P<api>[^\/\s]*)/$",
+            views.Features.as_view(),
+            name='feature-gates'),
 
-    urls.url(r'^apis/switch/(?P<api>[^\/\s]*)/$',
-             views.SwitchAPI.as_view(),
-             name='switch-apiv'),
+    re_path(r'^apis/switch/(?P<api>[^\/\s]*)/$',
+            views.SwitchAPI.as_view(),
+            name='switch-apiv'),
 
-    urls.url(r'^apis/compare-defs/$', views.CompareDefinitions.as_view(),
-             name='compare-defs'),
-    urls.url(r'^apis/compare-ops/$', views.CompareOperations.as_view(),
-             name='compare-ops'),
+    re_path(r'^apis/compare-defs/$', views.CompareDefinitions.as_view(),
+            name='compare-defs'),
+    re_path(r'^apis/compare-ops/$', views.CompareOperations.as_view(),
+            name='compare-ops'),
 
-    urls.url(r"^apis/try/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
-             r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
-             views.TryResource.as_view(),
-             name='try-resource'),
+    re_path(r"^apis/try/(?P<api>[^\/\s]*)/(?P<group>[^\/\s]*)/"
+            r"(?P<version>[^\/\s]*)/(?P<name>[^\/\s]*)/$",
+            views.TryResource.as_view(),
+            name='try-resource'),
 
-    urls.url(r'^apis/export/(?P<fmt>\w+)$',
-             views.ExportManifest.as_view(),
-             name='export-manifest'),
+    re_path(r'^apis/export/(?P<fmt>\w+)$',
+            views.ExportManifest.as_view(),
+            name='export-manifest'),
 
-    urls.url(r'^api/(?P<api>[^\/\s]*)/groups/$',
-             views.APIGroups.as_view(),
-             name='list-groups-ajax'),
-    urls.url(r'^api/(?P<api>[^\/\s]*)/groups/(?P<group>[^\/\s]*)/versions/$',
-             views.GroupVersions.as_view(),
-             name='list-group-versions-ajax'),
-    urls.url(r'^api/(?P<api>[^\/\s]*)/definitions/$',
-             views.Definitions.as_view(),
-             name='list-definitions-ajax'),
-    urls.url(r'^api/(?P<api>[^\/\s]*)/operations/$',
-             views.Operations.as_view(),
-             name='list-operations-ajax'),
+    re_path(r'^api/(?P<api>[^\/\s]*)/groups/$',
+            views.APIGroups.as_view(),
+            name='list-groups-ajax'),
+    re_path(r'^api/(?P<api>[^\/\s]*)/groups/(?P<group>[^\/\s]*)/versions/$',
+            views.GroupVersions.as_view(),
+            name='list-group-versions-ajax'),
+    re_path(r'^api/(?P<api>[^\/\s]*)/definitions/$',
+            views.Definitions.as_view(),
+            name='list-definitions-ajax'),
+    re_path(r'^api/(?P<api>[^\/\s]*)/operations/$',
+            views.Operations.as_view(),
+            name='list-operations-ajax'),
 
-    urls.url(
+    re_path(
         r'^Denied/$',
         generic.TemplateView.as_view(template_name='core/denied.html'),
         name='denied')
