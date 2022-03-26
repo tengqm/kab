@@ -24,25 +24,25 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 # setup ssl for nginx
 # ENV SSL_DIR /etc/nginx/ssl
 # RUN mkdir -p $SSL_DIR
-# ADD manifests/nginx/cert.conf $SSL_DIR
+# COPY manifests/nginx/cert.conf $SSL_DIR
 # RUN openssl req -x509 -nodes -days 730 -newkey rsa:2048 \
 #         -keyout $SSL_DIR/server.key \
 #         -out $SSL_DIR/server.crt \
 #         -config $SSL_DIR/cert.conf \
 #         -extensions 'v3_req'
 # 
-# ADD manifests/nginx/nginx.conf /etc/nginx/nginx.conf
-# ADD manifests/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+# COPY manifests/nginx/nginx.conf /etc/nginx/nginx.conf
+# COPY manifests/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 ENV KAB_ROOT /app
-
 ENV KAB_LOG_DIR $KAB_ROOT/log
+
 RUN mkdir -p $KAB_ROOT && \
     mkdir -p $KAB_LOG_DIR
 
 # NOTE: The following ADD contents are sorted by change frequency
 COPY kab/LICENSE kab/manage.py $KAB_ROOT/
-ADD kab/dist $KAB_ROOT/dist
+COPY kab/dist $KAB_ROOT/dist
 
 RUN mkdir -p $KAB_ROOT/data && \
     mkdir -p $KAB_ROOT/data/1.16 && \
@@ -54,14 +54,14 @@ RUN mkdir -p $KAB_ROOT/data && \
     mkdir -p $KAB_ROOT/data/1.22 && \
     mkdir -p $KAB_ROOT/data/1.23
 
-ADD kubernetes/1.16 $KAB_ROOT/data/1.16
-ADD kubernetes/1.17 $KAB_ROOT/data/1.17
-ADD kubernetes/1.18 $KAB_ROOT/data/1.18
-ADD kubernetes/1.19 $KAB_ROOT/data/1.19
-ADD kubernetes/1.20 $KAB_ROOT/data/1.20
-ADD kubernetes/1.21 $KAB_ROOT/data/1.21
-ADD kubernetes/1.22 $KAB_ROOT/data/1.22
-ADD kubernetes/1.23 $KAB_ROOT/data/1.23
+COPY kubernetes/1.16 $KAB_ROOT/data/1.16
+COPY kubernetes/1.17 $KAB_ROOT/data/1.17
+COPY kubernetes/1.18 $KAB_ROOT/data/1.18
+COPY kubernetes/1.19 $KAB_ROOT/data/1.19
+COPY kubernetes/1.20 $KAB_ROOT/data/1.20
+COPY kubernetes/1.21 $KAB_ROOT/data/1.21
+COPY kubernetes/1.22 $KAB_ROOT/data/1.22
+COPY kubernetes/1.23 $KAB_ROOT/data/1.23
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
