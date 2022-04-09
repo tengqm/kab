@@ -348,8 +348,8 @@ def sort(value):
 
 @register.simple_tag()
 def rich_diff(v1, v2):
-    LOG.info(str(v1))
-    LOG.info(str(v2))
+    # LOG.info(str(v1))
+    # LOG.info(str(v2))
     t1 = markdown_html(str(v1))
     t2 = markdown_html(str(v2))
     d = helpers.compare_text(t1, t2)
