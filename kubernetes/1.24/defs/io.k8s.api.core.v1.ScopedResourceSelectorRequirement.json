@@ -1,0 +1,40 @@
+{
+  "description": "A selector that contains `values`, a `scopeName`, and an `operator` that relates the `scopeName` and `values`.",
+  "properties": {
+    "operator": {
+      "description": "Represents a scope's relationship to a set of values. Valid operators are `\"In\"`, `\"NotIn\"`, `\"Exists\"`, `\"DoesNotExist\"`. When scope is one of `\"Terminating\"`, `\"NotTerminating\"`, `\"BestEffort\"`, `\"NotBestEffort\"`, the operator can only be `\"Exists\"`.",
+      "enum": [
+        "DoesNotExist",
+        "Exists",
+        "In",
+        "NotIn"
+      ],
+      "type": "string"
+    },
+    "scopeName": {
+      "description": "The name of the scope that the selector applies to.\n\nPossible enum values:\n\n- `\"BestEffort\"` matches all Pod objects that have best effort quality of service.\n- `\"CrossNamespacePodAffinity\"` matches all Pod objects that have cross-namespace Pod (anti)affinity mentioned. This is a Beta feature enabled by the `PodAffinityNamespaceSelector` feature gate.\n- `\"NotBestEffort\"` matches all Pod objects that do not have best effort quality of service.\n- `\"NotTerminating\"` matches all Pod objects where `spec.activeDeadlineSeconds` is null.\n- `\"PriorityClass\"` matches all Pod objects that have priority class mentioned.\n- `\"Terminating\"` matches all Pod objects where `spec.activeDeadlineSeconds >=0`.",
+      "enum": [
+        "BestEffort",
+        "CrossNamespacePodAffinity",
+        "NotBestEffort",
+        "NotTerminating",
+        "PriorityClass",
+        "Terminating"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "values": {
+      "description": "An array of string values. If the operator is `\"In\"` or `\"NotIn\"`, the values array must be non-empty. If the operator is `\"Exists\"` or `\"DoesNotExist\"`, the values array must be empty. This array is replaced during a strategic merge patch.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "operator",
+    "scopeName"
+  ],
+  "type": "object"
+}

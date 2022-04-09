@@ -1,0 +1,24 @@
+{
+  "description": "ClusterCIDRConfigSpec defines the desired state of a ClusterCIDRConfig object.",
+  "properties": {
+    "ipv4CIDR": {
+      "description": "This defines an IPv4 IP block in CIDR notation (e.g. \"10.0.0.0/8\"). This field is immutable. One of `ipv4CIDR` and `ipv6CIDR` must be specified.",
+      "type": "string"
+    },
+    "ipv6CIDR": {
+      "description": "This defines an IPv6 IP block in CIDR notation (e.g. \"fd12:3456:789a:1::/64\"). This field is immutable. One of `ipv4CIDR` and `ipv6CIDR` must be specified.",
+      "type": "string"
+    },
+    "nodeSelector": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector",
+      "description": "This defines which nodes the config is applicable to. An empty or nil `nodeSelector` functions as a default that applies to all nodes. This field is immutable."
+    },
+    "perNodeHostBits": {
+      "description": "This defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of \"192.168.0.0/24\", splits the address into 24 bits for the network portion and 8 bits for the host portion. For a \"/24\" mask for IPv4 or a \"/120\" for IPv6, configure `perNodeHostBits=8`. This field is immutable.",
+      "format": "int32",
+      "minimum": 4,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,59 @@
+{
+  "description": "This describes how the job execution will look like and when it will actually run.",
+  "properties": {
+    "concurrencyPolicy": {
+      "default": "Allow",
+      "description": "Specifies how to treat concurrent executions of a Job. Possible enum values:\n\n- `\"Allow\"` allows CronJobs to run concurrently.\n- `\"Forbid\"` forbids concurrent runs, skipping next run if previous hasn't finished yet.\n- `\"Replace\"` cancels currently running Job and replaces it with a new one.",
+      "enum": [
+        "Allow",
+        "Forbid",
+        "Replace"
+      ],
+      "type": "string"
+    },
+    "failedJobsHistoryLimit": {
+      "default": 1,
+      "description": "The number of failed finished Jobs to retain. This is a pointer to distinguish between explicit zero and not specified.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "jobTemplate": {
+      "$ref": "#/definitions/io.k8s.api.batch.v1.JobTemplateSpec",
+      "description": "Specifies the Job that will be created when executing a CronJob."
+    },
+    "schedule": {
+      "description": "The schedule in Cron format, see [Cron Syntax](https://en.wikipedia.org/wiki/Cron).",
+      "minLength": 1,
+      "type": "string"
+    },
+    "startingDeadlineSeconds": {
+      "description": "Optional deadline in seconds for starting the Job if it misses scheduled time for any reason. Missed Jobs executions will be counted as failed ones.",
+      "format": "int64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "successfulJobsHistoryLimit": {
+      "default": 3,
+      "description": "The number of successful finished Jobs to retain. This is a pointer to distinguish between explicit zero and not specified.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "suspend": {
+      "default": false,
+      "description": "This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.",
+      "type": "boolean"
+    },
+    "timeZone": {
+      "description": "The time zone for the given schedule, see [time zone list on wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not specified, this will rely on the time zone of the kube-controller-manager process. This field, when specified, cannot be empty string. The time zone value cannot be \"`Local`\". When the value is \"`UTC`\", the UTC time zone is used. This field is in Alpha and must be enabled via the `CronJobTimeZone` feature gate.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "jobTemplate",
+    "schedule"
+  ],
+  "type": "object"
+}

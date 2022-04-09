@@ -1,0 +1,40 @@
+{
+  "description": "Service is a named abstraction of software service consisting of local port that the proxy listens on, and the selector that determines which Pods will answer requests sent through the proxy.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Service"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. The service name must be valid DNS label. The annotation `\"service.beta.kubernetes.io/load-balancer-source-ranges\"` can be set to specify the Ingress range allowed when Service `type` is `\"LoadBalancer\"`. The annotation value should be a comma separated list of CIDRs. Default value is `\"0.0.0.0/0\"` which allows full access. Not all cloud-providers support this annotation."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ServiceSpec",
+      "description": "Spec defines the behavior of the Service."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "Service",
+      "version": "v1"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "description": "An Azure data disk mounted on the node and bind mount to the Pod.",
+  "properties": {
+    "cachingMode": {
+      "description": "Host caching mode.",
+      "enum": [
+        "None",
+        "ReadOnly",
+        "ReadWrite"
+      ],
+      "type": "string"
+    },
+    "diskName": {
+      "description": "The name of the data disk in the blob storage.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "diskURI": {
+      "description": "The URI of the data disk in the blob storage. ",
+      "minLength": 1,
+      "type": "string"
+    },
+    "fsType": {
+      "default": "ext4",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. For example, `\"ext4\"`, `\"xfs\"`, `\"ntfs\"`.",
+      "type": "string"
+    },
+    "kind": {
+      "default": "Shared",
+      "description": "Expected values are:\n\n- `\"Shared\"`: multiple blob disks per storage account\n- `\"Dedicated\"`: single blob disk per storage account\n- `\"Managed\"`: Azure managed data disk (only in managed availability set).\n\nThe `diskURI` is of format `\"/subscriptions/<ID>/resourcegroups/<NAME>/providers/microsoft.compute/disks/<DISK-ID>\"` for managed disk. For other kinds, the `diskURI` should look like `\"https://<ACCOUNT>.blob.core.windows.net/<CONTAINER>/<DISK>.vhd\"`.",
+      "enum": [
+        "Dedicated",
+        "Managed",
+        "Shared"
+      ],
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the `readOnly` setting in `volumeMounts`.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "diskName",
+    "diskURI"
+  ],
+  "type": "object"
+}

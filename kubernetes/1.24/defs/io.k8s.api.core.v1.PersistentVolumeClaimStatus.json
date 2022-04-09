@@ -1,0 +1,54 @@
+{
+  "description": "The current status of a PersistentVolumeClaim.",
+  "properties": {
+    "accessModes": {
+      "description": "The actual access modes of the volume backing the PVC.",
+      "items": {
+        "enum": [
+          "ReadOnlyMany",
+          "ReadWriteMany",
+          "ReadWriteOnce"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "allocatedResources": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The storage resource within `allocatedResources` tracks the capacity allocated to a PVC. It may be larger than the actual `capacity` when a volume expansion operation is requested. For storage quota, the larger value from `allocatedResources` and `PVC.spec.resources` is used. If `allocatedResources` is not set, `PVC.spec.resources` alone is used for quota calculation. If a volume expansion capacity request is lowered, `allocatedResources` is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an Alpha field and requires enabling the `RecoverVolumeExpansionFailure` feature.",
+      "type": "object"
+    },
+    "capacity": {
+      "additionalProperties": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity"
+      },
+      "description": "The actual resource capacity of the underlying volume.",
+      "type": "object"
+    },
+    "conditions": {
+      "description": "Current condition of the PVC. If the underlying PV is being resized then the `condition` will be set to `\"ResizeStarted\"`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "phase": {
+      "description": "The current phase of PersistentVolumeClaim.\n\n- `\"Bound\"`: The PVC is already bound;\n- `\"Pending\"`: The PVC is not yet bound;\n- `\"Lost\"`: The PVC has lost its underlying PersistentVolume. The claim was bound to a PersistentVolume and the volume does not exist any longer and all data on it was lost.",
+      "enum": [
+        "Bound",
+        "Lost",
+        "Pending"
+      ],
+      "type": "string"
+    },
+    "resizeStatus": {
+      "description": "The status of resize operation. `resizeStatus` is not set by default but when expansion is complete; `resizeStatus` is set to empty string by resize controller or kubelet. This is an Alpha field and requires enabling the `RecoverVolumeExpansionFailure` feature.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

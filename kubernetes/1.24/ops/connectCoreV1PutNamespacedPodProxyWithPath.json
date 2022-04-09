@@ -1,0 +1,63 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "send PUT requests to proxy of Pod",
+  "operationId": "connectCoreV1PutNamespacedPodProxyWithPath",
+  "parameters": [
+    {
+      "description": "name of the Pod",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "description": "path to the resource",
+      "in": "path",
+      "name": "path",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "description": "Path is the URL path to use for the current proxy request to pod.",
+      "in": "query",
+      "name": "path",
+      "type": "string",
+      "uniqueItems": true
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy/{path}",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "put",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PodProxyOptions",
+    "version": "v1"
+  }
+}

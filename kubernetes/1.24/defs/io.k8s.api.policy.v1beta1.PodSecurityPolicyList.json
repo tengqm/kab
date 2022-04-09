@@ -1,0 +1,44 @@
+{
+  "description": "A list of PodSecurityPolicy objects. DEPRECATED in 1.21.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "policy/v1beta1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of schema objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.policy.v1beta1.PodSecurityPolicy.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodSecurityPolicyList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "items",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "policy",
+      "kind": "PodSecurityPolicyList",
+      "version": "v1beta1"
+    }
+  ]
+}

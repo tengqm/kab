@@ -1,0 +1,40 @@
+{
+  "description": "How to spread matching Pods among the given topology.",
+  "properties": {
+    "labelSelector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "Label selector used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain."
+    },
+    "maxSkew": {
+      "default": 1,
+      "description": "The degree to which Pods may be unevenly distributed. When `whenUnsatisfiable=\"DoNotSchedule\"`, it is the maximum permitted difference between the number of matching Pods in the target topology and the global minimum. The global minimum is the minimum number of matching Pods in an eligible domain or zero if the number of eligible domains is less than `minDomains`. For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as '2/2/1'. In this case, the global minimum is 1.\n\n```\n+-------+--------+--------+\n| zone1 | zone2 | zone3 |\n+------+------+------+\n|   PP  |  PP   |   P   |\n+-------+--------+--------+\n```\n\n- If `maxSkew` is 1, incoming Pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the actual skew (3-1) on zone1(zone2) violate `maxSkew(1)`.\n- If `maxSkew` is 2, incoming Pod can be scheduled onto any zone.\n\nWhen `whenUnsatisfiable=\"ScheduleAnyway\"`, it is used to give higher precedence to topologies that satisfy it.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "minDomains": {
+      "description": "This indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than `minDomains`, Pod topology ppread treats \"global minimum\" as 0, and then the calculation of `skew` is performed. And when the number of eligible domains with matching topology keys equals or greater than `minDomains`, this value has no effect on scheduling. As a result, when the number of eligible domains is less than `minDomains`, scheduler won't schedule more than `maxSkew` Pods to those domains. If value is nil, the constraint behaves as if `minDomains` is equal to 1. Valid values are integers greater than 0. When value is not nil, `whenUnsatisfiable` must be \"DoNotSchedule\".\n\nFor example, in a 3-zone cluster, `maxSkew` is set to 2, `minDomains` is set to 5 and Pods with the same labelSelector spread as 2/2/2:\n\n```\n+-------+--------+--------+\n|  zone1  |  zone2  |  zone3  |\n|   P P   |   P P  |   P P  |\n```\n\nThe number of domains is less than 5 (`minDomains`), so \"global minimum\" is treated as 0. In this situation, new Pod with the same `labelSelector` cannot be scheduled, because computed skew will be 3 (3 - 0) if a new Pod is scheduled to any of the three zones, it will violate `maxSkew`.\n\nThis is an Alpha field and requires enabling the `MinDomainsInPodTopologySpread` feature gate.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "topologyKey": {
+      "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology.",
+      "type": "string"
+    },
+    "whenUnsatisfiable": {
+      "default": "DoNotSchedule",
+      "description": "This indicates how to deal with a Pod if it doesn't satisfy the spread constraint.\n\n- `\"DoNotSchedule\"` (default) tells the scheduler not to schedule it.\n- `\"ScheduleAnyway\"` tells the scheduler to schedule the Pod in any location, but giving higher precedence to topologies that would help reduce the skew.\n\nA constraint is considered \"Unsatisfiable\" for an incoming Pod if and only if every possible node assigment for that Pod would violate `maxSkew` on some topology. For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as 3/1/1:\n\n```\n+-------+--------+--------+\n| zone1 | zone2 | zone3 |\n| P P P |   P   |   P   |\n+-------+--------+--------+\n```\n\n If `whenUnsatisfiable` is set to `\"DoNotSchedule\"`, incoming Pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as actual skew (2-1) on zone2(zone3) satisfies `maxSkew` (1). In other words, the cluster can still be imbalanced, but scheduler won't make it **more** imbalanced.\n\nPossible enum values:\n\n- `\"DoNotSchedule\"` instructs the scheduler not to schedule the Pod when constraints are not satisfied.\n- `\"ScheduleAnyway\"` instructs the scheduler to schedule the Pod even if constraints are not satisfied.",
+      "enum": [
+        "DoNotSchedule",
+        "ScheduleAnyway"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "maxSkew",
+    "topologyKey",
+    "whenUnsatisfiable"
+  ],
+  "type": "object"
+}

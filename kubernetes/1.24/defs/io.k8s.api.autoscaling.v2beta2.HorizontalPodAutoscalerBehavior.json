@@ -1,0 +1,14 @@
+{
+  "description": "Configuration of the scaling behavior of the target in both up and down directions.",
+  "properties": {
+    "scaleDown": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HPAScalingRules",
+      "description": "The scaling policy for scaling down. If not set, the default value is to allow to scale down to `minReplicas` Pods, with a 300 second stabilization window."
+    },
+    "scaleUp": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta2.HPAScalingRules",
+      "description": "The scaling policy for scaling Up. If not set, the default value is the higher of:\n\n1. increase no more than 4 Pods per 60 seconds;\n1. double the number of Pods per 60 seconds.\n\nNo stabilization is used."
+    }
+  },
+  "type": "object"
+}
