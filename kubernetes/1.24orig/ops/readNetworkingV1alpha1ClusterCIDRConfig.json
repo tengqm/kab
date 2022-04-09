@@ -1,0 +1,50 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified ClusterCIDRConfig",
+  "operationId": "readNetworkingV1alpha1ClusterCIDRConfig",
+  "parameters": [
+    {
+      "description": "name of the ClusterCIDRConfig",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/networking.k8s.io/v1alpha1/clustercidrconfigs/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRConfig"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "networking_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "networking.k8s.io",
+    "kind": "ClusterCIDRConfig",
+    "version": "v1alpha1"
+  }
+}
