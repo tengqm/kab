@@ -4435,78 +4435,6 @@
         ]
       }
     },
-    "ClusterCIDRConfig.CREATE": {
-      "1.24": [
-        {
-          "group": "networking",
-          "id": "io.k8s.api.networking.v1alpha1.ClusterCIDRConfig.CREATE",
-          "version": "v1alpha1"
-        }
-      ]
-    },
-    "ClusterCIDRConfig.GET": {
-      "1.24": [
-        {
-          "group": "networking",
-          "id": "io.k8s.api.networking.v1alpha1.ClusterCIDRConfig.GET",
-          "version": "v1alpha1"
-        }
-      ],
-      "appearsIn": {
-        "1.24": [
-          "ClusterCIDRConfigList"
-        ]
-      }
-    },
-    "ClusterCIDRConfig.UPDATE": {
-      "1.24": [
-        {
-          "group": "networking",
-          "id": "io.k8s.api.networking.v1alpha1.ClusterCIDRConfig.UPDATE",
-          "version": "v1alpha1"
-        }
-      ]
-    },
-    "ClusterCIDRConfigList": {
-      "1.24": [
-        {
-          "group": "networking",
-          "id": "io.k8s.api.networking.v1alpha1.ClusterCIDRConfigList",
-          "version": "v1alpha1"
-        }
-      ]
-    },
-    "ClusterCIDRConfigSpec": {
-      "1.24": [
-        {
-          "group": "networking",
-          "id": "io.k8s.api.networking.v1alpha1.ClusterCIDRConfigSpec",
-          "version": "v1alpha1"
-        }
-      ],
-      "appearsIn": {
-        "1.24": [
-          "ClusterCIDRConfig.CREATE",
-          "ClusterCIDRConfig.GET",
-          "ClusterCIDRConfig.UPDATE"
-        ]
-      }
-    },
-    "ClusterCIDRConfigStatus": {
-      "1.24": [
-        {
-          "group": "networking",
-          "id": "io.k8s.api.networking.v1alpha1.ClusterCIDRConfigStatus",
-          "version": "v1alpha1"
-        }
-      ],
-      "appearsIn": {
-        "1.24": [
-          "ClusterCIDRConfig.GET",
-          "ClusterCIDRConfig.UPDATE"
-        ]
-      }
-    },
     "ClusterRole.CREATE": {
       "1.18": [
         {
@@ -22555,7 +22483,6 @@
           "CSINodeList",
           "CSIStorageCapacityList",
           "CertificateSigningRequestList",
-          "ClusterCIDRConfigList",
           "ClusterRoleBindingList",
           "ClusterRoleList",
           "ComponentStatusList",
@@ -26263,7 +26190,6 @@
           "VolumeNodeAffinity"
         ],
         "1.24": [
-          "ClusterCIDRConfigSpec",
           "NodeAffinity",
           "VolumeNodeAffinity"
         ]
@@ -27470,7 +27396,6 @@
           "CSINode.UPDATE",
           "CSIStorageCapacity.CREATE",
           "CertificateSigningRequest.CREATE",
-          "ClusterCIDRConfig.CREATE",
           "ClusterRole.CREATE",
           "ClusterRoleBinding.CREATE",
           "ClusterRoleBinding.GET",
@@ -27952,7 +27877,6 @@
           "CSINode.GET",
           "CSIStorageCapacity.GET",
           "CertificateSigningRequest.GET",
-          "ClusterCIDRConfig.GET",
           "ClusterRole.GET",
           "ComponentStatus",
           "ConfigMap.GET",
@@ -28380,7 +28304,6 @@
           "CSIDriver.UPDATE",
           "CSIStorageCapacity.UPDATE",
           "CertificateSigningRequest.UPDATE",
-          "ClusterCIDRConfig.UPDATE",
           "ClusterRole.UPDATE",
           "ClusterRoleBinding.UPDATE",
           "ConfigMap.UPDATE",
@@ -51293,15 +51216,11 @@
         "v1"
       ],
       "1.24": [
-        "v1",
-        "v1alpha1"
+        "v1"
       ],
       "operations": {
         "v1": {
           "readgroup": "getNetworkingAPIGroup"
-        },
-        "v1alpha1": {
-          "listresources": "getNetworkingV1alpha1APIResources"
         },
         "v1beta1": {
           "listresources": "getNetworkingV1beta1APIResources"
@@ -53342,16 +53261,6 @@
         "1.21",
         "1.22",
         "1.23",
-        "1.24"
-      ]
-    },
-    "createNetworkingV1alpha1ClusterCIDRConfig": {
-      "description": "create a ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "create",
-      "target": "ClusterCIDRConfig",
-      "type": "resource",
-      "versions": [
         "1.24"
       ]
     },
@@ -55506,26 +55415,6 @@
         "1.24"
       ]
     },
-    "deleteNetworkingV1alpha1ClusterCIDRConfig": {
-      "description": "delete a ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "delete",
-      "target": "ClusterCIDRConfig",
-      "type": "resource",
-      "versions": [
-        "1.24"
-      ]
-    },
-    "deleteNetworkingV1alpha1CollectionClusterCIDRConfig": {
-      "description": "delete collection of ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "deletecollection",
-      "target": "ClusterCIDRConfig",
-      "type": "resource",
-      "versions": [
-        "1.24"
-      ]
-    },
     "deleteNetworkingV1beta1CollectionIngressClass": {
       "description": "delete collection of IngressClass",
       "group_version": "networking/v1beta1",
@@ -57329,16 +57218,6 @@
         "1.24"
       ]
     },
-    "getNetworkingV1alpha1APIResources": {
-      "description": "get available resources",
-      "group_version": "networking/v1alpha1",
-      "op_type": "listresources",
-      "target": "Networking",
-      "type": "group",
-      "versions": [
-        "1.24"
-      ]
-    },
     "getNetworkingV1beta1APIResources": {
       "description": "get available resources",
       "group_version": "networking/v1beta1",
@@ -59058,16 +58937,6 @@
         "1.21",
         "1.22",
         "1.23",
-        "1.24"
-      ]
-    },
-    "listNetworkingV1alpha1ClusterCIDRConfig": {
-      "description": "list or watch objects of kind ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "list",
-      "target": "ClusterCIDRConfig",
-      "type": "resource",
-      "versions": [
         "1.24"
       ]
     },
@@ -61231,16 +61100,6 @@
         "1.24"
       ]
     },
-    "patchNetworkingV1alpha1ClusterCIDRConfig": {
-      "description": "partially update the specified ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "patch",
-      "target": "ClusterCIDRConfig",
-      "type": "resource",
-      "versions": [
-        "1.24"
-      ]
-    },
     "patchNetworkingV1beta1IngressClass": {
       "description": "partially update the specified IngressClass",
       "group_version": "networking/v1beta1",
@@ -63267,16 +63126,6 @@
       "group_version": "networking/v1",
       "op_type": "getstatus",
       "target": "NetworkPolicy",
-      "type": "resource",
-      "versions": [
-        "1.24"
-      ]
-    },
-    "readNetworkingV1alpha1ClusterCIDRConfig": {
-      "description": "read the specified ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "get",
-      "target": "ClusterCIDRConfig",
       "type": "resource",
       "versions": [
         "1.24"
@@ -65316,16 +65165,6 @@
       "group_version": "networking/v1",
       "op_type": "updatestatus",
       "target": "NetworkPolicy",
-      "type": "resource",
-      "versions": [
-        "1.24"
-      ]
-    },
-    "replaceNetworkingV1alpha1ClusterCIDRConfig": {
-      "description": "replace the specified ClusterCIDRConfig",
-      "group_version": "networking/v1alpha1",
-      "op_type": "update",
-      "target": "ClusterCIDRConfig",
       "type": "resource",
       "versions": [
         "1.24"
@@ -70497,31 +70336,6 @@
         ],
         "1.24": [
           "v1"
-        ]
-      }
-    },
-    {
-      "definitions": {
-        "create": "ClusterCIDRConfig.CREATE",
-        "get": "ClusterCIDRConfig.GET",
-        "update": "ClusterCIDRConfig.UPDATE"
-      },
-      "group": "networking",
-      "name": "ClusterCIDRConfig",
-      "operations": {
-        "v1alpha1": {
-          "create": "createNetworkingV1alpha1ClusterCIDRConfig",
-          "delete": "deleteNetworkingV1alpha1ClusterCIDRConfig",
-          "deletecollection": "deleteNetworkingV1alpha1CollectionClusterCIDRConfig",
-          "get": "readNetworkingV1alpha1ClusterCIDRConfig",
-          "list": "listNetworkingV1alpha1ClusterCIDRConfig",
-          "patch": "patchNetworkingV1alpha1ClusterCIDRConfig",
-          "update": "replaceNetworkingV1alpha1ClusterCIDRConfig"
-        }
-      },
-      "versions": {
-        "1.24": [
-          "v1alpha1"
         ]
       }
     }
