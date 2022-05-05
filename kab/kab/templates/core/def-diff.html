@@ -88,7 +88,7 @@
                     <td colspan="2"><var>{{ K }}</var></td>
                   </tr>
                   <tr>
-                    <td>&nbsp;</td><td>{% rich_diff V.BEFORE V.AFTER %}</td>
+                    <td>&nbsp;</td><td>{{ V|safe }}</td>
                   </tr>
                 {% endfor %}
               {% endfor %}
