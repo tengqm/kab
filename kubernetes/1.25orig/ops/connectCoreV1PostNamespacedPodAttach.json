@@ -1,0 +1,48 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "connect POST requests to attach of Pod",
+  "operationId": "connectCoreV1PostNamespacedPodAttach",
+  "parameters": [
+    {
+      "description": "name of the PodAttachOptions",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/attach",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PodAttachOptions",
+    "version": "v1"
+  }
+}

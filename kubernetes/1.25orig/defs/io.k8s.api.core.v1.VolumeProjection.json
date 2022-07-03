@@ -1,0 +1,22 @@
+{
+  "description": "Projection that may be projected along with other supported volume types",
+  "properties": {
+    "configMap": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapProjection",
+      "description": "configMap information about the configMap data to project"
+    },
+    "downwardAPI": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIProjection",
+      "description": "downwardAPI information about the downwardAPI data to project"
+    },
+    "secret": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretProjection",
+      "description": "secret information about the secret data to project"
+    },
+    "serviceAccountToken": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ServiceAccountTokenProjection",
+      "description": "serviceAccountToken is information about the serviceAccountToken data to project"
+    }
+  },
+  "type": "object"
+}
