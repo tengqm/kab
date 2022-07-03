@@ -23,7 +23,7 @@
       "description": "Specifies the Job that will be created when executing a CronJob."
     },
     "schedule": {
-      "description": "The schedule in Cron format, see [Cron Syntax](https://en.wikipedia.org/wiki/Cron).",
+      "description": "The schedule in Cron format, see [Cron Syntax](https://en.wikipedia.org/wiki/Cron). This field cannot have \"`TZ`\" in it when `timeZone` is specified.",
       "minLength": 1,
       "type": "string"
     },
@@ -46,7 +46,7 @@
       "type": "boolean"
     },
     "timeZone": {
-      "description": "The time zone for the given schedule, see [time zone list on wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not specified, this will rely on the time zone of the kube-controller-manager process. This field, when specified, cannot be empty string. The time zone value cannot be \"`Local`\". When the value is \"`UTC`\", the UTC time zone is used. This field is in Alpha and must be enabled via the `CronJobTimeZone` feature gate.",
+      "description": "The time zone for the given schedule, see [time zone list on wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not specified, this will rely on the time zone of the kube-controller-manager process. This field, when specified, cannot be empty string. It cannot be specified when the `schedule` field contains \"`TZ`\". The time zone value cannot be \"`Local`\". When the value is \"`UTC`\", the UTC time zone is used.\n\nThis field is in Alpha and must be enabled via the `CronJobTimeZone` feature gate.",
       "minLength": 1,
       "type": "string"
     }
