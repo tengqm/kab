@@ -1,0 +1,15 @@
+{
+  "description": "Hints describing how an Endpoint should be consumed.",
+  "properties": {
+    "forZones": {
+      "description": "This indicates the zone(s) this Endpoint should be consumed by to enable topology-aware routing. Zone names must be unique among all items.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.ForZone"
+      },
+      "maxItems": 8,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    }
+  },
+  "type": "object"
+}

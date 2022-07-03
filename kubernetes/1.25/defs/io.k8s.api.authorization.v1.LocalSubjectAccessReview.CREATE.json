@@ -1,0 +1,40 @@
+{
+  "description": "LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "authorization.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "LocalSubjectAccessReview"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. Only the `namespace` field is allowed for a `LocalSubjectAccessReview` object."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReviewSpec",
+      "description": "Information about the request being evaluated. The `namespace` of the `spec.resourceAttributes` must be equal to the namespace you made the request against, i.e. the `metadata.namespace`. If empty, it is defaulted. The `spec.resourceAttributes` must be empty for a `LocalSubjectAccessReview` object."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "authorization.k8s.io",
+      "kind": "LocalSubjectAccessReview",
+      "version": "v1"
+    }
+  ]
+}

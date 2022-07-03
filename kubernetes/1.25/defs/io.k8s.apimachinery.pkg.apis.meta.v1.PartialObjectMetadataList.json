@@ -1,0 +1,31 @@
+{
+  "description": "PartialObjectMetadataList contains a list of objects containing only their metadata.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "meta.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of partial object metadata",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.PartialObjectMetadata"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PartialObjectMetadataList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "type": "object"
+}

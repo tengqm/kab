@@ -1,0 +1,23 @@
+{
+  "description": "The current value of a metric describing a kubernetes object.",
+  "properties": {
+    "current": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2.MetricValueStatus",
+      "description": "The current value for the given `metric`"
+    },
+    "describedObject": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2.CrossVersionObjectReference",
+      "description": "The reference to an object."
+    },
+    "metric": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2.MetricIdentifier",
+      "description": "The target metric by name and selector"
+    }
+  },
+  "required": [
+    "current",
+    "describedObject",
+    "metric"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,68 @@
+{
+  "description": "The current state of a DaemonSet.",
+  "properties": {
+    "collisionCount": {
+      "description": "The count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest `ControllerRevision`.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "conditions": {
+      "description": "The latest observations of the DaemonSet's state.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetCondition"
+      },
+      "type": "array",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    },
+    "currentNumberScheduled": {
+      "description": "The number of nodes that are running at least 1 daemon Pod and are supposed to run the daemon Pod.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "desiredNumberScheduled": {
+      "description": "The total number of nodes that should be running the daemon Pod (including nodes correctly running the daemon Pod).",
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberAvailable": {
+      "description": "The number of nodes that should be running the daemon Pod and have one or more of the daemon Pod running and available (ready for at least `spec.minReadySeconds`)",
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberMisscheduled": {
+      "description": "The number of nodes that are running the daemon Pod, but are not supposed to run the daemon Pod.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberReady": {
+      "description": "The number of nodes that should be running the daemon Pod and have one or more of the daemon Pod running with a Ready condition.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "numberUnavailable": {
+      "description": "The number of nodes that should be running the daemon Pod and have none of the daemon Pod running and available (ready for at least `spec.minReadySeconds`)",
+      "format": "int32",
+      "type": "integer"
+    },
+    "observedGeneration": {
+      "description": "The most recent generation observed by the DaemonSet controller.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "updatedNumberScheduled": {
+      "description": "The total number of nodes that are running updated daemon Pod",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "currentNumberScheduled",
+    "desiredNumberScheduled",
+    "numberMisscheduled",
+    "numberReady"
+  ],
+  "type": "object"
+}

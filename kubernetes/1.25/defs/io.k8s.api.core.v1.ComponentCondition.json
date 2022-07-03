@@ -1,0 +1,36 @@
+{
+  "description": "Information about the condition of a component.",
+  "properties": {
+    "error": {
+      "description": "Condition error code for a component. For example, a health check error code.",
+      "type": "string"
+    },
+    "message": {
+      "description": "Message about the condition for a component. For example, information about a health check.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition for a component.",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "default": "Healthy",
+      "description": "Type of condition for a component.",
+      "enum": [
+        "Healthy"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "type"
+  ],
+  "type": "object"
+}

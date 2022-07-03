@@ -1,0 +1,41 @@
+{
+  "description": "APIService represents a server for a particular GroupVersion.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "apiregistration.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "APIService"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. The `name` must be `<spec.version>.<spec.group>`."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec",
+      "description": "Information for locating and communicating with a server"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "apiregistration.k8s.io",
+      "kind": "APIService",
+      "version": "v1beta1"
+    }
+  ]
+}

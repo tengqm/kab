@@ -1,0 +1,35 @@
+{
+  "description": "A selector that contains `values`, a `key`, and an `operator` that relates the `key` and `values`.",
+  "properties": {
+    "key": {
+      "description": "The label key or the field that the selector applies to. This string must be a qualified name, i.e. consist of alphanumeric characters, `'-'`, `'_'`, or `'.'`, and must start and end with an alphanumeric character. It can have domain name prefix like `\"<domain>/\"`, where `<domain>` must be a valid DNS subdomain name. The name part can be no more than 63 characters. When this struct is used to select nodes based on their fields, the currently supported key is `\"metadata.name\"`.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "operator": {
+      "description": "Represents a key's relationship to a set of values. When this struct is used to select nodes based on their labels, valid operators are `\"In\"`, `\"NotIn\"`, `\"Exists\"`, `\"DoesNotExist\"`. `\"Gt\"`, and `\"Lt\"`. When this struct is used to select nodes based on fields, valid operators are `\"In\"` and `\"NotIn\"`.",
+      "enum": [
+        "DoesNotExist",
+        "Exists",
+        "Gt",
+        "In",
+        "Lt",
+        "NotIn"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "values": {
+      "description": "An array of string values.\n\n- If the `operator` is `\"In\"` or `\"NotIn\"`, the `values` array must be non-empty.\n- If the `operator` is `\"Exists\"` or `\"DoesNotExist\"`, the `values` array must be empty.\n- If the operator is `\"Gt\"` or `\"Lt\"`, the `values` array must have a single element, which will be interpreted as an integer.\n\nThis array is replaced during a strategic merge patch.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "key",
+    "operator"
+  ],
+  "type": "object"
+}

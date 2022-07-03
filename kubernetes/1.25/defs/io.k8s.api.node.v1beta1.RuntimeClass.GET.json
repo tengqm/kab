@@ -1,0 +1,50 @@
+{
+  "description": "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the Pod spec. The Kubelet is responsible for resolving the `name` reference before running the Pod.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "node.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "handler": {
+      "description": "The underlying runtime and configuration that the CRI implementation will use to handle Pods of this class. The possible values are specific to the node & CRI configuration. It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called `\"runc\"` might specify that the `runc` OCI runtime (using native Linux containers) will be used to run the containers in a Pod. The `handler` must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "RuntimeClass"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
+    },
+    "overhead": {
+      "$ref": "#/definitions/io.k8s.api.node.v1beta1.Overhead",
+      "description": "The resource overhead associated with running a Pod for a given RuntimeClass."
+    },
+    "scheduling": {
+      "$ref": "#/definitions/io.k8s.api.node.v1beta1.Scheduling",
+      "description": "The scheduling constraints to ensure that Pods running with this RuntimeClass are scheduled to nodes that support it. If `scheduling` is nil, this RuntimeClass is assumed to be supported by all nodes."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "handler",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "node.k8s.io",
+      "kind": "RuntimeClass",
+      "version": "v1beta1"
+    }
+  ]
+}

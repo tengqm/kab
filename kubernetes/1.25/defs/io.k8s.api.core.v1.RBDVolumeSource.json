@@ -1,0 +1,52 @@
+{
+  "description": "Represents a Rados Block Device (RBD) mount that lasts the lifetime of a Pod. RBD volumes support ownership management and SELinux relabeling.",
+  "properties": {
+    "fsType": {
+      "default": "ext4",
+      "description": "Filesystem type of the volume that you want to mount. The filesystem type must be supported by the host operating system. Implicitly inferred to be `\"ext4\"` if unspecified.",
+      "type": "string"
+    },
+    "image": {
+      "description": "The rados image name",
+      "minLength": 1,
+      "type": "string"
+    },
+    "keyring": {
+      "default": "/etc/ceph/keyring",
+      "description": "Keyring is the path to key ring for RBDUser.",
+      "type": "string"
+    },
+    "monitors": {
+      "description": "A collection of Ceph monitors.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "pool": {
+      "default": "rbd",
+      "description": "The rados pool name.",
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the `readOnly` setting in `volumeMounts`.",
+      "type": "boolean"
+    },
+    "secretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+      "description": "Name of the authentication Secret for RBDUser. If provided overrides `keyring`."
+    },
+    "user": {
+      "default": "admin",
+      "description": "The rados user name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "image",
+    "monitors"
+  ],
+  "type": "object"
+}

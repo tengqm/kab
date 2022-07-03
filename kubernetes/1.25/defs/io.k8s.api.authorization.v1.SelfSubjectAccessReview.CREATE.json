@@ -1,0 +1,40 @@
+{
+  "description": "SelfSubjectAccessReview checks whether or the current user can perform an action. Not filling in a `spec.namespace` means *in all namespaces*. Self is a special case, because users should always be able to check whether they can perform an action",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "authorization.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "SelfSubjectAccessReview"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. For `SelfSubjectAccessReview`, this must be empty."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReviewSpec",
+      "description": "Information about the request being evaluated."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "authorization.k8s.io",
+      "kind": "SelfSubjectAccessReview",
+      "version": "v1"
+    }
+  ]
+}

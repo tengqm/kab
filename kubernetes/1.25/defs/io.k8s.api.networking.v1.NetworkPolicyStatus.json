@@ -1,0 +1,19 @@
+{
+  "description": "NetworkPolicyStatus describe the current state of the NetworkPolicy.",
+  "properties": {
+    "conditions": {
+      "description": "Conditions holds an array of `metav1.Condition` that describe the state of the NetworkPolicy. For NetworkPolicy, the `type of the conditions can be:\n\n- \"Accepted\": The NetworkPolicy can be properly parsed by the provider and will be implemented in the cluster.\n- \"PartialFailure\": The NetworkPolicy can be partially parsed by the provider and may not be completely implemented due to a lack of a feature or some other condition.\n- \"Failure\": The NetworkPolicy cannot be parsed by the provider and will not be implemented in the cluster.\n",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition"
+      },
+      "type": "array",
+      "x-kubernetes-list-map-keys": [
+        "type"
+      ],
+      "x-kubernetes-list-type": "map",
+      "x-kubernetes-patch-merge-key": "type",
+      "x-kubernetes-patch-strategy": "merge"
+    }
+  },
+  "type": "object"
+}

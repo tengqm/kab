@@ -1,0 +1,71 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create an EndpointSlice",
+  "operationId": "createDiscoveryV1beta1NamespacedEndpointSlice",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.CREATE"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/apis/discovery.k8s.io/v1beta1/namespaces/{namespace}/endpointslices",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1beta1.EndpointSlice.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "discovery_v1beta1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "discovery.k8s.io",
+    "kind": "EndpointSlice",
+    "version": "v1beta1"
+  }
+}

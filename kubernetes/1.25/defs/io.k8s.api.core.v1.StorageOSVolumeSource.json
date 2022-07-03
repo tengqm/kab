@@ -1,0 +1,31 @@
+{
+  "description": "A StorageOS persistent volume resource.",
+  "properties": {
+    "fsType": {
+      "default": "ext4",
+      "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Implicitly inferred to be `\"ext4\"` if unspecified.",
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Defaults to `false` (read/write). `readOnly` here will force the `readOnly` setting in `volumeMounts`.",
+      "type": "boolean"
+    },
+    "secretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+      "description": "The Secret to use for obtaining the StorageOS API credentials. If not specified, default values will be attempted. When specified, the `name` cannot be empty."
+    },
+    "volumeName": {
+      "description": "The human-readable name of the StorageOS volume. Volume names are only unique within a namespace and must be a valid DNS label.",
+      "type": "string"
+    },
+    "volumeNamespace": {
+      "description": "The scope of the volume within StorageOS. If no namespace is specified then the Pod's namespace will be used. This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set `volumeName` to any name to override the default behaviour. Set to `\"default\"` if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created. The string, if specified, must be a valid DNS label.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "volumeName"
+  ],
+  "type": "object"
+}

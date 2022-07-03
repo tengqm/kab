@@ -1,0 +1,13 @@
+{
+  "description": "A source of Node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is DEPRECATED since 1.22.",
+  "properties": {
+    "configMap": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapNodeConfigSource",
+      "description": "A description about the reference to a Node's ConfigMap"
+    }
+  },
+  "required": [
+    "configMap"
+  ],
+  "type": "object"
+}

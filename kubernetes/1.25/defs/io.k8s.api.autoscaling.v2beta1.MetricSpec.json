@@ -1,0 +1,41 @@
+{
+  "description": "This specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).",
+  "properties": {
+    "containerResource": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ContainerResourceMetricSource",
+      "description": "Container resource refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing a single container in each Pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source. This is an Alpha feature and can be enabled by the `HPAContainerMetrics` feature gate."
+    },
+    "external": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ExternalMetricSource",
+      "description": "Reference to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information from outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster)."
+    },
+    "object": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ObjectMetricSource",
+      "description": "Reference to a metric describing a single Kubernetes object (for example, `\"hits-per-second\"` on an Ingress object)."
+    },
+    "pods": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.PodsMetricSource",
+      "description": "Reference to a metric describing each Pod in the current scale target (for example, `\"transactions-processed-per-second\"`). The values will be averaged together before being compared to the target value."
+    },
+    "resource": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2beta1.ResourceMetricSource",
+      "description": "Reference to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory). Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source."
+    },
+    "type": {
+      "description": "The type of metric source. It should be one of `\"ContainerResource\"`, `\"External\"`, `\"Object\"`, `\"Pods\"` or `\"Resource\"`, each mapping to a matching field in the object. Note: `\"ContainerResource\"` type is available only when the feature gate `HPAContainerMetrics` is enabled.",
+      "enum": [
+        "ContainerResource",
+        "External",
+        "Object",
+        "Pods",
+        "Resource"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+}

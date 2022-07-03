@@ -1,0 +1,19 @@
+{
+  "description": "A reference to a Kubernetes Service as an Ingress backend.",
+  "properties": {
+    "name": {
+      "description": "Name of the referenced Service. The Service must exist in the same namespace as the Ingress object. The string must be a valid DNS label.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "port": {
+      "$ref": "#/definitions/io.k8s.api.networking.v1.ServiceBackendPort",
+      "description": "Port of the referenced Service. A port name or port number is required."
+    }
+  },
+  "required": [
+    "name",
+    "port"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,107 @@
+{
+  "description": "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time. Event consumers should not rely on the timing of an event with a given `reason` reflecting a consistent underlying trigger, or the continued existence of events with that `reason`. Events should be treated as informative, best-effort, supplemental data.",
+  "properties": {
+    "action": {
+      "description": "What action was taken/failed regarding to the `regarding` object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.",
+      "maxLength": 128,
+      "type": "string"
+    },
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "events.k8s.io/v1beta1"
+      ],
+      "type": "string"
+    },
+    "deprecatedCount": {
+      "description": "*DEPRECATED* field assuring backward compatibility with `\"core.v1\"` Event type",
+      "format": "int32",
+      "type": "integer"
+    },
+    "deprecatedFirstTimestamp": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "*DEPRECATED* field assuring backward compatibility with `\"core.v1\"` Event type"
+    },
+    "deprecatedLastTimestamp": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "*DEPRECATED* field assuring backward compatibility with `\"core.v1\"` Event type"
+    },
+    "deprecatedSource": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.EventSource",
+      "description": "*DEPRECATED* field assuring backward compatibility with `\"core.v1\"` Event type"
+    },
+    "eventTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime",
+      "description": "The time when this Event was first observed."
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Event"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object's metadata"
+    },
+    "note": {
+      "description": "A human-readable description of the status of this operation. Maximum length of the note is 1 kB, but libraries should be prepared to handle values up to 64kB.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "Why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.",
+      "maxLength": 128,
+      "type": "string"
+    },
+    "regarding": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "The object this Event is about. In most cases it's an object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object."
+    },
+    "related": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "The optional secondary object for more complex actions. E.g. when the `regarding` object triggers a creation or deletion of the `related` object."
+    },
+    "reportingController": {
+      "description": "The name of the controller that emitted this Event, e.g. `\"kubernetes.io/kubelet\"`. This field cannot be empty for new Events.",
+      "type": "string"
+    },
+    "reportingInstance": {
+      "description": "The ID of the controller instance, e.g. `\"kubelet-xyzf\"`. This field cannot be empty for new Events and it can have at most 128 characters.",
+      "maxLength": 128,
+      "type": "string"
+    },
+    "series": {
+      "$ref": "#/definitions/io.k8s.api.events.v1beta1.EventSeries",
+      "description": "Data about the Event series this Event represents or nil if it's a singleton Event."
+    },
+    "type": {
+      "description": "The type of this event (`\"Normal\"`, `\"Warning\"`), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.",
+      "enum": [
+        "Normal",
+        "Warning"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "action",
+    "apiVersion",
+    "eventTime",
+    "kind",
+    "metadata",
+    "reason",
+    "regarding",
+    "reportingController",
+    "reportingInstance",
+    "type"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "events.k8s.io",
+      "kind": "Event",
+      "version": "v1beta1"
+    }
+  ]
+}

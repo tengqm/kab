@@ -1,0 +1,66 @@
+{
+  "description": "An ISCSI disk. ISCSI volumes can only be mounted as `\"ReadWriteOnce\"`. ISCSI volumes support ownership management and SELinux relabeling.",
+  "properties": {
+    "chapAuthDiscovery": {
+      "description": "This indicates whether the volume supports iSCSI Discovery CHAP authentication",
+      "type": "boolean"
+    },
+    "chapAuthSession": {
+      "description": "This indicates whether the volume supports iSCSI Session CHAP authentication",
+      "type": "boolean"
+    },
+    "fsType": {
+      "default": "ext4",
+      "description": "Filesystem type of the volume that you want to mount. The filesystem type must be supported by the host operating system.",
+      "type": "string"
+    },
+    "initiatorName": {
+      "description": "Custom iSCSI Initiator Name. If `initiatorName` is specified with `iscsiInterface` simultaneously, new iSCSI interface `\"<volume name>:<target portal>\"` will be created for the connection. The length of the interface string cannot exceed 64 characters.",
+      "type": "string"
+    },
+    "iqn": {
+      "description": "Target iSCSI Qualified Name (IQN). The name must have prefix `\"iqn\"` or `\"eui\"` or `\"naa\"`.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "iscsiInterface": {
+      "default": "default",
+      "description": "The iSCSI Interface that uses an iSCSI transport. Default value `\"default\"`' means TCP.",
+      "type": "string"
+    },
+    "lun": {
+      "description": "The target LUN number.",
+      "format": "int32",
+      "maximum": 255,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "portals": {
+      "description": "The target portal list. The portal is either an IP or `\"<ip_addr>:<port>\"` if the port is other than default (typically TCP ports 860 and 3260).",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the the volume to be mounted in ready-only mode.",
+      "type": "boolean"
+    },
+    "secretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
+      "description": "CHAP Secret for iSCSI target and initiator authentication. If `chapAuthSession` or `chapAuthDiscovery` is specified, this field cannot be empty."
+    },
+    "targetPortal": {
+      "description": "iSCSI target portal. The portal is either an IP or `\"<ip_addr>:<port>\"` if the port is other than default (typically TCP ports 860 and 3260).",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "iqn",
+    "lun",
+    "targetPortal"
+  ],
+  "type": "object"
+}

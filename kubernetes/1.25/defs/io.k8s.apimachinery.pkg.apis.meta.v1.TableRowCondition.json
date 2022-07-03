@@ -1,0 +1,34 @@
+{
+  "description": "TableRowCondition allows a row to be marked with additional information.",
+  "properties": {
+    "message": {
+      "description": "Human readable message indicating details about last transition.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "A (brief) machine readable reason for the condition's last transition.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition.",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of row condition.  The only defined value is `\"Completed\"` indicating that the object this row represents has reached a completed state and may be given less visual priority than other rows. Clients are not required to honor any conditions but should be consistent where possible about handling the conditions.",
+      "enum": [
+        "Completed"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "type"
+  ],
+  "type": "object"
+}
