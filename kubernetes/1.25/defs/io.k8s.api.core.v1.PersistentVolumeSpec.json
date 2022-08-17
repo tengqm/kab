@@ -44,7 +44,8 @@
     },
     "claimRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-      "description": "Part of a bi-directional binding between a `PersistentVolume` and a `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative binding between a PV and a PVC. This cannot be specified for inline volumes."
+      "description": "Part of a bi-directional binding between a `PersistentVolume` and a `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative binding between a PV and a PVC. This cannot be specified for inline volumes.",
+      "x-kubernetes-map-type": "granular"
     },
     "csi": {
       "$ref": "#/definitions/io.k8s.api.core.v1.CSIPersistentVolumeSource",

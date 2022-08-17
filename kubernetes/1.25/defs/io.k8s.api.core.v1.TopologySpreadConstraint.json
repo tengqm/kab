@@ -5,6 +5,14 @@
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
       "description": "Label selector used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain."
     },
+    "matchLabelKeys": {
+      "description": "This is a set of Pod label keys to select the Pods over which spreading will be calculated. The keys are used to lookup values from the incoming Pod labels, those key-value labels are AND'ed with `labelSelector` to select the group of existing Pods over which spreading will be calculated for the incoming Pod. Keys that don't exist in the incoming Pod labels will be ignored. A null or empty list means only match against `labelSelector`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
     "maxSkew": {
       "default": 1,
       "description": "The degree to which Pods may be unevenly distributed. When `whenUnsatisfiable=\"DoNotSchedule\"`, it is the maximum permitted difference between the number of matching Pods in the target topology and the global minimum. The global minimum is the minimum number of matching Pods in an eligible domain or zero if the number of eligible domains is less than `minDomains`. For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as '2/2/1'. In this case, the global minimum is 1.\n\n```\n+-------+--------+--------+\n| zone1 | zone2 | zone3 |\n+------+------+------+\n|   PP  |  PP   |   P   |\n+-------+--------+--------+\n```\n\n- If `maxSkew` is 1, incoming Pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the actual skew (3-1) on zone1(zone2) violate `maxSkew(1)`.\n- If `maxSkew` is 2, incoming Pod can be scheduled onto any zone.\n\nWhen `whenUnsatisfiable=\"ScheduleAnyway\"`, it is used to give higher precedence to topologies that satisfy it.",

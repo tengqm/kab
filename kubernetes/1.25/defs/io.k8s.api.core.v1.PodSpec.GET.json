@@ -46,7 +46,7 @@
       "type": "boolean"
     },
     "ephemeralContainers": {
-      "description": "List of ephemeral containers to run in this Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod spec. In order to add an ephemeral container to an existing Pod, use the Pod's `ephemeralcontainers` subresource. This field is Beta-level and is available on clusters that haven't disabled the `EphemeralContainers` feature gate.",
+      "description": "List of ephemeral containers to run in this Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod spec. In order to add an ephemeral container to an existing Pod, use the Pod's `ephemeralcontainers` subresource.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
       },
@@ -76,6 +76,11 @@
     "hostPID": {
       "default": false,
       "description": "Use the host's PID namespace.",
+      "type": "boolean"
+    },
+    "hostUsers": {
+      "default": true,
+      "description": "Use the host's user namespace. If set to true or not present, the Pod will be run in the host user namespace, useful when the Pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the Pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is Alpha-level and is only honored by servers that enable the `UserNamespacesSupport` feature.",
       "type": "boolean"
     },
     "hostname": {
@@ -114,7 +119,7 @@
     },
     "os": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodOS",
-      "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n"
+      "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", the following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.hostUser`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n"
     },
     "overhead": {
       "additionalProperties": {
