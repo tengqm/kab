@@ -25,8 +25,16 @@
       "format": "int32",
       "type": "integer"
     },
+    "nodeAffinityPolicy": {
+      "description": "This indicates how we will treat Pod's `nodeAffinity`/`nodeSelector` when calculating Pod topology spread skew. Options are:\n\n- `Honor`: only nodes matching `nodeAffinity`/`nodeSelector` are included in the calculations.\n- `Ignore`: `nodeAffinity`/`nodeSelector` are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the `Honor` policy. This is a Alpha feature enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
+      "type": "string"
+    },
+    "nodeTaintsPolicy": {
+      "description": "This indicates how we will treat node taints when calculating pod topology spread skew. Options are:\n\n- `Honor`: nodes without taints, along with tainted nodes for which the incoming Pod has a toleration, are included.\n- `Ignore`: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the `Ignore` policy. This is a Alpha feature enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
+      "type": "string"
+    },
     "topologyKey": {
-      "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology.",
+      "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of `nodeAffinityPolicy` and `nodeTaintsPolicy. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology. This is a required field.",
       "type": "string"
     },
     "whenUnsatisfiable": {

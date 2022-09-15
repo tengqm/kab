@@ -3,7 +3,7 @@
   "properties": {
     "controllerExpandSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume()` call. This is an Alpha field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed. When specified, both `name` and `namespace` field should be specified as valid DNS_LABEL strings."
+      "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume()` call. This is an Beta field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed. When specified, both `name` and `namespace` field should be specified as valid DNS_LABEL strings."
     },
     "controllerPublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
@@ -18,6 +18,10 @@
     "fsType": {
       "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. For example: `\"ext4\"`, `\"xfs\"`, `\"ntfs\"`.",
       "type": "string"
+    },
+    "nodeExpandSecretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
+      "description": "nodeExpandSecretRef is a reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodeExpandVolume` call. This is an Alpha field and requires enabling the `CSINodeExpandSecret` feature gate. This field is optional, may be omitted if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed."
     },
     "nodePublishSecretRef": {
       "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",

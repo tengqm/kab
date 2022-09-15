@@ -8,10 +8,6 @@
       "description": "An unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
       "type": "object"
     },
-    "clusterName": {
-      "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now.",
-      "type": "string"
-    },
     "creationTimestamp": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
       "description": "A timestamp representing the server time when this object was created. It is not guaranteed to be set in \"happens-before\" order across separate operations. It is represented in RFC3339 form and is in UTC. It is populated by the system, read-only. Null for lists."
