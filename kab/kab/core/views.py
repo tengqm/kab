@@ -122,11 +122,7 @@ class DownloadSpec(generic.View):
             result = json.dumps(obj, indent=2)
         elif fmt == "yaml":
             content_type = "application/yaml"
-            yml = yaml.YAML()
-            yml.default_flow_style = False
-            dumper = helpers.NullStream()
-            yml.dump(obj, dumper)
-            result = dumper.buf
+            result = yaml.dump(obj)
         else:
             raise exc.SuspiciousOperation("Unsupported format '%s'" % fmt)
 
@@ -669,7 +665,7 @@ class ExportManifest(generic.View):
             data = ""
 
         try:
-            obj = yaml.load(data)
+            obj = yaml.load(data, Loader=yaml.Loader)
         except Exception:
             raise exc.SuspiciousOperation("Data is not valid YAML")
 
@@ -679,11 +675,7 @@ class ExportManifest(generic.View):
             result = json.dumps(obj, indent=2)
         elif fmt == "yaml":
             content_type = "application/yaml"
-            yml = yaml.YAML()
-            yml.default_flow_style = False
-            dumper = helpers.NullStream()
-            yml.dump(obj, dumper)
-            result = dumper.buf
+            result = yaml.dump(obj)
         else:
             raise exc.SuspiciousOperation("Unsupported format '%s'" % fmt)
 
