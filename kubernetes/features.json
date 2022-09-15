@@ -291,7 +291,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.16",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enable CSI Inline volumes support for Pods."
         },
@@ -304,7 +307,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.17",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enables shims and translation logic to route volume operations from in-tree plugins to corresponding pre-installed CSI plugins"
         },
@@ -322,7 +328,10 @@
             "Beta1": {
                 "default": true,
                 "from": "1.23",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enables shims and translation logic to route volume operations from the AWS-EBS in-tree plugin to EBS CSI plugin. Supports falling back to in-tree EBS plugin if a node does not have EBS CSI plugin installed and configured. Requires `CSIMigration` feature flag enabled."
         },
@@ -351,7 +360,7 @@
             "Beta1": {
                 "default": true,
                 "from": "1.23",
-                "to": null
+                "to": "1.23"
             },
             "GA": {
                 "from": "1.24"
@@ -362,10 +371,10 @@
             "Alpha": {
                 "default": false,
                 "from": "1.17",
-                "to": "1.21"
+                "to": "1.20"
             },
             "Deprecated": {
-                "from": "1.22"
+                "from": "1.21"
             },
             "description": "Stops registering the Azure-Disk in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-Disk in-tree plugin to AzureDisk CSI plugin. Requires CSIMigration and CSIMigrationAzureDisk feature flags enabled and AzureDisk CSI plugin installed and configured on all nodes in the cluster."
         },
@@ -391,10 +400,10 @@
             "Alpha": {
                 "default": false,
                 "from": "1.17",
-                "to": "1.21"
+                "to": "1.20"
             },
             "Deprecated": {
-                "from": "1.22"
+                "from": "1.21"
             },
             "description": "Stops registering the Azure-File in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Azure-File in-tree plugin to AzureFile CSI plugin. Requires CSIMigration and CSIMigrationAzureFile feature flags  enabled and AzureFile CSI plugin installed and configured on all nodes in the cluster."
         },
@@ -412,7 +421,10 @@
             "Beta1": {
                 "default": true,
                 "from": "1.23",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling back to in-tree GCE plugin if a node does not have PD CSI plugin installed and configured. Requires the `CSIMigration` feature flag enabled."
         },
@@ -458,6 +470,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.23",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.25",
                 "to": null
             },
             "description": "Stops registering the Portworx in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the Portworx in-tree plugin to its CSI plugin. Requires CSIMigration and CSIMigrationPortworx feature flags enabled and Portworx CSI plugin installed and configured on all nodes in the cluster."
@@ -471,9 +488,19 @@
             "description": "Stops registering the RBD in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the RBD in-tree plugin to its CSI plugin. Requires CSIMigration and CSIMigrationRBD feature flags enabled and RBD CSI plugin installed and configured on all nodes in the cluster."
         },
         "CSIMigrationvSphere": {
+            "Alpha": {
+                "default": false,
+                "from": "1.18",
+                "to": "1.18"
+            },
             "Beta": {
                 "default": false,
                 "from": "1.19",
+                "to": "1.24"
+            },
+            "Beta1": {
+                "default": true,
+                "from": "1.25",
                 "to": null
             },
             "description": "Enables shims and translation logic to route volume operations from the vSphere in-tree plugin to vSphere CSI plugin.  Supports falling back to in-tree vSphere plugin if a node does not have vSphere CSI plugin installed and configured. Requires `CSIMigration` feature flag enabled."
@@ -488,6 +515,14 @@
                 "from": "1.22"
             },
             "description": "Stops registering the vSphere in-tree plugin in kubelet and volume controllers and enables shims and translation logic to route volume operations from the vSphere in-tree plugin to vSphere CSI plugin. Requires CSIMigration and CSIMigrationvSphere feature flags enabled and vSphere CSI plugin installed and configured on all nodes in the cluster."
+        },
+        "CSINodeExpandSecret": {
+            "Alpha": {
+                "default": false,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Enable passing secret authentication data to a CSI driver for use during a `NodeExpandVolume` CSI operation."
         },
         "CSINodeInfo": {
             "Alpha": {
@@ -562,7 +597,7 @@
             "Beta": {
                 "default": true,
                 "from": "1.20",
-                "to": null
+                "to": "1.22"
             },
             "GA": {
                 "from": "1.23"
@@ -644,6 +679,19 @@
             },
             "description": "Use an alternative implementation of the CronJob controller. Otherwise, version 1 of the same controller is selected.  The version 2 controller provides experimental performance improvements."
         },
+        "CronJobTimeZone": {
+            "Alpha": {
+                "default": false,
+                "from": "1.24",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Allow the use of the `timeZone` optional field in CronJobs"
+        },
         "CustomCPUCFSQuotaPeriod": {
             "Alpha": {
                 "default": false,
@@ -651,14 +699,6 @@
                 "to": null
             },
             "description": "Enable nodes to change `cpuCFSQuotaPeriod` in kubelet config file."
-        },
-        "CustomJobTimeZone": {
-            "Alpha": {
-                "default":  false,
-                "from": "1.24",
-                "to": null
-            },
-            "description": ""
         },
         "CustomPodDNS": {
             "Alpha": {
@@ -744,6 +784,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.23",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.25",
                 "to": null
             },
             "description": "Enable expression language validation in CRD which will validate customer resource based on validation rules written in `x-kubernetes-validations` extension."
@@ -773,7 +818,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.22",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enables the DaemonSet workloads to maintain availability during update per node"
         },
@@ -1035,7 +1083,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.23",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enable the ability to add ephemeral containers to running Pods."
         },
@@ -1302,11 +1353,19 @@
             "Beta": {
                 "default": true,
                 "from": "1.24",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Allows the Pod OS field to be specified. This helps in identifying the OS of the pod authoritatively during the API server admission time. In Kubernetes 1.23, the allowed values for the `pod.spec.os.name` are `windows` and `linux`."
         },
         "ImmutableEphemeralVolumes": {
+            "Alpha": {
+                "default": true,
+                "from": "1.18",
+                "to": "1.18"
+            },
             "Beta": {
                 "default": true,
                 "from": "1.19",
@@ -1432,6 +1491,14 @@
             },
             "description": "Allows updating node scheduling directives in the Pod template of a Job."
         },
+        "JobPodFailurePolicy": {
+            "ALpha": {
+                "default": false,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Allow users to specify handling of pod failures based on container exit codes and pod conditions."
+        },
         "JobReadyPods": {
             "Alpha": {
                 "default": false,
@@ -1454,7 +1521,12 @@
             "Beta": {
                 "default": true,
                 "from": "1.23",
-                "to": null
+                "to": "1.23"
+            },
+            "Beta1": {
+                "default": false,
+                "from": "1.23",
+                "to": "1.23"
             },
             "description": "Enables tracking Job completions without relying on Pods remaining in the cluster indefinitely.  The Job controller uses Pod finalizers and a field in the Job status to keep track of the finished Pods to count towards completion."
         },
@@ -1532,6 +1604,14 @@
             },
             "description": "Enable the kubelet's pod resources `GetAllocatableResources` functionality. With informations about the allocatable resources, clients can properly track the free compute resources on a node."
         },
+        "KubeletTracing": {
+            "Alpha": {
+                "default": false,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Add support for distributed tracing in the kubelet. When enabled, kubelet CRI interface and authenticated http servers are instrumented to generate OpenTelemetry trace spans."
+        },
         "LegacyNodeRoleBehavior": {
             "Alpha": {
                 "default": false,
@@ -1565,7 +1645,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.10",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enable the consumption of local ephemeral storage and also the `sizeLimit` property of an emptyDir volume."
         },
@@ -1589,6 +1672,14 @@
                 "to": null
             },
             "description": "Enable semi-random selection of pods to evict on controller scaledown based on logarithmic bucketing of pod timestamps."
+        },
+        "MatchLabelKeysInPodTopologySpread": {
+            "Alpha": {
+                "default": false,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Enable the `matchLabelKeys` field for Pod topology spread constraints."
         },
         "MaxUnavailableStatefulSet": {
             "Alpha": {
@@ -1623,6 +1714,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.24",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.25",
                 "to": null
             },
             "description": "Enable `minDomains` in Pod topology spread constraints."
@@ -1687,7 +1783,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.22",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enable use of the field `endPort` in NetworkPolicy objects, allowing the selection of a port range instead of a single port."
         },
@@ -1714,6 +1813,14 @@
                 "from": "1.21"
             },
             "description": "Enable use of the Node label `node.kubernetes.io/exclude-disruption` which prevents nodes from being evacuated during zone failures."
+        },
+        "NodeInclusionPolicyInPodTopologySpread": {
+            "Alpha": {
+                "default": false,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Enable using `nodeAffinityPolicy` and `nodeTaintsPolicy` in Pod topology spread constraints when calculating pod topology spread skew."
         },
         "NodeLease": {
             "Alpha": {
@@ -1869,6 +1976,14 @@
             },
             "description": "Enable the [PodDisruptionBudget](https://k8s.io/docs/tasks/run-application/configure-pdb/) feature."
         },
+        "PodHasNetworkCondition": {
+            "Alpha": {
+                "default": false,
+                "from": "1.25",
+                "to": null
+            },
+            "description": "Enable the kubelet to mark the [PodHasNetwork](https://k8s.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on Pods."
+        },
         "PodOverhead": {
             "Alpha": {
                 "default": false,
@@ -1971,7 +2086,10 @@
             "Beta": {
                 "default": false,
                 "from": "1.22",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Enable [setting probe-level `terminationGracePeriodSeconds`](https://k8s.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationGracePeriodSeconds) on Pods."
         },
@@ -2185,6 +2303,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.22",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.25",
                 "to": null
             },
             "description": "Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads. The seccomp profile is specified in the `securityContext` of a Pod and/or a Container."
@@ -2225,6 +2348,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.23",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.25",
                 "to": null
             },
             "description": "Enable server-side resource field validation."
@@ -2278,6 +2406,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.24",
+                "to": "1.24"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.25",
                 "to": null
             },
             "description": "Enables a strategy for Services ClusterIP allocations, whereby the ClusterIP range is subdivided. Dynamic allocated ClusterIP addresses will be allocated preferently from the upper range allowing users to assign static ClusterIPs from the lower range with a low risk of collision."
@@ -2419,7 +2552,10 @@
             "Beta": {
                 "default": true,
                 "from": "1.23",
-                "to": null
+                "to": "1.24"
+            },
+            "GA": {
+                "from": "1.25"
             },
             "description": "Allows `minReadySeconds` to be respected by the StatefulSet controller."
         },
@@ -2638,8 +2774,10 @@
                 "from": "1.23",
                 "to": "1.23"
             },
-            "GA": {
-                "from": "1.24"
+            "Beta1": {
+                "default": true,
+                "from": "1.24",
+                "to": null
             },
             "description": "Enables topology aware routing based on topology hints in EndpointSlices. See [Topology Aware Hints](https://k8s.io/docs/concepts/services-networking/topology-aware-hints/) for more details."
         },
