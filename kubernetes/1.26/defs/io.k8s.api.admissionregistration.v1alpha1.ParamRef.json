@@ -1,0 +1,20 @@
+{
+  "description": "ParamRef references a parameter resource",
+  "properties": {
+    "name": {
+      "description": "Name of the resource being referenced. The string must be a valid path segment, which means the path cannot be \"..\" or \".\", and it cannot contain \"/\" or \"%\".",
+      "minLength": 1,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "Namespace of the referenced resource. Should be empty for the cluster-scoped resources",
+      "minLength": 0,
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
+}

@@ -1,0 +1,21 @@
+{
+  "description": "ParamKind is a tuple of resource kind and API version.",
+  "properties": {
+    "apiVersion": {
+      "description": "`apiVersion` is the API group version the resources belong to. In format of \"group/version\". The \"group\" part, if not empty, must be a valid DNS subdomain name. The \"version\" part cannot be empty string and it must be a valid DNS label name.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "kind": {
+      "description": "`kind` is the API kind the resources belong to. The string must be a valid DNS label name.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
+}

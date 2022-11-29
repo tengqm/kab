@@ -1,0 +1,41 @@
+{
+  "description": "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "admissionregistration.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ValidatingAdmissionPolicyBinding"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+      "description": "Standard object metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec",
+      "description": "Specification of the desired behavior of the ValidatingAdmissionPolicyBinding."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "admissionregistration.k8s.io",
+      "kind": "ValidatingAdmissionPolicyBinding",
+      "version": "v1alpha1"
+    }
+  ]
+}
