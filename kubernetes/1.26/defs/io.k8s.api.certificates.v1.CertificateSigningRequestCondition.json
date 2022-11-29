@@ -1,0 +1,44 @@
+{
+  "description": "CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object",
+  "properties": {
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time."
+    },
+    "lastUpdateTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Timestamp of the last update to this condition"
+    },
+    "message": {
+      "description": "Human readable message with details about the request state",
+      "type": "string"
+    },
+    "reason": {
+      "description": "Brief reason for the request state",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition, one of \"`True`\", \"`False`\", \"`Unknown`\". `Approved`, `Denied`, and `Failed` conditions may not be \"False\" or \"Unknown\".",
+      "enum": [
+          "False",
+          "True",
+          "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "description": "Request approval state.\n\nPossible enum values:\n\n- `\"Approved\"` indicates the request was approved and should be issued by the signer. It is added via the `/approval` subresource.\n- `\"Denied\"` indicates the request was denied and should not be issued by the signer. It is added via the `/approval` subresource.\n- `\"Failed\"` indicates the signer failed to issue the certificate. It is added via the `/status` subresource.\n\n`Approved` and `Denied` conditions are mutually exclusive. `Approved`, `Denied`, and `Failed` conditions cannot be removed once added.\n\nOnly one condition of a given type is allowed.",
+      "enum": [
+        "Approved",
+        "Denied",
+        "Failed"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+}

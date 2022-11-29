@@ -1,0 +1,38 @@
+{
+  "description": "The specification of a horizontal Pod autoscaler (HPA).",
+  "properties": {
+    "behavior": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2.HorizontalPodAutoscalerBehavior",
+      "description": "The scaling behavior configuration of the target in both up and down directions (`scaleUp` and `scaleDown` fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used."
+    },
+    "maxReplicas": {
+      "description": "Upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less than `minReplicas`.",
+      "format": "int32",
+      "minimum": 1,
+      "type": "integer"
+    },
+    "metrics": {
+      "description": "The specifications to use for calculating the desired replica count. The maximum value across all metrics will be used. The desired replica count is calculated by multiplying the ratio between the target value and the current value by the current number of Pods. Ergo, metrics used must decrease as the Pod count is increased, and vice-versa. See the individual metric source types for more information about how each `type` of metric must respond. If not set, the default metrics will be set to `80%` average CPU utilization.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.autoscaling.v2.MetricSpec"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "minReplicas": {
+      "default": 1,
+      "description": "The lower limit for the number of replicas to which the autoscaler can scale down. `minReplicas` is allowed to be 0 if the alpha feature gate `HPAScaleToZero` is enabled and at least one `\"Object\"` or `\"External\"` metric is configured. Scaling is active as long as at least one metric value is available.",
+      "format": "int32",
+      "type": "integer"
+    },
+    "scaleTargetRef": {
+      "$ref": "#/definitions/io.k8s.api.autoscaling.v2.CrossVersionObjectReference",
+      "description": "This points to the target resource to scale, and is used to identify the Pods for which metrics should be collected, as well as to actually change the replica count."
+    }
+  },
+  "required": [
+    "maxReplicas",
+    "scaleTargetRef"
+  ],
+  "type": "object"
+}

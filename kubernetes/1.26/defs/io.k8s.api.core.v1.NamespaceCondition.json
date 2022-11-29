@@ -1,0 +1,42 @@
+{
+  "description": "Details about the state of the Namespace.",
+  "properties": {
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transitioned from one status to another."
+    },
+    "message": {
+      "description": "A human readable message indicating details about the transition.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "The reason for the condition's last transition.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of Namespace controller condition.\n\n- `\"NamespaceDeletionDiscoveryFailure\"` contains information about Namespace deleter errors during resource discovery.\n- `\"NamespaceDeletionContentFailure\"` contains information about Namespace deleter errors during deletion of resoruces.\n- `\"NamespaceDeletionGroupVersionParsingFailure\"` containers information about Namespace deleter errors parsing group-version for legacy types.\n- `\"NamespaceContentRemaning\"` contains information about resources remaining in a Namespace.\n- `\"NamespaceFinalizersRemaining\"` contains information about which finalizers are on resources remaining in a Namespace.\n",
+      "enum": [
+        "NamespaceContentRemaning",
+        "NamespaceDeletionContentFailure",
+        "NamespaceDeletionDiscoveryFailure",
+        "NamespaceDeletionGroupVersionParsingFailure",
+        "NamespaceFinalizersRemaining"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "type"
+  ],
+  "type": "object"
+}

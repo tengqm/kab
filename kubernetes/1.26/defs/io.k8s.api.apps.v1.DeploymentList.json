@@ -1,0 +1,44 @@
+{
+  "description": "A list of Deployment objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "apps/v1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of Deployment objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.apps.v1.Deployment.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "DeploymentList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "items",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "apps",
+      "kind": "DeploymentList",
+      "version": "v1"
+    }
+  ]
+}

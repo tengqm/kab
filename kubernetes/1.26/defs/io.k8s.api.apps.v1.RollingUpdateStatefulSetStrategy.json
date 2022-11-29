@@ -1,0 +1,17 @@
+{
+  "description": "Spec to control the desired behavior of rolling update for a StatefulSet.",
+  "properties": {
+    "maxUnavailable": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+      "description": "The maximum number of Pods that can be unavailable during the update. Value can be an absolute number (ex: `5`) or a percentage of desired pods (ex: `10%`). Absolute number is calculated from percentage by rounding up. This can not be 0. When specified as percentage, the value cannot be greater than 100%. Defaults to `1`. This field is Alpha-level and is only honored by servers that enable the `MaxUnavailableStatefulSet` feature. The field applies to all Pods in the range `0` to `replicas-1`. That means if there is any unavailable Pod in the range `0` to `replicas-1`, it will be counted towards `maxUnavailable`."
+    },
+    "partition": {
+      "default": 0,
+      "description": "The ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all Pods from ordinal `replicas-1` to `partition` are updated. All Pods from ordinal `partition-1` to `0` remain untouched. This is helpful in being able to do a canary based deployment.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "type": "object"
+}

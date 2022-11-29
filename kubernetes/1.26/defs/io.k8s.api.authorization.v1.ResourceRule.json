@@ -1,0 +1,37 @@
+{
+  "description": "The list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.",
+  "properties": {
+    "apiGroups": {
+      "description": "The name of the API group that contains the resources. If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. `\"*\"` means all.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "resourceNames": {
+      "description": "An optional list of names that the rule applies to. An empty set means that everything is allowed. `\"*\"` means all.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "resources": {
+      "description": "A list of resources this rule applies to:\n\n- `\"*\"` means all in the specified `apiGroups`.\n- `\"*/foo\"` represents the subresource `\"foo\"` for all resources in the specified `apiGroups`\n.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "verbs": {
+      "description": "A list of kubernetes resource API verbs, like: `\"get\"`, `\"list\"`, `\"watch\"`, `\"create\"`, `\"update\"`, `\"delete\"`, `\"proxy\"`. `\"*\"` means all.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "verbs"
+  ],
+  "type": "object"
+}

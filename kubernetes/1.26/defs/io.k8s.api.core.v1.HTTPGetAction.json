@@ -1,0 +1,39 @@
+{
+  "description": "This describes an action based on HTTP GET requests.",
+  "properties": {
+    "host": {
+      "description": "Host name to connect to, defaults to the Pod IP. You probably want to set \"Host\" in `httpHeaders` instead.",
+      "type": "string"
+    },
+    "httpHeaders": {
+      "description": "Custom headers to set in the request. HTTP allows repeated headers.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.HTTPHeader"
+      },
+      "type": "array"
+    },
+    "path": {
+      "description": "Path to access on the HTTP server.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "port": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
+      "description": "Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME."
+    },
+    "scheme": {
+      "default": "HTTP",
+      "description": "Scheme to use for connecting to the host.",
+      "enum": [
+        "HTTP",
+        "HTTPS"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "path",
+    "port"
+  ],
+  "type": "object"
+}

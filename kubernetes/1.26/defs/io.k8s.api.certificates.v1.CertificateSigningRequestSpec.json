@@ -1,0 +1,89 @@
+{
+  "description": "This information is immutable after the request is created. Only the `request`, `signerName`, `expirationSeconds` and `usages` fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.",
+  "properties": {
+    "expirationSeconds": {
+      "description": "The requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the `notBefore` and `notAfter` fields in the issued certificate to determine the actual duration.\n\nThe v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the `--cluster-signing-duration` CLI flag to the Kubernetes controller manager.\n\nCertificate signers may not honor this field for various reasons:\n\n1. Old signer that is unaware of the field (such as the in-tree implementations prior to v1.22)\n1. Signer whose configured maximum is shorter than the requested duration\n1. Signer whose configured minimum is longer than the requested duration\n\nThe minimum valid value for `expirationSeconds` is 600, i.e. 10 minutes.",
+      "format": "int32",
+      "minimum": 600,
+      "type": "integer"
+    },
+    "extra": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "description": "Extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.",
+      "type": "object"
+    },
+    "groups": {
+      "description": "Group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "request": {
+      "description": "An x509 certificate signing request encoded in a \"CERTIFICATE REQUEST\" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.",
+      "format": "byte",
+      "minLength": 1,
+      "type": "string",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "signerName": {
+      "description": "The requested signer, and is a qualified name. A **list**/**watch** request for CertificateSigningRequests can filter on this field by setting the `fieldSelector` parameter to `\"spec.signerName=NAME\"`. Well-known Kubernetes signers are:\n\n1. `\"kubernetes.io/kube-apiserver-client\"` for issuing client certificates that can be used to authenticate to `kube-apiserver`. Requests for this signer are never auto-approved by the `kube-controller-manager`. It can be issued by the `\"csrsigning\"` controller in the `kube-controller-manager`.\n1. `\"kubernetes.io/kube-apiserver-client-kubelet\"` for issuing client certificates that a kubelet uses to authenticate to `kube-apiserver`. Requests for this signer can be auto-approved by the `\"csrapproving\"` controller in the `kube-controller-manager`. It can be issued by the `\"csrsigning\"` controller in the `kube-controller-manager`.\n1. `\"kubernetes.io/kubelet-serving\"` for issuing serving certificates a kubelet uses to serve TLS endpoints, which `kube-apiserver` can connect to securely. Requests for this signer are never auto-approved by the `kube-controller-manager`. It can be issued by the `\"csrsigning\"` controller in the `kube-controller-manager`.\n\nCustom `signerName`s can also be specified. The signer defines:\n\n1. Trust distribution: how trust (CA bundles) are distributed.\n1. Permitted subjects: and behavior when a disallowed subject is requested.\n1. Required, permitted, or forbidden x509 extensions in the request (including whether `subjectAltNames` are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.\n1. Required, permitted, or forbidden key usages / extended key usages.\n1. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.\n1. Whether or not requests for CA certificates are allowed.\n",
+      "type": "string"
+    },
+    "uid": {
+      "description": "The UID of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.",
+      "type": "string"
+    },
+    "usages": {
+      "description": "A set of key usages requested in the issued certificate.\n\n- Requests for TLS client certificates typically request: `\"digital signature\"`, `\"key encipherment\"`, `\"client auth\"`;\n\n- Requests for TLS serving certificates typically request: `\"key encipherment\"`, `\"digital signature\"`, `\"server auth\"`.",
+      "items": {
+        "enum": [
+          "any",
+          "cert sign",
+          "client auth",
+          "code signing",
+          "content commitment",
+          "crl sign",
+          "data encipherment",
+          "decipher only",
+          "digital signature",
+          "email protection",
+          "encipher only",
+          "ipsec end system",
+          "ipsec tunnel",
+          "ipsec user",
+          "key agreement",
+          "key encipherment",
+          "microsoft sgc",
+          "netscape sgc",
+          "ocsp signing",
+          "s/mime",
+          "server auth",
+          "signing",
+          "timestamping"
+        ],
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "username": {
+      "description": "The name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request",
+    "signerName",
+    "usages"
+  ],
+  "type": "object"
+}
