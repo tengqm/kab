@@ -49,7 +49,7 @@
     },
     "uncountedTerminatedPods": {
       "$ref": "#/definitions/io.k8s.api.batch.v1.UncountedTerminatedPods",
-      "description": "This contains the UIDs of Pods that have terminated but the Job controller hasn't yet accounted for in the status counters.\n\nThe Job controller creates Pods with a finalizer. When a Pod terminates (`Succeeded` or `Filed`), the controller does three steps to account for it in the Job status: (1) Add the Pod UID to the arrays in this field. (2) Remove the Pod finalizer. (3) Remove the Pod UID from the arrays while increasing the corresponding counter.\n\nThis field is Beta-level. The Job controller only makes use of this field when the feature gate `PodTrackingWithFinalizers` is enabled (enabled by default). Old Jobs might not be tracked using this field, in which case the field remains null."
+      "description": "This contains the UIDs of Pods that have terminated but the Job controller hasn't yet accounted for in the status counters.\n\nThe Job controller creates Pods with a finalizer. When a Pod terminates (`Succeeded` or `Failed`), the controller does three steps to account for it in the Job status: (1) Add the Pod UID to the arrays in this field. (2) Remove the Pod finalizer. (3) Remove the Pod UID from the arrays while increasing the corresponding counter.\n\n Old Jobs might not be tracked using this field, in which case the field remains null."
     }
   },
   "type": "object"
