@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "flowcontrol.apiserver.k8s.io/v1beta2"
+        "flowcontrol.apiserver.k8s.io/v1beta3"
       ],
       "type": "string"
     },
@@ -16,26 +16,31 @@
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object metadata. The name must be a valid DNS subdomain name."
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata"
     },
     "spec": {
-      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationSpec",
+      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationSpec",
       "description": "The desired behavior of a PriorityLevelConfiguration"
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationStatus",
+      "description": "The current status of a PriorityLevelConfiguration"
     }
   },
   "required": [
     "apiVersion",
     "kind",
     "metadata",
-    "spec"
+    "spec",
+    "status"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [
     {
       "group": "flowcontrol.apiserver.k8s.io",
       "kind": "PriorityLevelConfiguration",
-      "version": "v1beta2"
+      "version": "v1beta3"
     }
   ]
 }
