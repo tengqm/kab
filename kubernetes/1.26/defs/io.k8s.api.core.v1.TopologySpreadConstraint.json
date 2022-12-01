@@ -26,11 +26,11 @@
       "type": "integer"
     },
     "nodeAffinityPolicy": {
-      "description": "This indicates how we will treat Pod's `nodeAffinity`/`nodeSelector` when calculating Pod topology spread skew. Options are:\n\n- `Honor`: only nodes matching `nodeAffinity`/`nodeSelector` are included in the calculations.\n- `Ignore`: `nodeAffinity`/`nodeSelector` are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the `Honor` policy. This is a Alpha feature enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
+      "description": "This indicates how we will treat Pod's `nodeAffinity.nodeSelector` when calculating Pod topology spread skew. Options are:\n\n- `Honor`: only nodes matching `nodeAffinity.nodeSelector` are included in the calculations.\n- `Ignore`: `nodeAffinity.nodeSelector` are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the `Honor` policy. This is a Beta-level  feature default enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
       "type": "string"
     },
     "nodeTaintsPolicy": {
-      "description": "This indicates how we will treat node taints when calculating pod topology spread skew. Options are:\n\n- `Honor`: nodes without taints, along with tainted nodes for which the incoming Pod has a toleration, are included.\n- `Ignore`: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the `Ignore` policy. This is a Alpha feature enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
+      "description": "This indicates how we will treat node taints when calculating pod topology spread skew. Options are:\n\n- `Honor`: nodes without taints, along with tainted nodes for which the incoming Pod has a toleration, are included.\n- `Ignore`: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the `Ignore` policy. This is a Beta feature default enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
       "type": "string"
     },
     "topologyKey": {
