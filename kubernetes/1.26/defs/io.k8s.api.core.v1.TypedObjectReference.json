@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "apiGroup": {
+      "description": "The group for the resource being referenced. If `apiGroup` is not specified, the specified `kind` must be in the core API group. For any other third-party types, `apiGroup` is required.",
+      "type": "string"
+    },
+    "kind": {
+      "description": "The type of resource being referenced. This must be \"PersistentVolumeClaim\" if `apiGroup` is empty string.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of resource being referenced",
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The namespace of resource being referenced. Note that when a namespace is specified, a `gateway.networking.k8s.io/ReferenceGrant` object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. This field is Alpha-level, and it requires the `CrossNamespaceVolumeDataSource` feature gate to be enabled. When specified, the namespace string must be a valid DNS subdomain name.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "name"
+  ],
+  "type": "object"
+}
