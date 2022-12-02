@@ -1,30 +1,30 @@
 {
-  "description": "ClusterCIDRList contains a list of ClusterCIDR.",
+  "description": "ResourceClassList is a collection of classes.",
   "properties": {
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "networking.k8s.io/v1alpha1"
+        "resource.k8s.io/v1alpha1"
       ],
       "type": "string"
     },
     "items": {
-      "description": "The list of ClusterCIDR objects.",
+      "description": "The list of resource classes.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR"
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha1.ResourceClass.GET"
       },
       "type": "array"
     },
     "kind": {
       "description": "A string value representing the REST resource",
       "enum": [
-        "ClusterCIDRList"
+        "ResourceClassList"
       ],
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
-      "description": "Standard object's metadata."
+      "description": "Standard list metadata",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
     }
   },
   "required": [
@@ -36,8 +36,8 @@
   "type": "object",
   "x-kubernetes-group-version-kind": [
     {
-      "group": "networking.k8s.io",
-      "kind": "ClusterCIDRList",
+      "group": "resource.k8s.io",
+      "kind": "ResourceClassList",
       "version": "v1alpha1"
     }
   ]
