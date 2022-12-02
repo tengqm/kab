@@ -33,7 +33,7 @@
           "type": "string"
         },
         "name": {
-          "description": "The name of the admission webhook. Name should be fully qualified, e.g., `\"imagepolicy.kubernetes.io\"`, where `\"imagepolicy\"` is the name of the webhook, and `\"kubernetes.io\"` is the name of the organization.",
+          "description": "The name of the admission webhook. Name should be fully qualified, e.g., `\"imagepolicy.kubernetes.io\"`, where `\"imagepolicy\"` is the name of the webhook, and `\"kubernetes.io\"` is the name of the organization. The name must be unique among all mutating Webhooks.",
           "minLength": 1,
           "type": "string"
         },
@@ -105,7 +105,7 @@
         },
         "metadata": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-          "description": "Standard object metadata This name must be a valid DNS subdomain name."
+          "description": "Standard object metadata. This name must be a valid DNS subdomain name."
         },
         "webhooks": {
           "description": "A list of webhooks and the affected resources and operations. The name must be fully qualified name and it must be unique in the list.",
@@ -396,7 +396,7 @@
           "type": "string"
         },
         "name": {
-          "description": "The name of the admission webhook. Name should be fully qualified, e.g., `\"imagepolicy.kubernetes.io\"`, where `\"imagepolicy\"` is the name of the webhook, and `\"kubernetes.io\"` is the name of the organization.",
+          "description": "The name of the admission webhook. Name should be fully qualified, e.g., `\"imagepolicy.kubernetes.io\"`, where `\"imagepolicy\"` is the name of the webhook, and `\"kubernetes.io\"` is the name of the organization. The name must be unique among all validating Webhooks.",
           "minLength": 1,
           "type": "string"
         },
@@ -2312,7 +2312,7 @@
           "type": "integer"
         },
         "replicas": {
-          "description": "The most recently oberved number of replicas.",
+          "description": "The most recently observed number of replicas.",
           "format": "int32",
           "type": "integer"
         }
@@ -2328,7 +2328,7 @@
         "maxSurge": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
           "default": 0,
-          "description": "The maximum number of nodes with an existing available DaemonSet Pod that can have an updated DaemonSet Pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: \"10%\"). This can not be 0 if `maxUnavailable` is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0.\n\nExample: when this is set to \"30%\", at most 30% of the total number of nodes that should be running the daemon Pod (i.e. `status.desiredNumberScheduled`) can have their a new Pod created before the old Pod is marked as deleted. The update starts by launching new Pods on 30% of nodes. Once an updated Pod is available (\"Ready\" for at least `minReadySeconds`) the old DaemonSet Pod on that node is marked deleted. If the old Pod becomes unavailable for any reason (\"Ready\" transitions to `false`, is evicted, or is drained) an updated Pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the DaemonSet on any given node can double if the readiness check fails, and so resource intensive DaemonSets should take into account that they may cause evictions during disruption. This is an Beta field and can be enabled/disabled by the `DaemonSetUpdateSurge` feature gate."
+          "description": "The maximum number of nodes with an existing available DaemonSet Pod that can have an updated DaemonSet Pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: \"10%\"). This can not be 0 if `maxUnavailable` is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0.\n\nExample: when this is set to \"30%\", at most 30% of the total number of nodes that should be running the daemon Pod (i.e. `status.desiredNumberScheduled`) can have their a new Pod created before the old Pod is marked as deleted. The update starts by launching new Pods on 30% of nodes. Once an updated Pod is available (\"Ready\" for at least `minReadySeconds`) the old DaemonSet Pod on that node is marked deleted. If the old Pod becomes unavailable for any reason (\"Ready\" transitions to `false`, is evicted, or is drained) an updated Pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the DaemonSet on any given node can double if the readiness check fails, and so resource intensive DaemonSets should take into account that they may cause evictions during disruption."
         },
         "maxUnavailable": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString",
@@ -2606,7 +2606,7 @@
       "properties": {
         "minReadySeconds": {
           "default": 0,
-          "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready). This is an Alpha field and requires enabling `StatefulSetMinReadySeconds` feature gate. This field can be updated.",
+          "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready).",
           "format": "int32",
           "minimum": 0,
           "type": "integer"
@@ -2675,7 +2675,7 @@
       "properties": {
         "minReadySeconds": {
           "default": 0,
-          "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready). This is an Alpha field and requires enabling `StatefulSetMinReadySeconds` feature gate. This field can be updated.",
+          "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready).",
           "format": "int32",
           "minimum": 0,
           "type": "integer"
@@ -2749,7 +2749,7 @@
       "properties": {
         "minReadySeconds": {
           "default": 0,
-          "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready). This is an Alpha field and requires enabling `StatefulSetMinReadySeconds` feature gate. This field can be updated.",
+          "description": "Minimum number of seconds for which a newly created Pod should be ready without any of its Container crashing for it to be considered available. Defaults to 0 (Pod will be considered available as soon as it is ready).",
           "format": "int32",
           "minimum": 0,
           "type": "integer"
@@ -2758,37 +2758,12 @@
           "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy",
           "description": "persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from `volumeClaimTemplates`. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their Pod is scaled down. This requires the `StatefulSetAutoDeletePVC` feature gate to be enabled, which is Alpha."
         },
-        "podManagementPolicy": {
-          "default": "OrderedReady",
-          "description": "This controls how Pods are created during initial scale up, when replacing Pods on nodes, or when scaling down. The default policy is `\"OrderedReady\"`, where Pods are created in increasing order and the controller will wait until each Pod is ready before continuing. When scaling down, the Pods are removed in the opposite order. Progressing only when the previous Pod is ready or terminated. At most one Pod will be changed at any time. The alternative policy is `\"Parallel\"` which will create Pods in parallel to match the desired scale without waiting for Pods to be ready or complete termination, and on scale down will delete all Pods at once. Cannot be updated.",
-          "enum": [
-            "OrderedReady",
-            "Parallel"
-          ],
-          "type": "string"
-        },
         "replicas": {
           "default": 1,
           "description": "The desired number of replicas of the given `template`. These are replicas in the sense that they are instantiations of the same `template`, but individual replicas also have a consistent identity. This field can be updated.",
           "format": "int32",
           "minimum": 0,
           "type": "integer"
-        },
-        "revisionHistoryLimit": {
-          "default": 10,
-          "description": "The maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied spec version. Cannot be updated.",
-          "format": "int32",
-          "minimum": 0,
-          "type": "integer"
-        },
-        "selector": {
-          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
-          "description": "A label query over Pods that should match the `replicas` count. It must match the Pod template's `labels`. Cannot be updated."
-        },
-        "serviceName": {
-          "description": "The name of the Service that governs this StatefulSet. This Service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: `\"pod-specific-string.serviceName.default.svc.cluster.local\"` where '`\"pod-specific-string\"`' is managed by the StatefulSet controller. Cannot be updated.",
-          "minLength": 1,
-          "type": "string"
         },
         "template": {
           "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE",
@@ -2797,27 +2772,15 @@
         "updateStrategy": {
           "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",
           "description": "The update strategy that will be employed to update Pods in the StatefulSet when a revision is made to `template`. This field can be updated."
-        },
-        "volumeClaimTemplates": {
-          "description": "A list of claims that Pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a Pod. Every claim in this list must have at least one matching (by name) `volumeMount` in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name. Cannot be updated.",
-          "items": {
-            "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET"
-          },
-          "type": "array"
         }
       },
-      "required": [
-        "selector",
-        "serviceName",
-        "template"
-      ],
       "type": "object"
     },
     "io.k8s.api.apps.v1.StatefulSetStatus": {
       "description": "The current state of a StatefulSet.",
       "properties": {
         "availableReplicas": {
-          "description": "Total number of available Pods (ready for at least `minReadySeconds`) targeted by this StatefulSet. This is an Beta field and enabled/disabled by the `StatefulSetMinReadySeconds` feature gate.",
+          "description": "Total number of available Pods (ready for at least `minReadySeconds`) targeted by this StatefulSet.",
           "format": "int32",
           "minimum": 0,
           "type": "integer"
@@ -3019,7 +2982,7 @@
       "description": "Client provided parameters for a token request.",
       "properties": {
         "audiences": {
-          "description": "The intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of `audiences` of the token, and otherwise should reject the token. A token issued for multiple `audiences` may be used to authenticate against any of the `audiences` listed but implies a high degree of trust between the target audiences.",
+          "description": "The intendend audiences of the token. A recipient of a token must identify himself with an identifier in the list of `audiences` of the token, and otherwise should reject the token. A token issued for multiple `audiences` may be used to authenticate against any of the `audiences` listed but implies a high degree of trust between the target audiences.",
           "items": {
             "type": "string"
           },
@@ -3635,7 +3598,7 @@
         },
         "metadata": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
-          "description": "Standard object metadata"
+          "description": "Standard object metadata. This must be an empty object."
         },
         "spec": {
           "$ref": "#/definitions/io.k8s.api.authorization.v1.SubjectAccessReviewSpec",
@@ -4187,11 +4150,13 @@
       "description": "ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in `requests` and `limits`, describing each Pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target. Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source. Only one `\"target\"` type should be set.",
       "properties": {
         "container": {
-          "description": "The name of the container in the Pods of the scaling target",
+          "description": "The name of the container in the Pods of the scaling target. It must be a valid DNS label string.",
+          "minLength": 1,
           "type": "string"
         },
         "name": {
           "description": "The name of the resource in question.",
+          "minLength": 1,
           "type": "string"
         },
         "target": {
@@ -4766,7 +4731,7 @@
       "type": "object"
     },
     "io.k8s.api.autoscaling.v2.MetricTarget": {
-      "description": "The target value, average value, or average utilization of a specific metric.\n\n- For `\"Object\"` type of metrics, one of `value` and `averageValue` must be specified.\n- For `\"External\"` type of metrics, one and only one of `value` or `averageValue` must be set.\n- For `\"Pod\"` type of metrics, `averageValue` must be set.\nFor `\"Resource\"` type of metrics, either `averageUtilization` or `averageValue` should be specified but not both.\n",
+      "description": "The target value, average value, or average utilization of a specific metric.\n\n- For `\"Object\"` type of metrics, one of `value` and `averageValue` must be specified.\n- For `\"External\"` type of metrics, one and only one of `value` or `averageValue` must be set.\n- For `\"Pod\"` type of metrics, `averageValue` must be set.\n- For `\"Resource\"` type of metrics, either `averageUtilization` or `averageValue` should be specified but not both.\n",
       "properties": {
         "averageUtilization": {
           "description": "Target value of the average of the resource metric across all relevant Pods, represented as a percentage of the requested value of the resource for the Pods. Currently only valid for `\"Resource\"` metric source type",
@@ -4941,11 +4906,13 @@
       "description": "ContainerResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in `requests` and `limits`, describing each Pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target. Such metrics are built into Kubernetes, and have special scaling options on top of those available to normal per-Pod metrics using the `\"pods\"` source. Only one `\"target\"` type should be set.",
       "properties": {
         "container": {
-          "description": "The name of the container in the Pods of the scaling target",
+          "description": "The name of the container in the Pods of the scaling target. It must be a valid DNS label string.",
+          "minLength": 1,
           "type": "string"
         },
         "name": {
           "description": "The name of the resource in question.",
+          "minLength": 1,
           "type": "string"
         },
         "target": {
@@ -5511,7 +5478,7 @@
       "type": "object"
     },
     "io.k8s.api.autoscaling.v2beta2.MetricTarget": {
-      "description": "The target value, average value, or average utilization of a specific metric.\n\n- For `\"Object\"` type of metrics, one of `value` and `averageValue` must be specified.\n- For `\"External\"` type of metrics, one and only one of `value` or `averageValue` must be set.\n- For `\"Pod\"` type of metrics, `averageValue` must be set.\nFor `\"Resource\"` type of metrics, either `averageUtilization` or `averageValue` should be specified but not both.\n",
+      "description": "The target value, average value, or average utilization of a specific metric.\n\n- For `\"Object\"` type of metrics, one of `value` and `averageValue` must be specified.\n- For `\"External\"` type of metrics, one and only one of `value` or `averageValue` must be set.\n- For `\"Pod\"` type of metrics, `averageValue` must be set.\n- For `\"Resource\"` type of metrics, either `averageUtilization` or `averageValue` should be specified but not both.\n",
       "properties": {
         "averageUtilization": {
           "description": "Target value of the average of the resource metric across all relevant Pods, represented as a percentage of the requested value of the resource for the Pods. Currently only valid for `\"Resource\"` metric source type",
@@ -5877,7 +5844,7 @@
           "description": "Specifies the Job that will be created when executing a CronJob."
         },
         "schedule": {
-          "description": "The schedule in Cron format, see [Cron Syntax](https://en.wikipedia.org/wiki/Cron).",
+          "description": "The schedule in Cron format, see [Cron Syntax](https://en.wikipedia.org/wiki/Cron). This field cannot have \"`TZ`\" in it when `timeZone` is specified.",
           "minLength": 1,
           "type": "string"
         },
@@ -5900,7 +5867,7 @@
           "type": "boolean"
         },
         "timeZone": {
-          "description": "The time zone for the given schedule, see [time zone list on wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not specified, this will rely on the time zone of the kube-controller-manager process. This field, when specified, cannot be empty string. The time zone value cannot be \"`Local`\". When the value is \"`UTC`\", the UTC time zone is used. This field is in Alpha and must be enabled via the `CronJobTimeZone` feature gate.",
+          "description": "The time zone for the given schedule, see [time zone list on wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found, a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new Jobs and will create a system event with the reason `UnknownTimeZone`. This field, when specified, cannot be empty string. It cannot be specified when the `schedule` field contains \"`TZ`\". The time zone value cannot be \"`Local`\". When the value is \"`UTC`\", the UTC time zone is used.\n\nThis is a Beta field and must be enabled via the `CronJobTimeZone` feature gate.",
           "minLength": 1,
           "type": "string"
         }
@@ -6194,6 +6161,10 @@
           "minimum": 0,
           "type": "integer"
         },
+        "podFailurePolicy": {
+          "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy",
+          "description": "Specifies the policy of handling failed Pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed Pods, represented by the Jobs's `.status.failed` field, is incremented and it is checked against the `backoffLimit`. This field cannot be used in combination with `restartPolicy=OnFailure`.\n\nThis field is Alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default)."
+        },
         "selector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
           "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The `selector` must match the `labels` defined on the Pod template. This field cannot be updated."
@@ -6259,6 +6230,10 @@
           "format": "int32",
           "minimum": 0,
           "type": "integer"
+        },
+        "podFailurePolicy": {
+          "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy",
+          "description": "Specifies the policy of handling failed Pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed Pods, represented by the Jobs's `.status.failed` field, is incremented and it is checked against the `backoffLimit`. This field cannot be used in combination with `restartPolicy=OnFailure`.\n\nThis field is Alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default)."
         },
         "selector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
@@ -6333,6 +6308,10 @@
           "minimum": 0,
           "type": "integer"
         },
+        "podFailurePolicy": {
+          "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy",
+          "description": "Specifies the policy of handling failed Pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed Pods, represented by the Jobs's `.status.failed` field, is incremented and it is checked against the `backoffLimit`. This field cannot be used in combination with `restartPolicy=OnFailure`.\n\nThis field is Alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default)."
+        },
         "selector": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
           "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The `selector` must match the `labels` defined on the Pod template. This field cannot be updated."
@@ -6395,6 +6374,7 @@
         "ready": {
           "description": "The number of Pods which have a Ready condition.\n\nThis field is Beta-level. The Job controller populates the field when the feature gate `JobReadyPods` is enabled (enabled by default).",
           "format": "int32",
+          "minimum": 0,
           "type": "integer"
         },
         "startTime": {
@@ -6428,6 +6408,107 @@
       },
       "required": [
         "spec"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.batch.v1.PodFailurePolicy": {
+      "description": "PodFailurePolicy describes how failed Pods influence the `backoffLimit`.",
+      "properties": {
+        "rules": {
+          "description": "A list of Pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of Pod failures is incremented and it is checked against the `backoffLimit`.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicyRule"
+          },
+          "maxItems": 20,
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        }
+      },
+      "required": [
+        "rules"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.batch.v1.PodFailurePolicyOnExitCodesRequirement": {
+      "description": "PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed Pod based on its container exit codes. In particular, it lookups the `.state.terminated.exitCode` for each app container and init container status, represented by the `.status.containerStatuses` and `.status.initContainerStatuses` fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.",
+      "properties": {
+        "containerName": {
+          "description": "Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one of the container or initContainer names in the Pod template.",
+          "type": "string"
+        },
+        "operator": {
+          "description": "Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:\n\n- \"In\": the requirement is satisfied if at least one container exit code (might be multiple if there are multiple containers not restricted by the `containerName` field) is in the set of specified values.\n- \"NotIn\": the requirement is satisfied if at least one container exit code (might be multiple if there are multiple containers not restricted by the `containerName` field) is not in the set of specified values.\n\nAdditional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.",
+          "enum": [
+            "NotIn",
+            "In"
+          ],
+          "type": "string"
+        },
+        "values": {
+          "description": "Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the `operator`. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the `In` operator.",
+          "items": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "maxItems": 255,
+          "minItems": 1,
+          "type": "array",
+          "x-kubernetes-list-type": "set"
+        }
+      },
+      "required": [
+        "operator",
+        "values"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.batch.v1.PodFailurePolicyOnPodConditionsPattern": {
+      "description": "PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual Pod condition type.",
+      "properties": {
+        "status": {
+          "default": "True",
+          "description": "Specifies the required Pod condition status. To match a Pod condition, it is required that the specified `status` equals the Pod condition `status`.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Specifies the required Pod condition type. To match a Pod condition,it is required that specified `type` equals the pod condition `type`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "type"
+      ],
+      "type": "object"
+    },
+    "io.k8s.api.batch.v1.PodFailurePolicyRule": {
+      "description": "PodFailurePolicyRule describes how a Pod failure is handled when the requirements are met. One of `onExitCodes` and `onPodConditions`, but not both, can be used in each rule.",
+      "properties": {
+        "action": {
+          "description": "This specifies the action taken on a Pod failure when the requirements are satisfied. Possible values are:\n\n- \"FailJob\": indicates that the Pod's job is marked as `Failed` and all running Pods are terminated.\n- \"Ignore\": indicates that the counter towards the `.backoffLimit` is not incremented and a replacement Pod is created.\n- \"Count\": indicates that the Pod is handled in the default way - the counter towards the `.backoffLimit` is incremented.\n\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+          "enum": [
+            "Count",
+            "FailedJob",
+            "Ignore"
+          ],
+          "type": "string"
+        },
+        "onExitCodes": {
+          "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicyOnExitCodesRequirement",
+          "description": "Represents the requirement on the container exit codes."
+        },
+        "onPodConditions": {
+          "description": "Represents the requirement on the Pod conditions. The requirement is represented as a list of Pod condition patterns. The requirement is satisfied if at least one pattern matches an actual Pod condition.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicyOnPodConditionsPattern"
+          },
+          "maxItems": 20,
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        }
+      },
+      "required": [
+        "action"
       ],
       "type": "object"
     },
@@ -7443,7 +7524,7 @@
       "properties": {
         "controllerExpandSecretRef": {
           "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
-          "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume()` call. This is an Alpha field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed. When specified, both `name` and `namespace` field should be specified as valid DNS_LABEL strings."
+          "description": "A reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `ControllerExpandVolume()` call. This is an Beta field and requires enabling `ExpandCSIVolumes` feature gate. This field may be empty if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed. When specified, both `name` and `namespace` field should be specified as valid DNS_LABEL strings."
         },
         "controllerPublishSecretRef": {
           "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
@@ -7458,6 +7539,10 @@
         "fsType": {
           "description": "Filesystem type to mount. Must be a filesystem type supported by the host operating system. For example: `\"ext4\"`, `\"xfs\"`, `\"ntfs\"`.",
           "type": "string"
+        },
+        "nodeExpandSecretRef": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
+          "description": "nodeExpandSecretRef is a reference to the Secret object containing sensitive information to pass to the CSI driver to complete the CSI `NodeExpandVolume` call. This is an Alpha field and requires enabling the `CSINodeExpandSecret` feature gate. This field is optional, may be omitted if no Secret is required. If the Secret object contains more than one Secret, all Secrets are passed."
         },
         "nodePublishSecretRef": {
           "$ref": "#/definitions/io.k8s.api.core.v1.SecretReference",
@@ -8232,7 +8317,7 @@
           "type": "string"
         },
         "ports": {
-          "description": "List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here does **NOT** prevent that port from being exposed. Any port which is listening on the default `\"0.0.0.0\"` address inside a container will be accessible from the network. Cannot be updated.",
+          "description": "List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default \"0.0.0.0\" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information, see https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.",
           "items": {
             "$ref": "#/definitions/io.k8s.api.core.v1.ContainerPort"
           },
@@ -8957,7 +9042,7 @@
       "type": "object"
     },
     "io.k8s.api.core.v1.EphemeralContainer": {
-      "description": "A temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes a Pod to exceed its resource allocation\n\n.To add an ephemeral containeer, use the `ephemeralcontainers` subresource of an existing Pod. Ephemeral containers may not be removed or restarted.\n\nThis is a Beta feature available on clusters that haven't disabled the `EphemeralContainers` feature gate.",
+      "description": "A temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes a Pod to exceed its resource allocation\n\n.To add an ephemeral containeer, use the `ephemeralcontainers` subresource of an existing Pod. Ephemeral containers may not be removed or restarted.",
       "properties": {
         "args": {
           "description": "Arguments to the `command`. The container image's `CMD` is used if this is not provided. Variable references `$(VAR_NAME)` are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double dollars (`$$`) are reduced to a single dollar (`$`), which allows for escaping the `$(VAR_NAME)` syntax: i.e. \"`$$(VAR_NAME)`\" will produce the string literal \"`$(VAR_NAME)`\". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated.",
@@ -11810,7 +11895,8 @@
         },
         "claimRef": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
-          "description": "Part of a bi-directional binding between a `PersistentVolume` and a `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative binding between a PV and a PVC. This cannot be specified for inline volumes."
+          "description": "Part of a bi-directional binding between a `PersistentVolume` and a `PersistentVolumeClaim`. Expected to be non-nil when bound. `claim.volumeName` is the authoritative binding between a PV and a PVC. This cannot be specified for inline volumes.",
+          "x-kubernetes-map-type": "granular"
         },
         "csi": {
           "$ref": "#/definitions/io.k8s.api.core.v1.CSIPersistentVolumeSource",
@@ -12486,6 +12572,11 @@
           "description": "Use the host's PID namespace.",
           "type": "boolean"
         },
+        "hostUsers": {
+          "default": true,
+          "description": "Use the host's user namespace. If set to true or not present, the Pod will be run in the host user namespace, useful when the Pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the Pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is Alpha-level and is only honored by servers that enable the `UserNamespacesSupport` feature.",
+          "type": "boolean"
+        },
         "hostname": {
           "description": "The hostname of the Pod. When specified, the value must be a valid DNS label. If not specified, the Pod's hostname will be set to a system-defined value.",
           "type": "string"
@@ -12522,7 +12613,7 @@
         },
         "os": {
           "$ref": "#/definitions/io.k8s.api.core.v1.PodOS",
-          "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n\nThis is an Beta field and requires the `IdentifyPodOS` feature gate to be enabled."
+          "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", the following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.hostUser`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n"
         },
         "overhead": {
           "additionalProperties": {
@@ -12687,7 +12778,7 @@
           "type": "boolean"
         },
         "ephemeralContainers": {
-          "description": "List of ephemeral containers to run in this Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod spec. In order to add an ephemeral container to an existing Pod, use the Pod's `ephemeralcontainers` subresource. This field is Beta-level and is available on clusters that haven't disabled the `EphemeralContainers` feature gate.",
+          "description": "List of ephemeral containers to run in this Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod spec. In order to add an ephemeral container to an existing Pod, use the Pod's `ephemeralcontainers` subresource.",
           "items": {
             "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
           },
@@ -12717,6 +12808,11 @@
         "hostPID": {
           "default": false,
           "description": "Use the host's PID namespace.",
+          "type": "boolean"
+        },
+        "hostUsers": {
+          "default": true,
+          "description": "Use the host's user namespace. If set to true or not present, the Pod will be run in the host user namespace, useful when the Pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the Pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is Alpha-level and is only honored by servers that enable the `UserNamespacesSupport` feature.",
           "type": "boolean"
         },
         "hostname": {
@@ -12755,7 +12851,7 @@
         },
         "os": {
           "$ref": "#/definitions/io.k8s.api.core.v1.PodOS",
-          "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n\nThis is an Beta field and requires the `IdentifyPodOS` feature gate to be enabled."
+          "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", the following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.hostUser`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n"
         },
         "overhead": {
           "additionalProperties": {
@@ -12920,7 +13016,7 @@
           "type": "boolean"
         },
         "ephemeralContainers": {
-          "description": "List of ephemeral containers to run in the Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. Ephemeral containers should not be relied upon for fundamental Pod services, so fields like `lifecycle`, `readinessProbe`, `livenessProbe`, `startupProbe`, `resources` and `ports` are disallowed. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod `spec`. In order to add anephemeral container to an existing pod, use the Pod's `ephemeralcontainers` subresource. When updating a Pod, the existing `ephemeralcontainers` cannot be changed or removed. This field is Alpha-level and is only honored by servers that enable the `EphemeralContainers` feature.",
+          "description": "List of ephemeral containers to run in the Pod. Ephemeral containers may be run in an existing Pod to perform user-initiated actions such as debugging. Ephemeral containers should not be relied upon for fundamental Pod services, so fields like `lifecycle`, `readinessProbe`, `livenessProbe`, `startupProbe`, `resources` and `ports` are disallowed. This list cannot be specified when creating a Pod, and it cannot be modified by updating the Pod `spec`. In order to add anephemeral container to an existing pod, use the Pod's `ephemeralcontainers` subresource. When updating a Pod, the existing `ephemeralcontainers` cannot be changed or removed.",
           "items": {
             "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralContainer"
           },
@@ -12950,6 +13046,11 @@
         "hostPID": {
           "default": false,
           "description": "Use the host's PID namespace.",
+          "type": "boolean"
+        },
+        "hostUsers": {
+          "default": true,
+          "description": "Use the host's user namespace. If set to true or not present, the Pod will be run in the host user namespace, useful when the Pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the Pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is Alpha-level and is only honored by servers that enable the `UserNamespacesSupport` feature.",
           "type": "boolean"
         },
         "hostname": {
@@ -12988,7 +13089,7 @@
         },
         "os": {
           "$ref": "#/definitions/io.k8s.api.core.v1.PodOS",
-          "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n\nThis is an Beta field and requires the `IdentifyPodOS` feature gate to be enabled."
+          "description": "Specifies the OS of the containers in the Pod. Some Pod and container fields are restricted if this is set.\n\nIf the `os` field is set to \"linux\", the following fields must be unset:\n\n- `securityContext.windowsOptions`\n\nIf the `os` field is set to \"windows\", the following fields must be unset:\n\n- `spec.hostPID`\n- `spec.hostIPC`\n- `spec.hostUser`\n- `spec.securityContext.seLinuxOptions`\n- `spec.securityContext.seccompProfile`\n- `spec.securityContext.fsGroup`\n- `spec.securityContext.fsGroupChangePolicy`\n- `spec.securityContext.sysctls`\n- `spec.shareProcessNamespace`\n- `spec.securityContext.runAsUser`\n- `spec.securityContext.runAsGroup`\n- `spec.securityContext.supplementalGroups`\n- `spec.containers[*].securityContext.seLinuxOptions`\n- `spec.containers[*].securityContext.seccompProfile`\n- `spec.containers[*].securityContext.capabilities`\n- `spec.containers[*].securityContext.readOnlyRootFilesystem`\n- `spec.containers[*].securityContext.privileged`\n- `spec.containers[*].securityContext.allowPrivilegeEscalation`\n- `spec.containers[*].securityContext.procMount`\n- `spec.containers[*].securityContext.runAsUser`\n- `spec.containers[*].securityContext.runAsGroup`\n"
         },
         "overhead": {
           "additionalProperties": {
@@ -13125,7 +13226,7 @@
           "type": "array"
         },
         "ephemeralContainerStatuses": {
-          "description": "Status for any ephemeral containers that have run in this Pod. This field is Beta-level and available on clusters that haven't disabled the `EphemeralContainers` feature gate.",
+          "description": "Status for any ephemeral containers that have run in this Pod.",
           "items": {
             "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStatus"
           },
@@ -14086,7 +14187,7 @@
           "type": "integer"
         },
         "replicas": {
-          "description": "The most recently oberved number of replicas.",
+          "description": "The most recently observed number of replicas.",
           "format": "int32",
           "type": "integer"
         }
@@ -15502,7 +15603,8 @@
           "type": "string"
         },
         "externalTrafficPolicy": {
-          "description": "This denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints.\n\n- `\"Local\"`: this specifies the node-local endpoints behavior which preserves the client source IP and avoids a second hop for `\"LoadBalancer\"` and `\"Nodeport\"` type of services, but risks potentially imbalanced traffic spreading.\n- `\"Cluster\"`: this specifies the node-global (legacy) behavior which obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.\n",
+          "default": "Cluster",
+          "description": "externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's \"externally-facing\" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to \"Local\", the proxy will configure the Service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the Service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, \"Cluster\", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an external IP or LoadBalancer IP from within the cluster will always get \"Cluster\" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.\n",
           "enum": [
             "Cluster",
             "Local"
@@ -15510,14 +15612,18 @@
           "type": "string"
         },
         "healthCheckNodePort": {
-          "description": "The health-check node port for the Service. This only applies when `type` is set to `\"LoadBalancer\"` and `externalTrafficPolicy` is set to `\"Local\"`. If a value is specified, is in-range, and is not in use, it will be used. If not specified, a value will be automatically allocated. External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this Service or not. If this field is specified when creating a Service which does not need it, the Service creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing `type`).",
+          "description": "The health-check node port for the Service. This only applies when `type` is set to `\"LoadBalancer\"` and `externalTrafficPolicy` is set to `\"Local\"`. If a value is specified, is in-range, and is not in use, it will be used. If not specified, a value will be automatically allocated. External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this Service or not. If this field is specified when creating a Service which does not need it, the Service creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing `type`). This field cannot be updated once set.",
           "format": "int32",
           "minimum": 0,
           "type": "integer"
         },
         "internalTrafficPolicy": {
           "default": "Cluster",
-          "description": "This specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only.\n\n- \"Cluster\" routes internal traffic to a Service to all endpoints.\n- \"Local\" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready.\n\n",
+          "description": "This describes how nodes distribute service traffic they receive on the ClusterIP. If set to \"Local\", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, \"Cluster\", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).",
+          "enum": [
+            "Cluster",
+            "Local"
+          ],
           "type": "string"
         },
         "ipFamilies": {
@@ -15867,6 +15973,14 @@
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
           "description": "Label selector used to find matching Pods. Pods that match this label selector are counted to determine the number of Pods in their corresponding topology domain."
         },
+        "matchLabelKeys": {
+          "description": "This is a set of Pod label keys to select the Pods over which spreading will be calculated. The keys are used to lookup values from the incoming Pod labels, those key-value labels are AND'ed with `labelSelector` to select the group of existing Pods over which spreading will be calculated for the incoming Pod. Keys that don't exist in the incoming Pod labels will be ignored. A null or empty list means only match against `labelSelector`.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-kubernetes-list-type": "atomic"
+        },
         "maxSkew": {
           "default": 1,
           "description": "The degree to which Pods may be unevenly distributed. When `whenUnsatisfiable=\"DoNotSchedule\"`, it is the maximum permitted difference between the number of matching Pods in the target topology and the global minimum. The global minimum is the minimum number of matching Pods in an eligible domain or zero if the number of eligible domains is less than `minDomains`. For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as '2/2/1'. In this case, the global minimum is 1.\n\n```\n+-------+--------+--------+\n| zone1 | zone2 | zone3 |\n+------+------+------+\n|   PP  |  PP   |   P   |\n+-------+--------+--------+\n```\n\n- If `maxSkew` is 1, incoming Pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the actual skew (3-1) on zone1(zone2) violate `maxSkew(1)`.\n- If `maxSkew` is 2, incoming Pod can be scheduled onto any zone.\n\nWhen `whenUnsatisfiable=\"ScheduleAnyway\"`, it is used to give higher precedence to topologies that satisfy it.",
@@ -15875,12 +15989,20 @@
           "type": "integer"
         },
         "minDomains": {
-          "description": "This indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than `minDomains`, Pod topology ppread treats \"global minimum\" as 0, and then the calculation of `skew` is performed. And when the number of eligible domains with matching topology keys equals or greater than `minDomains`, this value has no effect on scheduling. As a result, when the number of eligible domains is less than `minDomains`, scheduler won't schedule more than `maxSkew` Pods to those domains. If value is nil, the constraint behaves as if `minDomains` is equal to 1. Valid values are integers greater than 0. When value is not nil, `whenUnsatisfiable` must be \"DoNotSchedule\".\n\nFor example, in a 3-zone cluster, `maxSkew` is set to 2, `minDomains` is set to 5 and Pods with the same labelSelector spread as 2/2/2:\n\n```\n+-------+--------+--------+\n|  zone1  |  zone2  |  zone3  |\n|   P P   |   P P  |   P P  |\n```\n\nThe number of domains is less than 5 (`minDomains`), so \"global minimum\" is treated as 0. In this situation, new Pod with the same `labelSelector` cannot be scheduled, because computed skew will be 3 (3 - 0) if a new Pod is scheduled to any of the three zones, it will violate `maxSkew`.\n\nThis is an Alpha field and requires enabling the `MinDomainsInPodTopologySpread` feature gate.",
+          "description": "This indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than `minDomains`, Pod topology ppread treats \"global minimum\" as 0, and then the calculation of `skew` is performed. And when the number of eligible domains with matching topology keys equals or greater than `minDomains`, this value has no effect on scheduling. As a result, when the number of eligible domains is less than `minDomains`, scheduler won't schedule more than `maxSkew` Pods to those domains. If value is nil, the constraint behaves as if `minDomains` is equal to 1. Valid values are integers greater than 0. When value is not nil, `whenUnsatisfiable` must be \"DoNotSchedule\".\n\nFor example, in a 3-zone cluster, `maxSkew` is set to 2, `minDomains` is set to 5 and Pods with the same labelSelector spread as 2/2/2:\n\n```\n+-------+--------+--------+\n|  zone1  |  zone2  |  zone3  |\n|   P P   |   P P  |   P P  |\n```\n\nThe number of domains is less than 5 (`minDomains`), so \"global minimum\" is treated as 0. In this situation, new Pod with the same `labelSelector` cannot be scheduled, because computed skew will be 3 (3 - 0) if a new Pod is scheduled to any of the three zones, it will violate `maxSkew`.\n\nThis is an Beta field and requires the `MinDomainsInPodTopologySpread` feature gate to be enabled (enabled by default).",
           "format": "int32",
           "type": "integer"
         },
+        "nodeAffinityPolicy": {
+          "description": "This indicates how we will treat Pod's `nodeAffinity`/`nodeSelector` when calculating Pod topology spread skew. Options are:\n\n- `Honor`: only nodes matching `nodeAffinity`/`nodeSelector` are included in the calculations.\n- `Ignore`: `nodeAffinity`/`nodeSelector` are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the `Honor` policy. This is a Alpha feature enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
+          "type": "string"
+        },
+        "nodeTaintsPolicy": {
+          "description": "This indicates how we will treat node taints when calculating pod topology spread skew. Options are:\n\n- `Honor`: nodes without taints, along with tainted nodes for which the incoming Pod has a toleration, are included.\n- `Ignore`: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the `Ignore` policy. This is a Alpha feature enabled by the `NodeInclusionPolicyInPodTopologySpread` feature flag.",
+          "type": "string"
+        },
         "topologyKey": {
-          "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology.",
+          "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of `nodeAffinityPolicy` and `nodeTaintsPolicy. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology. This is a required field.",
           "type": "string"
         },
         "whenUnsatisfiable": {
@@ -19124,7 +19246,7 @@
           "description": "A default backend that should handle requests that don't match any rule. If `defaultBackend` is not set, the handling of requests that do not match any of the `rules` will be up to the Ingress controller."
         },
         "ingressClassName": {
-          "description": "The name of a IngressClass cluster resource. The name must be a valid DNS subdomain if specified. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `\"kubernetes.io/ingress.class\"` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field and the `ingressClassName` cannot be set. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as *default*, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.",
+          "description": "This is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.",
           "type": "string"
         },
         "rules": {
@@ -19503,6 +19625,239 @@
           "type": "integer"
         }
       },
+      "type": "object"
+    },
+    "io.k8s.api.networking.v1alpha1.ClusterCIDR": {
+      "description": "ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the `MultiCIDRRangeAllocator` is enabled (see the config for `kube-controller-manager`). A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node. A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate. In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "networking.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "ClusterCIDR"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object metadata. This name must be a valid DNS subdomain name."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec",
+          "description": "The desired state of the ClusterCIDR."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.networking.v1alpha1.ClusterCIDR.CREATE": {
+      "description": "ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "networking.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "ClusterCIDR"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+          "description": "Standard object metadata. This name must be a valid DNS subdomain name."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec",
+          "description": "The desired state of the ClusterCIDR."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.networking.v1alpha1.ClusterCIDR.GET": {
+      "description": "ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "networking.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "ClusterCIDR"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+          "description": "Standard object metadata. This name must be a valid DNS subdomain name."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec",
+          "description": "The desired state of the ClusterCIDR."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.networking.v1alpha1.ClusterCIDR.UPDATE": {
+      "description": "ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "networking.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "ClusterCIDR"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
+          "description": "Standard object metadata. This name must be a valid DNS subdomain name."
+        },
+        "spec": {
+          "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec",
+          "description": "The desired state of the ClusterCIDR."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.networking.v1alpha1.ClusterCIDRList": {
+      "description": "ClusterCIDRList contains a list of ClusterCIDR.",
+      "properties": {
+        "apiVersion": {
+          "description": "The version of the schema for the object representation",
+          "enum": [
+            "networking.k8s.io/v1alpha1"
+          ],
+          "type": "string"
+        },
+        "items": {
+          "description": "A list of ClusterCIDR objects.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "description": "A string value representing the REST resource",
+          "enum": [
+            "ClusterCIDRList"
+          ],
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+          "description": "Standard list metadata."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "items",
+        "kind",
+        "metadata"
+      ],
+      "type": "object",
+      "x-kubernetes-group-version-kind": [
+        {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDRList",
+          "version": "v1alpha1"
+        }
+      ]
+    },
+    "io.k8s.api.networking.v1alpha1.ClusterCIDRSpec": {
+      "description": "ClusterCIDRSpec defines the desired state of ClusterCIDR.",
+      "properties": {
+        "ipv4": {
+          "description": "This defines an IPv4 IP block in CIDR notation(e.g. \"10.0.0.0/8\"). At least one of `ipv4` and `ipv6` must be specified. This field is immutable.",
+          "type": "string"
+        },
+        "ipv6": {
+          "description": "This defines an IPv6 IP block in CIDR notation(e.g. \"fd12:3456:789a:1::/64\"). At least one of `ipv4` and `ipv6` must be specified. This field is immutable.",
+          "type": "string"
+        },
+        "nodeSelector": {
+          "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector",
+          "description": "This defines which nodes the config is applicable to. An empty or nil `nodeSelector` selects all nodes. This field is immutable."
+        },
+        "perNodeHostBits": {
+          "description": "This defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of \"192.168.0.0/24\", splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a \"/24\" mask for IPv4 or a \"/120\" for IPv6). This field is immutable.",
+          "format": "int32",
+          "minimum": 4,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "perNodeHostBits"
+      ],
       "type": "object"
     },
     "io.k8s.api.node.v1.Overhead": {
@@ -20413,7 +20768,7 @@
       "description": "Information that describes a policy rule. Rules can either apply to API resources (such as `\"pods\"` or `\"secrets\"`) or non-resource URL paths (such as '\"/api\"'),  but not both.",
       "properties": {
         "apiGroups": {
-          "description": "The name of the API group that contains the resources. If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. This field is required when `nonResourceURLs` is empty.",
+          "description": "The name of the API group that contains the resources. If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. This field is required when `nonResourceURLs` is empty. \"\" represents the core API group and \"*\" represents all API groups.",
           "items": {
             "type": "string"
           },
@@ -21295,6 +21650,11 @@
         },
         "requiresRepublish": {
           "description": "This indicates the CSI driver wants `NodePublishVolume()` being periodically called to reflect any possible change in the mounted volume. This field defaults to `false`.\n\n**Note**: After a successful initial `NodePublishVolume()` call, subsequent calls to `NodePublishVolume()` should only update the contents of the volume. New mount points will not be seen by a running container.",
+          "type": "boolean"
+        },
+        "seLinuxMount": {
+          "default": false,
+          "description": "This specifies if the CSI driver supports `-o context` mount option.\n\nWhen \"true\", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call `NodeStage`/`NodePublish` with `-o context=xyz` mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.\n\nWhen \"false\", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.",
           "type": "boolean"
         },
         "storageCapacity": {
@@ -24220,6 +24580,11 @@
         {
           "group": "networking.k8s.io",
           "kind": "DeleteOptions",
+          "version": "v1alpha1"
+        },
+        {
+          "group": "networking.k8s.io",
+          "kind": "DeleteOptions",
           "version": "v1beta1"
         },
         {
@@ -24450,10 +24815,6 @@
           "description": "An unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
           "type": "object"
         },
-        "clusterName": {
-          "description": "**DEPRECATED**: This is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.\n\nThe name in the go struct is changed to help clients detect accidental use.",
-          "type": "string"
-        },
         "finalizers": {
           "description": "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the `deletionTimestamp` of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order. Order is NOT enforced because it introduces significant risk of stuck finalizers. `finalizers` is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.",
           "items": {
@@ -24505,10 +24866,6 @@
           },
           "description": "An unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
           "type": "object"
-        },
-        "clusterName": {
-          "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now.",
-          "type": "string"
         },
         "creationTimestamp": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
@@ -24605,10 +24962,6 @@
           },
           "description": "An unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
           "type": "object"
-        },
-        "clusterName": {
-          "description": "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now. It can be provided in a `PATCH` operation, but the value provided must be identical to the existing value.",
-          "type": "string"
         },
         "deletionGracePeriodSeconds": {
           "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when `deletionTimestamp` is also set. May only be shortened. Read-only.",
@@ -26069,7 +26422,7 @@
   },
   "parameters": {
     "allowWatchBookmarks": {
-      "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch** or the feature gate `WatchBookmarks` is not enabled in API server.",
+      "description": "`allowWatchBookmarks` requests WatchEvents with `type: \"BOOKMARK\"`. Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any `\"BOOKMARK\"` event during a session. This field is ignored if the operation is not a **watch**.",
       "in": "query",
       "name": "allowWatchBookmarks",
       "required": false,
@@ -61102,6 +61455,527 @@
           "group": "networking.k8s.io",
           "kind": "NetworkPolicy",
           "version": "v1"
+        }
+      }
+    },
+    "/apis/networking.k8s.io/v1alpha1/": {
+      "get": {
+        "consumes": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "description": "get available resources",
+        "operationId": "getNetworkingV1alpha1APIResources",
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ]
+      }
+    },
+    "/apis/networking.k8s.io/v1alpha1/clustercidrs": {
+      "delete": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "delete collection of ClusterCIDR",
+        "operationId": "deleteNetworkingV1alpha1CollectionClusterCIDR",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+            }
+          },
+          {
+            "$ref": "#/parameters/continue"
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldSelector"
+          },
+          {
+            "$ref": "#/parameters/gracePeriodSeconds"
+          },
+          {
+            "$ref": "#/parameters/labelSelector"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/orphanDependents"
+          },
+          {
+            "$ref": "#/parameters/propagationPolicy"
+          },
+          {
+            "$ref": "#/parameters/resourceVersion"
+          },
+          {
+            "$ref": "#/parameters/resourceVersionMatch"
+          },
+          {
+            "$ref": "#/parameters/timeoutSeconds"
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "deletecollection",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      },
+      "get": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "list or watch objects of kind ClusterCIDR",
+        "operationId": "listNetworkingV1alpha1ClusterCIDR",
+        "parameters": [
+          {
+            "$ref": "#/parameters/allowWatchBookmarks"
+          },
+          {
+            "$ref": "#/parameters/continue"
+          },
+          {
+            "$ref": "#/parameters/fieldSelector"
+          },
+          {
+            "$ref": "#/parameters/labelSelector"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/resourceVersion"
+          },
+          {
+            "$ref": "#/parameters/resourceVersionMatch"
+          },
+          {
+            "$ref": "#/parameters/timeoutSeconds"
+          },
+          {
+            "$ref": "#/parameters/watch"
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf",
+          "application/json;stream=watch",
+          "application/vnd.kubernetes.protobuf;stream=watch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRList"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "list",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      },
+      "post": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "create a ClusterCIDR",
+        "operationId": "createNetworkingV1alpha1ClusterCIDR",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          },
+          {
+            "$ref": "#/parameters/fieldValidation"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "post",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      }
+    },
+    "/apis/networking.k8s.io/v1alpha1/clustercidrs/{name}": {
+      "delete": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "delete a ClusterCIDR",
+        "operationId": "deleteNetworkingV1alpha1ClusterCIDR",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/gracePeriodSeconds"
+          },
+          {
+            "$ref": "#/parameters/orphanDependents"
+          },
+          {
+            "$ref": "#/parameters/propagationPolicy"
+          },
+          {
+            "description": "name of the ClusterCIDR",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "delete",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      },
+      "get": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "read the specified ClusterCIDR",
+        "operationId": "readNetworkingV1alpha1ClusterCIDR",
+        "parameters": [
+          {
+            "description": "name of the ClusterCIDR",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "get",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      },
+      "patch": {
+        "consumes": [
+          "application/json-patch+json",
+          "application/merge-patch+json",
+          "application/strategic-merge-patch+json",
+          "application/apply-patch+yaml"
+        ],
+        "description": "partially update the specified ClusterCIDR",
+        "operationId": "patchNetworkingV1alpha1ClusterCIDR",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManagerPatch"
+          },
+          {
+            "$ref": "#/parameters/fieldValidation"
+          },
+          {
+            "$ref": "#/parameters/force"
+          },
+          {
+            "description": "name of the ClusterCIDR",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "201": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "patch",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
+        }
+      },
+      "put": {
+        "consumes": [
+          "*/*"
+        ],
+        "description": "replace the specified ClusterCIDR",
+        "operationId": "replaceNetworkingV1alpha1ClusterCIDR",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.UPDATE"
+            }
+          },
+          {
+            "$ref": "#/parameters/dryRun"
+          },
+          {
+            "$ref": "#/parameters/fieldManager"
+          },
+          {
+            "$ref": "#/parameters/fieldValidation"
+          },
+          {
+            "description": "name of the ClusterCIDR",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string",
+            "uniqueItems": true
+          },
+          {
+            "$ref": "#/parameters/pretty"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/yaml",
+          "application/vnd.kubernetes.protobuf"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "201": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDR.GET"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "networking_v1alpha1"
+        ],
+        "x-kubernetes-action": "put",
+        "x-kubernetes-group-version-kind": {
+          "group": "networking.k8s.io",
+          "kind": "ClusterCIDR",
+          "version": "v1alpha1"
         }
       }
     },
