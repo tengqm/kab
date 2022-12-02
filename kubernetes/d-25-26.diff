@@ -1,0 +1,488 @@
+# diff -r 1.25orig/defs/io.k8s.api.admissionregistration.v1.RuleWithOperations.json 1.26orig/defs/io.k8s.api.admissionregistration.v1.RuleWithOperations.json
+# 9c9,10
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+# 16c17,18
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+# 23c25,26
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+# 30c33,34
+# <       "type": "array"
+# ---
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+## New API admissionregistration/v1alpha1
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.MatchResources.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.NamedRuleWithOperations.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ParamKind.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ParamRef.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicy.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingList.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyList.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec.json
+# Only in 1.26orig/defs/: io.k8s.api.admissionregistration.v1alpha1.Validation.json
+# Only in 1.26orig/ops/: createAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: createAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: deleteAdmissionregistrationV1alpha1CollectionValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: deleteAdmissionregistrationV1alpha1CollectionValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: deleteAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: deleteAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: getAdmissionregistrationV1alpha1APIResources.json
+# Only in 1.26orig/ops/: listAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: listAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: patchAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: patchAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: readAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: readAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: replaceAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: replaceAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: watchAdmissionregistrationV1alpha1ValidatingAdmissionPolicy.json
+# Only in 1.26orig/ops/: watchAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding.json
+# Only in 1.26orig/ops/: watchAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBindingList.json
+# Only in 1.26orig/ops/: watchAdmissionregistrationV1alpha1ValidatingAdmissionPolicyList.json
+
+# diff -r 1.25orig/defs/io.k8s.api.apps.v1.ReplicaSetStatus.json 1.26orig/defs/io.k8s.api.apps.v1.ReplicaSetStatus.json
+# 34c34
+# <       "description": "Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller",
+# ---
+# >       "description": "Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller",
+# Only in 1.26orig/defs/: io.k8s.api.apps.v1.StatefulSetOrdinals.json
+# diff -r 1.25orig/defs/io.k8s.api.apps.v1.StatefulSetSpec.json 1.26orig/defs/io.k8s.api.apps.v1.StatefulSetSpec.json
+# 8a9,12
+# >     "ordinals": {
+# >       "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetOrdinals",
+# >       "description": "ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a \"0\" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha."
+# >     },
+# 37c41
+# <       "description": "template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet."
+# ---
+# >       "description": "template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named \"web\" with index number \"3\" would be named \"web-3\"."
+## authentication/v1alpha1: SelfSubjectReview API
+# Only in 1.26orig/defs/: io.k8s.api.authentication.v1alpha1.SelfSubjectReview.json
+# Only in 1.26orig/defs/: io.k8s.api.authentication.v1alpha1.SelfSubjectReviewStatus.json
+# Only in 1.26orig/ops/: createAuthenticationV1alpha1SelfSubjectReview.json
+# Only in 1.26orig/ops/: getAuthenticationV1alpha1APIResources.json
+
+# diff -r 1.25orig/defs/io.k8s.api.autoscaling.v1.CrossVersionObjectReference.json 1.26orig/defs/io.k8s.api.autoscaling.v1.CrossVersionObjectReference.json
+# 9c9
+# <       "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\"",
+# ---
+# >       "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+# diff -r 1.25orig/defs/io.k8s.api.autoscaling.v2.CrossVersionObjectReference.json 1.26orig/defs/io.k8s.api.autoscaling.v2.CrossVersionObjectReference.json
+# 9c9
+# <       "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\"",
+# ---
+# >       "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+
+## Drop autoscaling/v2beta2 API
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricSource.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ContainerResourceMetricStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.CrossVersionObjectReference.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ExternalMetricSource.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ExternalMetricStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HPAScalingPolicy.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HPAScalingRules.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscaler.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerBehavior.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerCondition.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerList.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerSpec.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.HorizontalPodAutoscalerStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.MetricIdentifier.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.MetricSpec.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.MetricStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.MetricTarget.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.MetricValueStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ObjectMetricSource.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ObjectMetricStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.PodsMetricSource.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.PodsMetricStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ResourceMetricSource.json
+# Only in 1.25orig/defs/: io.k8s.api.autoscaling.v2beta2.ResourceMetricStatus.json
+# Only in 1.25orig/ops/: createAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: deleteAutoscalingV2beta2CollectionNamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: deleteAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: getAutoscalingV2beta2APIResources.json
+# Only in 1.25orig/ops/: listAutoscalingV2beta2HorizontalPodAutoscalerForAllNamespaces.json
+# Only in 1.25orig/ops/: listAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: patchAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: patchAutoscalingV2beta2NamespacedHorizontalPodAutoscalerStatus.json
+# Only in 1.25orig/ops/: readAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: readAutoscalingV2beta2NamespacedHorizontalPodAutoscalerStatus.json
+# Only in 1.25orig/ops/: replaceAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: replaceAutoscalingV2beta2NamespacedHorizontalPodAutoscalerStatus.json
+# Only in 1.25orig/ops/: watchAutoscalingV2beta2HorizontalPodAutoscalerListForAllNamespaces.json
+# Only in 1.25orig/ops/: watchAutoscalingV2beta2NamespacedHorizontalPodAutoscaler.json
+# Only in 1.25orig/ops/: watchAutoscalingV2beta2NamespacedHorizontalPodAutoscalerList.json
+
+## batch/v1 JobStatus.UncountedTerminatedPods GA now.
+# diff -r 1.25orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.26orig/defs/io.k8s.api.batch.v1.JobStatus.json
+# 48c48
+# <       "description": "UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.\n\nThe job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding\n    counter.\n\nThis field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null."
+# ---
+# >       "description": "UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.\n\nThe job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding\n    counter.\n\nOld jobs might not be tracked using this field, in which case the field remains null."
+
+## New resourceClaims for Pod Spec.
+## New schedulingGates for Pod Spec.
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.PodSpec.json 1.26orig/defs/io.k8s.api.core.v1.PodSpec.json
+# 136a137,149
+# >     "resourceClaims": {
+# >       "description": "ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.\n\nThis is an alpha field and requires enabling the DynamicResourceAllocation feature gate.\n\nThis field is immutable.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.PodResourceClaim"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "name"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# >       "x-kubernetes-patch-merge-key": "name",
+# >       "x-kubernetes-patch-strategy": "merge,retainKeys"
+# >     },
+# 147a161,173
+# >     },
+# >     "schedulingGates": {
+# >       "description": "SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.\n\nThis is an alpha-level feature enabled by PodSchedulingReadiness feature gate.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.PodSchedulingGate"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "name"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# >       "x-kubernetes-patch-merge-key": "name",
+# >       "x-kubernetes-patch-strategy": "merge"
+# Only in 1.26orig/defs/: io.k8s.api.core.v1.PodResourceClaim.json
+# Only in 1.26orig/defs/: io.k8s.api.core.v1.ClaimSource.json
+# Only in 1.26orig/defs/: io.k8s.api.core.v1.PodSchedulingGate.json
+
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.NodeSpec.json 1.26orig/defs/io.k8s.api.core.v1.NodeSpec.json
+# 6c6
+# <       "description": "Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26."
+# ---
+# >       "description": "Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed."
+
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.NodeStatus.json 1.26orig/defs/io.k8s.api.core.v1.NodeStatus.json
+# 5c5
+# <       "description": "List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.",
+# ---
+# >       "description": "List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.",
+
+
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json 1.26orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json
+# 13c13
+# <       "description": "dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field."
+# ---
+# >       "description": "dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource."
+# 16,17c16,17
+# <       "$ref": "#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference",
+# <       "description": "dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While DataSource ignores disallowed values (dropping them), DataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled."
+# ---
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.TypedObjectReference",
+# >       "description": "dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef\n  allows any non-core object, as well as PersistentVolumeClaim objects.\n* While dataSource ignores disallowed values (dropping them), dataSourceRef\n  preserves all values, and generates an error if a disallowed value is\n  specified.\n* While dataSource only allows local objects, dataSourceRef allows objects\n  in any namespaces.\n(Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled."
+
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.PodSecurityContext.json 1.26orig/defs/io.k8s.api.core.v1.PodSecurityContext.json
+# 36c36
+# <       "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.",
+# ---
+# >       "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.",
+
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.ReplicationControllerStatus.json 1.26orig/defs/io.k8s.api.core.v1.ReplicationControllerStatus.json
+# 34c34
+# <       "description": "Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller",
+# ---
+# >       "description": "Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller",
+## New claims field in resource requirements.
+# Only in 1.26orig/defs/: io.k8s.api.core.v1.ResourceClaim.json
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.ResourceRequirements.json 1.26orig/defs/io.k8s.api.core.v1.ResourceRequirements.json
+# 3a4,11
+# >     "claims": {
+# >       "description": "Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.\n\nThis is an alpha field and requires enabling the DynamicResourceAllocation feature gate.\n\nThis field is immutable.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.ResourceClaim"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "set"
+# >     },
+# diff -r 1.25orig/defs/io.k8s.api.core.v1.TopologySpreadConstraint.json 1.26orig/defs/io.k8s.api.core.v1.TopologySpreadConstraint.json
+# 27c27
+# <       "description": "NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.",
+# ---
+# >       "description": "NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.",
+# 31c31
+# <       "description": "NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.",
+# ---
+# >       "description": "NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.",
+
+# Only in 1.26orig/defs/: io.k8s.api.core.v1.TypedObjectReference.json
+
+# diff -r 1.25orig/defs/io.k8s.api.discovery.v1.EndpointConditions.json 1.26orig/defs/io.k8s.api.discovery.v1.EndpointConditions.json
+# 9c9
+# <       "description": "serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.",
+# ---
+# >       "description": "serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.",
+# 13c13
+# <       "description": "terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.",
+# ---
+# >       "description": "terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.",
+
+## Drop flowcontrol/v1beta1 API group
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.FlowDistinguisherMethod.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.FlowSchema.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.FlowSchemaCondition.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.FlowSchemaList.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.FlowSchemaSpec.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.FlowSchemaStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.GroupSubject.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.LimitResponse.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.LimitedPriorityLevelConfiguration.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.NonResourcePolicyRule.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PolicyRulesWithSubjects.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfiguration.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationCondition.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationList.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationReference.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationSpec.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.PriorityLevelConfigurationStatus.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.QueuingConfiguration.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.ResourcePolicyRule.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.ServiceAccountSubject.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.Subject.json
+# Only in 1.25orig/defs/: io.k8s.api.flowcontrol.v1beta1.UserSubject.json
+# Only in 1.25orig/ops/: createFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: createFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: deleteFlowcontrolApiserverV1beta1CollectionFlowSchema.json
+# Only in 1.25orig/ops/: deleteFlowcontrolApiserverV1beta1CollectionPriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: deleteFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: deleteFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: getFlowcontrolApiserverV1beta1APIResources.json
+# Only in 1.25orig/ops/: listFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: listFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: patchFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: patchFlowcontrolApiserverV1beta1FlowSchemaStatus.json
+# Only in 1.25orig/ops/: patchFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: patchFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus.json
+# Only in 1.25orig/ops/: readFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: readFlowcontrolApiserverV1beta1FlowSchemaStatus.json
+# Only in 1.25orig/ops/: readFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: readFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus.json
+# Only in 1.25orig/ops/: replaceFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: replaceFlowcontrolApiserverV1beta1FlowSchemaStatus.json
+# Only in 1.25orig/ops/: replaceFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: replaceFlowcontrolApiserverV1beta1PriorityLevelConfigurationStatus.json
+# Only in 1.25orig/ops/: watchFlowcontrolApiserverV1beta1FlowSchema.json
+# Only in 1.25orig/ops/: watchFlowcontrolApiserverV1beta1FlowSchemaList.json
+# Only in 1.25orig/ops/: watchFlowcontrolApiserverV1beta1PriorityLevelConfiguration.json
+# Only in 1.25orig/ops/: watchFlowcontrolApiserverV1beta1PriorityLevelConfigurationList.json
+
+# diff -r 1.25orig/defs/io.k8s.api.flowcontrol.v1beta2.LimitedPriorityLevelConfiguration.json 1.26orig/defs/io.k8s.api.flowcontrol.v1beta2.LimitedPriorityLevelConfiguration.json
+# 8a9,18
+# >     "borrowingLimitPercent": {
+# >       "description": "`borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.\n\nBorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )\n\nThe value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.",
+# >       "format": "int32",
+# >       "type": "integer"
+# >     },
+# >     "lendablePercent": {
+# >       "description": "`lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.\n\nLendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )",
+# >       "format": "int32",
+# >       "type": "integer"
+# >     },
+
+## flowcontrol/v1beta3 version
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.FlowDistinguisherMethod.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.FlowSchema.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.FlowSchemaCondition.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.FlowSchemaList.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.FlowSchemaSpec.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.FlowSchemaStatus.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.GroupSubject.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.LimitResponse.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.LimitedPriorityLevelConfiguration.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.NonResourcePolicyRule.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PolicyRulesWithSubjects.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfiguration.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationCondition.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationList.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationReference.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationSpec.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationStatus.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.QueuingConfiguration.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.ResourcePolicyRule.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.ServiceAccountSubject.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.Subject.json
+# Only in 1.26orig/defs/: io.k8s.api.flowcontrol.v1beta3.UserSubject.json
+# 
+# Only in 1.26orig/ops/: createFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: createFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: getFlowcontrolApiserverV1beta3APIResources.json
+# Only in 1.26orig/ops/: deleteFlowcontrolApiserverV1beta3CollectionFlowSchema.json
+# Only in 1.26orig/ops/: deleteFlowcontrolApiserverV1beta3CollectionPriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: deleteFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: deleteFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: listFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: listFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: patchFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: patchFlowcontrolApiserverV1beta3FlowSchemaStatus.json
+# Only in 1.26orig/ops/: patchFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: patchFlowcontrolApiserverV1beta3PriorityLevelConfigurationStatus.json
+# Only in 1.26orig/ops/: readFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: readFlowcontrolApiserverV1beta3FlowSchemaStatus.json
+# Only in 1.26orig/ops/: readFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: readFlowcontrolApiserverV1beta3PriorityLevelConfigurationStatus.json
+# Only in 1.26orig/ops/: replaceFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: replaceFlowcontrolApiserverV1beta3FlowSchemaStatus.json
+# Only in 1.26orig/ops/: replaceFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: replaceFlowcontrolApiserverV1beta3PriorityLevelConfigurationStatus.json
+# Only in 1.26orig/ops/: watchFlowcontrolApiserverV1beta3FlowSchema.json
+# Only in 1.26orig/ops/: watchFlowcontrolApiserverV1beta3FlowSchemaList.json
+# Only in 1.26orig/ops/: watchFlowcontrolApiserverV1beta3PriorityLevelConfiguration.json
+# Only in 1.26orig/ops/: watchFlowcontrolApiserverV1beta3PriorityLevelConfigurationList.json
+
+# diff -r 1.25orig/defs/io.k8s.api.networking.v1.IPBlock.json 1.26orig/defs/io.k8s.api.networking.v1.IPBlock.json
+# 2c2
+# <   "description": "IPBlock describes a particular CIDR (Ex. \"192.168.1.1/24\",\"2001:db9::/64\") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.",
+# ---
+# >   "description": "IPBlock describes a particular CIDR (Ex. \"192.168.1.0/24\",\"2001:db8::/64\") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.",
+# 5c5
+# <       "description": "CIDR is a string representing the IP Block Valid examples are \"192.168.1.1/24\" or \"2001:db9::/64\"",
+# ---
+# >       "description": "CIDR is a string representing the IP Block Valid examples are \"192.168.1.0/24\" or \"2001:db8::/64\"",
+# 9c9
+# <       "description": "Except is a slice of CIDRs that should not be included within an IP Block Valid examples are \"192.168.1.1/24\" or \"2001:db9::/64\" Except values will be rejected if they are outside the CIDR range",
+# ---
+# >       "description": "Except is a slice of CIDRs that should not be included within an IP Block Valid examples are \"192.168.1.0/24\" or \"2001:db8::/64\" Except values will be rejected if they are outside the CIDR range",
+
+## Update to IngressStatus
+# Only in 1.26orig/defs/: io.k8s.api.networking.v1.IngressLoadBalancerIngress.json
+# Only in 1.26orig/defs/: io.k8s.api.networking.v1.IngressLoadBalancerStatus.json
+# Only in 1.26orig/defs/: io.k8s.api.networking.v1.IngressPortStatus.json
+# diff -r 1.25orig/defs/io.k8s.api.networking.v1.IngressStatus.json 1.26orig/defs/io.k8s.api.networking.v1.IngressStatus.json
+# 5c5
+# <       "$ref": "#/definitions/io.k8s.api.core.v1.LoadBalancerStatus",
+# ---
+# >       "$ref": "#/definitions/io.k8s.api.networking.v1.IngressLoadBalancerStatus",
+
+# diff -r 1.25orig/defs/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec.json 1.26orig/defs/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec.json
+# 9c9
+# <       "description": "IPv6 defines an IPv6 IP block in CIDR notation(e.g. \"fd12:3456:789a:1::/64\"). At least one of IPv4 and IPv6 must be specified. This field is immutable.",
+# ---
+# >       "description": "IPv6 defines an IPv6 IP block in CIDR notation(e.g. \"2001:db8::/64\"). At least one of IPv4 and IPv6 must be specified. This field is immutable.",
+
+# diff -r 1.25orig/defs/io.k8s.api.policy.v1.PodDisruptionBudgetSpec.json 1.26orig/defs/io.k8s.api.policy.v1.PodDisruptionBudgetSpec.json
+# 15a16,19
+# >     },
+# >     "unhealthyPodEvictionPolicy": {
+# >       "description": "UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=\"Ready\",status=\"True\".\n\nValid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.\n\nIfHealthyBudget policy means that running pods (status.phase=\"Running\"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.\n\nAlwaysAllow policy means that all running pods (status.phase=\"Running\"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.\n\nAdditional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.\n\nThis field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).",
+# >       "type": "string"
+
+## resource.k8s.io/v1alpha ResourceClass resource
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClass.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClassList.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClassParametersReference.json
+# Only in 1.26orig/ops/: createResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1CollectionResourceClass.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: getResourceAPIGroup.json
+# Only in 1.26orig/ops/: getResourceV1alpha1APIResources.json
+# Only in 1.26orig/ops/: listResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: patchResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: readResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: replaceResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1ResourceClass.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1ResourceClassList.json
+
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaim.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimList.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimSpec.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimParametersReference.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimStatus.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.AllocationResult.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimConsumerReference.json
+# Only in 1.26orig/ops/: createResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1CollectionNamespacedResourceClaim.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: listResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: listResourceV1alpha1ResourceClaimForAllNamespaces.json
+# Only in 1.26orig/ops/: patchResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: patchResourceV1alpha1NamespacedResourceClaimStatus.json
+# Only in 1.26orig/ops/: readResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: readResourceV1alpha1NamespacedResourceClaimStatus.json
+# Only in 1.26orig/ops/: replaceResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: replaceResourceV1alpha1NamespacedResourceClaimStatus.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1NamespacedResourceClaim.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1NamespacedResourceClaimList.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1ResourceClaimListForAllNamespaces.json
+
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimTemplate.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimTemplateList.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimTemplateSpec.json
+# Only in 1.26orig/ops/: createResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1CollectionNamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: listResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: listResourceV1alpha1ResourceClaimTemplateForAllNamespaces.json
+# Only in 1.26orig/ops/: patchResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: readResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: replaceResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1NamespacedResourceClaimTemplate.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1NamespacedResourceClaimTemplateList.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1ResourceClaimTemplateListForAllNamespaces.json
+
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.PodScheduling.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.PodSchedulingList.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.PodSchedulingSpec.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.PodSchedulingStatus.json
+# Only in 1.26orig/defs/: io.k8s.api.resource.v1alpha1.ResourceClaimSchedulingStatus.json
+
+# Only in 1.26orig/ops/: createResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1CollectionNamespacedPodScheduling.json
+# Only in 1.26orig/ops/: deleteResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: listResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: listResourceV1alpha1PodSchedulingForAllNamespaces.json
+# Only in 1.26orig/ops/: patchResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: patchResourceV1alpha1NamespacedPodSchedulingStatus.json
+# Only in 1.26orig/ops/: readResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: readResourceV1alpha1NamespacedPodSchedulingStatus.json
+# Only in 1.26orig/ops/: replaceResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: replaceResourceV1alpha1NamespacedPodSchedulingStatus.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1NamespacedPodScheduling.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1NamespacedPodSchedulingList.json
+# Only in 1.26orig/ops/: watchResourceV1alpha1PodSchedulingListForAllNamespaces.json
+
+# diff -r 1.25orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionSpec.json 1.26orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionSpec.json
+# 17c17
+# <       "description": "preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.",
+# ---
+# >       "description": "preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.",
+# diff -r 1.25orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.Status.json 1.26orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.Status.json
+# 6,8d5
+# <       "enum": [
+# <         "v1"
+# <       ],
+# 22,24d18
+# <       "enum": [
+# <         "Status"
+# <       ],
+# 44,47d37
+# <   "required": [
+# <     "apiVersion",
+# <     "kind"
+# <   ],
+# 53a44,48
+# >     },
+# >     {
+# >       "group": "resource.k8s.io",
+# >       "kind": "Status",
+# >       "version": "v1alpha1"
+
