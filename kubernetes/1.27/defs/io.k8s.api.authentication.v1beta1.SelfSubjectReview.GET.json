@@ -4,7 +4,7 @@
     "apiVersion": {
       "description": "The version of the schema for the object representation",
       "enum": [
-        "authentication.k8s.io/v1alpha1"
+        "authentication.k8s.io/v1beta1"
       ],
       "type": "string"
     },
@@ -20,7 +20,7 @@
       "description": "Standard object metadata. This name must be a valid DNS subdomain name."
     },
     "status": {
-      "$ref": "#/definitions/io.k8s.api.authentication.v1alpha1.SelfSubjectReviewStatus",
+      "$ref": "#/definitions/io.k8s.api.authentication.v1beta1.SelfSubjectReviewStatus",
       "description": "`status` is filled in by the server with the user attributes."
     }
   },
@@ -35,7 +35,7 @@
     {
       "group": "authentication.k8s.io",
       "kind": "SelfSubjectReview",
-      "version": "v1alpha1"
+      "version": "v1beta1"
     }
   ]
 }
