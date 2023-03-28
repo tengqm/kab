@@ -1,0 +1,32 @@
+{
+  "description": "ParentReference describes a reference to a parent object.",
+  "properties": {
+    "group": {
+      "description": "The group of the object being referenced. Empty string or null value means the core API group. For example, a Service object. If the string is not empty, it must be a valid DNS subdomain name.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the object being referenced. The value must be a valid path segment.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "namespace": {
+      "description": "The namespace of the object being referenced. This field is optional.",
+      "type": "string"
+    },
+    "resource": {
+      "description": "The resource of the object being referenced. The value must be a valid path segment.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "uid": {
+      "description": "The UID of the object being referenced.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "resource"
+  ],
+  "type": "object"
+}

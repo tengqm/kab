@@ -1,0 +1,41 @@
+{
+  "description": "IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "networking.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "IPAddress"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.networking.v1alpha1.IPAddressSpec",
+      "description": "The desired state of the IPAddress."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "networking.k8s.io",
+      "kind": "IPAddress",
+      "version": "v1alpha1"
+    }
+  ]
+}
