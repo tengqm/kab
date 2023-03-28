@@ -172,7 +172,7 @@
       "type": "string"
     },
     "schedulingGates": {
-      "description": "`schedulingGates` is an opaque list of values that, if specified, will block scheduling the Pod. When this array is updated, the only allowed update is to remove existing items from the array. No new gate can be added.\n\nThis is an Alpha feature enabled by the `PodSchedulingReadiness` feature gate.",
+      "description": "`schedulingGates` is an opaque list of values that, if specified, will block scheduling the Pod. If `schedulingGates` is not empty, the Pod will stay in the `SchedulingGated` state and the scheduler will not attempt to schedule the pod.\n\n`schedulingGates` can only be set at Pod creation time, and be removed only afterwards.\n\nThis is a Beta feature enabled by the PodSchedulingReadiness feature gate.",
       "items": {
         "$ref": "#/definitions/io.k8s.api.core.v1.PodSchedulingGate"
       },

@@ -25,7 +25,7 @@
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
-      "description": "The object that describes the Pod to create if insufficient replicas are detected."
+      "description": "The object that describes the Pod to create if insufficient replicas are detected. The only allowed `template.spec.restartPolicy` value is \"Always\"."
     }
   },
   "required": [

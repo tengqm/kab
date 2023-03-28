@@ -1,0 +1,27 @@
+{
+  "description": "ContainerResizePolicy represents resource resize policy for the container.",
+  "properties": {
+    "resourceName": {
+      "description": "Name of the resource to which this resource resize policy applies.",
+      "enum": [
+          "cpu",
+          "memory"
+      ],
+      "type": "string"
+    },
+    "restartPolicy": {
+      "default": "NotRequired",
+      "description": "Restart policy to apply when specified resource is resized. Valid values include:\n\n- `\"NotRequired\"`: Kubernetes will try to resize the container without restarting it, if possible. Kubernetes may however choose to restart the container if it is unable to actuate resize without a restart. For example, the runtime doesn't support restart-free resizing.\n - `\"RestartContainer\"':Kubernetes will resize the container in-place by stopping and starting the container when new resources are applied. This is needed for legacy applications. For example. Java apps using the `-xmxN` flag which are unable to use resized memory without restarting.\n",
+      "enum": [
+          "NotRequired",
+          "RestartContainer"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "resourceName",
+    "restartPolicy"
+  ],
+  "type": "object"
+}
