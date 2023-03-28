@@ -1,0 +1,25 @@
+{
+  "description": "This describes a class of Pods that should avoid the node",
+  "properties": {
+    "evictionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Time at which this entry was added to the list."
+    },
+    "message": {
+      "description": "Human readable message indicating why this entry was added to the list.",
+      "type": "string"
+    },
+    "podSignature": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodSignature",
+      "description": "The class of Pods."
+    },
+    "reason": {
+      "description": "A (brief) reason why this entry was added to the list.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "podSignature"
+  ],
+  "type": "object"
+}

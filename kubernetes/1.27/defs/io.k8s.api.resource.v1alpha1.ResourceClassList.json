@@ -1,0 +1,44 @@
+{
+  "description": "ResourceClassList is a collection of classes.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "resource.k8s.io/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "The list of resource classes.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha1.ResourceClass.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ResourceClassList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "description": "Standard list metadata",
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "items",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "resource.k8s.io",
+      "kind": "ResourceClassList",
+      "version": "v1alpha1"
+    }
+  ]
+}

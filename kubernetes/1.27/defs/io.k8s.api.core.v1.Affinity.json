@@ -1,0 +1,18 @@
+{
+  "description": "A group of affinity scheduling rules.",
+  "properties": {
+    "nodeAffinity": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeAffinity",
+      "description": "Node affinity scheduling rules for the Pod."
+    },
+    "podAffinity": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodAffinity",
+      "description": "Pod affinity scheduling rules (e.g. co-locate this Pod in the same node, zone, etc. as some other Pod(s))."
+    },
+    "podAntiAffinity": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodAntiAffinity",
+      "description": "Pod anti-affinity scheduling rules (e.g. avoid putting this Pod in the same node, zone, etc. as some other Pod(s))."
+    }
+  },
+  "type": "object"
+}

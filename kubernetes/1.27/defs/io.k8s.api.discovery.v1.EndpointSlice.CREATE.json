@@ -1,0 +1,65 @@
+{
+  "description": "EndpointSlice represents a subset of the endpoints that implement a Service. For a given Service there may be multiple EndpointSlice objects, selected by `labels`, which must be joined to produce the full set of Endpoints.",
+  "properties": {
+    "addressType": {
+      "description": "The type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported:\n\n- `IPv4`: Represents an IPv4 Address.\n- `IPv6`: Represents an IPv6 Address.\n- `FQDN`: Represents a Fully Qualified Domain Name.",
+      "enum": [
+        "FQDN",
+        "IPv4",
+        "IPv6"
+      ],
+      "type": "string"
+    },
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "discovery.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "endpoints": {
+      "description": "A list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1.Endpoint"
+      },
+      "maxItems": 1000,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "EndpointSlice"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE",
+      "description": "Standard object metadata. The name must be a valid DNS subdomain."
+    },
+    "ports": {
+      "description": "The list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When `ports` is empty, it indicates that there are no defined ports. When a port is defined with a `nil` port value, it indicates \"all ports\".",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.discovery.v1.EndpointPort"
+      },
+      "maxItems": 100,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    }
+  },
+  "required": [
+    "addressType",
+    "apiVersion",
+    "endpoints",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "discovery.k8s.io",
+      "kind": "EndpointSlice",
+      "version": "v1"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "description": "Table is a tabular representation of a set of API resources. The server transforms the object into a set of preferred columns for quickly reviewing the objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "meta.k8s.io"
+      ],
+      "type": "string"
+    },
+    "columnDefinitions": {
+      "description": "This list describes each column in the returned `rows` array. The number of cells per row will always match the number of column definitions.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.TableColumnDefinition"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Table"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    },
+    "rows": {
+      "description": "The list items in the table.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.TableRow"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "columnDefinitions",
+    "kind",
+    "metadata",
+    "rows"
+  ],
+  "type": "object"
+}
+

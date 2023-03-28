@@ -1,0 +1,30 @@
+{
+  "description": "A reference to an object that a token is bound to.",
+  "properties": {
+    "apiVersion": {
+      "description": "API group and version of the referent",
+      "type": "string"
+    },
+    "kind": {
+      "description": "Kind name of the referent",
+      "enum": [
+        "Pod",
+        "Secret"
+      ],
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the referent.",
+      "type": "string"
+    },
+    "uid": {
+      "description": "UID of the referent.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind"
+  ],
+  "type": "object"
+}

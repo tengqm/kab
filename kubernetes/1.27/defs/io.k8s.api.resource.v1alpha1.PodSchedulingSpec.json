@@ -1,0 +1,20 @@
+{
+  "description": "PodSchedulingSpec describes where resources for the Pod are needed.",
+  "properties": {
+    "potentialNodes": {
+      "description": "This field lists nodes where the Pod might be able to run.\n\nLarger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array",
+      "x-kubernetes-list-type": "set"
+    },
+    "selectedNode": {
+      "description": "This is the node for which allocation of ResourceClaims that are referenced by the Pod and that use \"WaitForFirstConsumer\" allocation is to be attempted.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

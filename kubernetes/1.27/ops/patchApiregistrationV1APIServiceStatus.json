@@ -1,0 +1,73 @@
+{
+  "consumes": [
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json",
+    "application/apply-patch+yaml"
+  ],
+  "description": "partially update status of the specified APIService",
+  "operationId": "patchApiregistrationV1APIServiceStatus",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    },
+    {
+      "description": "name of the APIService",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/apiregistration.k8s.io/v1/apiservices/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService.GET"
+      }
+    },
+    "201": {
+      "description": "Updated",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIService.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apiregistration_v1"
+  ],
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
+  "x-kubernetes-group-version-kind": {
+    "group": "apiregistration.k8s.io",
+    "kind": "APIService",
+    "version": "v1"
+  }
+}

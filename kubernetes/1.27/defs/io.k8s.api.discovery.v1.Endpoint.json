@@ -1,0 +1,50 @@
+{
+  "description": "A logical backend implementing a Service.",
+  "properties": {
+    "addresses": {
+      "description": "Addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice `addressType` field. This allows for cases like dual-stack (IPv4 and IPv6) networking. Consumers (e.g. `kube-proxy`) must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "set"
+    },
+    "conditions": {
+      "$ref": "#/definitions/io.k8s.api.discovery.v1.EndpointConditions",
+      "description": "Information about the current status of the Endpoint."
+    },
+    "deprecatedTopology": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "This contains topology information part of the v1beta1 API. This field is DEPRECATED, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24). While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.",
+      "type": "object"
+    },
+    "hints": {
+      "$ref": "#/definitions/io.k8s.api.discovery.v1.EndpointHints",
+      "description": "Information associated with how an endpoint should be consumed."
+    },
+    "hostname": {
+      "description": "The hostname of this Endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same `hostname` should be considered fungible (e.g. multiple A values in DNS). The value must be lowercase and a valid DNS label (RFC 1123) when specified.",
+      "type": "string"
+    },
+    "nodeName": {
+      "description": "The name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. The name must be a valid DNS subdomain name when specified.",
+      "type": "string"
+    },
+    "targetRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ObjectReference",
+      "description": "A reference to a Kubernetes object that represents this endpoint."
+    },
+    "zone": {
+      "description": "The name of the Zone this endpoint exists in.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "addresses"
+  ],
+  "type": "object"
+}

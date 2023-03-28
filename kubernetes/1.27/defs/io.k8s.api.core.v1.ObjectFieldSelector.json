@@ -1,0 +1,21 @@
+{
+  "description": "This selects an API versioned field of an object.",
+  "properties": {
+    "apiVersion": {
+      "default": "v1",
+      "description": "Version of the schema the `fieldPath` is written in terms of. Currently, this must be `\"v1\"`.",
+      "type": "string"
+    },
+    "fieldPath": {
+      "description": "Path of the field to select in the specified API version. The supported fields can be `\"metadata.name\"`, `\"metadata.namespace\"`, `\"metadata.uid\"`, `\"spec.nodeName`\", `\"spec.serviceAccountName\"`, `\"status.hostIP\"`, `\"status.podIP\"`, `\"status.podIPs\"` and `\"spec.host\"`. The `\"spec.host\"` is for backword compatibility, and treated as `\"spec.nodeName\"`. For `\"metadata.annotations\"` and `\"metadata.labels\"`, subscripts `\"[<key>]\"` are supported where the `<key>` must be a qualified name.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "fieldPath"
+  ],
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
+}

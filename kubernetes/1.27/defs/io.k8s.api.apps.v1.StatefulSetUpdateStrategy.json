@@ -1,0 +1,19 @@
+{
+  "description": "StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.",
+  "properties": {
+    "rollingUpdate": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.RollingUpdateStatefulSetStrategy",
+      "description": "Rolling update configuration parameters. Present only if `type` is set to `\"RollingUpdate\"`. This is required for rolling update. It cannot be specified when `type` is not `\"RollingUpdate\"`."
+    },
+    "type": {
+      "default": "RollingUpdate",
+      "description": "This indicates the type of the StatefulSet update strategy.\n\nPossible enum values:\n\n- `\"OnDelete\"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSet spec when they are manually deleted. When a scale operation is performed with this strategy, specification version indicated by the StatefulSet's `currentRevision`.\n- `\"RollingUpdate\"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's `updateRevision`.",
+      "enum": [
+        "OnDelete",
+        "RollingUpdate"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

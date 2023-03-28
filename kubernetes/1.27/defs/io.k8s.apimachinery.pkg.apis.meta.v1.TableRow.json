@@ -1,0 +1,27 @@
+{
+  "description": "TableRow is an individual row in a Table.",
+  "properties": {
+    "cells": {
+      "description": "`cells` is as wide as the column definitions array and may contain `string`, `number` (`float64` or `int64`), `boolean`, `map`, `list`, or `null`. See the `type` field of the column definition for a more detailed description.",
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "conditions": {
+      "description": "This describes additional status of a row that are relevant for a human user. These conditions apply to the row, not to the object, and will be specific to table output. The only defined condition type is `\"Completed\"`, for a row that indicates a resource that has run to completion and can be given less visual priority.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.TableRowCondition"
+      },
+      "type": "array"
+    },
+    "object": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension",
+      "description": "This field contains the requested additional information about each object based on the `includeObject` policy when requesting the Table. If `\"None\"`, this field is empty, if `\"Object\"` this will be the default serialization of the object for the current API version, and if `\"Metadata\"` (the default) will contain the object metadata. Check the returned `kind` and `apiVersion` of the object before parsing. The media type of the object will always match the enclosing list - if this as a JSON table, these will be JSON encoded objects."
+    }
+  },
+  "required": [
+    "cells"
+  ],
+  "type": "object"
+}

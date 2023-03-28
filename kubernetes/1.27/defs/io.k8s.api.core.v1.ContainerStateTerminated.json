@@ -1,0 +1,44 @@
+{
+  "description": "A terminated state of a Container.",
+  "properties": {
+    "containerID": {
+      "description": "Container's ID in the format `\"<type>://<container_id>\"`",
+      "type": "string"
+    },
+    "exitCode": {
+      "description": "Exit status from the last termination of the Container",
+      "format": "int32",
+      "type": "integer"
+    },
+    "finishedAt": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Time at which the Container last terminated"
+    },
+    "message": {
+      "description": "Message regarding the last termination of the Container",
+      "type": "string"
+    },
+    "reason": {
+      "description": "A (brief) reason from the last termination of the Container",
+      "type": "string"
+    },
+    "signal": {
+      "description": "Signal from the last termination of the Container",
+      "format": "int32",
+      "type": "integer"
+    },
+    "startedAt": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Time at which previous execution of the Container started"
+    }
+  },
+  "required": [
+    "containerID",
+    "exitCode",
+    "finishedAt",
+    "message",
+    "reason",
+    "startedAt"
+  ],
+  "type": "object"
+}

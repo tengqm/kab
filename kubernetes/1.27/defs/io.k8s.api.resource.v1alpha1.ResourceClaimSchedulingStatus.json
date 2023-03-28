@@ -1,0 +1,22 @@
+{
+  "description": "ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with \"WaitForFirstConsumer\" allocation mode.",
+  "properties": {
+    "name": {
+      "description": "Name matches the `pod.spec.resourceClaims[*].name` field.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "unsuitableNodes": {
+      "description": "This lists nodes that the ResourceClaim cannot be allocated for.\n\nThe size of this field is limited to 128, the same as for `PodSchedulingSpec.potentialNodes`. This may get increased in the future, but not reduced.",
+      "items": {
+        "description": "The name of a Node, which must be a valid DNS subdomain name.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array",
+      "x-kubernetes-list-type": "set"
+    }
+  },
+  "type": "object"
+}

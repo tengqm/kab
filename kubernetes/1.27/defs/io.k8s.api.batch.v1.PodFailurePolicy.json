@@ -1,0 +1,18 @@
+{
+  "description": "PodFailurePolicy describes how failed Pods influence the `backoffLimit`.",
+  "properties": {
+    "rules": {
+      "description": "A list of Pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of Pod failures is incremented and it is checked against the `backoffLimit`.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicyRule"
+      },
+      "maxItems": 20,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    }
+  },
+  "required": [
+    "rules"
+  ],
+  "type": "object"
+}

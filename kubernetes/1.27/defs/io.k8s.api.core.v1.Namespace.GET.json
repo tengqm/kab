@@ -1,0 +1,46 @@
+{
+  "description": "Namespace provides a scope for names. Use of multiple namespaces is optional.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "Namespace"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata"
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NamespaceSpec",
+      "description": "Spec defines the behavior of the Namespace."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NamespaceStatus",
+      "description": "Status describes the current status of a Namespace."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "Namespace",
+      "version": "v1"
+    }
+  ]
+}
