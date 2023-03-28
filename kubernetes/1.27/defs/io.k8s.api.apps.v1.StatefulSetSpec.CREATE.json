@@ -10,7 +10,7 @@
     },
     "ordinals": {
       "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetOrdinals",
-      "description": "`ordinals` controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a `0` index to the first replica and increments the index by one for each additional replica requested. Using the `ordinals` field requires the `StatefulSetStartOrdinal` feature gate to be enabled, which is Alpha."
+      "description": "`ordinals` controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a `0` index to the first replica and increments the index by one for each additional replica requested. Using the `ordinals` field requires the `StatefulSetStartOrdinal` feature gate to be enabled, which is Beta."
     },
     "persistentVolumeClaimRetentionPolicy": {
       "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy",
@@ -50,7 +50,7 @@
     },
     "template": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
-      "description": "An object that describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet. Each Pod will be named with the format `<statefulsetname>-<podindex>`. For example, a Pod in a StatefulSet named \"web\" with index number \"3\" would be named \"web-3\". Currently only check if the `metadata.labels` are set. This field can be updated."
+      "description": "An object that describes the Pod that will be created if insufficient replicas are detected. Each Pod stamped out by the StatefulSet will fulfill this `template`, but have a unique identity from the rest of the StatefulSet. Each Pod will be named with the format `<statefulsetname>-<podindex>`. For example, a Pod in a StatefulSet named \"web\" with index number \"3\" would be named \"web-3\". Currently only check if the `metadata.labels` are set. This field can be updated. The only allowed `template.spec.restartPolicy` value is \"Always\"."
     },
     "updateStrategy": {
       "$ref": "#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy",
