@@ -382,7 +382,7 @@ carry on for the whole community. Below are some of my thoughts about the
 future development and maintenance of the API specification.
 
 - Revising comments for documentation fixes is never the first priority for
-  the developer community although we all appropriate the "API first" nature
+  the developer community although we all appreciate the "API first" nature
   of a micro-service platform. There are always more urgent issues to fix,
   more compelling features to land. Pull requests (PRs) that tweak the
   documentation usually takes months to years to get reviewed and merged.
