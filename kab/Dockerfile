@@ -36,9 +36,11 @@ RUN pip3 install --no-cache --upgrade pip
 
 ENV KAB_ROOT /app
 ENV KAB_LOG_DIR $KAB_ROOT/log
+ENV KAB_STATIC_DIR $KAB_ROOT/static
 
 RUN mkdir -p $KAB_ROOT && \
-    mkdir -p $KAB_LOG_DIR
+    mkdir -p $KAB_LOG_DIR && \
+    mkdir -p $KAB_STATIC_DIR
 
 # NOTE: The following ADD contents are sorted by change frequency
 COPY kab/LICENSE kab/manage.py $KAB_ROOT/
@@ -70,7 +72,8 @@ WORKDIR $KAB_ROOT
 # Install KAB
 RUN pip3 install "setuptools>=67.6.1" && \
     pip3 install dist/kab-*.whl && \
-    rm -rf dist
+    rm -rf dist && \
+    python3 manage.py collectstatic
 
 EXPOSE 8000
 
