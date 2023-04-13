@@ -37,7 +37,7 @@ function build_wheel() {
             rm -rf $d
         fi
     done
-    pip3 install setuptools wheel
+    sudo pip3 install --upgrade setuptools wheel
     python3 setup.py bdist_wheel
 
     popd

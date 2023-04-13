@@ -1,6 +1,168 @@
 CHANGES
 =======
 
+0.13.0
+------
+
+* Update build.sh
+* Lock setuptools version
+* Lock setup tools
+* Turn off DEBUG mode
+* Fix Dockerfile
+* Update setup.cfg for version
+* Update compiled data for 1.21-1.27
+* Add 1.27 into the system, deprecate 1.20
+* Update feature gates data for 1.27
+* Fix typo
+* Lock requirements
+* Add diff between 1.26 and 1.27
+* Update description
+* Fix typos in 1.27
+* Update operations for 1.27
+* Update authentication/v1beta1 (1.27)
+* Update ValidationRule (1.27)
+* Remove storage/v1beta1 CSIStorageCapacity (1.27)
+* Upgrade resource/v1alpha1 to resource/v1alpha2 (1.27)
+* IPAddress in networking/v1alpha1 GV (1.27)
+* Updates to the discovery/v1 API group (1.27)
+* Updates to the core v1 API group (1.27)
+* Add ClusterTrustBundle APIs (1.27)
+* Update batch/v1 API group version docs (1.27)
+* Update authentication/v1alpha1 and authentication/v1beta1 APIs (1.27)
+* Update apps/v1 API group version (1.27)
+* Updates to admissionregistration v1alpha1 API GV (1.27)
+* New matchConditions for MutatingWebhook and ValidatingWebhook
+* Initial data for version 1.27 (copied from 1.26)
+* Diff 1.26 1.27 on 2023-03-28
+* Update parameters for 1.27
+* Original files for 1.27-rc.0
+* Add parameter \`sendInitialEvents\`
+* Update parameters for original spec
+
+0.12.0
+------
+
+* Bump python package versions
+* Update Dockerfile to use Alpine 3.17
+* Fix feature gates JSON
+* Update Dockerfile for 1.26 release
+* Add 1.26 into const list
+* Update feature gates for 1.26
+* Update compiled data for 1.20-1.26 APIs
+* Update settings to include 1.26
+* Update generated swagger for 1.25
+* Add back missing definition ClusterCIDE for 1.25
+* Fix errors found in 1.26 APIs
+* Update diff between 1.26 and 1.25
+* Update meta API v1/status
+* Add resource.k8s.io/v1alpha1 PodScheduling resource and operations (1.26)
+* Add resource.k8s.io/v1alpha1 ResourceClaimTemplate resource and operations (1.26)
+* Add resource.k8s.io/v1alpha1 ResourceClaim resource and operations (1.26)
+* Add API resource list API for authentication/v1alpha1
+* New resource.k8s.io/v1alpha1 ResourceClass type and operations (1.26)
+* Update PDB for unhealthyPodEvictionPolicy field (1.26)
+* Update IPv6 notation example for cluster CIDR (1.26)
+* Update IngressStatus for load-balancer status. (1.26)
+* Fix typo in IPBlock definition (1.26)
+* Add flowcontrol/v1beta3 version resources and operations (1.26)
+* New fields for borrowing and lending in LimitedPriorityLevelConfiguration (1.26)
+* Remove EndpointSliceTerminatingCondition feature gate
+* Drop flowcontrol/v1beta1 API group (1.26)
+* Add TypedObjectReference for cross-namespace data source for PVC
+* NodeTaintPolicy and NodeAffinityPolicy graduated to Beta from Alpha
+* New claims field in resource requirements struct. (1.26)
+* Fix typo in ReplicationControllerStatus
+* Update PodSecurityContext field description. (1.26)
+* Update PersistentVolumeClaimSpec field descriptions (1.26)
+* Mark configSource in PodSpec as completely removed. (1.26)
+* New resourceClaims and schedulingGates field in Pod spec (1.26)
+* batch/v1 JobStatus.UncountedTerminatedPods GA (1.26)
+* Drop autoscaling/v2beta2 API (1.26)
+* Document the authentication/v1alpha1 SelfSubjectReview API (1.26)
+* Document the new 'ordinals' field for StatefulSet. (1.26)
+* Fix typo in ReplicaSetStatus description
+* Add admissionregistration.v1alpha1 operations (1.26)
+* Add admissionregistration.v1alpha1 resouce types (1.26)
+* Change 1.26: RuleWithOperations extended attributes
+* 1.26 API initial check in (copied from 1.25)
+* Initial API for 1.26 (rc-1)
+* Fix parameter \`allowWatchBookmarks\` description
+
+0.11.0
+------
+
+* Lock requirements for 0.11.0 release
+* Update dockerfile for new release
+* Update index and settings for 1.25
+* Update supported versions
+* Update features for 1.25
+* Recode changes in 1.25
+* Update definitions for 1.25
+* networking v1alpha1 API - ClusterCIDR
+* PodFailurePolicy related definitions
+* Skip meaningless changes in the spec
+* Update definitions for 1.25 (1)
+* 2022/08/15 version of swagger for 1.25
+* Update outdated info in 1.23 and 1.24
+* Resync 1.25 API changes
+* Resync 1.25 API changes
+* Update data for 1.25
+* Clarify timeZone limite in CronJob spec
+* 2022/07/08 version of swagger for 1.25
+* Fix typo in autoscaling MetricTarget type
+* Clarify the container resource metric requirements
+* Clarify that metadata for SubjectAccessReview must be empty
+* Update StatefulSet update spec
+* StatefulSet spec update constraints
+* Apply name constraings for webhooks
+* Fix reference error in 1.24
+* Fix CronJob reference issue
+* Remove definitions and operations for 1.25
+* Relax requirements
+* Add 1.25 baseline, from 1.24
+
+0.10.0
+------
+
+* Fix definition comparison
+* Fix version list
+* Prepare 0.10 release
+* Update feature gates for 1.24
+* Update index.json
+* Update 1.24 swagger
+* Cleanse 1.24 API definition
+* Update 1.24 upstream API definition
+* Remove some debug calls
+* Update dockerfile for 1.24
+* Update versions supported
+* Add data for 1.24
+* Update 1.24 new swagger
+* Fix 1.24 nits
+* Add 1.23 and 1.24 diff
+* Normalized 1.24 first round
+* 1.24 original spec
+* Update decompose script
+* Update setup.cfg for dev version 0.9.3
+* Replace ADD by COPY in Dockerfile
+
+0.9.2
+-----
+
+* Update base image again
+* Upgrade dockerfile again
+* Update base image to alpine3.14
+* Fix django function for 4.x
+* Update requirements to latest version
+* Bump version to 0.9.2
+* Add usage in the README
+
+0.9.1
+-----
+
+* Fix Dockerfile
+* Update setup.cfg for 0.9.1
+* Update Dockerfile for using Alpine
+
 0.9.0
 -----
 
