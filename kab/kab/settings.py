@@ -100,6 +100,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -107,6 +108,9 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(os.path.dirname(__file__), 'static'),
 )
+
+# Path to hold the statics
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # List of finder classes that know how to find static files in locations.
 STATICFILES_FINDERS = (
