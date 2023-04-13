@@ -68,7 +68,7 @@ COPY kubernetes/features.json $KAB_ROOT/data
 WORKDIR $KAB_ROOT
 
 # Install KAB
-RUN pip3 install "setuptools>=65.6.3" && \
+RUN pip3 install "setuptools==65.6.3" && \
     pip3 install dist/KAB-*.whl && \
     rm -rf dist
 
