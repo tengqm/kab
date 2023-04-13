@@ -69,7 +69,7 @@ WORKDIR $KAB_ROOT
 
 # Install KAB
 RUN pip3 install "setuptools>=67.6.1" && \
-    pip3 install dist/KAB-*.whl && \
+    pip3 install dist/kab-*.whl && \
     rm -rf dist
 
 EXPOSE 8000
