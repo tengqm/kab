@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 # RUN apk add --update --no-cache python3 py3-pip && \
 #     ln -sf python3 /usr/bin/python && \
 #   python3 -m ensurepip && \
-RUN pip3 install --no-cache --upgrade pip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 # TODO(Qiming): Reenable the nginx
 # setup nginx

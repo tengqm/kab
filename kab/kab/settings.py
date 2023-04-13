@@ -24,7 +24,7 @@ DATA_DIR = os.path.join(APP_DIR, "data")
 SECRET_KEY = os.environ.get("KAB_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
