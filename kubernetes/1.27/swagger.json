@@ -16161,7 +16161,7 @@
       "description": "Information on service's port.",
       "properties": {
         "appProtocol": {
-          "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as `\"mycompany.com/my-custom-protocol\"`.",
+          "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are:\n\n- Un-prefixed protocol names that are reserved for IANA standard service names (as per RFC-6335 and [service names](https://www.iana.org/assignments/service-names)).\n- Kubernetes-defined prefixed names:\n  - 'kubernetes.io/h2c' represents HTTP/2 over cleartext as described in [RFC7540](https://www.rfc-editor.org/rfc/rfc7540).\n- Other protocols should use prefixed names such as `\"mycompany.com/my-custom-protocol\"`.",
           "type": "string"
         },
         "name": {
@@ -17086,7 +17086,7 @@
       "description": "A port used by an EndpointSlice",
       "properties": {
         "appProtocol": {
-          "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n- Un-prefixed protocol names: reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n- Kubernetes-defined prefixed names:\n  - \"kubernetes.io/h2c\": HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n\n- Other protocols should use implementation-defined prefixed names such as `\"mycompany.com/my-custom-protocol\"`.",
+          "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n- Un-prefixed protocol names: reserved for IANA standard service names (as per RFC-6335 and [service names](https://www.iana.org/assignments/service-names)).\n- Kubernetes-defined prefixed names:\n  - \"kubernetes.io/h2c\": HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n\n- Other protocols should use implementation-defined prefixed names such as `\"mycompany.com/my-custom-protocol\"`.",
           "type": "string"
         },
         "name": {
@@ -28272,7 +28272,13 @@
       "uniqueItems": true
     },
     "fieldValidation": {
+      "default": "Warn",
       "description": "fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are:\n\n- `Ignore`: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23.\n- `Warn`: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+.\n- `Strict`: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.\n",
+      "enum": [
+        "Ignore",
+        "Strict",
+        "Warn"
+      ],
       "in": "query",
       "name": "fieldValidation",
       "required": false,

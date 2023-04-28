@@ -65830,6 +65830,7 @@
     },
     "fieldValidation": {
       "1.23": {
+        "default": "Ignore",
         "description": "`fieldValidation` determines how the server should respond to unknown/duplicate fields in the object in the request. Introduced as Alpha in 1.23, older servers or servers with the `ServerSideFieldValidation` feature disabled will discard valid values specified in this parameter and not perform any server side field validation. Valid values are:\n\n- `Ignore`: ignores unknown/duplicate fields.\n- `Warn`: responds with a warning for each unknown/duplicate field, but successfully serves the request.\n - `Strict`: fails the request on unknown/duplicate fields.\n",
         "enum": [
           "Ignore",
@@ -65843,6 +65844,7 @@
         "uniqueItems": true
       },
       "1.24": {
+        "default": "Ignore",
         "description": "`fieldValidation` instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are:\n\n- \"`Ignore`\": This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled.\n- \"`Warn`\": This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled.\n- \"`Strict`\": This will fail the request with a `BadRequest` error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.",
         "enum": [
           "Ignore",
@@ -65856,6 +65858,7 @@
         "uniqueItems": true
       },
       "1.25": {
+        "default": "Warn",
         "description": "`fieldValidation` instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are:\n\n- \"`Ignore`\": This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled.\n- \"`Warn`\": This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled.\n- \"`Strict`\": This will fail the request with a `BadRequest` error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.",
         "enum": [
           "Ignore",
@@ -65869,6 +65872,7 @@
         "uniqueItems": true
       },
       "1.26": {
+        "default": "Warn",
         "description": "`fieldValidation` instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled. Valid values are:\n\n- \"`Ignore`\": This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled.\n- \"`Warn`\": This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled.\n- \"`Strict`\": This will fail the request with a `BadRequest` error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.",
         "enum": [
           "Ignore",
@@ -65882,7 +65886,13 @@
         "uniqueItems": true
       },
       "1.27": {
+        "default": "Warn",
         "description": "fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are:\n\n- `Ignore`: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23.\n- `Warn`: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+.\n- `Strict`: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.\n",
+        "enum": [
+          "Ignore",
+          "Strict",
+          "Warn"
+        ],
         "in": "query",
         "name": "fieldValidation",
         "required": false,

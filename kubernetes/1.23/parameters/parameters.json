@@ -51,6 +51,7 @@
     "uniqueItems": true
   },
   "fieldValidation": {
+    "default": "Ignore",
     "description": "`fieldValidation` determines how the server should respond to unknown/duplicate fields in the object in the request. Introduced as Alpha in 1.23, older servers or servers with the `ServerSideFieldValidation` feature disabled will discard valid values specified in this parameter and not perform any server side field validation. Valid values are:\n\n- `Ignore`: ignores unknown/duplicate fields.\n- `Warn`: responds with a warning for each unknown/duplicate field, but successfully serves the request.\n - `Strict`: fails the request on unknown/duplicate fields.\n",
     "enum": [
         "Ignore",
