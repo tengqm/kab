@@ -402,6 +402,12 @@ def definition_display_name(def_name):
         variant = parts[-1].lower()
         display_name = parts[-2] + " (" + parts[-1].lower() + ")"
         def_name = parts[-2] + "." + parts[-1]
+    elif (def_name.endswith(".INNERCREATE") or def_name.endswith(".INNERUPDATE") or
+            def_name.endswith(".INNERGET")):
+        parts = def_name.rsplit(".", 2)
+        variant = parts[-1].lower()
+        display_name = parts[-2] + " (" + parts[-1].lower() + ")"
+        def_name = parts[-2] + "." + parts[-1]
     else:
         parts = def_name.rsplit(".", 1)
         display_name = parts[-1]
@@ -418,6 +424,14 @@ def parse_definition_id(def_id):
 
     if (def_id.endswith(".CREATE") or def_id.endswith(".UPDATE") or
             def_id.endswith(".GET") or def_id.endswith(".PATCH")):
+        parts = def_id.rsplit(".", 3)
+        # variant = parts[-1].lower()
+        display_name = parts[-2] + " (" + parts[-1].lower() + ")"
+        def_name = parts[-2] + "." + parts[-1]
+        version = parts[-3]
+        group_path = parts[0]
+    elif (def_id.endswith(".INNERCREATE") or def_id.endswith(".INNERUPDATE") or
+            def_id.endswith(".INNERGET")):
         parts = def_id.rsplit(".", 3)
         # variant = parts[-1].lower()
         display_name = parts[-2] + " (" + parts[-1].lower() + ")"
