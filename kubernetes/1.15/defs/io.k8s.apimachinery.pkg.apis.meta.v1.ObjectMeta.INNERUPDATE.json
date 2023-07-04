@@ -8,6 +8,10 @@
       "description": "An unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with an alphanumeric character. The key must be less than 63 characters. The total size of the keys and values cannot exceed 256 KB.",
       "type": "object"
     },
+    "clusterName": {
+      "description": "The name of the cluster which the object belongs to. Ignored for nested Pod templates.",
+      "type": "string"
+    },
     "deletionGracePeriodSeconds": {
       "description": "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when `deletionTimestamp` is also set. May only be shortened.",
       "format": "int64",
