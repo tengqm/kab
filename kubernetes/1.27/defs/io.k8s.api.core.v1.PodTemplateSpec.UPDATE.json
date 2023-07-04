@@ -2,8 +2,8 @@
   "description": "The specification a Pod should have when created from the template",
   "properties": {
     "metadata": {
-      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE",
-      "description": "Standard object metadata. There are some special requirements for the `annotations` for a Pod:\n\n- The kubelet sets the annotation key `\"kubernetes.io/config.mirror\"` when creating mirror Pods. For mirror Pods, the `spec.nodeName` cannot be empty.\n- The Pod can have `\"scheduler.alpha.kubernetes.io/tolerations\"` annotation set to a serialized JSON data to represent its tolerations. The API server validates if the unmarshaled JSON is a valid `Toleration` object.\n- The Pod can have `\"seccomp.security.alpha.kubernetes.io/pod\"` annotation set to the seccomp profile that is applied to all containers in the Pod. This annotation is deprecated by the `securityContext.seccompProfile` field.\n- The Pod can have annotation keys prefixed with `\"container.seccomp.security.alpha.kubernetes.io/\"`. These annoations are deprecated by the `seccompProfile` field on the container's `securityContext`.\n - The Pod can have annotation keys prefixed with `\"container.apparmor.security.beta.kubernetes.io/\"` for specifying per-container AppArmor profile.\n"
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.INNERUPDATE",
+      "description": "Object metadata for nested Pod template."
     },
     "spec": {
       "$ref": "#/definitions/io.k8s.api.core.v1.PodSpec.UPDATE",
