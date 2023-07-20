@@ -1,0 +1,79 @@
+{
+  "consumes": [
+    "application/json-patch+json",
+    "application/merge-patch+json",
+    "application/strategic-merge-patch+json",
+    "application/apply-patch+yaml"
+  ],
+  "description": "partially update status of the specified PriorityLevelConfiguration",
+  "operationId": "patchFlowcontrolApiserverV1beta3PriorityLevelConfigurationStatus",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    },
+    {
+      "$ref": "#/parameters/force"
+    },
+    {
+      "description": "name of the PriorityLevelConfiguration",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfiguration"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfiguration"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "flowcontrolApiserver_v1beta3"
+  ],
+  "verb": "patch",
+  "x-kubernetes-action": "patch",
+  "x-kubernetes-group-version-kind": {
+    "group": "flowcontrol.apiserver.k8s.io",
+    "kind": "PriorityLevelConfiguration",
+    "version": "v1beta3"
+  }
+}
