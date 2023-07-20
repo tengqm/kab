@@ -1,0 +1,18 @@
+{
+  "description": "The union of the results of one or more label queries over a set of Nodes. It represents the OR of the selectors represented by the node selector terms.",
+  "properties": {
+    "nodeSelectorTerms": {
+      "description": "A list of NodeSelectorTerms.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelectorTerm"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "nodeSelectorTerms"
+  ],
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
+}

@@ -1,0 +1,22 @@
+{
+  "description": "The mapping between an IP and some hostnames.",
+  "properties": {
+    "hostnames": {
+      "description": "Hostnames for the IP address. Each value must be a valid DNS subdomain.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "ip": {
+      "description": "IP address of the host file entry. This value must be a valid IP address.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "hostnames",
+    "ip"
+  ],
+  "type": "object"
+}

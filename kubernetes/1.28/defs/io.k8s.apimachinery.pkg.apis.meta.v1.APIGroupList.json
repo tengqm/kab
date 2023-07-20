@@ -1,0 +1,40 @@
+{
+  "description": "A list of APIGroup objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "v1"
+      ],
+      "type": "string"
+    },
+    "groups": {
+      "description": "A list of APIGroup objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "APIGroupList"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "groups",
+    "kind"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "",
+      "kind": "APIGroupList",
+      "version": "v1"
+    }
+  ]
+}

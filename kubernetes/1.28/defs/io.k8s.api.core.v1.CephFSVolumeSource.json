@@ -1,0 +1,42 @@
+{
+  "description": "Represents a Ceph filesystem mount that lasts the lifetime of a Pod. `cephfs` volumes do not support ownership management or SELinux relabeling.",
+  "properties": {
+    "monitors": {
+      "description": "A collection of Ceph monitors.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "path": {
+      "default": "/",
+      "description": "The mounted root, rather than the full Ceph tree.",
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the `readOnly` setting in `volumeMounts`.",
+      "type": "boolean"
+    },
+    "secretFile": {
+      "default": "/etc/ceph/user.secret",
+      "description": "The path to key ring for the `user`.",
+      "type": "string"
+    },
+    "secretRef": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.LocalObjectReference",
+      "description": "A reference to the authentication Secret for `user`, default is empty."
+    },
+    "user": {
+      "default": "admin",
+      "description": "The rados user name.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "monitors"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,24 @@
+{
+  "description": "A Portworx volume resource.",
+  "properties": {
+    "fsType": {
+      "default": "ext4",
+      "description": "The filesystem type to mount. Must be a filesystem type supported by the host operating system.",
+      "type": "string"
+    },
+    "readOnly": {
+      "default": false,
+      "description": "Force the volume to be mounted in read-only mode.",
+      "type": "boolean"
+    },
+    "volumeID": {
+      "description": "Unique ID that identifies a Portworx volume",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "volumeID"
+  ],
+  "type": "object"
+}

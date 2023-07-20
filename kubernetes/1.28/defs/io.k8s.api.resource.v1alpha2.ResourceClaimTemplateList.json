@@ -1,0 +1,44 @@
+{
+  "description": "ResourceClaimTemplateList is a collection of claim templates.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "resource.k8s.io/v1alpha2"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "The list of resource claim templates.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimTemplate.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ResourceClaimTemplateList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "items",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "resource.k8s.io",
+      "kind": "ResourceClaimTemplateList",
+      "version": "v1alpha2"
+    }
+  ]
+}

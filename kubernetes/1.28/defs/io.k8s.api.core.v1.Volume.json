@@ -1,0 +1,130 @@
+{
+  "description": "Volume represents a named volume in a Pod that may be accessed by any container in the Pod.",
+  "properties": {
+    "awsElasticBlockStore": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource",
+      "description": "An AWS Disk resource that is attached to a kubelet's host machine and then exposed to the Pod."
+    },
+    "azureDisk": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.AzureDiskVolumeSource",
+      "description": "An Azure Data Disk mount on the host and bind mount to the Pod."
+    },
+    "azureFile": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.AzureFileVolumeSource",
+      "description": "An Azure File Service mount on the host and bind mount to the Pod."
+    },
+    "cephfs": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.CephFSVolumeSource",
+      "description": "A Ceph FS mount on the host that shares a Pod's lifetime."
+    },
+    "cinder": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.CinderVolumeSource",
+      "description": "A Cinder volume attached and mounted on kubelets host machine."
+    },
+    "configMap": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ConfigMapVolumeSource",
+      "description": "A ConfigMap that should populate this volume."
+    },
+    "csi": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.CSIVolumeSource",
+      "description": "An ephemeral storage that is handled by certain external CSI drivers (Beta feature)."
+    },
+    "downwardAPI": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeSource",
+      "description": "Downward API about the Pod that should populate this volume."
+    },
+    "emptyDir": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource",
+      "description": "A temporary directory that shares a Pod's lifetime."
+    },
+    "ephemeral": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource",
+      "description": "This represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the Pod that defines it - it will be created before the Pod starts, and deleted when the Pod is removed.\n\nUse this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity tracking are needed, c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through a `PersistentVolumeClaim` (see `EphemeralVolumeSource` for more information on the connection between this volume type and `PersistentVolumeClaim`).\n\nUse `PersistentVolumeClaim` or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual Pod.\n\nUse CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.\n\nA Pod can use both types of ephemeral volumes and persistent volumes at the same time."
+    },
+    "fc": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.FCVolumeSource",
+      "description": "A Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the Pod."
+    },
+    "flexVolume": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.FlexVolumeSource",
+      "description": "A generic volume resource that is provisioned/attached using an exec based plugin."
+    },
+    "flocker": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.FlockerVolumeSource",
+      "description": "A Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running."
+    },
+    "gcePersistentDisk": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.GCEPersistentDiskVolumeSource",
+      "description": "A GCE Disk resource that is attached to a kubelet's host machine and then exposed to the Pod."
+    },
+    "gitRepo": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.GitRepoVolumeSource",
+      "description": "A git repository at a particular revision. *DEPRECATED*: To provision a container with a git repo, mount an `emptyDir` into an `initContainer` that clones the repo using `git`, then mount the `emptyDir` into the Pod's container."
+    },
+    "glusterfs": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.GlusterfsVolumeSource",
+      "description": "A Glusterfs mount on the host that shares a Pod's lifetime."
+    },
+    "hostPath": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.HostPathVolumeSource",
+      "description": "A pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this."
+    },
+    "iscsi": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ISCSIVolumeSource",
+      "description": "An ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the Pod."
+    },
+    "name": {
+      "description": "Volume's name. Must be a DNS_LABEL and unique within the Pod.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "nfs": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NFSVolumeSource",
+      "description": "A NFS mount on the host that shares a Pod's lifetime."
+    },
+    "persistentVolumeClaim": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource",
+      "description": "A reference to a existing PersistentVolumeClaim in the same namespace."
+    },
+    "photonPersistentDisk": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PhotonPersistentDiskVolumeSource",
+      "description": "A PhotonController persistent disk attached and mounted on the host machine."
+    },
+    "portworxVolume": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PortworxVolumeSource",
+      "description": "A Portworx volume attached and mounted on the host machine."
+    },
+    "projected": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ProjectedVolumeSource",
+      "description": "Items for all in one resources Secrets, ConfigMaps, and Downward APIs."
+    },
+    "quobyte": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.QuobyteVolumeSource",
+      "description": "A Quobyte mount on the host that shares a Pod's lifetime."
+    },
+    "rbd": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.RBDVolumeSource",
+      "description": "A Rados Block Device (RBD) mount on the host that shares a Pod's lifetime."
+    },
+    "scaleIO": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.ScaleIOVolumeSource",
+      "description": "A ScaleIO persistent volume attached and mounted on Kubernetes nodes."
+    },
+    "secret": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.SecretVolumeSource",
+      "description": "A Secret that should populate this volume."
+    },
+    "storageos": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.StorageOSVolumeSource",
+      "description": "A StorageOS volume attached and mounted on the node."
+    },
+    "vsphereVolume": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.VsphereVirtualDiskVolumeSource",
+      "description": "A vSphere volume attached and mounted on the host machine."
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

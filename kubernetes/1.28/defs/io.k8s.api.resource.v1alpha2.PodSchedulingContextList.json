@@ -1,0 +1,44 @@
+{
+  "description": "PodSchedulingContextList is a collection of Pod scheduling objects.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "resource.k8s.io/v1alpha2"
+      ],
+      "type": "string"
+    },
+    "items": {
+      "description": "A list of PodSchedulingContext objects.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.PodSchedulingContext.GET"
+      },
+      "type": "array"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "PodSchedulingContextList"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta",
+      "description": "Standard list metadata"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "items",
+    "kind",
+    "metadata"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "resource.k8s.io",
+      "kind": "PodSchedulingContextList",
+      "version": "v1alpha2"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "description": "This contains the reference to a Pod condition",
+  "properties": {
+    "conditionType": {
+      "description": "This refers to a condition in the Pod's condition list with matching type.\n\nPossible enum values:\n\n- `\"ContainersReady\"` indicates whether all containers in the Pod are ready.\n- `\"Initialized\"` means that all init containers in the Pod have started successfully.\n- `\"PodScheduled\"` represents status of the scheduling process for this Pod.\n- `\"Ready\"` means the Pod is able to service requests and should be added to the load balancing pools of all matching services.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "conditionType"
+  ],
+  "type": "object"
+}

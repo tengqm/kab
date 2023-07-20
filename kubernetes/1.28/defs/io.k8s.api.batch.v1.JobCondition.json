@@ -1,0 +1,46 @@
+{
+  "description": "JobCondition describes the current state of a Job.",
+  "properties": {
+    "lastProbeTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition was checked."
+    },
+    "lastTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "Last time the condition transit from one status to another."
+    },
+    "message": {
+      "description": "Human readable message indicating details about last transition.",
+      "type": "string"
+    },
+    "reason": {
+      "description": "The (brief) reason for the condition's last transition.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the condition",
+      "enum": [
+        "False",
+        "True",
+        "Unknown"
+      ],
+      "minLength": 1,
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of Job condition.\n\nPossible enum values:\n\n- `\"Complete\"` means the Job has completed its execution.\n- `\"Failed\"` means the Job has failed its execution.\n- `\"Suspended\"` means the Job has been suspended.",
+      "enum": [
+        "Compelte",
+        "Failed",
+        "Suspended"
+      ],
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "status",
+    "type"
+  ],
+  "type": "object"
+}

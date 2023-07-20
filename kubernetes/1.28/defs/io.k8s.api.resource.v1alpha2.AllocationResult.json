@@ -1,0 +1,24 @@
+{
+  "description": "AllocationResult contains attributes of an allocated resource.",
+  "properties": {
+    "availableOnNodes": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector",
+      "description": "This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.\n\nSetting this field is optional. If null, the resource is available everywhere."
+    },
+    "resourceHandles": {
+      "description": "This contains the state associated with an allocation that should be maintained throughout the lifetime of a claim. Each ResourceHandle contains data that should be passed to a specific kubelet plugin once it lands on a node. This data is returned by the driver after a successful allocation and is opaque to Kubernetes. Driver documentation may explain to users how to interpret this data if needed.\n\nSetting this field is optional. If null (or empty), it is assumed this allocation will be processed by a single kubelet plugin with no ResourceHandle data attached. The name of the kubelet plugin invoked will match the `driverName` set in the ResourceClaimStatus this AllocationResult is embedded in",
+      "maxItems": 32,
+      "minItems": 0,
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.ResourceHandle"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "shareable": {
+      "description": "This determines whether the resource supports more than one consumer at a time.",
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}

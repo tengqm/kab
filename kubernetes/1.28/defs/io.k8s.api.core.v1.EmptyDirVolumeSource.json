@@ -1,0 +1,19 @@
+{
+  "description": "Represents an empty directory for a Pod. Empty directory volumes support ownership management and SELinux relabeling.",
+  "properties": {
+    "medium": {
+      "default": "",
+      "description": "Type of storage medium backing this directory. The default is `\"\"` which means using the node's default medium.",
+      "enum": [
+        "",
+        "Memory"
+      ],
+      "type": "string"
+    },
+    "sizeLimit": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for `\"Memory\"` medium. The maximum usage on `\"Memory\"` medium EmptyDir would be the minimum value between the `sizeLimit` specified here and the sum of memory limits of all containers in a Pod. The default is nil which means that the limit is undefined."
+    }
+  },
+  "type": "object"
+}

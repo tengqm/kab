@@ -1,0 +1,24 @@
+{
+  "description": "Information for identifying a referenced resource.",
+  "properties": {
+    "apiVersion": {
+      "description": "API group and version of the referent",
+      "type": "string"
+    },
+    "kind": {
+      "description": "Kind of the referent.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the referent. The value cannot be `\".\"` or `\"..\"`, and it can not contain `'/'` or `'%'`.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "name"
+  ],
+  "type": "object"
+}

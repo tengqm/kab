@@ -1,0 +1,27 @@
+{
+  "description": "ResourceClaimSpec defines how a resource is to be allocated.",
+  "properties": {
+    "allocationMode": {
+      "default": "WaitForFirstConsumer",
+      "description": "Allocation can start immediately or when a Pod wants to use the resource. Valid values are:\n\n- \"`Immediate`\": allocation starts as soon as the ResourceClaim gets created. This is done without considering the needs of Pods that will use the ResourceClaim because those Pods are not known yet.\n- \"`WaitForFirstConsumer`\": allocation is delayed until a Pod gets scheduled that needs the ResourceClaim. The scheduler will consider all resource requirements of that Pod and trigger allocation for a node that fits the Pod.\n\nOther modes may be added in the future.",
+      "enum": [
+        "Immediate",
+        "WaitForFirstConsumer"
+      ],
+      "type": "string"
+    },
+    "parametersRef": {
+      "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimParametersReference",
+      "description": "This references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.\n\nThe object must be in the same namespace as the ResourceClaim. When provided, the `kind` and the `name` attributes must be specified."
+    },
+    "resourceClassName": {
+      "description": "This references the driver and the additional parameters via the name of a ResourceClass that was created as part of the driver deployment. This field value must be a valid DNS subdomain name.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "resourceClassName"
+  ],
+  "type": "object"
+}

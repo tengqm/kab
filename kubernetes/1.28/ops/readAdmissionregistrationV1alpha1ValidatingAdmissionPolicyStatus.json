@@ -1,0 +1,50 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read status of the specified ValidatingAdmissionPolicy",
+  "operationId": "readAdmissionregistrationV1alpha1ValidatingAdmissionPolicyStatus",
+  "parameters": [
+    {
+      "description": "name of the ValidatingAdmissionPolicy",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicy.GET"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "admissionregistration.k8s.io",
+    "kind": "ValidatingAdmissionPolicy",
+    "version": "v1alpha1"
+  }
+}

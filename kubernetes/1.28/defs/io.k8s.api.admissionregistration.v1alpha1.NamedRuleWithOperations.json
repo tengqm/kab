@@ -1,0 +1,82 @@
+{
+  "description": "NamedRuleWithOperations is a tuple of `operations` and `resources` with `resourceNames`.",
+  "properties": {
+    "apiGroups": {
+      "description": "`apiGroups` is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the list must be one. Required.",
+      "items": {
+        "description": "The API group the resources belong to. An empty string \"\" means the legacy \"v1\" API.",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "apiVersions": {
+      "description": "`apiVersions` is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the list must be one.",
+      "items": {
+        "description": "The API version a resource belongs to. This string cannot be empty.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "operations": {
+      "description": "`operations` is the operations the admission hook cares about - `CREATE`, `UPDATE`, `DELETE`, `CONNECT` or `*` for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one.",
+      "items": {
+        "description": "The name of a supported operation",
+        "enum": [
+            "*",
+            "CONNECT",
+            "CREATE",
+            "DELETE",
+            "UPDATE"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "resourceNames": {
+      "description": "`resourceNames` is an optional white list of names that the rule applies to. An empty set means that everything is allowed.",
+      "items": {
+        "description": "The name of a resource. It has to be a valid path segment name, which means it cannot be \"..\" or \".\"; it may not contain \"/\" or \"%\". ",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true,
+      "x-kubernetes-list-type": "atomic"
+    },
+    "resources": {
+      "description": "`resources` is a list of resources this rule applies to.\n\nFor example:\n\n- 'pods' means Pods.\n- 'pods/log' means the `log` subresource of Pods.\n-'*' means all resources, but not subresources. If '*' is in the list, all other items in the list can only specify subresources.\n- 'pods/*' means all subresources of pods. If 'pod/*' is included, there cannot be other 'pod/subres' item in the list.\n- '*/scale' means all `scale` subresources. If '*/scale' is in the list, there cannot be other 'resource/scale' item in the list.\n-'*/*' means all resources and their subresources. If '*/*' is in the list, there cannot be any other items in the list.\n\nIf wildcard is present, the validation rule will ensure `resources` do not overlap with each other.\n\nDepending on the enclosing object, subresources might not be allowed.",
+      "items": {
+        "description": "The resource this rule applies to. This string cannot be empty.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "scope": {
+      "default": "*",
+      "enum": [
+        "Cluster",
+        "Namespaced",
+        "*"
+      ],
+      "description": "`scope` specifies the scope of this rule. Valid values are \"Cluster\", \"Namespaced\", and \"*\":\n\n- \"Cluster\" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped.\n- \"Namespaced\" means that only namespaced resources will match this rule.\n- \"*\" means that there are no scope restrictions.\n\nSubresources match the scope of their parent resource.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "apiGroups",
+    "apiVersions",
+    "operations",
+    "resources"
+  ],
+  "type": "object",
+  "x-kubernetes-map-type": "atomic"
+}

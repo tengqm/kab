@@ -1,0 +1,36 @@
+{
+  "description": "The specification of a DaemonSet.",
+  "properties": {
+    "minReadySeconds": {
+      "default": 0,
+      "description": "The minimum number of seconds for which a newly created DaemonSet Pod should be ready without any of its container crashing, for it to be considered available. Default value 0 means the Pods will be considered available as soon as it is ready.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "revisionHistoryLimit": {
+      "default": 10,
+      "description": "The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "selector": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+      "description": "A label query over Pods that are managed by the DaemonSet. Must match in order to be controlled. It must match the Pod template's labels."
+    },
+    "template": {
+      "$ref": "#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE",
+      "description": "An object that describes the Pod that will be created. The DaemonSet will create exactly one copy of this Pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed `template.spec.restartPolicy` value is `\"Always\"`."
+    },
+    "updateStrategy": {
+      "$ref": "#/definitions/io.k8s.api.apps.v1.DaemonSetUpdateStrategy",
+      "description": "An update strategy to replace existing DaemonSet Pods with new Pods."
+    }
+  },
+  "required": [
+    "selector",
+    "template"
+  ],
+  "type": "object"
+}

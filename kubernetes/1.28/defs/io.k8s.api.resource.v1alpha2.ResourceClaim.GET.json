@@ -1,0 +1,46 @@
+{
+  "description": "ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.\n\nThis is an Alpha type and requires enabling the `DynamicResourceAllocation` feature gate.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "resource.k8s.io/v1alpha2"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "ResourceClaim"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata. The name of a ResourceClaim must be a valid DNS subdomain name."
+    },
+    "spec": {
+      "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimSpec",
+      "description": "This describes the desired attributes of a resource that then needs to be allocated."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimStatus",
+      "description": "This describes whether the resource is available and with which attributes."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "resource.k8s.io",
+      "kind": "ResourceClaim",
+      "version": "v1alpha2"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "description": "The downward API information to project into a projected volume. Note that this is identical to a `downwardAPI` volume source without the default mode.",
+  "properties": {
+    "items": {
+      "description": "A list of DownwardAPIVolumeFile objects",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeFile"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "items"
+  ],
+  "type": "object"
+}
