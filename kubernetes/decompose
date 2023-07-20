@@ -270,6 +270,7 @@ def extract_parameters(data):
                             if p.get("required", False) == True:
                                 p_copy["required"] = True
                             param_spec["fieldManagerPatch"] = p_copy
+                            p_name = "fieldManagerPatch"
 
                         # accumulate the top leve list
                         if ref_name not in param_spec:
