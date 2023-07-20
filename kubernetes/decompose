@@ -10,6 +10,10 @@ import sys
 basedir = "."
 
 
+def perror(s):
+    print("\033[31m%s\033[0m" % s)
+    return
+
 def prepare_dir(name):
     """"""
     global basedir
@@ -30,10 +34,10 @@ def process_definitions(data):
     for k, v in data['definitions'].items():
         # skip deprecated definitions
         if k.startswith("io.k8s.kubernetes.pkg.apis."):
-            print("\033[31m skipping %s \033[0m" % k)
+            perror(" skipping " + k)
             continue
         if k.startswith("io.k8s.kubernetes.pkg.api.v1."):
-            print("\033[31m skipping %s \033[0m" % k)
+            perror(" skipping " + k)
             continue
 
         print("Dumping definition: %s" % k)
@@ -41,7 +45,7 @@ def process_definitions(data):
         # inject group version kind
         gvk = v.get("x-kubernetes-group-version-kind", [])
         if len(gvk) > 1:
-            print("\033[31m %s: %d GVKs \033[0m" % (k, len(gvk)))
+            perror(" %s: %d GVKs " % (k, len(gvk)))
         if len(gvk) == 1:
             group = gvk[0]["group"]
             version = gvk[0]["version"]
@@ -66,13 +70,18 @@ def process_definitions(data):
 
 
 def process_operations(data):
+
     prepare_dir("ops")
     paths = data['paths']
+
     for path, pathd in paths.items():
+
         print("Processing path: %s" % path)
+
         path_params = pathd.get("parameters", [])
         for op, opd in pathd.items():
             if op == "parameters":
+                # TODO: Check if there is such case
                 continue
             op_id = opd['operationId']
 
@@ -83,7 +92,7 @@ def process_operations(data):
                 if "$ref" in p:
                     # #/parameters/<name>
                     ref = p["$ref"][13:]
-                    pd = data["parameters"][ref]
+                    pd = data['parameters'][ref]
                 else:
                     pd = p
 
@@ -97,7 +106,7 @@ def process_operations(data):
             opdata["verb"] = op
             opdata["path"] = path
             if op_params:
-                opdata["parameters"] = op_params
+                opdata['parameters'] = op_params
 
             print("  Operation: %s %s %s" % (op_id, op, path))
             fn = os.path.join(basedir, "ops", op_id + ".json")
@@ -122,7 +131,7 @@ def process_security(data):
 def process_parameters(data):
     prepare_dir("parameters")
 
-    params = data.get('parameters', [])
+    params = data.get('parameters', {})
     fn = os.path.join(basedir, "parameters", "parameters.json")
     with open(fn, "w") as f:
         f.write(json.dumps(params, indent=2, sort_keys=True))
@@ -149,36 +158,54 @@ def cross_compare(existing, check):
         c["required"] = False
 
     if c != existing:
-        print("\033[31mDeviated param definition: %r \033[0m" % check)
-        print("\033[31m    %r \033[0m" % existing)
+        perror("Deviated param\n New: %r" % check)
+        perror(" Old: %r" % existing)
     return
+
 
 def extract_parameters(data):
     common_params = [
         "allowWatchBookmarks",
+        "command",    # extracted in 1.28
+        "container",  # extracted in 1.28
         "continue",
         "dryRun",
         "exact",
         "export",
         "fieldManager",  # since 1.14
+        "fieldManager",  # since 1.14
         "fieldSelector",
         "fieldValidation",   # since 1.23
+        "follow",  # extracted in 1.28
         "force",  # since 1.14
         "gracePeriodSeconds",
         "includeUninitialized",
+        "insecureSkipTLSVerifyBackend",  # extracted in 1.28
         "labelSelector",
         "limit",
+        "limitBytes",   # extracted in 1.28
+        "logpath",   # extracted in 1.28
         "namespace",
         "orphanDependents",
+        "path",   # extracted in 1.28
+        "ports",   # extracted in 1.28
         "pretty",
+        "previous",  # extracted in 1.28
         "propagationPolicy",
         "resourceVersion",
         "resourceVersionMatch", # since 1.19
         "sendInitialEvents", # since 1.27
+        "sinceSeconds",  # extracted in 1.28
+        "stderr",  # extracted in 1.28
+        "stdin",  # extracted in 1.28
+        "stdout", # extracted in 1.28
+        "tailLines",  # extracted in 1.28
         "timeoutSeconds",
+        "timestamps",  # extracted in 1.28
+        "tty",   # extracted in 1.28
         "watch",
     ]
-    param_spec = {}
+    param_spec = data.get("parameters", {})
     paths = data['paths']
     
     for path, pathd in paths.items():
@@ -188,20 +215,29 @@ def extract_parameters(data):
                 params = []
                 # opd is the list of parameters defined for a path
                 for p in opd:
-                    p_name = p["name"]
+                    p_name = p.get("name", "")
+                    ref_name = p_name
+                    p_ref = p.get("$ref", "")
+
+                    if p_name == "" and p_ref != "":
+                        # New spec format, parameters consolidated. Since 1.28
+                        ref_name = p_ref[13:]
+                        p_name = ref_name.split("-")[0]
+
                     if p_name in common_params:
-                        # accumulate the top leve list
-                        if p_name not in param_spec:
+                        if ref_name not in param_spec:
+                            # accumulate into the top leve list if
+                            # not there yet
                             p_copy = copy.deepcopy(p)
                             p_copy["required"] = False
                             if p.get("required", False) == True:
                                 p_copy["required"] = True
 
                             param_spec[p_name] = p_copy
-                        else:
-                            cross_compare(param_spec[p_name], p)
+                        elif p_ref == "":
+                            cross_compare(param_spec[ref_name], p)
 
-                        # make it a reference
+                        # make it a reference, and normalize it
                         params.append({"$ref": "#/parameters/" + p_name})
                     else:
                         p_copy = copy.deepcopy(p)
@@ -209,38 +245,62 @@ def extract_parameters(data):
                 data["paths"][path]["parameters"] = params
             # op is a verb
             else:
+                opId = opd.get("operationId", "unknown")
                 # param_list is the list of parameters defined for an operation
                 param_list = opd.get("parameters", [])
                 if len(param_list) == 0:
                     continue
                 params = []
                 for p in param_list:
-                    p_name = p["name"]
+                    p_name = p.get("name", "")
+                    ref_name = p_name
+                    p_ref = p.get("$ref", "")
+
+                    if p_ref != "":
+                        # New spec has parameters consolidated since 1.28
+                        ref_name = p_ref[13:]
+                        p_name = ref_name.split("-")[0]
+
                     if p_name in common_params:
                         # Patch operation has a different description for
                         # fieldManager, we define a separate item for it
-                        if p_name == "fieldManager":
-                            if op == "patch":
-                                p_name = "fieldManagerPatch"
+                        if p_name == "fieldManager" and op == "patch":
+                            p_copy = param_spec[ref_name]
+                            p_copy["required"] = False
+                            if p.get("required", False) == True:
+                                p_copy["required"] = True
+                            param_spec["fieldManagerPatch"] = p_copy
 
                         # accumulate the top leve list
-                        if p_name not in param_spec:
+                        if ref_name not in param_spec:
                             p_copy = copy.deepcopy(p)
                             p_copy["required"] = False
                             param_spec[p_name] = p_copy
                             if p.get("required", False) == True:
                                 p_copy["required"] = True
-                        else:
-                            cross_compare(param_spec[p_name], p)
+                        elif p_ref == "":
+                            cross_compare(param_spec[ref_name], p)
 
                         # make it a reference
                         params.append({"$ref": "#/parameters/" + p_name})
+                    elif op == "delete" and p_name == "body":
+                        # The delete body is extracted in 1.28
+                        p_copy = param_spec[ref_name]
+                        params.append(p_copy)
+                    elif op == "patch" and p_name == "body":
+                        # The patch body is extracted in 1.28
+                        p_copy = param_spec[ref_name]
+                        params.append(p_copy)
                     else:
                         p_copy = copy.deepcopy(p)
                         params.append(p_copy)
                 data["paths"][path][op]["parameters"] = params
 
-    data["parameters"] = param_spec
+    param_normalized = {}
+    for k, v in param_spec.items():
+        param_normalized[v["name"]] = v
+        
+    data['parameters'] = param_normalized
     return data
 
 
