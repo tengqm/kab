@@ -8,15 +8,27 @@
     "decodableVersions": {
       "description": "The API server can decode objects encoded in these versions. The `encodingVersion` must be included in the `decodableVersions`.",
       "items": {
-        "type": "string",
-        "description": "Each value must be a string that matches DNS_LABEL format, with an optional `<group>/` prefix where the `<group>` string is a valid DNS subdomain name."
+        "description": "Each value must be a string that matches DNS_LABEL format, with an optional `<group>/` prefix where the `<group>` string is a valid DNS subdomain name.",
+        "minLength": 1,
+        "type": "string"
       },
       "type": "array",
       "x-kubernetes-list-type": "set"
     },
     "encodingVersion": {
       "description": "The API server encodes the object to this version when persisting it in the backend (e.g., etcd). The value must be a string that matches DNS_LABEL format, with an optional `<group>/` prefix where the `<group>` string is a valid DNS subdomain name.",
+      "minLength": 1,
       "type": "string"
+    },
+    "servedVersions": {
+      "description": "The API server can serve these versions. `decodableVersions` must include all `servedVersions`.",
+      "items": {
+        "description": "One of the served versions. The value must be a string that matches DNS_LABEL format, with an optional `<group>/` prefix where the `<group>` string is a valid DNS subdomain name.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "set"
     }
   },
   "type": "object"

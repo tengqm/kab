@@ -1,0 +1,41 @@
+{
+  "description": "SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.",
+  "properties": {
+    "apiVersion": {
+      "description": "The version of the schema for the object representation",
+      "enum": [
+        "authentication.k8s.io/v1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "description": "A string value representing the REST resource",
+      "enum": [
+        "SelfSubjectReview"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET",
+      "description": "Standard object metadata. This name must be a valid DNS subdomain name."
+    },
+    "status": {
+      "$ref": "#/definitions/io.k8s.api.authentication.v1.SelfSubjectReviewStatus",
+      "description": "`status` is filled in by the server with the user attributes."
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "status"
+  ],
+  "type": "object",
+  "x-kubernetes-group-version-kind": [
+    {
+      "group": "authentication.k8s.io",
+      "kind": "SelfSubjectReview",
+      "version": "v1"
+    }
+  ]
+}
