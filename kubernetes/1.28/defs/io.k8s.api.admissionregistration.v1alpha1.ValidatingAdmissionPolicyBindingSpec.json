@@ -7,7 +7,7 @@
     },
     "paramRef": {
       "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.ParamRef",
-      "description": "`paramRef` specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in `paramKind` of the bound ValidatingAdmissionPolicy. If the policy specifies a `paramKind` and the resource referred to by `paramRef` does not exist, this binding is considered mis-configured and the `failurePolicy` of the ValidatingAdmissionPolicy is applied."
+      "description": "`paramRef` specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in `paramKind` of the bound ValidatingAdmissionPolicy. If the policy specifies a `paramKind` and the resource referred to by `paramRef` does not exist, this binding is considered mis-configured and the `failurePolicy` of the ValidatingAdmissionPolicy is applied. If the policy does not specify a `paramKind` then this field is ignored, and the rules are evaluated without a param."
     },
     "policyName": {
       "description": "`policyName` references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored. This string must be a valid DNS subdomain name.",
