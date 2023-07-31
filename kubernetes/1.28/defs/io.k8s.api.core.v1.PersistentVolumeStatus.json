@@ -1,6 +1,10 @@
 {
   "description": "The current status of a persistent volume.",
   "properties": {
+    "lastPhaseTransitionTime": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+      "description": "`lastPhaseTransitionTime` is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an Alpha field and requires enabling `PersistentVolumeLastPhaseTransitionTime` feature."
+    },
     "message": {
       "description": "A human-readable message indicating details about why the volume is in this state.",
       "type": "string"
