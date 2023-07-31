@@ -1,0 +1,21 @@
+{
+  "description": "Variable is the definition of a variable that is used for composition.",
+  "properties": {
+    "expression": {
+      "description": "The expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in `validation`.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the variable. The name must be a valid CEL identifier (matching the pattern but cannot be one of the keywords) and unique among all variables. The variable can be accessed in other expressions through `variables`. For example, if name is \"foo\", the variable will be available as `variables.foo`.",
+      "minLength": 1,
+      "pattern": "[_a-zA-Z][_a-zA-Z0-9]*",
+      "type": "string"
+    }
+  },
+  "required": [
+    "expression",
+    "name"
+  ],
+  "type": "object"
+}
