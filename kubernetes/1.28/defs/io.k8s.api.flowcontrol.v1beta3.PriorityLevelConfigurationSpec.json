@@ -1,6 +1,10 @@
 {
   "description": "The configuration for a priority level.",
   "properties": {
+    "exempt": {
+      "description": "`exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `\"Limited\"`. This field MAY be non-empty if `type` is `\"Exempt\"`. If empty and `type` is `\"Exempt\"` then the default values for `ExemptPriorityLevelConfiguration` apply.",
+      "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.ExemptPriorityLevelConfiguration"
+    },
     "limited": {
       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.LimitedPriorityLevelConfiguration",
       "description": "This specifies how requests are handled for a *limited* priority level. This field must be non-empty if and only if `type` is `\"Limited\"`."
@@ -23,6 +27,7 @@
     {
       "discriminator": "type",
       "fields-to-discriminateBy": {
+        "exempt": "Exempt",
         "limited": "Limited"
       }
     }
