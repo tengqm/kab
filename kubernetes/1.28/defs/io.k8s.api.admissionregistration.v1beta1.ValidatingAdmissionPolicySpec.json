@@ -2,10 +2,9 @@
   "description": "ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.",
   "properties": {
     "auditAnnotations": {
-      "description": "`auditAnnotations` contains CEL expressions which are used to produce audit annotations for the audit event of the API request. `validations` and `auditAnnotations` may not both be empty; a least one of `validations` or `auditAnnotations` is required. The keys in the items must be unique in the array.",
-      "maxItems": 20,
+      "description": "`auditAnnotations` contains CEL expressions which are used to produce audit annotations for the audit event of the API request. `validations` and `auditAnnotations` may not both be empty; a least one of `validations` or `auditAnnotations` is required.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.AuditAnnotation"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.AuditAnnotation"
       },
       "type": "array",
       "x-kubernetes-list-type": "atomic"
@@ -23,7 +22,7 @@
       "description": "`matchConditions` is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the `rules`, `namespaceSelector`, and `objectSelector`. An empty list of `matchConditions` matches all requests.\n\nIf a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.\n\nThe `name` of the match conditions must be unique across the list.\n\nThe exact matching logic is (in order):\n1. If ANY `matchCondition` evaluates to False, the policy is skipped.\n1. If ALL `matchConditions` evaluate to True, the policy is evaluated.\n1. If any `matchCondition` evaluates to an error (but none are False):\n   - If `failurePolicy=Fail`, reject the request;\n   - If `failurePolicy=Ignore`, the policy is skipped.\n",
       "maxItems": 64,
       "items": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.MatchCondition"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MatchCondition"
       },
       "type": "array",
       "x-kubernetes-list-map-keys": [
@@ -34,17 +33,17 @@
       "x-kubernetes-patch-strategy": "merge"
     },
     "matchConstraints": {
-      "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.MatchResources",
-      "description": "`matchConstraints` specifies what resources this policy is designed to validate. The admission policy cares about a request if it matches _all_ constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API, the ValidatingAdmissionPolicy cannot match the ValidatingAdmissionPolicyBinding. The `resourceRules` must be specified."
+      "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.MatchResources",
+      "description": "`matchConstraints` specifies what resources this policy is designed to validate. The admission policy cares about a request if it matches _all_ constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API, the ValidatingAdmissionPolicy cannot match the ValidatingAdmissionPolicyBinding."
     },
     "paramKind": {
-      "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.ParamKind",
+      "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.ParamKind",
       "description": "`paramKind` specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If `paramKind` refers to a non-existent kind, this policy definition is mis-configured and the `failurePolicy` is applied. If `paramKind` is specified but `paramRef` is unset in the ValidatingAdmissionPolicyBinding, the params variable will be null."
     },
     "validations": {
       "description": "`validations` contain CEL expressions which is used to apply the validation. `validations` and `auditAnnotations` may not both be empty; at least one of `validations` or `auditAnnotations` is required.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.Validation"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.Validation"
       },
       "minItems": 1,
       "type": "array",
@@ -53,7 +52,7 @@
     "variables": {
       "description": "`variables` contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except `matchConditions` because `matchConditions` are evaluated before the rest of the policy.\n\nThe expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.Variable"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.Variable"
       },
       "type": "array",
       "x-kubernetes-list-map-keys": [

@@ -4,7 +4,7 @@
     "excludeResourceRules": {
       "description": "`excludeResourceRules` describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.NamedRuleWithOperations"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.NamedRuleWithOperations"
       },
       "type": "array",
       "x-kubernetes-list-type": "atomic"
@@ -29,7 +29,7 @@
     "resourceRules": {
       "description": "`resourceRules` describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ rule.",
       "items": {
-        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.NamedRuleWithOperations"
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1beta1.NamedRuleWithOperations"
       },
       "type": "array",
       "x-kubernetes-list-type": "atomic"
