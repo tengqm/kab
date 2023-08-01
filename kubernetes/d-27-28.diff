@@ -1,0 +1,1082 @@
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1.MutatingWebhook.json 1.28orig/defs/io.k8s.api.admissionregistration.v1.MutatingWebhook.json
+# 20c20
+# <       "description": "MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.\n\nThe exact matching logic is (in order):\n  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.\n  2. If ALL matchConditions evaluate to TRUE, the webhook is called.\n  3. If any matchCondition evaluates to an error (but none are FALSE):\n     - If failurePolicy=Fail, reject the request\n     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped\n\nThis is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.",
+# ---
+# >       "description": "MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.\n\nThe exact matching logic is (in order):\n  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.\n  2. If ALL matchConditions evaluate to TRUE, the webhook is called.\n  3. If any matchCondition evaluates to an error (but none are FALSE):\n     - If failurePolicy=Fail, reject the request\n     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped\n\nThis is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.",
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1.ValidatingWebhook.json 1.28orig/defs/io.k8s.api.admissionregistration.v1.ValidatingWebhook.json
+# 20c20
+# <       "description": "MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.\n\nThe exact matching logic is (in order):\n  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.\n  2. If ALL matchConditions evaluate to TRUE, the webhook is called.\n  3. If any matchCondition evaluates to an error (but none are FALSE):\n     - If failurePolicy=Fail, reject the request\n     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped\n\nThis is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.",
+# ---
+# >       "description": "MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.\n\nThe exact matching logic is (in order):\n  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.\n  2. If ALL matchConditions evaluate to TRUE, the webhook is called.\n  3. If any matchCondition evaluates to an error (but none are FALSE):\n     - If failurePolicy=Fail, reject the request\n     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped\n\nThis is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.",
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1alpha1.ParamRef.json 1.28orig/defs/io.k8s.api.admissionregistration.v1alpha1.ParamRef.json
+# 2c2
+# <   "description": "ParamRef references a parameter resource",
+# ---
+# >   "description": "ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.",
+# 5c5
+# <       "description": "Name of the resource being referenced.",
+# ---
+# >       "description": "`name` is the name of the resource being referenced.\n\n`name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.",
+# 9c9
+# <       "description": "Namespace of the referenced resource. Should be empty for the cluster-scoped resources",
+# ---
+# >       "description": "namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.\n\nA per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.\n\n- If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.\n\n- If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.",
+# 10a11,18
+# >     },
+# >     "parameterNotFoundAction": {
+# >       "description": "`parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.\n\nAllowed values are `Allow` or `Deny` Default to `Deny`",
+# >       "type": "string"
+# >     },
+# >     "selector": {
+# >       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
+# >       "description": "selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.\n\nIf multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.\n\nOne of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset."
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicy.json 1.28orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicy.json
+# 43c43
+# < }
+# ---
+# > }
+# \ No newline at end of file
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.json 1.28orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.json
+# 2c2
+# <   "description": "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.",
+# ---
+# >   "description": "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.\n\nFor a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.\n\nThe CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.",
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec.json 1.28orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec.json
+# 10c10
+# <       "description": "ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied."
+# ---
+# >       "description": "paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param."
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec.json 1.28orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec.json
+# 43a44,56
+# >     },
+# >     "variables": {
+# >       "description": "Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.\n\nThe expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.Variable"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "name"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# >       "x-kubernetes-patch-merge-key": "name",
+# >       "x-kubernetes-patch-strategy": "merge"
+# 47c60
+# < }
+# ---
+# > }
+# \ No newline at end of file
+# diff -r 1.27orig/defs/io.k8s.api.admissionregistration.v1alpha1.Validation.json 1.28orig/defs/io.k8s.api.admissionregistration.v1alpha1.Validation.json
+# 5c5
+# <       "description": "Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:\n\n- 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.\n  See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz\n- 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the\n  request resource.\n\nThe `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.\n\nOnly property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:\n\t  \"true\", \"false\", \"null\", \"in\", \"as\", \"break\", \"const\", \"continue\", \"else\", \"for\", \"function\", \"if\",\n\t  \"import\", \"let\", \"loop\", \"package\", \"namespace\", \"return\".\nExamples:\n  - Expression accessing a property named \"namespace\": {\"Expression\": \"object.__namespace__ > 0\"}\n  - Expression accessing a property named \"x-prop\": {\"Expression\": \"object.x__dash__prop > 0\"}\n  - Expression accessing a property named \"redact__d\": {\"Expression\": \"object.redact__underscores__d > 0\"}\n\nEquality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:\n  - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and\n    non-intersecting elements in `Y` are appended, retaining their partial order.\n  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values\n    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with\n    non-intersecting keys are appended, retaining their partial order.\nRequired.",
+# ---
+# >       "description": "Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:\n\n- 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.\n  For example, a variable named 'foo' can be accessed as 'variables.foo'.\n- 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.\n  See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz\n- 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the\n  request resource.\n\nThe `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.\n\nOnly property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:\n\t  \"true\", \"false\", \"null\", \"in\", \"as\", \"break\", \"const\", \"continue\", \"else\", \"for\", \"function\", \"if\",\n\t  \"import\", \"let\", \"loop\", \"package\", \"namespace\", \"return\".\nExamples:\n  - Expression accessing a property named \"namespace\": {\"Expression\": \"object.__namespace__ > 0\"}\n  - Expression accessing a property named \"x-prop\": {\"Expression\": \"object.x__dash__prop > 0\"}\n  - Expression accessing a property named \"redact__d\": {\"Expression\": \"object.redact__underscores__d > 0\"}\n\nEquality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:\n  - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and\n    non-intersecting elements in `Y` are appended, retaining their partial order.\n  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values\n    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with\n    non-intersecting keys are appended, retaining their partial order.\nRequired.",
+# diff -r 1.27orig/defs/io.k8s.api.apiserverinternal.v1alpha1.ServerStorageVersion.json 1.28orig/defs/io.k8s.api.apiserverinternal.v1alpha1.ServerStorageVersion.json
+# 18a19,26
+# >     },
+# >     "servedVersions": {
+# >       "description": "The API server can serve these versions. DecodableVersions must include all ServedVersions.",
+# >       "items": {
+# >         "type": "string"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "set"
+# Only in 1.28orig/defs: io.k8s.api.authentication.v1.SelfSubjectReview.json
+# Only in 1.28orig/defs: io.k8s.api.authentication.v1.SelfSubjectReviewStatus.json
+# diff -r 1.27orig/defs/io.k8s.api.authentication.v1alpha1.SelfSubjectReview.json 1.28orig/defs/io.k8s.api.authentication.v1alpha1.SelfSubjectReview.json
+# 39c39
+# < }
+# ---
+# > }
+# \ No newline at end of file
+
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1alpha1.Variable.json
+
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.AuditAnnotation.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ExpressionWarning.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.MatchCondition.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.MatchResources.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.NamedRuleWithOperations.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ParamKind.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ParamRef.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.TypeChecking.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicy.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingList.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingSpec.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyList.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicySpec.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyStatus.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.Validation.json
+# Only in 1.28orig/defs: io.k8s.api.admissionregistration.v1beta1.Variable.json
+# Only in 1.28orig/ops: createAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: createAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: deleteAdmissionregistrationV1beta1CollectionValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: deleteAdmissionregistrationV1beta1CollectionValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: getAdmissionregistrationV1beta1APIResources.json
+# Only in 1.28orig/ops: listAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: listAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: patchAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: patchAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: patchAdmissionregistrationV1beta1ValidatingAdmissionPolicyStatus.json
+# Only in 1.28orig/ops: readAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: readAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: readAdmissionregistrationV1beta1ValidatingAdmissionPolicyStatus.json
+# Only in 1.28orig/ops: replaceAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: replaceAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: replaceAdmissionregistrationV1beta1ValidatingAdmissionPolicyStatus.json
+# Only in 1.28orig/ops: watchAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+# Only in 1.28orig/ops: watchAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+# Only in 1.28orig/ops: watchAdmissionregistrationV1beta1ValidatingAdmissionPolicyBindingList.json
+# Only in 1.28orig/ops: watchAdmissionregistrationV1beta1ValidatingAdmissionPolicyList.json
+
+# diff -r 1.27orig/defs/io.k8s.api.batch.v1.JobSpec.json 1.28orig/defs/io.k8s.api.batch.v1.JobSpec.json
+# 13a14,18
+# >     "backoffLimitPerIndex": {
+# >       "description": "Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+# >       "format": "int32",
+# >       "type": "integer"
+# >     },
+# 26a32,36
+# >     "maxFailedIndexes": {
+# >       "description": "Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+# >       "format": "int32",
+# >       "type": "integer"
+# >     },
+# 34c44,48
+# <       "description": "Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.\n\nThis field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default)."
+# ---
+# >       "description": "Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.\n\nThis field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default)."
+# >     },
+# >     "podReplacementPolicy": {
+# >       "description": "podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods\n  when they are terminating (has a metadata.deletionTimestamp) or failed.\n- Failed means to wait until a previously created Pod is fully terminated (has phase\n  Failed or Succeeded) before creating a replacement Pod.\n\nWhen using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.",
+# >       "type": "string"
+# diff -r 1.27orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.28orig/defs/io.k8s.api.batch.v1.JobStatus.json
+# 31a32,35
+# >     "failedIndexes": {
+# >       "description": "FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as \"1,3-5,7\". This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+# >       "type": "string"
+# >     },
+# 42a47,51
+# >       "format": "int32",
+# >       "type": "integer"
+# >     },
+# >     "terminating": {
+# >       "description": "The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).\n\nThis field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).",
+# diff -r 1.27orig/defs/io.k8s.api.batch.v1.PodFailurePolicyRule.json 1.28orig/defs/io.k8s.api.batch.v1.PodFailurePolicyRule.json
+# 5c5
+# <       "description": "Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:\n\n- FailJob: indicates that the pod's job is marked as Failed and all\n  running pods are terminated.\n- Ignore: indicates that the counter towards the .backoffLimit is not\n  incremented and a replacement pod is created.\n- Count: indicates that the pod is handled in the default way - the\n  counter towards the .backoffLimit is incremented.\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+# ---
+# >       "description": "Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:\n\n- FailJob: indicates that the pod's job is marked as Failed and all\n  running pods are terminated.\n- FailIndex: indicates that the pod's index is marked as Failed and will\n  not be restarted.\n  This value is alpha-level. It can be used when the\n  `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).\n- Ignore: indicates that the counter towards the .backoffLimit is not\n  incremented and a replacement pod is created.\n- Count: indicates that the pod is handled in the default way - the\n  counter towards the .backoffLimit is incremented.\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.ClaimSource.json 1.28orig/defs/io.k8s.api.core.v1.ClaimSource.json
+# 9c9
+# <       "description": "ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.\n\nThe template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be <pod name>-<resource name>, where <resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).\n\nAn existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.\n\nThis field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.",
+# ---
+# >       "description": "ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.\n\nThe template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.\n\nThis field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.Container.json 1.28orig/defs/io.k8s.api.core.v1.Container.json
+# 83a84,87
+# >     "restartPolicy": {
+# >       "description": "RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is \"Always\". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as \"Always\" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy \"Always\" will be shut down. This lifecycle differs from normal init containers and is often referred to as a \"sidecar\" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.",
+# >       "type": "string"
+# >     },
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.EndpointPort.json 1.28orig/defs/io.k8s.api.core.v1.EndpointPort.json
+# 5c5
+# <       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# ---
+# >       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.EphemeralContainer.json 1.28orig/defs/io.k8s.api.core.v1.EphemeralContainer.json
+# 83a84,87
+# >     "restartPolicy": {
+# >       "description": "Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.",
+# >       "type": "string"
+# >     },
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.HTTPHeader.json 1.28orig/defs/io.k8s.api.core.v1.HTTPHeader.json
+# 5c5
+# <       "description": "The header field name",
+# ---
+# >       "description": "The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.",
+# Only in 1.28orig/defs: io.k8s.api.core.v1.HostIP.json
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json 1.28orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json
+# 11a12,15
+# >     "ipMode": {
+# >       "description": "IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to \"VIP\" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to \"Proxy\" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.",
+# >       "type": "string"
+# >     },
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimStatus.json 1.28orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimStatus.json
+# 10a11,18
+# >     "allocatedResourceStatuses": {
+# >       "additionalProperties": {
+# >         "type": "string"
+# >       },
+# >       "description": "allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:\n\t* Un-prefixed keys:\n\t\t- storage - the capacity of the volume.\n\t* Custom resources must use implementation-defined prefixed names such as \"example.com/my-custom-resource\"\nApart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.\n\nClaimResourceStatus can be in any of following states:\n\t- ControllerResizeInProgress:\n\t\tState set when resize controller starts resizing the volume in control-plane.\n\t- ControllerResizeFailed:\n\t\tState set when resize has failed in resize controller with a terminal error.\n\t- NodeResizePending:\n\t\tState set when resize controller has finished resizing the volume but further resizing of\n\t\tvolume is needed on the node.\n\t- NodeResizeInProgress:\n\t\tState set when kubelet starts resizing the volume.\n\t- NodeResizeFailed:\n\t\tState set when resizing has failed in kubelet with a terminal error. Transient errors don't set\n\t\tNodeResizeFailed.\nFor example: if expanding a PVC for more capacity - this field can be one of the following states:\n\t- pvc.status.allocatedResourceStatus['storage'] = \"ControllerResizeInProgress\"\n     - pvc.status.allocatedResourceStatus['storage'] = \"ControllerResizeFailed\"\n     - pvc.status.allocatedResourceStatus['storage'] = \"NodeResizePending\"\n     - pvc.status.allocatedResourceStatus['storage'] = \"NodeResizeInProgress\"\n     - pvc.status.allocatedResourceStatus['storage'] = \"NodeResizeFailed\"\nWhen this field is not set, it means that no resize operation is in progress for the given PVC.\n\nA controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.\n\nThis is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.",
+# >       "type": "object",
+# >       "x-kubernetes-map-type": "granular"
+# >     },
+# 15c23
+# <       "description": "allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.",
+# ---
+# >       "description": "allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:\n\t* Un-prefixed keys:\n\t\t- storage - the capacity of the volume.\n\t* Custom resources must use implementation-defined prefixed names such as \"example.com/my-custom-resource\"\nApart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.\n\nCapacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.\n\nA controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.\n\nThis is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.",
+# 36,39d43
+# <       "type": "string"
+# <     },
+# <     "resizeStatus": {
+# <       "description": "resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.PersistentVolumeStatus.json 1.28orig/defs/io.k8s.api.core.v1.PersistentVolumeStatus.json
+# 3a4,7
+# >     "lastPhaseTransitionTime": {
+# >       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",
+# >       "description": "lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature."
+# >     },
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.PodIP.json 1.28orig/defs/io.k8s.api.core.v1.PodIP.json
+# 2c2
+# <   "description": "IP address information for entries in the (plural) PodIPs field. Each entry includes:\n\n\tIP: An IP address allocated to the pod. Routable at least within the cluster.",
+# ---
+# >   "description": "PodIP represents a single IP address allocated to the pod.",
+# 5c5
+# <       "description": "ip is an IP address (IPv4 or IPv6) assigned to the pod",
+# ---
+# >       "description": "IP is the IP address assigned to the pod",
+# Only in 1.28orig/defs: io.k8s.api.core.v1.PodResourceClaimStatus.json
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.PodStatus.json 1.28orig/defs/io.k8s.api.core.v1.PodStatus.json
+# 28c28
+# <       "description": "IP address of the host to which the pod is assigned. Empty if not yet scheduled.",
+# ---
+# >       "description": "hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod",
+# 30a31,40
+# >     "hostIPs": {
+# >       "description": "hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.HostIP"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic",
+# >       "x-kubernetes-patch-merge-key": "ip",
+# >       "x-kubernetes-patch-strategy": "merge"
+# >     },
+# 51c61
+# <       "description": "IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.",
+# ---
+# >       "description": "podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.",
+# 73a84,96
+# >     },
+# >     "resourceClaimStatuses": {
+# >       "description": "Status of resource claims.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.PodResourceClaimStatus"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "name"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# >       "x-kubernetes-patch-merge-key": "name",
+# >       "x-kubernetes-patch-strategy": "merge,retainKeys"
+# # diff -r 1.27orig/defs/io.k8s.api.core.v1.ResourceRequirements.json 1.28orig/defs/io.k8s.api.core.v1.ResourceRequirements.json
+# # 31c31
+# # < }
+# # ---
+# # > }
+# # \ No newline at end of file
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.SeccompProfile.json 1.28orig/defs/io.k8s.api.core.v1.SeccompProfile.json
+# 5c5
+# <       "description": "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is \"Localhost\".",
+# ---
+# >       "description": "localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is \"Localhost\". Must NOT be set for any other type.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.ServicePort.json 1.28orig/defs/io.k8s.api.core.v1.ServicePort.json
+# 5c5
+# <       "description": "The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.",
+# ---
+# >       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.ServiceSpec.json 1.28orig/defs/io.k8s.api.core.v1.ServiceSpec.json
+# 61c61
+# <       "description": "Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.",
+# ---
+# >       "description": "Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations. Using it is non-portable and it may not support dual-stack. Users are encouraged to use implementation-specific annotations when available.",
+# diff -r 1.27orig/defs/io.k8s.api.core.v1.WindowsSecurityContextOptions.json 1.28orig/defs/io.k8s.api.core.v1.WindowsSecurityContextOptions.json
+# 13c13
+# <       "description": "HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.",
+# ---
+# >       "description": "HostProcess determines if a container should be run as a 'Host Process' container. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers). In addition, if HostProcess is true then HostNetwork must also be set to true.",
+# diff -r 1.27orig/defs/io.k8s.api.discovery.v1.EndpointPort.json 1.28orig/defs/io.k8s.api.discovery.v1.EndpointPort.json
+# 5c5
+# <       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# ---
+# >       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.ExemptPriorityLevelConfiguration.json
+# diff -r 1.27orig/defs/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationSpec.json 1.28orig/defs/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationSpec.json
+# 3a4,7
+# >     "exempt": {
+# >       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta2.ExemptPriorityLevelConfiguration",
+# >       "description": "`exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `\"Limited\"`. This field MAY be non-empty if `type` is `\"Exempt\"`. If empty and `type` is `\"Exempt\"` then the default values for `ExemptPriorityLevelConfiguration` apply."
+# >     },
+# 20a25
+# >         "exempt": "Exempt",
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta3.ExemptPriorityLevelConfiguration.json
+# diff -r 1.27orig/defs/io.k8s.api.flowcontrol.v1beta3.LimitedPriorityLevelConfiguration.json 1.28orig/defs/io.k8s.api.flowcontrol.v1beta3.LimitedPriorityLevelConfiguration.json
+# 19c19
+# <       "description": "`nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:\n\nNominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)\n\nBigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.",
+# ---
+# >       "description": "`nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:\n\nNominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)\n\nBigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of 30.",
+# diff -r 1.27orig/defs/io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationSpec.json 1.28orig/defs/io.k8s.api.flowcontrol.v1beta3.PriorityLevelConfigurationSpec.json
+# 3a4,7
+# >     "exempt": {
+# >       "$ref": "#/definitions/io.k8s.api.flowcontrol.v1beta3.ExemptPriorityLevelConfiguration",
+# >       "description": "`exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `\"Limited\"`. This field MAY be non-empty if `type` is `\"Exempt\"`. If empty and `type` is `\"Exempt\"` then the default values for `ExemptPriorityLevelConfiguration` apply."
+# >     },
+# 20a25
+# >         "exempt": "Exempt",
+# diff -r 1.27orig/defs/io.k8s.api.networking.v1.NetworkPolicy.json 1.28orig/defs/io.k8s.api.networking.v1.NetworkPolicy.json
+# 25,28d24
+# <     },
+# <     "status": {
+# <       "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicyStatus",
+# <       "description": "status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status"
+# Only in 1.27orig/defs: io.k8s.api.networking.v1.NetworkPolicyStatus.json
+# diff -r 1.27orig/defs/io.k8s.api.rbac.v1.ClusterRoleBinding.json 1.28orig/defs/io.k8s.api.rbac.v1.ClusterRoleBinding.json
+# 24c24
+# <       "description": "RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error."
+# ---
+# >       "description": "RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable."
+# diff -r 1.27orig/defs/io.k8s.api.rbac.v1.RoleBinding.json 1.28orig/defs/io.k8s.api.rbac.v1.RoleBinding.json
+# 24c24
+# <       "description": "RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error."
+# ---
+# >       "description": "RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable."
+# diff -r 1.27orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule.json 1.28orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule.json
+# 3a4,7
+# >     "fieldPath": {
+# >       "description": "fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`",
+# >       "type": "string"
+# >     },
+# 9a14,17
+# >       "type": "string"
+# >     },
+# >     "reason": {
+# >       "description": "reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: \"FieldValueInvalid\", \"FieldValueForbidden\", \"FieldValueRequired\", \"FieldValueDuplicate\". If not set, default to use \"FieldValueInvalid\". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.",
+# diff -r 1.27orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement.json 1.28orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement.json
+# 6,8c6
+# <       "type": "string",
+# <       "x-kubernetes-patch-merge-key": "key",
+# <       "x-kubernetes-patch-strategy": "merge"
+# ---
+# >       "type": "string"
+# diff -r 1.27orig/ops/connectCoreV1DeleteNamespacedPodProxy.json 1.28orig/ops/connectCoreV1DeleteNamespacedPodProxy.json
+# 20,24c20
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1DeleteNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1DeleteNamespacedPodProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1DeleteNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1DeleteNamespacedServiceProxy.json
+# 20,24c20
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1DeleteNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1DeleteNamespacedServiceProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1DeleteNodeProxy.json 1.28orig/ops/connectCoreV1DeleteNodeProxy.json
+# 17,21c17
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1DeleteNodeProxyWithPath.json 1.28orig/ops/connectCoreV1DeleteNodeProxyWithPath.json
+# 17,22c17
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 25,29c20
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedPodAttach.json 1.28orig/ops/connectCoreV1GetNamespacedPodAttach.json
+# 9,13c9
+# <       "description": "The container in which to execute the command. Defaults to only container if there is only one container in the pod.",
+# <       "in": "query",
+# <       "name": "container",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/container"
+# 27,31c23
+# <       "description": "Stderr if true indicates that stderr is to be redirected for the attach call. Defaults to true.",
+# <       "in": "query",
+# <       "name": "stderr",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/stderr"
+# 34,38c26
+# <       "description": "Stdin if true, redirects the standard input stream of the pod for this call. Defaults to false.",
+# <       "in": "query",
+# <       "name": "stdin",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/stdin"
+# 41,45c29
+# <       "description": "Stdout if true indicates that stdout is to be redirected for the attach call. Defaults to true.",
+# <       "in": "query",
+# <       "name": "stdout",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/stdout"
+# 48,52c32
+# <       "description": "TTY if true indicates that a tty will be allocated for the attach call. This is passed through the container runtime so the tty is allocated on the worker node by the container runtime. Defaults to false.",
+# <       "in": "query",
+# <       "name": "tty",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/tty"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedPodExec.json 1.28orig/ops/connectCoreV1GetNamespacedPodExec.json
+# 9,13c9
+# <       "description": "Command is the remote command to execute. argv array. Not executed within a shell.",
+# <       "in": "query",
+# <       "name": "command",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/command"
+# 16,20c12
+# <       "description": "Container in which to execute the command. Defaults to only container if there is only one container in the pod.",
+# <       "in": "query",
+# <       "name": "container",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/container"
+# 34,38c26
+# <       "description": "Redirect the standard error stream of the pod for this call.",
+# <       "in": "query",
+# <       "name": "stderr",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/stderr"
+# 41,45c29
+# <       "description": "Redirect the standard input stream of the pod for this call. Defaults to false.",
+# <       "in": "query",
+# <       "name": "stdin",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/stdin"
+# 48,52c32
+# <       "description": "Redirect the standard output stream of the pod for this call.",
+# <       "in": "query",
+# <       "name": "stdout",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/stdout"
+# 55,59c35
+# <       "description": "TTY if true indicates that a tty will be allocated for the exec call. Defaults to false.",
+# <       "in": "query",
+# <       "name": "tty",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/tty"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedPodPortforward.json 1.28orig/ops/connectCoreV1GetNamespacedPodPortforward.json
+# 20,24c20
+# <       "description": "List of ports to forward Required when using WebSockets",
+# <       "in": "query",
+# <       "name": "ports",
+# <       "type": "integer",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/ports"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedPodProxy.json 1.28orig/ops/connectCoreV1GetNamespacedPodProxy.json
+# 20,24c20
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1GetNamespacedPodProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1GetNamespacedServiceProxy.json
+# 20,24c20
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1GetNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1GetNamespacedServiceProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1GetNodeProxy.json 1.28orig/ops/connectCoreV1GetNodeProxy.json
+# 17,21c17
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1GetNodeProxyWithPath.json 1.28orig/ops/connectCoreV1GetNodeProxyWithPath.json
+# 17,22c17
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 25,29c20
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1HeadNamespacedPodProxy.json 1.28orig/ops/connectCoreV1HeadNamespacedPodProxy.json
+# 20,24c20
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1HeadNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1HeadNamespacedPodProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+3 diff -r 1.27orig/ops/connectCoreV1HeadNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1HeadNamespacedServiceProxy.json
+3 20,24c20
+3 <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+3 <       "in": "query",
+3 <       "name": "path",
+3 <       "type": "string",
+3 <       "uniqueItems": true
+3 ---
+3 >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1HeadNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1HeadNamespacedServiceProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1HeadNodeProxy.json 1.28orig/ops/connectCoreV1HeadNodeProxy.json
+# 17,21c17
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1HeadNodeProxyWithPath.json 1.28orig/ops/connectCoreV1HeadNodeProxyWithPath.json
+# 17,22c17
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 25,29c20
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1OptionsNamespacedPodProxy.json 1.28orig/ops/connectCoreV1OptionsNamespacedPodProxy.json
+# 20,24c20
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1OptionsNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1OptionsNamespacedPodProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1OptionsNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1OptionsNamespacedServiceProxy.json
+# 20,24c20
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1OptionsNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1OptionsNamespacedServiceProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1OptionsNodeProxy.json 1.28orig/ops/connectCoreV1OptionsNodeProxy.json
+# 17,21c17
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1OptionsNodeProxyWithPath.json 1.28orig/ops/connectCoreV1OptionsNodeProxyWithPath.json
+# 17,22c17
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 25,29c20
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PatchNamespacedPodProxy.json 1.28orig/ops/connectCoreV1PatchNamespacedPodProxy.json
+# 20,24c20
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PatchNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1PatchNamespacedPodProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PatchNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1PatchNamespacedServiceProxy.json
+# 20,24c20
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PatchNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1PatchNamespacedServiceProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PatchNodeProxy.json 1.28orig/ops/connectCoreV1PatchNodeProxy.json
+# 17,21c17
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PatchNodeProxyWithPath.json 1.28orig/ops/connectCoreV1PatchNodeProxyWithPath.json
+# 17,22c17
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 25,29c20
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PostNamespacedPodProxy.json 1.28orig/ops/connectCoreV1PostNamespacedPodProxy.json
+# 17a18,20
+# >     },
+# >     {
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PostNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1PostNamespacedPodProxyWithPath.json
+# 20,25c20,23
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# >     },
+# >     {
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PostNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1PostNamespacedServiceProxy.json
+# 17a18,20
+# >     },
+# >     {
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PostNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1PostNamespacedServiceProxyWithPath.json
+# 20,25c20,23
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# >     },
+# >     {
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PostNodeProxy.json 1.28orig/ops/connectCoreV1PostNodeProxy.json
+# 14a15,17
+# >     },
+# >     {
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PostNodeProxyWithPath.json 1.28orig/ops/connectCoreV1PostNodeProxyWithPath.json
+# 17,22c17,20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# >     },
+# >     {
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PutNamespacedPodProxy.json 1.28orig/ops/connectCoreV1PutNamespacedPodProxy.json
+# 20,24c20
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PutNamespacedPodProxyWithPath.json 1.28orig/ops/connectCoreV1PutNamespacedPodProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the URL path to use for the current proxy request to pod.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PutNamespacedServiceProxy.json 1.28orig/ops/connectCoreV1PutNamespacedServiceProxy.json
+# 20,24c20
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PutNamespacedServiceProxyWithPath.json 1.28orig/ops/connectCoreV1PutNamespacedServiceProxyWithPath.json
+# 20,25c20
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 28,32c23
+# <       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy. Path is _search?q=user:kimchy.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PutNodeProxy.json 1.28orig/ops/connectCoreV1PutNodeProxy.json
+# 17,21c17
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# diff -r 1.27orig/ops/connectCoreV1PutNodeProxyWithPath.json 1.28orig/ops/connectCoreV1PutNodeProxyWithPath.json
+# 17,22c17
+# <       "description": "path to the resource",
+# <       "in": "path",
+# <       "name": "path",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# 25,29c20
+# <       "description": "Path is the URL path to use for the current proxy request to node.",
+# <       "in": "query",
+# <       "name": "path",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/path"
+# Only in 1.28orig/ops: createAuthenticationV1SelfSubjectReview.json
+# diff -r 1.27orig/ops/logFileHandler.json 1.28orig/ops/logFileHandler.json
+# 5,10c5
+# <       "description": "path to the log",
+# <       "in": "path",
+# <       "name": "logpath",
+# <       "required": true,
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/logpath"
+# Only in 1.27orig/ops: patchNetworkingV1NamespacedNetworkPolicyStatus.json
+# diff -r 1.27orig/ops/readCoreV1NamespacedPodLog.json 1.28orig/ops/readCoreV1NamespacedPodLog.json
+# 9,13c9
+# <       "description": "The container for which to stream logs. Defaults to only container if there is one container in the pod.",
+# <       "in": "query",
+# <       "name": "container",
+# <       "type": "string",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/container"
+# 16,20c12
+# <       "description": "Follow the log stream of the pod. Defaults to false.",
+# <       "in": "query",
+# <       "name": "follow",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/follow"
+# 23,27c15
+# <       "description": "insecureSkipTLSVerifyBackend indicates that the apiserver should not confirm the validity of the serving certificate of the backend it is connecting to.  This will make the HTTPS connection between the apiserver and the backend insecure. This means the apiserver cannot verify the log data it is receiving came from the real kubelet.  If the kubelet is configured to verify the apiserver's TLS credentials, it does not mean the connection to the real kubelet is vulnerable to a man in the middle attack (e.g. an attacker could not intercept the actual log data coming from the real kubelet).",
+# <       "in": "query",
+# <       "name": "insecureSkipTLSVerifyBackend",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/insecureSkipTLSVerifyBackend"
+# 30,34c18
+# <       "description": "If set, the number of bytes to read from the server before terminating the log output. This may not display a complete final line of logging, and may return slightly more or slightly less than the specified limit.",
+# <       "in": "query",
+# <       "name": "limitBytes",
+# <       "type": "integer",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/limitBytes"
+# 51,55c35
+# <       "description": "Return previous terminated container logs. Defaults to false.",
+# <       "in": "query",
+# <       "name": "previous",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/previous"
+# 58,62c38
+# <       "description": "A relative time in seconds before the current time from which to show logs. If this value precedes the time a pod was started, only logs since the pod start will be returned. If this value is in the future, no logs will be returned. Only one of sinceSeconds or sinceTime may be specified.",
+# <       "in": "query",
+# <       "name": "sinceSeconds",
+# <       "type": "integer",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/sinceSeconds"
+# 65,69c41
+# <       "description": "If set, the number of lines from the end of the logs to show. If not specified, logs are shown from the creation of the container or sinceSeconds or sinceTime",
+# <       "in": "query",
+# <       "name": "tailLines",
+# <       "type": "integer",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/tailLines"
+# 72,76c44
+# <       "description": "If true, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to false.",
+# <       "in": "query",
+# <       "name": "timestamps",
+# <       "type": "boolean",
+# <       "uniqueItems": true
+# ---
+# >       "$ref": "#/parameters/timestamps"
+# Only in 1.27orig/ops: readNetworkingV1NamespacedNetworkPolicyStatus.json
+# Only in 1.27orig/ops: replaceNetworkingV1NamespacedNetworkPolicyStatus.json
