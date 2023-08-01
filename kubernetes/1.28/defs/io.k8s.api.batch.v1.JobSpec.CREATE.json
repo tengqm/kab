@@ -14,6 +14,13 @@
       "minimum": 0,
       "type": "integer"
     },
+    "backoffLimitPerIndex": {
+      "description": "Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's `batch.kubernetes.io/job-index-failure-count` annotation. It can only be set when Job's `completionMode=Indexed`, and the Pod's `restartPolicy` is `\"Never\"`. The field is immutable. This field is Alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).\n\nThis field is required when `maxFailedIndexes` is specified.",
+      "format": "int32",
+      "minimum": 0,
+      "type": "integer"
+    },
+
     "completionMode": {
       "default": "NonIndexed",
       "description": "This specifies how Pod completions are tracked.\n\n- `\"NonIndexed\"` means that the Job is considered complete when there have been `.spec.completions` successfully completed Pods. Each Pod completion is homologous to each other.\n- `\"Indexed\"` means that the Pods of a Job get an associated completion index from 0 to `(.spec.completions - 1)`, available in the annotation `\"batch.kubernetes.io/job-completion-index\"`. The Job is considered complete when there is one successfully completed Pod for each index. When value is `\"Indexed\"`, `.spec.completions` must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, the Pod name takes the form `<job-name>-<index>-<random-string>` and the Pod host name takes the form `<job-name>-<index>`.\n\nMore completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.",
@@ -33,6 +40,11 @@
       "description": "This controls the generation of Pod labels and Pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When `false` or unset, the system pick labels unique to this Job and appends those labels to the Pod template. When `true`, the user is responsible for picking unique labels and specifying the `selector`. Failure to pick a unique label may cause this and other Jobs to not function correctly. However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.",
       "type": "boolean"
     },
+    "maxFailedIndexes": {
+      "description": "Specifies the maximal number of failed indexes before marking the Job as failed, when `backoffLimitPerIndex` is set. Once the number of failed indexes exceeds this number, the entire Job is marked as \"Failed\" and its execution is terminated. When left as null the Job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when `backoffLimitPerIndex` is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is Alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+      "format": "int32",
+      "type": "integer"
+    },
     "parallelism": {
       "description": "The maximum desired number of Pods the Job should run at any given time. The actual number of Pods running in steady state will be less than this number when `((.spec.completions - .status.successful) < .spec.parallelism)`, i.e. when the work left to do is less than max `parallelism`.",
       "format": "int32",
@@ -41,8 +53,17 @@
     },
     "podFailurePolicy": {
       "$ref": "#/definitions/io.k8s.api.batch.v1.PodFailurePolicy",
-      "description": "Specifies the policy of handling failed Pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed Pods, represented by the Jobs's `.status.failed` field, is incremented and it is checked against the `backoffLimit`. This field cannot be used in combination with `restartPolicy=OnFailure`.\n\nThis field is Alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default)."
+      "description": "Specifies the policy of handling failed Pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed Pods, represented by the Jobs's `.status.failed` field, is incremented and it is checked against the `backoffLimit`. This field cannot be used in combination with `restartPolicy=OnFailure`.\n\nThis field is Beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default)."
     },
+    "podReplacementPolicy": {
+      "description": "This specifies when to create replacement Pods. Possible values are:\n\n- `TerminatingOrFailed`: means that we recreate pods when they are terminating (has a `metadata.deletionTimestamp`) or failed.\n- `Failed`: means to wait until a previously created Pod is fully terminated (has phase `Failed` or `Succeeded`) before creating a replacement Pod.\n\nWhen using `podFailurePolicy`, `Failed` is the the only allowed value. `TerminatingOrFailed` and `Failed` are allowed values when `podFailurePolicy` is not in use. This is an Alpha field. Enable the `JobPodReplacementPolicy` feature gate to be able to use this field.",
+      "enum": [
+        "Failed",
+        "TerminatingOrFailed"
+      ],
+      "type": "string"
+    },
+
     "selector": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector",
       "description": "A label query over Pods that should match the Pod count. Normally, the system sets this field for you. The `selector` must match the `labels` defined on the Pod template. This field cannot be updated."
