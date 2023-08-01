@@ -1,8 +1,9 @@
 {
-  "description": "IP address information for a Pod.",
+  "description": "PodIP represents a single IP address allocated to the pod.",
   "properties": {
     "ip": {
-      "description": "An IP address (IPv4 or IPv6) assigned to the Pod, routable at least within the cluster.",
+      "description": "The IP address assigned to the Pod.",
+      "format": "ip",
       "type": "string"
     }
   },

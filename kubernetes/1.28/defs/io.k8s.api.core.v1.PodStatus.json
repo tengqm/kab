@@ -25,8 +25,18 @@
       "type": "array"
     },
     "hostIP": {
-      "description": "IP address of the node to which the Pod is assigned. Empty if not yet scheduled.",
+      "description": "`hostIP` holds the IP address of the host to which the Pod is assigned. Empty if the Pod has not started yet. A Pod can be assigned to a node that has a problem in kubelet which in turns mean that `hostIP` will not be updated even if there is a node is assigned to Pod.",
       "type": "string"
+    },
+    "hostIPs": {
+      "description": "`hostIPs` holds the IP addresses allocated to the host. If this field is specified, the first entry must match the `hostIP` field. This list is empty if the Pod has not started yet. A Pod can be assigned to a node that has a problem in kubelet which in turns means that `hostIPs` will not be updated even if there is a node is assigned to this Pod.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.HostIP"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic",
+      "x-kubernetes-patch-merge-key": "ip",
+      "x-kubernetes-patch-strategy": "merge"
     },
     "initContainerStatuses": {
       "description": "The list has one entry per init container in the manifest. The most recent successful init container will have `ready: true`, the most recently started container will have `startTime` set.",
@@ -83,6 +93,19 @@
     "resize": {
       "description": "Status of resources resize desired for Pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to \"Proposed\".",
       "type": "string"
+    },
+    "resourceClaimStatuses": {
+      "description": "Status of resource claims.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.PodResourceClaimStatus"
+      },
+      "type": "array",
+      "x-kubernetes-list-map-keys": [
+        "name"
+      ],
+      "x-kubernetes-list-type": "map",
+      "x-kubernetes-patch-merge-key": "name",
+      "x-kubernetes-patch-strategy": "merge,retainKeys"
     },
     "startTime": {
       "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time",

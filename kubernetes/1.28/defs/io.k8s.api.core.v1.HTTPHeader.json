@@ -2,7 +2,7 @@
   "description": "A custom header to use in HTTP probes",
   "properties": {
     "name": {
-      "description": "The header field name. A valid name consists of alphanumeric characters or `'-'`.",
+      "description": "The header field name. A valid name consists of alphanumeric characters or `'-'`. This will be canonicalized upon output, so case-variant names will be understood as the same header.",
       "minLength": 1,
       "type": "string"
     },
