@@ -62,9 +62,10 @@ def _parse_list(api, data, prop, root=None):
     return result
 
 
-def load_json(fn, apiv=None, recursive=True, root=None):
+def load_json(fn, api=None, recursive=True, root=None):
     data = {}
     try:
+
         with open(fn, "r") as f:
             data = json.load(f)
     except Exception as ex:
@@ -78,9 +79,9 @@ def load_json(fn, apiv=None, recursive=True, root=None):
 
     for k, v in data.items():
         if isinstance(v, dict):
-            new_v = _parse_dict(apiv, v, k, root=root)
+            new_v = _parse_dict(api, v, k, root=root)
         elif isinstance(v, list):
-            new_v = _parse_list(apiv, v, k, root=root)
+            new_v = _parse_list(api, v, k, root=root)
         else:
             new_v = v
         result[k] = new_v
