@@ -22,18 +22,13 @@
     "spec": {
       "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicySpec",
       "description": "Specification of the desired behavior for this NetworkPolicy."
-    },
-    "status": {
-      "$ref": "#/definitions/io.k8s.api.networking.v1.NetworkPolicyStatus",
-      "description": "The current state of the NetworkPolicy."
     }
   },
   "required": [
     "apiVersion",
     "kind",
     "metadata",
-    "spec",
-    "status"
+    "spec"
   ],
   "type": "object",
   "x-kubernetes-group-version-kind": [

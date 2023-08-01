@@ -21,7 +21,7 @@
     },
     "roleRef": {
       "$ref": "#/definitions/io.k8s.api.rbac.v1.RoleRef",
-      "description": "The reference to a Role in the current namespace or a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error."
+      "description": "The reference to a Role in the current namespace or a ClusterRole. If the `roleRef` cannot be resolved, the authorizer must return an error. This field is immutable."
     },
     "subjects": {
       "description": "References to the subjects the Role applies to.",
