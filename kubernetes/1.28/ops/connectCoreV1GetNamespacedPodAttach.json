@@ -6,11 +6,7 @@
   "operationId": "connectCoreV1GetNamespacedPodAttach",
   "parameters": [
     {
-      "description": "The container in which to execute the command. Defaults to only container if there is only one container in the pod.",
-      "in": "query",
-      "name": "container",
-      "type": "string",
-      "uniqueItems": true
+        "$ref": "#/parameters/container"
     },
     {
       "description": "Name of the Pod",
@@ -24,32 +20,16 @@
       "$ref": "#/parameters/namespace"
     },
     {
-      "description": "Flag indicates that stderr is to be redirected for the attach call. Defaults to true.",
-      "in": "query",
-      "name": "stderr",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/stderr"
     },
     {
-      "description": "Flag indicates whethere the stdin stream of the Pod is to be redirected for the attach call. Defaults to false.",
-      "in": "query",
-      "name": "stdin",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/stdin"
     },
     {
-      "description": "Flag indicates whether the stdout is to be redirected for the attach call. Defaults to true.",
-      "in": "query",
-      "name": "stdout",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/stdout"
     },
     {
-      "description": "This indicates that a TTY will be allocated for the attach call. This is passed through the container runtime so the TTY is allocated on the worker node by the container runtime. Defaults to false.",
-      "in": "query",
-      "name": "tty",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/tty"
     }
   ],
   "path": "/api/v1/namespaces/{namespace}/pods/{name}/attach",

@@ -17,19 +17,14 @@
       "$ref": "#/parameters/namespace"
     },
     {
-      "description": "path to the resource",
-      "in": "path",
-      "name": "path",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/path"
     },
     {
       "description": "Path is the part of URLs that include service endpoints, suffixes, and parameters to use for the current proxy request to service. For example, the whole request URL is `http://localhost/api/v1/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`. Path is `_search?q=user:kimchy`.",
       "in": "query",
       "name": "path",
-      "type": "string",
-      "uniqueItems": true
+      "required": false,
+      "type": "string"
     }
   ],
   "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy/{path}",

@@ -6,18 +6,10 @@
   "operationId": "connectCoreV1GetNamespacedPodExec",
   "parameters": [
     {
-      "description": "Command is the remote command to execute. argv array. Not executed within a shell.",
-      "in": "query",
-      "name": "command",
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/command"
     },
     {
-      "description": "Container in which to execute the command. Defaults to only container if there is only one container in the pod.",
-      "in": "query",
-      "name": "container",
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/container"
     },
     {
       "description": "name of the Pod",
@@ -31,32 +23,16 @@
       "$ref": "#/parameters/namespace"
     },
     {
-      "description": "Redirect the standard error stream of the pod for this call.",
-      "in": "query",
-      "name": "stderr",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/stderr"
     },
     {
-      "description": "Redirect the standard input stream of the pod for this call.",
-      "in": "query",
-      "name": "stdin",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/stdin"
     },
     {
-      "description": "Redirect the standard output stream of the pod for this call. Defaults to true.",
-      "in": "query",
-      "name": "stdout",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/stdout"
     },
     {
-      "description": "If true indicates that a TTY will be allocated for the exec call. Defaults to false.",
-      "in": "query",
-      "name": "tty",
-      "type": "boolean",
-      "uniqueItems": true
+      "$ref": "#/parameters/tty"
     }
   ],
   "path": "/api/v1/namespaces/{namespace}/pods/{name}/exec",

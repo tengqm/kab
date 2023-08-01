@@ -17,19 +17,14 @@
       "$ref": "#/parameters/namespace"
     },
     {
-      "description": "path to the resource",
-      "in": "path",
-      "name": "path",
-      "required": true,
-      "type": "string",
-      "uniqueItems": true
+      "$ref": "#/parameters/path"
     },
     {
       "description": "Path is the URL path to use for the current proxy request to pod.",
       "in": "query",
       "name": "path",
-      "type": "string",
-      "uniqueItems": true
+      "required": false,
+      "type": "string"
     }
   ],
   "path": "/api/v1/namespaces/{namespace}/pods/{name}/proxy/{path}",
