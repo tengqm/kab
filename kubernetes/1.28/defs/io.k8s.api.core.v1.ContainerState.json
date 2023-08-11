@@ -7,7 +7,7 @@
     },
     "terminated": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateTerminated",
-      "description": "Details about a terminated Container. When updating, if the Pod's `reatartPolicy` is not `\"Always\"` and the container has terminated, the server checks if the container's exit code is non zero. If the the Pod's `restartPolciy` is `\"OnFailure\"` and the container's exit code is non zero, updating the container to a non-terminated state is allowed, or else the server rejects the update request."
+      "description": "Details about a terminated Container. When updating, if the Pod's `restartPolicy` is not `\"Always\"` and the container has terminated, the server checks if the container's exit code is non zero. If the the Pod's `restartPolicy` is `\"OnFailure\"` and the container's exit code is non zero, updating the container to a non-terminated state is allowed, or else the server rejects the update request."
     },
     "waiting": {
       "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateWaiting",
