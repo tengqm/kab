@@ -1,4 +1,4 @@
-FROM python:alpine3.18.3
+FROM python:alpine3.18
 
 ENV PYTHONUNBUFFERED=1
 # install python3, pip3
