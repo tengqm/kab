@@ -47,21 +47,21 @@ COPY kab/LICENSE kab/manage.py $KAB_ROOT/
 COPY kab/dist $KAB_ROOT/dist
 
 RUN mkdir -p $KAB_ROOT/data && \
-    mkdir -p $KAB_ROOT/data/1.21 && \
     mkdir -p $KAB_ROOT/data/1.22 && \
     mkdir -p $KAB_ROOT/data/1.23 && \
     mkdir -p $KAB_ROOT/data/1.24 && \
     mkdir -p $KAB_ROOT/data/1.25 && \
     mkdir -p $KAB_ROOT/data/1.26 && \
-    mkdir -p $KAB_ROOT/data/1.27
+    mkdir -p $KAB_ROOT/data/1.27 && \
+    mkdir -p $KAB_ROOT/data/1.28
 
-COPY kubernetes/1.21 $KAB_ROOT/data/1.21
 COPY kubernetes/1.22 $KAB_ROOT/data/1.22
 COPY kubernetes/1.23 $KAB_ROOT/data/1.23
 COPY kubernetes/1.24 $KAB_ROOT/data/1.24
 COPY kubernetes/1.25 $KAB_ROOT/data/1.25
 COPY kubernetes/1.26 $KAB_ROOT/data/1.26
 COPY kubernetes/1.27 $KAB_ROOT/data/1.27
+COPY kubernetes/1.28 $KAB_ROOT/data/1.28
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
