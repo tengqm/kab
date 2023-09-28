@@ -332,6 +332,7 @@ class DefinitionHistory(generic.View):
             }
             return shortcuts.render(req, 'notfound.html', ctx)
 
+        self._render_description(result)
         ctx = {
             "GROUP": group,
             "FULL_GROUP": group_fn,
@@ -344,6 +345,19 @@ class DefinitionHistory(generic.View):
         template = 'core/def-history.html'
 
         return shortcuts.render(req, template, ctx)
+
+    def _render_description(self, data):
+        for ver, data in data.items():
+            changes = data.get("changes", {})
+            desc = []
+            for r in changes.get("DESCRIPTION", []):
+                obj = {}
+                for k, v in r.items():
+                    obj[k] = helpers.compare_text(v["BEFORE"], v["AFTER"])
+                desc.append(obj)
+            if len(desc) > 0:
+                changes["DESCRIPTION"] = desc
+        return
 
 
 class ViewOperation(generic.View):
