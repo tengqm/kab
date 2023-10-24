@@ -1,0 +1,1788 @@
+flags:
+  - flag: address
+    config: address
+    type: IP
+    default: "0.0.0.0"
+    en: >
+      The IP address for the Kubelet to serve on (set to `0.0.0.0` or
+      `::` for listening in all interfaces and IP families).
+    zh: >
+      kubelet 用来提供服务的 IP 地址（设置为 `0.0.0.0` 或 `::`
+      表示监听所有接口和 IP 协议族）。
+  - flag: allowed-unsafe-sysctls
+    config: allowedUnsafeSysctls
+    type: array[string]
+    default: []
+    en: >
+      Comma-separated whitelist of unsafe sysctls or unsafe sysctl
+      patterns (ending in `*`). Use these at your own risk.
+    zh: >
+      用逗号分隔的字符串序列设置允许使用的非安全的 sysctls 或 sysctl
+      模式（以 `*` 结尾）。使用此参数时风险自担。
+
+  - flag: anonymous-auth
+    config: authentication.anonymous.enabled
+    type: bool
+    default: true
+    en: >
+      Enables anonymous requests to the Kubelet server.
+      Requests that are not rejected by another authentication method
+      are treated as anonymous requests.
+      Anonymous requests have a username of `system:anonymous`, and a
+      group name of `system:unauthenticated`.
+    zh: >
+      设置为 true 表示 kubelet 服务器可以接受匿名请求。
+      未被任何认证组件拒绝的请求将被视为匿名请求。
+      匿名请求的用户名为 `system:anonymous`，用户组为
+      `system:unauthenticated`。
+  - flag: authentication-token-webhook
+    config: authentication.webhook.enabled
+    type: boolean
+    default: false
+    en: >
+      Use the `TokenReview` API to determine authentication for bearer
+      tokens.
+    zh: >
+      使用 `TokenReview` API 对持有者令牌进行身份认证。
+  - flag: authentication-token-webhook-cache-ttl
+    config: authentication.webhook.cacheTTL
+    type: duration
+    default: 2m0s
+    en: >
+      The duration to cache responses from the webhook token
+      authenticator.
+    zh: >
+      对 Webhook 令牌认证组件所返回的响应的缓存时间。
+  - flag: authorization-mode
+    config: authorization.mode
+    type: string
+    default: AlwaysAllow
+    en: |
+      Authorization mode for the kubelet server. Valid options are:
+      - `AlwaysAllow`
+      - `Webhook`: uses the `SubjectAccessReview` API to determine
+        authorization.
+    zh: |
+      kubelet 服务器的鉴权模式。可选值包括：
+      - `AlwaysAllow`
+      - `Webhook`：使用 `SubjectAccessReview` API 鉴权。
+  - flag: authorization-webhook-cache-authorized-ttl
+    config: authorization.webhook.cacheAuthorizedTTL
+    type: duration
+    default: 5m0s
+    en: >
+      The duration to cache 'authorized' responses from the webhook
+      authorizer.
+    zh: >
+      对 Webhook 认证组件所返回的 “Authorized（已授权）”
+      应答的缓存时间。
+
+  - flag: authorization-webhook-cache-unauthorized-ttl
+    config: authorization.webhook.cachUnauthorizedTTL
+    type: duration
+    default: 30m
+    en: >
+      The duration to cache 'unauthorized' responses from the webhook
+      authorizer.
+    zh: >
+      对 Webhook 认证组件所返回的 “Unauthorized（未授权）”
+      应答的缓存时间。
+
+  - flag: cgroup-driver
+    config: cgroupDriver
+    type: string
+    default: cgroupfs
+    en: >
+      Driver that the kubelet uses to manipulate cgroups on the host.
+      Possible values are 'cgroupfs', 'systemd'.
+    zh: >
+      kubelet 用来操作本机 CGroup 时使用的驱动程序。
+      支持的选项包括 `cgroupfs` 和 `systemd`。
+  - flag: cgroup-root
+    config: cgroupRoot
+    type: string
+    default: ""
+    en: >
+      Optional root cgroup to use for Pods.
+      This is handled by the container runtime on a best effort basis.
+      Default value means using the container runtime default.
+    zh: >
+      可选的选项，为 Pod 设置根 CGroup。容器运行时会尽可能使用此配置。
+      默认值 "" 意味着将使用容器运行时的默认设置。
+
+  - flag: cgroups-per-qos
+    config: cgroupsPerQOS
+    type: bool
+    default: true
+    en: >
+      Enable creation of QoS cgroup hierarchy, if true top level QoS
+      and pod cgroups are created.
+    zh: >
+      启用创建 QoS CGroup 层次结构。此值为 true 时 kubelet 为 QoS 和
+      Pod 创建顶级的 CGroup。
+
+  - flag: client-ca-file
+    config: authentication.x509.clientCAFile
+    type: string
+    default: ""
+    en: >
+      If set, any request presenting a client certificate signed by
+      one of the authorities in the `client-ca-file` is authenticated
+      with an identity corresponding to the `CommonName` of
+      the client certificate.
+    zh: >
+      如果设置了此参数，则使用对应文件中机构之一检查请求中所携带的客户端证书。
+      若客户端证书通过身份认证，则其对应身份为其证书中所设置的 `CommonName`。
+
+  - flag: cluster-domain
+    config: clusterDomain
+    type: string
+    default: ""
+    en: >
+      Domain for this cluster. If set, kubelet will configure all containers
+      to search this domain in addition to the host's search domains.
+    zh: >
+      集群的域名。如果设置了此值，kubelet 除了将主机的搜索域配置到所有容器之外，
+      还会为其配置所搜这里指定的域名。
+
+  - flag: cluster-dns
+    config:
+    type: string[]
+    default:
+    en: >
+      Comma-separated list of DNS server IP address. This value is used for
+      containers DNS server in case of Pods with `dnsPolicy=ClusterFirst`.
+      Note all DNS servers appearing in the list MUST serve the same set of
+      records otherwise name resolution within the cluster may not work correctly.
+      There is no guarantee as to which DNS server may be contacted for name resolution.
+    zh: >
+      DNS 服务器的 IP 地址，以逗号分隔。此标志值用于 Pod 中设置了
+      “dnsPolicy=ClusterFirst” 时为容器提供 DNS 服务。
+      注意列表中出现的所有 DNS 服务器必须包含相同的记录组，
+      否则集群中的名称解析可能无法正常工作。至于名称解析过程中会牵涉到哪些
+      DNS 服务器，这一点无法保证。
+
+  - flag: container-log-max-files
+    config: containerLogMaxFiles
+    type: int32
+    default: 5
+    en: >
+      (_BETA_) Set the maximum number of container log files that can be present for
+      a container. The number must be >= 2.
+    zh: >
+      （Beta）设置容器的日志文件个数上限。此值必须大于等于 2。
+  - flag: container-log-max-size
+    config: containerLogMaxSize
+    type: quantity
+    default: 10Mi
+    en: >
+      (_BETA_) Set the maximum size of container log file before it is rotated.
+    zh: >
+      设置容器日志文件在轮换生成新文件时之前的最大值。
+
+  - flag: container-runtime-endpoint
+    config: containerRuntimeEndpoint
+    type: string
+    default: unix:///run/containerd/containerd.sock
+    en: >
+      The endpoint of container runtime service.
+      UNIX Domain Sockets are supported on Linux, while npipe and TCP endpoints
+      are supported on Windows.
+      For example, 'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'
+    zh: >
+      远程运行时服务的端点。目前支持 Linux 系统上的 UNIX 套接字和 Windows
+      系统上的 npipe 和 TCP 端点。例如：
+      `unix:///path/to/runtime.sock`、`npipe:////./pipe/runtime`。
+
+  - flag: contention-profiling
+    config: enableContentionProfiling
+    type: bool
+    default: false
+    en: >-
+      Enable block profiling, if profiling is enabled.
+    zh: >-
+      当启用了性能分析时，启用锁竞争分析。
+
+  - flag: cpu-cfs-quota
+    config: cpuCFSQuota
+    type: boolean
+    default: true
+    en: >-
+      Enable CPU CFS quota enforcement for containers that specify CPU limits.
+    zh: >-
+      为设置了 CPU 限制的容器启用 CPU CFS 配额保障。
+
+  - flag: cpu-cfs-quota-period
+    config: cpuCFSQuotaPeriod
+    type: duration
+    default: 100ms
+    en: >-
+      Sets CPU CFS quota period value, `cpu.cfs_period_us`, defaults to
+      Linux Kernel default.
+    zh: >
+      设置 CPU CFS 配额周期 `cpu.cfs_period_us`。
+      默认使用 Linux 内核所设置的默认值。
+
+  - flag: cpu-manager-policy
+    config: cpuManagerPolicy
+    type: string
+    default: none
+    en: >-
+      CPU Manager policy to use. Possible values: `none`, `static`.
+    zh: >-
+      要使用的 CPU 管理器策略。可选值包括：`none` 和 `static`。
+
+  - flag: cpu-manager-policy-options
+    config: cpuManagerPolicyOptions
+    type: KV pairs
+    default:
+    en: >-
+      A set of key=value CPU Manager policy options to use, to
+      fine tune their behaviour. If not supplied, keep the default behaviour.
+    zh: >
+      一组用于微调其行为的 key=value CPU 管理器策略选项。
+      如果未提供，保留默认行为。
+
+  - flag: cpu-manager-reconcile-period
+    config: cpuManagerReconcilePeriod
+    type: duraion
+    default: 10s
+    en: >
+      (_Alpha_) CPU manager reconciliation period.
+      If not supplied, defaults to `NodeStatusUpdateFrequency`.
+    zh: >
+      （_Alpha_）设置 CPU 管理器的调和时间。
+      如果未设置，默认使用节点状态更新频率。
+
+  - flag: enable-controller-attach-detach
+    config: enableControllerAttachDetach
+    type: bool
+    default: true
+    en: >-
+      Enables the Attach/Detach controller to manage attachment/detachment
+      of volumes scheduled to this node, and disables kubelet from
+      executing any attach/detach operations.
+    zh: >
+      启用 Attach/Detach 控制器来挂接和摘除调度到该节点的卷，
+      同时禁用 kubelet 执行挂接和摘除操作。
+
+  - flag: enable-debugging-handlers
+    config: enableDebugginHandlers
+    type: bool
+    default: true
+    en: >-
+      Enables server endpoints for log collection and local running of
+      containers and commands.
+    zh: >-
+      启用服务器上用于日志收集和在本地运行容器和命令的端点。
+
+  - flag: enable-server
+    config: enableServer
+    type: bool
+    default: true
+    en: >-
+      Enable the Kubelet's server.
+    zh: >
+      启用 kubelet 服务器。
+
+  - flag: enforce-node-allocatable
+    config: enforceNodeAllocatable
+    type: list
+    default: ["pods"]
+    en: >
+      A comma separated list of levels of node allocatable enforcement
+      to be enforced by kubelet. Acceptable options are `none`, `pods`,
+      `system-reserved`, and `kube-reserved`.
+      If the latter two options are specified, `--system-reserved-cgroup`
+      and `--kube-reserved-cgroup` must also be set, respectively.
+      If `none` is specified, no additional options should be set.
+    zh: >
+      用逗号分隔的列表，包含由 kubelet 强制执行的节点可分配资源级别。
+      可选配置为：`none`、`pods`、`system-reserved` 和 `kube-reserved`。
+      在设置 `system-reserved` 和 `kube-reserved` 这两个值时，同时要求设置
+      `--system-reserved-cgroup` 和 `--kube-reserved-cgroup` 这两个参数。
+      如果设置为 `none`，则不需要设置其他参数。
+
+  - flag: event-burst
+    config: eventBurst
+    type: int32
+    default: 100
+    en: >-
+      Maximum size of a bursty event records, temporarily allows
+      event records to burst to this number, while still not exceeding
+      `event-qps`. The number must be >= 0. If 0 will use default value 10.
+    zh: >-
+      事件记录的个数的突发峰值上限，在遵从 `--event-qps` 阈值约束的前提下，
+      临时允许事件记录达到此数目。该数字必须大于等于 0。
+      如果为 0，则使用默认突发值（100）。
+
+  - flag: event-qps
+    config: eventRecordQPS
+    type: int32
+    default: 50
+    en: >-
+      QPS to limit event creations. The number must be >= 0.
+      If 0 will use default value 50.
+    zh: >-
+      用于限制事件创建的速率。该数字必须大于等于 0。
+      如果为 0，则使用默认 QPS 值（50）。
+
+  - flag: eviction-hard
+    config: evictionHard
+    type: KV pairs
+    default: imagefs.available&lt;15%,memory.available&lt;100Mi,nodefs.available&lt;10%
+    en: >-
+      A set of eviction thresholds (e.g. `memory.available<1Gi`) that
+      if met would trigger a pod eviction.
+    zh: >-
+      触发 Pod 驱逐操作的一组硬性门限（例如：`memory.available<1Gi`
+      （可用内存量小于 1G）设置。
+      在 Linux 节点上，默认值还包括 `nodefs.inodesFree<5%`。
+
+  - flag: eviction-soft
+    config: evictionSoft
+    type: KV pairs
+    default:
+    en: >-
+      A set of eviction thresholds (e.g. `memory.available<1.5Gi`) that
+      if met over a corresponding grace period would trigger a pod eviction.
+    zh: >-
+      设置一组驱逐阈值（例如：`memory.available<1.5Gi`）。
+      如果在相应的宽限期内达到该阈值，则会触发 Pod 驱逐操作。
+
+  - flag: eviction-soft-grace-period
+    config: evictionSoftGracePeriod
+    type: KV pairs
+    default: null
+    en: >-
+      A set of eviction grace periods (e.g. `memory.available=1m30s`) that
+      correspond to how long a soft eviction threshold must hold before
+      triggering a pod eviction.
+    zh: >-
+      设置一组驱逐宽限期（例如，`memory.available=1m30s`），对应于触发软性
+      Pod 驱逐操作之前软性驱逐阈值所需持续的时间长短。
+
+  - flag: eviction-max-pod-grace-period
+    config: evictionMaxPodGracePeriod
+    type: int32
+    default: 0
+    en: >-
+      Maximum allowed grace period (in seconds) to use when terminating pods
+      in response to a soft eviction threshold being met.
+      If negative, defer to pod specified value.
+    zh: >-
+      响应满足软性驱逐阈值（Soft Eviction Threshold）而终止 Pod
+      时使用的最长宽限期（以秒为单位）。
+      如果设置为负数，则遵循 Pod 的指定值。
+
+  - flag: eviction-minimum-reclaim
+    config: evictionMinimumReclaim
+    type: KV pairs
+    default: null
+    en: >-
+      A set of minimum reclaims (e.g. `imagefs.available=2Gi`) that describes
+      the minimum amount of resource the kubelet will reclaim when
+      performing a pod eviction if that resource is under pressure.
+    zh: >-
+      当某类资源压力过大时，kubelet 将执行 Pod 驱逐操作。
+      此参数设置软性驱逐操作需要回收的资源的最小数量
+      （例如：`imagefs.available=2Gi`）。
+
+  - flag: eviction-pressure-transition-period
+    config: evictionPressureTransitionPeriod
+    type: duration
+    default: 5m0s
+    en: >-
+      Duration for which the kubelet has to wait before transitioning
+      out of an eviction pressure condition.
+    zh: >-
+      kubelet 在驱逐压力状况解除之前的最长等待时间。
+
+  - flag: fail-swap-on
+    config: failSwapOn
+    type: bool
+    default: true
+    en: >
+      Makes the Kubelet fail to start if swap is enabled on the node.
+    zh: >
+      设置为 true 表示如果主机启用了交换分区，kubelet 将直接失败。
+
+  - flag: feature-gates
+    config: featureGates
+    type: KV pairs
+    default: (Version Specific)
+    en: >-
+      A set of key=value pairs that describe feature gates for experimental features.
+    zh: >-
+      用于实验性特性的特性开关组，每个开关以 key=value 形式表示。
+
+  - flag: file-check-frequency
+    config: fileCheckFrequency
+    type: duration
+    default: 20s
+    en: >
+      Duration between checking config files for new data.
+    zh: >
+      检查配置文件中新数据的时间间隔。
+
+  - flag: healthz-bind-address
+    config: healthzBindAddress
+    type: string
+    default: 127.0.0.1
+    en: >
+      The IP address for the healthz server to serve on
+      (set to `0.0.0.0` or `::` for listening in all interfaces
+      and IP families).
+    zh: >
+      healthz 服务器提供服务所使用的 IP 地址
+      （设置为 `0.0.0.0` 或 `::` 表示监听所有接口和 IP 协议族。
+
+  - flag: healthz-port
+    config: healthzPort
+    type: int32
+    default: 10248
+    en: >
+      The port of the localhost healthz endpoint (set to 0 to disable).
+    zh: >
+      本地 healthz 端点使用的端口（设置为 0 表示禁用）。
+
+  - flag: hairpin-mode
+    config: hairpinMode
+    type: string
+    default: promiscuous-bridge
+    en: >
+      How should the kubelet setup hairpin NAT. This allows endpoints of
+      a Service to loadbalance back to themselves if they should try to
+      access their own Service.
+      Valid values are `promiscuous-bridge`, `hairpin-veth` and `none`.
+    zh: >
+      设置 kubelet 执行发夹模式（hairpin）网络地址转译的方式。
+      该模式允许后端端点对其自身服务的访问能够再次经由负载均衡转发回自身。
+      可选项包括 `promiscuous-bridge`、`hairpin-veth` 和 `none`。
+
+  - flag: http-check-frequency
+    config: httpCheckFrequency
+    type: duration
+    default: 20s
+    en: >
+      Duration between checking HTTP for new data.
+    zh: >
+      检查 HTTP 服务以获取新数据的时间间隔。
+
+  - flag: image-gc-high-threshold
+    config: imageGCHighHresholdPercent
+    type: int32
+    default: 85
+    en: >
+      The percent of disk usage after which image garbage collection is always run.
+      Values must be within the range [0, 100].
+      To disable image garbage collection, set to 100.
+    zh: >
+      镜像垃圾回收上限。磁盘使用空间达到该百分比时，镜像垃圾回收将持续工作。
+      值必须在 [0，100] 范围内。要禁用镜像垃圾回收，请设置为 100。
+
+  - flag: image-gc-low-threshold
+    config: imageGCLowThresholdPercent
+    type: int32
+    default: 80
+    en: >
+      The percent of disk usage before which image garbage collection is never run.
+      Lowest disk usage to garbage collect to.
+      Values must be within the range [0, 100] and should not be
+      larger than that of `--image-gc-high-threshold`.
+    zh: >
+      镜像垃圾回收下限。磁盘使用空间在达到该百分比之前，镜像垃圾回收操作不会运行。
+      值必须在 [0，100] 范围内，并且不得大于 `--image-gc-high-threshold` 的值。
+
+  - flag: image-service-endpoint
+    config: imageServiceEndpoint
+    type: string
+    default: ""
+    en: >
+      The endpoint of container image service.
+      If not specified, it will be the same with `--container-runtime-endpoint`
+      by default. UNIX domain Socket are supported on Linux, while npipe and TCP
+      endpoints are supported on Windows.
+      Examples are `unix:///path/to/runtime.sock`, `npipe:////./pipe/runtime`.
+    zh: >
+      远程镜像服务的端点。若未设定，则默认情况下使用 `--container-runtime-endpoint` 的值。
+      目前支持的类型包括在 Linux 系统上的 UNIX 套接字端点和 Windows 系统上的
+      npipe 和 TCP 端点。
+      例如：`unix:///var/run/dockershim.sock`、`npipe:////./pipe/dockershim`。
+
+  - flag: kernel-memcg-notification
+    config:
+    type:
+    default:
+    en: >
+      If enabled, the kubelet will integrate with the kernel memcg notification
+      to determine if memory eviction thresholds are crossed rather than polling.
+    zh: >
+      若启用，则 kubelet 将与内核中的 memcg 通知机制集成，不再使用轮询的方式来判定
+      Pod 是否达到内存驱逐阈值。
+
+  - flag: kube-api-content-type
+    config: contentType
+    type: string
+    default: application/vnd.kubernetes.protobuf
+    en: >
+      Content type of requests sent to the API server.
+    zh: >
+      发送到 API 服务器的请求的内容类型。
+
+  - flag: kube-api-burst
+    config: kubeAPIBurst
+    type: int32
+    default: 100
+    en: >
+      Burst to use while talking with kubernetes API server.
+      The number must be >= 0. If 0 will use default burst 100.
+      Doesn't cover Events and node heartbeat APIs which rate limiting
+      is controlled by a different set of flags
+    zh: >
+      每秒发送到 API 服务器 的突发请求数量上限。
+      该数字必须大于或等于 0。如果为 0，则使用默认的突发值（100）。
+
+  - flag: kube-api-qps
+    config: kubeAPIQPS
+    type: int32
+    default: 50
+    en: >
+      QPS to use while talking with kubernetes API server.
+      The number must be >= 0. If 0 will use the default QPS 50.
+      Doesn't cover Events and node heartbeat APIs which rate limiting
+      is controlled by a different set of flags.
+    zh: >
+      与 API 服务器通信的每秒查询个数（QPS）。此值必须 >= 0。
+      如果为 0，则使用默认 QPS（50）。
+      不包含 Event 和节点心跳 API，它们的速率限制是由一组不同的标志所控制。
+
+  - flag: kubelet-cgroups
+    config: kubeletCgroups
+    type: string
+    default: ""
+    en: >
+      Optional absolute name of cgroups to create and run the kubelet in.
+    zh: >
+      用于创建和运行 kubelet 的 CGroup 的绝对名称。
+
+  - flag: system-cgroups
+    config: systemCgroups
+    type: string
+    default: ""
+    en: >
+      Optional absolute name of CGroups in which to place all
+      non-kernel processes that are not already inside a CGroup under `/`.
+      Empty for no container. Rolling back the flag requires a reboot.
+    zh: >
+      此标志值为一个 CGroup 的绝对名称，用于所有尚未放置在根目录下某
+      CGroup 内的非内核进程。空值表示不指定 CGroup。回滚该参数需要重启机器。
+
+  - flag: local-storage-capacity-isolation
+    config: localStorageCapacityIsolation
+    type: bool
+    default: true
+    en: >
+      If true, local ephemeral storage isolation is enabled.
+      Otherwise, local storage isolation feature will be disabled.
+    zh: >
+      如果此值为 true，将启用本地临时存储隔离。
+      否则，本地存储隔离功能特性将被禁用。
+
+  - flag: logging-format
+    config: logging.format
+    type: string
+    default: text
+    en: >
+      Sets the log format. Permitted formats are `json`
+      (gated by `LoggingBetaOptions`) and `text`.
+    zh: >
+      设置日志的格式。可以选择的格式有 `json`（需启用 `LoggingBetaOptions`）
+      特性门控和 `text`。
+
+  - flag: log-flush-frequency
+    config: logging.flushFrequency
+    type: duration
+    default: 5s
+    en: >
+      Maximum number of seconds between log flushes.
+    zh: >
+      两次日志清洗之间的最大秒数。
+
+  - flag: v
+    config: logging.verbosity
+    type: int32
+    default: 0
+    en: >
+      Number for the log level verbosity.
+    zh: >
+      设置 kubelet 日志级别详细程度的数值。
+
+  - flag: vmodule
+    config: logging.vmodule
+    type: list
+    default: []
+    en: >
+      Comma-separated list of `pattern=N` settings for file-filtered
+      logging (only works for text log format).
+    zh: >
+      以逗号分隔的 `pattern=N` 设置列表，用于文件过滤的日志记录。
+
+  - flag: make-iptables-util-chains
+    config: makeIPTablesUtilChains
+    type: bool
+    default: true
+    en: >
+      If true, kubelet will ensure iptables utility rules are present on host.
+    zh: >
+      设置为 true 表示 kubelet 将确保 `iptables` 规则在主机上存在。
+
+  - flag: iptables-drop-bit
+    config: iptableDropBit
+    type: int32
+    default: 15
+    en: >
+      The bit of the fwmark space to mark packets for dropping.
+      Must be within the range [0, 31].
+    zh: >
+      标记数据包将被丢弃的 fwmark 位设置。必须在 [0，31] 范围内。
+
+  - flag: iptables-masquerade-bit
+    config: iptablesMasqueradeBit 
+    type: int32
+    default: 14
+    en: >
+      The bit of the fwmark space to mark packets for SNAT.
+      Must be within the range [0, 31].
+      Please match this parameter with corresponding parameter in `kube-proxy`.
+    zh: >
+      标记数据包将进行 SNAT 的 fwmark 空间位设置。必须在 [0，31] 范围内。
+      请将此参数与 `kube-proxy` 中的相应参数匹配。
+
+  - flag: manifest-url
+    config: staticPodURL
+    type: string
+    default: ""
+    en: >
+      URL for accessing additional Pod specifications to run.
+    zh: >
+      用于访问要运行的其他 Pod 规约的 URL。
+
+  - flag: manifest-url-header
+    config: staticPodURLHeader
+    type: KV pairs
+    default: null
+    en: >
+      Comma-separated list of HTTP headers to use when accessing the URL
+      provided to `--manifest-url`. Multiple headers with the same name
+      will be added in the same order provided. This flag can be repeatedly invoked.
+      For example,
+      `--manifest-url-header 'a:hello,b:again,c:world' --manifest-url-header 'b:beautiful'`.
+    zh: >
+      取值为由 HTTP 头部组成的逗号分隔列表，在访问 `--manifest-url`
+      所给出的 URL 时使用。名称相同的多个头部将按所列的顺序添加。
+      该参数可以多次使用。例如：
+      `--manifest-url-header 'a:hello,b:again,c:world' --manifest-url-header 'b:beautiful'`。
+
+  - flag: max-open-files
+    config: maxOpenFiles
+    type: int32
+    default: 1000000
+    en: >
+      Number of files that can be opened by Kubelet process.
+    zh: >
+      kubelet 进程可以打开的最大文件数量。
+
+  - flag: max-pods
+    config: maxPods
+    type: int32
+    default: 110
+    en: >
+      Number of Pods that can run on this Kubelet.
+    zh: >
+      此 kubelet 能运行的 Pod 最大数量。
+
+  - flag: memory-manager-policy
+    config: memoryManagerPolicy
+    type: string
+    default: None
+    en: >
+      Memory Manager policy to use. Valid values are `None` and `Static`.
+    zh: >
+      要使用的内存管理器策略。可选值：`'None'`、`'Static'`。
+
+  - flag: minimum-image-ttl-duration
+    config: imageMinimumGCAge
+    type: duration
+    default: 2m0s
+    en: >
+      Minimum age for an unused image before it is garbage collected.
+    zh: >
+      已结束的容器在被垃圾回收清理之前的最少存活时间。
+
+  - flag: node-status-max-images
+    config: nodeStatusMaxImages
+    type: int32
+    default: 50
+    en: >
+      The maximum number of images to report in `Node.status.images`.
+      If -1 is specified, no cap will be applied.
+    zh: >
+      在 `node.status.images` 中可以报告的最大镜像数量。
+      如果指定为 -1，则不设上限。
+
+  - flag: node-status-update-frequency
+    config: nodeStatusUpdateFrequency
+    type: duration
+    default: 5m0s
+    en: >
+      Specifies how often kubelet posts node status to master.
+      Be cautious when changing the constant, it must work with
+      `nodeMonitorGracePeriod` in nodecontroller.
+    zh: >
+      指定 kubelet 向主控节点汇报节点状态的时间间隔。
+      更改此常量时请务必谨慎，它必须与节点控制器中的
+      `nodeMonitorGracePeriod` 之间没有冲突。
+
+  - flag: oom-score-adj
+    config: oomScoreAdj
+    type: int32
+    default: -999
+    en: >
+      The `oom-score-adj` value for kubelet process.
+      Values must be within the range [-1000, 1000].
+    zh: >
+      kubelet 进程的 `oom-score-adj` 参数值。
+      有效范围为 [-1000，1000]。
+
+  - flag: pod-cidr
+    config: podCIDR
+    type: string
+    default: ""
+    en: >
+      The CIDR to use for pod IP addresses, only used in standalone mode.
+      In cluster mode, this is obtained from the master.
+      For IPv6, the maximum number of IP's allocated is 65536
+    zh: >
+      用于给 Pod 分配 IP 地址的 CIDR 地址池，仅在独立运行模式下使用。
+      在集群模式下，CIDR 设置是从主服务器获取的。
+      对于 IPv6，分配的 IP 的最大数量为 65536。
+
+  - flag: pod-manifest-path
+    config: staticPodPath
+    type: string
+    default: ""
+    en: >
+      Path to the directory containing static pod files to run, or
+      the path to a single static pod file.
+      Files starting with dots will be ignored.
+    zh: >
+      设置包含要运行的静态 Pod 的文件的路径，或单个静态 Pod 文件的路径。
+      以点（`.`）开头的文件将被忽略。
+
+  - flag: pod-max-pids
+    config: podPidsLimit
+    type: int32
+    default: -1
+    en: >
+      Set the maximum number of processes per pod.
+      If -1, the kubelet defaults to the node allocatable PID capacity.
+    zh: >
+      设置每个 Pod 中的最大进程数目。
+      如果为 -1，则 kubelet 使用节点可分配的 PID 容量作为默认值。
+
+  - flag: pods-per-core
+    config: podsPerCore
+    type: int32
+    default: 0
+    en: >
+      Number of Pods per core that can run on this kubelet.
+      The total number of Pods on this Kubelet cannot exceed `max-pods`,
+      so `max-pods` will be used if this calculation results in
+      a larger number of Pods allowed on the Kubelet.
+      A value of 0 disables this limit.
+    zh: >
+      kubelet 在每个处理器核上可运行的 Pod 数量。
+      此 kubelet 上的 Pod 总数不能超过 `--max-pods` 标志值。
+      因此，如果此计算结果导致在 kubelet 上允许更多数量的 Pod，
+      则使用 `--max-pods` 值。值为 0 表示不作限制。
+
+  - flag: port
+    config: port
+    type: int32
+    defalut: 10250
+    en: >
+      The port for the Kubelet to serve on.
+    zh: >
+      kubelet 服务监听的本机端口号。
+
+  - flag: protect-kernel-defaults
+    config: protectKernelDefaults
+    type: bool
+    default: false
+    en: >
+      Default kubelet behaviour for kernel tuning.
+      If set, kubelet errors if any of kernel tunables is different than
+      kubelet defaults.
+    zh: >
+      设置 kubelet 的默认内核调整行为。
+      如果已设置该参数，当任何内核可调参数与 kubelet 默认值不同时，kubelet 都会出错。
+
+  - flag: provider-id
+    config: providerID
+    type: string
+    default:  ""
+    en: >
+      Unique identifier for identifying the node in a machine database,
+      i.e cloudprovider.
+    zh: >
+      设置主机数据库（即，云驱动）中用来标识节点的唯一标识。
+
+  - flag: qos-reserved
+    config: qosReserved
+    type: KV pairs
+    default: null
+    en: >
+      (_Alpha_) A set of `resource_name=percentage` (e.g. `memory=50%`)
+      pairs that describe how Pod resource requests are reserved at the QoS level.
+      Currently only memory is supported.
+      Requires the `QOSReserved` feature gate to be enabled.
+    zh: >
+      【Alpha】设置在指定的 QoS 级别预留的 Pod 资源请求，以一组
+      `"资源名称=百分比"` 的形式进行设置，例如 `memory=50%`。
+      当前仅支持内存（memory）。要求启用 `QOSReserved` 特性门控。
+
+  - flag: reqd-only-port
+    config: readOnlyPort
+    type: int32
+    default: 10255
+    en: >
+      The read-only port for the kubelet to serve on with no
+      authentication/authorization (set to 0 to disable).
+    zh: >
+      kubelet 可以在没有身份验证/鉴权的情况下提供只读服务的端口（设置为 0 表示禁用）。
+
+  - flag: register-node
+    config: registerNode
+    type: bool
+    default: true
+    en: >
+      Register the node with the API server. If `--kubeconfig` is not provided,
+      this flag is irrelevant, as the Kubelet won't have an apiserver to register with.
+    zh: >
+      向 API 服务器注册节点，如果未提供 `--kubeconfig`，此标志无关紧要，
+      因为 Kubelet 没有 API 服务器可注册。
+
+  - flag: reigster-with-taints
+    config: registerWithTaints
+    type: list
+    default: []
+    en: >
+      Register the node with the given list of taints
+      (comma-separated `<key>=<value>:<effect>`).
+      No-op if `--register-node` is false.
+    zh: >
+      设置本节点的污点标记，格式为 `<key>=<value>:<effect>`，以逗号分隔。
+      当 `--register-node` 为 false 时此标志无效。
+
+  - flag: registry-burst
+    config: registryBurst
+    type: int32
+    default: 10
+    en: >
+      Maximum size of a bursty pulls, temporarily allows pulls to burst
+      to this number, while still not exceeding `--registry-qps`.
+      Only used if `--registry-qps` > 0.
+    zh: >
+      设置突发性镜像拉取的个数上限，在不超过 `--registration-qps`
+      设置值的前提下暂时允许此参数所给的镜像拉取个数。
+      仅在 `--registry-qps` 大于 0 时使用。
+
+  - flag: registry-qps
+    config: registryPullQPS
+    type: int32
+    default: 5
+    en: >
+      If > 0, limit registry pull QPS to this value. If 0, unlimited.
+    zh: >
+      如此值大于 0，可用来限制镜像仓库的 QPS 上限。设置为 0 表示不受限制。
+
+  - flag: reserved-cpus
+    config: reservedSystemCPUs
+    type: string
+    default: ""
+    en: >
+      A comma-separated list of CPUs or CPU ranges that are reserved
+      for system and kubernetes usage. This specific list will supersede
+      CPU counts in `--system-reserved` and `--kube-reserved`.
+    zh: >
+      用逗号分隔的一组 CPU 或 CPU 范围列表，给出为系统和 Kubernetes
+      保留使用的 CPU。此列表所给出的设置优先于通过 `--system-reserved`
+      和 `--kube-reskube-reserved` 所保留的 CPU 个数配置。
+
+  - flag: reserved-memory
+    config: reservedMemory
+    type: string
+    default: ""
+    en: >
+      A comma-separated list of memory reservations for NUMA nodes.
+      (e.g. `--reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi`).
+      The total sum for each memory type should be equal to the sum of
+      `--kube-reserved`, `--system-reserved` and `--eviction-threshold`.
+    zh: >
+      以逗号分隔的 NUMA 节点内存预留列表。
+      （例如 `--reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi`）。
+      每种内存类型的总和应该等于`--kube-reserved`、`--system-reserved`
+      和 `--eviction-threshold` 之和。
+
+  - flag: resolv-conf
+    config: resolveConf
+    type: string
+    default: /etc/resolv.conf
+    en: >
+      Resolver configuration file used as the basis for the container
+      DNS resolution configuration.
+    zh: >
+      名字解析服务的配置文件名，用作容器 DNS 解析配置的基础。
+
+  - flag: rotate-certificates
+    config: rotateCertificates
+    type: bool
+    default: false
+    en: >
+      Auto-rotate the kubelet client certificates by requesting new
+      certificates from the `kube-apiserver` when the certificate
+      expiration approaches.
+    zh: >
+      设置当客户端证书即将过期时 kubelet 自动从 `kube-apiserver`
+      请求新的证书进行轮换。
+
+  - flag: rotate-server-certificates
+    config: serverTLSBootstrap
+    type: bool
+    default: true
+    en: >
+      Auto-request and rotate the kubelet serving certificates by
+      requesting new certificates from the `kube-apiserver` when
+      the certificate expiration approaches.
+      Requires the `RotateKubeletServerCertificate` feature gate to be enabled,
+      and approval of the submitted `CertificateSigningRequest` objects.
+    zh: >
+      【Beta】当 kubelet 的服务证书即将过期时自动从 kube-apiserver
+      请求新的证书进行轮换。要求启用 `RotateKubeletServerCertificate`
+      特性门控，以及对提交的 `CertificateSigningRequest` 对象进行批复
+      （Approve）操作。
+
+  - flag: runonce
+    config: runOnce
+    type: bool
+    default: false
+    en: >
+      If true, exit after spawning Pods from static Pod files or remote URLs.
+      Exclusive with `--enable-server`.
+    zh: >
+      设置为 `true` 表示从本地清单或远程 URL 创建完 Pod 后立即退出 kubelet 进程。
+      与 `--enable-server` 标志互斥。
+
+  - flag: runtime-request-timeout
+    config: runtimeRequestTimeout
+    type: duration
+    default: 2m0s
+    en: >
+      Timeout of all runtime requests except long running request - `pull`,
+      `logs`, `exec` and `attach`. When timeout exceeded, kubelet will
+      cancel the request, throw out an error and retry later.
+    zh: >
+      设置除了长时间运行的请求（包括 `pull`、`logs`、`exec` 和 `attach`
+      等操作）之外的其他运行时请求的超时时间。
+      到达超时时间时，请求会被取消，抛出一个错误并会等待重试。
+
+  - flag: seccomp-default
+    config: seccompDefault
+    type: boolean
+    default: false
+    en: >
+      Enable the use of `RuntimeDefault` as the default seccomp profile
+      for all workloads.
+    zh: >
+      启用 `RuntimeDefault` 作为所有工作负载的默认 seccomp 配置文件。
+
+  - flag: serialize-image-pulls
+    config: serializeImagePulls
+    type: bool
+    default: true
+    en: >
+      Pull images one at a time. We recommend *not* changing the default
+      value on nodes that run docker daemon with version < 1.9 or
+      an Aufs storage backend.
+    zh: >
+      逐一拉取镜像。建议 **不要** 在 docker 守护进程版本低于 1.9 或启用了
+      Aufs 存储后端的节点上更改默认值。
+
+  - flag: streaming-connection-idle-timeout
+    config: streamingConnectionIdleTimeout
+    type: duration
+    default: "4h0m0s"
+    en: >
+      Maximum time a streaming connection can be idle before the connection
+      is automatically closed. 0 indicates no timeout.
+      All connections to the kubelet server have a maximum duration of 4 hours.
+    zh: >
+      设置流连接在自动关闭之前可以空闲的最长时间。0 表示没有超时限制。
+      注意：与 kubelet 服务器的所有连接最长持续时间为 4 小时。
+
+  - flag: sync-frequency
+    config: syncFrequency
+    type: duration
+    default: "1m0s"
+    en: >
+      Max period between synchronizing running containers and config.
+    zh: >
+      在运行中的容器与其配置之间执行同步操作的最长时间间隔。
+
+  - flag: system-reserved
+    config: systemReserved
+    type: string
+    default: ""
+    en: >
+      A set of `ResourceName=ResourceQuantity`
+      (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that
+      describe resources reserved for non-kubernetes components.
+      Currently only cpu, memory and local ephemeral storage for root file system
+      are supported.
+    zh: >
+      为非 Kubernetes 系统组件预留的资源配置，以一组 `资源名称=资源数量` 的格式表示，
+      （例如：`cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`）。
+      目前仅支持 `cpu`、`memory`、`ephemeral-storage` 和 `pid` 的设置。
+
+  - flag: kube-reserved
+    config: kubeReserved
+    type: string
+    default: ""
+    en: >
+      A set of `ResourceName=ResourceQuantity`
+      (e.g. `cpu=200m,memory=500Mi,ephemeral-storage=1Gi`) pairs that
+      describe resources reserved for Kubernetes system components.
+      Currently only cpu, memory and local ephemeral storage for root file system
+      are supported.
+    zh: >
+      为 Kubernetes 系统组件预留的资源配置，以一组 `资源名称=资源数量` 的格式表示，
+      （例如：`cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'`）。
+      目前仅支持 `cpu`、`memory`、`ephemeral-storage` 和 `pid` 的设置。
+
+  - flag: system-reserved-cgroup
+    config: systemReservedCgroup
+    type: string
+    default: ""
+    en: >
+      Absolute name of the top level CGroup that is used to manage
+      non-kubernetes components for which compute resources were reserved
+      via `--system-reserveds' flag. Ex. '/system-reserved'.
+    zh: >
+      给出某个顶层 cgroup 绝对名称，该 cgroup 用于管理通过标志
+      `--system-reserved` 为非 kubernetes 组件所预留的计算资源。
+      例如：`"/system-reserved"`。
+
+  - flag: kube-reserved-cgroup
+    config: kubeReservedCgroup
+    type: string
+    default: ""
+    en: >
+      Absolute name of the top level CGroup that is used to manage
+      kubernetes components for which compute resources were reserved
+      via '--kube-reserved' flag. Ex. '/kube-reserved'.
+    zh: >
+      此标志给出一个顶层 CGroup 绝对名称，该 CGroup 用于管理
+      kubernetes 组件，这些组件的计算资源通过 `--kube-reserved`
+      标志进行预留。例如 `"/kube-reserved"`。
+
+  - flag: tls-cert-file
+    config: tlsCertFile
+    type: string
+    default: ""
+    en: >
+      File containing x509 certificate used for serving HTTPS
+      (with intermediate certs, if any, concatenated after server cert).
+      If `--tls-cert-file` and `--tls-private-key-file` are not provided,
+      a self-signed certificate and key are generated for the public address
+      and saved to the directory passed to `--cert-dir`.
+    zh: >
+      包含 x509 证书的文件路径，用于 HTTPS 认证。
+      如果有中间证书，则中间证书要串接在在服务器证书之后。
+      如果未提供 `--tls-cert-file` 和 `--tls-private-key-file`，
+      kubelet 会为公开地址生成自签名证书和密钥，并将其保存到通过
+      `--cert-dir` 指定的目录中。
+  - flag: tls-cipher-suites
+    config: tlsCipherSuites 
+    type: string
+    default: ""
+    en: |
+      Comma-separated list of cipher suites for the server.
+      If omitted, the default Go cipher suites will be used. 
+
+      Preferred values:
+
+      TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256,
+      TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+      TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+      TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
+      TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_GCM_SHA256,
+      TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384. 
+
+      Insecure values:
+
+      TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,
+      TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+      TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA,
+      TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_RC4_128_SHA.
+    zh: |
+      服务器端加密算法列表，以逗号分隔。如果不设置，则使用 Go 语言加密包的默认算法列表。
+      首选算法：
+
+      `TLS_AES_128_GCM_SHA256`, `TLS_AES_256_GCM_SHA384`, `TLS_CHACHA20_POLY1305_SHA256`,
+      `TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA`, `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256`,
+      `TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA`, `TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384`,
+      `TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305`, `TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256`,
+      `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`,
+      `TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384`,
+      `TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305`, `TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256`,
+      `TLS_RSA_WITH_AES_128_CBC_SHA`, `TLS_RSA_WITH_AES_128_GCM_SHA256`,
+      `TLS_RSA_WITH_AES_256_CBC_SHA`, `TLS_RSA_WITH_AES_256_GCM_SHA384`
+
+      不安全算法：
+
+      `TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256`, `TLS_ECDHE_ECDSA_WITH_RC4_128_SHA`,
+      `TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`,
+      `TLS_ECDHE_RSA_WITH_RC4_128_SHA`, `TLS_RSA_WITH_3DES_EDE_CBC_SHA`,
+      `TLS_RSA_WITH_AES_128_CBC_SHA256`, `TLS_RSA_WITH_RC4_128_SHA`。
+
+  - flag: tls-min-version
+    config: tlsMinVersion
+    type: string
+    default: 
+    en: >
+      Minimum TLS version supported.
+      Possible values: `VersionTLS10`, `VersionTLS11`, `VersionTLS12`, `VersionTLS13`. 
+    zh: >
+      设置支持的最小 TLS 版本号，可选的版本号包括：`VersionTLS10`、
+      `VersionTLS11`、`VersionTLS12` 和 `VersionTLS13`。
+  - flag: tls-private-key-file
+    config: tlsPrivateKeyFile
+    type: string
+    default: ""
+    en: >
+      File containing x509 private key matching `--tls-cert-file`. 
+    zh: >
+      包含与 `--tls-cert-file` 对应的 x509 私钥文件路径。
+
+  - flag: topology-manager-policy
+    config: topologyManagerPolicy
+    type: string
+    default: none
+    en: >
+      Topology Manager policy to use.
+      Possible values: 'none', 'best-effort', 'restricted', 'single-numa-node'.
+    zh: >
+      要使用的拓扑管理器策略，用于微调它们的行为。
+      可能的取值有：`'none'`、`'best-effort'`、`'restricted'`、`'single-numa-node'`。
+
+  - flag: topology-manager-scope
+    config: topologyManagerScope
+    type: string
+    default: container
+    en: >
+      Scope to which topology hints applied. Topology manager collects hints
+      from hint providers and applies them to defined scope to ensure the
+      Pod admission. Possible values: `container`, `pod`.
+    zh: >
+      拓扑提示信息使用范围。拓扑管理器从提示提供者（Hints Providers）处收集提示信息，
+      并将其应用到所定义的范围以确保 Pod 准入。
+      可选值包括：`container`、`pod`。
+
+  - flag: topology-manager-policy-options
+    config: topologyManagerPolicyOptions
+    type: string
+    default: ""
+    en: >
+      A set of `key=value` topology manager policy options to use,
+      to fine tune their behaviour. If not supplied, keep the default behaviour.
+    zh: >
+      设置拓扑管理策略（Topology Manager policy）选项，对其行为进行微调。
+      如果未设置，则保持默认行为。
+
+  - flag: volume-plugin-dir
+    config: volumePluginDir
+    type: string
+    default: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
+    en: >
+      The full path of the directory in which to search for additional
+      third party volume plugins.
+    zh: >
+      用来搜索第三方存储卷插件的目录。
+
+  - flag: volume-stats-agg-period
+    config: volumeStatsAggPeriod
+    type: duration
+    default: 1m0s
+    en: >
+      Specifies interval for kubelet to calculate and cache the
+      volume disk usage for all pods and volumes.
+      To disable volume calculations, set to a negative number.
+    zh: >
+      指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。
+      要禁用磁盘用量计算，可设置为 0。
+
+  - flag: config
+    type: string
+    default: ""
+    en: >
+      The Kubelet will load its initial configuration from this file.
+      The path may be absolute or relative; relative paths start at
+      the kubelet's current working directory.
+      Omit this flag to use the built-in default configuration values.
+      Command-line flags override configuration from this file.
+    zh: >
+      kubelet 将从此标志所指的文件中加载其初始配置。
+      此路径可以是绝对路径，也可以是相对路径。
+      相对路径按 kubelet 的当前工作目录起计。
+      省略此参数时 kubelet 会使用内置的默认配置值。
+      命令行参数会覆盖此文件中的配置。
+
+  - flag: cloud-config
+    type: string
+    facet: cloud
+    en: >
+      The path to the cloud provider configuration file.
+      Empty string for no configuration file.
+      (_DEPRECATED_) will be removed in 1.25 or later, in favor of
+      removing cloud provider code from Kubelet.
+    zh: >
+      云驱动配置文件的路径。空字符串表示没有配置文件。
+      【已弃用】将在 1.25 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
+
+  - flag: cloud-provider
+    type: string
+    facet: cloud
+    en: >
+      The provider for cloud services. Set to empty string for running with
+      no cloud provider. If set, the cloud provider determines the name of the node
+      (consult cloud provider documentation to determine if and how the hostname is used).
+      (_DEPRECATED_) will be removed in 1.25 or later, in favor of
+      removing cloud provider code from kubelet.
+    zh: >
+      云服务的提供者。设置为空字符串表示在没有云驱动的情况下运行。
+      如果设置了此标志，则云驱动负责确定节点的名称
+      （参考云提供商文档以确定是否以及如何使用主机名）。
+      【已弃用】将在 1.25 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
+
+  - flag: lock-file
+    type: string
+    group: lock
+    en: >
+      (_Alpha_) The path to file for kubelet to use as a lock file.
+    zh: >
+      【Alpha】kubelet 用作锁文件的文件路径。
+
+  - flag: exit-on-lock-contention
+    type: bool
+    group: lock
+    en: >
+      Whether kubelet should exit upon lock-file contention.
+    zh: >
+      设置为 true 表示当发生锁文件竞争时 kubelet 可以退出。
+
+  - flag: image-credential-provider-bin-dir
+    type: string
+    group: image
+    en: >
+      The path to the directory where credential provider plugin
+      binaries are located.
+    zh: >
+      指向凭据提供组件可执行文件所在目录的路径。
+
+  - flag: image-credential-provider-config
+    type: string
+    group: image
+    en: >
+      The path to the credential provider plugin config file.
+    zh: >
+      指向凭据提供插件配置文件所在目录的路径。
+
+  - flag: experimental-mounter-path
+    type: string
+    group: volume
+    en: >
+      (_Experimental_) Path of mounter binary. Leave empty to use the default mount.
+      (_DEPRECATED_) will be removed in 1.25 or later. in favor of using CSI.
+    zh: >
+      【实验性特性】卷挂载器（mounter）的可执行文件的路径。
+      设置为空表示使用默认挂载器 `mount`。
+      【已弃用】将在 1.25 或更高版本移除以支持 CSI。
+
+  - flag: log-json-info-buffer-size
+    type: quantity
+    group: logging
+    en: >
+      (_Alpha_) In JSON format with split output streams, the info messages
+      can be buffered for a while to increase performance.
+      The default value of zero bytes disables buffering.
+      The size can be specified as number of bytes (512), multiples of 1000 (1K),
+      multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi).
+      Enable the `LoggingAlphaOptions` feature gate to use this.
+    zh: >
+      【Alpha】在具有拆分输出流的 JSON 格式中，可以将信息消息缓冲一段时间以提高性能。
+      零字节的默认值禁用缓冲。大小可以指定为字节数（512）、1000 的倍数（1K）、
+      1024 的倍数（2Ki） 或这些（3M、4G、5Mi、6Gi）的幂。
+      启用 `LoggingAlphaOptions` 特性门控来使用此功能。
+
+  - flag: log-json-split-stream
+    type: bool
+    group: logging
+    en: >
+      (_Alpha_) In JSON format, write error messages to stderr and
+      info messages to stdout. The default is to write a single stream to stdout.
+      Enable the LoggingAlphaOptions feature gate to use this.
+    zh: >
+      【Alpha】以 JSON 格式，将错误消息写入 stderr，将 info 消息写入 stdout。
+      默认是将单个流写入标准输出。
+      启用 `LoggingAlphaOptions` 特性门控来使用此功能。
+
+  - flag: maximum-dead-containers
+    type: int32
+    default: -1
+    group: GC
+    en: >
+      Maximum number of old instances of containers to retain globally.
+      Each container takes up some disk space.
+      To disable, set to a negative number.
+      (_DEPRECATED_) Use `--eviction-hard` or `--eviction-soft` instead.
+      This will be removed in a future version.
+    zh: >
+      设置全局可保留的已停止容器实例个数上限。
+      每个实例会占用一些磁盘空间。要禁用，请设置为负数。
+      【已弃用】改用 `--eviction-hard` 或 `--eviction-soft`。
+      此标志将在未来的版本中删除。
+
+  - flag: maximum-dead-containers-per-container
+    type: int32
+    default: 1
+    group: GC
+    en: >
+      Maximum number of old instances of containers to retain per container.
+      Each container takes up some disk space.
+      (_DEPRECATED_) Use `--eviction-hard` or `--eviction-soft` instead.
+      This will be removed in a future version.
+    zh: >
+      设置每个容器可保留的已停止容器实例个数上限。
+      每个实例会占用一些磁盘空间。要禁用，请设置为负数。
+      【已弃用】改用 `--eviction-hard` 或 `--eviction-soft`。
+      此标志将在未来的版本中删除。
+
+  - flag: minimum-container-ttl-duration
+    type: duration
+    group: GC
+    en: >
+      Minimum age for a finished container before it is garbage collected.
+      (_DEPRECATED_) Use `--eviction-hard` or `--eviction-soft` instead.
+      This will be removed in a future version.
+    zh: >
+      已结束的容器在被垃圾回收清理之前的最少存活时间。
+      【已弃用】改用 `--eviction-hard` 或 `--eviction-soft`。
+      此标志将在未来的版本中删除。
+
+  - flag: keep-terminated-pod-volumes
+    type: bool
+    group: GC
+    en: >
+      Keep terminated pod volumes mounted to the node after the Pod terminates.
+      Can be useful for debugging volume related issues.
+      (_DEPRECATED_) This will be removed in a future version.
+    zh: >
+      设置为 true 表示 Pod 终止后仍然保留之前挂载过的卷，常用于调试与卷有关的问题。
+      【已弃用】将未来版本中移除。
+
+  - flag: hostname-override
+    type: string
+    group: metadata
+    en: >
+      If non-empty, will use this string as identification instead of the actual hostname.
+      If `--cloud-provider` is set, the cloud provider determines the name of the node.
+      (Consult cloud provider documentation to determine if and how the hostname is used).
+    zh: >
+      如果为非空，将使用此字符串而不是实际的主机名作为节点标识。如果设置了
+      `--cloud-provider`，则云驱动将确定节点的名称
+      （请查阅云服务商文档以确定是否以及如何使用主机名）。
+
+  - flag: node-ip
+    type: string
+    group: metadata
+    en: >
+      IP address (or comma-separated dual-stack IP addresses) of the node.
+      If unset, kubelet will use the node's default IPv4 address, if any, or
+      its default IPv6 address if it has no IPv4 addresses.
+      You can pass `::` to make it prefer the default IPv6 address rather than
+      the default IPv4 address.
+    zh: >
+      节点的 IP 地址（或逗号分隔的双栈 IP 地址）。
+      如果未设置，kubelet 将使用节点的默认 IPv4 地址（如果有）或默认
+      IPv6 地址（如果它没有 IPv4 地址）。
+      你可以传值 `'::'` 使其偏向于默认的 IPv6 地址而不是默认的 IPv4 地址。
+
+  - flag: node-labels
+    type: KV pairs
+    group: metadata
+    en: >
+      (_Alpha_) Labels to add when registering the node in the cluster.
+      Labels must be `key=value` pairs separated by ','.
+      Labels in the 'kubernetes.io' namespace must begin with an allowed prefix
+      (`kubelet.kubernetes.io`, `node.kubernetes.io`) or be in the specifically
+      allowed set (`beta.kubernetes.io/arch`, `beta.kubernetes.io/instance-type`,
+      `beta.kubernetes.io/os`, `failure-domain.beta.kubernetes.io/region`,
+      `failure-domain.beta.kubernetes.io/zone`, `kubernetes.io/arch`,
+      `kubernetes.io/hostname`, `kubernetes.io/os`, `node.kubernetes.io/instance-type`,
+      `topology.kubernetes.io/region`, `topology.kubernetes.io/zone`).
+    zh: >
+      【Alpha】kubelet 在集群中注册本节点时设置的标签。
+      标签以 `key=value` 的格式表示，多个标签以逗号分隔。
+      名字空间 `kubernetes.io` 中的标签必须以 `kubelet.kubernetes.io` 或
+      `node.kubernetes.io` 为前缀，或者在以下明确允许范围内：
+      `beta.kubernetes.io/arch`, `beta.kubernetes.io/instance-type`,
+      `beta.kubernetes.io/os`, `failure-domain.beta.kubernetes.io/region`,
+      `failure-domain.beta.kubernetes.io/zone`, `kubernetes.io/arch`,
+      `kubernetes.io/hostname`, `kubernetes.io/os`, `node.kubernetes.io/instance-type`,
+      `topology.kubernetes.io/region`, `topology.kubernetes.io/zone`。
+
+  - flag: register-schedulable
+    type: bool
+    default: true
+    facet: metadata
+    en: >
+      Register the node as schedulable. Won't have any effect if
+      `--register-node` is false. 
+      (_DEPRECATED_) Will be removed in a future version.
+    zh: >
+      注册本节点为可调度的节点。当 `--register-node`标志为 false 时此设置无效。
+      【已弃用】此参数将在未来的版本中删除。
+
+  - flag: bootstrap-kubeconfig
+    type: string
+    facet: metadata
+    en: >
+      Path to a kubeconfig file that will be used to get client certificate for kubelet.
+      If the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig
+      is used to request a client certificate from the API server.
+      On success, a kubeconfig file referencing the generated client certificate and
+      key is written to the path specified by `--kubeconfig`.
+      The client certificate and key file will be stored in the directory pointed by
+      `--cert-dir`.
+    zh: >
+      某 kubeconfig 文件的路径，该文件将用于获取 kubelet 的客户端证书。
+      如果 `--kubeconfig` 所指定的文件不存在，则使用引导所用 kubeconfig
+      从 API 服务器请求客户端证书。成功后，将引用生成的客户端证书和密钥的 kubeconfig
+      写入 `--kubeconfig` 所指定的路径。客户端证书和密钥文件将存储在
+      `--cert-dir` 所指的目录。
+
+  - flag: kubeconfig
+    type: string
+    facet: metadata
+    en: >
+      Path to a kubeconfig file, specifying how to connect to the API server.
+      Providing `--kubeconfig` enables API server mode, omitting `--kubeconfig`
+      enables standalone mode.
+    zh: >
+      kubeconfig 配置文件的路径，指定如何连接到 API 服务器。
+      提供 `--kubeconfig` 将启用 API 服务器模式，而省略 `--kubeconfig`
+      将启用独立运行模式。
+
+  - flag: pod-infra-container-image
+    type: string
+    default: (version dependent)
+    facet: metadata
+    en: >
+      Specified image will not be pruned by the image garbage collector.
+      CRI implementations have their own configuration to set this image.
+      (_DEPRECATED_) Will be deleted in 1.27, the image garbage collector
+      will get the inforamtion about the sandbox image from the CRI.
+    zh: >
+      所指定的镜像不会被镜像垃圾收集器删除。CRI 实现有自己的配置来设置此镜像。
+      【已弃用】将在 1.27 中删除，镜像垃圾收集器将从 CRI 获取沙箱镜像信息。
+
+  - flag: root-dir
+    type: string
+    default: /var/lib/kubelet
+    facet: metadata
+    en: >
+      Directory path for managing kubelet files (volume mounts,etc).
+    zh: >
+      设置用于管理 kubelet 文件的根目录（例如挂载卷的相关文件等）。
+
+  - flag: cert-dir
+    type: string
+    default: /var/lib/kubelet/pki
+    facet: metadata
+    en: >
+      The directory where the TLS certs are located.
+      If `--tls-cert-file` and `--tls-private-key-file` are provided,
+      this flag will be ignored.
+    zh: >
+      TLS 证书所在的目录。
+      如果设置了 `--tls-cert-file` 和 `--tls-private-key-file`，则此标志值将被忽略。
+
+  - flag: runtime-cgroups
+    type: string
+    default: ""
+    facet: security
+    en: >
+      Optional absolute name of cgroups to create and run the runtime in.
+    zh: >
+      设置用于创建和运行容器运行时的 CGroup 的绝对名称。
+
+  - flag: experimental-allocatable-ignore-eviction
+    type: bool
+    default: false
+    facet: eviction
+    en: >
+      When set to `true`, hard eviction thresholds will be ignored while
+      calculating Node Allocatable.
+      (_DEPRECATED_) Will be removed in v1.24 or higher version.
+    zh: >
+      设置为 `true` 表示在计算节点可分配资源数量时忽略硬性逐出阈值设置。
+      【已弃用】将在 1.24 或更高版本中移除。
+
+  - config: configMapAndSecretChangeDetectionStrategy
+    type: string
+    default: Watch
+    facet: sync
+    en: |
+      The mode in which ConfigMap and Secret managers are running. Valid values include:
+      - Get: kubelet fetches necessary objects directly from the API server;
+      - Cache: kubelet uses TTL cache for object fetched from the API server;
+      - Watch: kubelet uses watches to observe changes to objects that are in its interest.
+    zh: |
+      此选项配置 ConfigMap 和 Secret 管理器的运行机制。可选值有：
+      - Get：kubelet 直接从 API 服务器取回必要的对象；
+      - Cache：kubelet 使用 TTL 缓存来保存从 API 服务器返回的对象；
+      - Watch：kubelet 使用 `watch` 机制监视自己感兴趣的对象的变化。
+
+  - config: enableSystemLogHandler
+    type: bool
+    default: true
+    facet: logging
+    en: >
+       This enables system logs via web interface `host:port/logs/`.
+    zh: >
+      此配置允许通过 Web 接口 `host:port/logs/` 访问系统日志。
+
+  - config: enableSystemLogQuery
+    type: bool
+    default: false
+    facet: logging
+    en: >
+      This enables the node log query feature on the `/logs` endpoint.
+      The feature gate `EnableSystemLogHandler` has to be enabled
+      for this feature to work.
+    zh: >
+      此配置允许在 `/logs` 端点上访问节点日志。需要启用 `EnableSystemLogHandler`
+      特性门控才能正常工作。
+
+  - config: enableDebugFlagsHandler
+    type: bool
+    default: true
+    facet: metadata
+    en: >
+      The enables flags endpoint via web interface `host:port/debug/flags/v`.
+    zh: >
+      此选项允许通过 `host:port/debug/flags/v` Web 接口设置调试标志。
+
+  - config: enableProfilingHandler
+    type: bool
+    default: true
+    facet: metadata
+    en: >
+      This enables profiling via web interface `host:port/debug/pprof/`.
+    zh: >
+      此选项允许通过 Web 接口 `host:port/debug/pprof` 执行性能分析。
+
+  - config: maxParallelImagePulls
+    type: int32
+    facet: image
+    en: >
+      This sets the maximum number of image pulls in parallel.
+      This field cannot be set if `serializeImagePulls` is true.
+      Setting it to nil means no limit.
+    zh: >
+      此选项设置可并发执行的镜像拉取操作个数上限。
+      当 `serializeImagePulls` 为 true 时不能设置此字段。
+      将此字段设置为 nil 意味着不设限。
+
+  - config: memorySwap.swapBehavior
+    type: string
+    facet: runtime
+    en: |
+      This configures swap memory available to container workloads.
+      May be one of ` `, `LimitedSwap` or `UnlimitedSwap`.
+      - `LimitedSwap`: workload combined memory and swap usage cannot
+        exceed pod memory limit.
+      - `UnlimitedSwap`: workloads can use unlimited swap, up to the
+        allocatable limit.
+    zh: |
+      此选项配置容器化负载如何使用交换内存。可选项包括 ` `、`LimitSwap`
+      和 `UnlimitedSwap`：
+      - `LimitedSwap`：负载的内存和交换分区用量之和不可超过 Pod 内存限制值。
+      - `UnlimitedSwap`：负载可以无限量使用交换分区，只要不超过可分配的上限即可。
+
+  - config: memoryThrottlingFactor
+    type: float64
+    default: 0.9
+    facet: workload
+    en: >
+      This specifies the factor multiplied by the memory limit or node allocatable
+      memory when setting the cgroupv2 `memory.high` value to enforce MemoryQoS.
+      Decreasing this factor will set lower high limit for container cgroups and
+      put heavier reclaim pressure while increasing will put less reclaim pressure.
+    zh: >
+      此参数用来通过设置 CGroupV2 的 `memory.high` 值来保证、提升 MemoryQoS 时的一个系数，
+      这个系数要与内存限制值（或者节点可分配内存）相乘。
+      降低这个系数值会为容器的 CGroup 设置稍微低一些的高水位限制，进而增加内存回收的强度，
+      提升这个系数值时，对内存的回收强度会降低一些。
+
+  - config: nodeStatusReportFrequency
+    type: duration
+    default: 5m0s
+    facet: runtime
+    en: >
+      This is the frequency that kubelet posts node status to master
+      if node status does not change. Kubelet will ignore this frequency and
+      post node status immediately if any change is detected.
+      It is only used when node lease feature is enabled.
+      If nodeStatusUpdateFrequency is set explicitly, nodeStatusReportFrequency's
+      default value will be set to nodeStatusUpdateFrequency for backward compatibility.
+    zh: >
+      此参数是节点状态未发生变化时 kubelet 向管理面报告状态的频率。
+      如果节点状态发生任何变化，则 kubelet 会忽略此设置，立即报告节点状态。
+      只有启用了节点租约机制的时候，这一参数才会起作用。
+      如果显式设置了 `nodeStatusUpdateFrequency`, 则 `nodeStatusReportFrequency`
+      的默认值会与 `nodeStatusUpdateFrequency` 值相同，以确保向后兼容。
+
+  - config: nodeLeaseDurationSeconds
+    type: int32
+    default: 40
+    facet: runtime
+    en: >
+      This is the duration the kubelet will set on its corresponding Lease.
+      NodeLease provides an indicator of node health by having the Kubelet
+      create and periodically renew a lease, named after the node, in the
+      `kube-node-lease` namespace. If the lease expires, the node can be
+      considered unhealthy.
+      The lease is currently renewed every 10s. In the future, the lease
+      renewal interval may be set based on the lease duration.
+      The field value must be greater than 0.
+    zh: >
+      此参数是 kubelet 要配置到其对应的 Lease 对象上的时长。NodeLease 机制下，
+      kubelet 要 在 `kube-node-lease` 名字空间内创建并周期性地刷新一个与节点同名的
+      Lease，用来表明节点的健康状况。如果租约过期，则表明节点不再健康。
+      目前租约是每 10 秒钟刷新一次。在将来，租约的刷新时间间隔可能会基于租约的时长来设置。
+      此字段值必须大于 0。
+
+  - config: showHiddenMetricsForVersion
+    type: string
+    default: ""
+    facet: runtime
+    en: >
+      This is the previous version for which you want to show hidden metrics.
+      Only the previous minor version is meaningful, other values will not be allowed.
+      The format is `<major>.<minor>`. The purpose of this format is make sure
+      you have the opportunity to notice if the next release hides additional metrics,
+      rather than being surprised when they are permanently removed in the release after that.
+    zh: >
+      此字段给出一个之前发布的版本号，针对这个版本号，被隐藏的度量值也会被公开出来。
+      字段值只能设为之前的次版本号，其他值都是非法的。字段格式为 `<主版本>.<次版本>`。
+      这一字段的设计是为了让你在新的发行版本中隐藏已有的度量指标时，你能够注意到这种变化，
+      而不是在再下一个发行版本中指标被彻底删除时，感到很难应对。
+
+  - config: shutdownGracePeriod
+    type: duration
+    default: 0s
+    facet: runtime
+    en: >
+      This specifies the total duration that the node should delay
+      the shutdown and total grace period for pod termination during a node shutdown.
+    zh: >
+      此参数设置在节点关机时，节点要推迟实际关机动作的时长，
+      也就是所有 Pod 体面终止宽限期之和。
+
+  - config: tracing.endpoint
+    type: string
+    default: localhost:4317
+    facet: logging
+    en: >
+      Endpoint of the collector this component will report traces to.
+      The connection is insecure, and does not currently support TLS.
+      Recommended is unset, and endpoint is the OTLP gRPC default.
+    zh: >
+      组件要向其报告跟踪数据的收集器端点。这个连接是不安全的，目前并不支持 TLS。
+      建议不要设置此字段。默认值是 OTLP 协议的 gRPC 端点。
+
+  - config: tracing.samplingRatePerMillion
+    type: int32
+    facet: logging
+    en: >
+      The number of samples to collect per million spans. Recommended is unset.
+      If unset, sampler respects its parent span's sampling rate, but otherwise never samples.
+    zh: >
+      每百万 Span 中采样的个数。建议不要设置此字段。
+      如果不设置，采样器会根据父级 Span 的采样速率来设置，否则不执行采样。
+
+  - config: logging.options
+    type: KV pairs
+    facet: logging
+    en: >
+      This holds additional parameters that are specific to the different
+      logging formats. Only the options for the selected format get used,
+      but all of them get validated.
+      Only available when the LoggingAlphaOptions feature gate is enabled.
+    zh: >
+      此参数保存针对不同日志格式的附加配置参数。
+      kubelet 会使用针对所选格式起作用的选项，但会检查所有字段的合法性。
+      只有当启用了 `LoggingAlphaOptions` 特性门控时才起作用。
+
+  - config: logging.options.json
+    type: KV pairs
+    facet: logging
+    en: >
+      This options for logging format `json`.
+      Only available when the `LoggingAlphaOptions` feature gate is enabled.
+    zh: >
+      针对 `json` 日志格式的选项。
+      只有当启用了 `LoggingAlphaOptions` 特性门控时才起作用。
+
+  - config: logging.options.json.splitStream
+    type: bool
+    default: false
+    facet: logging
+    en: >
+      When set to true, kubelet redirects error messages to stderr while
+      info messages go to stdout, with buffering.
+      The default is to write both to stdout, without buffering.
+      Only available when the LoggingAlphaOptions feature gate is enabled.
+    zh: >
+      此参数设置为 true 时，kubelet 会将错误消息发送到 stderr，将 info
+      类型的消息发送到 stdout，并提供日志数据缓存。
+      只有当启用了 `LoggingAlphaOptions` 特性门控时才起作用。
+
+  - config: logging.options.json.infoBufferSize
+    type: quantity
+    default: 0
+    facet: logging
+    en: >
+      This sets the size of the info stream when using split streams.
+      The default is zero, which disables buffering.
+      Only available when the LoggingAlphaOptions feature gate is enabled.
+    zh: >
+      此参数在启用日志数据分流时，设置 info 数据流的缓冲区大小。
+      默认值为 0，相当于禁止缓存。
+      只有当启用了 `LoggingAlphaOptions` 特性门控时才起作用。
+
