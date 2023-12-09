@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kab
+  template:
+    metadata:
+      labels:
+        k8s-app: kab
+    spec:
+      containers:
+      - name: kab
+        image: kab:0.14.0
+        ports:
+        - containerPort: 8000
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kab
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+  selector:
+    k8s-app: kab
