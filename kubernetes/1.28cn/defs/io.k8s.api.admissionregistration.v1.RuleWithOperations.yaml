@@ -1,0 +1,128 @@
+description: |
+  A tuple of `operations` and `resources`.
+  It is recommended to make sure that all the tuple expansions are valid.
+
+x-kab-description-zh: 包含 `operations` 和 `resources` 的元组。建议确保所有的元组扩展都是合法的。
+properties:
+  apiGroups:
+    description: |
+      The API groups the resources belong to. `"*"` is the wildcard for all groups.
+      If `"*"` is present, the length of the slice must be one.
+    x-kab-description-zh: |
+      资源所属的 API 组。`"*"` 是用来表示所有 API 组的通配符。
+      如果列表中包含 `"*"`，则列表的长度必须为 1，即其中不能再包含其他 API 组。
+    items:
+      description: |
+        The API group the resource belong to. `"*"` is the wildcard for all groups.
+      x-kab-description-zh: 资源所属的 API 组。`""` 表示原来的 `"v1"` API 组。
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  apiVersions:
+    description: |
+      The API versions the resources belong to. `"*"` means all versions.
+      If `"*"` is present, the length of the slice must be one.
+    x-kab-description-zh: |
+      资源所属的 API 版本。`"*"` 是用来表示所有 API 版本的通配符。
+      如果列表中包含 `"*"`，则列表的长度必须为 1，即其中不能再包含其他 API 版本。
+    items:
+      description: The API version the resources belong to. `"*"` means all versions.
+      x-kab-description-zh: 资源所属的 API 版本。此字符串不可为空。
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  operations:
+    description: |
+      The operations the admission hook cares about. `"CREATE"`, `"UPDATE"`, `"DELETE"`,
+      `"CONNECT"` or "`*`" for all of those operations and any future admission operations that
+      are added.
+      If `"*"` is present, the length of the slice must be one.
+    x-kab-description-zh: |
+      准入 Webhook 所关心的操作。可以设置为
+      `"CREATE"`、`"UPDATE"`、`"DELETE"`、`"CONNECT"` 或 `"*"` 
+      （表示所有这些操作，包括将来会添加的准入操作）。
+      如果列表中包含 `"*"`，则列表的长度必须为 1，即其中不能再包含其他操作。
+    items:
+      description: The operation the admission hook cares about.
+      x-kab-description-zh: 所支持的操作的名称。
+      enum:
+        - "*"
+        - CONNECT
+        - CREATE
+        - DELETE
+        - UPDATE
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  resources:
+    description: |
+      A list of resources this rule applies to. For example:
+
+      - `"pods"` means Pods.
+      - `"pods/log"` means the `"log"` subresource of Pods.
+      - `"*"` means all resources, but not subresources.
+      - `"pods/*"` means all subresources of Pods.
+      - `"*/scale"` means all `"scale"` subresources.
+      - `"*/*"` means all resources and their subresources.
+
+      If a wildcard is present, the validation rule will ensure resources do not overlap with each
+      other. Depending on the enclosing object, subresources might not be allowed.
+    x-kab-description-zh: |
+      此规则所适用的资源列表。例如：
+
+      - `"pods"` 意味着适用于 Pod 资源；
+      - `"pods/log"` 意味着适用于 Pod 的 `"log"` 子资源；
+      - `"*"` 意味着适用于所有资源，但不包括其子资源；
+      - `"pods/*"` 意味着适用于 Pod 的所有子资源；
+      - `"*/scale"` 意味着适用于所有的 `"scale"` 子资源；
+      - `"*/*"` 意味着适用于所有资源及其子资源。
+
+      如果资源列表项中包含了通配符，
+      则 API 服务器在作合法性检查时会确保 `resources` 条目之间不会发生重叠覆盖的情况。
+      取决于所指定的资源对象是什么，有些是不支持设置子资源的。
+    items:
+      x-kab-description-zh: 此规则所适用的资源。字符串不可为空。
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  scope:
+    default: "*"
+    description: |
+      The scope of this rule.
+
+      - `"Cluster"` means that only cluster-scoped resources will match this rule.
+      - `"Namespaced"` means that only namespaced resources will match this rule.
+      - `"*"` means that there are no scope restrictions.
+
+      Subresources match the scope of their parent resource.
+
+    x-kab-description-zh: |
+      规则的适用范围。
+
+      - `"Cluster"` 意味着仅集群作用域的资源会与此规则匹配；
+        Namespace API 对象是集群作用域的。
+      - `"Namespaced"` 表示只有名字空间作用域的资源与此规则匹配；
+      - `"*"` 意味着没有作用域方面的限制。
+
+      子资源的作用域匹配按其父资源作用域处理。
+    enum:
+      - Cluster
+      - Namespaced
+      - "*"
+    minLength: 1
+    type: string
+required:
+  - apiGroups
+  - apiVersions
+  - operations
+  - resources
+type: object
+

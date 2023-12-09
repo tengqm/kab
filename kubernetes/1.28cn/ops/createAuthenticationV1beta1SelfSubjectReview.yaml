@@ -1,0 +1,41 @@
+consumes:
+  - '*/*'
+description: create a SelfSubjectReview
+operationId: createAuthenticationV1beta1SelfSubjectReview
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.authentication.v1beta1.SelfSubjectReview.CREATE'
+path: /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.authentication.v1beta1.SelfSubjectReview.GET'
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.authentication.v1beta1.SelfSubjectReview.GET'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.authentication.v1beta1.SelfSubjectReview.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - authentication_v1beta1
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: authentication.k8s.io
+  kind: SelfSubjectReview
+  version: v1beta1
+

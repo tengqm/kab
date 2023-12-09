@@ -1,0 +1,59 @@
+description: |
+  The result of a rules check.
+  This check can be incomplete depending on the set of authorizers the server
+  is configured with and any errors experienced during evaluation.
+  Because authorization rules are additive, if a rule appears in a list,
+  it's safe to assume the subject has that permission even if that list is incomplete.
+x-kab-description-zh: |
+  规则检查的结果。这一检查的结果可能是不完整的，取决于服务器端在使用的鉴权组件，
+  以及鉴权过程中的出错情况。由于执行鉴权的各个规则是相互叠加的，如果某个规则出现在列表中，
+  即使列表是不完整的，也可以肯定地认为访问主体具有对应的访问权限。
+properties:
+  evaluationError:
+    description: |
+      This can appear in combination with `resourceRules` or `nonResourceRules`.
+      It indicates an error occurred during rule evaluation, such as
+      an authorizer that doesn't support rule evaluation, and that
+      `resourceRules` and/or `nonResourceRules` may be incomplete.
+    x-kab-description-zh: |
+      这一属性可能与 `resourceRules` 或 `nonResourceRules` 一起出现，
+      用来标示规则判定期间发生的错误，例如某个鉴权组件不支持规则判定，
+      以及 `resourceRules` 与/或 `nonResourceRules` 可能不完整等等这类错误。
+    type: string
+  incomplete:
+    description: |
+      This indicates that the rules returned by this call are incomplete.
+      This is most commonly encountered when an authorizer, such as
+      an external authorizer, doesn't support rules evaluation.
+    x-kab-description-zh: |
+      此字段用来标示此调用返回的规则可能是不完整的。
+      出现这类问题的常见原因是某个鉴权组件（如某个外部鉴权服务）不支持规则判定。
+    type: boolean
+  nonResourceRules:
+    description: |
+      The list of actions the subject is allowed to perform on non-resources.
+      The list ordering isn't significant, may contain duplicates, and
+      possibly be incomplete.
+    x-kab-description-zh: |
+      此列表给出允许访问主体对非资源路径执行的操作。
+      列表的顺序可能并不重要，并且其中可能包含重复条目，甚至还可能列表也不完整。
+    items:
+      $ref: '#/definitions/io.k8s.api.authorization.v1.NonResourceRule'
+    type: array
+  resourceRules:
+    description: |
+      The list of actions the subject is allowed to perform on resources.
+      The list ordering isn't significant, may contain duplicates, and
+      possibly be incomplete.
+    x-kab-description-zh: |
+      此列表给出允许访问主体针对资源执行的操作。
+      列表的顺序可能并不重要，并且其中可能包含重复条目，甚至还可能列表也不完整。
+    items:
+      $ref: '#/definitions/io.k8s.api.authorization.v1.ResourceRule'
+    type: array
+required:
+  - incomplete
+  - nonResourceRules
+  - resourceRules
+type: object
+

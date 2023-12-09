@@ -1,0 +1,64 @@
+description: |
+  A set of Pods (namely those matching the `labelSelector` relative to the given namespace(s))
+  that this Pod should be co-located (affinity) or not co-located (anti-affinity) with,
+  where co-located is defined as running on a node whose value of the label with key `topologyKey`
+  matches that of any node on which a Pod of the set of Pods is running.
+x-kab-description-zh: |
+  应该与当前 Pod 并置（Co-located）的（亲和性），或者不应该与当前 Pod 并置的（反亲和性）一组 Pod。
+  这组 Pod 应该处于所给的名字空间内，并且与所给的 `labelSelector` 匹配。
+  所谓“并置”是指这样一种情况：Pod 运行在某个节点上，这个节点具有 `topologyKey` 所指定的标签。
+  如果 Pod 运行的节点上指定标签的取值与另一组 Pod 中的任何一个节点的标签值相同，
+  则认为这些 Pod 是“并置”的。
+properties:
+  labelSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: A label query over a set of Pods.
+    x-kab-description-zh: 对一组 Pod 的标签查询。
+  namespaceSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      A label query over the set of namespaces that the term applies to. The term is applied to the
+      union of the namespaces selected by this field and the ones listed in the `namespaces` field.
+      null selector and null or empty `namespaces` list means _this Pod's namespace_.
+      An empty selector (`{}`) matches all namespaces.
+    x-kab-description-zh: |
+      对此条件所适用的名字空间的标签查询条件。此 PodAffinityTerm 会被应用到被此 `namespaceSelector`
+      选中的所有名字空间上，也会被应用到 `namespaces` 字段所列举的所有名字空间上。
+      如果此选择算符为空，并且 `namespaces` 列表为 null 值或空表，则意味着适用范围为当前 Pod 的名字空间。
+      如果此选择算符为空（`{}`），则可以匹配所有名字空间。
+  namespaces:
+    description: |
+      A static list of namespace names that the term applies to.
+      The term is applied to the union of the namespaces listed in this field and the ones selected by
+      `namespaceSelector`.
+      null or empty namespaces list and null `namespaceSelector` means _this Pod's namespace_.
+    x-kab-description-zh: |
+      此 PodAffinityTerm 所适用的所有名字空间的一个静态列表。
+      此 PodAffinityTerm 会被应用到 `namespaces` 字段所列举的所有名字空间上，也会被应用到被
+      `namespaceSelector` 选中的所有名字空间上。
+      如果 `namespaces` 列表为 null 值或空，并且 `namespaceSelector` 未设置，则意味着适用范围为当前
+      Pod 的名字空间。
+    items:
+      type: string
+    type: array
+  topologyKey:
+    description: |
+      This Pod should be co-located (affinity) or not co-located (anti-affinity) with the Pods matching
+      the `labelSelector` in the specified namespaces, where co-located is defined as running on a node
+      whose value of the label with key `topologyKey` matches that of any node on which any of the
+      selected Pods is running. Empty `topologyKey` is not allowed.
+    x-kab-description-zh: |
+      对于亲和性设置，表示当前 Pod 应该与给定名字空间与 `labelSelector` 匹配的 Pod 并置（Co-located）。 
+      对于反亲和性设置，表示当前 Pod 不能与给定名字空间与 `labelSelector` 匹配的 Pod 并置（Co-located）。 
+      
+      所谓“并置”是指这样一种情况：Pod 运行在具有 `topologyKey` 所指定的标签的节点上。
+      如果 Pod 运行的节点上这一标签的取值与另一组 Pod 所在的任何一个节点的标签值相同，
+      则认为这些 Pod 是“并置”的。
+
+      `topologyKey` 不可为空。
+    minLength: 1
+    type: string
+required:
+  - topologyKey
+type: object
+

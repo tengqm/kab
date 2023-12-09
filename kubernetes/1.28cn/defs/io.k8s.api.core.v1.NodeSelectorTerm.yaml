@@ -1,0 +1,21 @@
+description: |
+  A Node selection term. A null or empty term matches no Node. The requirements in the term are AND'ed.
+x-kab-description-zh: |
+  此结构为一个节点选择条件（Term）。如果条件为 null 或者为空，则不会匹配任何节点。
+  每个条件中的各项需求是按逻辑与（AND）操作组合的。
+properties:
+  matchExpressions:
+    description: A list of Node selector based on Node's labels.
+    x-kab-description-zh: 基于 Node 标签的一组 Node 选择算符。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement'
+    type: array
+  matchFields:
+    description: A list of Node selector based on Node's fields.
+    x-kab-description-zh: 基于 Node 字段的一组 Node 选择算符。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement'
+    type: array
+type: object
+x-kubernetes-map-type: atomic
+

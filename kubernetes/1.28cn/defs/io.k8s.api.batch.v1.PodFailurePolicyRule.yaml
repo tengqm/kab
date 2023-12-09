@@ -1,0 +1,59 @@
+description: PodFailurePolicyRule describes how a Pod failure is handled when the
+  requirements are met. One of `onExitCodes` and `onPodConditions`, but not both,
+  can be used in each rule.
+x-kab-description-zh: |
+  PodFailurePolicyRule 描述条件满足时如何处理 Pod 失败的情况。
+  每条规则中可以设置 `onExitCodes` 和 `onPodConditions` 之一，但不可以同时设置二者。
+properties:
+  action:
+    description: |
+      This specifies the action taken on a Pod failure when the requirements are satisfied.
+      Possible values are:
+      - `"FailJob"`: indicates that the Pod's Job is marked as `Failed` and
+        all running Pods are terminated.
+      - `"FailIndex"`: indicates that the Pod's index is marked as `Failed` and
+        will not be restarted.
+        This value is Alpha-level. It can be used when the `JobBackoffLimitPerIndex`
+        feature gate is enabled (disabled by default).
+      - `"Ignore": indicates that the counter towards the `.backoffLimit` is not incremented
+        and a replacement Pod is created.
+      - `"Count"`: indicates that the Pod is handled in the default way - the counter
+        towards the `.backoffLimit` is incremented.
+      Additional values are considered to be added in the future.
+      Clients should react to an unknown action by skipping the rule.
+    x-kab-description-zh: |
+      此字段决定当条件满足时，如何处理 Pod 失败的情况。可选的取值有：
+      - `"FailJob"`：表明 Pod 所属的 Job 要被标记为 `"Failed"`，并且所有运行中的 Pod 都被终止。
+      - `"FailIndex"`：表明 Pod 所对应的索引会被标记为 `"Failed"`，但不会被重新启动。
+        此取值为 Alpha 阶段。可以在启用了 `JobBackoffLimitPerIndex` 特性门控时使用。
+      - `"Ignore"：表明 Pod 失败不会影响 `.backoffLimit` 字段值，并且控制器会创建替代 Pod。
+      - `"Count"`：表明采用默认的方式来处理 Pod 失败的情况 -- 对 `.backoffLimit` 增一。
+      将来可能会添加新的取值。客户端遇到无法识别的动作时应该略过对应的规则。
+    enum:
+      - Count
+      - FailIndex
+      - FailedJob
+      - Ignore
+    type: string
+  onExitCodes:
+    $ref: '#/definitions/io.k8s.api.batch.v1.PodFailurePolicyOnExitCodesRequirement'
+    description: Represents the requirement on the container exit codes.
+    x-kab-description-zh: 对容器退出代码的需求。
+  onPodConditions:
+    description: |
+      Represents the requirement on the Pod conditions.
+      The requirement is represented as a list of Pod condition patterns.
+      The requirement is satisfied if at least one pattern matches an actual Pod condition.
+    x-kab-description-zh: |
+      对 Pod 状况的需求。
+      需求表达为 Pod 状况模式的一个列表。
+      如果其中任意一个模式与 Pod 的实际状况匹配，则认为此需求被满足。
+    items:
+      $ref: '#/definitions/io.k8s.api.batch.v1.PodFailurePolicyOnPodConditionsPattern'
+    maxItems: 20
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - action
+type: object
+

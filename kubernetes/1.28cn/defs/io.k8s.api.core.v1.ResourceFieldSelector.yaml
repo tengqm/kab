@@ -1,0 +1,46 @@
+description: |
+  ResourceFieldSelector represents container resources (`cpu`, `memory`) and their output format.
+x-kab-description-zh: |
+  ResourceFieldSelector 表示的是容器资源（`cpu`、`memory`）及其输出格式。
+properties:
+  containerName:
+    description: |
+      The container name. This is required when injecting the data as volume into Pods,
+      and it is optional when injecting the data as environment variables into Pods.
+    x-kab-description-zh: |
+      容器名称。当将数据放入存储卷内并注入到 Pod 中时需要此信息。
+      当使用环境变量将数据注入到 Pod 中时，此字段为可选的。
+    type: string
+  divisor:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    default: '1'
+    description: |
+      Specifies the output format of the exposed resources.
+      For `"cpu"`, it can be `"1m"` or `"1"`; for `"memory"`, `"ephemeral-storage"` or hugepage
+      resources (i.e. prefixed with `"requests.hugepages-"` or `"limits.hugepages-"`),
+      it can be one of `"1"`, `"1k"`, `"1M"`, `"1G"`, `"1T"`, `"1P"`, `"1E"`, `"1Ki"`,
+      `"1Mi"`, `"1Gi"`, `"1Ti"`, `"1Pi"`, `"1Ei"`.
+    x-kab-description-zh: |
+      设置所公开的资源的格式。
+      对于 `"cpu"`，可以是 `"1m"` 或 `"1"`；对于 `"memory"`、`"ephemeral-storage"` 或者大页面资源
+      （即带有前缀 `"requests.hugepages-"` 或 `"limits.hugepages-"` 的资源），
+      可以是 `"1"`、`"1k"`、`"1M"`、`"1G"`、`"1T"`、`"1P"`、`"1E"`、`"1Ki"`、
+      `"1Mi"`、`"1Gi"`、`"1Ti"`、`"1Pi"`、`"1Ei"` 之一。
+  resource:
+    description: |
+      Resource to select. It can be `"limits.cpu"`, `"requests.cpu"`, `"limits.memory"`,
+      `"requests.memory"`, `"limits.ephemeral-storage"`, `"requests.ephemeral-storage"`.
+      If the feature gate `DownwardAPIHugePages` is enabled, the resource can be prefixed
+      by `"requests.hugepages-"` or `"limits.hugepages-"`.
+    x-kab-description-zh: |
+      要选择的资源。可以是 `"limits.cpu"`、`"requests.cpu"`、`"limits.memory"`、
+      `"requests.memory"`、`"limits.ephemeral-storage"`、`"requests.ephemeral-storage"` 之一。
+      如果特性门控 `DownwardAPIHugePages` 被启用，则资源可以带有
+      `"requests.hugepages-"` 或`"limits.hugepages-"` 前缀。
+    minLength: 1
+    type: string
+required:
+  - resource
+type: object
+x-kubernetes-map-type: atomic
+

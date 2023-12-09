@@ -1,0 +1,127 @@
+description: |
+  The parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
+  StorageClasses are non-namespaced; the name of the storage class according to etcd is in
+  `matadata.name`.
+x-kab-description-zh: |
+  StorageClass 定义某一类存储的参数。给定 StorageClass 可以动态制备 PersistentVolume 卷。
+  StorageClasses 是集群作用域的。
+  根据 etcd 的规范，存储类的名称用 `matadata.name` 来设置。
+properties:
+  allowVolumeExpansion:
+    description: Flag indicating whether the storage class allows volume expand.
+    x-kab-description-zh: 表明此存储类是否支持卷扩容的标记。
+    type: boolean
+  allowedTopologies:
+    description: |
+      Restrict the Node topologies where volumes can be dynamically provisioned.
+      Each volume plugin defines its own supported topology specifications.
+      An empty list means there is no topology restriction.
+      This field is only honored by servers that enable the `VolumeScheduling` feature.
+    x-kab-description-zh: |
+      限制可以基于此存储类动态制备存储卷的节点拓扑。每个卷插件可以定义自己支持的拓扑规约。
+      如果此列表为空，则意味着没有拓扑方面的约束。
+      只有启用了 `VolumeScheduling` 特性门控的服务器才会处理此字段。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.TopologySelectorTerm'
+    type: array
+    x-kubernetes-list-type: atomic
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - StorageClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  mountOptions:
+    description: |
+      Dynamically provisioned PersistentVolumes of this storage class are created with
+      these mount options, e.g. `["ro", "soft"]`.
+      Not validated - mount of the PVs will simply fail if an option is invalid.
+    x-kab-description-zh: |
+      基于此存储类动态制备的 PersistentVolume 卷都会使用这里给出的挂载选项，例如 `["ro", "soft"]`。
+      系统不检查选项本身的合法性，如果某个选项是非法的，PV 卷的挂载操作会直接失败。
+    items:
+      type: string
+    type: array
+  parameters:
+    additionalProperties:
+      type: string
+    description: |
+      The parameters for the provisioner that creates volumes of this StorageClass.
+      Keys cannot be empty. The total length including keys and values must not exceed 256 KB.
+      This field cannot be updated.
+    x-kab-description-zh: |
+      为基于此 StorageClass 来制备存储卷的制备组件提供的参数。
+      映射中的主键不可以为空字符串。包括所有主键、取值在内的整个映射长度不可超过 256 KB。
+      此字段一旦设置不可变更。
+    maxItems: 512
+    type: object
+  provisioner:
+    description: |
+      The type of the provisioner. The value must be a qualified name.
+      This field cannot be updated.
+    x-kab-description-zh: |
+      制备组件的类型。此值必须是一个限定名。
+      一旦设置，不可变更。
+    minLength: 1
+    type: string
+  reclaimPolicy:
+    default: Delete
+    description: |
+      Dynamically provisioned PersistentVolumes of this StorageClass are created with this reclaim policy.
+      It is up to the volume plugin to reject provisioning for StorageClasses with impossible
+      reclaim policies. This field cannot be updated.
+    x-kab-description-zh: |
+      基于此 StorageClass 制备的 PersistentVolume 卷会使用此字段所给的回收策略。
+      卷插件在遇到不支持的回收策略时，要拒绝制备此 StorageClasses 的 PV 卷。
+      此字段不支持变更。
+    enum:
+      - Delete
+      - Retain
+    type: string
+  volumeBindingMode:
+    default: Immediate
+    description: |
+      How PersistentVolumeClaims should be provisioned and bound.
+
+      - `"Immediate"`: this indicates that PersistentVolumeClaims should be immediately provisioned
+        and bound;
+      - `"WaitForFirstConsumer"`: this indicates that PersistentVolumeClaims should not be provisioned
+        and bound until the first Pod is created that references the PersistentVolumeClaim.
+        The volume provisioning and binding will occur during Pod scheduling.
+
+      This field is only honored by servers that enable the `VolumeScheduling` feature.
+      This field cannot be updated.
+    x-kab-description-zh: |
+      字段设置如何制备和绑定 PersistentVolumeClaim。
+
+      - `"Immediate"`：PersistentVolumeClaim 会被立即制备并绑定；
+      - `"WaitForFirstConsumer"`：在第一个引用相关 PVC 的 Pod 被创建之前，不要制备 PVC 或者执行绑定。
+        卷的制备与绑定操作会在 Pod 调度时完成。
+
+      只有启用了 `VolumeScheduling` 特性门控的服务器才会支持此字段。
+      此字段一经设置不可变更。
+    enum:
+      - Immediate
+      - WaitForFirstConsumer
+    type: string
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - provisioner
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: StorageClass
+    version: v1
+

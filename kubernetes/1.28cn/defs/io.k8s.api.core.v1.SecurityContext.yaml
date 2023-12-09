@@ -1,0 +1,157 @@
+description: |
+  The security configuration for the container. Some fields are present in both `securityContext`
+  of the container and the `securityContext` of the enclosing Pod.
+  When both are set, the values in container's `securityContext` take precedence.
+x-kab-description-zh: |
+  容器的安全性配置。某些字段既可出现在容器的 `securityContext` 配置中，也可出现在上级 Pod
+  的 `securityContext` 中。如果两个位置设置了相同的选项，则以容器层面的设置为准。
+properties:
+  allowPrivilegeEscalation:
+    description: |
+      This controls whether a process can gain more privileges than its parent process.
+      This bool directly controls if the `no_new_privs` flag will be set on the container process.
+      `allowPrivilegeEscalation` is always `true` when the container:
+      1) runs with as `securityContext.privileged` set to `true`,
+      2) has `CAP_SYS_ADMIN` in its `securityContext.capabilities.add`.
+      If `privileged` is set to `true`, this cannot be `false`.
+    x-kab-description-zh: |
+      此字段控制一个进程是否可以获得比其父进程更多的特权。
+      此布尔值直接控制是否会在容器的进程上设置 `no_new_privs` 标志。
+      当容器符合以下条件时，`allowPrivilegeEscalation` 总是为 `true`：
+      1) 容器中设置了 `securityContext.privileged` 为 `true`；
+      2) 容器在其 `securityContext.capabilities.add` 中包含了 `CAP_SYS_ADMIN`。
+      如果 `privileged` 被设置为 `true`，则此字段不可设置为 `false`。
+  capabilities:
+    $ref: '#/definitions/io.k8s.api.core.v1.Capabilities'
+    description: |
+      The capabilities to add/drop when running the container.
+      Defaults to the default set of capabilities granted by the container runtime.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      运行容器时要添加或放弃的权能。默认值为容器运行时所赋予的默认权能集合。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+  privileged:
+    default: false
+    description: |
+      Run the container in privileged mode.
+      Processes in a privileged container are essentially equivalent to `root` on the host.
+      The API server must have `--allow--privileged` flag set to `true` to allow privileged containers.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      用特权模式运行此容器。特权容器中的进程本质上相当于宿主系统上的 `root` 账号。
+      API 服务器必须设置 `--allow-privileged` 参数为 `true` 才能接受特权容器。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+    type: boolean
+  procMount:
+    default: Default
+    description: |
+      This denotes the type of proc mount to use for the containers.
+      The valid options are:
+      - `"Default"`: use the container runtime defaults for read-only paths and
+        masked paths for `/proc`. Most container runtimes mask certain paths in
+        `"/proc"` to avoid accidental security exposure of special devices or information.
+        This requires the `ProcMountType` feature gate to be enabled.
+      - `"Unmasked"`: bypass the default masking behavior of the container runtime and
+        ensures the newly created `/proc` the container stays intact with no modifications.
+        Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      此字段表明为容器执行的 proc 文件系统挂载方式。可接受的选项有：
+
+      - `"Default"`：使用容器运行时所给的默认方式挂载 `/proc` 下的只读和屏蔽路径。
+        大多数容器运行时会屏蔽 `/proc` 下面的某些路径，避免造成特殊设备或信息的意外安全泄露。
+        使用此值要求启用 `ProcMountType` 特性门控。
+      - `"Unmasked"`：略过容器运行时默认的屏蔽行为，确保在容器内创建的 `/proc` 不会被容器修改。
+
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+    enum:
+      - Default
+      - Unmasked
+    type: string
+  readOnlyRootFilesystem:
+    default: false
+    description: |
+      Whether this container has a read-only root filesystem.
+      This allows a container to restrict the locations that an application can write files to,
+      ensuring the persistent data can only be written to mounted volumes.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      此字段控制容器的根文件系统是否只读。
+      此字段允许容器限制应用可以写文件的位置，进而确保持久性数据只能被写入到所挂载的卷中。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+    type: boolean
+  runAsGroup:
+    description:
+      The group ID (GID) to run the entry point of the container process.
+      Uses runtime default if unset. May also be set in the `securityContext` of the enclosing Pod.
+      The value must be within the scope of a 32-bit non-negative integer.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh : |
+      运行容器进程入口点所使用的用户组 ID（GID）。如果未设置，则使用运行时所给的默认值。
+      此属性也可以在上层 Pod 的 `securityContext` 中设置。
+      所设置的值必须是一个 32 位非负整数。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+    format: int32
+    minimum: 0
+    type: integer
+  runAsNonRoot:
+    description:
+      Indicates that the container **MUST** run as a non-root user.
+      If `true`, the kubelet will validate the image at runtime to ensure that it does
+      not run as UID `0` (`root`). It will fail to start the container if it does.
+      If unset or `false`, no such validation will be performed.
+      May also be set in the `securityContext` of the enclosing Pod.
+    x-kab-description-zh : |
+      此字段表明不可以用 `root` 账号来运行容器。
+      如果设置为 `true`，则 kubelet 会在运行时检查镜像，确保不会使用 UID `0`（`root`）来运行。
+      如果镜像使用 `root` 账号，则容器不会被启动。
+      如果没有设置，或者设置为 `false`，就不会执行这类合法性检查。
+      此属性也可以在上层 Pod 的 `securityContext` 中设置。
+    type: boolean
+  runAsUser:
+    description: The user ID (UID) to run the entrypoint of the container process.
+      Defaults to user specified in image metadata if unspecified.
+      May also be set in the `securityContext` of the enclosing Pod.
+      The value must be within the scope of a 32-bit non-negative integer.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh : |
+      运行容器进程入口点所使用的用户 ID（UID）。如果未设置，使用镜像元数据中给定的用户。
+      此属性也可以在上层 Pod 的 `securityContext` 中设置。所设置的值必须是一个 32 位非负整数。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+    format: int32
+    minimum: 0
+    type: integer
+  seLinuxOptions:
+    $ref: '#/definitions/io.k8s.api.core.v1.SELinuxOptions'
+    description: |
+      The SELinux context to be applied to the container.
+      If unspecified, the container runtime will allocate a random SELinux context for each container.
+      May also be set in the `securityContext` of the enclosing Pod.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      要应用到容器上的 SELinux 上下文选项。
+      若未设置此字段，则容器会为每个容器分配一个随机的 SELinux 上下文。
+      此属性也可以在上层 Pod 的 `securityContext` 中设置。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+  seccompProfile:
+    $ref: '#/definitions/io.k8s.api.core.v1.SeccompProfile'
+    description: |
+      The seccomp options to use by this container.
+      May also be set in the `securityContext` of the enclosing Pod.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      此容器要使用的 Seccomp 选项。
+      此属性也可以在上层 Pod 的 `securityContext` 中设置。
+      注意当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+  windowsOptions:
+    $ref: '#/definitions/io.k8s.api.core.v1.WindowsSecurityContextOptions'
+    description: |
+      The Windows specific settings to apply to the container.
+      If unspecified, the options from the `securityContext` of the enclosing Pod
+      will be used.
+      Note that this field cannot be set when `spec.os.name` is `"linux"`.
+    x-kab-description-zh: |
+      此容器要使用的特定于 Windows 的选项。
+      若未设置，则使用在上层 Pod 的 `securityContext` 中的选项。
+      注意当 `spec.os.name` 为 `"linux"` 时不可设置此字段。
+type: object
+

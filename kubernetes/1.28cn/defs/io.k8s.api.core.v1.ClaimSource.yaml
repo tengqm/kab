@@ -1,0 +1,45 @@
+description: |
+  ClaimSource describes a reference to a ResourceClaim.
+  Exactly one of `resourceClaimName` and `resourceClaimTemplateName` should be set.
+  Consumers of this type must treat an empty object as if it has an unknown value.
+x-kab-description-zh: |
+  ClaimSource 描述对 ResourceClaim 的引用。
+  `resourceClaimName` 和 `resourceClaimTemplateName` 之间必须且只能设置其一。
+  此类型对象的用户必须将空对象视为包含未知取值。
+properties:
+  resourceClaimName:
+    description: |
+      This is the name of a ResourceClaim object in the same namespace as this Pod.
+      This name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      Pod 所在名字空间的某 ResourceClaim 对象的名字。
+      此字段值必须是合法的 DNS 子域名。
+    type: string
+  resourceClaimTemplateName:
+    description: 
+      This is the name of a ResourceClaimTemplate object in the same namespace as this Pod.
+
+      The template will be used to create a new ResourceClaim, which will be bound to this Pod.
+      When this Pod is deleted, the ResourceClaim will also be deleted.
+      The Pod name and resource name, along with a generated component, will be used to
+      form a unique name for the ResourceClaim, which will be recorded in
+      `pod.status.resourceClaimStatuses`.
+
+      This field is immutable and no changes will be made to the corresponding ResourceClaim
+      by the control plane after creating the ResourceClaim.
+
+      The name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      此字段为 Pod 所在名字空间中某 ResourceClaimTemplate 对象的名字。
+
+      此模板会被用来创建一个新的 ResourceClaim，而新的 ResourceClaim 会绑定到此 Pod。
+      当 Pod 被删除时，该 ResourceClaim 对象也会被删除。
+      Pod 名称和资源名称以及一个生成的部分一起，用来为 ResourceClaim 生成一个唯一的名称，
+      该名称会被记录到 `pod.status.resourceClaimStatuses` 中。
+
+      此字段是不可变更的。ResourceClaim 被创建之后，管理面不会更改 ResourceClaim 对象。
+
+      字段值必须是合法的 DNS 子域名。
+    type: string
+type: object
+

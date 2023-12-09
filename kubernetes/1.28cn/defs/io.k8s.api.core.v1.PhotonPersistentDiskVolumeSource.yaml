@@ -1,0 +1,18 @@
+description: A Photon controller persistent disk resource.
+x-kab-description-zh: 一个 Photon 控制器持久盘资源。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+    x-kab-description-zh: 要挂载的文件系统。必须是宿主操作系统所支持的一种文件系统类型。
+    type: string
+  pdID:
+    description: ID that identifies Photon controller persistent disk.
+    x-kab-description-zh: 一个用来唯一标识当前 Photon 控制器持久盘的 ID。
+    minLength: 1
+    type: string
+required:
+  - pdID
+type: object
+

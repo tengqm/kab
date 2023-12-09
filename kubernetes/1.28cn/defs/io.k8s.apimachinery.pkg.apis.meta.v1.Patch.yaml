@@ -1,0 +1,17 @@
+description: |
+  Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.
+  The actual content in the body depends on the patch type.
+
+  - For `"application/merge-patch+json"`, `"application/strategic-merge-patch+json"` and
+    `"application/apply-patch+yaml"`, please check the GET variant of the target resource for the schema.
+  - For `"application/json-patch+json"`, the schema is different.
+    However, you can still check the CREATE variant of the target resource for references.
+
+x-kab-description-zh: |
+  Patch 是被用来为 Kubernetes PATCH 请求的主体提供具体的名字和类别信息的。
+  此结构中的具体定义取决于 PATCH 操作的类型。
+
+  - 对于 `"application/merge-patch+json"`、`"application/strategic-merge-patch+json"` 和
+    `"application/apply-patch+yaml"`，可以查阅目标资源的 GET 模式定义。
+  - 对于 `"application/json-patch+json"`，模式定义会有所不同。
+    不过，仍可以查看目标资源的 CREATE 模式定义。

@@ -1,0 +1,38 @@
+description: ParentReference describes a reference to a parent object.
+x-kab-description-zh: ParentReference 描述对某个父级对象的引用。
+properties:
+  group:
+    description: |
+      The group of the object being referenced.
+      Empty string or null value means the core API group. For example, a Service object.
+      If the string is not empty, it must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      被引用对象所在的 API 组。未设置或者字符串为空是表示核心 API 组。例如，一个 Service。
+      如果此字符串非空，则其值必须是一个合法的 DNS 子域名。
+    type: string
+  name:
+    description: |
+      The name of the object being referenced. The value must be a valid path segment.
+    x-kab-description-zh: 被引用的对象的名称。此字段值必须是合法的路径段落。
+    minLength: 1
+    type: string
+  namespace:
+    description: |
+      The namespace of the object being referenced. This field is optional.
+    x-kab-description-zh: 被引用的对象的名字空间。此字段为可选。
+    type: string
+  resource:
+    description: |
+      The resource of the object being referenced. The value must be a valid path segment.
+    x-kab-description-zh: 被引用的对象的资源类别。此字段值必须是合法的路径段落。
+    minLength: 1
+    type: string
+  uid:
+    description: The UID of the object being referenced.
+    x-kab-description-zh: 被引用的对象的 UID。
+    type: string
+required:
+  - name
+  - resource
+type: object
+

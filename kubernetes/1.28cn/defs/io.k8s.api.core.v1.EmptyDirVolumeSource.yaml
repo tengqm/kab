@@ -1,0 +1,35 @@
+description: |
+  Represents an empty directory for a Pod.
+  Empty directory volumes support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  此结构代表 Pod 中的一个空目录。
+  空目录卷支持属主管理和 SELinux 重打标签。
+properties:
+  medium:
+    default: ''
+    description: |
+      Type of storage medium backing this directory.
+      The default is `""` which means using the node's default medium.
+    x-kab-description-zh: |
+      用来为此目录提供存储介质的后端。
+      默认值 `""` 意味着使用节点上的默认介质。
+    enum:
+      - ""
+      - Memory
+    type: string
+  sizeLimit:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      Total amount of local storage required for this EmptyDir volume.
+      The size limit is also applicable for `"Memory"` medium.
+      The maximum usage on `"Memory"` medium EmptyDir would be the minimum value between
+      the `sizeLimit` specified here and the sum of memory limits of all containers in a Pod.
+      The default is nil which means that the limit is undefined.
+    x-kab-description-zh: |
+      此 EmptyDir 卷所需要的本地存储大小。
+      这里的尺寸限制也适用于 `"Memory"` 介质的情况。
+      当 EmptyDir 卷的介质为 `"Memory"` 时，所能够使用的内存量为这里设置的 `sizeLimit`
+      和 Pod 中所有容器的内存限制值之和之间的较小者。
+      默认值为 nil，即未设置限制。
+type: object
+

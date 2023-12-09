@@ -1,0 +1,45 @@
+description: |
+  Adapts a ConfigMap into a projected volume. The contents of the target ConfigMap's
+  `data` field will be presented in a projected volume as files using the keys
+  in the `data` field as the file names, unless the `items` element is populated
+  with specific mappings of keys to paths.
+  Note that this is identical to a ConfigMap volume source without the default mode.
+x-kab-description-zh: |
+  将 ConfigMap 改造为一个投射卷（Projected Volume）。目标 ConfigMap 的 `data`
+  字段的内容会呈现为投射卷中的文件。`data` 字段中的主键被用作文件名，除非 `items`
+  元素中包含了从键名到路径的特殊映射关系。
+  注意，这一结构与 ConfigMapVolumeSource 几乎完全相同，只是没有默认的模式设置。
+properties:
+  items:
+    description: |
+      If unspecified, each key-value pair in the `data` field of the referenced ConfigMap will
+      be projected into the volume as a file whose name is the key and content is the value.
+      If specified, the listed `key`s will be projected into the specified `path`s, and
+      unlisted keys will not be present. If a `key` specified is not present in the ConfigMap,
+      the volume setup will error unless it is marked `optional`.
+      Paths must be relative and may not contain the `".."` string or start with `".."`.
+      Each path must be unique in the map.
+    x-kab-description-zh: |
+      如果未设置，则所引用的 ConfigMap 的 `data` 字段中的每一个键值对都会以文件的形式投射到卷中，
+      文件名即是键名，文件内容则是键值。
+      如果设置了此字段，则所列举的 `key` 会被投射到所指定的 `path` 上，而未列举的主键不会出现。
+      如果所指定的某个 `key` 在 ConfigMap 中不存在，则除非卷被标记为 `optional`，
+      否则卷的配置会出错。
+      所给的路径必须是相对路径，其中不可以包含 `".."`，也不可以以 `".."` 开头。
+      映射中的每个 `path` 都必须是唯一的。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.KeyToPath'
+    type: array
+  name:
+    description: Name of the referenced ConfigMap. The string must be a valid DNS subdomain.
+    x-kab-description-zh: 被引用的 ConfigMap 的名字。字符串的值必须是一个合法的 DNS 子域名。
+    minLength: 1
+    type: string
+  optional:
+    description: Specify whether the ConfigMap or its keys must be defined.
+    x-kab-description-zh: 设置是否 ConfigMap 或者其中的主键必须已经被定义。
+    type: boolean
+required:
+  - name
+type: object
+

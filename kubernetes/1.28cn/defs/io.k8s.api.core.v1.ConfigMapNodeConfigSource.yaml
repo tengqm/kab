@@ -1,0 +1,51 @@
+description: |
+  The information to reference a ConfigMap as the config source for a Node.
+  This API is DEPRECATED since v1.22.
+x-kab-description-zh: |
+  用来引用某个 ConfigMap 的信息，所引用的 ConfigMap 会作为 Node 的配置信息源。
+  此 API 从 v1.22 开始被弃用。
+properties:
+  kubeletConfigKey:
+    description: |
+      The key of the referenced ConfigMap that corresponds to the `KubeletConfiguration` structure.
+      The string must consists of alphanumeric characters, `'-'`, `'_'` or `'.'`.
+      The string cannot be `"."` or `".."` and it cannot start with `".."`.
+    x-kab-description-zh: |
+      所引用的 ConfigMap 中的主键，对应的内容是 `KubeletConfiguration` 结构。
+      此字符串必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成。
+      字符串本身不可以是 `"."` 或者 `".."`，也不可以以 `".."` 开头。
+    maxLength: 253
+    minLength: 1
+    type: string
+  name:
+    description: Name of the referenced ConfigMap. The string must be a valid DNS subdomain.
+    x-kab-description-zh: 被引用的 ConfigMap 的名称。此字符串值必须是合法的 DNS 子域名。
+    minLength: 1
+    type: string
+  namespace:
+    description: Namespace of the referenced ConfigMap. The string must be a valid DNS_LABEL.
+    x-kab-description-zh: 被引用的 ConfigMap 的名字空间。此字符串值必须是合法的 DNS_LABEL。
+    minLength: 1
+    type: string
+  resourceVersion:
+    description: |
+      Resource version of the referenced ConfigMap.
+      This field is forbidden in `node.spec`, and required in `node.status`.
+    x-kab-description-zh: |
+      被引用的 ConfigMap 的资源版本。
+      此字段在 `node.spec` 中是禁止的，但在 `node.status` 是必需的。
+    type: string
+  uid:
+    description: |
+      UID of the referenced ConfigMap.
+      This field is forbidden in `node.spec`, and required in `node.status`.
+    x-kab-description-zh: |
+      被引用的 ConfigMap 的 UID。
+      此字段在 `node.spec` 中是禁止的，但在 `node.status` 是必需的。
+    type: string
+required:
+  - kubeletConfigKey
+  - name
+  - namespace
+type: object
+

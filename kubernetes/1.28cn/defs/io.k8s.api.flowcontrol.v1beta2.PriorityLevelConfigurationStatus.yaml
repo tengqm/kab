@@ -1,0 +1,14 @@
+description: The current state of a PriorityLevelConfigurationCondition.
+x-kab-description-zh: PriorityLevelConfigurationCondition 的当前状态。
+properties:
+  conditions:
+    description: The current conditions of the PriorityLevelConfigurationCondition.
+    x-kab-description-zh: PriorityLevelConfigurationCondition 的当前状况。
+    items:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+type: object
+

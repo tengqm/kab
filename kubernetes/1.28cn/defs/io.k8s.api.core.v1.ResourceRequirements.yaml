@@ -1,0 +1,71 @@
+description:  |
+  The resource requirements.
+  Resources can be `"cpu"`, `"memory"`, `"ephemeral-storage"` or prefixed with `"hugepages-"`.
+  Resource names prefixed with `"kubernetes.io/"` are valid but reserved by Kubernetes.
+  Extended resources can be specified if the name follows the standard:
+  not prefixed with `"requests."`; can form quota if prefixed with `"requests."`.
+  When hugepages resource is specified in `requests` or `limits`, CPU or memory resource
+  must be specified in `limits` or `requests`.
+  If `requests` is omitted for a container, it defaults to `limits` if that is explicitly
+  specified, otherwise to an implementation-defined value.
+  For native resources other than huge pages, overcommit is allowed, the `requests` value
+  must be lower or equal to that of the `limits`.
+  For other resources, overcommit is disallowed, their `limits` must be set and
+  the `requests` must equal to the `limits`.
+x-kab-description-zh:  |
+  资源需求设置。资源可以是`"cpu"`、`"memory"`、`"ephemeral-storage"` 或者带前缀的 `"hugepages-"`。
+  带前缀 `"kubernetes.io/"` 的资源名称是合法的，但是是 Kubernetes 保留的。
+  如果扩展资源名称符合下面的要求，也可以指定：
+
+  - 没有前缀`"requests."`；
+  - 带上前缀 `"requests."` 之后可以构成配额。
+
+  如果在 `requests` 或 `limits` 中指定了大页面资源，则 `limits` 或 `requests` 中必须指定
+  CPU 或者内存资源
+  容器未设置 `requests` 时，如果容器设置了 `limits`，则其 `requests` 会被自动设置为
+  `limits` 值，否则 `requests` 的设置取决于具体实现。
+  对于大页面之外的原生资源，过量分配是被允许的，`requests` 值必须小于或等于 `limits` 值。
+  对于其他资源，过量分配是被禁止的，必须为其设置 `limits` 并且 `requests` 值必须等于
+  `limits` 值。
+properties:
+  claims:
+    description: |
+      The names of resources, defined in `spec.resourceClaims`, that are used by
+      this container.
+      This is an Alpha field and requires enabling the `DynamicResourceAllocation`
+      feature gate. This field is immutable. It can only be set for containers.
+    x-kab-description-zh: |
+      在 `spec.resourceClaims` 中定义的资源的名称，当前容器要使用该资源。
+      此字段处于 Alpha 阶段，需要启用`DynamicResourceAllocation` 特性门控。
+      此字段是不可变更的。此字段只能在容器层面设置。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ResourceClaim'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+  limits:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The maximum amount of compute resources allowed.
+      The values in the map must be non-negative quantity values.
+      For extended resources, the value must be a full integer.
+    x-kab-description-zh: |
+      可以使用的计算资源的上限。映射中的资源量必须是非负数量值。
+      对于扩展资源，资源量必须是整数值。
+    type: object
+  requests:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The minimum amount of compute resources required.
+      The values in the map must be non-negative quantity values.
+      For extended resources, the value must be a full integer.
+      The `requests` value cannot exceed that of `limits`.
+    x-kab-description-zh: |
+      所需要的计算资源的下限。映射中的资源量必须是非负数量值。
+      对于扩展资源，资源量必须是整数值。`requests` 值不可以大于 `limits` 值。
+    type: object
+type: object
+

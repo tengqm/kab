@@ -1,0 +1,30 @@
+description: |
+  A volume that should be attached. Only PersistenVolumes can be attached via external attacher.
+  Exactly one member can be set.
+x-kab-description-zh: |
+  要挂载的一个存储卷。只有 PersistenVolume 存储卷可以通过外部挂接装置（External Attacher）挂接。
+  结构中字段只能设置其一。
+properties:
+  inlineVolumeSpec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeSpec'
+    description: |
+      Information for attaching a persistent volume defined by a Pod's inline VolumeSource.
+      This field is populated only for the `CSIMigration` feature.
+      It contains translated fields from a Pod's inline VolumeSource to a PersistentVolumeSpec.
+      This field is Beta level and is only honored by servers that enabled the `CSIMigration` feature.
+    x-kab-description-zh: |
+      关于挂接通过 Pod 内联的 VolumeSource 所定义的持久卷的信息。
+      字段中包含从 Pod 内联 VolumeSource 所翻译而来的 PersistentVolumeSpec 配置。
+      只有 `CSIMigration` 特性被启用时会填充和处理此字段。
+  persistentVolumeName:
+    description: |
+      Name of the persistent volume to attach. The name must be a valid DNS subdomain.
+      This must be specified when the `CSIMigration` feature gate is not enabled.
+    x-kab-description-zh: |
+      要挂接的持久卷的名称。此名称必须是合法的 DNS 子域名。
+      当未启用 `CSIMigration` 特性时，必须设置此字段。
+    type: string
+required:
+  - persistentVolumeName
+type: object
+

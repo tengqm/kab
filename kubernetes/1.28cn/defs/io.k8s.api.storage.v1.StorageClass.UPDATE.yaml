@@ -1,0 +1,64 @@
+description: |
+  The parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
+  StorageClasses are non-namespaced; the name of the storage class according to etcd is in
+  `matadata.name`.
+x-kab-description-zh: |
+  StorageClass 定义某一类存储的参数。给定 StorageClass 可以动态制备 PersistentVolume 卷。
+  StorageClasses 是集群作用域的。
+  根据 etcd 的规范，存储类的名称用 `matadata.name` 来设置。
+
+properties:
+  allowVolumeExpansion:
+    description: Flag indicating whether the storage class allows volume expand.
+    x-kab-description-zh: 表明此存储类是否支持卷扩容的标记。
+    type: boolean
+  allowedTopologies:
+    description: |
+      Restrict the Node topologies where volumes can be dynamically provisioned.
+      Each volume plugin defines its own supported topology specifications.
+      An empty list means there is no topology restriction.
+      This field is only honored by servers that enable the `VolumeScheduling` feature.
+    x-kab-description-zh: |
+      限制可以基于此存储类动态制备存储卷的节点拓扑。每个卷插件可以定义自己支持的拓扑规约。
+      如果此列表为空，则意味着没有拓扑方面的约束。
+      只有启用了 `VolumeScheduling` 特性门控的服务器才会处理此字段。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.TopologySelectorTerm'
+    type: array
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - StorageClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  mountOptions:
+    description: |
+      Dynamically provisioned PersistentVolumes of this storage class are created with
+      these mount options, e.g. `["ro", "soft"]`.
+      Not validated - mount of the PVs will simply fail if an option is invalid.
+    x-kab-description-zh: |
+      基于此存储类动态制备的 PersistentVolume 卷都会使用这里给出的挂载选项，例如 `["ro", "soft"]`。
+      系统不检查选项本身的合法性，如果某个选项是非法的，PV 卷的挂载操作会直接失败。
+    items:
+      type: string
+    type: array
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: StorageClass
+    version: v1
+

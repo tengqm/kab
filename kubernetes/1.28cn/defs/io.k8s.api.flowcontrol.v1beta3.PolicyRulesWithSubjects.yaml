@@ -1,0 +1,61 @@
+description: |
+  PolicyRulesWithSubjects prescribes a test that applies to a request to an API server.
+  The test considers the subject making the request, the verb being requested,
+  and the resource to be acted upon.
+  This PolicyRulesWithSubjects matches a request if and only if both
+  (a) at least one member of `subjects` matches the request and
+  (b) at least one member of `resourceRules` or `nonResourceRules` matches the request.
+
+  At least one of `resourceRules` and `nonResourceRules` has to be specified."
+x-kab-description-zh: |
+  PolicyRulesWithSubjects 包含对 API 请求进行测试的条件。
+  测试会考虑发起请求的主体、所请求的动词以及所操作的资源。只有请求 
+  1）与 `subjects` 中至少一个成员匹配，并且
+  2）与 `resourceRules` 或 `nonResourceRules`
+  之一匹配，才能认为请求通过测试。
+
+  `resourceRules` 和 `nonResourceRules` 之一必须被设置。
+
+properties:
+  nonResourceRules:
+    description: |
+      A list of NonResourcePolicyRule that identify matching requests according to their verbs
+      and the target non-resource URLs.
+      At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
+    x-kab-description-zh: |
+      由 NonResourcePolicyRule 组成的一个列表，用来根据请求的动词及所针对的非资源 URL 筛选请求。
+      `resourceRules` 和 `nonResourceRules` 之一必须被设置。
+    items:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta3.NonResourcePolicyRule'
+    type: array
+    x-kubernetes-list-type: atomic
+  resourceRules:
+    description: |
+      A list of `ResourcePolicyRule`s that identify matching requests according to their verbs
+      and the target resources.
+      At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
+    x-kab-description-zh: |
+      由 ResourcePolicyRule 组成的一个列表，用来根据请求的动词及所针对的资源筛选请求。
+      `resourceRules` 和 `nonResourceRules` 之一必须被设置。
+    items:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta3.ResourcePolicyRule'
+    type: array
+    x-kubernetes-list-type: atomic
+  subjects:
+    description: |
+      The list of normal user, ServiceAccount, or group that this rule cares about.
+      A list that includes both the `"system:authenticated"` and `"system:unauthenticated"`
+      user groups matches every request.
+    x-kab-description-zh: |
+      由普通用户、ServiceAccount、用户组构成的列表，用来表明此规则所关注的主体。
+      如果列表中包含 `"system:authenticated"` 和 `"system:unauthenticated"` 用户组，
+      则意味着匹配所有的请求。
+    items:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta3.Subject'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - subjects
+type: object
+

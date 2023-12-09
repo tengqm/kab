@@ -1,0 +1,31 @@
+description: A list of HorizontalPodAutoscaler objects.
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    enum:
+      - autoscaling/v1
+    type: string
+  items:
+    description: A list of HorizontalPodAutoscaler objects.
+    items:
+      $ref: '#/definitions/io.k8s.api.autoscaling.v1.HorizontalPodAutoscaler.GET'
+    type: array
+  kind:
+    description: A string value representing the REST resource
+    enum:
+      - HorizontalPodAutoscalerList
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata
+required:
+  - apiVersion
+  - items
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: autoscaling
+    kind: HorizontalPodAutoscalerList
+    version: v1
+

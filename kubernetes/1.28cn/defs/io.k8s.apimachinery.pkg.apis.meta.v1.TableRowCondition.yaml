@@ -1,0 +1,37 @@
+description: TableRowCondition allows a row to be marked with additional information.
+x-kab-description-zh: TableRowCondition 允许为表格的一行提供额外信息。
+properties:
+  message:
+    description: Human readable message indicating details about last transition.
+    x-kab-description-zh: 关于上次转换的细节的消息，人类可读。
+    type: string
+  reason:
+    description: A (brief) machine readable reason for the condition's last transition.
+    x-kab-description-zh: 关于状况上次转换的原因的信息，机器可读。
+    type: string
+  status:
+    description: Status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    description: |
+      Type of row condition. The only defined value is `"Completed"` indicating that the object this row
+      represents has reached a completed state and may be given less visual priority than other rows.
+      Clients are not required to honor any conditions but should be consistent where possible
+      about handling the conditions.
+    x-kab-description-zh: |
+      数据行的状况的类型。目前定义的唯一值是 `"Completed"`，用来表明此行所代表的对象已经进入完成状态，
+      因而与其他行相比可以被赋予一个较低的可视化优先级。
+      不要求客户端必须处理这里的状况设置，但是在处理状况时应该保持行为一致。 
+    enum:
+      - Completed
+    type: string
+required:
+  - status
+  - type
+type: object
+

@@ -1,0 +1,42 @@
+description: Pod is a collection of Containers that can run on a host.
+x-kab-description-zh: Pod 是一组可以运行在某个宿主系统上的容器。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Pod
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodSpec.GET'
+    description: Specification of the desired behavior of the pod.
+    x-kab-description-zh: 关于 Pod 预期行为的规约。
+  status:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodStatus'
+    description: |
+      Most recently observed status of the pod. This data may not be up to date.
+      Populated by the system. Read-only.
+    x-kab-description-zh: |
+      最近观测到的 Pod 状态。此数据可能不是最新的。数据由系统填充。字段一般情况下是只读的。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Pod
+    version: v1
+

@@ -1,0 +1,70 @@
+description: |
+  ResourceClass is used by administrators to influence how resources are allocated.
+
+  This is an Alpha type and requires enabling the `DynamicResourceAllocation` feature gate.
+x-kab-description-zh: |
+  ResourceClass 由管理员使用，用来影响资源分配的方式。
+
+  此类型处于 Alpha 阶段，需要启用 `DynamicResourceAllocation` 特性门控。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha2
+    type: string
+  driverName:
+    description: |
+      The name of the dynamic resource driver that is used for allocation of a ResourceClaim that
+      uses this class.
+      Resource drivers have a unique name in forward domain order (e.g. `"acme.example.com"`).
+      The driver name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      动态资源的驱动程序的名称，分配使用此资源类的 ResourceClaim 时要调用对应的驱动。
+      每个资源驱动的名称都是唯一的，格式为前向的域名顺序（例如，`"acme.example.com"`）。
+      驱动程序的名称必须是合法的 DNS 子域名。
+    maxLength: 63
+    minLength: 1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  parametersRef:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClassParametersReference'
+    description: |
+      This references an arbitrary separate object that may hold parameters that will be used
+      by the driver when allocating a resource that uses this class.
+      A dynamic resource driver can distinguish between parameters stored here and and those stored
+      in ResourceClaimSpec. 
+    x-kab-description-zh: |
+      此字段用来引用一个特别的、独立的对象，驱动程序分配使用此资源类 ResourceClaim 时，
+      可以使用其中保存的参数数据。
+      动态资源的驱动程序可以对所引用的对象中存放的参数与存放于 `ResourceClaimSpec` 中的参数进行区分。
+  suitableNodes:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |
+      Only nodes matching the selector will be considered by the scheduler when trying to find a Node
+      that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
+    x-kab-description-zh: |
+      如果某个 Pod 使用了目前尚未被分配的 ResourceClaim，调度器在寻找适合于该 Pod 的节点时，
+      只会考虑与此选择算符匹配的节点。
+required:
+  - apiVersion
+  - driverName
+  - kind
+  - metadata
+  - parametersRef
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceClass
+    version: v1alpha2
+

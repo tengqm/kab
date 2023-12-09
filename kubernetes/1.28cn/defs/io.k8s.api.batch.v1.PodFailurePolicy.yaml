@@ -1,0 +1,23 @@
+description: PodFailurePolicy describes how failed Pods influence the `backoffLimit`.
+x-kab-description-zh: PodFailurePolicy 描述失败的 Pod 如何影响 Job 的 `backoffLimit`。
+properties:
+  rules:
+    description: |
+      A list of Pod failure policy rules. The rules are evaluated in order.
+      Once a rule matches a Pod failure, the remaining of the rules are ignored.
+      When no rule matches the Pod failure, the default handling applies - the counter
+      of Pod failures is incremented and it is checked against the `backoffLimit`.
+    x-kab-description-zh: |
+      Pod 失败策略规则的列表。控制器会逐个按顺序处理各项规则。
+      一旦某条规则与 Pod 的失败情况匹配，则控制器不会处理余下的规则。
+      如果没有规则可以与 Pod 的失败情况匹配，则采用默认的处理策略 --
+      Pod 的失败计数被增一，并检查失败计数总数是否超过 `backoffLimit` 值。
+    items:
+      $ref: '#/definitions/io.k8s.api.batch.v1.PodFailurePolicyRule'
+    maxItems: 20
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - rules
+type: object
+

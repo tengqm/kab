@@ -1,0 +1,48 @@
+description: |
+  ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the
+  `MultiCIDRRangeAllocator` is enabled (see the config for `kube-controller-manager`).
+  A cluster may have any number of ClusterCIDR resources, all of which will be considered
+  when allocating a CIDR for a Node.
+  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the
+  node in question and has free CIDRs to allocate.
+  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties
+  using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
+x-kab-description-zh: |
+  ClusterCIDR 代表的是按 Node 分配 Pod CIDR 网段时的一个配置，需要启用 `MultiCIDRRangeAllocator`。
+  一个集群中可以有多个 ClusterCIDR 资源，在为 Node 分配 CIDR 时会考察所有这些资源。
+  当 ClusterCIDR 的节点选择算符与某个节点匹配，并且该资源中尚有空闲的 CIDR 网段可供分配时，
+  该 ClusterCIDR 可以被用于对应的节点。
+  如果存在多个 ClusterCIDR 与节点匹配，分配器会采用内部的启发式规则，不过只要 ClusterCIDR
+  的节点选择算符与 Node 匹配，该 ClusterCIDR 就有可能被用到。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - networking.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ClusterCIDR
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object's metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.networking.v1alpha1.ClusterCIDRSpec'
+    description: Spec is the desired state of the ClusterCIDR.
+    x-kab-description-zh: ClusterCIDR 的期望状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: networking.k8s.io
+    kind: ClusterCIDR
+    version: v1alpha1
+

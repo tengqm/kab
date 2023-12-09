@@ -1,0 +1,59 @@
+description: AuditAnnotation describes how to produce an audit annotation for an API request.
+x-kab-description-zh: AuditAnnotation 描述如何为 API 请求生成一个审计注解。
+properties:
+  key:
+    description: |
+      This specifies the audit annotation key.
+      The audit annotation keys of a ValidatingAdmissionPolicy must be unique.
+      The key must be a qualified name (`[A-Za-z0-9][-A-Za-z0-9_.]*`).
+
+      The key is combined with the resource name of the ValidatingAdmissionPolicy to construct
+      an audit annotation key: `"{ValidatingAdmissionPolicy name}/{key}"`.
+
+      If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and
+      the same audit annotation key, the annotation key will be identical.
+      In this case, the first annotation written with the key will be included in the audit event
+      and all subsequent annotations with the same key will be discarded.
+    x-kab-description-zh: |
+      此字段设置审计注解主键。ValidatingAdmissionPolicy 的审计注解主键必须是唯一的。
+      主键必须是完全限定名（正则表达式为：`"[A-Za-z0-9][-A-Za-z0-9_.]*"`）。
+
+      这里给出的主键会与 ValidatingAdmissionPolicy 的资源名称组合在一起，
+      构造出审计注解主键 `<ValidatingAdmissionPolicy 名称>/<key 值>`。
+
+      如果某个准入 Webhook 的资源名称与此 ValidatingAdmissionPolicy 的资源名称相同，
+      并且使用相同的审计注解主键，则最后的注解主键会完全一样。
+      如果出现这种情况，使用此主键写入的第一个注解值会被保留在审计事件中，
+      后续使用相同主键的注解值都会被丢弃。
+    maxLength: 63
+    minLength: 1
+    pattern: '[A-Za-z0-9][-A-Za-z0-9_.]*'
+    type: string
+  valueExpression:
+    description: |
+      This represents the expression which is evaluated by CEL to produce an audit annotation value.
+      The expression must evaluate to either a string or null value.
+      If the expression evaluates to a string, the audit annotation is included with the string value.
+      If the expression evaluates to null or empty string, the audit annotation will be omitted.
+      If the result of the `valueExpression` is more than 10kb in length, it will be truncated to 10kb.
+      If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the
+      `valueExpression` will be evaluated for each binding.
+      All unique values produced by the `valueExpression`'s will be joined together in a comma-separated list.
+    x-kab-description-zh: |
+      此字段给出的是一个表达式，该表达式会被 CEL 引擎求值，生成审计注解值。
+      表达式求值的结果必须是字符串或者 Null 值。
+      如果表达式求值的结果是一个字符串，则审计注解会将其作为注解值。
+      如果表达式求值的结果是 Null 或者空字符串，则审计注解会被忽略掉。
+      表达式求值结果的长度超出 10 KB 时，会被截断。
+      
+      如果有多个 ValidatingAdmissionPolicyBinding 资源与同一个 API 请求匹配，
+      则针对每个绑定都会单独对 `valueExpression` 执行求值操作。
+      所生成的不同求值结果会被串接到一起，形成一个逗号分隔的列表。
+    maxLength: 5120
+    minLength: 1
+    type: string
+required:
+  - key
+  - valueExpression
+type: object
+

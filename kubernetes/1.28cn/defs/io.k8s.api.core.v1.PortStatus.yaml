@@ -1,0 +1,36 @@
+description: The status about a port.
+x-kab-description-zh: 端口的状态。
+properties:
+  error:
+    description: |
+      This field records the problem with the Service port.
+      The format of the `error` shall comply with the following rules:
+      - built-in error values shall be specified in this file and those shall use CamelCase names
+      - cloud provider specific error values must have names that comply with the format
+        `"foo.example.com/CamelCase"`.
+    x-kab-description-zh: |
+      字段记录与 Service 端口相关的问题。
+      `error` 的格式应该遵从以下规则：
+
+      - 内置的错误应该在源码中给出且使用驼峰编码的名称
+      - 特定于云平台的错误信息要带有域名前缀，符合格式 `"foo.example.com/CamelCase"`
+
+    type: string
+  port:
+    description: The port number of the Service port whose status is recorded here.
+    x-kab-description-zh: 记录所对应的 Service 端口号。
+    format: int32
+    type: integer
+  protocol:
+    description: The protocol of the Service port whose status is recorded here.
+    x-kab-description-zh: 记录对应的 Service 端口协议。
+    enum:
+      - SCTP
+      - TCP
+      - UDP
+    type: string
+required:
+  - port
+  - protocol
+type: object
+

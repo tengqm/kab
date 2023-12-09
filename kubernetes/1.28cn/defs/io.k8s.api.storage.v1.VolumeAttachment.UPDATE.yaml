@@ -1,0 +1,34 @@
+description: |
+  The intent to attach or detach the specified volume to/from the specified Node.
+  VolumeAttachment objects are non-namespaced.
+x-kab-description-zh: |
+  此资源用来表达要将指定卷挂接（Attach）到指定节点或者将其与指定节点解除挂接（Detach）的意图。
+  VolumeAttachment 是集群作用域的对象。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - VolumeAttachment
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: VolumeAttachment
+    version: v1
+

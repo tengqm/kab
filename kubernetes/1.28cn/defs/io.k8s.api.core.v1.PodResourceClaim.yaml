@@ -1,0 +1,24 @@
+description: |
+  PodResourceClaim references exactly one ResourceClaim through a ClaimSource in `source`.
+  It adds a name to it that uniquely identifies the ResourceClaim inside the Pod.
+  Containers that need access to the ResourceClaim can reference it with this name.
+x-kab-description-zh: |
+  PodResourceClaim 通过 `source` 所给的 ClaimSource 引用某个 ResourceClaim。
+  在引用的同时还为其设置一个在 Pod 之内唯一的名字作为标识。
+  需要访问 ResourceClaim 的容器可以使用这个名称来引用它。
+properties:
+  name:
+    description: |
+      Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+    x-kab-description-zh: |
+      在 Pod 内能够唯一地标识 ResourceClaim 的名字。字段值必须是合法的 DNS_LABEL。
+    minLength: 1
+    type: string
+  source:
+    $ref: '#/definitions/io.k8s.api.core.v1.ClaimSource'
+    description: Source describes where to find the ResourceClaim.
+    x-kab-description-zh: 此字段描述如何找到 ResourceClaim。
+required:
+  - name
+type: object
+

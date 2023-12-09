@@ -1,0 +1,117 @@
+description: |
+  This describes how the job execution will look like and when it will actually run.
+x-kab-description-zh: |
+  此结构描述 Job 合适执行以及怎样执行。
+properties:
+  concurrencyPolicy:
+    default: Allow
+    description: |
+      Specifies how to treat concurrent executions of a Job. Possible enum values:
+      - `"Allow"` allows CronJobs to run concurrently.
+      - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't
+        finished yet.
+      - `"Replace"` cancels currently running Job and replaces it with a new one.
+    x-kab-description-zh: |
+      设置如何处理 Job 的并发执行。可选的值包括：
+      - `"Allow"`允许 CronJob 并发执行；
+      - `"Forbid"`：禁止并发执行，如果前一个 Job 尚未结束，下一个 Job 会被略过。
+      - `"Replace"`：取消当前运行的 Job，用新的 Job 替换之。
+    enum:
+      - Allow
+      - Forbid
+      - Replace
+    type: string
+  failedJobsHistoryLimit:
+    default: 1
+    description: |
+      The number of failed finished Jobs to retain.
+      This is a pointer to distinguish between explicit zero and not specified.
+    x-kab-description-zh: |
+      要保留的、已经失败的 Job 个数。
+      实现上，此字段是一个指针，用以区分显式的取零和未设置时的空值。
+    format: int32
+    minimum: 0
+    type: integer
+  jobTemplate:
+    $ref: '#/definitions/io.k8s.api.batch.v1.JobTemplateSpec'
+    description: |
+      Specifies the Job that will be created when executing a CronJob.
+    x-kab-description-zh: |
+      设置在执行 CronJob 时要创建的 Job 的模板。
+  schedule:
+    description: |
+      The schedule in Cron format, see [Cron Syntax](https://en.wikipedia.org/wiki/Cron).
+      This field cannot have `"TZ"` in it when `timeZone` is specified.
+    x-kab-description-zh: |
+      用 Cron 格式给出的排期表，参见 [Cron 语法](https://zh.wikipedia.org/wiki/Cron)。
+      当设置了 `timeZone` 时，此字段之不能包含 `"TZ"`。
+    minLength: 1
+    type: string
+  startingDeadlineSeconds:
+    description: |
+      Optional deadline in seconds for starting the Job if it misses scheduled
+      time for any reason. Missed Jobs executions will be counted as failed ones.
+    x-kab-description-zh: |
+      可选字段，用秒数来表达此 CronJob 因为某种原因错过启动时间时的启动期限。
+      错失执行时间的 Job 会被视为失败的 Job。
+    format: int64
+    minimum: 0
+    type: integer
+  successfulJobsHistoryLimit:
+    default: 3
+    description: |
+      The number of successful finished Jobs to retain.
+      This is a pointer to distinguish between explicit zero and not specified.
+    x-kab-description-zh: |
+      要保留的、成功完成的 Job 个数。
+      实现上，此字段是一个指针，用以区分显式的取零和未设置时的空值。
+    format: int32
+    minimum: 0
+    type: integer
+  suspend:
+    default: false
+    description: |
+      This flag tells the controller to suspend subsequent executions,
+      it does not apply to already started executions.
+    x-kab-description-zh: |
+      此标志告诉控制器要挂起后续的执行。设置此字段不会影响已经启动的 Job 执行。
+    type: boolean
+  timeZone:
+    description: |
+      The time zone for the given schedule, see
+      [time zone list on wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+      If not specified, this will default to the time zone of the
+      `kube-controller-manager` process. The set of valid time zone names and
+      the time zone offset is loaded from the system-wide time zone database
+      by the API server during CronJob validation and the controller manager
+      during execution.
+      If no system-wide time zone database can be found, a bundled version of
+      the database is used instead. If the time zone name becomes invalid
+      during the lifetime of a CronJob or due to a change in host configuration,
+      the controller will stop creating new Jobs and will create a system event
+      with the reason `"UnknownTimeZone"`.
+      This field, when specified, cannot be empty string.
+      It cannot be specified when the `schedule` field contains `"TZ"`.
+      The time zone value cannot be `"Local"`. When the value is `"UTC"`,
+      the UTC time zone is used.
+    x-kab-description-zh: |
+      给定排期表所对应的时区设置，参见[Wikipedia 上的时区列表](https://zh.wikipedia.org/wiki/List_of_tz_database_time_zones)。
+
+      如果此字段没有设置，则默认使用 `kube-controller-manager` 进程的时区。
+      在对 CronJob 做合法性检查时，API
+      服务器会从系统范围的时区数据库加载合法的时区名称和偏移值。
+      在执行 CronJob 时，控制器管理器也会做同样的操作。
+      如果找不到系统范围的失去数据库，则系统会使用内置版本的数据库。
+      如果在 CronJob 的生命期内时区名称变得非法，或者主机层的配置发生变更，
+      则控制器会停止创建新的 Job，并生成一个原因为 `"UnknownTimeZone"` 的系统事件。
+
+      如果设置了此字段，其取值不可以是空字符串。
+      当 `schedule` 字段值包含 `"TZ"`，则不能设置此字段。
+      时区值不可以是 `"Local"`。当此值为 `"UTC"` 时，意味着使用 UTC 时区。
+    minLength: 1
+    type: string
+required:
+  - jobTemplate
+  - schedule
+type: object
+

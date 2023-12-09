@@ -1,0 +1,37 @@
+consumes:
+  - '*/*'
+description: send PUT requests to proxy of Node
+operationId: connectCoreV1PutNodeProxy
+parameters:
+  - description: name of the Node
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - description: Path is the URL path to use for the current proxy request to node.
+    in: query
+    name: path
+    required: false
+    type: string
+path: /api/v1/nodes/{name}/proxy
+produces:
+  - '*/*'
+responses:
+  '200':
+    description: OK
+    schema:
+      type: string
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: put
+x-kubernetes-action: connect
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: NodeProxyOptions
+  version: v1
+

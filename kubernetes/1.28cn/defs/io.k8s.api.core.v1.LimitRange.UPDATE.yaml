@@ -1,0 +1,34 @@
+description: |
+  LimitRange sets resource usage limits for each kind of resource in a namespace.
+x-kab-description-zh: |
+  LimitRange 设置给定名字空间中每种类型资源的用量上限。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - LimitRange
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.LimitRangeSpec'
+    description: Spec defines the limits to enforce.
+    x-kab-description-zh: 此字段定义要强制实施的限制。
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: LimitRange
+    version: v1
+

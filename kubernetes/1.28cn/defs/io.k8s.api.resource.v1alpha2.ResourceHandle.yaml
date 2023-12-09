@@ -1,0 +1,35 @@
+description: |
+  ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
+x-kab-description-zh: |
+  ResourceHandle 保存的是一些供特定的 kubelet 插件来处理的不透明的数据。
+properties:
+  data:
+    description: |
+      This contains the opaque data associated with this ResourceHandle.
+      It is set by the controller component of the resource driver whose name matches the `driverName`
+      set in the ResourceClaimStatus this ResourceHandle is embedded in.
+      It is set at allocation time and is intended for processing by the kubelet plugin whose name
+      matches the `driverName` set in this ResourceHandle.
+
+      The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+    x-kab-description-zh: |
+      此字段包含与 ResourceHandle 关联的不透明数据。
+      字段由某资源驱动程序的控制器组件设置，该驱动的名字与此 ResourceHandle 所在的 ResourceClaimStatus
+      中的 `driverName` 相同。
+      字段是在资源分配时设置的，意在提供给名字为本 ResourceHandle 中 `driverName` 的 kubelet 插件处理。
+
+      此字段的最大尺寸为 16KiB。在将来版本中，这一尺寸限制之后增加，不会被减少。
+    maxLength: 16384
+    type: string
+  driverName:
+    description: |
+      This specifies the name of the resource driver whose kubelet plugin should be invoked to process
+      this ResourceHandle's `data` once it lands on a node.
+      This may differ from the `driverName` set in ResourceClaimStatus this ResourceHandle is embedded in.
+    x-kab-description-zh: |
+      此字段设置的是一个资源驱动程序的名称，该驱动的 kubelet 插件会被调用，以处理此 ResourceHandle
+      中的 `data` 数据。
+      此字段的值可能与 ResourceHandle 所在的 ResourceClaimStatus 中的 `driverName` 不同。
+    type: string
+type: object
+

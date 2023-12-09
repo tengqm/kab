@@ -1,0 +1,44 @@
+consumes:
+  - '*/*'
+description: create a ValidatingAdmissionPolicyBinding
+operationId: createAdmissionregistrationV1alpha1ValidatingAdmissionPolicyBinding
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+path: /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicybindings
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.GET'
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.GET'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - admissionregistration_v1alpha1
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: admissionregistration.k8s.io
+  kind: ValidatingAdmissionPolicyBinding
+  version: v1alpha1
+

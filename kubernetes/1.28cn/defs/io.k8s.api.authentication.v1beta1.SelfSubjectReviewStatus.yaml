@@ -1,0 +1,14 @@
+description: |
+  SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+x-kab-description-zh: |
+  SelfSubjectReviewStatus 由 API 服务器填充并返回给用户。
+
+properties:
+  userInfo:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.UserInfo'
+    description: User attributes of the user making this request.
+    x-kab-description-zh: 发起当前请求的用户的用户信息。
+required:
+  - userInfo
+type: object
+

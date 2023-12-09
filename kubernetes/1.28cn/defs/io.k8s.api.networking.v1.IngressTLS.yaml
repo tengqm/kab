@@ -1,0 +1,32 @@
+description: The transport layer security (TLS) associated with an Ingress.
+x-kab-description-zh: 与 Ingress 关联的传输层安全（TLS）配置。
+properties:
+  hosts:
+    description: |
+      A list of hosts included in the TLS certificate.
+      The values in this list must match the name/s used in the TLS Secret.
+      Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress.
+    x-kab-description-zh: |
+      列举 TLS 整数中包含的主机。此列表中列举的值必须与 TLS Secret 中使用的名字匹配。
+      默认值是为此 Ingress 提供服务的负载均衡控制器的通配主机设置值。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  secretName:
+    description: |
+      The name of the Secret used to terminate TLS traffic on port 443.
+      Field is left optional to allow TLS routing based on SNI hostname alone.
+      If the SNI host in a listener conflicts with the `"Host"` header field used by an entry
+      in the `rules` list, the SNI host is used for termination and value of the `"Host"` header
+      is used for routing.
+      The string must be a valid DNS subdomain name if specified.
+    x-kab-description-zh: |
+      用来终结 443 端口上 TLS 流量所使用的 Secret 的名字。
+      此字段是可选的，这样就可以直接基于 SNI 主机名来完成 TLS 路由。
+      如果监听器中的 SNI 主机与 `rules` 列表中某个规则使用的 `"Host"` 头部字段冲突，
+      会使用 SNI 主机来终结 TLS 连接，并使用 `"Host"` 头部的内容来完成路由。
+      此字段在设置时其值必须是一个合法的 DNS 子域名。
+    type: string
+type: object
+

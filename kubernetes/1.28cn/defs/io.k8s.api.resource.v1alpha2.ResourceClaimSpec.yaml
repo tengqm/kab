@@ -1,0 +1,57 @@
+description: ResourceClaimSpec defines how a resource is to be allocated.
+x-kab-description-zh: ResourceClaimSpec 定义如何分配资源。
+properties:
+  allocationMode:
+    default: WaitForFirstConsumer
+    description: |
+      Allocation can start immediately or when a Pod wants to use the resource. Valid values are:
+
+      - `"Immediate"`: allocation starts as soon as the ResourceClaim gets created.
+        This is done without considering the needs of Pods that will use the ResourceClaim because
+        those Pods are not known yet.
+      - `"WaitForFirstConsumer"`: allocation is delayed until a Pod gets scheduled that needs the
+        ResourceClaim. The scheduler will consider all resource requirements of that Pod and
+        trigger allocation for a node that fits the Pod.
+
+      Other modes may be added in the future.
+    x-kab-description-zh: |
+      资源分配可以马上开始，也可以等待出现一个需要使用该资源的 Pod 再分配。可接受的取值有：
+
+      - `"Immediate"`：在创建 ResourceClaim 时即开始资源分配操作。
+        这种分配策略不考虑使用此 ResourceClaim 的 Pod 的实际需求，因为哪些 Pod 要使用尚属未知。
+      - `"WaitForFirstConsumer"`：资源分配操作会被推迟，直到某个需要此 ResourceClaim 的 Pod 被调度。
+        调度器会考虑该 Pod 的所有资源需求，并在使用运行 Pod 的节点上触发资源分配操作。
+
+      将来版本中可能会添加新的分配模式。
+    enum:
+      - Immediate
+      - WaitForFirstConsumer
+    type: string
+  parametersRef:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimParametersReference'
+    description: |
+      This references a separate object with arbitrary parameters that will be used by the driver
+      when allocating a resource for the claim.
+
+      The object must be in the same namespace as the ResourceClaim.
+      When provided, the `kind` and the `name` attributes must be specified.
+    x-kab-description-zh: |
+      此字段引用的是另一个独立的对象，其中包含了驱动程序为当前 ResourceClaim 分配资源时需要使用的任意参数。
+
+      所引用的参数对象必须与 ResourceClaim 处于同一个名字空间之内。
+      如果设置了此参数，则其中的 `kind` 和 `name` 属性是必须设置的。
+  resourceClassName:
+    description: |
+      This references the driver and the additional parameters via the name of a ResourceClass
+      that was created as part of the driver deployment.
+      This field value must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      此字段通过某 ResourceClass 的名称引用 ResourceClaim 的驱动及附加参数。
+      ResourceClass 是在部署 ResourceClaim 驱动的时候创建的。
+      字段值必须是一个合法的 DNS 子域名。
+    minLength: 1
+    type: string
+required:
+  - resourceClassName
+type: object
+

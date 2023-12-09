@@ -1,0 +1,85 @@
+description: Metadata for nested Pod template.
+x-kab-description-zh: 用于嵌套的 Pod 模板的对象元数据。
+properties:
+  annotations:
+    additionalProperties:
+      type: string
+    description: |
+      An unstructured key value map stored with a resource that may be set by external tools to store
+      and retrieve arbitrary metadata.
+      They are not queryable and should be preserved when modifying objects.
+      The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with
+      an alphanumeric character. The key must be less than 63 characters.
+      The total size of the keys and values cannot exceed 256 KB.
+    x-kab-description-zh: |
+      一个非结构化的键值映射，和资源一起被保存到持久性存储。
+      此字段可以被外部工具来设置，保存或者检索任意的元数据。
+      `annotations` 字段是不可查询的，在更改对象时要予以保留。
+      映射中的键必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，必须以字母或数字字符开头并结尾。
+      映射中的键长度不能超过 63 个字符。
+      整个键、值集合的总体尺寸不能超过 256 KB。
+    type: object
+  finalizers:
+    description: |
+      Must be empty before the object is deleted from the registry.
+      Each entry is an identifier for the responsible component that will remove the entry from the list.
+      If the `deletionTimestamp` of the object is non-nil, entries in this list can only be removed.
+      Finalizers may be processed and removed in any order.  Order is NOT enforced because
+      it introduces significant risk of stuck finalizers.
+      `finalizers` is a shared field, any actor with permission can reorder it.
+    x-kab-description-zh: |
+      在从后端存储中删除对象之前，此列表字段必须被清空。
+      列表中的每一项是一个标识符，对应的是一个要负责将该表项从列表中删除的组件。
+      如果对象的 `deletionTimestamp` 字段非空，此列表中的项目只可以被删除，不能再添加。
+      列表中的元素可以按任意顺序添加和删除。没有引入排序约束是因为可能造成管理组件之间的互锁。
+      `finalizers` 是一个共享的字段，所有具备相应权限的主体都可以对其进行重排序。
+    items:
+      description: |
+        The name of the finalizer must is either a standard finalizer name
+        (e.g. `"kubernetes"`, `"orphan"`, `"foregroundDeletion"`), or it contains at least one slash (`'/'`).
+      x-kab-description-zh: |
+        某个终结器（Finalizer）的名称。字符串可以是标准的终结器名称
+        （如，`"kubernetes"`、`"orphan"`、`"foregroundDeletion"`），
+        也可以包含最多一个斜线（`'/'`），即带域名的限定名称。
+      type: string
+    type: array
+    x-kubernetes-patch-strategy: merge
+  generateName:
+    description: |
+      An optional prefix, used by the server, to generate a unique name **only if** the `name` field
+      has not been provided. For embedded Pod templates, this field is ignored.
+    x-kab-description-zh: |
+      此字段给出的是一个供服务器使用的前缀，服务器在对象没有设置 `name` 
+      字段时会使用此前缀生成一个唯一的对象名称。
+      对于嵌套的 Pod 模板，此字段是被忽略的。
+    type: string
+  labels:
+    additionalProperties:
+      type: string
+    description: |
+      Map of string keys and values that can be used to organize and categorize (scope and select) objects.
+      Both the key and the value must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`, and
+      must start and end with an alphanumeric character.
+      The key must be between 1 and 63 characters.
+      The key can have `'/'` in it thus referred to as *qualified name*.
+      The prefix part of a qualified name must be a valid DNS subdomain name.
+      The value must be less than 64 characters with empty string allowed.
+    x-kab-description-zh: |
+      由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
+      键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+      标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
+      限定名称的前缀部分必须是合法的 DNS 子域名。
+      标签值不能超过 64 个字符，允许空字符。
+    type: object
+  name:
+    description: The name can be specified, but it will be overwritten by the workload controller anyway.
+    x-kab-description-zh: 名字可以设定，但是这里的名字会被负载的控制器重载。
+    type: string
+  namespace:
+    description: The namespace for the Pod. This can be specified, but its value is ignored.
+    x-kab-description-zh: Pod 的名字空间。可以设定，但是所设置的值会被忽略。
+    type: string
+required:
+  - labels
+type: object
+

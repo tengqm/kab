@@ -1,0 +1,54 @@
+description: |
+  A description of the access request. Exactly one of `resourceAttributes`
+  and `nonResourceAttributes` must be set. At least one of `user` and `groups` must
+  be specified.
+x-kab-description-zh: |
+  关于访问请求的描述。`nonResourceAttributes` 和 `resourceAttributes`
+  二者必须设置其一，且只能设置其一。`user` 和 `groups` 二者至少设置其一。
+properties:
+  extra:
+    additionalProperties:
+      items:
+        type: string
+      type: array
+    description: |
+      This contains some extra information about the user, returned from the authenticator.
+      Since that is input to the authorizer it needs a reflection here.
+    x-kab-description-zh: |
+      此字段包含身份认证组件所返回的、关于用户的一些附加信息。
+      由于这些信息是提供给鉴权组件的输入数据，这里为审视这些数据提供一个机会。
+    type: object
+  groups:
+    description: |
+      The groups for testing. At least one of `user` or `groups` must be specified.
+    x-kab-description-zh: |
+      要测试的用户组列表。`user` 和 `groups` 必须至少设置其一。
+    items:
+      description: A group for testing.
+      x-kab-description-zh: 要测试的用户组之一。
+      type: string
+    type: array
+  nonResourceAttributes:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes'
+    description: Information for a non-resource access request.
+    x-kab-description-zh: 关于非资源访问请求的信息。
+  resourceAttributes:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.ResourceAttributes'
+    description: Information for a resource access request.
+    x-kab-description-zh: 关于资源访问请求的信息。
+  uid:
+    description: UID of the requesting user.
+    x-kab-description-zh: 发出请求的用户的 UID。
+    type: string
+  user:
+    description: |
+      The user for testing. At least one of `user` or `groups` must be specified.
+      If you specify `user` but not `groups`, then is it interpreted as
+      "What if User were not a member of any groups"?
+    x-kab-description-zh: |
+      要测试的用户组。至少必须设置 `user` 或 `groups` 之一。
+      如果设置了 `user`，但未设置 `groups`，则这一请求被解释为
+      “如果用户不属于任何一个用户组会怎样？”。
+    type: string
+type: object
+

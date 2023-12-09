@@ -1,0 +1,52 @@
+description: This defines how to serve the `scale` subresource for CustomResources.
+x-kab-description-zh: 此结构定义如何为自定义资源提供 `scale` 子资源。
+properties:
+  labelSelectorPath:
+    description: |
+      The JSON path inside a custom resource that corresponds to `scale.status.selector`.
+      Only JSON paths without the array notation are allowed.
+      Must be a JSON Path under `.status` or `.spec`.
+      Must be set to work with HorizontalPodAutoscaler.
+      The field pointed by this JSON path must be a string field (not a complex selector struct)
+      which contains a serialized label selector in string form.
+      If there is no value under the given path in the custom resource, the `status.selector`
+      value in the `/scale` subresource will default to an empty string.
+    x-kab-description-zh: |
+      字段值为自定义资源内的 JSON 路径，对应于 `scale.status.selector`。
+      只有不带数组符号的 JSON 路径才是合法的。所给的 JSON 路径必须位于 `.status` 或者 `.spec` 之下。
+      如果希望此自定义资源能够与 HorizontalPodAutoscaler 协同工作，则必须设置此字段。
+      JSON 路径所指向的字段必须是一个字符串字段（不可以是复杂的选择算符结构），
+      其中包含标签选择算符的序列化字符串。
+      如果自定义资源中给定的路径下面没有值，则 `/scale` 子资源中的 `status.selector`
+      会默认为空字符串。
+    type: string
+  specReplicasPath:
+    description: |
+      The JSON path inside a custom resource that corresponds to Scale `spec.replicas`.
+      Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`.
+      If there is no value under the given path in the custom resource, the `/scale` subresource
+      will return an error on GET.
+    x-kab-description-zh: |
+      字段值为自定义资源内的 JSON 路径，对应于 Scale 的 `spec.replicas`。
+      只有不带数组符号的 JSON 路径才是合法的。所给的 JSON 路径必须位于 `.spec` 之下。
+      如果自定义资源中给定的路径下面没有值，则 `/scale` 子资源在被 GET 读取时会出错。
+    minLength: 1
+    type: string
+  statusReplicasPath:
+    description: |
+      The JSON path inside a custom resource that corresponds to Scale `status.replicas`.
+      Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`.
+      If there is no value under the given path in the custom resource, the `status.replicas` value
+      in the `/scale` subresource will default to 0.
+    x-kab-description-zh: |
+      字段值为自定义资源内的 JSON 路径，对应于 Scale 的 `status.replicas`。
+      只有不带数组符号的 JSON 路径才是合法的。所给的 JSON 路径必须位于 `.status` 之下。
+      如果自定义资源中给定的路径下面没有值，则 `/scale` 子资源的 `status.replicas`
+      默认为 0。
+    minLength: 1
+    type: string
+required:
+  - specReplicasPath
+  - statusReplicasPath
+type: object
+

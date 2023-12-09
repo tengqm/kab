@@ -1,0 +1,35 @@
+description: ValidatingAdmissionPolicy describes the definition of an admission validation
+  policy that accepts or rejects an object without changing it.
+x-kab-description-zh: ValidatingAdmissionPolicy 描述准入检查策略的定义，该策略用来接受或者拒绝对象，但不会改变该对象。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - admissionregistration.k8s.io/v1beta1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ValidatingAdmissionPolicy
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicySpec'
+    description: Specification of the desired behavior of the ValidatingAdmissionPolicy.
+    x-kab-description-zh: 关于 ValidatingAdmissionPolicy 的预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: admissionregistration.k8s.io
+    kind: ValidatingAdmissionPolicy
+    version: v1beta1
+

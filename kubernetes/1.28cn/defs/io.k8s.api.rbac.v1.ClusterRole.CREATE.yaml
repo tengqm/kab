@@ -1,0 +1,50 @@
+description: |
+  A cluster level group of policy rules that can be referenced as a unit by a RoleBinding
+  or ClusterRoleBinding resource.
+x-kab-description-zh: |
+  集群层面的一组策略规则，可供 RoleBinding 资源或者 ClusterRoleBinding
+  资源作为一个授权单元来引用。
+
+properties:
+  aggregationRule:
+    $ref: '#/definitions/io.k8s.api.rbac.v1.AggregationRule'
+    description: |
+      A field that describes how to build the `rules` for this ClusterRole.
+      If `aggregationRule` is set, then the `rules` are controller managed and direct
+      changes to `rules` will be stomped by the controller.
+    x-kab-description-zh: |
+      用来描述如何为 ClusterRole 构造 `rules` 规则集的字段。
+      如果设置了 `aggregationRule`，则 `rules` 是由控制器管理的，
+      控制器不再允许直接操控 `rules` 字段。
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - rbac.authorization.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ClusterRole
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The name must be a valid path segment name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的路径段名称。
+  rules:
+    description: All the policy rules for this ClusterRole.
+    x-kab-description-zh: 此 ClusterRole 的策略规则集合。
+    items:
+      $ref: '#/definitions/io.k8s.api.rbac.v1.PolicyRule'
+    type: array
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+    version: v1
+

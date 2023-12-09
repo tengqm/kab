@@ -1,0 +1,18 @@
+description: PodSchedulingContextStatus describes where resources for the Pod can be allocated.
+x-kab-description-zh: PodSchedulingContextStatus 描述在哪里可以分配到 Pod 资源。
+properties:
+  resourceClaims:
+    description: |
+      This describes resource availability for each `pod.spec.resourceClaim` entry where the corresponding
+      ResourceClaim uses `"WaitForFirstConsumer"` allocation mode.
+    x-kab-description-zh: |
+      此列表描述的是 `pod.spec.resourceClaim` 中每一项资源的可用性，
+      所描述的 ResourceClaim 的分配模式都是 `"WaitForFirstConsumer"`。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimSchedulingStatus'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+type: object
+

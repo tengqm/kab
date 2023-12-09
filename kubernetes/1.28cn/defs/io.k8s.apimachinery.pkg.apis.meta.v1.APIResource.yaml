@@ -1,0 +1,90 @@
+description: The name of a resource and whether it is namespaced.
+x-kab-description-zh: 资源的名称以及资源是否是名字空间作用域的。
+properties:
+  categories:
+    description: |
+      A list of the grouped resources this resource belongs to. E.g. `"all"`.
+    x-kab-description-zh: |
+      此资源所属的资源分组列表。例如 `"all"`。
+    items:
+      type: string
+    type: array
+  group:
+    description: |
+      The preferred group of the resource. Empty implies the group of the containing resource list.
+      For subresources, this may have a different value. For example, `"Scale"`.
+    x-kab-description-zh: |
+      资源的优选组。如果字段为空，则表示包含资源列表的组。
+      对于子资源而言，此字段可能取值会不同。例如 `"Scale"`。
+    type: string
+  kind:
+    description: The kind of the resource. E.g. `"Foo"` is the kind for a resource `foo`.
+    x-kab-description-zh: 资源的类别。例如资源 `"foo"` 的类别是 `"Foo"`。
+    minLength: 1
+    type: string
+  name:
+    description: The plural name of the resource.
+    x-kab-description-zh: 资源的复数名称。
+    minLength: 1
+    type: string
+  namespaced:
+    description: This indicates if the resource is namespaced or not.
+    x-kab-description-zh: 此字段表明资源是否是名字空间作用域的。
+    type: boolean
+  shortNames:
+    description: A list of suggested short names of the resource.
+    x-kab-description-zh: 资源对应的一组建议使用的短名称。
+    items:
+      type: string
+    type: array
+  singularName:
+    description: |
+      The singular name of the resource. This allows clients to handle plural and singular opaquely.
+      The `singularName` is more correct for reporting status on a single item and both singular and
+      plural are allowed by the kubectl CLI interface
+    x-kab-description-zh: |
+      资源的单数名称。提供此字段有助于客户端用不透明的方式处理单数和复数两种情况。
+      `singularName` 更适合于报告单个元素的状态。kubectl 命令行既接受单数也接受复数。
+    minLength: 1
+    type: string
+  storageVersionHash:
+    description: |
+      存储版本的哈希值，当资源被写入数据存储中时会被先转化为这个版本。客户端必须视此字段为不透明的值。
+      此字段只能进行等值比较。
+      目前此字段是 Beta 阶段特性，只有启用了 `StorageVersionHash` 门控的 API 服务器会填充此字段。
+      在该特性进阶为 GA 特性之前，此字段会是可选的。
+    type: string
+  verbs:
+    description: A list of supported kube verbs
+    x-kab-description-zh: 所支持的 Kubernestes 动词列表。
+    items:
+      enum:
+        - create
+        - delete
+        - deletecollection
+        - get
+        - list
+        - patch
+        - proxy
+        - update
+        - watch
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+  version:
+    description: |
+      The preferred version of the resource. Empty implies the version of the containing resource list.
+      For subresources, this may have a different value.
+    x-kab-description-zh: |
+      资源的优选版本。空值意味着使用上层资源列表的版本。
+      对于子资源而言，此字段可能会取不同的值。
+    type: string
+required:
+  - name
+  - singularName
+  - namespaced
+  - kind
+  - verbs
+type: object
+

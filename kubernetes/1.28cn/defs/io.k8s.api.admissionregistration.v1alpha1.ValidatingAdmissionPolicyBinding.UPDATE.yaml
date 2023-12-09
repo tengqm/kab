@@ -1,0 +1,59 @@
+description: |
+  ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy
+  with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs
+  together define how cluster administrators configure policies for clusters.
+
+  For a given admission request, each binding will cause its policy to be evaluated
+  N times, where N is 1 for policies/bindings that don't use params, otherwise N is
+  the number of parameters selected by the binding.
+
+  The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget.
+  Each evaluation of the policy is given an independent CEL cost budget.
+  Adding/removing policies, bindings, or params can not affect whether a given
+  (policy, binding, param) combination is within its own CEL budget.
+
+x-kab-description-zh: |
+  ValidatingAdmissionPolicyBinding 将 ValidatingAdmissionPolicy
+  与参数化的资源关联（绑定）起来。
+  ValidatingAdmissionPolicyBinding 和参数 CRDs 一起确定集群管理员如何配置集群的策略。
+  
+  对于一个给定的准入请求，每个绑定对象都会导致其所对应的策略并评估 N 次。
+  对于未使用参数的策略和绑定而言，N 为 1；否则 N 的取值为绑定所选中的参数的个数。
+
+  策略的 CEL 表达式必须具有一个计算得到的 CEL 成本值，且该值要低于 CEL 预算上限。
+  策略的每次评估都会被赋予一个独立的 CEL 成本预算。
+  添加、删除策略、绑定或者参数都不会影响是否某个给定的（策略、绑定、参数）
+  组合是否在其 CEL 预算范围内。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - admissionregistration.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ValidatingAdmissionPolicyBinding
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec'
+    description: Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+    x-kab-description-zh: 关于 ValidatingAdmissionPolicyBinding 的预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: admissionregistration.k8s.io
+    kind: ValidatingAdmissionPolicyBinding
+    version: v1alpha1
+

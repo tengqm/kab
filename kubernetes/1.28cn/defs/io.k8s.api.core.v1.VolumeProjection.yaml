@@ -1,0 +1,26 @@
+description: |
+  Data that are projected into a container as part of a projected volume.
+  The data projected cannot have duplicated paths. One and only one of the fields
+  can be specified per-volume.
+x-kab-description-zh: |
+  作为投射卷的一部分投射到容器内的数据。所投射的数据不可以包含重复的路径。
+  每个卷中可以且只能挂载一种数据源。
+properties:
+  configMap:
+    $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapProjection'
+    description: Information about a ConfigMap whose data will be projected.
+    x-kab-description-zh: 关于要被投射的 ConfigMap 的信息。
+  downwardAPI:
+    $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIProjection'
+    description: Information about the downwardAPI data to project.
+    x-kab-description-zh: 关于要被投射的 DownwardAPI 数据的信息。
+  secret:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretProjection'
+    description: Information about a Secret whose data will be projected.
+    x-kab-description-zh: 关于要被投射的 Secret 的信息。
+  serviceAccountToken:
+    $ref: '#/definitions/io.k8s.api.core.v1.ServiceAccountTokenProjection'
+    description: Information about the ServiceAccountToken whose data will be projected.
+    x-kab-description-zh: 关于要被投射的服务账号令牌的信息。
+type: object
+

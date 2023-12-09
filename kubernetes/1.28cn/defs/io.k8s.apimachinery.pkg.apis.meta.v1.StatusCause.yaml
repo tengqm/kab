@@ -1,0 +1,51 @@
+description: |
+  StatusCause provides more information about a failure Status,
+  including cases when multiple errors are encountered.
+x-kab-description-zh: |
+  StatusCause 为失败的 Status 提供额外的信息，包含出现多项错误的场景。
+properties:
+  field:
+    description: |
+      The field of the resource that has caused this error, as named by its JSON serialization.
+      May include dot and postfix notation for nested attributes. Arrays are zero-indexed.
+      Fields may appear more than once in an array of causes due to fields having multiple errors.
+      Optional.  Examples:
+
+      - `"name" ` - the field `name` on the current resource
+      - `"items[0].name"` - the field `name` on the first array entry in `"items"`.
+
+    x-kab-description-zh: |
+      导致错误的资源字段，字段名与其在 JSON 序列化中的名称一致。
+      可能包含句点（`'.'`）和后缀表示法来访问嵌套的属性。数组的下标从 0 开始。
+      同一字段可能在 `causes` 数组中出现多次，原因是同一字段可能涉及多项错误。 
+      此字段是可选的。示例：
+
+      - `"name"`：当前资源的 `name` 字段；
+      - `"items[0].name"`：`"items"` 数组中第一个成员的 `name` 字段。
+
+    type: string
+  message:
+    description: |
+      A human-readable description of the cause of the error. This field may be presented as-is to a reader.
+    x-kab-description-zh: |
+      对错误原因的一种人类可读的描述信息。此字段可能会按原样输出给读者。
+    type: string
+  reason:
+    description: |
+      A machine-readable description of the cause of the error.
+      If this value is empty there is no information available.
+    x-kab-description-zh: |
+      对错误原因的一种机器可读的描述。
+      如果此字段为空，则表示没有可用的信息。
+    enum:
+      - FieldManagerConflict
+      - FieldValueDuplicate
+      - FieldValueInvalid
+      - FieldValueNotFound
+      - FieldValueNotSupported
+      - FieldValueRequired
+      - ResourceVersionTooLarge
+      - UnexpectedServerResponse
+    type: string
+type: object
+

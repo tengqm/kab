@@ -1,0 +1,30 @@
+description: A description of the token authentication request.
+x-kab-description-zh: 关于令牌身份认证请求的描述。
+properties:
+  audiences:
+    description: |
+      A list of the identifiers that the resource server presented with
+      the token identifies as.
+      Audience-aware token authenticators will verify that the token was intended
+      for at least one of the `audiences`.
+      If no audiences are provided, the `audiences` will default to the
+      audiences of the Kubernetes API server.
+    x-kab-description-zh: |
+      资源服务器收到令牌之后可以识别的标识列表。
+      能够感知受众的令牌身份认证组件会确认令牌至少与 `audiences` 中的一项相对应。
+      如果请求中没有提供受众信息，则默认的 `audiences` 是 Kubernetes API
+      服务器的受众。
+    items:
+      description: An audience that can be identified.
+      x-kab-description-zh: 可以识别的受众之一。
+      type: string
+    type: array
+  token:
+    description: The opaque bearer token.
+    x-kab-description-zh: 不透明的持有者令牌数据。
+    minLength: 1
+    type: string
+required:
+  - token
+type: object
+

@@ -1,0 +1,33 @@
+description: This defines how to handle requests that cannot be executed right now.
+x-kab-description-zh: 此结构设置如何处理当前无法立即执行的请求。
+properties:
+  queuing:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.QueuingConfiguration'
+    description: |
+      The configuration parameters for queuing. This field must be non-empty only if `type` is `"Queue"`.
+    x-kab-description-zh: |
+      排队操作的配置参数。当 `type` 为 `"Queue"` 才不可以为空。
+  type:
+    description: |
+      Valid options are:
+      - `"Queue"` means that requests that cannot be executed upon arrival
+        are held in a queue until they can be executed or a queuing limit is reached.
+      - `"Reject"` means that requests that can not be executed upon arrival are rejected.
+    x-kab-description-zh: |
+      可选的配置有：
+
+      - `"Queue"`：表示到达时无法立即执行的请求会被保存到一个队列中，直到请求可被执行或者队列超限。
+      - `"Reject"`：到达时无法立即执行的请求会被拒绝。
+    enum:
+      - Queue
+      - Reject
+    minLength: 1
+    type: string
+required:
+  - type
+type: object
+x-kubernetes-unions:
+  - discriminator: type
+    fields-to-discriminateBy:
+      queuing: Queuing
+

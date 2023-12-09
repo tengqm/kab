@@ -1,0 +1,58 @@
+consumes:
+  - '*/*'
+description: read log of the specified Pod
+operationId: readCoreV1NamespacedPodLog
+parameters:
+  - description: The container for which to stream logs. Defaults to only container
+      if there is one container in the pod.
+    in: query
+    name: container
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/follow'
+  - $ref: '#/parameters/insecureSkipTLSVerifyBackend'
+  - $ref: '#/parameters/limitBytes'
+  - description: name of the Pod
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+  - $ref: '#/parameters/previous'
+  - $ref: '#/parameters/sinceSeconds'
+  - description: An RFC3339 timestamp from which to show logs. If this value precedes
+      the time a Pod was started, only logs since the Pod start will be returned.
+      If this value is in the future, no logs will be returned. Only one of `sinceSeconds`
+      or `sinceTime` may be specified.
+    in: query
+    name: sinceTime
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/tailLines'
+  - $ref: '#/parameters/timestamps'
+path: /api/v1/namespaces/{namespace}/pods/{name}/log
+produces:
+  - text/plain
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      type: string
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: get
+x-kubernetes-action: get
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: Pod
+  version: v1
+

@@ -1,0 +1,18 @@
+description: An error encountered during a volume operation.
+x-kab-description-zh: 在执行卷操作时遇到的错误。
+properties:
+  message:
+    description: |
+      String detailing the error encountered during `attach` or `detach` operation.
+      This string may be logged, so it should not contain sensitive information.
+    x-kab-description-zh: |
+      字符串字段，给出 `attach` 或 `detach` 操作时遇到的错误。
+      此字符串可能会被记录到日志中，所以其中不应该包含敏感信息。
+    maxLength: 1024
+    type: string
+  time:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Time the error was encountered.
+    x-kab-description-zh: 错误发生的时间。
+type: object
+

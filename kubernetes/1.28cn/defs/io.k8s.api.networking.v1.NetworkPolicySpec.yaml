@@ -1,0 +1,90 @@
+description: The specification of the NetworkPolicy.
+x-kab-description-zh: NetworkPolicy 的规约。
+properties:
+  egress:
+    description: |
+      List of egress rules to be applied to the selected Pods.
+      Outgoing traffic is allowed if there are no NetworkPolicies selecting the Pod
+      (and cluster policy otherwise allows the traffic),
+      OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects
+      whose `podSelector` matches the Pod.
+      If this field is empty then this NetworkPolicy limits all outgoing traffic
+      (and serves solely to ensure that the Pods it selects are isolated by default).
+
+      This field is Beta in 1.8
+    x-kab-description-zh: |
+      要对所选 Pod 应用的离站流量规则。如果没有 NetworkPolicy 选中 Pod，则 Pod 上的离站流量是被允许的。
+      或者对于所有 `podSelector` 选中了 Pod 的 NetworkPolicy 对象而言，流量至少与其中一个对象上定义的
+      egress 规则匹配，则流量也是被允许的。
+      如果此字段为空，那么 NetworkPolicy 会限制所有的离站流量（相当于将被选中的 Pod 隔离起来）。
+
+      此字段从 v1.8 开始进入 Beta 阶段。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyEgressRule'
+    type: array
+  ingress:
+    description: |
+      List of ingress rules to be applied to the selected Pods.
+      Traffic is allowed to a Pod if there are no NetworkPolicies selecting the Pod
+      (and cluster policy otherwise allows the traffic),
+      OR if the traffic source is the Pod's local node,
+      OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects
+      whose `podSelector` matches the Pod.
+      If this field is empty then this NetworkPolicy does not allow any traffic
+      (and serves solely to ensure that the Pods it selects are isolated by default).
+    x-kab-description-zh: |
+      要对所选中的 Pod 应用的入站流量规则。如果没有 NetworkPolicy 选中 Pod，则流量是被允许的。
+      如果流量来源是 Pod 所在的本地节点，或者对于所有 `podSelector` 选中了 Pod 的 NetworkPolicy
+      对象而言，流量至少与其中一条 ingress 规则匹配，则流量也是被允许的。
+      如果此字段为空，那么 NetworkPolicy 会限制所有的入站流量（相当于将被选中的 Pod 隔离起来）。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyIngressRule'
+    type: array
+  podSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      Selects the Pods to which this NetworkPolicy object applies.
+      The array of `ingress` rules is applied to all Pods selected by this field.
+      Multiple network policies can select the same set of Pods.
+      In this case, the `ingress` rules for each are combined additively.
+      An empty `podSelector` matches all Pods in this namespace.
+    x-kab-description-zh: |
+      选择此 NetworkPolicy 所适用的 Pod 集合。
+      `ingress` 、`egress` 数组中的规则会被应用到此字段所选中的所有 Pod 之上。
+      多个 NetworkPolicy 对象可以选中同一组 Pod。这时，各个 NetworkPolicy 所定义的规则是叠加的。
+      如果 `podSelector` 为空，则会匹配 NetworkPolicy 所在名字空间中的所有对象。
+  policyTypes:
+    description: |
+      List of rule types that the NetworkPolicy relates to.
+      Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"].
+      If this field is not specified, it will default based on the existence of Ingress or Egress rules;
+      policies that contain an Egress section are assumed to affect Egress, and all policies
+      (whether or not they contain an Ingress section) are assumed to affect Ingress.
+      If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ].
+      Likewise, if you want to write a policy that specifies that no egress is allowed,
+      you must specify a policyTypes value that include "Egress"
+      (since such a policy would not include an Egress section and would otherwise default to just
+      [ "Ingress" ]).
+      This field is Beta level in 1.8.
+    x-kab-description-zh: |
+      对 NetworkPolicy 对象所关联的规则类型的列表。
+      合法的选项为：`["Ingress"]`、`["Egress"]` 或 `["Ingress", "Egress"]`。
+      如果没有设置此字段，则会根据 `ingress` 或 `egress` 规则字段是否存在来取默认值。
+      设置了 `egress` 规则的 NetworkPolicy 会影响此字段是否包含 `"Egress"`，所有 NetworkPolicy
+      （无论是否包含了 `ingress` 规则）都默认会包含 `"Ingress"`。
+      如果希望仅针对离站流量设置网络策略，你必须显式地将 `policyTypes` 设置为 `["Egress"]`。
+      类似的，如果你希望网络策略禁止离站流量，必须在 `policyTypes` 字段中包含 `"Egress"`
+      （因为如果不这样做，NetworkPolicy 就不会包含 `engress` 部分，`policyTypes` 会被默认设置为
+      `["Ingress"]`。）
+
+      此字段从 1.8 版本开始处于 Beta 阶段。
+    items:
+      enum:
+        - Egress
+        - Ingress
+      type: string
+    type: array
+required:
+  - podSelector
+type: object
+

@@ -1,0 +1,45 @@
+description: The current status of a ReplicaSet.
+x-kab-description-zh: ReplicaSet 的当前状态。
+properties:
+  availableReplicas:
+    description: |
+      The number of available replicas (ready for at least `minReadySeconds`) for this ReplicaSet.
+    x-kab-description-zh: |
+      此 ReplicaSet 的处于可用状态下（持续 `minReadySeconds` 秒保持就绪）的副本个数。
+    format: int32
+    type: integer
+  conditions:
+    description: The latest observations of a ReplicaSet's state.
+    x-kab-description-zh: 关于 ReplicaSet 状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.apps.v1.ReplicaSetCondition'
+    type: array
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  fullyLabeledReplicas:
+    description: |
+      The number of Pods that have labels matching the `labels` of the Pod template of the ReplicaSet.
+    x-kab-description-zh: |
+      标签与此 ReplicaSet 的 Pod 模板上的 `labels` 完全匹配的 Pod 的个数。
+    format: int32
+    type: integer
+  observedGeneration:
+    description: The most recent generation observed by the ReplicaSet controller.
+    x-kab-description-zh: ReplicaSet 控制器所观测到的最新的代数。
+    format: int64
+    type: integer
+  readyReplicas:
+    description: The number of ready replicas for this ReplicaSet with a Ready condition.
+    x-kab-description-zh: |
+      此 ReplicaSet 的处于就绪状态（带有 `Ready` 状况）的 Pod 个数。
+    format: int32
+    type: integer
+  replicas:
+    description: The most recently observed number of replicas.
+    x-kab-description-zh: 最近观测到的副本数。
+    format: int32
+    type: integer
+required:
+  - replicas
+type: object
+

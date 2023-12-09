@@ -1,0 +1,49 @@
+description: |
+  A generic persistent volume resource that is provisioned/attached using an exec-based plugin.
+x-kab-description-zh: |
+  一种使用基于 exec 插件来制备和挂接的、通用的持久卷资源。
+properties:
+  driver:
+    description: The name of the driver to use.
+    x-kab-description-zh: 要使用的驱动名称。
+    minLength: 1
+    type: string
+  fsType:
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+      The default filesystem depends on the FlexVolume script.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系数所支持的文件系统类型之一。
+      默认的文件系统取决于 FlexVolume 脚本。
+    type: string
+  options:
+    additionalProperties:
+      type: string
+    description: |
+      Extra command options if any.
+      If the key contains `'/'`, the subsring before `'/'` is treated as the namespace.
+      The namespace must not have suffix like `"k8s.io"` or `"kubernetes.io"` which are reserved.
+    x-kab-description-zh: |
+      额外的命令选项（如果有的话）。
+      如果键名中包含了 `'/'`，则 `'/'` 之前的字符串被当做名字空间来处理。
+      名字空间不可以使用保留的后缀字符串，如 `"k8s.io"` 或者 `"kubernetes.io"`。
+    type: object
+  readOnly:
+    default: false
+    description: Force the volume to be mounted in read-only mode.
+    x-kab-description-zh: 强制以只读模式挂载数据卷。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: |
+      A reference to the Secret object containing sensitive information to pass to the plugin scripts.
+      This may be empty if no Secret object is specified.
+      If the Secret object contains more than one secret, all secrets are passed to the plugin scripts.
+    x-kab-description-zh: |
+      对某个 Secret 对象的引用，其中包含要传递给插件脚本的敏感信息。
+      如果不需要 Secret 对象时，此字段可以为空。
+      如果 Secret 中包含的数据条目不止一条，则所有的数据条目都会被传递给插件脚本。
+required:
+  - driver
+type: object
+

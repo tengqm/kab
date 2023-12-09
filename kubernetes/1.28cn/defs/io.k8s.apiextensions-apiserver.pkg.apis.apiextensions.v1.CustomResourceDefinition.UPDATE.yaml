@@ -1,0 +1,40 @@
+description: A resource that should be exposed on the API server.
+x-kab-description-zh: 一个要在 API 服务器上公开的资源类型。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - apiextensions.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CustomResourceDefinition
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: |
+      Standard object metadata.
+      The name MUST be in the format `"<.spec.names.plural>.<.spec.group>"`.
+      The `namespace` must be specified. The `clusterName`, if specified, must be a valid DNS label.
+    x-kab-description-zh: |
+      标准的对象元数据。
+      `name` 字段的格式必须是 `"<.spec.names.plural>.<.spec.group>"`。
+      `namespace` 也是必须设置的。如果设置了 `clusterName`，则所给的值必须是合法的 DNS 标签。
+  spec:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionSpec'
+    description: How the user wants the resources to appear
+    x-kab-description-zh: 用户期望资源的呈现状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+    version: v1
+

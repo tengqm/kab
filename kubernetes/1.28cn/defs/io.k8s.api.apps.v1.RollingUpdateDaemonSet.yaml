@@ -1,0 +1,80 @@
+description: Spec to control the desired behavior of DaemonSet rolling update.
+x-kab-description-zh: 用来控制 DaemonSet 滚动更新时期望行为的规约。
+properties:
+  maxSurge:
+    default: 0
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      The maximum number of nodes with an existing available DaemonSet Pod that can
+      have an updated DaemonSet Pod during during an update.
+      Value can be an absolute number (e.g. 5) or a percentage of desired Pods (e.g. `"10%"`).
+      This can not be 0 if `maxUnavailable` is 0.
+      Absolute number is calculated from percentage by rounding up to a minimum of 1.
+      
+      Example:
+
+      When this is set to `"30%"`, at most 30% of the total number of nodes that should
+      be running the daemon Pod (i.e. `status.desiredNumberScheduled`) can have their
+      a new Pod created before the old Pod is marked as deleted.
+      The update starts by launching new Pods on 30% of nodes.
+      Once an updated Pod is available (`"Ready"` for at least `minReadySeconds`),
+      the old DaemonSet Pod on that node is marked deleted.
+      If the old Pod becomes unavailable for any reason (`"Ready"` transitions to `"False"`,
+      is evicted, or is drained) an updated Pod is immediatedly created on that node
+      without considering surge limits.
+      Allowing surge implies the possibility that the resources consumed by the DaemonSet
+      on any given node can double if the readiness check fails, and so
+      resource intensive DaemonSets should take into account that they may cause evictions
+      during disruption.
+
+    x-kab-description-zh: |
+      在滚动更新期间，已经运行着当前 DaemonSet 的 Pod 的节点中，可以执行 Pod 更新的节点个数上限。
+      字段值可以是一个绝对数（例如 5），也可以是一个预期 Pod 个数的百分比（例如，`"10%"`）。
+      控制器会基于所给的百分比值来计算一个绝对数，向上取整，至少为 1。
+      如果 `maxUnavailable` 是 0 时，此字段不可以为 0。
+      
+      例如：当此字段设置为 `"30%"` 时，在所有应该运行 DaemonSet Pod 的节点
+      （个数为 `status.desiredNumberScheduled`）中，至多 30% 的节点可以在旧的 Pod
+      被标记删除之前创建新的 Pod。
+      更新流程开始时，会在 30% 的节点上启动新的 Pod。
+      一旦被更新的 Pod 进入可用状态（`"Ready"` 状况为 `"True"` 超过 `minReadySeconds`），
+      对应节点上的老的 DaemonSet Pod 就被标记为删除。
+      如果老的 Pod 因为任何原因（`"Ready"` 状况变成 `"False"`、被驱逐或者节点被腾空）
+      而变得不可用，控制器会立即在该节点上创建一个更新的 Pod，并且不考虑突发个数限制。
+      允许突发性质的更新意味着当就绪状态检查失败时，给定节点上的 DaemonSet Pod
+      所耗用的资源可能会翻倍。因此，对于资源密集型的 DaemonSet，
+      需要考虑它们的状态扰动期间可能会导致 Pod 被驱逐。
+
+  maxUnavailable:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    default: 1
+    description: |
+      The maximum number of DaemonSet Pods that can be unavailable during the update.
+      Value can be an absolute number (e.g. `5`) or a percentage of total number of
+      DaemonSet Pods at the start of the update (e.g. `"10%"`).
+      Absolute number is calculated from percentage by rounding up.
+      This cannot be 0 if `maxSurge` is 0.
+
+      Example: when this is set to `"30%"`, at most 30% of the total number of nodes
+      that should be running the DaemonSet Pod (i.e. `status.desiredNumberScheduled`)
+      can have their Pods stopped for an update at any given time.
+      The update starts by stopping at most 30% of those DaemonSet Pods and then
+      brings up new DaemonSet Pods in their place. Once the new Pods are available,
+      it then proceeds onto other DaemonSet Pods, thus ensuring that at least 70% of
+      original number of DaemonSet Pods are available at all times during the update.
+
+    x-kab-description-zh: |
+      DeamonSet 更新期间可以处于不可用状态的 Pod 个数的上限。
+      此字段的取值可以是一个绝对数（例如 5），也可以是开始更新时 DaemonSet Pod
+      总数的一个百分比（例如 `"10%"`）。
+      控制器会基于百分比值来向上取整，计算得到一个绝对数。
+      当 `maxSurge` 为 0 时，此字段不可以为 0。
+
+      例如：当此字段设置为 `"30%"`s 时，在任何时刻，在所有应该运行 DaemonSet Pod 的节点
+      （个数为 `status.desiredNumberScheduled`）中，至多 30% 的节点可以停止其 Pod 进行更新。
+      更新过程开始时，DaemonSet 的 Pod 中最多有 30% 的 Pod 会被停止并就地启动新的 Pod。
+      一旦新的 Pod 进入可用状态，则更新推进到其他 DaemonSet Pod。
+      在整个更新过程中，控制器能够确保至少原来 Pod 总数的 70% 是可用的。 
+
+type: object
+

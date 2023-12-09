@@ -1,0 +1,15 @@
+description: |
+  Preconditions must be fulfilled before an operation (*update*, *delete*, etc.) is carried out.
+x-kab-description-zh: |
+  Preconditions 是执行某项操作（`update`、`delete` 等）之前必须满足的条件。
+properties:
+  resourceVersion:
+    description: The target `resourceVersion`.
+    x-kab-description-zh: 目标对象的 `resourceVersion` 必须与此相同。
+    type: string
+  uid:
+    description: The target UID.
+    x-kab-description-zh: 目标对象的 UID 必须与此相同。
+    type: string
+type: object
+

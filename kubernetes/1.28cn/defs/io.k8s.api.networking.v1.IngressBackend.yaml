@@ -1,0 +1,27 @@
+description: |
+  IngressBackend describes all endpoints for a given service and port.
+  One and only one of `resource` and `service` backends must be specified.
+x-kab-description-zh: |
+  IngressBackend 描述给定服务和端口的所有端点。
+  `resource` 和 `service` 后端必须且仅能设置其一。
+properties:
+  resource:
+    $ref: '#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference'
+    description: |
+      An object reference to another Kubernetes resource in the namespace of the Ingress object.
+      This is a mutual exclusive setting with `service`.
+      The `kind` and `name` fields are required and they must be valid path segment names.
+      The `apiGroup`, when specified, must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      对 Ingress 对象所在的名字空间中的另一个 Kubernetes 资源的引用。
+      此字段与 `service` 设置是互斥的。
+      引用中的 `kind` 和 `name` 字段是必需的，且其取值必须是合法的路径区段名称。
+      `apiGroup` 字段如果设定，则必须是一个合法的 DNS 子域名。
+  service:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IngressServiceBackend'
+    description: |
+      A reference to a Service as a backend. This is a mutually exclusive setting with `resource`.
+    x-kab-description-zh: |
+      引用某 Service 作为后端。此设置与 `resource` 字段是互斥的。
+type: object
+

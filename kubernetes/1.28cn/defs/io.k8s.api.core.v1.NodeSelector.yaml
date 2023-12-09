@@ -1,0 +1,19 @@
+description: |
+  The union of the results of one or more label queries over a set of Nodes.
+  It represents the OR of the selectors represented by the node selector terms.
+x-kab-description-zh: |
+  此字段为对一组 Node 执行一个或者多个标签查询后的组合结果。
+  结果中是各个节点选择条件所完成的选择算符结果的逻辑或操作结果。
+properties:
+  nodeSelectorTerms:
+    description: A list of NodeSelectorTerms.
+    x-kab-description-zh: 包含 NodeSelectorTerm 对象的一个列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorTerm'
+    minItems: 1
+    type: array
+required:
+  - nodeSelectorTerms
+type: object
+x-kubernetes-map-type: atomic
+

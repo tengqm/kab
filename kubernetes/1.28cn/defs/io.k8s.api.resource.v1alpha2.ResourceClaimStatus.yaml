@@ -1,0 +1,75 @@
+description: |
+  ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+x-kab-description-zh: |
+  ResourceClaimStatus 跟踪记录资源是否已经被分配，及资源的当前属性。
+
+properties:
+  allocation:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.AllocationResult'
+    description: |
+      This field is set by the resource driver once a resource or set of resources has been allocated
+      successfully. If this is not specified, the resource is not yet allocated.
+
+      When this field is set, then `deallocationRequested` cannot be set to be false.
+    x-kab-description-zh: |
+      当某个资源或某组资源被成功分配时，资源驱动会设置此字段。
+      如果此字段未被设置，则表明资源尚未被分配。
+      如果此字段被设置，则 `deallocationRequested` 字段不可以被设置为 `false`。
+  deallocationRequested:
+    description: |
+      This indicates that a ResourceClaim is to be deallocated.
+
+      The driver then must deallocate this claim and reset the field together with clearing the
+      `allocation` field.
+
+      While `deallocationRequested` is set, no new consumers may be added to `reservedFor`.
+      When `reservedFor` is set, `deallocationRequested` cannot be set to `true`.
+
+      When this field is set to `true`, then `allocation` must be specified as well.
+    x-kab-description-zh: |
+      此字段表明当前 ResourceClaim 即将被去配（释放）。
+      驱动必须执行资源去配操作，对此字段复位，同时清除 `allocation` 字段。
+
+      当 `deallocationRequested` 字段被设置时，不可以向 `reservedFor` 字段中添加新的使用者。
+      如果 `reservedFor` 被设置了，则 `deallocationRequested` 不可以被设置为 `true`。
+
+      此字段被设置为 `true` 时，`allocation` 字段也必须被设置。
+    type: boolean
+  driverName:
+    description: |
+      This is a copy of the driver name from the ResourceClass at the time when allocation started.
+      The driver name must be a valid DNS subdomain name.
+      When `allocation` is set, the `driverName` must be specified.
+    x-kab-description-zh: |
+      在开始资源分配时，从 ResourceClass 中复制而来的驱动程序名称。
+      此名称必须是一个合法的 DNS 子域名。
+      如果 `allocation` 被设置，则 `driverName` 必须被设置。
+    type: string
+  reservedFor:
+    description: |
+      This indicates which entities are currently allowed to use the claim.
+      A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+
+      There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+      This field cannot be specified when `allocation` is not set.
+      The number of items in this array cannot be more than one if `allocation.shareable` is not set to `true`.
+      When this array is updated, no new entries can be added while `deallocationRequested` or
+      `deletionTimestamp` on the ResourceClaim is set.
+    x-kab-description-zh: |
+      此字段用来表明哪些实体可以使用此 ResourceClaim。
+      如果一个 Pod 引用了某个 ResourceClaim，而该 ResourceClaim 不是为此 Pod 预订的，则此 Pod 不会启动。
+
+      最多可以存在 32 个预订。在将来版本中，这个数目限制可能会增加，但不会被减少。
+      当没有设置 `allocation` 时，不可以设置此字段。
+      当 `allocation.shareable` 没有设置为 `true` 时，此数组中的元素最多只能有一个。
+      如果 `deallocationRequested` 或者 `deletionTimestamp` 字段已被设置，
+      则此数组被更新时不可以添加新的元素。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimConsumerReference'
+    maxItems: 32
+    type: array
+    x-kubernetes-list-map-keys:
+      - uid
+    x-kubernetes-list-type: map
+type: object
+

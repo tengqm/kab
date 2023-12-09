@@ -1,0 +1,14 @@
+description: retrieve a log file at the specified log path
+operationId: logFileHandler
+parameters:
+  - $ref: '#/parameters/logpath'
+path: /logs/{logpath}
+responses:
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - logs
+verb: get
+

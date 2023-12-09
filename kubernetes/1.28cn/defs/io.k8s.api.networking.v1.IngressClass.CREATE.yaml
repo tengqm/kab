@@ -1,0 +1,44 @@
+description: |
+  IngressClass represents the class of the Ingress, referenced by the Ingress spec.
+  The `"ingressclass.kubernetes.io/is-default-class"` annotation can be used to indicate that
+  an IngressClass should be considered *default*.
+  When a single IngressClass resource has this annotation set to `true`, new Ingress resources
+  without a class specified will be assigned this default class.
+x-kab-description-zh: |
+  IngressClass 代表的是 Ingress 的类别，可以在 Ingress 的规约中引用。
+  注解 `"ingressclass.kubernetes.io/is-default-class"` 可以用来表明某 IngressClass
+  可以被视为**默认**的 IngressClass。
+  如果某个 IngressClass 中将此注解设置为 `true`, 新的、未设定 Ingress 类的 Ingress
+  资源会被赋予这个默认类。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - networking.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - IngressClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IngressClassSpec'
+    description: The desired state of the IngressClass.
+    x-kab-description-zh: IngressClass 的预期状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: networking.k8s.io
+    kind: IngressClass
+    version: v1
+

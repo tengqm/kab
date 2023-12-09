@@ -1,0 +1,27 @@
+description: The current status of a Namespace.
+x-kab-description-zh: Namespace 的当前状态。
+properties:
+  conditions:
+    description: The latest available observations of a Namespace's current state.
+    x-kab-description-zh: 关于 Namespace 当前状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NamespaceCondition'
+    type: array
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  phase:
+    description: |
+      The current lifecycle phase of the Namespace. Possible enum values:
+      - `"Active"` means the namespace is available for use in the system
+      - `"Terminating"` means the namespace is undergoing graceful termination.
+    x-kab-description-zh: |
+      Namespace 对象的当前生命周期阶段。可能的取值包括：
+
+      - `"Active"`：名字空间在系统中处于可用状态；
+      - `"Terminating"`：名字空间正在被体面终止过程中。
+    enum:
+      - Active
+      - Terminating
+    type: string
+type: object
+

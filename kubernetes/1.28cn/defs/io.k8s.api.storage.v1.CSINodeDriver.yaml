@@ -1,0 +1,74 @@
+description: Information about the specification of one CSI driver installed on a Node.
+x-kab-description-zh: 关于在节点上安装的 CSI 驱动的规约的信息。
+properties:
+  allocatable:
+    $ref: '#/definitions/io.k8s.api.storage.v1.VolumeNodeResources'
+    description: |
+      The volume resources of a Node that are available for scheduling.
+      This field is Beta-level.
+    x-kab-description-zh: |
+      节点上可供调度使用的卷资源。此字段为 Beta 阶段。
+  name:
+    description: |
+      The name of the CSI driver that this object refers to.
+      This **MUST** be the same name returned by the CSI `GetPluginName()` call for that driver.
+      The value must be a valid DNS subdomain. The name must be unique in the same CSINode.
+    x-kab-description-zh: |
+      此对象所引用的 CSI 驱动的名称。
+      此字段*必须是**调用驱动的 CSI 接口 `GetPluginName()` 所返回的名称。
+      字段值必须是合法的 DNS 子域名。在同一 CSINode 内，要唯一。
+    maxLength: 63
+    minLength: 1
+    type: string
+  nodeID:
+    description: |
+      ID of the Node from the driver point of view.
+      This field enables Kubernetes to communicate with storage systems that do not share
+      the same nomenclature for Nodes.
+      For example, Kubernetes may refer to a given Node as `"node1"`, but the storage system may
+      refer to the same node as `"nodeA"`.
+      When Kubernetes issues a command to the storage system to attach a volume to a specific Node,
+      it can use this field to refer to the Node name using the ID that the storage system will
+      understand, e.g. `"nodeA"` instead of `"node1"`.
+    x-kab-description-zh: |
+      从驱动角度看到的 Node ID。
+      此字段让 Kubernetes 能够与一些特别的外部存储通信，即便这些系统与 Kubernetes 对节点的定义不同。
+
+      例如，Kubernetes 可能将某个节点视为 `"node1"`，而存储系统可能将其视为 `"nodeA"`。
+      当 Kubernetes 向存储系统发出指令将存储卷挂接到给定节点时，它可以使用此字段作为节点名称，
+      以便存储系统能够理解所指代的节点。
+    maxLength: 128
+    minLength: 1
+    type: string
+  topologyKeys:
+    description: |
+      The list of keys supported by the driver.
+      When a driver is initialized on a cluster, it provides a set of topology keys that it
+      understands (e.g. `"company.com/zone"`, `"company.com/region"`).
+      When a driver is initialized on a Node, it provides the same topology keys along with values.
+      Kubelet will expose these topology keys as labels on its own Node object.
+      When Kubernetes does topology aware provisioning, it can use this list to determine
+      which labels it should retrieve from the Node object and pass back to the driver.
+      It is possible for different Nodes to use different topology keys.
+      This can be empty if driver does not support topology.
+    x-kab-description-zh: |
+      此字段包含存储驱动所支持的主键。
+      当在集群中初始化某个驱动时，可使用此字段提供一些它能够理解的拓扑主键（例如，
+      `"company.com/zone"`、`"company.com/region"`）。
+      当在具体的一个节点上初始化驱动时，驱动会提供相同的拓扑主键，并且每个主键都有取值。
+      kubelet 会将这些拓扑主键作为所管理的 Node 对象上的标签，将其公布出去。
+      Kubernetes 在执行拓扑感知的存储制备时，可以使用此列表来确定需要从 Node 上读取哪些标签，
+      并将这些标签传递给驱动。
+      不同的节点使用相同的拓扑主键是可能的。
+      如果 CSI 驱动不支持拓扑分布，此字段可能为空。
+    items:
+      description: 拓扑主键必须是一个限定名称。
+      minLength: 1
+      type: string
+    type: array
+    uniqueItems: true
+required:
+  - name
+  - nodeID
+type: object
+

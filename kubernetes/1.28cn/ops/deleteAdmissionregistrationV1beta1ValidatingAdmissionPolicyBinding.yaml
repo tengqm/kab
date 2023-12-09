@@ -1,0 +1,48 @@
+consumes:
+  - '*/*'
+description: delete a ValidatingAdmissionPolicyBinding
+operationId: deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding
+parameters:
+  - in: body
+    name: body
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: '#/parameters/orphanDependents'
+  - $ref: '#/parameters/propagationPolicy'
+  - description: name of the ValidatingAdmissionPolicyBinding
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: 
+  /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicybindings/{name}
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - admissionregistration_v1beta1
+verb: delete
+x-kubernetes-action: delete
+x-kubernetes-group-version-kind:
+  group: admissionregistration.k8s.io
+  kind: ValidatingAdmissionPolicyBinding
+  version: v1beta1
+

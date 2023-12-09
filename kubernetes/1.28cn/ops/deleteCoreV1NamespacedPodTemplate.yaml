@@ -1,0 +1,48 @@
+consumes:
+  - '*/*'
+description: delete a PodTemplate
+operationId: deleteCoreV1NamespacedPodTemplate
+parameters:
+  - in: body
+    name: body
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: '#/parameters/orphanDependents'
+  - $ref: '#/parameters/propagationPolicy'
+  - description: name of the PodTemplate
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /api/v1/namespaces/{namespace}/podtemplates/{name}
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodTemplate.GET'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodTemplate.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: delete
+x-kubernetes-action: delete
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: PodTemplate
+  version: v1
+

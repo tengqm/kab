@@ -1,0 +1,58 @@
+description: Windows-specific options and credentials.
+x-kab-description-zh: 特定于 Windows 的选项和凭据信息。
+properties:
+  gmsaCredentialSpec:
+    description: |
+      Where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa)
+      inlines the contents of the GMSA credential spec named by the `gmsaCredentialSpecName` field.
+      This field cannot be an empty string and its maximum length is 64 K.
+      This field is Beta-level and is only honored by servers that enable the `WindowsGMSA`
+      feature flag.
+    x-kab-description-zh: |
+      GMSA 准入 [Webhook](https://github.com/kubernetes-sigs/windows-gmsa) 将 `gmsaCredentialSpecName`
+      所引用的 GMSA 凭据规约内容以内联方式存放到此字段。
+      此字段不可以是空字符串，其最大长度为 64K。
+      此字段处于 Beta 阶段，需要启用 `WindowsGMSA` 特性门控。
+    type: string
+  gmsaCredentialSpecName:
+    description: |
+      The name of the GMSA credential spec to use.  The string must be a valid DNS subdomain name.
+      This field is Beta-level and is only honored by servers that enable the `WindowsGMSA` feature flag.
+    x-kab-description-zh: |
+      要使用的 GMSA 凭据规约的名字。此字符串必须是一个合法的 DNS 子域名。
+      此字段处于 Beta 阶段，需要启用 `WindowsGMSA` 特性门控。
+    type: string
+  hostProcess:
+    description:
+      This determines if a container should be run as a 'Host Process' container.
+      All of a Pod's containers must have the same effective `hostProcess` value
+      (it is not allowed to have a mix of `hostProcess` containers and non-`hostProcess` containers).
+      In addition, if `hostProcess` is true then `hostNetwork` must also be set to true.
+    x-kab-description-zh:
+      此字段确定容器是否应该以 'Host Process' 容器模式运行。
+      同一个 Pod 中的所有容器的 `hostProcess` 配置要一致
+      （不可以混合 `hostProcess` 和非 `hostProcess` 容器）。
+      此外，如果 `hostProcess` 被设置为 `true`，则 `hostNetwork` 也要设置为 `true`。
+    type: boolean
+  runAsUserName:
+    description: |
+      The Windows user name to run the entrypoint of the container.
+      Defaults to the `user` defined in image metadata if unspecified.
+      May also be set in the `securityContext` of the enclosing Pod.
+      This string cannot be empty string; it cannot contain control characters;
+      it cannot contain more than one backslash.
+      The domain name, when specified, must be no more than 256 characters and it must either match
+      the NetBios or the DNS format.
+      The user name part can be no more than 104 characters.
+      The name cannot only contain periods or spaces and it cannot contain characters like
+      `/\:;|=,+*?<>@[]`.
+    x-kab-description-zh: |
+      用来运行容器入口点的 Windows 用户名。如未指定，则默认使用镜像元数据中定义的 `user`。
+      也可以通过上层 Pod 中的 `securityContext` 来设置。
+      此字段不可以是空字符串，不可以包含控制字符，不可以包含超过一个反斜线。
+      如果包含了域名，则不可超过 256 字符，并且必须符合 NetBios 或 DNS 格式。
+      用户名部分不可以超过 104 字符。
+      用户名部分不可以包含句点、空格字符，也不可以包含 `/\:;|=,+*?<>@[]` 这类字符。
+    type: string
+type: object
+

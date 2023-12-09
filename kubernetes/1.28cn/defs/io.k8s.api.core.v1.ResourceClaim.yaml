@@ -1,0 +1,16 @@
+description: ResourceClaim references one entry in `pod.spec.resourceClaims`.
+x-kab-description-zh: ResourceClaim 引用 `pod.spec.resourceClaims` 中的一项。
+properties:
+  name:
+    description: |
+      Name must match the name of one entry in `spec.resourceClaims` of a Pod where this field is used.
+      It makes that resource available inside a container.
+    x-kab-description-zh: |
+      此名字必须与当前 Pod 中 `spec.resourceClaims` 内的一项的名字匹配。
+      此资源可在容器内使用。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+

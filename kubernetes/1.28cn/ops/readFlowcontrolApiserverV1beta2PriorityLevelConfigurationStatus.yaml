@@ -1,0 +1,36 @@
+consumes:
+  - '*/*'
+description: read status of the specified PriorityLevelConfiguration
+operationId: readFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus
+parameters:
+  - description: name of the PriorityLevelConfiguration
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: 
+  /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfiguration.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - flowcontrolApiserver_v1beta2
+verb: get
+x-kubernetes-action: get
+x-kubernetes-group-version-kind:
+  group: flowcontrol.apiserver.k8s.io
+  kind: PriorityLevelConfiguration
+  version: v1beta2
+

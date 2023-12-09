@@ -1,0 +1,64 @@
+description: |
+  A path regex with a backend. Incoming URLs matching the `path` are forwarded to the `backend`.
+x-kab-description-zh: |
+  路径正则表达式与后端对应关系。请求 URL 如果与 `path` 匹配，就会被转发给对应的 `backend`。
+properties:
+  backend:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IngressBackend'
+    description: |
+      The referenced Service endpoint to which the traffic will be forwarded to.
+    x-kab-description-zh: |
+      对某 Service 端点的引用，请求流量会被转发到这个端点。
+  path:
+    description: |
+      An extended POSIX regex (as defined by IEEE Std 1003.1) matched against the path of
+      an incoming request. Currently it can contain characters disallowed
+      from the conventional "path" part of a URL as defined by RFC 3986.
+      The path must begin with a `'/'` and must be present when `pathType` is "Exact" or "Prefix".
+    x-kab-description-zh: |
+      一种扩展的 POSIX 正则表达式（如 IEEE Std 1003.1 中所定义），用来对入站请求的路径进行匹配。
+      目前，其中可以包含 RFC 3986 所定义的传统 URL 的 _path_ 部分所不允许的字符。
+      路径字符串必须以 `'/'` 开头，并且当 `pathType` 为 `"Exact"` 或者 `"Prefix"` 时必须设置。
+    type: string
+  pathType:
+    default: ImplementationSpecific
+    description: |
+      This determines the interpretation of the `path` matching.
+      `pathType` can be one of the following values:
+      - `"Exact"`: Matches the URL path exactly.
+      - `"Prefix"`: Matches based on a URL path prefix split by `'/'`.
+        Matching is done on a path element by element basis.
+        Path elements are the list of labels in the path split by the `'/'` separator.
+        A request is a match for path *p* if every *p* is an element-wise prefix of *p*
+        of the request path. Note that if the last element of the path is a substring of
+        the last element in request path, it is not a match
+        (e.g. `"/foo/bar"` matches `"/foo/bar/baz"`, but does not match `"/foo/barbaz"`).
+      - `"ImplementationSpecific"`: Interpretation of the `path` matching is up to the IngressClass.
+        Implementations can treat this as a separate `pathType` or treat it identically to `"Prefix"`
+        or `"Exact"` path types.
+
+      Implementations are required to support all path types.
+    x-kab-description-zh: |
+      此字段决定如何执行 `path` 部分的匹配。`pathType` 可以是以下值之一：
+
+      - `"Exact"`：对 URL 路径作精确匹配；
+      - `"Prefix"`：基于 URL 用 `'/'` 分解后得到的部分作前缀匹配。匹配测试是逐个路径元素来进行的。
+        路径元素是路径用 `'/'` 分割之后形成的标签列表。
+        对于一个请求而言，如果其 `path` 中的每个元素 *p* 都是请求路径中对应元素的前缀，则请求被匹配。
+        如意，如果 `path` 中的最后一个元素是请求路径中最后一个元素的子字符串，则请求不匹配。
+        例如，`"/foo/bar"` 可以匹配 `"/foo/bar/baz"`，但不能匹配 `"/foo/barbaz"`。
+      - `"ImplementationSpecific"`：由 IngressClass 来决定如何解释 `path` 匹配。
+        具体的实现可以将其视为不同的 `pathType` 来处理，也可以用 `"Prefix"` 或 `"Exact"`
+        路径类型相同的逻辑来处理。
+
+      Kubernetes 要求 Ingress 的实现能够支持所有路径类型。
+    enum:
+      - Exact
+      - ImplementationSpecific
+      - Prefix
+    type: string
+required:
+  - backend
+  - pathType
+type: object
+

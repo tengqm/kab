@@ -1,0 +1,57 @@
+description: |
+  A predicate that matches non-resource requests according to their verb and the target non-resource URL.
+  A `nonResourcePolicyRule` matches a request if and only if both:
+  - at least one member of `verbs` matches the request, and
+  - at least one member of `nonResourceURLs` matches the request.
+x-kab-description-zh: |
+  用来匹配非资源请求的条件，匹配是根据请求的动词及所针对的非资源 URL 来执行的。
+  如果下面两个条件都满足，则请求被判定为匹配：
+
+  - 至少 `verbs` 之一与请求的动词匹配，且
+  - 至少 `nonResourceURLs` 之一与请求匹配。
+
+properties:
+  nonResourceURLs:
+    description: |
+      A set of URL prefixes that a user should have access to and may not be empty. For example:
+
+      - `"/healthz"` is legal
+      - `"/hea*"` is illegal
+      - `"/hea"` is legal but matches nothing
+      - `"/hea/*"` also matches nothing
+      - `"/healthz/*"` matches all per-component health checks
+      - `"*"` matches all non-resource URLs. If it is present, it must be the only entry.
+    x-kab-description-zh: |
+      此字段给出一组 URL 前缀，列举用户可以访问的非资源端点。例如：
+
+      - `"/healthz"` 是合法的
+      - `"/hea*"` 是非法的
+      - `"/hea"` 是合法的，但不会匹配任何请求
+      - `"/hea/*"` 是合法的，但不会匹配任何请求
+      - `"/healthz/*"` 可以匹配所有分组件给出的健康检查地址
+      - `"*"` 可以匹配所有非资源的 URL。如果存在此项，则列表中不可包含条目。
+
+      此列表不可为空。
+    items:
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+  verbs:
+    description: |
+      A list of matching verbs and may not be empty.
+      `"*"` matches all verbs. If it is present, it must be the only entry.
+    x-kab-description-zh: |
+      此字段为用来匹配的动词列表。列表不可为空。
+      `"*"` 可以用来匹配所有的动词。
+      如果列表中包含 `"*"`，则不可包含其他动词。
+    items:
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+required:
+  - nonResourceURLs
+  - verbs
+type: object
+
