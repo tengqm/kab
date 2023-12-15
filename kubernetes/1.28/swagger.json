@@ -802,7 +802,7 @@
       "description": "NamedRuleWithOperations is a tuple of `operations` and `resources` with `resourceNames`.",
       "properties": {
         "apiGroups": {
-          "description": "`apiGroups` is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the list must be one. Required.",
+          "description": "`apiGroups` is the API groups the resources belong to. `*` is all groups. If `*` is present, the length of the list must be one.",
           "items": {
             "description": "The API group the resources belong to. An empty string \"\" means the legacy \"v1\" API.",
             "type": "string"
@@ -812,7 +812,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "apiVersions": {
-          "description": "`apiVersions` is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the list must be one.",
+          "description": "`apiVersions` is the API versions the resources belong to. `*` is all versions. If `*` is present, the length of the list must be one.",
           "items": {
             "description": "The API version a resource belongs to. This string cannot be empty.",
             "minLength": 1,
@@ -823,7 +823,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "operations": {
-          "description": "`operations` is the operations the admission hook cares about - `CREATE`, `UPDATE`, `DELETE`, `CONNECT` or `*` for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one.",
+          "description": "`operations` is the operations the admission hook cares about - `CREATE`, `UPDATE`, `DELETE`, `CONNECT` or `*` for all of those operations and any future admission operations that are added. If `*` is present, the length of the slice must be one.",
           "items": {
             "description": "The name of a supported operation",
             "enum": [
@@ -850,7 +850,7 @@
           "x-kubernetes-list-type": "atomic"
         },
         "resources": {
-          "description": "`resources` is a list of resources this rule applies to.\n\nFor example:\n\n- 'pods' means Pods.\n- 'pods/log' means the `log` subresource of Pods.\n- '*' means all resources, but not subresources. If '*' is in the list, all other items in the list can only specify subresources.\n- 'pods/*' means all subresources of pods. If 'pod/*' is included, there cannot be other 'pod/subres' item in the list.\n- '*/scale' means all `scale` subresources. If '*/scale' is in the list, there cannot be other 'resource/scale' item in the list.\n- '*/*' means all resources and their subresources. If '*/*' is in the list, there cannot be any other items in the list.\n\nIf wildcard is present, the validation rule will ensure `resources` do not overlap with each other.\n\nDepending on the enclosing object, subresources might not be allowed.",
+          "description": "`resources` is a list of resources this rule applies to.\n\nFor example:\n\n- `pods` means Pods.\n- `pods/log` means the `log` subresource of Pods.\n- `*` means all resources, but not subresources. If `*` is in the list, all other items in the list can only specify subresources.\n- `pods/*` means all subresources of pods. If `pod/*` is included, there cannot be other `pod/subres` item in the list.\n- `*/scale` means all `scale` subresources. If `*/scale` is in the list, there cannot be other `resource/scale` item in the list.\n- `*/*` means all resources and their subresources. If `*/*` is in the list, there cannot be any other items in the list.\n\nIf wildcard is present, the validation rule will ensure `resources` do not overlap with each other.\n\nDepending on the enclosing object, subresources might not be allowed.",
           "items": {
             "description": "The resource this rule applies to. This string cannot be empty.",
             "minLength": 1,
@@ -1254,6 +1254,7 @@
         },
         "policyName": {
           "description": "`policyName` references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored. This string must be a valid DNS subdomain name.",
+          "minLength": 1,
           "type": "string"
         },
         "validationActions": {
@@ -9962,7 +9963,7 @@
         },
         "terminated": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateTerminated",
-          "description": "Details about a terminated Container. When updating, if the Pod's `reatartPolicy` is not `\"Always\"` and the container has terminated, the server checks if the container's exit code is non zero. If the the Pod's `restartPolciy` is `\"OnFailure\"` and the container's exit code is non zero, updating the container to a non-terminated state is allowed, or else the server rejects the update request."
+          "description": "Details about a terminated Container. When updating, if the Pod's `restartPolicy` is not `\"Always\"` and the container has terminated, the server checks if the container's exit code is non zero. If the the Pod's `restartPolicy` is `\"OnFailure\"` and the container's exit code is non zero, updating the container to a non-terminated state is allowed, or else the server rejects the update request."
         },
         "waiting": {
           "$ref": "#/definitions/io.k8s.api.core.v1.ContainerStateWaiting",
@@ -11877,14 +11878,6 @@
           "description": "The `ip` is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers).",
           "type": "string"
         },
-        "ipMode": {
-          "description": "This specifies how the load-balancer IP behaves, and may be specified when the `ip` field is specified. When the `LoadBalancerIPMode` feature gate is enabled, this field must be set if `ip` is specified. Setting this to \"VIP\" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to \"Proxy\" indicates that traffic is delivered to the node or Pod with the destination set to the node's IP and node port or the Pod's IP and port. Service implementations may use this information to adjust traffic routing.",
-          "enum": [
-            "Proxy",
-            "VIP"
-          ],
-          "type": "string"
-        },
         "ports": {
           "description": "A list of records of service ports. If used, every port defined in the Service should have an entry in it.",
           "items": {
@@ -13193,7 +13186,8 @@
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
-              "ReadWriteOnce"
+              "ReadWriteOnce",
+              "ReadWriteOncePod"
             ],
             "type": "string"
           },
@@ -13249,7 +13243,8 @@
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
-              "ReadWriteOnce"
+              "ReadWriteOnce",
+              "ReadWriteOncePod"
             ],
             "type": "string"
           },
@@ -13387,7 +13382,8 @@
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
-              "ReadWriteOnce"
+              "ReadWriteOnce",
+              "ReadWriteOncePod"
             ],
             "minLength": 1,
             "type": "string"
@@ -17704,7 +17700,7 @@
           "type": "string"
         },
         "topologyKey": {
-          "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of `nodeAffinityPolicy` and `nodeTaintsPolicy. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology. This is a required field.",
+          "description": "The key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of `nodeAffinityPolicy` and `nodeTaintsPolicy`. e.g. If `topologyKey` is \"kubernetes.io/hostname\", each Node is a domain of that topology. And, if `topologyKey` is \"topology.kubernetes.io/zone\", each zone is a domain of that topology. This is a required field.",
           "type": "string"
         },
         "whenUnsatisfiable": {
@@ -26754,6 +26750,19 @@
         "x-kubernetes-preserve-unknown-fields": {
           "description": "This flag stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested `properties` or `additionalProperties` are specified in the schema. This can either be true or undefined. False means forbidden.",
           "type": "boolean"
+        },
+        "x-kubernetes-validations": {
+          "description": "This describes a list of validation rules written in the CEL expression language. This field is Alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "rule"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "rule",
+          "x-kubernetes-patch-strategy": "merge"
         }
       },
       "type": "object"

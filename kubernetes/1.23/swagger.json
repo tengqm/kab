@@ -12455,7 +12455,8 @@
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
-              "ReadWriteOnce"
+              "ReadWriteOnce",
+              "ReadWriteOncePod"
             ],
             "type": "string"
           },
@@ -12511,7 +12512,8 @@
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
-              "ReadWriteOnce"
+              "ReadWriteOnce",
+              "ReadWriteOncePod"
             ],
             "type": "string"
           },
@@ -12645,7 +12647,8 @@
             "enum": [
               "ReadOnlyMany",
               "ReadWriteMany",
-              "ReadWriteOnce"
+              "ReadWriteOnce",
+              "ReadWriteOncePod"
             ],
             "minLength": 1,
             "type": "string"
@@ -26401,6 +26404,19 @@
         "x-kubernetes-preserve-unknown-fields": {
           "description": "This flag stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested `properties` or `additionalProperties` are specified in the schema. This can either be true or undefined. False means forbidden.",
           "type": "boolean"
+        },
+        "x-kubernetes-validations": {
+          "description": "This describes a list of validation rules written in the CEL expression language. This field is Alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.",
+          "items": {
+            "$ref": "#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule"
+          },
+          "type": "array",
+          "x-kubernetes-list-map-keys": [
+            "rule"
+          ],
+          "x-kubernetes-list-type": "map",
+          "x-kubernetes-patch-merge-key": "rule",
+          "x-kubernetes-patch-strategy": "merge"
         }
       },
       "type": "object"
