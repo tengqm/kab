@@ -1,0 +1,47 @@
+description: AllocationResult contains attributes of an allocated resource.
+x-kab-description-zh: AllocationResult 包含所分配的资源的属性。
+properties:
+  availableOnNodes:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |
+      This field will get set by the resource driver after it has allocated the resource
+      to inform the scheduler where it can schedule Pods using the ResourceClaim.
+
+      Setting this field is optional. If null, the resource is available everywhere.
+    x-kab-description-zh: |
+      此字段由资源驱动完成资源分配之后设置，用来通知调度器将 Pod 调度到何处才能访问到 ResourceClaim。
+      设置此字段的行为不是必须的。如果此字段没有被设置，则资源可以在所有节点上访问。
+  resourceHandles:
+    description: |
+      This contains the state associated with an allocation that should be maintained throughout the
+      lifetime of a claim. Each ResourceHandle contains data that should be passed to a specific
+      kubelet plugin once it lands on a node.
+      This data is returned by the driver after a successful allocation and is opaque to Kubernetes.
+      Driver documentation may explain to users how to interpret this data if needed.
+
+      Setting this field is optional. If null (or empty), it is assumed this allocation will be processed
+      by a single kubelet plugin with no ResourceHandle data attached.
+      The name of the kubelet plugin invoked will match the `driverName` set in the ResourceClaimStatus
+      this AllocationResult is embedded in.
+    x-kab-description-zh: |
+      此字段包含与资源分配相关的状态信息，这些信息在 ResourceClaim 的整个生命周期内都要维护起来。
+      每个 ResourceHandle 中都包含一些数据，这些数据在 Pod 被调度到某个节点时，要传递给某个 kubelet 插件。
+      在成功分配了资源之后，资源驱动会返回这些数据。数据本身对 Kubernetes 是不透明的。
+      驱动的文档可能会向用户解释在需要的时候如何解析这些数据。
+
+      设置此字段的行为是可选的。如果此字段未设置或者列表为空，则可以认为资源分配会由同一个 kubelet
+      插件来处理，并且该插件不需要 ResourceHandle 数据。
+      要被调用的 kubelet 插件的名称与此 AllocationResult 所在的 ResourceClaimStatus 中设置的 `driverName`
+      相同。
+    maxItems: 32
+    minItems: 0
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceHandle'
+    type: array
+    x-kubernetes-list-type: atomic
+  shareable:
+    description: This determines whether the resource supports more than one consumer at a time.
+    x-kab-description-zh: 此字段确定资源是否支持同时被两个用户使用。
+    type: boolean
+type: object
+

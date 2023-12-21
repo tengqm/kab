@@ -1,0 +1,61 @@
+description: |
+  This specifies how to handle requests that are subject to limits. It addresses two issues:
+  - How are requests for this priority level limited?
+  - What should be done with requests that exceed the limit?
+x-kab-description-zh: |
+  此结构用来配置如何处理收到限制的请求。主要用来解决两个问题：
+
+  - 当前优先级别下的请求是如何被限制的？
+  - 超出限制时，应该怎样处理请求？
+
+properties:
+  assuredConcurrencyShares:
+    default: 30
+    description: |
+      此字段配置当前优先级别的保障性并发度份额（ACS），即在此优先级别上给定时刻可以处理的请求个数上限。
+      服务器上的并发度限制根据各个优先级别的保障性并发度份额（ACS）按比例分配。
+      字段值必须是正整数。字段数值越大，意味着预留的并发度份额越高。
+    format: int32
+    minimum: 1
+    type: integer
+  borrowingLimitPercent:
+    description: |
+      This field, if present, configures a limit on how many seats this priority level can borrow
+      from other priority levels.
+      The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit
+      on the total number of seats that this level may borrow at any one time.
+      This field holds the ratio of that limit to the level's nominal concurrency limit.
+      When this field is non-nil, it must hold a non-negative integer.
+
+      The value of this field can be more than 100, implying that this priority level can borrow
+      a number of seats that is greater than its own nominal concurrency limit (NominalCL).
+      When this field is left `nil`, the limit is effectively infinite.
+    x-kab-description-zh: |
+      此字段如果被设置，则用来配置当前优先级别可以从其他优先级别借用的席位数。
+      字段值是基于当前优先级别的名义并发度限制的百分比。
+      此字段值非空时，必须为非负整数。例如当前优先级别的名义并发度限制为 200，当此值为 30 时，
+      当前优先级别可以从其他级别借用的席位为 200 * 30 / 100 = 60.
+
+      字段值大于 100 是允许的。当此字段未设置时，意味着可以借用的席位数不受限制。
+    format: int32
+    type: integer
+  lendablePercent:
+    description: |
+      `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed
+      by other priority levels. The value of this field must be between 0 and 100, inclusive,
+      and it defaults to 0.
+    x-kab-description-zh: |
+      此字段设置当前优先级别的名义并发度限制中，有多大比例的席位是可以借给其他优先级别使用的。
+      字段值必须介于 0 和 100 之间，默认值为 0。
+    format: int32
+    type: integer
+  limitResponse:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.LimitResponse'
+    description: |
+      This indicates what to do with requests that can not be executed right now.
+    x-kab-description-zh: |
+      此字段用来设置如何处理当前不能马上执行的请求。
+required:
+  - limitResponse
+type: object
+

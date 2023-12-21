@@ -1,0 +1,24 @@
+consumes:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+description: get information of the certificates API group
+operationId: getCertificatesAPIGroup
+path: /apis/certificates.k8s.io/
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - certificates
+verb: get
+

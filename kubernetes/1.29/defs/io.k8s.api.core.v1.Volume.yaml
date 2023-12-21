@@ -1,0 +1,163 @@
+description: |
+  Volume represents a named volume in a Pod that may be accessed by any container in the Pod.
+x-kab-description-zh: |
+  Volume 代表的是 Pod 中的一个有名字的卷，此卷可供 Pod 内任何容器访问。
+properties:
+  awsElasticBlockStore:
+    $ref: '#/definitions/io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource'
+    description: |
+      An AWS Disk resource that is attached to a kubelet's host machine and then exposed to the Pod.
+    x-kab-description-zh: |
+      挂接到 kubelet 所在的主机之后提供给 Pod 使用的 AWS Disk 资源。
+  azureDisk:
+    $ref: '#/definitions/io.k8s.api.core.v1.AzureDiskVolumeSource'
+    description: An Azure Data Disk mount on the host and bind mount to the Pod.
+    x-kab-description-zh: 挂载到主机之后绑定挂载给 Pod 使用的 AWS Data Disk。
+  azureFile:
+    $ref: '#/definitions/io.k8s.api.core.v1.AzureFileVolumeSource'
+    description: An Azure File Service mount on the host and bind mount to the Pod.
+    x-kab-description-zh: 挂载到主机之后绑定挂载给 Pod 使用的 AWS File Service。
+  cephfs:
+    $ref: '#/definitions/io.k8s.api.core.v1.CephFSVolumeSource'
+    description: A Ceph FS mount on the host that shares a Pod's lifetime.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 Ceph FS。
+  cinder:
+    $ref: '#/definitions/io.k8s.api.core.v1.CinderVolumeSource'
+    description: A Cinder volume attached and mounted on kubelets host machine.
+    x-kab-description-zh: 挂接并挂载到 kubelet 所在主机的 Cinder 卷。
+  configMap:
+    $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapVolumeSource'
+    description: A ConfigMap that should populate this volume.
+    x-kab-description-zh: 负责填充此卷内容的一个 ConfigMap。
+  csi:
+    $ref: '#/definitions/io.k8s.api.core.v1.CSIVolumeSource'
+    description: An ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+    x-kab-description-zh: 由某外部 CSI 驱动来处理的临时存储（Beta 特性）。
+  downwardAPI:
+    $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeSource'
+    description: Downward API about the Pod that should populate this volume.
+    x-kab-description-zh: 要负责填充此卷的、关于此 Pod 的 Downward API。
+  emptyDir:
+    $ref: '#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource'
+    description: A temporary directory that shares a Pod's lifetime.
+    x-kab-description-zh: 与 Pod 生命周期完全相同的一个临时目录。
+  ephemeral:
+    $ref: '#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource'
+    description: |
+      此字段代表一种由某集群存储驱动来处理的卷。卷的生命周期与定义该卷的 Pod 完全相同 ——
+      卷会在 Pod 启动之前被创建，并在 Pod 被移除时删除。符合下面的情况时，可以使用这种类型的卷：
+
+      - 只有当 Pod 运行的时候才需要此卷；
+      - 需要基于快照来恢复数据或者执行容量跟踪这类正常卷所具有的功能特性；
+      - 通过存储类来指定存储驱动；
+      - 存储驱动支持通过 `PersistentVolumeClaim` 来动态制备存储卷
+        （关于此卷类型与 PersistentVolumeClaim 之间的联系，参阅 `EphemeralVolumeSource`）。
+
+      如果期望卷的生命期长于单个 Pod，应该使用 `PersistentVolumeClaim` 或者某种特定于厂商的 API。 
+      如果某 CSI 驱动被设计用来提供轻量级的本地临时卷，可以考虑使用该 CSI。
+
+      同一个 Pod 可以既使用临时卷又使用持久卷。
+  fc:
+    $ref: '#/definitions/io.k8s.api.core.v1.FCVolumeSource'
+    description: |
+      A Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the Pod.
+    x-kab-description-zh: 挂载到主机之后绑定挂载给 Pod 使用的光纤通道资源。
+  flexVolume:
+    $ref: '#/definitions/io.k8s.api.core.v1.FlexVolumeSource'
+    description: |
+      A generic volume resource that is provisioned/attached using an exec based plugin.
+    x-kab-description-zh: 通过基于 exec 的插件来制备并挂接的一种通用卷资源。
+  flocker:
+    $ref: '#/definitions/io.k8s.api.core.v1.FlockerVolumeSource'
+    description: |
+      A Flocker volume attached to a kubelet's host machine.
+      This depends on the Flocker control service being running.
+    x-kab-description-zh: |
+      挂接到 kubelet 所在主机上的一个 Flocker 卷。此特性要求 Flocker 控制服务在运行。
+  gcePersistentDisk:
+    $ref: '#/definitions/io.k8s.api.core.v1.GCEPersistentDiskVolumeSource'
+    description: |
+      A GCE Disk resource that is attached to a kubelet's host machine and then exposed to the Pod.
+    x-kab-description-zh: 挂载到主机之后绑定挂载给 Pod 使用的 GCE Disk 资源。
+  gitRepo:
+    $ref: '#/definitions/io.k8s.api.core.v1.GitRepoVolumeSource'
+    description: |
+      A git repository at a particular revision.
+      **DEPRECATED**: To provision a container with a git repo, mount an `emptyDir` into an
+      `initContainer` that clones the repo using `git`, then mount the `emptyDir` into the
+      Pod's container."
+    x-kab-description-zh: |
+      给定修订版本的一个 GIT 仓库。
+      **已弃用*： 要为容器提供一个 GIT 仓库，可以向某个 `initContainer` 中挂载一个 `emptyDir` 卷，
+      并在该容器中使用 `git` 克隆仓库内容，最后将 `emptyDir` 卷挂载到 Pod 的应用容器中。
+  glusterfs:
+    $ref: '#/definitions/io.k8s.api.core.v1.GlusterfsVolumeSource'
+    description: A Glusterfs mount on the host that shares a Pod's lifetime.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 Glusterfs。
+  hostPath:
+    $ref: '#/definitions/io.k8s.api.core.v1.HostPathVolumeSource'
+    description: |
+      A pre-existing file or directory on the host machine that is directly exposed to the container.
+      This is generally used for system agents or other privileged things that are allowed to
+      see the host machine. Most containers will NOT need this.
+    x-kab-description-zh: |
+      此字段引用宿主机器上之前存在的一个文件或目录，将其直接公开给容器使用。
+      这种数据卷通常用于系统代理或者其他被允许查看主机的特权事务。大多数容器不需要这种数据卷。
+  iscsi:
+    $ref: '#/definitions/io.k8s.api.core.v1.ISCSIVolumeSource'
+    description: |
+      An ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the Pod.
+    x-kab-description-zh: 挂接到 kubelet 所在主机之后挂载给 Pod 使用的 iSCSI Disk 资源。
+  name:
+    description: Volume's name. Must be a DNS_LABEL and unique within the Pod.
+    x-kab-description-zh: 卷的名称。必须是合法的 DNS_LABEL，并且在 Pod 内唯一。
+    minLength: 1
+    type: string
+  nfs:
+    $ref: '#/definitions/io.k8s.api.core.v1.NFSVolumeSource'
+    description: A NFS mount on the host that shares a Pod's lifetime.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 NFS 存储。
+  persistentVolumeClaim:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource'
+    description: A reference to a existing PersistentVolumeClaim in the same namespace.
+    x-kab-description-zh: 对同一名字空间内某 PersistentVolumeClaim 的引用。
+  photonPersistentDisk:
+    $ref: '#/definitions/io.k8s.api.core.v1.PhotonPersistentDiskVolumeSource'
+    description: A PhotonController persistent disk attached and mounted on the host machine.
+    x-kab-description-zh: 挂接并挂载到主机的 PhotonController 持久盘。
+  portworxVolume:
+    $ref: '#/definitions/io.k8s.api.core.v1.PortworxVolumeSource'
+    description: A Portworx volume attached and mounted on the host machine.
+    x-kab-description-zh: 挂接并挂载到主机的 Portworx 卷。
+  projected:
+    $ref: '#/definitions/io.k8s.api.core.v1.ProjectedVolumeSource'
+    description: Items for all in one resources Secrets, ConfigMaps, and Downward APIs.
+    x-kab-description-zh: 可以包含来自 Secret、ConfigMap 和 Downward API 的内容的综合卷。
+  quobyte:
+    $ref: '#/definitions/io.k8s.api.core.v1.QuobyteVolumeSource'
+    description: A Quobyte mount on the host that shares a Pod's lifetime.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 Quobyte 卷。
+  rbd:
+    $ref: '#/definitions/io.k8s.api.core.v1.RBDVolumeSource'
+    description: A Rados Block Device (RBD) mount on the host that shares a Pod's lifetime.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 Rados 块设备（RBD）。
+  scaleIO:
+    $ref: '#/definitions/io.k8s.api.core.v1.ScaleIOVolumeSource'
+    description: A ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+    x-kab-description-zh: 挂接并挂载到节点上的 ScaleIO 持久卷。
+  secret:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretVolumeSource'
+    description: A Secret that should populate this volume.
+    x-kab-description-zh: 负责填充此卷内容的一个 Secret。
+  storageos:
+    $ref: '#/definitions/io.k8s.api.core.v1.StorageOSVolumeSource'
+    description: A StorageOS volume attached and mounted on the node.
+    x-kab-description-zh: 挂接并挂载到节点上的 StorageOS 卷。
+  vsphereVolume:
+    $ref: '#/definitions/io.k8s.api.core.v1.VsphereVirtualDiskVolumeSource'
+    description: A vSphere volume attached and mounted on the host machine.
+    x-kab-description-zh: 挂接并挂载到宿主机器上的 vSphere 卷。
+required:
+  - name
+type: object
+

@@ -1,0 +1,20 @@
+consumes:
+  - application/json
+description: get the version information about the API server
+operationId: getCodeVersion
+path: /version/
+produces:
+  - application/json
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.version.Info'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - version
+verb: get
+

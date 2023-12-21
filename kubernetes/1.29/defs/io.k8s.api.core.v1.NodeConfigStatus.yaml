@@ -1,0 +1,92 @@
+description: The status of the config assigned by `node.spec.configSource`.
+x-kab-description-zh: 通过 `node.spec.configSource` 获得的节点配置状态。
+properties:
+  active:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeConfigSource'
+    description: |
+      The checkpointed config the node is actively using.
+      This represents either the current version of the `assigned` config, or the current
+      `lastKnownGood` config, depending on whether attempting to use the `assigned` config
+      results in an `error`.
+    x-kab-description-zh: |
+      节点正在使用的、已经通过检查点机制保存起来的配置。
+      此配置所表示的可以是 `assigned` 配置的当前版本，或者当前的 `lastKnownGood` 配置，
+      取决于是否尝试在 `error` 中使用 `assigned` 配置结果。
+  assigned:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeConfigSource'
+    description: |
+      This reports the checkpointed config the node will try to use.
+      When `node.spec.configSource` is updated, the node checkpoints the associated config
+      payload to local disk, along with a record indicating intended config.
+      The node refers to this record to choose its config checkpoint, and reports this record
+      in `assigned`. The `assigned` only updates in the `status` after the record
+      has been checkpointed to disk. When the kubelet is restarted, it tries to make
+      the `assigned` config the `active` config by loading and validating the checkpointed
+      payload identified by `assigned`.
+    x-kab-description-zh: |
+      此字段报告的是节点尝试使用的、已经通过检查点机制保存起来的配置。
+      当 `node.spec.configSource` 被更新时，节点会把相关的配置数据通过检查点机制保存到本地磁盘，
+      随之保存的的还有关于尝试使用的配置的记录。
+      节点会引用此记录，已选择其配置检查点，并在 `assigned` 中报告此记录。在记录被写入磁盘之后，
+      `assigned` 智慧更新 `status` 字段。在 kubelet 重启时，它会尝试将 `assigned` 配置作为新的
+      `active` 配置，方法是加载并检查 `assigned` 所引用的已保存数据。
+  error:
+    description: |
+      This describes any problems in reconciling the `spec.configSource` to the `active` config.
+      Errors may occur, for example, attempting to checkpoint `spec.configSource` to the local
+      `assigned` record, attempting to checkpoint the payload associated with `spec.configSource`,
+      attempting to load or validate the `assigned` config, etc.
+      Errors may occur at different points while syncing config.
+      Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to
+      `lastKnownGood`, and may resolve across kubelet retries.
+      Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to
+      `lastKnownGood`. In the latter case, it is usually possible to resolve the error by fixing
+      the config assigned in `spec.configSource`.
+      You can find additional information for debugging by searching the error message in the
+      kubelet log.
+
+      `error` is a human-readable description of the error state; machines can check whether or not
+      `error` is empty, but should not rely on the stability of the `error` text across kubelet versions.
+    x-kab-description-zh: |
+      此字段描述在 `spec.configSource` 与 `active` 配置之间做调谐时遇到的问题。
+      如果尝试使用检查点机制把 `spec.configSource` 保存到本地的 `assigned` 记录中，或者尝试将
+      `spec.configSource` 所关联的数据通过检查点机制保存起来，或者尝试加载 `assigned` 配置数据，
+      都有可能会发生错误。在对配置进行同步的任何时刻也都有可能发生错误。
+      发生时间较早的错误（例如，下载或者通过检查点机制保存时发生的错误）不会导致向 `lastKnownGood`
+      的回滚，并且有可能通过 kubelet 的重试机制得到解决。
+      发生时间较晚的错误（例如，加载或者检查一个之前保存的配置）可能会导致回滚到 `lastKnownGood`。
+      如果是后面这种情况，通常有可能通过修复 `spec.configSource` 中的配置错误来解决。
+      你可以在 kubelet 日志中搜索出错消息，并基于其中的额外信息来展开调试工作。
+
+      `error` 的内容是人类可读的信息，其中包含错误的状态描述。机器可以检查 `error` 是否为空，
+      但不能假定跨不同 kubelet 版本时 `error` 中的文本是保持稳定一致的。
+    type: string
+  lastKnownGood:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeConfigSource'
+    description: |
+      This reports the checkpointed config the node will fall back to when it encounters an error
+      attempting to use the `assigned` config. The `assigned` config becomes the `lastKnownGood`
+      config when the node determines that the `assigned` config is stable and correct.
+
+      This is currently implemented as a 10-minute soak period starting when the local record of
+      `assigned` config is updated. If the `assigned` config is `active` at the end of this period,
+      it becomes the `lastKnownGood`. Note that if `spec.configSource` is reset to nil
+      (use local defaults), the `lastKnownGood` is also immediately reset to nil, because the local
+      default config is always assumed good.
+
+      You should not make assumptions about the node's method of determining config stability and
+      correctness, as this may change or become configurable in the future.
+    x-kab-description-zh: |
+      此字段给出的是节点之前通过检查点机制保存的配置，当节点在尝试使用 `assigned` 版本的配置出错时，
+      可以回退到此字段给出的配置。当节点确定 `assigned` 配置是稳定的、正确的时，`assigned` 配置会变成
+      `lastKnownGood` 配置。
+
+      目前的实现中，当 `assigned` 配置的本地记录被更新时，会存在 10 分钟的缓冲期。
+      如果 `assigned` 配置在此周期结束时是 `active` 的，就会成为新的 `lastKnownGood` 配置。
+      要注意的是，如果 `spec.configSource` 被复位为 nil（使用本地的默认值重新填充），则 `lastKnownGood`
+      也会立即被重置为 nil，因为我们可以假定本地的默认配置总是可以使用的。
+
+      你不能对节点如何判定配置的稳定性和正确性的方法作任何假定，因为这些判断依据可能会在将来发生变化，
+      甚至会变得可配置。
+type: object
+

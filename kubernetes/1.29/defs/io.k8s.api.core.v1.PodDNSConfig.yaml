@@ -1,0 +1,56 @@
+description: The DNS parameters of a pod in addition to those generated from dnsPolicy.
+x-kab-description-zh: Pod 的 DNS 参数，作为基于 `dnsPolicy` 所生成的 DNS 参数的补充。
+properties:
+  nameservers:
+    description: |
+      A list of DNS name server IP addresses.
+      This will be appended to the base `nameservers` generated from `dnsPolicy`.
+      Duplicated `nameservers` will be removed.
+      When `dnsPolicy` is set to `"None"`, there must be at least one name server specified here.
+      Each item must be a valid IP address.
+    x-kab-description-zh: |
+      包含 DNS 名字服务器 IP 地址的一个列表。
+      此列表内容会被追加到基于 `dnsPolicy` 所生成的 `nameservers` 之后。
+      `nameservers` 中的重复项会被去除。
+      如果 `dnsPolicy` 被设置为 `"None"`，则这里必须至少提供一个名字服务器。
+      列表中的每个条目都必须是一个合法的 IP 地址。
+    items:
+      minLength: 1
+      type: string
+    maxItems: 3
+    type: array
+  options:
+    description: |
+      A list of DNS resolver options.
+      This will be merged with the base options generated from `dnsPolicy`.
+      Duplicated entries will be removed.
+      Resolution options given in `options` will override those that appear in the base `dnsPolicy`.
+    x-kab-description-zh: |
+      DNS 解析组件选项的列表。
+      此列表中的元素会被合并到基于 `dnsPolicy` 所生成的基本选项列表中。
+      合并时，重复的条目会被去除。
+      `options` 中给出的解析选项会覆盖 `dnsPolicy` 生成的选项列表中的同名选项。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodDNSConfigOption'
+    type: array
+  searches:
+    description: |
+      A list of DNS search domains for hostname lookup.
+      This will be appended to the base search paths generated from `dnsPolicy`.
+      Duplicated search paths will be removed.
+      The search list, when joined using `" "`, cannot exceed 256 characters.
+      It is okay for an item to have a trailing `'.'`.
+      Every item must be a valid DNS subdomain name, excluding the trailing `'.'`.
+    x-kab-description-zh: |
+      用于查询主机名的 DNS 搜索域的列表。
+      此列表中的元素会被合并到基于 `dnsPolicy` 所生成的基本搜索路径中。
+      合并时，重复的搜索路径会被去除。
+      使用 `" "` 串接合并后的搜索列表不能超过 256 个字符。
+      列表中的表项带有尾部 `'.'` 是可接受的。
+      列表中的所有条目都必须是合法的 DNS 子域名（去掉可能存在的尾部 `'.'` 符号）。
+    items:
+      type: string
+    maxItems: 6
+    type: array
+type: object
+

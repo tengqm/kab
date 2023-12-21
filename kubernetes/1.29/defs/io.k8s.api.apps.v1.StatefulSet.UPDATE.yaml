@@ -1,0 +1,45 @@
+description: |
+  A StatefulSet is a set of Pods with consistent identities. Identities are defined as:
+  - Network: A single stable DNS and hostname.
+  - Storage: As many volume claims as requested.
+
+  A StatefulSet guarantees that a given network identity will always map to the same storage identity.
+x-kab-description-zh: |
+  StatefulSet 是一组 Pod，其中各个 Pod 都有一致性的标识。Pod 标识可以定义为：
+
+  - 网络：Pod 具备唯一的、稳定的 DNS 域名和主机名；
+  - 存储：Pod 所分配的卷申领是确定的。
+
+  StatefulSet 确保给定的网络标识总会映射到给定的存储标识之上。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - apps/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - StatefulSet
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSetSpec.UPDATE'
+    description: The desired behavior of this StatefulSet.
+    x-kab-description-zh: 此 StatefulSet 的预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: apps
+    kind: StatefulSet
+    version: v1
+

@@ -1,0 +1,38 @@
+description: |
+  Eviction evicts a Pod from its Node subject to certain policies and safety constraints.
+  This is a subresource of Pod.
+  A request to cause such an eviction is created by POSTing to `".../pods/<pod name>/evictions"`.
+x-kab-description-zh: |
+  Eviction 可以用来将一个 Pod 从当前所在节点驱逐出去。驱逐操作可能会收到一些策略或安全性限制影响。
+  此结构是 Pod 的子资源。
+  要发起对 Pod 的驱逐请求，可以向 `".../pods/<pod name>/evictions"` 发出 POST 操作携带此对象。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - policy/v1
+    type: string
+  deleteOptions:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+    description: DeleteOptions may be provided.
+    x-kab-description-zh: 可以设置删除选项。
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Eviction
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. This is used to refer to the Pod.
+    x-kab-description-zh: 标准的对象元数据。用来引用 Pod。
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: policy
+    kind: Eviction
+    version: v1
+

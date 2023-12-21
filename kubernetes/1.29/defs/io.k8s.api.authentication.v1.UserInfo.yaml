@@ -1,0 +1,36 @@
+description: Information about a user
+x-kab-description-zh: 关于某个用户的信息。
+properties:
+  extra:
+    additionalProperties:
+      items:
+        type: string
+      type: array
+    description: Additional information provided by the authenticator.
+    x-kab-description-zh: 身份校验组件所提供的额外信息。
+    type: object
+  groups:
+    description: The names of groups this user is a part of.
+    x-kab-description-zh: 用户所属的用户组的列表。
+    items:
+      description: Name of a user group the user belongs to.
+      x-kab-description-zh: 用户所属的某个组的组名。
+      type: string
+    type: array
+  uid:
+    description: |
+      A unique value that identifies this user across time.
+      If this user is deleted and another user by the same name is added,
+      they will have different `uid`.
+    x-kab-description-zh: |
+      一个用来跨不同时间区间来标识当前用户的唯一字符串值。
+      如果此用户被删除，而且系统中添加了新的同名用户，新用户的 `uid` 会不同与老用户。
+    type: string
+  username:
+    description: |
+      The name that uniquely identifies this user among all active users.
+    x-kab-description-zh: |
+      在所有活跃用户之间用来唯一标识当前用户的一个名称字符串。
+    type: string
+type: object
+

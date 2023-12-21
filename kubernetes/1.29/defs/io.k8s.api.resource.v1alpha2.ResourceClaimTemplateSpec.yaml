@@ -1,0 +1,25 @@
+description: ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+x-kab-description-zh: |
+  ResourceClaimTemplateSpec 包含 ResourceClaim 对象将具有的 `metadata` 和字段。
+properties:
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      This may contain labels and annotations that will be copied into the ResourceClaim when creating it.
+      No other fields are allowed and will be rejected during validation.
+    x-kab-description-zh: |
+      此字段可以包含一些标签和注解数据，在创建 ResourceClaim 时直接复制。
+      结构中不能包含其他字段，否则可能会无法通过合法性检查。
+  spec:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimSpec'
+    description: |
+      The `spec` for the ResourceClaim.
+      The entire content is copied unchanged into the ResourceClaim that gets created from this template.
+      The same fields as in a ResourceClaim are also valid here.
+    x-kab-description-zh: |
+      ResourceClaim 的 `spec` 部分。这里给出的整个规约都会被复制到基于此模板创建的 ResourceClaim 中。
+      ResourceClaim 中能够接受的字段在这里也都是合法的。
+required:
+  - spec
+type: object
+

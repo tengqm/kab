@@ -1,0 +1,41 @@
+consumes:
+  - '*/*'
+description: connect DELETE requests to proxy of Node
+x-kab-description-zh: 将 DELETE 请求连接到 Node 的 proxy 端点
+operationId: connectCoreV1DeleteNodeProxyWithPath
+parameters:
+  - description: name of the Node
+    x-kab-description-zh: Node 的名称
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/path'
+  - description: Path is the URL path to use for the current proxy request to node.
+    x-kab-description-zh: 用于当前 Node 代理请求的 URL 路径
+    in: query
+    name: path
+    required: false
+    type: string
+path: /api/v1/nodes/{name}/proxy/{path}
+produces:
+  - '*/*'
+responses:
+  '200':
+    description: OK
+    schema:
+      type: string
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: delete
+x-kubernetes-action: connect
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: NodeProxyOptions
+  version: v1
+

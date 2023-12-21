@@ -1,0 +1,45 @@
+consumes:
+  - '*/*'
+description: create an Event
+operationId: createCoreV1NamespacedEvent
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.Event.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /api/v1/namespaces/{namespace}/events
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.Event.GET'
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.Event.GET'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.Event.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: Event
+  version: v1
+

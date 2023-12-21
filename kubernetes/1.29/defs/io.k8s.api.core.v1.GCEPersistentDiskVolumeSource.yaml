@@ -1,0 +1,48 @@
+description: |
+  A Persistent Disk resource in Google Compute Engine (GCE).
+  A GCE PD must exist before being mounted to a container.
+  The disk must also be in the same GCE project and zone as the kubelet.
+  A GCE PD can only be mounted as `"ReadWriteOnce"` or `"ReadOnlyMany"`.
+  GCE PDs support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  Google Compute Engine（GCE）上的 Persistent Disk 资源。在被挂载到容器中之前，GCE PD 必须已经存在。
+  磁盘必须位于同一 GCE 项目中，并与 kubelet 位于同一可用区内。
+  GCP PD 只能以 `"ReadWriteOnce"` 或`"ReadOnlyMany"` 模式挂载。
+  GCE PD 支持属主管理和 SELinux 重打标签操作。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type of the volume.
+      The filesystem type must be supported by the host operating system.
+      For example, `"ext4"`, `"xfs"`, `"ntfs"`.
+    x-kab-description-zh: |
+      卷的文件系统类型。这一文件系统类型必须被宿主操作系统所支持。例如，`"ext4"`, `"xfs"`, `"ntfs"`。
+    type: string
+  partition:
+    description: |
+      The partition to mount in the volume. If omitted, the default is to mount by volume name.
+      For example, for volume `"/dev/sda1"`, you specify the partition as `1`.
+      Similarly, the volume partition for `"/dev/sda"` is `0` (or you can leave the property empty).
+    x-kab-description-zh: |
+      卷中要挂载的分区。如果忽略此字段，则默认会按卷名挂载。
+      例如，对于卷 `"/dev/sda1"` 而言，你会将 `partition` 设置为 `1`；
+      类似的，对于 `"/dev/sda"` 的卷分区，则应该设置为 `0`（或者也可以选择将字段留空）。
+    format: int32
+    maximum: 255
+    minimum: 0
+    type: integer
+  pdName:
+    description: Unique name of the PD resource in GCE.
+    x-kab-description-zh: PD 资源在 GCE 中的唯一性名称。
+    minLength: 1
+    type: string
+  readOnly:
+    default: false
+    description: Force the `readOnly` setting in `volumeMounts`.
+    x-kab-description-zh: 强制在 `volumeMounts` 中如何设置 `readOnly` 选项。
+    type: boolean
+required:
+  - pdName
+type: object
+

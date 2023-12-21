@@ -1,0 +1,47 @@
+consumes:
+  - '*/*'
+description: replace the specified PriorityLevelConfiguration
+operationId: replaceFlowcontrolApiserverV1beta2PriorityLevelConfiguration
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfiguration.UPDATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+  - description: name of the PriorityLevelConfiguration
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfiguration.GET'
+  '201':
+    description: Updated
+    schema:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfiguration.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - flowcontrolApiserver_v1beta2
+verb: put
+x-kubernetes-action: put
+x-kubernetes-group-version-kind:
+  group: flowcontrol.apiserver.k8s.io
+  kind: PriorityLevelConfiguration
+  version: v1beta2
+

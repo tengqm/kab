@@ -1,0 +1,35 @@
+description: |
+  An object that defines the max disruption that can be caused to a collection of Pods.
+x-kab-description-zh: |
+  PodDisruptionBudget 用来定义一组 Pod 可接受的干扰上限。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - policy/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PodDisruptionBudget
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object's metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.policy.v1.PodDisruptionBudgetSpec'
+    description: Specification of the desired behavior of the PodDisruptionBudget.
+    x-kab-description-zh: 对 PodDisruptionBudget 预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: policy
+    kind: PodDisruptionBudget
+    version: v1
+

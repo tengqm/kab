@@ -1,0 +1,45 @@
+consumes:
+  - '*/*'
+description: create a HorizontalPodAutoscaler
+operationId: createAutoscalingV2NamespacedHorizontalPodAutoscaler
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+path: /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler.GET'
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler.GET'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.autoscaling.v2.HorizontalPodAutoscaler.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - autoscaling_v2
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: autoscaling
+  kind: HorizontalPodAutoscaler
+  version: v2
+

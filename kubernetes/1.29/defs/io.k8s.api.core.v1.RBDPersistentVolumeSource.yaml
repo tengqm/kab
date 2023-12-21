@@ -1,0 +1,54 @@
+description: |
+  A Rados Block Device (RBD) mount that lasts the lifetime of a Pod.
+  RBD volumes support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  在 Pod 整个生命周期内可用的一个 Rados Block Device (RBD) 挂载卷。
+  RBD 卷支持属主管理和 SELinux 重新打标签操作。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type of the volume to mount. The filesystem type must be supported by the host operating system.
+    x-kab-description-zh: |
+      要挂载的卷的文件系统类型。此文件系统类型必须被宿主操作系统支持。
+    type: string
+  image:
+    description: The rados image name.
+    x-kab-description-zh: RADOS 镜像名称。
+    minLength: 1
+    type: string
+  keyring:
+    default: /etc/ceph/keyring
+    description: The path to key ring for RBDUser.
+    x-kab-description-zh: 指向 RBD 用户的密钥环的路径。
+    type: string
+  monitors:
+    description: A collection of Ceph monitors.
+    x-kab-description-zh: 一个 Ceph 监视器（Monitor）集合。
+    items:
+      type: string
+    type: array
+  pool:
+    default: rbd
+    description: The rados pool name.
+    x-kab-description-zh: RADOS 池的名称。
+    type: string
+  readOnly:
+    default: false
+    description: Force the disk to be mounted in read-only mode.
+    x-kab-description-zh: 强制磁盘以只读模式挂载。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: The name of the authentication Secret for RBDUser. If provided overrides `keyring`.
+    x-kab-description-zh: RBD 用户所使用的身份认证 Secret 的名称。如果设置了此字段，会覆盖 `keyring` 设置。
+  user:
+    default: admin
+    description: The rados user name.
+    x-kab-description-zh: RADOS 用户名。
+    type: string
+required:
+  - image
+  - monitors
+type: object
+

@@ -1,0 +1,61 @@
+description: |
+  StatusDetails is a set of additional properties that MAY be set by the server to provide additional
+  information about a response.
+  The `reason` field of a Status object defines what attributes will be set.
+  Clients must ignore fields that do not match the defined type of each attribute,
+  and should assume that any attribute may be empty, invalid, or under defined.
+x-kab-description-zh: |
+  StatusDetails 是一组关于服务器响应的属性信息，可能会被服务器设置。
+  Status 对象的 `reason` 字段定义哪些属性会被设置。
+  客户端必须忽略与各种属性所定义的类型不相干的字段，并且假定这里所给的任何属性都可能是空的，
+  或者是非法的，或者是定义不明确的。
+
+properties:
+  causes:
+    description: |
+      The `causes` array includes more details associated with the status `reason`.
+      Not all reasons may provide detailed causes.
+    x-kab-description-zh: |
+      `causes` 数组包含与 Status 的 `reason` 关联的更多细节。
+      不是所有的原因都会提供详细的原因说明。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.StatusCause'
+    type: array
+  group:
+    description: The group attribute of the resource associated with the status `reason`.
+    x-kab-description-zh: 与 Status 的 `reason` 相关联的资源的组属性。
+    type: string
+  kind:
+    description: |
+      The kind attribute of the resource associated with the status `reason`.
+      On some operations may differ from the requested resource `kind`.
+    x-kab-description-zh: |
+      与 Status 的 `reason` 相关联的资源的类别属性。
+      对于某些操作，这里给出的 `kind` 值可能与所请求的资源的 `kind` 不同。
+    type: string
+  name:
+    description: |
+      The name attribute of the resource associated with the status `reason`
+      (when there is a single name which can be described).
+    x-kab-description-zh: |
+      与 Status 的 `reason` 相关联的资源的名称属性
+      （前提是存在一个确定的资源名称）。
+
+    type: string
+  retryAfterSeconds:
+    description: |
+      If specified, the time in seconds before the operation should be retried.
+      Some errors may indicate the client must take an alternate action - for those errors this field
+      may indicate how long to wait before taking the alternate action.
+    x-kab-description-zh: |
+      如果设置了此字段，则给出的是重试操作之前的等待时长秒数。
+      某些错误可能表明客户端必须采取一种替代操作。
+      这时候，此字段可能会给出在执行替代操作之前要等待的时长。
+    format: int32
+    type: integer
+  uid:
+    description: UID of the resource. (when there is a single resource which can be described).
+    x-kab-description-zh: 资源的 UID （前提是存在一个确定的资源 ID）。
+    type: string
+type: object
+

@@ -1,0 +1,24 @@
+description: A Portworx volume resource.
+x-kab-description-zh: Portworx 卷资源。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      The filesystem type to mount. Must be a filesystem type supported by the host operating system.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系统所支持的文件系统类型。
+    type: string
+  readOnly:
+    default: false
+    description: Force the volume to be mounted in read-only mode.
+    x-kab-description-zh: 强制以只读模式挂载卷。
+    type: boolean
+  volumeID:
+    description: Unique ID that identifies a Portworx volume
+    x-kab-description-zh: 用来标识 Portworx 卷的唯一 ID。
+    minLength: 1
+    type: string
+required:
+  - volumeID
+type: object
+

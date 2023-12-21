@@ -1,0 +1,72 @@
+description: The desired hard limits to enforce as quota.
+x-kab-description-zh: 期望作为配额来实施的硬性限制。
+properties:
+  hard:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The set of desired hard limits for each named resource.
+      The resource name must be a standard quota resources or fully qualified name.
+      All quantity values must be non-negative.
+      For integer resources, the value cannot contain milli-value.
+      The standard quota resources are `"cpu"`, `"memory"`, `"ephemeral-storage"`,
+      `"requests.cpu"`, `"requests.memory"`, `"requests.storage"`, `"requests.ephemeral-storage"`,
+      `"limits.cpu"`, `"limits.memory"`, `"limits.ephemeral-storage"`, `"pods"`, `"resourcequotas"`,
+      `"services"`, `"replicationcontrollers"`, `"secrets"`, `"persistentvolumeclaims"`,
+      `"configmaps"`, `"services.nodeports"`, `"services.loadbalancers"`.
+    x-kab-description-zh: |
+      所列举的各项资源的硬性限制。资源名称必须时标准的配额资源或者全限定名称。
+      所有配额值都必须是非负数。对于整数资源，所给的数值要用整数。
+      标准的配额资源包括 `"cpu"`、`"memory"`、`"ephemeral-storage"`、`"requests.cpu"`、
+      `"requests.memory"`、`"requests.storage"`、`"requests.ephemeral-storage"`、
+      `"limits.cpu"`、`"limits.memory"`、`"limits.ephemeral-storage"`、`"pods"`、
+      `"resourcequotas"`、`"services"`、`"replicationcontrollers"`、`"secrets"`、
+      `"persistentvolumeclaims"`、`"configmaps"`、`"services.nodeports"`、
+      `"services.loadbalancers"`。
+    type: object
+  scopeSelector:
+    $ref: '#/definitions/io.k8s.api.core.v1.ScopeSelector'
+    description: |
+      A collection of filters like `scopes` for matching objects tracked by a quota but expressed
+      using scope selectors operator in combination with possible values.
+      For a resource to match, both `scopes` AND `scopeSelector` (if specified) must match.
+    x-kab-description-zh: |
+      一组类似 `scopes` 这样的过滤器，用来匹配要被配额跟踪的对象。
+      此字段用作用域选择算符配合一些可能的取值来表达。
+      如果某资源要与此配额匹配，就需要同时匹配 `scopes` 和 `scopeSelector`（如果设置了）。
+  scopes:
+    description: |
+      A collection of filters that for matching objects tracked by a quota.
+      An empty list matches all objects. For a resource to match, both `scopes` AND `scopeSelector`
+      (if specified) must match. For standard resources, when `scopes` contain `"Terminating"`,
+      `"NotTerminating"`, `"NotBestEffort"` or `"PriorityClass"`, the resource in `hard` can be one of
+      `"cpu"`, `"memory"`, `"limits.cpu"`, `"limits.memory"`, `"requests.cpu"`, `"requests.memory"`
+      or `"pods"`.
+      When `scopes` contain `"BestEffort"`, the resource name in `hard` can only be `"pods"`.
+      `"Terminating"` conflicts with `"NonTerminating"` and `"BestEffort"` conflicts with
+      `"NotBestEffort"`.
+      This field is immutable so cannot be updated.
+    x-kab-description-zh: |
+      用来匹配被配额跟踪的对象的一组过滤条件。如果此列表为空，可以匹配所有对象。
+      如果某资源要与此配额匹配，就需要同时匹配 `scopes` 和 `scopeSelector`（如果设置了）。
+
+      对于标准资源，当 `scopes` 中包含 `"Terminating"`、`"NotTerminating"`、`"NotBestEffort"` 或
+      `"PriorityClass"`，通过 `hard` 可以设置的资源包括 `"cpu"`、`"memory"`、`"limits.cpu"`、
+      `"limits.memory"`、`"requests.cpu"`、`"requests.memory"` 或者 `"pods"`。
+      当 `scopes` 中包含 `"BestEffort"` 时，`hard` 中设置的资源只能是 `"pods"`。
+
+      `"Terminating"` 与 `"NonTerminating"` 冲突，`"BestEffort"` 和 `"NotBestEffort"`
+      也不能同时出现。
+
+      此字段时不可变更的。
+    items:
+      enum:
+        - BestEffort
+        - NotBestEffort
+        - NotTerminating
+        - PriorityClass
+        - Terminating
+      type: string
+    type: array
+type: object
+

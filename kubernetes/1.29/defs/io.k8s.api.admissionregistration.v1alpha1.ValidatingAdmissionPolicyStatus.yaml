@@ -1,0 +1,27 @@
+x-kab-description-zh: ValidatingAdmissionPolicyStatus 代表某 ValidatingAdmissionPolicy 对象的状态。
+properties:
+  conditions:
+    description: |
+      The conditions represent the latest available observations of a policy's current state.
+    x-kab-description-zh: 关于某策略的当前状态的最新监测结果。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+  observedGeneration:
+    description: The generation observed by the controller.
+    x-kab-description-zh: 控制器所观测到的对象世代值。
+    format: int64
+    type: integer
+  typeChecking:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.TypeChecking'
+    description: |
+      The results of type checking for each expression. Presence of this
+      field indicates the completion of the type checking.
+    x-kab-description-zh: |
+      各个表达式的类型检查结果。
+      状态对象中存在此字段意味着类型检查已经结束。
+type: object
+

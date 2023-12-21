@@ -1,0 +1,31 @@
+consumes:
+  - '*/*'
+description: create a ConfigMap
+operationId: createCoreV1NamespacedConfigMap
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.ConfigMap.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+path: /api/v1/namespaces/{namespace}/configmaps
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.ConfigMap.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: post
+

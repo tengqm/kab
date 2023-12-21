@@ -1,0 +1,44 @@
+description: |
+  API server instances report the versions they can decode and the version
+  they encode objects to when persisting objects in the backend.
+x-kab-description-zh: |
+  API 服务器实例报告它所能够解码的版本，以及它将对象写入后台持久存储时使用的编码版本。
+properties:
+  commonEncodingVersion:
+    description: |
+      If all API server instances agree on the same encoding storage version,
+      then this field is set to that version. Otherwise this field is left empty.
+      API servers should finish updating its `storageVersionStatus` entry before serving
+      write operations, so that this field will be in sync with the reality.
+
+    x-kab-description-zh: |
+      如果所有的 API 服务器实例都同一使用相同的编码存储版本，
+      这个字段的值即是对应的版本。否则此字段会是空字符串。
+      API 服务器应该在完成更新其 `storageVersionStatus` 项之后才为写操作提供服务，
+      这样的话此字段的取值才能与事实情况相符。
+
+    type: string
+  conditions:
+    description: The latest available observations of the StorageVersion's state.
+    x-kab-description-zh: StorageVersion 状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.apiserverinternal.v1alpha1.StorageVersionCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+  storageVersions:
+    description: The reported versions per API server instance.
+    x-kab-description-zh: 各个 API 服务器实例所报告的版本。
+    items:
+      $ref: '#/definitions/io.k8s.api.apiserverinternal.v1alpha1.ServerStorageVersion'
+    type: array
+    x-kubernetes-list-map-keys:
+      - apiServerID
+    x-kubernetes-list-type: map
+required:
+  - commonEncodingVersion
+  - conditions
+  - storageVersions
+type: object
+

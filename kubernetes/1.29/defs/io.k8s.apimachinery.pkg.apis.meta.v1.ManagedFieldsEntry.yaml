@@ -1,0 +1,65 @@
+description: A workflow-id, a field set and the group version of the resource that the field set applies to.
+x-kab-description-zh: |
+  此结构包含工作流 ID、一个字段集合以及字段集合所适用的资源的组版本。
+properties:
+  apiVersion:
+    description: |
+      The version of the resource that this field set applies to.
+      The format is `"group/version"` just like the top-level of `apiVersion` field.
+      It is necessary to track the version of a field set because it cannot be automatically converted.
+    x-kab-description-zh: |
+      此字段集合所适用的资源版本。
+      字段的格式为 `"group/version"`，与顶层的 `apiVersion` 相同。
+      跟踪字段集合的版本是有必要的，因为字段集合的内容无法被自动转换。
+    type: string
+  fieldsType:
+    description: |
+      The discriminator for the different fields format and version.
+      There is currently only one possible value, i.e., `"FieldsV1"`.
+    x-kab-description-zh: |
+      用来区分不同字段格式和版本的符号。目前仅支持 `"FieldsV1"`。
+    type: string
+  fieldsV1:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.FieldsV1'
+    description: The first JSON version format as described in the `"FieldsV1"` type.
+    x-kab-description-zh: 如 `FieldsV1` 类型所定义的，此字段给出的是第一个JSON 版本格式。
+  manager:
+    description: An identifier of the workflow managing these fields.
+    x-kab-description-zh: 管理这些字段的工作流的标识符。
+    type: string
+  operation:
+    description: The type of operation which lead to the creation of this object.
+    x-kab-description-zh: 导致此字段被设置的操作的类型。
+    enum:
+      - Apply
+      - Update
+    minLength: 1
+    type: string
+  subresource:
+    description: |
+      The name of the subresource used to update that object, or empty string if the object was updated
+      through the main resource.
+      The value of this field is used to distinguish between managers, even if they share the same name.
+      For example, a status update will be distinct from a regular update using the same manager name.
+      Note that the `apiVersion` field is not related to the `subresource` field and
+      it always corresponds to the version of the main resource.
+    x-kab-description-zh: |
+      用来更新对象时的子资源名称，如果对象是通过主资源更新的，则字段为空字符串。
+      此字段的取值被用来区分不同的管理者，即使这些管理者的名字相同。
+      例如，对于 `status` 的更新与使用相同管理者名称进行的常规更新是不同的。
+      注意，`apiVersion` 字段与 `subresource` 字段无关，总是对应到主资源的版本。
+    type: string
+  time:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      The timestamp of when the `managedFields` entry was added.
+      The timestamp will also be updated if a field is added, the manager changes any of the owned
+      fields value or removes a field.
+      The timestamp does not update when a field is removed from the entry because another manager
+      took it over.
+    x-kab-description-zh: |
+      `managedFields` 被添加时的时间戳。
+      当添加了新字段、管理器更改了所管理字段的取值，或者字段被删除时，此时间戳都会被更新。
+      如果某字段被移除的原因是被另一个管理器接手，时间戳的值不会变。
+type: object
+

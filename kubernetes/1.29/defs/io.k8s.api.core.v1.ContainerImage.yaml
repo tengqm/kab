@@ -1,0 +1,19 @@
+description: Describe a container image.
+x-kab-description-zh: 此结构描述一个容器镜像。
+properties:
+  names:
+    description: Names by which this image is known.
+    x-kab-description-zh: 引用此镜像时所使用的名称。
+    items:
+      type: string
+    type: array
+  sizeBytes:
+    description: The size of the image in bytes.
+    x-kab-description-zh: 镜像大小（按字节计）。
+    format: int64
+    type: integer
+required:
+  - names
+  - sizeBytes
+type: object
+

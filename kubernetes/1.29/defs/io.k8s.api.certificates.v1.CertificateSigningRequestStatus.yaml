@@ -1,0 +1,86 @@
+description: |
+  Conditions used to indicate approved/denied/failed status of the request,
+  and the issued certificate.
+x-kab-description-zh: |
+  此结构包含请求被批准、拒绝或者请求失败的状态，以及所签发的证书。
+properties:
+  certificate:
+    description: |
+      An issued certificate by the signer if an `"Approved"` condition is present.
+      This field is set via the `/status` subresource.  Once populated, this field is immutable.
+      If the certificate signing request is denied, a condition of type `"Denied"`
+      is added and this field remains empty.
+      If the signer cannot issue the certificate, a condition of type `\"Failed\"` is added
+      and this field remains empty. Validation requirements:
+      1. certificate must contain one or more PEM blocks.
+      1. All PEM blocks must have the `"CERTIFICATE"` label, contain no headers, and
+         the encoded data must be a BER-encoded ASN.1 Certificate structure as described
+         in section 4 of RFC5280.
+      1. Non-PEM content may appear before or after the `"CERTIFICATE"` PEM blocks and
+         is unvalidated, to allow for explanatory text as described in section 5.2 of RFC7468.
+
+      If more than one PEM block is present, and the definition of the requested
+      `spec.signerName` does not indicate otherwise, the first block is the issued certificate,
+      and subsequent blocks should be treated as intermediate certificates and presented
+      in TLS handshakes.
+
+      The certificate is encoded in PEM format. When serialized as JSON or YAML, the data
+      is additionally base64-encoded, so it consists of:
+
+      ```
+      base64(
+      -----BEGIN CERTIFICATE-----
+      ...
+      -----END CERTIFICATE-----
+      )
+      ```
+    x-kab-description-zh: |
+      当存在 `"Approved"` 状况时，此字段包含签名者所签发的证书。
+      此字段是由 `/status` 子资源设置的。一旦字段被设置，就不能被更改。
+      如果证书签名请求被拒绝，则请求对象上会被添加一个类型为 `"Denied"` 的状况，
+      而 `certificate` 字段保持为空。
+      如果签名者无法发放证书，则请求对象上会被添加一个类型为 `"Failed"` 的状况，
+      而 `certificate` 字段保持为空。
+
+      对此字段的合法性检查规则如下：
+
+      1. `certificate` 必须包含至少一个 PEM 块。
+      1. 所有的 PEM 块都必须带有 `"CERTIFICATE"` 标签，没有头部字段，并且所编码的数据必须按
+         RFC5280 第 4 节中所描述的那样，是一个用 BER 编码的 ASN.1 Certificate 结构。
+      1. `"CERTIFICATE"` PEM 块的前面和后面都可以有非 PEM 内容，系统不会检查这些内容。
+         用户可以在这些位置以 RFC7468 第 5.2 节描述的方式插入一些解释性文字。
+
+      如果字段值中包含多个 PEM 块，并且所请求的 `spec.signerName` 没有对此作额外说明，
+      则第一个 PEM 块是所发放的证书，而后续的 PEM 块应被视为中间证书，
+      是在 TLS 握手过程中也要提供的内容。
+
+      证书内容是用 PEM 格式编码的。序列化为 JSON 或者 YAML 时，数据会被 base64 编码。
+      因此证书字段的内容是：
+
+      ```
+      base64(
+      -----BEGIN CERTIFICATE-----
+      ...
+      -----END CERTIFICATE-----
+      )
+      ```
+
+    format: byte
+    type: string
+    x-kubernetes-list-type: atomic
+  conditions:
+    description: Conditions applied to the request.
+    enum:
+      - Approved
+      - Denied
+      - Failed
+    items:
+      $ref: '#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequestCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+required:
+  - conditions
+type: object
+

@@ -1,0 +1,11 @@
+description: IngressLoadBalancerStatus represents the status of a load-balancer.
+x-kab-description-zh: IngressLoadBalancerStatus 代表的是一个负载均衡器的状态。
+properties:
+  ingress:
+    description: A list containing ingress points for the load-balancer.
+    x-kab-description-zh: 包含负载均衡 Ingress 点的一个列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.IngressLoadBalancerIngress'
+    type: array
+type: object
+

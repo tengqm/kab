@@ -1,0 +1,65 @@
+description: Information for the node's address.
+x-kab-description-zh: 关于节点地址的信息。
+properties:
+  address:
+    description: The node address.
+    x-kab-description-zh: 节点地址。
+    minLength: 1
+    type: string
+  type:
+    description: |
+      Node address type. Possible enum values:
+      - `"ExternalDNS" ` identifies a DNS name which resolves to an IP address which has the
+        characteristics of a `"ExternalIP"`.
+        The IP it resolves to may or may not be a listed `"ExternalIP"` address.
+      - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable
+        from outside the cluster than an internal IP, though no specific semantics are defined.
+        It may be a globally routable IP, though it is not required to be.
+        External IPs may be assigned directly to an interface on the node, like a `"InternalIP"`,
+        or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP
+        rather than being delivered directly
+        (making the IP less efficient for node-to-node traffic than a `"InternalIP"`).
+      - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a
+        NodeAddress of this type, its exact syntax and semantics are not defined, and are not
+        consistent between different clusters.
+      - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the
+        characteristics of a `"InternalIP"`. The IP it resolves to may or may not be a listed
+        `"InternalIP"` address.
+      - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces.
+        Every node should have at least one address of this type.
+        An internal IP is normally expected to be reachable from every other node, but may not be
+        visible to hosts outside the cluster. By default it is assumed that the API servers can
+        reach node internal IPs, though it is possible to configure clusters where this is not
+        the case. `"InternalIP"` is the default type of node IP, and does not necessarily imply that
+        the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific
+        semantics are assigned to the additional IPs.
+    x-kab-description-zh: |
+      节点地址类型。可能的取值包括：
+      - `"ExternalDNS" `：给出一个能够被解析为具有 `"ExternalIP"` 特质的 IP 地址的 DNS 名称。
+        实际解析得到的 IP 地址可能在 `"ExternalIP"` 地址中列出，也可能未在其中列出。
+      - `"ExternalIP"`：给出一个在集群外部的可用性比内部 IP 地址更好的 IP 地址，
+        尽管在可用性上没有确切的语义定义。实际取值可能是一个可以全局路由的 IP，尽管并不要求一定如此。
+        外部 IP 可以像 `"InternalIP"` 一样直接设置到节点的某个接口之上，也可以通过将发往外部 IP
+        的数据包 NAT 转发到内部节点 IP 上来工作。与 `"InternalIP"` 相比较，节点间传输的效率会略低。
+      - `"Hostname"`：给出的是节点的名字。尽管可以认为每个节点都会具有一个此类型的 NodeAddress 与之关联，
+        其确切语法和语义都是没有严格定义的，并且在不同的集群之间也存在相当的不一致性。
+      - `"InternalDNS"`：给出的是一个 DNS 名称，可以解析为一个具有 `"InternalIP"` 特质的 IP 地址。
+        解析得到的 IP 可能位于 `"InternalIP"` 地址中列出，也可能未在其中列出。
+      - `"InternalIP"`：给出一个 IP 地址，该 IP 地址被赋予节点上的某个网络接口。
+        每个节点都至少应该具有一个这种类型的地址。
+        内部 IP 地址通常都应该是从其他节点可达，但对与集群外的主机不可见。
+        默认情况下，我们假定 API 服务器是可以访问节点的内部 IP 的，尽管也可以配置集群使这点不成立。
+        `"InternalIP"` 是节点 IP 地址的默认类型，但并不一定意味着该 IP 只能从内部访问。
+        如果节点具有多个内部 IP 地址，Kubernetes 没有对额外的 IP 地址做语义上的限制或约定。
+    enum:
+      - ExternalDNS
+      - ExternalIP
+      - Hostname
+      - InternalDNS
+      - InternalIP
+    type: string
+required:
+  - address
+  - type
+type: object
+

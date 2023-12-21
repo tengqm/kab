@@ -1,0 +1,37 @@
+description: An object that describes a single IP address.
+x-kab-description-zh: |
+  用来描述一个 IP 地址的对象。
+properties:
+  hostname:
+    description: |
+      The hostname of this endpoint. Must be valid DNS-1123 label if specified.
+    x-kab-description-zh: |
+      此端点的主机名。字段值如果设置了，必须是合法的 DNS-1123 标签。
+    type: string
+  ip:
+    description: |
+      The IP of this endpoint. May not be unspecified (`"0.0.0.0"`), loopback (`"127.0.0.0/8"`
+      or `"::1"`), link-local (`"169.254.0.0/16"` or `"fe80::/10"`), or link-local multicast
+      (`"224.0.0.0/24"` or `"ff02::/16"`).
+    x-kab-description-zh: |
+      端点的 IP 地址。不可以是未设定地址（`"0.0.0.0"`）、本地回路（`"127.0.0.0/8"` 或 `"::1"`）、
+      链路本地（`"169.254.0.0/16"` 或 `"fe80::/10"`）或者链路本地多播（`"224.0.0.0/24"`
+      或 `"ff02::/16"`）地址。
+    type: string
+  nodeName:
+    description: |
+      Node hosting this endpoint. This can be used to determine endpoints local to a node.
+      The value must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      托管此端点的节点。此字段可用来确定哪些端点是节点本地的端点。
+      字段值必须是合法的 DNS 子域名。
+    type: string
+  targetRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: Reference to object providing the endpoint.
+    x-kab-description-zh: 对提供端点的对象的引用。
+required:
+  - ip
+type: object
+x-kubernetes-map-type: atomic
+

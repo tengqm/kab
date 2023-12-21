@@ -1,0 +1,28 @@
+description: A reference to an object that a token is bound to.
+x-kab-description-zh:  对令牌所绑定的某个对象的引用。
+properties:
+  apiVersion:
+    description: API group and version of the referent
+    x-kab-description-zh: 被引用者的 API 组与版本。
+    minLength: 1
+    type: string
+  kind:
+    description: Kind name of the referent
+    x-kab-description-zh: 被引用者的类别（Kind）名称。
+    enum:
+      - Pod
+      - Secret
+    type: string
+  name:
+    description: Name of the referent.
+    x-kab-description-zh: 被引用者的名称。
+    type: string
+  uid:
+    description: UID of the referent.
+    x-kab-description-zh: 被引用者的 ID。
+    type: string
+required:
+  - apiVersion
+  - kind
+type: object
+

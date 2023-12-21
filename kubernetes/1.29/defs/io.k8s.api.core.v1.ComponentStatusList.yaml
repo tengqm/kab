@@ -1,0 +1,39 @@
+description: |
+  Status of all conditions for system components.
+  **DEPRECATED**: This API is deprecated in v1.19+.'
+x-kab-description-zh:
+  系统组件所有状况的状态。**已弃用**：此 API 在 v1.19 版本起被弃用。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  items:
+    description: List of ComponentStatus objects.
+    x-kab-description-zh: 包含 ComponentStatus 对象的一个列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ComponentStatus'
+    type: array
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ComponentStatusList
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata.
+    x-kab-description-zh: 标准的列表元数据。
+required:
+  - apiVersion
+  - items
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: ComponentStatusList
+    version: v1
+

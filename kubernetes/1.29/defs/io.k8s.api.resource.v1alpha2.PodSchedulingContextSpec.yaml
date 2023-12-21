@@ -1,0 +1,31 @@
+description: PodSchedulingContextSpec describes where resources for the Pod are needed.
+x-kab-description-zh: PodSchedulingContextSpec 描述在哪里需要 Pod 资源。
+properties:
+  potentialNodes:
+    description: |
+      This field lists nodes where the Pod might be able to run.
+      This size of this field is limited to 128. This is large enough for many clusters.
+      Larger clusters may need more attempts to find a node that suits all pending resources.
+      This may get increased in the future, but not reduced.
+    x-kab-description-zh: |
+      此字段列举 Pod 可能可以运行的节点。
+      此字段的大小限制为 128，对于很多集群而言，这个限制应该足够大。
+      如果集群规模较大，寻找能够适合所有待定资源的节点可能会很耗时。
+
+      列表的规模限制将来可能会增加，但不会降低。
+    items:
+      minLength: 1
+      type: string
+    maxItems: 128
+    type: array
+    x-kubernetes-list-type: set
+  selectedNode:
+    description: |
+      This is the node for which allocation of ResourceClaims that are referenced by the Pod and
+      that use `"WaitForFirstConsumer"` allocation is to be attempted.
+    x-kab-description-zh: |
+      此字段为选中的节点，Pod 所引用的、分配策略为 `"WaitForFirstConsumer"` 的 ResourceClaim 
+      都会在这个节点上尝试。
+    type: string
+type: object
+

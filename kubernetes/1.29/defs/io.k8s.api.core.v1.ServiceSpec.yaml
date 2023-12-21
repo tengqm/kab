@@ -1,0 +1,456 @@
+description: The specification of a Service.
+x-kab-description-zh: Service 对象的规约。
+properties:
+  allocateLoadBalancerNodePorts:
+    default: true
+    description: |
+      This defines if node ports will be automatically allocated for Services with type `"LoadBalancer"`.
+      It may be set to `false` if the cluster load-balancer does not rely on node ports.
+      If the caller requests specific node ports (by specifying a value), those requests will be
+      respected, regardless of this field. This field may only be set for Services with type
+      `"LoadBalancer"` and will be cleared if the type is changed to any other type.
+    x-kab-description-zh: |
+      此字段用来设置是否为 `"LoadBalancer"` 类型的 Service 自动分配节点端口。
+      如果集群的负载均衡器不依赖于节点端口，可以将此字段设置为 `false`。
+      如果调用这需要特定的节点端口（通过指定节点端口），则系统会尊重请求的要求，忽略此字段设置。
+      此字段只能用于 `"LoadBalancer"` 类型的 Service。当 Service 变更为其他类型时，此字段会被清除。
+    type: boolean
+  clusterIP:
+    description: |
+      The IP address of the Service. It is usually assigned randomly by the system.
+      If an address is manually specified, is in-range (as per system configuration), and is not in use,
+      it will be allocated to the Service; otherwise creation of the Service will fail.
+
+      This field may not be changed through updates unless the `type` field is also being changed to
+      `"ExternalName"` (which requires this field to be blank) or the `type` field is being changed
+      from `"ExternalName"` (in which case this field may optionally be specified, as describe above).
+
+      Valid values are `"None"`, empty string (`""`), or a valid IP address.
+      Setting this to `"None"` makes a *headless service* (no virtual IP), which is useful when
+      direct endpoint connections are preferred and proxying is not required.
+      Only applies to types `"ClusterIP"`, `"NodePort"`, and `"LoadBalancer"`.
+      This field cannot be set to `"None"` if Service type is `"NodePort"` or `"LoadBalancer"`.
+      If this field is specified when creating a Service of type `"ExternalName"`, the Service creation
+      will fail.
+      This field will be wiped when updating a Service to type `"ExternalName"`.
+    x-kab-description-zh: |
+      Service 自身的 IP 地址。通常会由系统随机分配。
+      如果手动设置此字段，并且所给字段值位于系统设置的 Service IP 地址范围内，并且该地址尚未被使用，
+      则系统会使用用户所给的 IP 地址。否则 Service 创建请求会失败。
+
+      此字段不可以通过更新请求来改变，除非 `type` 字段也被改为 `"ExternalName"`（进而要求此字段为空）
+      或者 `type` 字段从 `"ExternalName"`（这时设置此字段时可选的）变为别的值。
+
+      合法的取值可以是 `"None"`、空字符串（`""`）或者一个合法的 IP 地址。
+      字段值为 `"None"` 意味着 Service 是一个没有虚拟 IP 的无头（Headless）服务。
+      当希望直接连接到端点而不是经过服务代理时，无头服务是有用的。
+      仅适用于 `"ClusterIP"`、`"NodePort"` 和 `"LoadBalancer"` 类型的 Service。
+      当 Service `type` 为 `"NodePort"` 或 `"LoadBalancer"` 时，此字段不可设置为 `"None"`。
+      如果创建类型为 `"ExternalName"` 的 Service 时设置了此字段，则 Service 创建会失败。
+      当将现有 Service 的类型改为 `"ExternalName"` 时，此字段会被清除。
+    type: string
+  clusterIPs:
+    description: |
+      A list of IP addresses assigned to this Service. The values are usually assigned randomly.
+      If an address is manually specified, is in-range (as per system configuration), and is not in use,
+      it will be allocated to the Service; otherwise the Service creation will fail.
+      This field may not be changed through updates unless the `type` field is also being changed to
+      `"ExternalName"` (which requires this field to be empty) or the `type` field is being changed
+      from `"ExternalName"` (in which case this field may optionally be specified, as describe above).
+
+      Valid values are `"None"`, empty string (`""`), or a valid IP address. Setting this to
+      `["None"]` makes a *headless service* (no virtual IP), which is useful when direct endpoint
+      connections are preferred and proxying is not required.
+      When `"None"` is in the list, there cannot be other items in the list.
+      Only applies to types `"ClusterIP"`, `"NodePort"`, and `"LoadBalancer"`.
+      If this field is specified when creating a Service of type `"ExternalName"`, the Service creation
+      will fail. This field will be wiped when updating a Service to type `"ExternalName"`.
+
+      If this field is not specified, it will be initialized from the `clusterIP` field.
+      If this field is specified, clients must ensure that `clusterIPs[0]` and `clusterIP` have the
+      same value.
+
+      This field may hold a maximum of two entries (dual-stack IPs, in either order).
+      These IPs must correspond to the values of the `ipFamilies` field.
+      Both `clusterIPs` and `ipFamilies` are governed by the `ipFamilyPolicy` field.
+
+    x-kab-description-zh: |
+      分配给此 Service 的 IP 地址的列表。此地址通常是随机分配的。
+      如果手动设置此字段，并且所给字段值位于系统设置的 Service IP 地址范围内，并且该地址尚未被使用，
+      则系统会使用用户所给的 IP 地址。否则 Service 创建请求会失败。
+
+      此字段不可以通过更新请求来改变，除非 `type` 字段也被改为 `"ExternalName"`（进而要求此字段为空）
+      或者 `type` 字段从 `"ExternalName"`（这时设置此字段时可选的）变为别的值。
+
+      合法的取值可以是 `"None"`、空字符串（`""`）或者一个合法的 IP 地址。
+      字段值为 `["None"]` 意味着 Service 是一个没有虚拟 IP 的无头（Headless）服务。
+      当希望直接连接到端点而不是经过服务代理时，无头服务是有用的。
+      当列表准存在 `"None"` 时，列表中不可存在其他条目。
+      仅适用于 `"ClusterIP"`、`"NodePort"` 和 `"LoadBalancer"` 类型的 Service。
+      如果创建类型为 `"ExternalName"` 的 Service 时设置了此字段，则 Service 创建会失败。
+      当将现有 Service 的类型改为 `"ExternalName"` 时，此字段会被清除。
+
+      如果未设置此字段，则 Service 初始化时会根据 `clusterIP` 字段内容来初始化。
+      如果设置了此字段，则客户端必须确保 `clusterIPs[0]` 与 `clusterIP` 的值相同。
+
+      此字段最多包含两个表项（针对双栈 IP，顺序任意）。所给的 IP 地址对应于 `ipFamilies` 字段中的值。
+      `clusterIPs` 和 `ipFamilies` 字段都是受控于 `ipFamilyPolicy` 字段的。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  externalIPs:
+    description: |
+      A list of IP addresses for which nodes in the cluster will also accept traffic for this Service.
+      These IPs are not managed by Kubernetes.
+      The user is responsible for ensuring that traffic arrives at a node with this IP.
+      A common example is external load-balancers that are not part of the Kubernetes system.
+      The IP address provided cannot be `"0.0.0.0"` or loopback addresses (`"127.0.0.0/8"`) or link-local
+      addresses (`"169.254.0.0/16"`) or link-local multicast addresses (`"244.0.0.0/24"`).
+    x-kab-description-zh: |
+      这里给出的是一个 IP 地址列表，集群中的节点会用这些 IP 地址接收对 Service 的请求流量。
+      所给的 IP 地址是不受 Kubernetes 管理的。
+      用户要确保指向所给 IP 地址的流量会被转发到节点上。
+      一个比较常见的例子是使用 Kubernetes 系统之外的某种负载均衡器。
+      所给的 IP 地址不可以是 `"0.0.0.0"` 或本地回路地址（`"127.0.0.0/8"`）或者链路本地地址
+      （`"169.254.0.0/16"`）或者链路本地多播地址（`"244.0.0.0/24"`）。.
+    items:
+      type: string
+    type: array
+  externalName:
+    description: |
+      The external reference that discovery mechanisms will return as an alias for this Service
+      (e.g. a DNS CNAME record). No proxying will be involved.
+      Must be a lowercase [RFC-1123 hostname](https://tools.ietf.org/html/rfc1123)
+      and requires `type` to be `"ExternalName"`. Having a trailing dot is acceptable.
+    x-kab-description-zh: |
+      此字段给出的是一种外部引用，服务发现机制会将所给的字符串作为 Service 的别名返回
+      （例如，以 DNS CNAME 记录的形式）。这里不会牵涉服务代理机制。
+      所给的字符串必须是小写字母的 [RFC-1123 主机名](https://tools.ietf.org/html/rfc1123)形式，
+      并且设置此字段时要求 `type` 为 `"ExternalName"`。
+      字段值包含尾部的句点也是可接受的。
+    type: string
+  externalTrafficPolicy:
+    default: Cluster
+    description: |
+      `externalTrafficPolicy` describes how nodes distribute service traffic they receive on
+      one of the Service's *externally-facing* addresses (NodePorts, ExternalIPs, and LoadBalancer IPs).
+      If set to `"Local"`, the proxy will configure the Service in a way that assumes that external
+      load balancers will take care of balancing the service traffic between nodes, and so each node
+      will deliver traffic only to the node-local endpoints of the Service, without masquerading
+      the client source IP. (Traffic mistakenly sent to a node with no endpoints will
+      be dropped.)
+
+      The default value, `"Cluster"`, uses the standard behavior of routing to all endpoints evenly
+      (possibly modified by topology and other features).
+      Note that traffic sent to an external IP or LoadBalancer IP from within the cluster will always
+      get `"Cluster"` semantics, but clients sending to a NodePort from within the cluster may
+      need to take traffic policy into account when picking a node.
+    x-kab-description-zh: |
+      `externalTrafficPolicy` 描述节点在从 Service 的**面向外部的**地址（节点端口、外部 IP、
+      或者负载均衡器 IP）上接收到服务请求时，要如何对流量进行分发。
+      如果字段值设置为 `"Local"`，代理会假定外部负载均衡器能够在节点之间完成服务流量的负载均衡，
+      通过对 Service 进行配置，使得服务请求只会被转发给 Service 在节点本地的端点，
+      而不会取伪装客户端的源 IP。错误地发送到不存在端点的节点的请求会被丢弃。
+
+      字段的默认值为 `"Cluster"`，意味着采用标准的路由行为，均衡地将流量引向各个端点
+      （可能会因为拓扑分布或者其他特性有所调整）。
+      注意，从集群内部发往外部 IP 或者负载均衡器 IP 的流量都总是会按 `"Cluster"` 语义处理，
+      但是集群内客户端发往节点端口的流量在选择目标节点时可能需要考虑这里设置的流量策略。
+    enum:
+      - Cluster
+      - Local
+    type: string
+  healthCheckNodePort:
+    description: |
+      The health-check node port for the Service. This only applies when `type` is set to
+      `"LoadBalancer"` and `externalTrafficPolicy` is set to `"Local"`.
+      If a value is specified, is in-range, and is not in use, it will be used.
+      If not specified, a value will be automatically allocated.
+      External systems (e.g.  load-balancers) can use this port to determine if a given node
+      holds endpoints for this Service or not.
+      If this field is specified when creating a Service which does not need it, the Service creation
+      will fail. This field will be wiped when updating a Service to no longer need it
+      (e.g. changing `type`).
+      This field cannot be updated once set.
+    x-kab-description-zh: |
+      用来对 Service 作健康检查时使用的节点端口。
+      仅适用于 `type` 为 `"LoadBalancer"` 且 `externalTrafficPolicy` 被设置为 `"Local"` 的服务。
+      如果此字段被设置，且所给的端口是在合理范围内亦未被使用，则系统会使用这里设置的端口。
+      如果没有设置此字段，系统会自动分配一个端口号。
+      外部系统（例如，负载均衡器）可以使用此端口来确定是否给定节点上存在此 Service 的端点。
+      如果创建 Service 时为不需要此配置的 Service 设置了此字段，Service 创建操作会失败。
+      当更新 Service 之后不再需要此字段时（例如，变更 `type`），字段内容会被清除。
+      此字段一旦设置不可被更新。
+    format: int32
+    minimum: 0
+    type: integer
+  internalTrafficPolicy:
+    default: Cluster
+    description: |
+      This describes how nodes distribute service traffic they receive on the ClusterIP.
+      If set to `"Local"`, the proxy will assume that pods only want to talk to endpoints of the Service
+      on the same node as the pod, dropping the traffic if there are no local endpoints.
+      The default value, `"Cluster"`, uses the standard behavior of routing to all endpoints evenly
+      (possibly modified by topology and other features).
+    x-kab-description-zh: |
+      此字段描述节点如何处理从 ClusterIP 上收到的服务请求流量。
+      如果此字段设置为 `"Local"`，则代理会假定客户端 Pod 只想与 Pod 所在节点上的 Service 端点通信，
+      如果本地没有 Service 的端点，则请求流量会被丢弃。
+      默认值 `"Cluster"` 表示采用默认的路由行为，将请求均衡地发送到所有端点
+      （由于拓扑结构或者其他特性，可能会有一定的调整）。
+    enum:
+      - Cluster
+      - Local
+    type: string
+  ipFamilies:
+    description: |
+      A list of IP families assigned to this Service.
+      This field is usually assigned automatically based on the cluster configuration and the
+      `ipFamilyPolicy` field.
+      If this field is specified manually, the requested family is available in the cluster,
+      and `ipFamilyPolicy` allows it, it will be used; otherwise the creation of the Service will fail.
+
+      This field is conditionally mutable. It allows for adding or removing a secondary IP family,
+      but it does not allow changing the primary IP family of the Service.
+      This field only applies to Services of types `"ClusterIP"`, `"NodePort"`, and `"LoadBalancer"`,
+      and does apply to *headless Services* or `"ExternalName"` Services.
+      This field will be wiped when updating the Service type to `"ExternalName"`.
+
+      This field may hold a maximum of two entries (dual-stack families, in either order).
+      These families must correspond to the values of the `clusterIPs` field, if specified.
+      Both `clusterIPs` and `ipFamilies` are governed by the `ipFamilyPolicy` field.
+    x-kab-description-zh: |
+      此列表字段包含分配给此 Service 的 IP 地址族。
+      通常，此字段会根据集群的配置和 `ipFamilyPolicy` 字段的配置而被自动赋值。
+      如果手动填写此字段，并且所请求的 IP 地址族在集群中可用，并且 `ipFamilyPolicy` 允许使用所给的值，
+      则 Service 会使用手动设置的 IP 地址族。否则，创建 Service 的请求会失败。
+
+      取决于具体情况，此字段可能是可以变更的。
+      变更时可以添加或删除次要的 IP 地址族，但不允许变更 Service 的主要地址族。
+      此字段只能用于类型为 `"ClusterIP"`、`"NodePort"` 和 `"LoadBalancer"` 的 Service，
+      不能用于**无头服务**或者 `"ExternalName"` Service。
+      当 Service 类型变更为 `"ExternalName"` 时，此字段会被清除。
+
+      此字段最多可以包含两条记录（针对双协议栈地址族，顺序任意）。
+      所给的地址族必须对应于 `clusterIPs` 字段的取值（如果设置了）。
+      `clusterIPs` 和 `ipFamilies` 都受控于 `ipFamilyPolicy` 字段。
+    items:
+      enum:
+        - IPV4
+        - IPv6
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  ipFamilyPolicy:
+    description: |
+      The dual-stack-ness requested or required by this Service.
+      If there is no value provided, then this field will be set to `"SingleStack"`.
+      The valid value can be one of:
+
+      - `"SingleStack"`: a single IP family
+      - `"PreferDualStack"`: two IP families on dual-stack configured clusters or a single IP family
+        on single-stack clusters
+      - `"RequireDualStack"`: two IP families on dual-stack configured clusters, otherwise fail
+
+      The `ipFamilies` and `clusterIPs` fields depend on the value of this field.
+      This field cannot be specified for `"ExternalName"` Services, and it will be wiped when
+      updating the Service type to `"ExternalName"`.
+    x-kab-description-zh: |
+      此字段用来表达 Service 对双协议栈的请求或要求。如果未设置，则默认值为 `"SingleStack"`。
+      合法的取值包括：
+
+      - `"SingleStack"`：单个 IP 族；
+      - `"PreferDualStack"`：在配置了双协议栈的集群中使用两个 IP 族，在只有单个协议栈的情况下，
+        使用单个 IP 族。
+      - `"RequireDualStack"`：要求运行在配置了双协议栈的集群上，使用两个 IP 地址族；否则会失败。
+
+      字段 `ipFamilies` 和 `clusterIPs` 的设置都取决于此字段的取值。
+      此字段不能用于 `"ExternalName"` 的 Service，并且会在 Service 类型变为 `"ExternalService"` 时被清除。
+    enum:
+      - PreferDualStack
+      - RequireDualStack
+      - SingleStack
+    type: string
+  loadBalancerClass:
+    description: |
+      The class of the load balancer implementation this Service belongs to.
+      If specified, the value of this field must be a label-style identifier, with an optional prefix,
+      e.g. "internal-vip" or "example.com/internal-vip".
+      Unprefixed names are reserved for end-users.
+      This field can only be set when the Service type is `"LoadBalancer"`.
+      If not set, the default load balancer implementation is used, today this is typically done
+      through the cloud provider integration, but should apply for any default implementation.
+      If set, it is assumed that a load balancer implementation is watching for Services with
+      a matching class.
+      Any default load balancer implementation (e.g. cloud providers) should ignore Services that
+      set this field.
+      This field can only be set when creating or updating a Service to type `"LoadBalancer"`.
+      Once set, it can not be changed. This field will be wiped when a Service is updated to a
+      non `"LoadBalancer"` type.
+    x-kab-description-zh: |
+      此 Service 所属的负载均衡器实现类型。
+      如果设置了此字段，则其取值必须是标签风格的标识符，可以带有前缀，例如：`"internal-vip"`
+      或 `"example.com/internal-vip"`。不带前缀的名字是保留给最终用户使用的。
+      只有 Service 类型为 `"LoadBalaner"` 时才可以设置此字段。
+
+      如果没有设置此字段，Service 会使用默认的负载均衡器实现。
+      目前，默认负载均衡器一般通过与云平台集成来提供，不过应该适用于大多数默认实现。
+      如果设置了此字段，则假定某个负载均衡器实现正在监视带有匹配类名设置的 Service 被创建。
+      所有默认的负载均衡器实现（例如，来自云平台的实现）都应该忽略设置了此字段的 Service。
+
+      此字段一旦设置，即不可变更。当 Service 类型发生变化，不再是 `"LoadBalancer"` 类型时，
+      此字段会被清除。
+    type: string
+  loadBalancerIP:
+    description: |
+      Only applies to Service type "`LoadBalancer`".
+      This feature depends on whether the underlying cloud-provider supports specifying the
+      `loadBalancerIP` when a load balancer is created.
+      This field will be ignored if the cloud-provider does not support the feature.
+
+      **DEPRECATED**: This field was under-specified and its meaning varies across implementations.
+      Using it is non-portable and it may not support dual-stack.
+      Users are encouraged to use implementation-specific annotations when available.
+    x-kab-description-zh: |
+      仅适用于 `"LoadBalancer"` 类型的服务。
+      此特性取决于下层的云平台是否支持在创建负载均衡器时指定 `loadBalancerIP`。
+      如果云平台不支持此特性，则此字段会被忽略。
+
+      **已弃用**： 此字段定义不明确，对于不同的实现而言，其他含义也会有所不同。
+      设置这个字段可能会导致 Service 不可移植，而且可能不支持双栈环境。
+      鼓励用户使用特定于具体实现的注解。
+    type: string
+  loadBalancerSourceRanges:
+    description: |
+      If specified and supported by the platform, this will restrict traffic through the cloud-provider
+      load-balancer will be restricted to the specified client IPs.
+      This field will be ignored if the cloud-provider does not support the feature.
+    x-kab-description-zh: |
+      如果设置了此字段，并且平台支持这种设置，所设置的值会限制只有指定的客户端 IP
+      地址可以通过云平台的负载均衡器发送服务请求。
+      如果云平台不支持这一特性，字段会被忽略。
+    items:
+      type: string
+    type: array
+  ports:
+    description: |
+      The list of ports that are exposed by this Service.
+      Required when the Service is not a *headless service* and it is not of type `"ExternalName"`.
+      The tuple of (`protocol`, `nodePort`) must be unique among all port records and
+      the tuple of (`protocol`, `port`) must be unique as well.
+    x-kab-description-zh: |
+      Service 所公开的端口列表。
+      当 Service 不是一个**无头服务**且不是 `"ExternalName"` 类型的服务时，需要设置。
+      元组 (`protocol`,`nodePort`) 在所有端口记录中必须唯一，并且元组 (`protocol`,`port`)
+      也必须唯一。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ServicePort'
+    type: array
+    x-kubernetes-list-map-keys:
+      - port
+      - protocol
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: port
+    x-kubernetes-patch-strategy: merge
+  publishNotReadyAddresses:
+    default: false
+    description: |
+      This indicates that any agent which deals with endpoints for this Service should disregard
+      any indications of ready/not-ready.
+      The primary use case for setting this field is for a StatefulSet's *headless Service* to propagate
+      SRV DNS records for its Pods for the purpose of peer discovery.
+      The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services
+      interpret this to mean that all endpoints are considered **ready** even if the Pods themselves
+      are not.
+      Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice
+      resources can safely assume this behavior.
+    x-kab-description-zh: |
+      此字段表明所有与此 Service 的端点打交道的客户端都应该忽略端点是否就绪这类信息。
+      这一字段的主要使用场景是针对 StatefulSet 的**无头服务**使用，该无头服务的主要目的是为其中的
+      Pod 提供 SRV DNS 记录，以便 Pod 之间可以相互发现对方。
+      负责为 Service 生成 Endpoints 和 EndpointSlice 资源的 Kubernetes 控制器会处理此字段，
+      将其解释为即使 Pod 自身还没有就绪，也可以将所有端点视为**就绪**状态。
+      如果客户端仅使用 Endpoints 或 EndpointSlice 对象来访问 Kubernetes 生成的端点，
+      则可以放心地假定这一情况成立。
+    type: boolean
+  selector:
+    additionalProperties:
+      type: string
+    description: |
+      Service traffic will be routed to Pods with label keys and values matching this selector.
+      If empty or not present, the Service is assumed to have an external process managing its endpoints,
+      which Kubernetes will not modify.
+      This field is ignored if Service `type` is `"ExternalName"`.
+    x-kab-description-zh: |
+      服务流量会被路由到标签键值与此选择算符匹配的 Pod 上。
+      如果此字段为空或者不存在，则可以假定存在某个外部进程替 Service 管理其端点，Kubernetes 不再管理端点。
+      如果 Service 的 `type` 是 `"ExternalName"`，则此字段会被忽略。
+    type: object
+    x-kubernetes-map-type: atomic
+  sessionAffinity:
+    default: None
+    description: |
+      Used to maintain session affinity.
+      Setting this to `"ClientIP"` enables client IP based session affinity.
+    x-kab-description-zh: |
+      用来维持会话亲和性的配置。
+      将此字段设置为 `"ClientIP"` 可以启用基于客户端 IP 的会话亲和性设置。
+    enum:
+      - ClientIP
+      - None
+    minLength: 1
+    type: string
+  sessionAffinityConfig:
+    $ref: '#/definitions/io.k8s.api.core.v1.SessionAffinityConfig'
+    description: |
+      The configurations of session affinity.
+      It is required when `sessionAffinity` is set to `"ClientIP"` and it cannot be set when
+      `sessionAffinity` is set to `"None"`.
+    x-kab-description-zh: |
+      会话亲和性的具体配置。
+      当 `sessionAffinity` 被设置为 `"ClientIP"` 时，需要设置此字段；
+      而当 `sessionAffinity` 被设置为 `"None"` 时，不可设置。
+  type:
+    default: ClusterIP
+    description: |
+      This field determines how the Service is exposed.
+
+      - `"ClusterIP"`: allocates a cluster internal IP address for load-balancing to endpoints.
+        Endpoints are determined by the `selector` or if that is not specified, by manual
+        construction of an Endpoints object or EndpointSlice ojbects. If `clusterIP`
+        is `"None"`, no virtual IP is allocated and the endpoints are published as
+        a set of Endpoints rather than a virtual IP.
+      - `"NodePort"`: builds on `"ClusterIP"` and allocates a port on every node which routes to
+        the same Endpoints as the `clusterIP`.
+      - `"LoadBalancer"`: builds on `"NodePort"` and creates an external load-balancer
+        (if supported in the current cloud) which routes to the same Endpoints as the `clusterIP`.
+      - `"ExternalName"` - aliases this Service to the specified `externalName`.
+        The service consists of only a reference to an external name that DNS will return as
+        a CNAME record, without exposing or proxying of any Pods involved.
+        Several other fields do not apply to `"ExternalName"` Services.
+    x-kab-description-zh: |
+      此字段用来确定 Service 的公开方式。
+
+      - `"ClusterIP"`：分配一个用来为端点集合提供负载均衡的集群内部 IP 地址。
+        端点可以通过 `selector` 来确定；或者如果没有设置 `selector` 的情况下也可以通过手动构造
+        Endpoints 或 EndpointSlice 对象来确定。
+        如果 Service 的 `clusterIP` 为 `"None"`，则不再为 Service 分配虚拟 IP 地址，
+        所有服务端点都直接发布为一组 Endpoints 而不是共享一个虚拟 IP 地址。
+      - `"NodePort"`：在 `"ClusterIP"` 的基础上构建，会在所有节点上分配一个端口，
+        并指向该端口的流量都路由到 `clusterIP` 所代表的端点集合。
+      - `"LoadBalancer"`：基于 `"NodePort"` 构建，会创建一个外部的负载均衡器
+        （如果当前云环境支持）来将流量路由到 `clusterIP` 所代表的同一个端点集合。
+      - `"ExternalName"`：为此 Service 设置一个通过 `externalName` 给定的别名。
+        此 Service 只包含一个对外部名称的引用，DNS 会针对该名称返回一个 CNAME 记录。
+        这种类型的 Service 不会涉及到公开 Pod 或者为其代理流量的事务。
+        Service 中有若干其他字段不适用于 `"ExternalName"` 类型的 Service。
+    enum:
+      - ClusterIP
+      - ExternalName
+      - LoadBalancer
+      - NodePort
+    type: string
+type: object
+

@@ -1,0 +1,209 @@
+description: Event represents a single event to a watched resource.
+x-kab-description-zh: Event 代表的是某个被监测资源的一个事件。
+properties:
+  object:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: |
+      Object is:
+      - new state of the object if `type` is `"ADDED" ` or `"MODIFIED"`
+      - the state of the object immediately before deletion if `type` is `"DELETED"`.
+      - If `type` is `"ERROR"`, *status* is recommended;
+      other types may make sense depending on context.
+    x-kab-description-zh: |
+      在不同的语境下，`object` 的内容语义也不同：
+
+      - 如果 `type` 为 `"ADDED"` 或者 `"MODIFIED"`，则 `object` 为对象的新状态；
+      - 如果 `type` 为 `"DELETED"`，则 `object` 为对象在被删除之前一刻的状态；
+      - 如果 `type` 为 `"ERROR"`，则建议查看其 `status`。
+      取决于具体上下文，可能其他的类型更有意义。
+  type:
+    description: The type of the event.
+    x-kab-description-zh: | 事件的类型。
+    enum:
+      - ADDED
+      - DELETED
+      - ERROR
+      - MODIFIED
+      - WATERMARK
+    minLength: 1
+    type: string
+required:
+  - type
+  - object
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: WatchEvent
+    version: v1
+  - group: admission.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: admission.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: admissionregistration.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: admissionregistration.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: admissionregistration.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: apiextensions.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: apiextensions.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: apiregistration.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: apiregistration.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: apps
+    kind: WatchEvent
+    version: v1
+  - group: apps
+    kind: WatchEvent
+    version: v1beta1
+  - group: apps
+    kind: WatchEvent
+    version: v1beta2
+  - group: authentication.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: authentication.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: authentication.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: authorization.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: authorization.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: autoscaling
+    kind: WatchEvent
+    version: v1
+  - group: autoscaling
+    kind: WatchEvent
+    version: v2
+  - group: autoscaling
+    kind: WatchEvent
+    version: v2beta1
+  - group: autoscaling
+    kind: WatchEvent
+    version: v2beta2
+  - group: batch
+    kind: WatchEvent
+    version: v1
+  - group: batch
+    kind: WatchEvent
+    version: v1beta1
+  - group: certificates.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: certificates.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: certificates.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: coordination.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: coordination.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: discovery.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: discovery.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: events.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: events.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: extensions
+    kind: WatchEvent
+    version: v1beta1
+  - group: flowcontrol.apiserver.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: flowcontrol.apiserver.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: flowcontrol.apiserver.k8s.io
+    kind: WatchEvent
+    version: v1beta2
+  - group: flowcontrol.apiserver.k8s.io
+    kind: WatchEvent
+    version: v1beta3
+  - group: imagepolicy.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: internal.apiserver.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: networking.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: networking.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: networking.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: node.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: node.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: node.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: policy
+    kind: WatchEvent
+    version: v1
+  - group: policy
+    kind: WatchEvent
+    version: v1beta1
+  - group: rbac.authorization.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: rbac.authorization.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: resource.k8s.io
+    kind: WatchEvent
+    version: v1alpha2
+  - group: scheduling.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: scheduling.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: scheduling.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+  - group: storage.k8s.io
+    kind: WatchEvent
+    version: v1
+  - group: storage.k8s.io
+    kind: WatchEvent
+    version: v1alpha1
+  - group: storage.k8s.io
+    kind: WatchEvent
+    version: v1beta1
+

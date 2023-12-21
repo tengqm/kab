@@ -1,0 +1,38 @@
+consumes:
+  - '*/*'
+description: send POST requests to portforward of Pod
+operationId: connectCoreV1PostNamespacedPodPortforward
+parameters:
+  - description: name of the Pod
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/namespace'
+  - description: List of ports to forward. Required when using WebSockets
+    in: query
+    name: ports
+    type: integer
+    uniqueItems: true
+path: /api/v1/namespaces/{namespace}/pods/{name}/portforward
+produces:
+  - '*/*'
+responses:
+  '200':
+    description: OK
+    schema:
+      type: string
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: post
+x-kubernetes-action: connect
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: PodPortForwardOptions
+  version: v1
+

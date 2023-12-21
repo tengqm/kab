@@ -1,0 +1,36 @@
+consumes:
+  - '*/*'
+description: read ephemeral containers for the specified Pod
+operationId: readCoreV1NamespacedPodEphemeralcontainers
+parameters:
+  - description: Name of the Pod from which to read ephemeral containers
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.Pod.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: get
+x-kubernetes-action: get
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: Pod
+  version: v1
+

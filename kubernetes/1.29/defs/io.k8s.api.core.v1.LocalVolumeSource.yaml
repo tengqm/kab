@@ -1,0 +1,27 @@
+description: A directly-attached storage with node affinity.
+x-kab-description-zh: 带有节点亲和性的某种直连存储（DAS）。
+properties:
+  fsType:
+    description: |
+      Filesystem type to mount. It applies only when the `path` is a block device.
+      Must be a filesystem type supported by the host operating system.
+      The default value is to auto-select a filesystem if unspecified.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。只有当 `path` 指向一个块设备时才有意义。
+      字段值必须是宿主操作系统所支持的文件系统类型之一。
+      如果未设置此字段，默认的行为是自动选择一个文件系统。
+    type: string
+  path:
+    description: |
+      The full path to the volume on the node.
+      It can be either a directory or block device (disk, partition, ...).
+      There can be no `".."` in the path.
+    x-kab-description-zh: |
+      指向节点上数据卷的完整路径。所指向的可以是一个目录，也可以是一个块设备（磁盘、分区等）。
+      路径字符串值中不可以包含 `".."`。
+    minLength: 1
+    type: string
+required:
+  - path
+type: object
+

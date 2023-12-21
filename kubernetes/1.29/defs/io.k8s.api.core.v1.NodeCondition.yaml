@@ -1,0 +1,58 @@
+description: |
+  Condition information for a Node.
+x-kab-description-zh: |
+  关于 Node 的状况的信息。
+properties:
+  lastHeartbeatTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time we got an update on a given condition.
+    x-kab-description-zh: 上次获得某状况更新的时间戳。
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition transit from one status to another.
+    x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间戳。
+  message:
+    description: Human readable message indicating details about last transition.
+    x-kab-description-zh: 人类可读的消息，给出状况转换的细节。
+    type: string
+  reason:
+    description: A (brief) reason for the condition's last transition.
+    x-kab-description-zh: 上次状况转换的（简要）原因。 
+    type: string
+  status:
+    description: Status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    description: |
+      Type of node condition. Possible enum values:
+      - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
+      - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
+      - `"NetworkUnavailable"` means that network for the node is not correctly configured.
+      - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
+      - `"Ready"` means kubelet is healthy and ready to accept pods.
+    x-kab-description-zh: |
+      节点状况的类型。可能的取值包括：
+
+      - `"DiskPressure"`：kubelet 因为磁盘空间不足而面临压力；
+      - `"MemoryPressure"`：kubelet 因为可用内存不足而面临压力；
+      - `"NetworkUnavailable"`：节点的网络没有正确配置；
+      - `"PIDPressure"`：kubelet 因为可用的 PID 不足而面临压力；
+      - `"Ready"`：kubelet 状态健康并已为接收 Pod 准备就绪。
+    enum:
+      - DiskPressure
+      - MemoryPressure
+      - NetworkUnavailable
+      - PIDPressure
+      - Ready
+    minLength: 1
+    type: string
+required:
+  - status
+  - type
+type: object
+

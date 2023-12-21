@@ -1,0 +1,122 @@
+description: Information on Service's port.
+x-kab-description-zh: 关于 Service 上端口的信息。
+properties:
+  appProtocol:
+    description: |
+      The application protocol for this port.
+      This is used as a hint for implementations to offer richer behavior for protocols that
+      they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+
+      - Un-prefixed protocol names: reserved for IANA standard service names
+        (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+      - Kubernetes-defined prefixed names.
+      - Other protocols should use implementation-defined prefixed names such as
+        `"mycompany.com/my-custom-protocol"`.
+
+      The Kubernetes-defined prefixed names can be one of:
+
+      - `"kubernetes.io/h2c"` - HTTP/2 over cleartext as described in
+        https://www.rfc-editor.org/rfc/rfc7540
+      - `"kubernetes.io/ws"` - WebSocket over cleartext as described in
+        https://www.rfc-editor.org/rfc/rfc6455
+      - `"kubernetes.io/wss"` - WebSocket over TLS as described in
+        https://www.rfc-editor.org/rfc/rfc6455
+
+    x-kab-description-zh: |
+      端口对应的应用协议。端点的视线可以将此字段值视为一种提示信息，
+      从而提供它们所能够理解的协议的更丰富的行为。
+      此字段遵从标准的 Kubernetes 标签语法。合法的取值如下：
+
+      - 无前缀的协议名：保留给 IANA 标准服务名称
+        （参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
+      - Kubernetes 定义的、带前缀的名称。
+      - 其他协议则需要使用由实现所定义的、带前缀的名称，例如 `"mycompany.com/my-custom-protocol"`。
+
+      其中 Kubernetes 所定义的、带前缀的名称包括：
+
+      - `"kubernetes.io/h2c"` - 采用明文传输的 HTTP/2，
+        如 [RFC7540](https://www.rfc-editor.org/rfc/rfc7540) 所述。
+      - `"kubernetes.io/ws"` - 采用明文传输的 WebSocket，
+        如 [RFC6455](https://www.rfc-editor.org/rfc/rfc6455) 所述。
+      - `"kubernetes.io/wss"` - 采用 TLS 传输的WebSocket,
+        如 [RFC6455](https://www.rfc-editor.org/rfc/rfc6455) 所述。
+    type: string
+  name:
+    description: |
+      The name of this port within the Service.
+      This must be a DNS label and unique among all ports within a Service `spec` when specified.
+      When considering the endpoints for a Service, this must match the `name` field in the
+      EndpointPort objects. This field is optional if only one port is defined on this Service.
+    x-kab-description-zh: |
+      端口在 Service 内的名字。端口名必须是合法的 DNS 标签值，并且在 Service `spec` 中的所有端口中唯一。
+      当为 Service 选择端点时，此端口名必须与 EndpointPort 对象中的 `name` 字段值相同。
+      如果 Service 中仅定义了一个端口，则 `name` 字段是可选的。
+    type: string
+  nodePort:
+    description: |
+      The port on each node on which this Service is exposed when `type` is `"NodePort"` or
+      `"LoadBalancer"`. This cannot be specified if the Service type is `"ClusterIP"`.
+      Usually assigned by the system if the Service requires one.
+      If a value is manually specified, in-range, and not in use it will be used, otherwise the
+      operation will fail.
+      If this field is specified when creating a Service which does not need it,
+      the Service creation will fail.
+      This field will be wiped when updating a Service to a type which no longer needs it
+      (e.g.  changing `type` from `"NodePort"` to `"ClusterIP"`).
+    x-kab-description-zh: |
+      当 `type` 为 `"NodePort"` 或者 `"LoadBalancer"` 时，Service 在节点上公开的端口。
+      如果 Service 类型为 `"ClusterIP"` 则不可以设置此字段。
+      如果 Service 需要一个节点端口，通常会由系统来自动分配。
+      如果手动指定一个节点端口号，并且所给端口号在正确的范围内、未被使用，则系统会使用所指定端口，
+      否则 Service 创建会失败。
+      如果在创建 Service 时指定给了一个不需要节点端口的 Service 对象，Service 创建也会失败。
+      当 Service 更新后会变成一个不再需要此字段的类型（例如，`type` 从 `"NodePort"` 变为 `"ClusterIP"`），
+      则此字段的值会被去掉。
+    format: int32
+    type: integer
+  port:
+    description: |
+      The port that is exposed by the Service.
+      The value cannot be the port number used by the kubelet which defaults to `10250`.
+      The (`port`, `protocol`) tuple must be unique in the `ports` list for the Service.
+    x-kab-description-zh: |
+      此 Service 所公开的端口。这里设置的值不可以是 kubelet 所使用的端口（默认为 `10250`）。
+      由 (`port`, `protocol`) 构成的元组必须在 Service 的整个 `ports` 列表中唯一。
+    format: int32
+    type: integer
+  protocol:
+    default: TCP
+    description: |
+      The protocol for this port.
+      When the Service `type` is `"LoadBalancer"`, all ports must have the same protocol.
+    x-kab-description-zh: |
+      端口使用的协议。当 Service 的 `type` 为 `"LoadBalancer"` 时，所有端口都必须使用同一个协议。
+    enum:
+      - SCTP
+      - TCP
+      - UDP
+    type: string
+  targetPort:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      Number or name of the port used to access Pods targeted by the Service.
+      The port number must be in the range of 1 to 65535.
+      If it is a string, it must be not empty and no more than 15 characters.
+      It must contain only alphanumeric characters and hyphens.
+      Port name will be looked up as a named port in the target Pod's container ports.
+      If this is not specified, the value of the `port` field is used (an identity map).
+      This field is ignored for Services with `clusterIP` set to `"None"` (i.e. **headless**),
+      and should be omitted or set equal to the `port` field.
+    x-kab-description-zh: |
+      用来访问 Service 所对应的 Pod 时要使用的端口号或端口名称。所给的端口号必须介于 1 到 65535 之间。
+      如果字段值是一个字符串，则该字符串不可以为空，也不可以超过 15 个字符。
+      使用端口名称时，字段值只能包含字母、数字和连字符字符。
+      系统会在目标 Pod 的容器端口中按名字来查找对应的端口。
+      如果未设置此字段，则默认使用 `port` 字段所给的端口（即端口一一映射场景）。
+      当 `clusterIP` 为 `"None"` 时（即，无头服务），此字段的设置会被忽略，
+      因此应该不设置或者设置为与 `port` 字段相同的值。
+required:
+  - port
+  - protocol
+type: object
+

@@ -1,0 +1,37 @@
+description: Information about the IngressClass.
+x-kab-description-zh: 关于 IngressClass 的信息。
+properties:
+  controller:
+    description: |
+      The name of the controller that should handle this class.
+      This allows for different *flavors* to be controlled by the same controller.
+      For example, you may have different `parameters` for the same controller.
+      This should be specified as a domain-prefixed path no more than 250 characters in length, e.g.
+      `"acme.io/ingress-controller".
+      This field is immutable.
+    x-kab-description-zh: |
+      应该处理此 Ingress 类的控制器的名称。
+      这一字段的存在使得多种不同风格 Ingress 可以用同一个控制器来控制。
+      例如，你可能会让同一控制器处理不同的 `parameters` 设置。
+      此字段应该设置为一个带域名前缀的字符串，长度不超过 250 字符。
+      例如：`"acme.io/ingress-controller"`。
+
+      此字段不可变更。
+    maxLength: 250
+    type: string
+  parameters:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IngressClassParametersReference'
+    description: |
+      A link to a custom resource containing additional configuration for the controller.
+      This is optional if the controller does not require extra parameters.
+      When specified, the `apiGroup` field must be a valid DNS subdomain name;
+      the `kind` and the `name` fields are required and they must be valid path segment names.
+    x-kab-description-zh: |
+      指向某个自定义资源的连接，该自定义资源中包含控制器的一些附加配置信息。
+      如果控制器不需要额外的参数时，此字段是可选的。
+      如果设置了此字段，则 `apiGroup` 字段必须是一个合法的 DNS 子域名，
+      `kind` 和 `name` 字段都必须设置，并且都必须是合法的路径区段名称。
+required:
+  - controller
+type: object
+

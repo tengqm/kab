@@ -1,0 +1,27 @@
+description: |
+  A template used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+x-kab-description-zh: |
+  一个用来生成作为 EphemeralVolumeSource 一部分的 PersistentVolumeClaim 对象的模板。
+properties:
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      May contain labels and annotations that will be copied into the PVC when creating it.
+      No other fields are allowed during validation.
+    x-kab-description-zh: |
+      此字段可以包含标签和注解等信息，这些信息在创建 PVC 时会被复制到其中。
+      在合法性检查期间，不允许设置其他字段。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec'
+    description: |
+      The specification for the PersistentVolumeClaim.
+      The entire content is copied unchanged into the PVC that gets created from this template.
+      The same fields as in a PersistentVolumeClaim are also valid here.
+    x-kab-description-zh: |
+      PersistentVolumeClaim 对象的规约。
+      这里的内容会被全盘复制到基于此模板创建的 PVC 当中。
+      PersistentVolumeClaim 资源所使用的所有字段在这里都是合法的。
+required:
+  - spec
+type: object
+

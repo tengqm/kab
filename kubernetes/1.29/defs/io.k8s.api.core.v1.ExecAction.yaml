@@ -1,0 +1,23 @@
+description: This describes a _run in container_ action.
+x-kab-description-zh: 此结构描述一个需要在容器内执行的动作。
+properties:
+  command:
+    description: |
+      The command line to execute inside the container.
+      The working directory for the command is root (`"/"`) in the container.
+      The command is simply `exec`'ed, it is not run inside a shell, so
+      traditional shell instructions (`'|'`, etc) won't work.
+      To use a shell, you need to explicitly call out to that shell.
+      Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+    x-kab-description-zh: |
+      要在容器内执行的命令行。命令的工作目录是容器内的根目录（`"/"`）。
+      所给的命令是通过调用 `exec()` 来直接执行的，命令没有独立的 Shell，因此传统的 Shell
+      命令（如 `"|"` 等等）都无法工作。
+      如果希望使用 Shell，你需要显式地调用该 Shell。
+      退出状态为 0 被视为活跃、健康，而非零值意味着不健康。
+    items:
+      type: string
+    minItems: 1
+    type: array
+type: object
+

@@ -1,0 +1,42 @@
+description: |
+  An ephemeral volume that is handled by a normal storage driver.
+x-kab-description-zh: |
+  由普通存储驱动负责处理的临时数据卷。
+properties:
+  volumeClaimTemplate:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimTemplate'
+    description: |
+      This template is used to create a stand-alone PVC to provision the volume.
+      The Pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC,
+      i.e. the PVC will be deleted together with the Pod.
+      The name of the PVC will be `"<pod name>-<volume name>"`,
+      where `"<volume name>"` is the name from the `spec.volumes` array entry.
+      Pod validation will reject the Pod if the concatenated name is not valid for a PVC
+      (for example, too long).
+
+      An existing PVC with that name that is not owned by the Pod will **not** be used for the Pod
+      to avoid using an unrelated volume by mistake.
+      Starting the Pod is then blocked until the unrelated PVC is removed.
+      If such a pre-created PVC is meant to be used by the Pod, the PVC has to be updated with
+      an owner reference to the Pod once the Pod exists.
+      Normally this should not be necessary, but it may be useful when manually reconstructing
+      a broken cluster.
+
+      This field is read-only and no changes will be made by Kubernetes to the PVC after
+      it has been created.
+    x-kab-description-zh: |
+      此模板用来创建一个独立的 PVC 来制备所需的存储卷。
+      EphemeralVolumeSource 所在的 Pod 会成为 PVC 的属主，因此 PVC 会随着 Pod 一起删除。
+      PVC 的名称为 `"<Pod 名称>-<卷名称>"`，其中 `"<卷名称>"` 来自于 `spec.volumes` 数组表项。
+      如果串接形成的名字对于 PVC 而言是非法的（例如，名字过长），则 Pod 的合法性检查逻辑会拒绝此 Pod。
+      如果有其他 PVC 的名字与此 PVC 名字相同，但其属主又不是当前 Pod，这类 PVC 不会被当前
+      Pod 使用，从而避免错误地使用一个不相干的数据卷。
+      出现重名情况时，当前的 Pod 启动过程会被阻塞，直到重名的 PVC 被移除为止。
+      如果希望 Pod 使用这样一个预先创建的 PVC，则该 PVC 必须被更新，将其属主引用更新为此 Pod。
+      通常没有必要这样做，不过当手动重建一个已经出问题的集群时可能是有用的。
+
+      此字段是只读的，PVC 被创建之后，Kubernetes 不会对其执行变更操作。
+required:
+  - volumeClaimTemplate
+type: object
+

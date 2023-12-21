@@ -1,0 +1,33 @@
+description: A storage resource provisioned by an administrator.
+x-kab-description-zh: 管理员制备的一个存储资源。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PersistentVolume
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeSpec'
+    description: The specification of a persistent volume owned by the cluster.
+    x-kab-description-zh: 集群所拥有的某个持久卷的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: PersistentVolume
+    version: v1
+

@@ -1,0 +1,39 @@
+description: ContainerResizePolicy represents resource resize policy for the container.
+x-kab-description-zh: ContainerResizePolicy 代表容器的资源变更策略。
+properties:
+  resourceName:
+    description: Name of the resource to which this resource resize policy applies.
+    x-kab-description-zh: 此资源变更策略所适用的资源名称。
+    enum:
+      - cpu
+      - memory
+    type: string
+  restartPolicy:
+    default: NotRequired
+    description: |
+      Restart policy to apply when specified resource is resized. Valid values include:
+      - `"NotRequired"`: Kubernetes will try to resize the container without restarting it, if possible.
+        Kubernetes may however choose to restart the container if it is unable to actuate resize
+        without a restart. For example, the runtime doesn't support restart-free resizing.
+      - `"RestartContainer"`: Kubernetes will resize the container in-place by stopping and
+        starting the container when new resources are applied. This is needed for legacy applications.
+        For example. Java apps using the `-xmxN` flag which are unable to use resized memory
+        without restarting.
+    x-kab-description-zh: |
+      当所给的资源发生大小变化时要应用的重启策略。合法的取值可以是：
+
+      - `"NotRequired"`：Kubernetes 会尝试重新设置容器大小且尽可能地避免重启容器。
+        如果 Kubernetes 无法完成重设大小操作时，可能会选择重启容器。一种可能的情况是，
+        容器运行时不支持就地更改容器规格。
+      - `"RestartContainer"`：Kubernetes 会在重新设置资源参数时停止并重启容器来完成容器规格变更操作。
+        对于某些遗留的应用系统，可能需要选择这一策略。例如，Java 应用可能会通过
+        `-xmxN` 这类参数来设置堆大小，如果不重新启动，新设置的内存资源规划就不会起作用。
+    enum:
+      - NotRequired
+      - RestartContainer
+    type: string
+required:
+  - resourceName
+  - restartPolicy
+type: object
+

@@ -1,0 +1,34 @@
+description: A user's request for and claim to a PersistentVolume (PV).
+x-kab-description-zh: 用于对某个 PersistentVolume（PV）资源的请求与申领。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PersistentVolumeClaim
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The name of must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimSpec'
+    description: The desired characteristics of a PersistentVolumeClaim.
+    x-kab-description-zh: PersistentVolumeClaim 的期望特点。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: PersistentVolumeClaim
+    version: v1
+

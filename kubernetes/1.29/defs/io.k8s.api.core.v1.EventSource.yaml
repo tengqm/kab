@@ -1,0 +1,16 @@
+description: EventSource contains information for an Event.
+x-kab-description-zh: EventSource 包含某个 Event 的信息。
+properties:
+  component:
+    description: Component from which the Event is generated.
+    x-kab-description-zh: 生成 Event 的组件。
+    type: string
+  host:
+    description: Node name on which the Event is generated.
+    x-kab-description-zh: 生成 Event 的节点名称。
+    type: string
+required:
+  - component
+  - host
+type: object
+

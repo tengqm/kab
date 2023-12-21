@@ -1,0 +1,69 @@
+consumes:
+  - '*/*'
+description: send POST requests to exec of Pod
+operationId: connectCoreV1PostNamespacedPodExec
+parameters:
+  - description: Command is the remote command to execute. argv array. Not executed
+      within a shell.
+    in: query
+    name: command
+    type: string
+    uniqueItems: true
+  - description: Container in which to execute the command. Defaults to only container
+      if there is only one container in the Pod.
+    in: query
+    name: container
+    type: string
+    uniqueItems: true
+  - description: name of the Pod
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/namespace'
+  - description: Redirect the standard error stream of the Pod for this call. Defaults
+      to true.
+    in: query
+    name: stderr
+    type: boolean
+    uniqueItems: true
+  - description: Redirect the standard input stream of the Pod for this call. Defaults
+      to false.
+    in: query
+    name: stdin
+    type: boolean
+    uniqueItems: true
+  - description: Redirect the standard output stream of the Pod for this call. Defaults
+      to true.
+    in: query
+    name: stdout
+    type: boolean
+    uniqueItems: true
+  - description: If true indicates that a TTY will be allocated for the exec call.
+      Defaults to false.
+    in: query
+    name: tty
+    type: boolean
+    uniqueItems: true
+path: /api/v1/namespaces/{namespace}/pods/{name}/exec
+produces:
+  - '*/*'
+responses:
+  '200':
+    description: OK
+    schema:
+      type: string
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - core_v1
+verb: post
+x-kubernetes-action: connect
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: PodExecOptions
+  version: v1
+

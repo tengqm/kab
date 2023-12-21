@@ -1,0 +1,41 @@
+description: TokenRequest requests a token for a given service account.
+x-kab-description-zh: TokenRequest 为一个给定的用户账号请求令牌。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - authentication.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - TokenRequest
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.TokenRequestSpec'
+    description: Information about the request being evaluated.
+    x-kab-description-zh: 关于所评估的请求的信息。
+  status:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.TokenRequestStatus'
+    description: |
+      This field is filled in by the server and indicates whether the token
+      can be authenticated.
+    x-kab-description-zh: |
+      此字段由服务器填充，标明令牌是否可用于身份认证。
+required:
+  - apiVersion
+  - kind
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: authentication.k8s.io
+    kind: TokenRequest
+    version: v1
+

@@ -1,0 +1,12 @@
+description: PodSchedulingGate is associated to a Pod to guard its scheduling.
+x-kab-description-zh: PodSchedulingGate 与某 Pod 关联，进而控制其可调度性。
+properties:
+  name:
+    description: Name of the scheduling gate. Each scheduling gate must have a unique name field.
+    x-kab-description-zh: 调度门控的名称。每个调度门控都必须有一个独特的 `name` 字段值。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+

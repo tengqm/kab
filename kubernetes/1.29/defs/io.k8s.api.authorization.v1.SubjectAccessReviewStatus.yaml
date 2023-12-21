@@ -1,0 +1,39 @@
+description: Status of authorization test request.
+x-kab-description-zh: 鉴权测试请求的状态。
+properties:
+  allowed:
+    description: Flag indicating whether the action would be allowed.
+    x-kab-description-zh: 表明动作是否被允许的标志。
+    type: boolean
+  denied:
+    description: |
+      Flag indicating whether the action would be denied.
+      If both `allowed` is `false` and `denied` is `false`, then
+      the authorizer has no opinion on whether to authorize the action.
+      `denied` may not be `true` if `allowed` is `true`.
+    x-kab-description-zh: |
+      表明操作是否被拒绝的标志。
+      如果 `allowed` 和 `denied` 都是 `false`，
+      则意味着鉴权组件对于是否授权执行该操作没有明确意见。
+      如果 `allowed` 是 `true`，则 `denied` 不可以是 `true`。
+    type: boolean
+  evaluationError:
+    description: |
+      An indication that some error occurred during the authorization check.
+      It is entirely possible to get an error and be able to
+      continue determine authorization status in spite of it.
+      For instance, RBAC can be missing a role, but enough
+      roles are still present and bound to reason about the request.
+    x-kab-description-zh: |
+      鉴权检查过程中发生某种错误的一个信号。
+      收到错误信息，但仍然能够确定鉴权状态的可能性是完全存在的。
+      例如，RBAC 可能没有某个角色的信息，但是现有的角色已经能够对请求给出判定。
+    type: string
+  reason:
+    description: This indicates why a request was allowed or denied.
+    x-kab-description-zh: 此字段表明某个请求是被准许还是被拒绝。
+    type: string
+required:
+  - allowed
+type: object
+

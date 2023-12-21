@@ -1,0 +1,42 @@
+description: |
+  A Fibre Channel volume to mount. Fibre Channel volumes can only be mounted as `"ReadWriteOnce"`.
+  Fibre Channel volumes support ownership management and SELinux relabeling. 
+  Either `wwids` or combination of `targetWWNs` and `lun` must be set, but not both.
+x-kab-description-zh: |
+  要挂载的一个光纤通道（Fibre Channel）卷。光线通道卷的挂载模式只能是 `"ReadWriteOnce"`。
+  光纤通道卷支持属主管理和 SELinux 重打标签操作。
+  `wwids` 和 `targetWWNs` 与 `lun` 的组合必须且只能设置其一。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。所选文件系统类型必须被宿主操作系统支持。
+    type: string
+  lun:
+    description: FC target LUN number.
+    x-kab-description-zh: FC 目标 LUN 号。
+    format: int32
+    maximum: 255
+    minimum: 0
+    type: integer
+  readOnly:
+    default: false
+    description: Force the volume to be mouned in read-only mode.
+    x-kab-description-zh: 强制卷以只读模式挂载。
+    type: boolean
+  targetWWNs:
+    description: FC target worldwide names (WWNs).
+    x-kab-description-zh: FC 目标的全球名称（Worldwide Name，WWN）列表。
+    items:
+      type: string
+    type: array
+  wwids:
+    description: FC volume world wide identifiers (WWIDs).
+    x-kab-description-zh: FC 卷的全球标识符（Worldwide ID，WWID）列表。
+    items:
+      type: string
+    type: array
+type: object
+

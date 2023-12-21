@@ -1,0 +1,47 @@
+consumes:
+  - '*/*'
+description: replace the specified RuntimeClass
+operationId: replaceNodeV1RuntimeClass
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.node.v1.RuntimeClass.UPDATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+  - description: name of the RuntimeClass
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: /apis/node.k8s.io/v1/runtimeclasses/{name}
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.node.v1.RuntimeClass.GET'
+  '201':
+    description: Updated
+    schema:
+      $ref: '#/definitions/io.k8s.api.node.v1.RuntimeClass.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - node_v1
+verb: put
+x-kubernetes-action: put
+x-kubernetes-group-version-kind:
+  group: node.k8s.io
+  kind: RuntimeClass
+  version: v1
+

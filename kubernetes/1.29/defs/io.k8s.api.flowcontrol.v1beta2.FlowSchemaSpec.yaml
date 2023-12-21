@@ -1,0 +1,54 @@
+description: The FlowSchema's specification.
+x-kab-description-zh: FlowSchema 的行为规约。
+properties:
+  distinguisherMethod:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.FlowDistinguisherMethod'
+    description: |
+      This defines how to compute the flow distinguisher for requests that match this schema.
+      `nil` means that the distinguisher is disabled and thus will always be an empty string.
+    x-kab-description-zh: |
+      此字段用来定义如何为与此 FlowSchema 匹配的请求确定流分类器。
+      此字段为 null 表示禁止使用分类器（分类器始终是一个空字符串）。
+  matchingPrecedence:
+    default: 1000
+    description: |
+      This is used to choose among the FlowSchemas that match a given request.
+      The chosen FlowSchema is among those with the numerically lowest
+      (which we take to be logically highest) `matchingPrecedence`.
+      Each `matchingPrecedence` value must be in the range `[1,10000]`.
+      Note that if the precedence is not specified, it will be set to 1000 as default.
+      Only when the name of the FlowSchema is `"exempt"` can the `matchingPrecedence` be set to 1.
+    x-kab-description-zh: |
+      此字段用来为给定请求选择 FlowSchema。所选定的 FlowSchema 是 `matchingPrecedence` 数值最低者。
+      此字段值必须介于 1 和 10000 之间。未设置时，此字段默认值为 1000。
+      只有 FlowSchemas 的名字为 `"exempt"` 时，才可将此字段设置为 1。
+    format: int32
+    maximum: 10000
+    minimum: 1
+    type: integer
+  priorityLevelConfiguration:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationReference'
+    description: |
+      Reference to a PriorityLevelConfiguration in the cluster.
+      If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid
+      in its status.
+    x-kab-description-zh: |
+      此字段值是对集群中某 PriorityLevelConfiguration 对象的引用。
+      如果所引用的对象不存在，此 FlowSchema 会被忽略，并在其 `.status` 中标记为非法模式。
+  rules:
+    description: |
+      This describes which requests will match this FlowSchema.
+      A request is matched if and only if at least one member of `rules` matches the request.
+      If it is an empty slice, there will be no requests matching the FlowSchema.
+    x-kab-description-zh: |
+      此字段描述哪些请求会与此 FlowSchema 匹配。
+      如果 `rules` 中至少有一条规则与请求匹配，则视为请求与此 FlowSchema 匹配。
+      如果此规则为空列表，则没有请求会与此 FlowSchema 匹配。
+    items:
+      $ref: '#/definitions/io.k8s.api.flowcontrol.v1beta2.PolicyRulesWithSubjects'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - priorityLevelConfiguration
+type: object
+

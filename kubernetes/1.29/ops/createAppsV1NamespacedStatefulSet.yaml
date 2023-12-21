@@ -1,0 +1,45 @@
+consumes:
+  - '*/*'
+description: create a StatefulSet
+operationId: createAppsV1NamespacedStatefulSet
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSet.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /apis/apps/v1/namespaces/{namespace}/statefulsets
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSet.GET'
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSet.GET'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSet.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - apps_v1
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: apps
+  kind: StatefulSet
+  version: v1
+

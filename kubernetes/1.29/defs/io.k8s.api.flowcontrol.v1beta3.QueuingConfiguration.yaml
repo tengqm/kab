@@ -1,0 +1,47 @@
+description: The configuration parameters for request queuing.
+x-kab-description-zh: 用于管理请求排队的配置参数。
+properties:
+  handSize:
+    default: 8
+    description: |
+      A small positive number that configures the shuffle sharding of requests into queues.
+      When enqueuing a request at this priority level, the request's flow identifier (a string pair)
+      is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size
+      specified here.
+      The request is put into one of the shortest queues in that hand.
+      `handSize` must be no larger than `queues`, and should be significantly smaller
+      (so that a few heavy flows do not saturate most of the queues).
+    x-kab-description-zh: |
+      此字段值为一个较小的正整数，用来配置如何将请求放入排队的队列。
+      对当前优先级别的请求进行排队处理时，系统会对请求的流标识符求哈希值，
+      并使用该哈希值来对队列的列表进行混排，并选取 `handSize` 个队列作为目标队列。
+      要排队的请求会被放到目标队列集合的最短队列中。
+      `handSize` 的大小不能大于 `queues` 值，并且应该远远小于后者，
+      只有这样，才不会出现几个压力较大的请求流将大多数队列冲垮的情形。
+    format: int32
+    type: integer
+  queueLengthLimit:
+    default: 50
+    description: |
+      The maximum number of requests allowed to be waiting in a given queue of this priority level
+      at a time; excess requests are rejected.
+    x-kab-description-zh: |
+      在任意时刻，此优先级别的给定队列中处于等待状态的请求个数不能超出这里设的阈值。
+      队列中过长时，请求会被拒绝。
+    format: int32
+    minimum: 1
+    type: integer
+  queues:
+    default: 64
+    description: |
+      The number of queues for this priority level. The queues exist independently at each API server.
+      Setting it to 1 effectively precludes shuffle sharding and thus makes the distinguisher method
+      of associated flow schemas irrelevant.
+    x-kab-description-zh: |
+      此优先级别的排队队列个数。各个队列在每个 API 服务器上独立存在。
+      如果将此字段设置为 1，就相当于不会执行队列混洗的情况，对应的 FlowSchema 中的流分类也就无意义了。
+    format: int32
+    minimum: 1
+    type: integer
+type: object
+

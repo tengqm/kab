@@ -1,0 +1,57 @@
+description: A network port in a container.
+x-kab-description-zh: 容器的一个网络端口。
+properties:
+  containerPort:
+    description: |
+      Port to expose on the Pod's IP address. This must be a valid port number between 1 and 65535.
+    x-kab-description-zh: |
+      在容器的 IP 地址上公开的一个端口。此值必须是介于 1 和 65535 之间的合法端口号。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+  hostIP:
+    description: What host IP to bind the external port to.
+    x-kab-description-zh: 此外部端口要绑定的主机 IP 地址。
+    type: string
+  hostPort:
+    description: |
+      Port to expose on the host. If specified, this must be a valid port number between 1 and 65535.
+      If the Pod has `hostNetwork` specified, the `hostPort` must match the `containerPort`.
+      Most containers do not need this.
+      The (`protocol`, `hostIP`, `hostPort`) tunple for all containers must be unique in a Pod.
+    x-kab-description-zh: 在主机上要公开的端口号。如果设置了此字段，取值必须是介于 1 和 65535 之间的合法端口号。
+      如果 Pod 设置了 `hostNetwork`，则 `hostPort` 字段的设置必须与 `containerPort` 设置值相同。
+      大多数容器不存在这类要求。在同一个 Pod 内，(`protocol`, `hostIP`, `hostPort`)
+      这一组合是用来唯一识别端口的，因此必须唯一。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+  name:
+    description: |
+      Name for the port that can be referred to by services.
+      If specified, the name must be unique within the Pod.
+      The port name can be no more than 15 characters long and it can only contain only `[-a-z0-9]`
+      and must contain at least one letter `[a-z]`.
+      It must not start or end with a hyphen (`'-'`), nor contain adjacent hyphens.
+    x-kab-description-zh: |
+      可供 Service 引用的端口名称。如果设置了这个字段，字段值必须在 Pod 范围内唯一。
+      端口名称不能超过 15 个字符，且其中只能包含 `[-a-z0-9]` 这些字符。同时，
+      端口名中必须包含 `[a-z]` 字符之一。端口名不能以横线（`'-'`）开头或结尾，也不能包含连续的横线。
+    maxLength: 15
+    type: string
+  protocol:
+    default: TCP
+    description: Protocol for port.
+    x-kab-description-zh: 端口对应的协议。
+    enum:
+      - SCTP
+      - TCP
+      - UDP
+    type: string
+required:
+  - containerPort
+  - protocol
+type: object
+

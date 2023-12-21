@@ -1,0 +1,18 @@
+description: |
+  The downward API information to project into a projected volume.
+  Note that this is identical to a `downwardAPI` volume source without the default mode.
+x-kab-description-zh: |
+  要投射到一个投射卷中的 Downward API 信息。
+  注意这个结构与 DownwardAPIVolumeSource 几乎完全相同，只是没有默认的模式设置。
+properties:
+  items:
+    description: A list of DownwardAPIVolumeFile objects.
+    x-kab-description-zh: 由 DownwardAPIVolumeFile 对象构成的一个列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeFile'
+    minItems: 1
+    type: array
+required:
+  - items
+type: object
+

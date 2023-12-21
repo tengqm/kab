@@ -1,0 +1,48 @@
+description: |
+  A label selector is a label query over a set of resources.
+  The result of `matchLabels` and `matchExpressions` are ANDed.
+  An empty label selector matches all objects.
+  A null label selector matches no objects.
+  Note that there are two different styles of label selectors used in versioned types:
+
+  - an older style which is represented as just a string in versioned types;
+  - a newer style that is structured.
+
+  LabelSelector is an internal representation for the latter (newer) style.
+
+x-kab-description-zh: |
+  标签选择算符是对一组资源执行的标签查询。
+  返回的结果是 `matchLabels` 和 `matchExpressions` 结果的 AND 组合。
+  空的选择算符可以匹配所有对象。
+  标签选择算符为 null（未设置）时，不选择任何对象。
+  在带版本的类型中，主要存在两种风格的标签选择算符：
+
+  - 比较老的风格，在带版本的类型定义中表现为一个字符串；
+  - 较新的的风格，带结构的算符。
+
+  LabelSelector 是新的风格的内部表示形式。
+
+properties:
+  matchExpressions:
+    description: A list of label selector requirements. The requirements are ANDed.
+    x-kab-description-zh: 标签选择算符条件的列表。所有条件最终会按逻辑 AND 操作组合起来。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement'
+    type: array
+  matchLabels:
+    additionalProperties:
+      type: string
+    description: |
+      A map of `<key, value>` pairs.
+      A single `<key,value>` in the `matchLabels` map is equivalent to an element of `matchExpressions`,
+      whose `key` field is `"key"`, the `operator` is `"In"`, and the `values` array contains only `["value"]`.
+      The requirements are ANDed.
+    x-kab-description-zh: |
+      包含 `<key, value>` 偶对的映射。
+      `matchLabels` 中的每个 `<key,value>` 相当于 `matchExpressions` 中的一个元素：
+      `key` 即为 `"key"`，`operator` 为 `"In"`，而 `values` 数组中只包含唯一元素 `["value"]`。
+      此映射中的各个需求条件最终会按逻辑 AND 操作组合起来。
+    type: object
+type: object
+x-kubernetes-map-type: atomic
+

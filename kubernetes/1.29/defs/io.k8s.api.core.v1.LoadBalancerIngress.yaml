@@ -1,0 +1,36 @@
+description: |
+  The status of a load-balancer ingress point.
+  Traffic intended for the Service should be sent to an ingress point.
+x-kab-description-zh: |
+  此结构包含某负载均衡 Ingress 点的状态。
+  指向某 Service 的请求流量应该被发送到某 Ingress 点。
+properties:
+  hostname:
+    description: |
+      The `hostname` is set for load-balancer ingress points that are DNS based
+      (typically AWS load-balancers)
+    x-kab-description-zh: |
+      基于 DNS 的负载均衡器 Ingress 点会设置 `hostname` 字段（通常是 AWS 上的负载均衡器）。
+    type: string
+  ip:
+    description: |
+      The `ip` is set for load-balancer ingress points that are IP based
+      (typically GCE or OpenStack load-balancers).
+    x-kab-description-zh: |
+      基于 IP 的负载均衡器 Ingress 点会设置 `ip` 字段（通常是 GCE 或 OpenStack 上的负载均衡器）。
+    type: string
+  ports:
+    description: |
+      A list of records of service ports.
+      If used, every port defined in the Service should have an entry in it.
+    x-kab-description-zh: |
+      服务端口记录的列表。
+      如果使用了此字段，则在 Service 上定义的每个端口都会在此列表中有对应表项存在。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PortStatus'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - ports
+type: object
+

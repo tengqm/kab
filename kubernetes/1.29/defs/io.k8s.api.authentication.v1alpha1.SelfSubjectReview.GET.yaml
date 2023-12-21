@@ -1,0 +1,46 @@
+description: |
+  SelfSubjectReview contains the user information that the kube-apiserver
+  has about the user making this request.
+  When using impersonation, users will receive the user info of the user
+  being impersonated.
+  If impersonation or request header authentication is used, any extra keys
+  will have their case ignored and returned as lowercase.
+x-kab-description-zh: |
+  SelfSubjectReview 包含 kube-apiserver 所了解的、关于发起请求的用户相关的信息。
+  当使用身份伪装时，用户会收到被伪装的用户的信息。
+  如果使用了身份伪装或者基于头部的身份认证，则服务器会忽略所有额外的主键的大小写，
+  并以小写字母的形式返回。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - authentication.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - SelfSubjectReview
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象的名字必须是合法的 DNS 子域名。
+  status:
+    $ref: '#/definitions/io.k8s.api.authentication.v1alpha1.SelfSubjectReviewStatus'
+    description: |
+      `status` is filled in by the server with the user attributes.
+    x-kab-description-zh: |
+      `status` 由服务器填充，其中包含用户属性信息。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: authentication.k8s.io
+    kind: SelfSubjectReview
+    version: v1alpha1
+

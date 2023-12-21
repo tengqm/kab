@@ -1,0 +1,23 @@
+description: Adds and removes POSIX capabilities from running containers.
+x-kab-description-zh: 为运行中的容器添加 POSIX 权能（Capabilities）或者从中去除权能。
+properties:
+  add:
+    description: Capabilities to add.
+    x-kab-description-zh: 要添加的权能集合。
+    items:
+      description: A capability to add.
+      x-kab-description-zh: 要添加的权能。
+      minLength: 1
+      type: string
+    type: array
+  drop:
+    description: Capabilities to remove.
+    x-kab-description-zh: 要移除的权能集合。
+    items:
+      description: A capability to remove.
+      x-kab-description-zh: 要移除的权能。
+      minLength: 1
+      type: string
+    type: array
+type: object
+

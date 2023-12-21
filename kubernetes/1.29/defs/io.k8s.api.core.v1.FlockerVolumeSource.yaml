@@ -1,0 +1,24 @@
+description: |
+  A Flocker volume mounted by the Flocker agent.
+  One and only one of `datasetName` and `datasetUUID` should be set.
+  Flocker volumes do not support ownership management or SELinux relabeling.
+x-kab-description-zh: |
+  由 Flocker 代理所挂载的一个 Flocker 卷。`datasetName` 和 `datasetUUID` 二者必须且只能设置其一。
+  Flocker 卷不支持属主管理或者 SELinux 重打标签操作。
+properties:
+  datasetName:
+    description: |
+      Name of the dataset stored as metadata.
+      This is the name on the dataset for Flocker, should be considered as deprecated.
+      The name cannot contain `'/'` if specified.
+    x-kab-description-zh: |
+      以元数据形式存储的、数据集的名称。
+      此字段名为 Flocker 数据集的名称，应该被视为已经过时。
+      如果设置此字段，则字段值中不能包含 `'/'`。
+    type: string
+  datasetUUID:
+    description: The unique identifier of a Flocker dataset.
+    x-kab-description-zh: Flocker 数据集的唯一标识。
+    type: string
+type: object
+

@@ -1,0 +1,22 @@
+description: A custom header to use in HTTP probes.
+x-kab-description-zh: 要在 HTTP 探针中使用的定制头部。
+properties:
+  name:
+    description: |
+      The header field name. A valid name consists of alphanumeric characters or `'-'`.
+      This will be canonicalized upon output, so case-variant names will be understood as the same header.
+    x-kab-description-zh: |
+      头部字段名称。合法的名称可以包含字母、数字或 `'-'`。
+      在输出时会被归一化，仅在大小写上有区别的名字会被当做同一个头部字段。
+    minLength: 1
+    type: string
+  value:
+    description: The header field value.
+    x-kab-description-zh: 头部字段值。
+    minLength: 1
+    type: string
+required:
+  - name
+  - value
+type: object
+

@@ -1,0 +1,12 @@
+description: TypeChecking contains results of type checking the expressions in the
+x-kab-description-zh: TypeChecking 包含对 ValidatingAdmissionPolicy 中的表达式进行类型检查的结果。
+properties:
+  expressionWarnings:
+    description: The type checking warnings for each expression.
+    x-kab-description-zh: 每个表达式的类型检查警告信息。
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ExpressionWarning'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+
