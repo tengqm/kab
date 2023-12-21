@@ -9,6 +9,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.9",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enable the API clients to retrieve (`LIST` or `GET`) resources from API server in chunks."
@@ -22,6 +27,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.20",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enable managing request concurrency with prioritization and fairness at each server. (Renamed from `RequestManagement`)"
@@ -185,6 +195,14 @@
                 "from": "1.26"
             },
             "description": "Enable the users to skip TLS verification of kubelets on Pod log requests"
+        },
+        "AllowServiceLBStatusOnNonLB": {
+            "Deprecated": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables `.status.ingress.loadBalancer` to be set on Services of types other than `LoadBalancer`."
         },
         "AnyVolumeDataSource": {
             "Alpha": {
@@ -695,7 +713,10 @@
             "GA": {
                 "default": true,
                 "from": "1.26",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enables shims and translation logic to route volume operations from the vSphere in-tree plugin to vSphere CSI plugin.  Supports falling back to in-tree vSphere plugin if a node does not have vSphere CSI plugin installed and configured. Requires `CSIMigration` feature flag enabled."
         },
@@ -724,6 +745,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.27",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enable passing secret authentication data to a CSI driver for use during a `NodeExpandVolume` CSI operation."
@@ -869,6 +895,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.27",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enables dual-stack `--node-ip` in kubelet with external cloud providers."
@@ -879,7 +910,15 @@
                 "from": "1.27",
                 "to": null
             },
-            "description": "Enable ClusterTrustBundle objects and Kubelet integration"
+            "description": "Enable ClusterTrustBundle objects and Kubelet integration."
+        },
+        "ClusterTrustBundleProjection": {
+            "Alpha": {
+                "default": false,
+                "from": "1.28",
+                "to": null
+            },
+            "description": "Enable ClusterTrustBundle Kubelet projected volumes. Depends on ClusterTrustBundle."
         },
         "ComponentSLIs": {
             "Alpha": {
@@ -1003,7 +1042,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.28"
             },
             "description": "Allow the use of the `timeZone` optional field in CronJobs"
         },
@@ -1145,6 +1187,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.25",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enable expression language validation in CRD which will validate customer resource based on validation rules written in `x-kubernetes-validations` extension."
@@ -1245,6 +1292,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enable support to CDI device IDs in the DevicePlugin API."
@@ -1295,6 +1347,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.22",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Disables any functionality in 'kube-apiserver', 'kube-controller-manager' and 'kubelet' related to the '--cloud-provider' component flag."
@@ -1303,9 +1360,22 @@
             "Alpha": {
                 "default": false,
                 "from": "1.23",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Disable the in-tree functionality in kubelet to authenticate to a cloud provider container registry for image pull credentials."
+        },
+        "DisableNodeKubeProxyVersion": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Disable the `status.nodeInfo.kubeProxyVersion` field in `v1.Node`."
         },
         "DownwardAPIHugePages": {
             "Alpha": {
@@ -1326,7 +1396,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enables usage of hugepages in [downward API](https://k8s.io/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information)"
         },
@@ -1779,7 +1852,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enables GRPC probe method for liveness probes, readiness probes, or startup probes."
         },
@@ -1977,6 +2053,14 @@
             },
             "description": "Allows the Pod OS field to be specified. This helps in identifying the OS of the pod authoritatively during the API server admission time. In Kubernetes 1.23, the allowed values for the `pod.spec.os.name` are `windows` and `linux`."
         },
+        "ImageMaximumGCAge": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables the kubelet configuration field `imageMaximumGCAge`, allowing an administrator to specify the age after which an image will be garbage collected."
+        },
         "ImmutableEphemeralVolumes": {
             "Alpha": {
                 "default": true,
@@ -2137,6 +2221,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Allows users to specify counting of failed Pods per index."
@@ -2150,7 +2239,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Allows updating node scheduling directives in the Pod template of a Job."
         },
@@ -2171,6 +2263,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Allow users to specify recreating Pods of a Job only when Pods have fully terminated.."
@@ -2184,6 +2281,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.24",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enables tracking the number of Pods that have a `Ready` condition. The count of `Ready` Pods is recorded in the status of a Job."
@@ -2207,7 +2309,10 @@
             "GA": {
                 "default": true,
                 "from": "1.26",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enables tracking Job completions without relying on Pods remaining in the cluster indefinitely.  The Job controller uses Pod finalizers and a field in the Job status to keep track of the finished Pods to count towards completion."
         },
@@ -2217,7 +2322,7 @@
                 "from": "1.28",
                 "to": null
             },
-            "description": "Enables KMS v1 API for encryption at rest."
+            "description": "Enables KMS v1 API for encryption at rest. In v1.29, the default is changed to `false`."
         },
         "KMSv2": {
             "Alpha": {
@@ -2228,6 +2333,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.27",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enables KMS v2 API for encryption at rest."
@@ -2236,7 +2346,11 @@
             "Beta": {
                 "default": false,
                 "from": "1.28",
-                "to": null
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29"
             },
             "description": "Enables the use of derived encrpytion keys with KMS v2."
         },
@@ -2374,6 +2488,14 @@
             },
             "description": "Enable the kubelet's pod resources `GetAllocatableResources` functionality. With informations about the allocatable resources, clients can properly track the free compute resources on a node."
         },
+        "KubeletSeparateDiskGC": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables Kubelet to garbage collection images/containers on different filesystems."
+        },
         "KubeletTracing": {
             "Alpha": {
                 "default": false,
@@ -2412,6 +2534,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enables the cleaning up of Secret-based ServiceAccount tokens."
@@ -2425,7 +2552,10 @@
             "GA": {
                 "default": true,
                 "from": "1.26",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Stop auto-generation of Secret-based service account tokens."
         },
@@ -2446,6 +2576,14 @@
                 "to": null
             },
             "description": "Track usage of Secret-based service account tokens."
+        },
+        "LoadBalancerIPMode": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables the `ipMode` field in the LoadBalancerIngress status of a Service."
         },
         "LocalStorageCapacityIsolation": {
             "Alpha": {
@@ -2504,6 +2642,14 @@
                 "to": null
             },
             "description": "Allow fine-tuning of experimental, beta-quality logging options."
+        },
+        "MatchLabelKeysInPodAffinity": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables the `matchLabelKeys` and `mismatchLabelKeys` in PodAffinity and PodAntiAffinity."
         },
         "MatchLabelKeysInPodTopologySpread": {
             "Alpha": {
@@ -2645,7 +2791,10 @@
             "Alpha": {
                 "default": false,
                 "from": "1.25",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enables the MultiCIDR range allocator."
         },
@@ -2656,6 +2805,14 @@
                 "to": null
             },
             "description": "Enables the dynamic configuration of Service IP ranges."
+        },
+        "NFTablesProxyMode": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Allows running kube-proxy with `--mode nftables`."
         },
         "NamespaceDefaultLabelName": {
             "Beta": {
@@ -2860,7 +3017,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28" 
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enable Kubernetes to publish OpenAPI v3."
         },
@@ -2918,6 +3078,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Adds a new field to persistent voluems which holds a timestamp of when the volume last transitioned its phase"
@@ -3013,6 +3178,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Add `hostIPs` to the status of Pods and related downloard APIs."
@@ -3092,8 +3262,13 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
-                "to": null
+                "to": "1.28"
             },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
+                "to": null
+            }, 
             "description": "Enable the kubelet to mark the Pod ready to start containers condition on Pods. This gate was called `PodHasNetworkCondtion` before 1.28."
         },
         "PodSchedulingReadiness": {
@@ -3191,7 +3366,10 @@
             "GA": {
                 "default": true,
                 "from": "1.28",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enable [setting probe-level `terminationGracePeriodSeconds`](https://k8s.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#probe-level-terminationGracePeriodSeconds) on Pods."
         },
@@ -3238,6 +3416,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.27",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enables the usage of `ReadWriteOncePod` PersistentVolume access mode."
@@ -3259,6 +3442,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.16",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Allow the API servers to show a count of remaining items in the response to a chunked list request."
@@ -3348,7 +3536,10 @@
             "GA": {
                 "default": true,
                 "from": "1.28",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Allow assigning StorageClass to unbound PVCs retroactivelyi."
         },
@@ -3439,6 +3630,14 @@
             },
             "description": "Enable the [RuntimeClass](https://k8s.io/docs/concepts/containers/runtime-class/) feature for selecting container runtime configurations."
         },
+        "RuntimeClassInImageCriApi": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Adds support to pull images based on the runtime class specified."
+        },
         "SCTPSupport": {
             "Alpha": {
                 "default": false,
@@ -3501,8 +3700,13 @@
         },
         "SchedulerQueueingHints": {
             "Alpha": {
-                "default": false,
+                "default": true,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": false,
+                "from": "1.29",
                 "to": null
             },
             "description": "Enables the scheduler's enhancement called QueueingHints, which benefits to reduce the useless requeueing."
@@ -3521,7 +3725,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enables the use of `RuntimeDefault` as the default seccomp profile for all workloads. The seccomp profile is specified in the `securityContext` of a Pod and/or a Container."
         },
@@ -3610,6 +3817,38 @@
                 "from": "1.24"
             },
             "description": "Enable OIDC discovery endpoints (issuer and JWKS URLs) for the service account issuer in the API server."
+        },
+        "ServiceAccountTokenJTI": {
+            "Alpha": {
+                "defualt": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Controls whether JTIs (UUIDs) are embedded into generated service account tokens, and whether these JTIs are recorded into the audit log for future requests made by these tokens."
+        },
+        "ServiceAccountTokenNodeBinding": {
+            "Alpha": {
+                "defualt": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Controls whether the API server supports binding service account tokens to Node objects."
+        },
+        "ServiceAccountTokenNodeBindingValidation": {
+            "Alpha": {
+                "defualt": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Controls whether the API server will validate Node claims in service account tokens."
+        },
+        "ServiceAccountTokenPodNodeInfo": {
+            "Alpha": {
+                "defualt": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Controls whether the API server embeds the node name and uid for the associated node when issuing service account tokens bound to Pod objects."
         },
         "ServiceAppProtocol": {
             "Alpha": {
@@ -3767,6 +4006,11 @@
             "Beta": {
                 "default": true,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "GA": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Subdivide the NodePort range for dynamic and static port allocation."
@@ -3812,6 +4056,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Introduces sidecar containers, a new type of init container that starts before other containers but remains running for the full duration of the Pod's lifecycle and will not block pod termination."
@@ -3833,6 +4082,11 @@
             "Alpha": {
                 "default": false,
                 "from": "1.28",
+                "to": "1.28"
+            },
+            "Deprecated": {
+                "default": true,
+                "from": "1.29",
                 "to": null
             },
             "description": "Skip validation enable in next version. (Incorrectly marked as 1.26 in source code)"
@@ -3965,6 +4219,22 @@
                 "from": "1.25"
             },
             "description": "Instructs the API server to intercept (and follow) redirects from the backend (kubelet) for streaming requests. Examples of streaming requests include the `exec`, `attach` and `port-forward` requests."
+        },
+        "StructuredAuthenticationConfiguration": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables structured authentication configuration so that users can use any JWT-compliant tokens in addition to OIDC tokens. Multiple providers can be used simultaneously."
+        },
+        "StructuredAuthorizationConfiguration": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables structured authorization configuration, which can enhances the manageability and traceability for authorization than RBAC."
         },
         "SupportIPVSProxyMode": {
             "Alpha": {
@@ -4208,7 +4478,10 @@
             "GA": {
                 "default": true,
                 "from": "1.27",
-                "to": null
+                "to": "1.28"
+            },
+            "Removed": {
+                "from": "1.29"
             },
             "description": "Enable a mechanism to coordinate fine-grained hardware resource assignments for different components in Kubernetes. See [Control Topology Management Policies on a node](https://k8s.io/docs/tasks/administer-cluster/topology-manager/)."
         },
@@ -4226,6 +4499,11 @@
                 "from": "1.26",
                 "to": null
             },
+            "Beta": {
+                "default": true,
+                "from": "1.28",
+                "to": null
+            },
             "description": "Allow fine-tuning of topology manager policies, experimental, Betaa-quality options. This feature gate guards *a group* of topology manager options whose quality level is beta. This feature gate will never graduate to stable."
         },
         "TopologyManagerPolicyOptions": {
@@ -4241,6 +4519,27 @@
             },
             "description": "Allow fine-tuning of topology manager policies,"
         },
+        "TranslateStreamCloseWebsocketRequests": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables StreamTranslator proxy to handle WebSockets upgrade requests for the version of the RemoteCommand subprotocol that supports the `close` signal."
+        },
+        "UnauthenticatedHTTP2DOSMitigation": {
+            "Beta": {
+                "default": false,
+                "from": "1.28",
+                "to": "1.28"
+            },
+            "Beta1": {
+                "default": true,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables http2 DOS mitigations for unauthenticated clients."
+        },
         "UnknownVersionInteroperabilityProxy": {
             "Alpha": {
                 "default": false,
@@ -4248,6 +4547,14 @@
                 "to": null
             },
             "description": "Proxies client to an apiserver capable of serving the request in the event of version skew."
+        },
+        "UserNamespacesPodSecurityStandards": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables user namespace support for PodSecurityStandards. Enabling this feature will modify all Pod Security Standard rules to allow setting `spec[.*].securityContext.[runAsNonRoot,runAsUser]`. This feature gate should only be enabled if all nodes in the cluster support the user namespace feature and have it enabled. The feature gate will not graduate or be enabled by default in future Kubernetes releases."
         },
         "UserNamespacesStatelessPodsSupport": {
             "Alpha": {
@@ -4301,6 +4608,14 @@
                 "to": null
             },
             "description": "Enable [ValidatingAdmissionPolicy](https://k8s.io/docs/reference/access-authn-authz/validating-admission-policy/) support for CEL validations be used in Admission Control."
+        },
+        "VolumeAttributeClass": {
+            "Alpha": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Enables user specified volume attributes for persistent volumes, like iops and throughput."
         },
         "VolumeCapacityPriority": {
             "Alpha": {
@@ -4559,6 +4874,14 @@
                 "from": "1.21"
             },
             "description": "Enable support for running applications in Windows containers with as a non-default user. See [Configuring RunAsUserName](https://k8s.io/docs/tasks/configure-pod-container/configure-runasusername) for more details."
+        },
+        "ZeroLimitedNominalConcurrencyShares": {
+            "Beta": {
+                "default": false,
+                "from": "1.29",
+                "to": null
+            },
+            "description": "Allow Priority & Fairness in the API server to use a zero value for the 'nominalConcurrencyShares' field of the 'limited' section of a priority level."
         }
     },
     "overview": "Feature gates are a set of key=value pairs that describe Kubernetes features. You can turn these features on or off using the `--feature-gates` command line flag on every Kubernetes components or the corresponding flags in their configuration files. For example:\n\n```shell\n--feature-gates=\"...,DynamicKubeletConfig=true\"\n```\n\n"
