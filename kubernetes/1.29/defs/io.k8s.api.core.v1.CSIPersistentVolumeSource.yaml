@@ -56,13 +56,11 @@ properties:
     description: |
       `nodeExpandSecretRef` is a reference to the Secret object containing sensitive information
       to pass to the CSI driver to complete the CSI `NodeExpandVolume` call.
-      This is an Beta field and requires enabling the `CSINodeExpandSecret` feature gate.
       This field is optional, may be omitted if no Secret is required.
       If the Secret object contains more than one Secret, all Secrets are passed.
     x-kab-description-zh: |
       `nodeExpandSecretRef` 是一个对 Secret 对象的引用，该对象中包含一些敏感信息，
       需要传递给 CSI 驱动以完成 `NodeExpandVolume()` 调用。
-      此字段为 Beta 字段，需要启用 `CSINodeExpandSecret` 特性门控。
       此字段是可选的，如果不需要 Secret 可以忽略。
       如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
   nodePublishSecretRef:

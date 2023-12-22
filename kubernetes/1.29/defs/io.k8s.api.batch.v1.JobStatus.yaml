@@ -66,24 +66,21 @@ properties:
       Three or more consecutive numbers are compressed and represented by the first and
       last element of the series, separated by a hyphen.
       For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as `"1,3-5,7"`.
-      This field is Alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate
-      is enabled (disabled by default).
+      This field is Beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate
+      is enabled (enabled by default).
     x-kab-description-zh: |
       当 `backoffLImitPerIndex` 为 `true` 时，此字段给出的是失败的 Pod 索引。
       索引值的表示方式与 `compeltedIndexes` 字段类似，也是用逗号分隔的十进制数字来表示的。
       索引数字按增序方式给出。三个以及三个以上的连续数字会被压缩，
       呈现为序列中第一个元素与最后一个元素之间添加连字符的形式。
       例如，如果失败索引为 1、3、4、5 和 7，则其表现形式为：`"1,3-5,7"`。
-      此字段为 Alpha 级别，可通过 `JobBackoffLimitPerIndex` 特性门控启用。
+      此字段为 Beta 级别，可通过 `JobBackoffLimitPerIndex` 特性门控启用（默认启用）。
     type: string
   ready:
     description: |
-      The number of Pods which have a Ready condition. This field is Beta-level.
-      The Job controller populates the field when the feature gate `JobReadyPods`
-      is enabled (enabled by default)."
+      The number of Pods which have a Ready condition.
     x-kab-description-zh: |
-      包含 `"Ready"` 状况的 Pod 的 个数。此字段为 Beta 阶段。
-      当特性门控 `JobReadyPods` 被启用时，Job 控制器会负责填充此字段。
+      包含 `"Ready"` 状况的 Pod 的 个数。
     format: int32
     minimum: 0
     type: integer
@@ -109,13 +106,13 @@ properties:
   terminating:
     description: |
       The number of Pods which are terminating (in phase `"Pending"` or `"Running"`
-      and have a `deletionTimestamp`). This field is Alpha-level.
+      and have a `deletionTimestamp`). This field is Beta-level.
       The Job controller populates the field when the feature gate `JobPodReplacementPolicy`
       is enabled (disabled by default).
     x-kab-description-zh: |
       处于正被终止状态的 Pod（阶段为 `"Pending"` 或 `"Running"` 且设置了 `deletionTimestamp`）
-      的个数。此字段为 Alpha 阶段。
-      当 `JobPodReplacementPolicy` 特性门控被启用时，Job 控制器会填充此字段。
+      的个数。此字段为 Beta 阶段。
+      当 `JobPodReplacementPolicy` 特性门控被启用时（默认启用），Job 控制器会填充此字段。
     format: int32
     minimum: 0
     type: integer

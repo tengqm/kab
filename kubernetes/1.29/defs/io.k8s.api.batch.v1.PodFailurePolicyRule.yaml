@@ -13,7 +13,7 @@ properties:
         all running Pods are terminated.
       - `"FailIndex"`: indicates that the Pod's index is marked as `Failed` and
         will not be restarted.
-        This value is Alpha-level. It can be used when the `JobBackoffLimitPerIndex`
+        This value is Beta-level. It can be used when the `JobBackoffLimitPerIndex`
         feature gate is enabled (disabled by default).
       - `"Ignore": indicates that the counter towards the `.backoffLimit` is not incremented
         and a replacement Pod is created.
@@ -25,7 +25,7 @@ properties:
       此字段决定当条件满足时，如何处理 Pod 失败的情况。可选的取值有：
       - `"FailJob"`：表明 Pod 所属的 Job 要被标记为 `"Failed"`，并且所有运行中的 Pod 都被终止。
       - `"FailIndex"`：表明 Pod 所对应的索引会被标记为 `"Failed"`，但不会被重新启动。
-        此取值为 Alpha 阶段。可以在启用了 `JobBackoffLimitPerIndex` 特性门控时使用。
+        此取值为 Beta 阶段。可以在启用了 `JobBackoffLimitPerIndex` 特性门控时使用（默认启用）。
       - `"Ignore"：表明 Pod 失败不会影响 `.backoffLimit` 字段值，并且控制器会创建替代 Pod。
       - `"Count"`：表明采用默认的方式来处理 Pod 失败的情况 -- 对 `.backoffLimit` 增一。
       将来可能会添加新的取值。客户端遇到无法识别的动作时应该略过对应的规则。

@@ -12,8 +12,59 @@ x-kab-description-zh: |
 properties:
   labelSelector:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
-    description: A label query over a set of Pods.
-    x-kab-description-zh: 对一组 Pod 的标签查询。
+    description: A label query over a set of Pods. If this is not specified, the PodAffinityTerm matches no Pods.
+    x-kab-description-zh: 对一组 Pod 的标签查询。若未设置此字段，则此 PodAffinityTerm 不会匹配任何 Pod。
+  matchLabelKeys:
+    description: |
+      `matchLabelKeys` is a set of Pod label keys to select which Pods will be taken into consideration.
+      The keys are used to lookup values from the incoming Pod labels, those key-value labels are merged with
+      `labelSelector` as `key in (value)` to select the group of existing Pods which pods will be taken into consideration
+      for the incoming Pod's Pod (anti) affinity. Keys that don't exist in the incoming Pod labels will be ignored.
+
+      The default value is empty. The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`.
+      Also, `matchLabelKeys` cannot be set when `labelSelector` isn't set.
+
+      This is an Alpha field and requires enabling `MatchLabelKeysInPodAffinity` feature gate.
+    x-kab-description-zh: |
+      `matchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
+      这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key in (value)` 算符，
+      选择已存在的 Pod 集合。处理新建 Pod 的（反）亲和性时，只针对所选中的 Pod 集合。
+      如果所给的主键名称在新建 Pod 的标签中不存在，则这些主键会被忽略。
+
+      此字段的默认值是空表。同一个主键不可以同时出现在 `matchLabelKeys` 和 `labelSelector` 中。
+      未设置 `labelSelector` 时，也不可以设置 `matchLabelKeys`。
+
+      此字段处于 Alpha 阶段，需要启用 `MatchLabelKeysInPodAffinity` 特性门控。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  mismatchLabelKeys:
+    description: |
+      `mismatchLabelKeys` is a set of Pod label keys to select which Pods will be taken into consideration.
+      The keys are used to lookup values from the incoming Pod labels, those key-value labels are merged with
+      `labelSelector` as `key notin (value)` to select the group of existing Pods which pods will be taken into consideration
+      for the incoming Pod's Pod (anti) affinity. Keys that don't exist in the incoming Pod labels will be ignored.
+      The default value is empty. The same key is forbidden to exist in both `mismatchLabelKeys` and `labelSelector`.
+      Also, `mismatchLabelKeys` cannot be set when `labelSelector` isn't set.
+
+      This is an alpha field and requires enabling the `MatchLabelKeysInPodAffinity` feature gate.
+    x-kab-description-zh: |
+      `mismatchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
+      这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key notin (value)` 算符，
+      选择已存在的 Pod 集合。处理新建 Pod 的（反）亲和性时，只针对所选中的 Pod 集合。
+      如果所给的主键名称在新建 Pod 的标签中不存在，则这些主键会被忽略。
+
+      此字段的默认值是空表。同一个主键不可以同时出现在 `mismatchLabelKeys` 和 `labelSelector` 中。
+      未设置 `labelSelector` 时，也不可以设置 `mismatchLabelKeys`。
+
+      此字段处于 Alpha 阶段，需要启用 `MatchLabelKeysInPodAffinity` 特性门控。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
   namespaceSelector:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
     description: |

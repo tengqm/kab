@@ -224,7 +224,10 @@ ports:
   type: integer
   uniqueItems: true
 pretty:
-  description: If `true`, then the output is pretty printed.
+  # description changed since 1.28
+  description: |
+    If `true`, then the output is pretty printed.
+    Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (`curl` and `wget`).
   in: query
   name: pretty
   type: string

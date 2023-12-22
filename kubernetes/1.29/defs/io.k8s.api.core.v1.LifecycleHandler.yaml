@@ -13,6 +13,12 @@ properties:
     $ref: '#/definitions/io.k8s.api.core.v1.HTTPGetAction'
     description: This specifies the HTTP request to perform.
     x-kab-description-zh: 此字段设置要执行的 HTTP 请求。
+  sleep:
+    $ref: '#/definitions/io.k8s.api.core.v1.SleepAction'
+    description: |
+      Sleep represents the duration that the container should sleep before being terminated.
+    x-kab-description-zh: |
+      此字段设置容器在被终止之前需要睡眠的时长。
   tcpSocket:
     $ref: '#/definitions/io.k8s.api.core.v1.TCPSocketAction'
     description: |

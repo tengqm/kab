@@ -120,7 +120,7 @@ properties:
       此字段标明 CSI 驱动希望其 `NodePublishVolume()` 接口能够被周期性地调用以反映所挂载卷的变化。
       此字段默认取值为 `false`。
 
-      **注意**： 在成功第执行了最初的 `NodePublishVolume()` 调用之后，对 `NodePublishVolume()`
+      **注意**： 在成功地执行了最初的 `NodePublishVolume()` 调用之后，对 `NodePublishVolume()`
       的后续调用应该仅更新卷的内容。运行中的容器无法检测到新的挂载点。
     type: boolean
   seLinuxMount:

@@ -204,6 +204,24 @@ properties:
     $ref: '#/definitions/io.k8s.api.core.v1.StorageOSPersistentVolumeSource'
     description: A StorageOS volume that is attached to the node and mounted into the Pod.
     x-kab-description-zh: 一个被挂接到节点上并被挂载到 Pod 中的 StorageOS 卷。
+  volumeAttributesClassName:
+    description: |
+      Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed.
+      When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass.
+      This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class.
+      For an unbound PersistentVolume, the `volumeAttributesClassName` will be matched with unbound PersistentVolumeClaims
+      during the binding process.
+      This is an Alpha field and requires enabling VolumeAttributesClass feature.
+    x-kab-description-zh: |
+      此 PV 所属的 VolumeAttributesClass 的名称。字段值不能为空字符串，必须是合法的 DNS 子域名。
+      未设置此字段意味着此 PV 卷不属于任何 VolumeAttributesClass。
+      此字段是可变更的，当数据卷被成功地更新为使用新的 VolumeAttributesClass 时，可以由 CSI 驱动完成变更。
+      对于未被绑定的 PersistentVolume 卷，执行绑定的过程中，`volumeAttributesClassName` 值要与未绑定的 PersistentVolumeClaim
+      中的值匹配。
+
+      此字段为 Alpha 阶段，需要启用 `VolumeAttributesClass` 特性门控。
+    minLength: 1
+    type: string
   volumeMode:
     default: Filesystem
     description: |

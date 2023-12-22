@@ -15,12 +15,13 @@ properties:
 
       The Kubernetes-defined prefixed names can be one of:
 
-      - `"kubernetes.io/h2c"` - HTTP/2 over cleartext as described in
-        https://www.rfc-editor.org/rfc/rfc7540
+      - `"kubernetes.io/h2c"` - HTTP/2 prior knowledge over cleartext as described in
+        [RFC9113](https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-)
+
       - `"kubernetes.io/ws"` - WebSocket over cleartext as described in
-        https://www.rfc-editor.org/rfc/rfc6455
+        [RFC6455](https://www.rfc-editor.org/rfc/rfc6455)
       - `"kubernetes.io/wss"` - WebSocket over TLS as described in
-        https://www.rfc-editor.org/rfc/rfc6455
+        [RFC6455](https://www.rfc-editor.org/rfc/rfc6455)
 
     x-kab-description-zh: |
       端口对应的应用协议。端点的视线可以将此字段值视为一种提示信息，
@@ -34,8 +35,8 @@ properties:
 
       其中 Kubernetes 所定义的、带前缀的名称包括：
 
-      - `"kubernetes.io/h2c"` - 采用明文传输的 HTTP/2，
-        如 [RFC7540](https://www.rfc-editor.org/rfc/rfc7540) 所述。
+      - `"kubernetes.io/h2c"` - 采用明文传输的 HTTP/2 先验知识版本，
+        如 [RFC9113](https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-) 所述。
       - `"kubernetes.io/ws"` - 采用明文传输的 WebSocket，
         如 [RFC6455](https://www.rfc-editor.org/rfc/rfc6455) 所述。
       - `"kubernetes.io/wss"` - 采用 TLS 传输的WebSocket,
