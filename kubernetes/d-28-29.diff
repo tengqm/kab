@@ -1,0 +1,346 @@
+# diff -r 1.28orig/defs/io.k8s.api.batch.v1.JobSpec.json 1.29orig/defs/io.k8s.api.batch.v1.JobSpec.json
+# 15c15
+# <       "description": "Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+# ---
+# >       "description": "Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).",
+# 33c33
+# <       "description": "Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+# ---
+# >       "description": "Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).",
+# 47c47
+# <       "description": "podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods\n  when they are terminating (has a metadata.deletionTimestamp) or failed.\n- Failed means to wait until a previously created Pod is fully terminated (has phase\n  Failed or Succeeded) before creating a replacement Pod.\n\nWhen using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.",
+# ---
+# >       "description": "podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods\n  when they are terminating (has a metadata.deletionTimestamp) or failed.\n- Failed means to wait until a previously created Pod is fully terminated (has phase\n  Failed or Succeeded) before creating a replacement Pod.\n\nWhen using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.",
+# diff -r 1.28orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.29orig/defs/io.k8s.api.batch.v1.JobStatus.json
+# 33c33
+# <       "description": "FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as \"1,3-5,7\". This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).",
+# ---
+# >       "description": "FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as \"1,3-5,7\". This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).",
+# 37c37
+# <       "description": "The number of pods which have a Ready condition.\n\nThis field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).",
+# ---
+# >       "description": "The number of pods which have a Ready condition.",
+# 51c51
+# <       "description": "The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).\n\nThis field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).",
+# ---
+# >       "description": "The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).\n\nThis field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).",
+# diff -r 1.28orig/defs/io.k8s.api.batch.v1.PodFailurePolicyRule.json 1.29orig/defs/io.k8s.api.batch.v1.PodFailurePolicyRule.json
+# 5c5
+# <       "description": "Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:\n\n- FailJob: indicates that the pod's job is marked as Failed and all\n  running pods are terminated.\n- FailIndex: indicates that the pod's index is marked as Failed and will\n  not be restarted.\n  This value is alpha-level. It can be used when the\n  `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).\n- Ignore: indicates that the counter towards the .backoffLimit is not\n  incremented and a replacement pod is created.\n- Count: indicates that the pod is handled in the default way - the\n  counter towards the .backoffLimit is incremented.\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+# ---
+# >       "description": "Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:\n\n- FailJob: indicates that the pod's job is marked as Failed and all\n  running pods are terminated.\n- FailIndex: indicates that the pod's index is marked as Failed and will\n  not be restarted.\n  This value is beta-level. It can be used when the\n  `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).\n- Ignore: indicates that the counter towards the .backoffLimit is not\n  incremented and a replacement pod is created.\n- Count: indicates that the pod is handled in the default way - the\n  counter towards the .backoffLimit is incremented.\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+# 22,23c22
+# <     "action",
+# <     "onPodConditions"
+# ---
+# >     "action"
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.CSIPersistentVolumeSource.json 1.29orig/defs/io.k8s.api.core.v1.CSIPersistentVolumeSource.json
+# 22c22
+# <       "description": "nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed."
+# ---
+# >       "description": "nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed."
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.EndpointPort.json 1.29orig/defs/io.k8s.api.core.v1.EndpointPort.json
+# 5c5
+# <       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# ---
+# >       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.LifecycleHandler.json 1.29orig/defs/io.k8s.api.core.v1.LifecycleHandler.json
+# 11a12,15
+# >     "sleep": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.SleepAction",
+# >       "description": "Sleep represents the duration that the container should sleep before being terminated."
+# >     },
+# Only in 1.29orig/defs: io.k8s.api.core.v1.SleepAction.json
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json 1.29orig/defs/io.k8s.api.core.v1.LoadBalancerIngress.json
+# 11a12,15
+# >     "ipMode": {
+# >       "description": "IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to \"VIP\" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to \"Proxy\" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.",
+# >       "type": "string"
+# >     },
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json 1.29orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json
+# 20c20
+# <       "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements",
+# ---
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.VolumeResourceRequirements",
+# 28a29,32
+# >       "type": "string"
+# >     },
+# >     "volumeAttributesClassName": {
+# >       "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.",
+# Only in 1.29orig/defs: io.k8s.api.core.v1.VolumeResourceRequirements.json
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimStatus.json 1.29orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimStatus.json
+# 41a42,49
+# >     "currentVolumeAttributesClassName": {
+# >       "description": "currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.",
+# >       "type": "string"
+# >     },
+# >     "modifyVolumeStatus": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.ModifyVolumeStatus",
+# >       "description": "ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature."
+# >     },
+# Only in 1.29orig/defs: io.k8s.api.core.v1.ModifyVolumeStatus.json
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.PersistentVolumeSpec.json 1.29orig/defs/io.k8s.api.core.v1.PersistentVolumeSpec.json
+# 125a126,129
+# >     "volumeAttributesClassName": {
+# >       "description": "Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.",
+# >       "type": "string"
+# >     },
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json 1.29orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json
+# 6c6,22
+# <       "description": "A label query over a set of resources, in this case pods."
+# ---
+# >       "description": "A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods."
+# >     },
+# >     "matchLabelKeys": {
+# >       "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. Also, MatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.",
+# >       "items": {
+# >         "type": "string"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+# >     },
+# >     "mismatchLabelKeys": {
+# >       "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `LabelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both MismatchLabelKeys and LabelSelector. Also, MismatchLabelKeys cannot be set when LabelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.",
+# >       "items": {
+# >         "type": "string"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-type": "atomic"
+
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.ServicePort.json 1.29orig/defs/io.k8s.api.core.v1.ServicePort.json
+# 5c5
+# <       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# ---
+# >       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# diff -r 1.28orig/defs/io.k8s.api.core.v1.VolumeProjection.json 1.29orig/defs/io.k8s.api.core.v1.VolumeProjection.json
+# 3a4,7
+# >     "clusterTrustBundle": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.ClusterTrustBundleProjection",
+# >       "description": "ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.\n\nAlpha, gated by the ClusterTrustBundleProjection feature gate.\n\nClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.\n\nKubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time."
+# >     },
+# Only in 1.29orig/defs: io.k8s.api.core.v1.ClusterTrustBundleProjection.json
+
+# diff -r 1.28orig/defs/io.k8s.api.discovery.v1.EndpointPort.json 1.29orig/defs/io.k8s.api.discovery.v1.EndpointPort.json
+# 5c5
+# <       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# ---
+# >       "description": "The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:\n\n* Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).\n\n* Kubernetes-defined prefixed names:\n  * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-\n  * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455\n  * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455\n\n* Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.",
+# 9c9
+# <       "description": "name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.",
+# ---
+# >       "description": "name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.",
+
+# diff -r 1.28orig/defs/io.k8s.api.networking.v1alpha1.ParentReference.json 1.29orig/defs/io.k8s.api.networking.v1alpha1.ParentReference.json
+# 19,22d18
+# <     },
+# <     "uid": {
+# <       "description": "UID is the uid of the object being referenced.",
+# <       "type": "string"
+
+# diff -r 1.28orig/defs/io.k8s.api.resource.v1alpha2.PodSchedulingContextSpec.json 1.29orig/defs/io.k8s.api.resource.v1alpha2.PodSchedulingContextSpec.json
+# 10c10
+# <       "x-kubernetes-list-type": "set"
+# ---
+# >       "x-kubernetes-list-type": "atomic"
+
+# diff -r 1.28orig/defs/io.k8s.api.resource.v1alpha2.ResourceClaimSchedulingStatus.json 1.29orig/defs/io.k8s.api.resource.v1alpha2.ResourceClaimSchedulingStatus.json
+# 14c14
+# <       "x-kubernetes-list-type": "set"
+# ---
+# >       "x-kubernetes-list-type": "atomic"
+
+# diff -r 1.28orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json 1.29orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json
+# 13c13
+# <       "description": "podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.\n\nThe CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.\n\nThe following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" if the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.\n\nThis field is immutable.",
+# ---
+# >       "description": "podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.\n\nThe CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.\n\nThe following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. \"csi.storage.k8s.io/pod.name\": pod.Name \"csi.storage.k8s.io/pod.namespace\": pod.Namespace \"csi.storage.k8s.io/pod.uid\": string(pod.UID) \"csi.storage.k8s.io/ephemeral\": \"true\" if the volume is an ephemeral inline volume\n                                defined by a CSIVolumeSource, otherwise \"false\"\n\n\"csi.storage.k8s.io/ephemeral\" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the \"Persistent\" and \"Ephemeral\" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.\n\nThis field is immutable.",
+
+# diff -r 1.28orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule.json 1.29orig/defs/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule.json
+# 15a16,19
+# >     "optionalOldSelf": {
+# >       "description": "optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.\n\nWhen enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.\n\nYou may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes\n\nMay not be set unless `oldSelf` is used in `rule`.",
+# >       "type": "boolean"
+# >     },
+# 21c25
+# <       "description": "Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {\"rule\": \"self.status.actual <= self.spec.maxDesired\"}\n\nIf the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {\"rule\": \"self.components['Widget'].priority < 10\"} - Rule scoped to a list of integers: {\"rule\": \"self.values.all(value, value >= 0 && value < 100)\"} - Rule scoped to a string value: {\"rule\": \"self.startsWith('kube')\"}\n\nThe `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.\n\nUnknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an \"unknown type\". An \"unknown type\" is recursively defined as:\n  - A schema with no type and x-kubernetes-preserve-unknown-fields set to true\n  - An array where the items schema is of an \"unknown type\"\n  - An object where the additionalProperties schema is of an \"unknown type\"\n\nOnly property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:\n\t  \"true\", \"false\", \"null\", \"in\", \"as\", \"break\", \"const\", \"continue\", \"else\", \"for\", \"function\", \"if\",\n\t  \"import\", \"let\", \"loop\", \"package\", \"namespace\", \"return\".\nExamples:\n  - Rule accessing a property named \"namespace\": {\"rule\": \"self.__namespace__ > 0\"}\n  - Rule accessing a property named \"x-prop\": {\"rule\": \"self.x__dash__prop > 0\"}\n  - Rule accessing a property named \"redact__d\": {\"rule\": \"self.redact__underscores__d > 0\"}\n\nEquality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:\n  - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and\n    non-intersecting elements in `Y` are appended, retaining their partial order.\n  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values\n    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with\n    non-intersecting keys are appended, retaining their partial order.",
+# ---
+# >       "description": "Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {\"rule\": \"self.status.actual <= self.spec.maxDesired\"}\n\nIf the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {\"rule\": \"self.components['Widget'].priority < 10\"} - Rule scoped to a list of integers: {\"rule\": \"self.values.all(value, value >= 0 && value < 100)\"} - Rule scoped to a string value: {\"rule\": \"self.startsWith('kube')\"}\n\nThe `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.\n\nUnknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an \"unknown type\". An \"unknown type\" is recursively defined as:\n  - A schema with no type and x-kubernetes-preserve-unknown-fields set to true\n  - An array where the items schema is of an \"unknown type\"\n  - An object where the additionalProperties schema is of an \"unknown type\"\n\nOnly property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:\n\t  \"true\", \"false\", \"null\", \"in\", \"as\", \"break\", \"const\", \"continue\", \"else\", \"for\", \"function\", \"if\",\n\t  \"import\", \"let\", \"loop\", \"package\", \"namespace\", \"return\".\nExamples:\n  - Rule accessing a property named \"namespace\": {\"rule\": \"self.__namespace__ > 0\"}\n  - Rule accessing a property named \"x-prop\": {\"rule\": \"self.x__dash__prop > 0\"}\n  - Rule accessing a property named \"redact__d\": {\"rule\": \"self.redact__underscores__d > 0\"}\n\nEquality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:\n  - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and\n    non-intersecting elements in `Y` are appended, retaining their partial order.\n  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values\n    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with\n    non-intersecting keys are appended, retaining their partial order.\n\nIf `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.\n\nBy default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional\n variable whose value() is the same type as `self`.\nSee the documentation for the `optionalOldSelf` field for details.\n\nTransition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.",
+
+# diff -r 1.28orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.29orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+# 212c212
+# <       "version": "v1alpha1"
+# ---
+# >       "version": "v1"
+
+# diff -r 1.28orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.29orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
+# 191c191
+# <       "version": "v1alpha1"
+# ---
+# >       "version": "v1"
+
+# diff -r 1.28orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceSpec.json 1.29orig/defs/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.APIServiceSpec.json
+# 15c15
+# <       "description": "GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s",
+# ---
+# >       "description": "GroupPriorityMinimum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMinimum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s",
+
+# diff -r 1.28orig/parameters/parameters.json 1.29orig/parameters/parameters.json
+# 157c157
+# <     "description": "If 'true', then the output is pretty printed.",
+# ---
+# >     "description": "If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).",
+
+# Only in 1.28orig/defs: io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps.json
+
+## Drop ClusterCIDR
+# Only in 1.28orig/defs: io.k8s.api.networking.v1alpha1.ClusterCIDR.json
+# Only in 1.28orig/defs: io.k8s.api.networking.v1alpha1.ClusterCIDRList.json
+# Only in 1.28orig/defs: io.k8s.api.networking.v1alpha1.ClusterCIDRSpec.json
+# Only in 1.28orig/ops: createNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: deleteNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: deleteNetworkingV1alpha1CollectionClusterCIDR.json
+# Only in 1.28orig/ops: listNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: patchNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: readNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: replaceNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: watchNetworkingV1alpha1ClusterCIDR.json
+# Only in 1.28orig/ops: watchNetworkingV1alpha1ClusterCIDRList.json
+
+## Add ServiceCIDR
+# Only in 1.29orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDR.json
+# Only in 1.29orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDRList.json
+# Only in 1.29orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDRSpec.json
+# Only in 1.29orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDRStatus.json
+# Only in 1.29orig/ops: createNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: deleteNetworkingV1alpha1CollectionServiceCIDR.json
+# Only in 1.29orig/ops: deleteNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: listNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: patchNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: patchNetworkingV1alpha1ServiceCIDRStatus.json
+# Only in 1.29orig/ops: readNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: readNetworkingV1alpha1ServiceCIDRStatus.json
+# Only in 1.29orig/ops: replaceNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: replaceNetworkingV1alpha1ServiceCIDRStatus.json
+# Only in 1.29orig/ops: watchNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.29orig/ops: watchNetworkingV1alpha1ServiceCIDRList.json
+
+## Add VolumeAttributeClass
+# Only in 1.29orig/defs: io.k8s.api.storage.v1alpha1.VolumeAttributesClass.json
+# Only in 1.29orig/defs: io.k8s.api.storage.v1alpha1.VolumeAttributesClassList.json
+# Only in 1.29orig/ops: createStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: deleteStorageV1alpha1CollectionVolumeAttributesClass.json
+# Only in 1.29orig/ops: deleteStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: getStorageV1alpha1APIResources.json
+# Only in 1.29orig/ops: listStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: patchStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: readStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: replaceStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: watchStorageV1alpha1VolumeAttributesClass.json
+# Only in 1.29orig/ops: watchStorageV1alpha1VolumeAttributesClassList.json
+
+## Drop flowcontrol v1beta2
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.ExemptPriorityLevelConfiguration.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.FlowDistinguisherMethod.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.FlowSchema.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.FlowSchemaCondition.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.FlowSchemaList.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.FlowSchemaSpec.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.FlowSchemaStatus.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.GroupSubject.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.LimitResponse.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.LimitedPriorityLevelConfiguration.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.NonResourcePolicyRule.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PolicyRulesWithSubjects.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfiguration.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationCondition.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationList.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationReference.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationSpec.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.PriorityLevelConfigurationStatus.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.QueuingConfiguration.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.ResourcePolicyRule.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.ServiceAccountSubject.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.Subject.json
+# Only in 1.28orig/defs: io.k8s.api.flowcontrol.v1beta2.UserSubject.json
+# Only in 1.28orig/ops: createFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: createFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: deleteFlowcontrolApiserverV1beta2CollectionFlowSchema.json
+# Only in 1.28orig/ops: deleteFlowcontrolApiserverV1beta2CollectionPriorityLevelConfiguration.json
+# Only in 1.28orig/ops: deleteFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: deleteFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: getFlowcontrolApiserverV1beta2APIResources.json
+# Only in 1.28orig/ops: listFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: listFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: patchFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: patchFlowcontrolApiserverV1beta2FlowSchemaStatus.json
+# Only in 1.28orig/ops: patchFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: patchFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus.json
+# Only in 1.28orig/ops: readFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: readFlowcontrolApiserverV1beta2FlowSchemaStatus.json
+# Only in 1.28orig/ops: readFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: readFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus.json
+# Only in 1.28orig/ops: replaceFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: replaceFlowcontrolApiserverV1beta2FlowSchemaStatus.json
+# Only in 1.28orig/ops: replaceFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: replaceFlowcontrolApiserverV1beta2PriorityLevelConfigurationStatus.json
+# Only in 1.28orig/ops: watchFlowcontrolApiserverV1beta2FlowSchema.json
+# Only in 1.28orig/ops: watchFlowcontrolApiserverV1beta2FlowSchemaList.json
+# Only in 1.28orig/ops: watchFlowcontrolApiserverV1beta2PriorityLevelConfiguration.json
+# Only in 1.28orig/ops: watchFlowcontrolApiserverV1beta2PriorityLevelConfigurationList.json
+
+## add flowcontrol v1
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.ExemptPriorityLevelConfiguration.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.FlowDistinguisherMethod.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.FlowSchema.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.FlowSchemaCondition.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.FlowSchemaList.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.FlowSchemaSpec.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.FlowSchemaStatus.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.GroupSubject.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.LimitResponse.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.LimitedPriorityLevelConfiguration.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.NonResourcePolicyRule.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PolicyRulesWithSubjects.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PriorityLevelConfiguration.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationCondition.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationList.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationReference.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationSpec.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationStatus.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.QueuingConfiguration.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.ResourcePolicyRule.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.ServiceAccountSubject.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.Subject.json
+# Only in 1.29orig/defs: io.k8s.api.flowcontrol.v1.UserSubject.json
+# Only in 1.29orig/ops: createFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: createFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: deleteFlowcontrolApiserverV1CollectionFlowSchema.json
+# Only in 1.29orig/ops: deleteFlowcontrolApiserverV1CollectionPriorityLevelConfiguration.json
+# Only in 1.29orig/ops: deleteFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: deleteFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: getFlowcontrolApiserverV1APIResources.json
+# Only in 1.29orig/ops: listFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: listFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: patchFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: patchFlowcontrolApiserverV1FlowSchemaStatus.json
+# Only in 1.29orig/ops: patchFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: patchFlowcontrolApiserverV1PriorityLevelConfigurationStatus.json
+# Only in 1.29orig/ops: readFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: readFlowcontrolApiserverV1FlowSchemaStatus.json
+# Only in 1.29orig/ops: readFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: readFlowcontrolApiserverV1PriorityLevelConfigurationStatus.json
+# Only in 1.29orig/ops: replaceFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: replaceFlowcontrolApiserverV1FlowSchemaStatus.json
+# Only in 1.29orig/ops: replaceFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: replaceFlowcontrolApiserverV1PriorityLevelConfigurationStatus.json
+# Only in 1.29orig/ops: watchFlowcontrolApiserverV1FlowSchema.json
+# Only in 1.29orig/ops: watchFlowcontrolApiserverV1FlowSchemaList.json
+# Only in 1.29orig/ops: watchFlowcontrolApiserverV1PriorityLevelConfiguration.json
+# Only in 1.29orig/ops: watchFlowcontrolApiserverV1PriorityLevelConfigurationList.json
+
