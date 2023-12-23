@@ -7,15 +7,25 @@ import os
 import shutil
 import sys
 
+from yaml import load, dump
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+
 basedir = "."
+filetype = "json"
 
 
 def process_basic():
     global basedir
 
-    fn = os.path.join(basedir, "basic", "basic.json")
+    fn = os.path.join(basedir, "basic", "basic." + filetype)
     with open(fn, "r") as f:
-        data = json.load(f)
+        if filetype == "json":
+            data = json.load(f)
+        else:
+            data = load(f, Loader=Loader)
 
     return data
 
@@ -36,7 +46,10 @@ def process_definitions(data):
         fullname = os.path.join(defdir, fn)
         try:
             with open(fullname, "r") as f:
-                defs[basename] = json.loads(f.read())
+                if ext == "json":
+                    defs[basename] = json.loads(f.read())
+                else:
+                    defs[basename] = load(f, Loader=Loader)
         except Exception as ex:
             print("\033[31mFailed file: %s, %s\033[0m" % (fullname, str(ex)))
 
@@ -94,8 +107,11 @@ def process_operations(data):
         op_id, ext = os.path.splitext(fn)
         fullname = os.path.join(opdir, fn)
         with open(fullname, "r") as f:
-            raw = f.read()
-        opdata = json.loads(raw)
+            if ext == "json": 
+                opdata = json.loads(f.read())
+            else:
+                opdata = load(f, Loader=Loader)
+
         path = opdata.pop("path", None)
         verb = opdata.pop("verb", None)
         if not path or not verb:
@@ -122,38 +138,51 @@ def process_security(data):
     global basedir
 
     securitydir = os.path.join(basedir, "security")
-    fullname = os.path.join(securitydir, "security.json")
+    fullname = os.path.join(securitydir, "security." + filetype)
     with open(fullname, "r") as f:
-        sdata = f.read()
-        data["security"] = json.loads(sdata)
+        if filetype == 'json':
+            data["security"] = json.loads(f.read())
+        else:
+            data["security"] = load(f, Loader=Loader)
 
-    fullname = os.path.join(securitydir, "securityDefinitions.json")
+    fullname = os.path.join(securitydir, "securityDefinitions." + filetype)
     with open(fullname, "r") as f:
-        sdata = f.read()
-        data["securityDefinitions"] = json.loads(sdata)
+        if filetype == "json":
+            data["securityDefinitions"] = json.loads(f.read())
+        else:
+            data["securityDefinitions"] = load(f, Loader=Loader)
 
 
 def process_parameters(data):
     """Gather parameters definitions"""
     global basedir
 
-    fn = os.path.join(basedir, "parameters", "parameters.json")
+    fn = os.path.join(basedir, "parameters", "parameters." + filetype)
     with open(fn, "r") as f:
-        raw = f.read()
-        data["parameters"] = json.loads(raw)
-
+        if filetype == "json":
+            data["parameters"] = json.loads(f.read())
+        else:
+            data["parameters"] = load(f, Loader=Loader)
 
 def main():
-    global basedir
+    global basedir, filetype
 
     if len(sys.argv) < 2:
-        print("Usage: compose <dir>")
+        print("Usage: compose <dir> [json|yaml]\n")
         sys.exit(-1)
 
     if not os.path.isdir(sys.argv[1]):
-        print("The specified directory is invalid.")
-        print("Usage: compose <dir>")
+        print("The specified directory is invalid.\n")
+        print("Usage: compose <dir> [json|yaml]\n")
         sys.exit(-1)
+
+    if len(sys.argv) == 3:
+        ftype = sys.argv[2].lower()
+        if ftype not in ['json', 'yaml']:
+            printf("The specified file type '%s' is invalid, must be 'json' "
+                   "or 'yaml'\n", ftype);
+            os.exit(-2)
+        filetype = ftype
 
     basedir = sys.argv[1]
 
@@ -176,7 +205,10 @@ def main():
     if not OK:
         sys.exit(-1)
 
-    print(json.dumps(data, indent=2, sort_keys=True))
+    if filetype == "json":
+        print(json.dumps(data, indent=2, sort_keys=True))
+    else:
+        print(dump(data, Dumper=Dumper, allow_unicode=True))
 
     sys.exit(0)
 
