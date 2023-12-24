@@ -1,10 +1,15 @@
 allowWatchBookmarks:
   description: |
-    `allowWatchBookmarks` requests watch events with type "BOOKMARK".
+    `allowWatchBookmarks` requests watch events with type `BOOKMARK`.
     Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion.
     Clients should not assume bookmarks are returned at any specific interval, nor may they assume
     the server will send any BOOKMARK event during a session.
     If this is not a `watch`, this field is ignored.
+  x-kab-description-zh: |
+    `allowWatchBookmarks` 请求接收类型为 `BOOKMARK` 的监视事件。
+    未实现书签能力的服务器可能会忽略此标志，并且，是否发送书签由服务器决定。
+    客户端不能对书签返回的时间间隔作任何假定，也不能假定服务器一定会在一次会话中发送 `BOOKMARK` 事件。
+    如果请求本身不是 `watch` 请求，则此标志会被忽略。
   in: query
   name: allowWatchBookmarks
   type: boolean
@@ -12,6 +17,9 @@ allowWatchBookmarks:
 command:
   description: |
     Command is the remote command to execute. argv array. Not executed within a shell.
+  x-kab-description-zh: |
+    需要在远程执行的命令。所给的字符串会被当作空格分割的参数数组来解释。
+    所给命令不会在一个 Shell 环境中执行。
   in: query
   name: command
   type: string
@@ -20,6 +28,9 @@ container:
   description: |
     Container in which to execute the command.
     Defaults to only container if there is only one container in the Pod.
+  x-kab-description-zh: |
+    此参数给出在哪个容器中执行命令。
+    如果 Pod 中只有一个容器，则默认为在该容器中执行。
   in: query
   name: container
   type: string
@@ -33,16 +44,31 @@ continue:
     If the specified `continue` value is no longer valid whether due to expiration (generally five to
     fifteen minutes) or a configuration change on the server, the server will respond with a
     `"410 ResourceExpired"` error together with a `continue` token.
-    If the client needs a consistent list, it must restart their list without the `continue` field.
+    If the client needs a consistent list, it must restart their `list` without the `continue` field.
     Otherwise, the client may send another `list` request with the token received with the 410 error,
     the server will respond with a list starting from the next key, but from the latest snapshot,
     which is inconsistent from the previous list results - objects that are created, modified, or
     deleted after the first list request will be included in the response, as long as their keys are
     after the `"next key"`.
 
-    This field is not supported when watch is true.
+    This field is not supported when `watch` is `true`.
     Clients may start a watch from the last `resourceVersion` value returned by the server and
     not miss any modifications.
+  x-kab-description-zh: |
+    在需要从服务器端取回更多的结果时，应该设置 `continue` 选项。
+    由于这个参数的合法参数值是服务器端决定的，客户端只能使用来自于之前查询结果中的 `continue` 值，
+    并且“之前查询”要与当前查询的参数完全相同（除了 `continue` 选项）。
+    服务器可能会拒绝它无法识别的 `continue` 值。
+
+    如果由于超时（通常是 15 分钟）或者服务器端配置变化等原因导致所指定的 `continue` 值不再有效，
+    服务器会返回一个 `"410 ResourceExpired"` 错误信息，并附带一个 `continue` 令牌。
+    如果客户端需要查看一致性的列表，则必须在不设置 `continue` 字段的前提下重新发起 `list` 操作。
+    或者，客户端也可以使用从 410 错误响应中收到的令牌发送 `list` 请求，服务器会返回一个从下一主键开始的列表，
+    但列表本身来自于最新的快照，与之前的列表结果之间可能存在不一致：第一次 `list` 操作之后创建的、
+    更改的、删除的对象都会反映在响应中，服务器只关心其主键是否在 `"下一主键"` 之后。
+
+    当设置了 `watch` 为 `true` 时，此字段不再有效。
+    客户端可以基于服务器所返回的最后一个 `resourceVersion` 值启动 `watch` 操作，而不会错过任何更新。
   in: query
   name: continue
   type: string
@@ -50,10 +76,16 @@ continue:
 dryRun:
   description: |
     When present, indicates that modifications should not be persisted.
-    An invalid or unrecognized dryRun directive will result in an error response and no further processing
+    An invalid or unrecognized `dryRun` directive will result in an error response and no further processing
     of the request. Valid values are:
 
     - `"All"`: all dry run stages will be processed
+  x-kab-description-zh: |
+    请求中设置此参数时表明请求所作的变更不可以被持久化存储。
+    如果 `dryRun` 所给的参数值非法或者不可识别，服务器会返回错误响应并且停止处理请求。
+    合法的取值为：
+
+    - `"All"`：处理“试运行”的所有阶段。
   in: query
   name: dryRun
   required: false
@@ -66,6 +98,11 @@ fieldManager:
     as defined by https://golang.org/pkg/unicode/#IsPrint.
     This field is required for apply requests (application/apply-patch) but optional for
     non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).
+  x-kab-description-zh: |
+    `fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。
+    参数字符串值长度不能超过 128 字符，只能包含可打印字符。
+    对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型
+    （JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。
   in: query
   name: fieldManager
   required: false
@@ -78,6 +115,11 @@ fieldManagerPatch:
     as defined by https://golang.org/pkg/unicode/#IsPrint.
     This field is required for apply requests (application/apply-patch) but optional for
     non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).
+  x-kab-description-zh: |
+    `fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。
+    参数字符串值长度不能超过 128 字符，只能包含可打印字符。
+    对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型
+    （JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。
   in: query
   name: fieldManager
   required: false
@@ -86,6 +128,8 @@ fieldManagerPatch:
 fieldSelector:
   description: |
     A selector to restrict the list of returned objects by their fields.  Defaults to everything.
+  x-kab-description-zh: |
+    用来根据字段来限制所返回对象的选择算符。默认行为是返回所有字段。
   in: query
   name: fieldSelector
   type: string
@@ -104,21 +148,37 @@ fieldValidation:
     - `"Strict"`: This will fail the request with a BadRequest error if any unknown fields would be
       dropped from the object, or if any duplicate fields are present.
       The error returned from the server will contain all unknown and duplicate fields encountered.
+  x-kab-description-zh: |
+    `fieldValidation` 通知服务器如何处理请求（POST、PUT、PATCH）中对象内的未知或重复字段。合法值有：
+
+    - `"Ignore"`：服务器忽略所有未知字段，以静默方式丢弃这些字段；对于重复字段，解码组件只保留最后一次的设置，
+      丢弃所有其他重复字段设置。这是 v1.23 之前的默认行为。
+    - `"Warn"`：针对无法识别的每个字段以及遇到的每个重复字段，服务器通过 `warning` 响应头返回警告信息。
+      如果请求中没有其它错误，则仍然有可能成功，但只会保存重复字段的最后一份设置值。
+      这是 v1.23 之后版本的默认行为。
+    - `"Strict"`：如果在对象中发现任何未知字段或者重复字段，服务器会返回 `BadRequest` 错误响应。
+      服务器所返回的错误响应中会包含所有未知字段、重复字段的信息。
   in: query
   name: fieldValidation
   required: false
   type: string
   uniqueItems: true
 follow:
-  description: Follow the log stream of the pod. Defaults to false.
+  description: |
+    Follow the log stream of the pod. Defaults to `false`.
+  x-kab-description-zh: |
+    追踪 Pod 的日志数据流。默认为 `false`。
   in: query
   name: follow
   type: boolean
   uniqueItems: true
 force:
   description: |
-    Force is going to "force" Apply requests. It means user will re-acquire conflicting fields
+    `force` is going to **force** Apply requests. It means user will re-acquire conflicting fields
     owned by other people. Force flag must be unset for non-apply patch requests.
+  x-kab-description-zh: |
+    `force` 参数会**强制**应用请求。对于 `apply` 操作而言，意味着用户会强制重新取得被其他人负责的冲突字段的管理权。
+    对于非 `apply` 类型的补丁请求，不可以设置 `force` 字段。
   in: query
   name: force
   type: boolean
@@ -129,6 +189,10 @@ gracePeriodSeconds:
     The value zero indicates delete immediately.
     If this value is nil, the default grace period for the specified type will be used.
     Defaults to a per object value if not specified. zero means delete immediately.
+  x-kab-description-zh: |
+    对象被删除之前可以存活的时长秒数。参数值不能为负数。取值零意味着立即删除对象。
+    如果此值未设置，则服务器会检查特定资源类型的默认宽限期长度。
+    如果未在请求中指定，则默认值取决于对象本身的设置。
   in: query
   name: gracePeriodSeconds
   type: integer
@@ -142,6 +206,12 @@ insecureSkipTLSVerifyBackend:
     If the kubelet is configured to verify the apiserver's TLS credentials, it does not mean
     the connection to the real kubelet is vulnerable to a man in the middle attack
     (e.g. an attacker could not intercept the actual log data coming from the real kubelet).
+  x-kab-description-zh: |
+    `insecureSkipTLSVerifyBackend` 表明 API 服务器不应去确认它所连接到的后端的服务证书的合法性。
+    这一设置会导致 API 服务器与后端之间的 HTTPS 连接不够安全。
+    API 服务器无法确认它所收到的日志数据来自真实的 kubelet。
+    如果 kubelet 配置为要去检查 API 服务器的 TLS 证书，则即便设置了 `insecureSkipTLSVerifyBackend`
+    也不意味着与 kubelet 之间的连接容易受到中间人攻击的威胁（比如，攻击者无法拦截来自 kubelet 的实际日志数据）。
   in: query
   name: insecureSkipTLSVerifyBackend
   type: boolean
@@ -150,29 +220,44 @@ labelSelector:
   description: |
     A selector to restrict the list of returned objects by their labels.
     Defaults to everything.
+  x-kab-description-zh: |
+    选择算符，用来根据标签来限制返回的对象。默认行为是返回所有对象。
   in: query
   name: labelSelector
   type: string
   uniqueItems: true
 limit:
   description: |
-    limit is a maximum number of responses to return for a list call.
+    `limit` is the maximum number of objects to return for a `list` call.
     If more items exist, the server will set the `continue` field on the list metadata to a value
     that can be used with the same initial query to retrieve the next set of results.
     Setting a limit may return fewer than the requested amount of items (up to zero items)
     in the event all requested objects are filtered out and clients should only use the presence of
     the `continue` field to determine whether more results are available.
-    Servers may choose not to support the limit argument and will return all of the available results.
+    Servers may choose not to support the `limit` argument and will return all of the available results.
     If `limit` is specified and the `continue` field is empty, clients may assume that no more results
     are available. This field is not supported if `watch` is `true`.
 
     The server guarantees that the objects returned when using `continue` will be identical to
-    issuing a single list call without a limit - that is, no objects created, modified, or deleted
-    after the first request is issued will be included in any subsequent continued requests.
+    issuing a single `list` call without a `limit` - that is, no objects created, modified, or deleted
+    after the first request is issued will be included in any subsequent `continue` requests.
     This is sometimes referred to as a _consistent snapshot_, and ensures that a client that is using
     limit to receive smaller chunks of a very large result can ensure they see all possible objects.
-    If objects are updated during a chunked list the version of the object that was present at the time
-    the first list result was calculated is returned.
+    If objects are updated during a chunked `list` the version of the object that was present at the time
+    the first `list` result was calculated is returned.
+  x-kab-description-zh: |
+    `limit` 限制 `list` 请求返回的对象个数。如果存在更多的条目，服务器会设置列表元数据中的 `continue`
+    字段，使用所返回的这一字段值重新执行初始查询时，将会返回下一组结果。
+    设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素）， 
+    例如所请求的对象被过滤掉的情况。客户端只能通过 `continue` 字段存在与否来判断是否还有更多的结果待取回。
+    服务器端可能不支持 `limit` 参数，因而返回所有结果。
+    如果设置了 `limit`，但响应中的 `continue` 字段为空，客户端可以假定没有更多的结果。
+    当 `watch` 被设置为 `true` 时，不支持设置此字段。
+
+    服务器端会确保设置了 `continue` 时所返回的对象集合与不带 `limit` 的 `list` 请求所返回的结果完全相同，
+    也就是说，在第一个请求发出之后创建的、更改的或者删除的对象都不会影响后续的 `continue` 请求的结果。
+    这种能力有时被称作一致性快照（Consistent Snapshot），能够确保使用 `limit` 参数来分批读取较大集合的客户端可以看到所有对象。
+    如果某对象在分批列表执行期间被变更，则服务器会计算开始执行 `list` 操作时对象的版本，并返回该版本。
   in: query
   name: limit
   type: integer
@@ -182,43 +267,59 @@ limitBytes:
     If set, the number of bytes to read from the server before terminating the log output.
     This may not display a complete final line of logging, and may return slightly more or
     slightly less than the specified limit.
+  x-kab-description-zh: |
+    如果设置了此参数，可以限制终止日志输出之前可以从服务器上读回的字节数。
+    设置此参数可能会导致所返回的日志中最后一行不完整，并且服务器实际返回的字节数可能与所设置的限制有少许的出入。
   in: query
   name: limitBytes
   type: integer
   uniqueItems: true
 logpath:
   description: The path to the log.
+  x-kab-description-zh: 指向日志的路径。
   in: path
+  minLength: 1
   name: logpath
   required: true
   type: string
   uniqueItems: true
 namespace:
   description: The object name and auth scope, such as for teams and projects.
+  x-kab-description-zh: 对象命名以及操作鉴权的作用域，用来支持多个团队和项目。
   in: path
+  minLength: 1
   name: namespace
   required: true
   type: string
   uniqueItems: true
 orphanDependents:
   description: |
-    **DEPRECATED**: please use the `ropagationPolicy`, this field is deprecated in 1.7.
     Should the dependent objects be orphaned.
     If true/false, the `"orphan"` finalizer will be added to/removed from the object's
     `finalizers` list. Either this field or `propagationPolicy` may be set, but not both.
+
+    **DEPRECATED**: please use the `ropagationPolicy`, this field is deprecated in 1.7.
+  x-kab-description-zh: |
+    是否允许依赖对象变成孤儿（Orphaned）对象。 
+    如果设置为 `true`，则会向对象的 `finalizers` 列表中添加 `"orphan"` 终止器，否则会从 `finalizers`
+    列表中移除 `"orphan"` 终止器。客户端可以使用此字段或者 `propagationPolicy` 字段，但不能同时使用二者。
+    **已弃用**：请使用 `ropagationPolicy` 参数。`orphanDependents` 这一参数从 1.7 版本已被弃用。
   in: query
   name: orphanDependents
   type: boolean
   uniqueItems: true
 path:
   description: The path to the resource.
+  x-kab-description-zh: 指向资源的路径。
   in: path
+  minLength: 1
   name: path
   required: true
   type: string
   uniqueItems: true
 ports:
   description: List of ports to forward Required when using WebSockets.
+  x-kab-description-zh: 要转发的端口列表。使用 WebSockets 时必须设置。
   in: query
   name: ports
   type: integer
@@ -228,12 +329,16 @@ pretty:
   description: |
     If `true`, then the output is pretty printed.
     Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (`curl` and `wget`).
+  x-kab-description-zh: |
+    若此字段为 `true`，则对输出结果作美化处理。
+    默认值为 `false`，除非 user-agent 表明使用的是浏览器或者命令行 HTTP 工具（`curl` 和 `wget`）。
   in: query
   name: pretty
   type: string
   uniqueItems: true
 previous:
   description: Return previous terminated container logs. Defaults to false.
+  x-kab-description-zh: 返回先前终止的容器的日志。默认值为 `false`。
   in: query
   name: previous
   type: boolean
@@ -248,6 +353,14 @@ propagationPolicy:
     - `"Orphan"` - orphan the dependents;
     - `"Background"` - allow the garbage collector to delete the dependents in the background;
     - `"Foreground"` - a cascading policy that deletes all dependents in the foreground.
+  x-kab-description-zh: |
+    是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
+    默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。
+    可接受的取值有：
+
+    - `"Orphan"`：令依赖对象成为孤儿对象；
+    - `"Background"`：允许垃圾收集器在后台删除依赖对象；
+    - `"Foreground"`：在前台删除所有依赖对象的一种级联策略。
   in: query
   name: propagationPolicy
   type: string
@@ -259,16 +372,24 @@ resourceVersion:
     for details.
 
     Defaults to unset.
+  x-kab-description-zh: |
+    `resourceVersion` 设置请求所针对的资源版本约束。
+    默认情况下不设置。
   in: query
   name: resourceVersion
   type: string
   uniqueItems: true
 resourceVersionMatch:
   description: |
-    `resourceVersionMatch` determines how resourceVersion is applied to list calls.
-    It is highly recommended that resourceVersionMatch be set for `list` calls where `resourceVersion`
+    `resourceVersionMatch` determines how `resourceVersion` is applied to `list` calls.
+    It is highly recommended that `resourceVersionMatch` be set for `list` calls where `resourceVersion`
     is set.
-    See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.
+  x-kab-description-zh: |
+    `resourceVersionMatch` 确定 `list` 请求如何使用 `resourceVersion` 信息。
+    强烈建议为 `list` 请求设置了 `resourceVersion` 时也设置 `resourceVersionMatch`。
+  enum:
+    - Exact
+    - NotOlderThan
   in: query
   name: resourceVersionMatch
   type: string
@@ -277,14 +398,14 @@ sendInitialEvents:
   description: |
     `sendInitialEvents=true` may be set together with `watch=true`.
     In that case, the watch stream will begin with synthetic events to produce the current state of objects
-    in the collection. Once all such events have been sent, a synthetic `"Bookmark"` event  will be sent.
-    The bookmark will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with
+    in the collection. Once all such events have been sent, a synthetic `BOOKMARK` event  will be sent.
+    The BOOKMARK will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with
     `"k8s.io/initial-events-end": "true"` annotation.
     Afterwards, the watch stream will proceed as usual, sending watch events corresponding to changes
     (subsequent to the RV) to objects watched.
     
     When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set.
-    The semantic of the watch request is as following:
+    The semantic of the `watch` request is as following:
 
     - `resourceVersionMatch` = NotOlderThan is interpreted as _data at least as new as the provided `resourceVersion`_
       and the bookmark event is send when the state is synced to a `resourceVersion` at least as fresh as
@@ -293,8 +414,30 @@ sendInitialEvents:
       is send when the state is synced at least to the moment when request started being processed.
     - `resourceVersionMatch` set to any other value or unset. Invalid error is returned.
 
-    Defaults to true if `resourceVersion=""` or `resourceVersion="0"`
-    (for backward compatibility reasons) and to false otherwise.
+    Defaults to `true` if `resourceVersion=""` or `resourceVersion="0"`
+    (for backward compatibility reasons) and to `false` otherwise.
+    This flag requires the `WatchList` feature gate to be enabled.
+  x-kab-description-zh: |
+    对于 watch（监听）请求，`watch=true` 时可以设置 `sendInitialEvents=true`。
+    这样设置之后，监听到的数据流的起始部分会包含一些合成的数据，用来表示集合中对象的当前状态。
+    服务器发送完所有这类合成事件之后会发送一个合成的 `BOOKMARK` 事件。
+    `BOOKMARK` 事件会报告与对象集合相对应的资源版本（ResourceVersion，RV），并且事件会包含
+    `"k8s.io/initial-events-end": "true"` 注解。
+    从这一事件之后，监视数据流会和以往一样工作，在所监视的对象（RV 版本之后）发生变更时发送监听事件。
+
+    设置 `sendInitialEvents` 选项时，要求同时设置 `resourceVersionMatch` 参数。
+    `watch` 请求的语义如下：
+
+    - `resourceVersionMatch=NotOlderThan`：解释为数据至少要与所给的 `resourceVersion` 一样新，
+      当状态同步到与请求中所给的 `resourceVersion` 一样新的资源版本时，再发送 BOOKMARK 事件。
+      若未设置 `resourceVersion`，则请求被视为“一致性读操作”，当状态被同步到请求开始被处理时刻的状态时，
+      发送 BOOKMARK 事件。
+    - `resourceVersionMatch` 设置为其他值，或者未设置，返回非法错误。
+
+    如果 `resourceVersion=""` 或者 `resourceVersion="0"`，为默认为 `true`，以实现与老版本兼容。
+    其他情况下默认为 `false`。
+
+    使用此参数时要求启用 `WatchList` 特性门控。
   in: query
   name: sendInitialEvents
   type: boolean
@@ -305,19 +448,27 @@ sinceSeconds:
     If this value precedes the time a Pod was started, only logs since the Pod start will be returned.
     If this value is in the future, no logs will be returned.
     Only one of `sinceSeconds` or `sinceTime` may be specified.
+  x-kab-description-zh: |
+    参数值为相对当前时间点的时长秒数，指示服务器端返回日志的时间段。
+    如果参数值早于 Pod 的启动时间，则只返回 Pod 启动之后的日志数据。
+    如果参数值是未来的时间点，则不会返回任何日志数据。
+    `sinceSeconds` 和 `sinceTime` 只能选择其一。
   in: query
   name: sinceSeconds
   type: integer
   uniqueItems: true
 stderr:
-  description: Redirect the standard error stream of the pod for this call.
+  description: Redirect the standard error stream of the Pod for this call.
+  x-kab-description-zh: 对当前请求的 Pod 标准错误数据流进行重定向。
   in: query
   name: stderr
   type: boolean
   uniqueItems: true
 stdin:
   description: |
-    Stdin if true, redirects the standard input stream of the pod for this call. Defaults to false.
+    Stdin if `true`, redirects the standard input stream of the pod for this call. Defaults to `false`.
+  x-kab-description-zh: |
+    此参数设置为 `true` 时，对当前请求的 Pod 标准输入数据流进行重定向。默认值为 `false`。
   in: query
   name: stdin
   type: boolean
@@ -325,6 +476,8 @@ stdin:
 stdout:
   description: |
     Stdout if true indicates that stdout is to be redirected for the attach call. Defaults to true.
+  x-kab-description-zh: |
+    此参数设置为 `true` 时，对当前请求的 Pod 标准输出数据流进行重定向。默认值为 `false`。
   in: query
   name: stdout
   type: boolean
@@ -333,26 +486,35 @@ tailLines:
   description: |
     If set, the number of lines from the end of the logs to show.
     If not specified, logs are shown from the creation of the container or `sinceSeconds` or `sinceTime`.
+  x-kab-description-zh: |
+    如果设置了此参数，所表达的是从日志末尾要显示的行数。
+    如果没有设置，则日志会从容器创建开始，或者根据 `sinceSeconds` 或 `sinceTime` 开始显示。
   in: query
   name: tailLines
   type: integer
   uniqueItems: true
 timeoutSeconds:
   description: |
-    Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+    Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.
+  x-kab-description-zh: |
+    `list` 或者 `watch` 请求的超时时长秒数。此参数可设置调用的时长，无论是否有活动处于进行状态中。
   in: query
   name: timeoutSeconds
   type: integer
   uniqueItems: true
 timestamps:
   description: |
-    If true, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to false.
+    If `true`, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to `false`.
+  x-kab-description-zh: |
+    若此字段设置为 `true`，则在日志输出的每一行之前添加一个 RFC3339 或 RFC3339Nano 格式的时间戳。
+    默认值为 `false`。
   in: query
   name: timestamps
   type: boolean
   uniqueItems: true
 tty:
-  description: TTY if true indicates that a tty will be allocated for the exec call. Defaults to false.
+  description: If `true` indicates that a TTY will be allocated for the `exec` call. Defaults to `false`.
+  x-kab-description-zh: 如果此参数设置为 `true`，则需要为 `exec` 请求分配 TTY 终端。默认为 `false`。
   in: query
   name: tty
   type: boolean
@@ -361,6 +523,9 @@ watch:
   description: |
     Watch for changes to the described resources and return them as a stream of add, update, and
     remove notifications. Specify `resourceVersion`.
+  x-kab-description-zh: |
+    监视所给资源的变化，并将所发生的变化用 ADD、UPDATE、REMOVE 这类通知事件返回给客户端。
+    需要设置 `resourceVersion`。
   in: query
   name: watch
   type: boolean
