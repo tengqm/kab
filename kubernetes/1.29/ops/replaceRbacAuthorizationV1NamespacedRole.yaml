@@ -1,6 +1,7 @@
 consumes:
   - '*/*'
 description: replace the specified Role
+x-kab-description-zh: 替换指定的 Role 对象
 operationId: replaceRbacAuthorizationV1NamespacedRole
 parameters:
   - in: body
@@ -11,6 +12,7 @@ parameters:
   - $ref: '#/parameters/dryRun'
   - $ref: '#/parameters/fieldValidation'
   - description: name of the Role
+    x-kab-description-zh: Role 的名称
     in: path
     name: name
     required: true
@@ -25,15 +27,18 @@ produces:
   - application/vnd.kubernetes.protobuf
 responses:
   '200':
-    description: OK
+    description:  OK
+    x-kab-description-zh: 成功
     schema:
       $ref: '#/definitions/io.k8s.api.rbac.v1.Role.GET'
   '201':
-    description: Updated
+    description:  Updated
+    x-kab-description-zh: 已更新
     schema:
       $ref: '#/definitions/io.k8s.api.rbac.v1.Role.GET'
   '401':
-    description: Unauthorized
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
 schemes:
   - https
 tags:

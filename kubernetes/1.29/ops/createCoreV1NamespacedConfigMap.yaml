@@ -1,6 +1,7 @@
 consumes:
   - '*/*'
 description: create a ConfigMap
+x-kab-description-zh: 创建一个 ConfigMap
 operationId: createCoreV1NamespacedConfigMap
 parameters:
   - in: body
@@ -18,11 +19,13 @@ produces:
   - application/vnd.kubernetes.protobuf
 responses:
   '201':
-    description: Created
+    description:  Created
+    x-kab-description-zh: 创建成功
     schema:
       $ref: '#/definitions/io.k8s.api.core.v1.ConfigMap.GET'
   '401':
-    description: Unauthorized
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
 schemes:
   - https
 tags:

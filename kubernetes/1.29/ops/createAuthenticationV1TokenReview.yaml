@@ -1,6 +1,7 @@
 consumes:
   - '*/*'
 description: create a TokenReview
+x-kab-description-zh: 创建一个 TokenReview 对象
 operationId: createAuthenticationV1TokenReview
 parameters:
   - in: body
@@ -17,19 +18,23 @@ produces:
   - application/vnd.kubernetes.protobuf
 responses:
   '200':
-    description: OK
+    description:  OK
+    x-kab-description-zh: 成功
     schema:
       $ref: '#/definitions/io.k8s.api.authentication.v1.TokenReview.GET'
   '201':
-    description: Created
+    description:  Created
+    x-kab-description-zh: 创建成功
     schema:
       $ref: '#/definitions/io.k8s.api.authentication.v1.TokenReview.GET'
   '202':
-    description: Accepted
+    description:  Accepted
+    x-kab-description-zh: 操作已接受
     schema:
       $ref: '#/definitions/io.k8s.api.authentication.v1.TokenReview.GET'
   '401':
-    description: Unauthorized
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
 schemes:
   - https
 tags:

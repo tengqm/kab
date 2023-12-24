@@ -1,6 +1,7 @@
 consumes:
   - '*/*'
 description: list or watch objects of kind StatefulSet
+x-kab-description-zh: 列举或监视所有名字空间下的 StatefulSet 对象
 operationId: listAppsV1StatefulSetForAllNamespaces
 parameters:
   - $ref: '#/parameters/allowWatchBookmarks'
@@ -23,11 +24,13 @@ produces:
   - application/vnd.kubernetes.protobuf;stream=watch
 responses:
   '200':
-    description: OK
+    description:  OK
+    x-kab-description-zh: 成功
     schema:
       $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSetList'
   '401':
-    description: Unauthorized
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
 schemes:
   - https
 tags:
