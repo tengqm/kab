@@ -13,8 +13,10 @@
 
 import json
 import logging
+import os
 
 from django.conf import settings
+import yaml
 
 LOG = logging.getLogger(__name__)
 
@@ -47,6 +49,9 @@ def _parse_dict(api, data, prop, root=None):
             result[k] = v
         else:
             result[k] = v
+        if 'x-kab-description-zh' in result:
+            result['description'] = result['x-kab-description-zh']
+
     return result
 
 
@@ -64,16 +69,20 @@ def _parse_list(api, data, prop, root=None):
 
 def load_json(fn, api=None, recursive=True, root=None):
     data = {}
+    if not os.path.exists(fn):
+        fn = fn[:-5] + ".yaml"
     try:
-
         with open(fn, "r") as f:
-            data = json.load(f)
+            if fn.endswith(".json"):
+                data = json.load(f)
+            else:
+                data = yaml.load(f, Loader=yaml.CLoader)
     except Exception as ex:
         LOG.error("Cannot read file %s: %s", fn, str(ex))
         return None
 
-    if not recursive:
-        return data
+    # if not recursive:
+    #    return data
 
     result = {}
 
@@ -85,4 +94,7 @@ def load_json(fn, api=None, recursive=True, root=None):
         else:
             new_v = v
         result[k] = new_v
+    
+    if 'x-kab-description-zh' in data:
+        result['description'] = result.get('x-kab-description-zh', '')
     return result

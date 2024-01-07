@@ -28,6 +28,7 @@ from django import template
 from django import urls
 from django.views import generic
 import markdown
+import yaml
 
 from kab import consts
 from kab.core import helpers
@@ -110,10 +111,15 @@ class DownloadSpec(generic.View):
             fmt = 'json'
 
         path = os.path.join("data", apiv, "swagger.json")
+        if not os.path.exists(path):
+            path = os.path.join("data", apiv, "swagger.yaml")
         obj = {}
         try:
             with open(path, "r") as f:
-                obj = json.load(f)
+                if path.endswith(".json"):
+                    obj = json.load(f)
+                else:
+                    obj = yaml.load(f, Loader=yaml.CLoader)
         except Exception:
             raise exc.SuspiciousOperation("Data is not valid YAML")
 
