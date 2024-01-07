@@ -5,6 +5,8 @@ import logging
 import os
 from os import path
 
+import yaml
+
 DEBUG = 0
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 LOG = logging.getLogger(__name__)
@@ -152,7 +154,10 @@ def load_json(version, fn, kind="op"):
     path = version + "/" + kind + "s/" + fn
     data = {}
     with open(path, "r") as f:
-        data = json.loads(f.read())
+        if fn.endswith(".json"):
+            data = json.loads(f.read())
+        else:
+            data = yaml.load(f, Loader=yaml.CLoader)
     return data
 
 
@@ -238,10 +243,16 @@ def parse_nested(apiv, def_name, def_id):
     """Parse given definition for nested ones.
     """
     fn = "{}/defs/{}.json".format(apiv, def_id)
+    if not path.exists(fn):
+        fn = "{}/defs/{}.yaml".format(apiv, def_id)
+
     data = {}
     try:
         with open(fn, "r") as f:
-            data = json.loads(f.read())
+            if fn.endswith(".json"):
+                data = json.loads(f.read())
+            else:
+                data = yaml.load(f, Loader=yaml.CLoader)
     except Exception as ex:
         ERROR("Failed parsing %s: %s", fn, str(ex))
 
@@ -619,9 +630,15 @@ def load_parameters(version):
     global PARAMETERS
 
     fn = version + "/parameters/parameters.json"
+    if not path.exists(fn):
+        fn = version + "/parameters/parameters.yaml"
+
     data = {}
     with open(fn, "r") as f:
-        data = json.loads(f.read())
+        if fn.endswith(".json"):
+            data = json.loads(f.read())
+        else:
+            data = yaml.load(f, Loader=yaml.CLoader)
 
     for p, d in data.items():
         pentry = PARAMETERS.get(p, {})
