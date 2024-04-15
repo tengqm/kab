@@ -1,0 +1,14 @@
+{
+  "description": "VendorParameters are opaque parameters for one particular driver.",
+  "properties": {
+    "driverName": {
+      "description": "DriverName is the name used by the DRA driver kubelet plugin.",
+      "type": "string"
+    },
+    "parameters": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension",
+      "description": "Parameters can be arbitrary setup parameters. They are ignored while allocating a claim."
+    }
+  },
+  "type": "object"
+}

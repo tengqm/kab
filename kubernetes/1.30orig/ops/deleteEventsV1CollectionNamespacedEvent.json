@@ -1,0 +1,88 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "delete collection of Event",
+  "operationId": "deleteEventsV1CollectionNamespacedEvent",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/resourceVersionMatch"
+    },
+    {
+      "$ref": "#/parameters/sendInitialEvents"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/events.k8s.io/v1/namespaces/{namespace}/events",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "events_v1"
+  ],
+  "verb": "delete",
+  "x-kubernetes-action": "deletecollection",
+  "x-kubernetes-group-version-kind": {
+    "group": "events.k8s.io",
+    "kind": "Event",
+    "version": "v1"
+  }
+}

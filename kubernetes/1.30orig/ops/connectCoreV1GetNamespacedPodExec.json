@@ -1,0 +1,66 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "connect GET requests to exec of Pod",
+  "operationId": "connectCoreV1GetNamespacedPodExec",
+  "parameters": [
+    {
+      "$ref": "#/parameters/command"
+    },
+    {
+      "$ref": "#/parameters/container"
+    },
+    {
+      "description": "name of the PodExecOptions",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/stderr"
+    },
+    {
+      "$ref": "#/parameters/stdin"
+    },
+    {
+      "$ref": "#/parameters/stdout"
+    },
+    {
+      "$ref": "#/parameters/tty"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/pods/{name}/exec",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "PodExecOptions",
+    "version": "v1"
+  }
+}

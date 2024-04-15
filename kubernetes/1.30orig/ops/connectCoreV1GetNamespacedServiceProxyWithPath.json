@@ -1,0 +1,54 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "connect GET requests to proxy of Service",
+  "operationId": "connectCoreV1GetNamespacedServiceProxyWithPath",
+  "parameters": [
+    {
+      "description": "name of the ServiceProxyOptions",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/path"
+    },
+    {
+      "$ref": "#/parameters/path"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/services/{name}/proxy/{path}",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "ServiceProxyOptions",
+    "version": "v1"
+  }
+}

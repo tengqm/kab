@@ -1,0 +1,22 @@
+{
+  "description": "DriverRequests describes all resources that are needed from one particular driver.",
+  "properties": {
+    "driverName": {
+      "description": "DriverName is the name used by the DRA driver kubelet plugin.",
+      "type": "string"
+    },
+    "requests": {
+      "description": "Requests describes all resources that are needed from the driver.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.ResourceRequest"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "vendorParameters": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension",
+      "description": "VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim."
+    }
+  },
+  "type": "object"
+}

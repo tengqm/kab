@@ -1,0 +1,74 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "watch individual changes to a list of ResourceClassParameters. deprecated: use the 'watch' parameter with a list operation instead.",
+  "operationId": "watchResourceV1alpha2ResourceClassParametersListForAllNamespaces",
+  "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/resourceVersionMatch"
+    },
+    {
+      "$ref": "#/parameters/sendInitialEvents"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    }
+  ],
+  "path": "/apis/resource.k8s.io/v1alpha2/watch/resourceclassparameters",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "resource_v1alpha2"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watchlist",
+  "x-kubernetes-group-version-kind": {
+    "group": "resource.k8s.io",
+    "kind": "ResourceClassParameters",
+    "version": "v1alpha2"
+  }
+}

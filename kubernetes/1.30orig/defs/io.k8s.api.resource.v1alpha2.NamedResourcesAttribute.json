@@ -1,0 +1,42 @@
+{
+  "description": "NamedResourcesAttribute is a combination of an attribute name and its value.",
+  "properties": {
+    "bool": {
+      "description": "BoolValue is a true/false value.",
+      "type": "boolean"
+    },
+    "int": {
+      "description": "IntValue is a 64-bit integer.",
+      "format": "int64",
+      "type": "integer"
+    },
+    "intSlice": {
+      "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesIntSlice",
+      "description": "IntSliceValue is an array of 64-bit integers."
+    },
+    "name": {
+      "description": "Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.",
+      "type": "string"
+    },
+    "quantity": {
+      "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+      "description": "QuantityValue is a quantity."
+    },
+    "string": {
+      "description": "StringValue is a string.",
+      "type": "string"
+    },
+    "stringSlice": {
+      "$ref": "#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesStringSlice",
+      "description": "StringSliceValue is an array of strings."
+    },
+    "version": {
+      "description": "VersionValue is a semantic version according to semver.org spec 2.0.0.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}
