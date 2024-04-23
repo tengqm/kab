@@ -1,0 +1,169 @@
+description: |
+  ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+
+x-kab-description-zh: |
+  ValidatingAdmissionPolicyBindingSpec 是对 ValidatingAdmissionPolicyBinding 对象的行为规约。
+properties:
+  matchResources:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.MatchResources'
+    description: |
+      `matchResources` declares what resources match this binding and will be validated by it.
+      Note that this is intersected with the policy's `matchConstraints`,
+      so only requests that are matched by the policy can be selected by this.
+      If this is unset, all resources matched by the policy are validated by this binding.
+      When `resourceRules` is unset, it does not constrain resource matching.
+      If a resource is matched by the other fields of this object, it will be validated.
+      Note that this is differs from ValidatingAdmissionPolicy `matchConstraints`,
+      where `resourceRules` are required.
+
+    x-kab-description-zh: |
+      此字段声明哪些资源会被此绑定选中，进而被对应的策略检查。
+      注意这一选择条件与策略的 `matchConstraints` 是取交集的，
+      只有被策略选中了的请求才会在这里作进一步的匹配。
+      若未设置此字段，则策略所选中的所有资源都会被此绑定检验。
+      未设置 `resourceRules` 时，资源匹配是不受限制的。
+      如果某资源被此绑定对象的其他字段匹配，则该资源会被检查。
+      注意这一行为与 ValidatingAdmissionPolicy 的 `matchContraints` 不同，
+      在后者中 `resourceRules` 是必须设置的。
+  paramRef:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ParamRef'
+    description: |
+      `paramRef` specifies the parameter resource used to configure the admission control policy.
+      It should point to a resource of the type specified in `paramKind` of
+      the bound ValidatingAdmissionPolicy.
+      If the policy specifies a `paramKind` and the resource referred to by `paramRef`
+      does not exist, this binding is considered mis-configured and the `failurePolicy`
+      of the ValidatingAdmissionPolicy is applied.
+      If the policy does not specify a `paramKind` then this field is ignored,
+      and the rules are evaluated without a param.
+
+    x-kab-description-zh: |
+      此字段给出用来配置准入控制策略的参数资源。
+      字段值所指向的资源的类别应该与所绑定的 ValidatingAdmissionPolicy 的 `paramKind`
+      相同。如果策略指定了 `paramKind`，而此 `paramRef` 所引用的资源并不存在，
+      则认为绑定的配置是有问题的，要根据 ValidatingAdmissionPolicy 的 `failurePolicy`
+      作进一步处理。
+      如果策略没有设置 `paramKind`，则此字段会被忽略。
+      执行准入规则时不考虑参数因素。
+  policyName:
+    description: |
+      `policyName` references a ValidatingAdmissionPolicy name which the
+      ValidatingAdmissionPolicyBinding binds to.
+      If the referenced resource does not exist, this binding is considered invalid and
+      will be ignored. This string must be a valid DNS subdomain name.
+
+    x-kab-description-zh: |
+      此字段引用所绑定的 ValidatingAdmissionPolicy。
+      如果所引用的资源不存在，则此绑定的配置是非法的，并因而会被忽略。
+      字段的字符串值必须是合法的 DNS 子域名。
+
+    minLength: 1
+    type: string
+
+  validationActions:
+    description: |
+      This declares how validations of the referenced ValidatingAdmissionPolicy are enforced.
+      If a validation evaluates to False, it is always enforced according to these actions.
+
+      Failures defined by the ValidatingAdmissionPolicy's `failurePolicy` are enforced
+      according to these actions only if the `failurePolicy` is set to `"Fail"`,
+      otherwise the failures are ignored. This includes compilation errors,
+      runtime errors and misconfigurations of the policy.
+
+      The `validationActions` is declared as a set of action values. Order does not matter.
+      The `validationActions` may not contain duplicates of the same action.
+
+      The supported actions values are:
+
+      - `"Deny"` specifies that a validation failure results in a denied request.
+      - `"Warn"` specifies that a validation failure is reported to the request client
+        in HTTP Warning headers, with a warning code of 299.
+        Warnings can be sent both for allowed or denied admission responses.
+      - `"Audit"` specifies that a validation failure is included in the published audit event
+        for the request. The audit event will contain a
+        `validation.policy.admission.k8s.io/validation_failure` audit annotation with
+        a value containing the details of the validation failures, formatted as a JSON list of
+        objects, each with the following fields:
+          - `message`: The validation failure message string
+          - `policy`: The resource name of the ValidatingAdmissionPolicy
+          - `binding`: The resource name of the ValidatingAdmissionPolicyBinding
+          - `expressionIndex`: The index of the failed validations in the
+            ValidatingAdmissionPolicy
+          - `validationActions`: The enforcement actions enacted for the validation failure.
+
+      Example audit annotation:
+
+      ```
+      "validation.policy.admission.k8s.io/validation_failure":
+        "[{\"message\": \"Invalid value\",
+          {\"policy\": \"policy.example.com\",
+            {\"binding\": \"policybinding.example.com\",
+              {\"expressionIndex\": \"1\",
+                {\"validationActions\": [\"Audit\"]}]"
+      ```
+
+      Clients should expect to handle additional values by ignoring any values not
+      recognized.
+      `"Deny"` and `"Warn"` may not be used together since this combination needlessly
+      duplicates the validation failure both in the API response body and
+      the HTTP warning headers.
+
+    x-kab-description-zh: |
+      此字段用来配置如何实施所引用的 ValidatingAdmissionPolicy 中定义的检查。
+      如果某项检查的评估结果为 False，则一定会根据这里的动作定义来实施。
+      
+      对于 ValidatingAdmissionPolicy 中 `failurePolicy` 所定义的失败策略，
+      只有 `failurePolicy` 设置为 `"Fail"` 的时候，才会根据这里定义的动作来处理。
+      否则策略失败会被忽略。这里的失败包括编译错误、运行时错误以及策略的配置问题等。
+
+      此 `validationActions` 是一组动作值定义，其中各个动作定义的顺序并不重要，
+      但是其中不可以包含重复的动作定义。
+      
+      目前支持的动作值包括：
+
+      - `"Deny"` 设定检查失败会导致请求被拒绝；
+      - `"Warn"` 设定检查失败会通过 HTTP Warning 标头报告给发送请求的客户端，
+        警告代码为 299。被通过的和被拒绝的准入响应都可以发送警告信息。
+      - `"Audit"` 设定检查失败会被记录到请求对应的、公开的审计事件中。
+        审计事件会包含一个 `validation.policy.admission.k8s.io/validation_failure`
+        审计注解，且其注解值为检查失败的详情。
+
+      生成审计日志时，注解值是一个 JSON 对象列表，每个 JSON 对象包含以下字段：
+
+      - `message`：检查失败消息字符串；
+      - `policy`：ValidatingAdmissionPolicy 资源的名称；
+      - `binding`：ValidatingAdmissionPolicyBinding 资源的名称；
+      - `expressionIndex`：ValidatingAdmissionPolicy 中失败的检查的索引；
+      - `validationActions`：针对检查失败所采取的动作。
+
+      下面是一个审计注解的例子：
+
+      ```
+      "validation.policy.admission.k8s.io/validation_failure":
+        "[{\"message\": \"Invalid value\",
+          {\"policy\": \"policy.example.com\",
+            {\"binding\": \"policybinding.example.com\",
+              {\"expressionIndex\": \"1\",
+                {\"validationActions\": [\"Audit\"]}]"
+      ```
+
+      客户端应该忽略无法识别的取值，进而能够处理额外的情况。
+
+      `"Deny"` 和 `"Warn"` 不能同时使用，因为同时使用的话可能会在 API
+      响应和 HTTP Warning 标头中同时记录检查失败的信息，这是不必要的。
+    maxItems: 2
+    minItems: 1
+    items:
+      enum:
+        - Audit
+        - Deny
+        - Warn
+      type: string
+    type: array
+    uniqueItems: true
+    x-kubernetes-list-type: set
+required:
+  - policyName
+  - validationActions
+type: object
+

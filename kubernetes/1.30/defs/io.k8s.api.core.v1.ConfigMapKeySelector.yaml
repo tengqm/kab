@@ -1,0 +1,30 @@
+description: Selects a key from a ConfigMap.
+x-kab-description-zh: 从 ConfigMap 中选择一个主键。
+properties:
+  key:
+    description: |
+      The key to select. The string must be a valid DNS subdomain name no more than
+      253 characters. It must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`.
+      It cannot be `"."` or `".."` or prefixed with `".."`.
+    x-kab-description-zh: |
+      要选择的主键。此字符串值必须是合法的 DNS 子域名，不超过 253 个字符。
+      字符串要由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，但不可以是 `"."` 或 `".."`，
+      也不可以以 `".."` 开头。
+    maxLength: 253
+    minLength: 1
+    type: string
+  name:
+    description: Name of the referenced ConfigMap. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 被引用的 ConfigMap 的名字。此名字必须是合法的 DNS 子域名。
+    minLength: 1
+    type: string
+  optional:
+    description: Specify whether the ConfigMap and its key must be defined
+    x-kab-description-zh: 设置是否 ConfigMap 及所引用的主键必须已经定义。
+    type: boolean
+required:
+  - key
+  - name
+type: object
+x-kubernetes-map-type: atomic
+

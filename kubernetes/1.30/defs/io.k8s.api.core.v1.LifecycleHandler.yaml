@@ -1,0 +1,32 @@
+description: |
+  LifecycleHandler defines a specific action that should be taken in a lifecycle hook.
+  One and only one of the fields, except `tcpSocket` must be specified.
+x-kab-description-zh: |
+  LifecycleHandler 定义在某生命周期回调中需要采取的动作。
+  `exec` 和 `httpGet` 二者必须且只能设置其一。
+properties:
+  exec:
+    $ref: '#/definitions/io.k8s.api.core.v1.ExecAction'
+    description: This specifies the action to take.
+    x-kab-description-zh: 此字段设置要采取的动作。
+  httpGet:
+    $ref: '#/definitions/io.k8s.api.core.v1.HTTPGetAction'
+    description: This specifies the HTTP request to perform.
+    x-kab-description-zh: 此字段设置要执行的 HTTP 请求。
+  sleep:
+    $ref: '#/definitions/io.k8s.api.core.v1.SleepAction'
+    description: |
+      Sleep represents the duration that the container should sleep before being terminated.
+    x-kab-description-zh: |
+      此字段设置容器在被终止之前需要睡眠的时长。
+  tcpSocket:
+    $ref: '#/definitions/io.k8s.api.core.v1.TCPSocketAction'
+    description: |
+      **DEPRECATED** `tcpSocket` is NOT supported as a LifecycleHandler and
+      kept for the backward compatibility. There are no validation of this field and
+      lifecycle hooks will fail in runtime when TCP handler is specified.
+    x-kab-description-zh: |
+      **已弃用** `tcpSocket` 作为 LifecycleHandler 是不被支持的，保留下来是为了向后兼容性。
+      对此字段没有合法性检查，如果设置了 TCP 处理程序，则生命周期回调会在运行时失败。
+type: object
+

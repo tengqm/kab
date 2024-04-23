@@ -1,0 +1,33 @@
+description: |
+  ResourceClaimSchedulingStatus contains information about one particular
+  ResourceClaim with "WaitForFirstConsumer" allocation mode.
+x-kab-description-zh: |
+  ResourceClaimSchedulingStatus 包含分配模式为 `"WaitForFirstConsumer"` 的某个特定
+  ResourceClaim 的信息。
+properties:
+  name:
+    description: Name matches the `pod.spec.resourceClaims[*].name` field.
+    x-kab-description-zh: 与 `pod.spec.resourceClaims[*].name` 字段取值相同的名称。
+    minLength: 1
+    type: string
+  unsuitableNodes:
+    description: |
+      This lists nodes that the ResourceClaim cannot be allocated for.
+
+      The size of this field is limited to 128, the same as for `PodSchedulingSpec.potentialNodes`.
+      This may get increased in the future, but not reduced.
+    x-kab-description-zh: |
+      此字段列举的是无法分配此 ResourceClaim 的节点。
+
+      此字段的规模上限是 128，与 `PodSchedulingSpec.potentialNodes` 相同。
+      在将来的版本中，规模限制可能会被提高，但不会被降低。
+    items:
+      description: The name of a Node, which must be a valid DNS subdomain name.
+      x-kab-description-zh: 某个 Node 的名称。字符串必须是合法的 DNS 子域名。
+      minLength: 1
+      type: string
+    maxItems: 128
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

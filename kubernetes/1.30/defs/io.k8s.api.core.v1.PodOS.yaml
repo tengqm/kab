@@ -1,0 +1,21 @@
+description: PodOS defines the OS parameters of a pod.
+x-kab-description-zh: PodOS 定义 Pod 的 OS 参数。
+properties:
+  name:
+    description: |
+      The name of the operating system. The currently supported values are `"linux"` and `"windows"`.
+      Additional value may be defined in future and can be one of
+      [supported OSes](https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration).
+      Clients should expect to handle additional values and treat unrecognized values in this field as
+      `os: null`.
+    x-kab-description-zh: |
+      操作系统的名称。目前支持的值为 `"linux"` 和 `"windows"`。
+      将来可能会定义其他的值，新值可能是
+      [支持的操作系统](https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration)之一。
+      客户端要考虑处理其他取值，并将此字段设置的无法识别的值视为 `os: null`。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+

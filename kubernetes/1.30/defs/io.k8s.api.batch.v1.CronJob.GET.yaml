@@ -1,0 +1,41 @@
+description: The configuration of a CronJob.
+x-kab-description-zh: CronJob 的配置。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - batch/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CronJob
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.batch.v1.CronJobSpec'
+    description: |
+      Specification of the desired behavior of a CronJob, including the schedule.
+    x-kab-description-zh: |
+      CronJob 的期望行为的规约，包括其排期表（Schedule）。
+  status:
+    $ref: '#/definitions/io.k8s.api.batch.v1.CronJobStatus'
+    description: Current status of the CronJob.
+    x-kab-description-zh: CronJob 的当前状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: batch
+    kind: CronJob
+    version: v1
+

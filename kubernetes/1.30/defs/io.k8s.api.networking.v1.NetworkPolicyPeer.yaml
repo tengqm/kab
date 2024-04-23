@@ -1,0 +1,47 @@
+description: |
+  A peer to allow traffic to/from.
+  If `ipBlock` is specified, the `namespaceSelector` or the `podSelector` cannot be specified.
+x-kab-description-zh: |
+  允许流量流入或流出的网络对端。
+  如果设置了 `ipBlock`，则不能设置 `namespaceSelector` 或 `podSelector`。
+
+properties:
+  ipBlock:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IPBlock'
+    description: |
+      This defines a policy on a particular IP block.
+      If this field is set then neither of the other fields can be set.
+    x-kab-description-zh: |
+      此字段定义针对特定 IP 网段的策略。
+      如果设置了此字段，则另外两个字段不可设置。
+  namespaceSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      Selects namespaces using cluster-scoped labels.
+      This field follows standard label selector semantics;
+      if present but empty, it selects all namespaces.
+      If `podSelector` is also set, then the NetworkPolicyPeer as a whole selects the Pods
+      matching `podSelector` in the namespaces selected by `namespaceSelector`.
+      Otherwise it selects all Pods in the namespaces selected by `namespaceSelector`.
+    x-kab-description-zh: |
+      使用集群作用域的标签选择名字空间。此字段遵从标准的标签选择算符语义。
+      如果设置了此字段，但字段值为空，则会选择所有名字空间。
+      如果同时设置了 `podSelector`，则整个 NetworkPolicyPeer 结构会选择 `namespaceSelector`
+      所选择的名字空间内符合 `podSelector` 条件的 Pod 集合。
+      如果没有设置 `podSelector`，则会选择 `namespaceSelector` 所选的名字空间下的所有 Pod。
+  podSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      This is a label selector which selects Pods.
+      This field follows standard label selector semantics; if present but empty, it selects all Pods.
+      If `namespaceSelector` is also set, then the NetworkPolicyPeer as a whole selects the Pods
+      matching `podSelector` in the namespaces selected by `namespaceSelector`.
+      Otherwise it selects the Pods matching `podSelector` in the policy's own namespace.
+    x-kab-description-zh: |
+      此字段是一个用来选择 Pod 的标签选择算符，遵从标准的标签选择算符语义。
+      如果设置了此字段，但字段值为空，则会选择所有 Pod。
+      如果同时设置了 `namespaceSelector`，则整个 NetworkPolicyPeer 结构会选择 `namespaceSelector`
+      所选择的名字空间内符合 `podSelector` 条件的 Pod 集合。
+      如果没有设置 `namespaceSelector`，则会选择 NetworkPolicy 所在名字空间下的所有 Pod。
+type: object
+

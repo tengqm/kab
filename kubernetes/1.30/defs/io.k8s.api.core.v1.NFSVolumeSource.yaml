@@ -1,0 +1,27 @@
+description: |
+  An NFS mount that lasts the lifetime of a Pod.
+  NFS volumes do not support ownership management or SELinux relabeling.
+x-kab-description-zh: |
+  在 Pod 的整个生命周期都存在的 NFS 挂载卷。
+  NFS 卷不支持属主管理或者 SELinux 重新打标签操作。
+properties:
+  path:
+    description: The path as exported by the NFS server. This must be an absolute path.
+    x-kab-description-zh: NFS 导出时设置的路径。字段值必须是绝对路径。
+    minLength: 1
+    type: string
+  readOnly:
+    default: false
+    description: Force the NFS export to be mounted with read-only permissions.
+    x-kab-description-zh: 强制采用只读模式挂载 NFS 导出点。
+    type: boolean
+  server:
+    description: The hostname or IP address of the NFS server.
+    x-kab-description-zh: NFS 服务器的主机名或者 IP 地址。
+    minLength: 1
+    type: string
+required:
+  - path
+  - server
+type: object
+

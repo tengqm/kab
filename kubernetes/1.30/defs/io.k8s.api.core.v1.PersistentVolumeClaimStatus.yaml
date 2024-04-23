@@ -1,0 +1,209 @@
+description: The current status of a PersistentVolumeClaim.
+x-kab-description-zh: PersistentVolumeClaim 对象的当前状态。
+properties:
+  accessModes:
+    description: |
+      The actual access modes of the volume backing the PVC.
+
+      - `"ReadOnlyMany"`: can be mounted in read-only mode to many hosts;
+      - `"ReadWriteMany"`: can be mounted in read/write mode to many hosts;
+      - `"ReadWriteOnce"`: can be mounted in read/write mode to exactly 1 host;
+      - `"ReadWriteOncePod"`: can be mounted in read/write mode to exactly 1 pod,
+        cannot be used in combination with other access modes.
+
+    x-kab-description-zh: |
+      为 PVC 提供存储的卷的实际访问模式。
+
+      - `"ReadOnlyMany"`：可以被多个主机以只读模式挂载；
+      - `"ReadWriteMany"`：可以被多个主机以读写模式挂载；
+      - `"ReadWriteOnce"`：只能被一个主机以读写模式挂载；
+      - `"ReadWriteOncePod"`：只能被一个 Pod 以读写模式挂载，不能与其他模式组合使用。
+    items:
+      enum:
+        - ReadOnlyMany
+        - ReadWriteMany
+        - ReadWriteOnce
+        - ReadWriteOncePod
+      type: string
+    type: array
+  allocatedResourceStatuses:
+    additionalProperties:
+      type: string
+    description: |
+      This stores status of resource being resized for the given PVC.
+      Key names follow standard Kubernetes label syntax. Valid values are:
+
+      - Un-prefixed keys:
+        - `storage` - the capacity of the volume.
+      - Custom resources must use implementation-defined prefixed names such as
+        `"example.com/my-custom-resource"`
+
+      Apart from above values - keys that are unprefixed or have `"kubernetes.io"` prefix
+      are considered reserved and hence may not be used.
+
+      The status of a claim resource can be in any of following states:
+      - `"ControllerResizeInProgress"`: State set when the resize controller starts resizing
+        the volume in control-plane.
+      - `"ControllerResizeFailed"`: State set when a resize has failed in the resize
+        controller with a terminal error.
+      - `"NodeResizePending"`: State set when the resize controller has finished resizing
+        the volume but further resizing of the volume is needed on the node.
+      - `"NodeResizeInProgress"`: State set when kubelet starts resizing the volume.
+      - `"NodeResizeFailed"`: State set when resizing has failed in kubelet with a terminal
+        error. Transient errors don't set `NodeResizeFailed`.
+
+      When this field is not set, no resize operation is in progress for the given PVC.
+
+      A controller that receives PVC update with previously unknown `resourceName` or claim
+      resource status should ignore the update for the purpose it was designed.
+      For example, a controller that only is responsible for resizing capacity of the volume,
+      should ignore PVC updates that change other valid resources associated with PVC.
+
+      This is an Alpha field and requires enabling `RecoverVolumeExpansionFailure` feature.
+    x-kab-description-zh: |
+      此字段保存的是针对给定 PVC 的资源大小调整状态。
+      主键名称遵从 Kubernetes 标准的标签语法。合法的值包括：
+
+      - 没有前缀的主键。目前仅支持 `"storage"`，意为卷的容量。
+      - 自定义的资源必须使用特定于具体实现的、带前缀的名字，例如：
+        `"example.com/my-custom-resource"`。
+
+      除了以上的取值之外，没有前缀的或者前缀为 `"kubernetes.io"` 的名字都应被视为保留的，
+      因而不可使用的。
+
+      PVC 资源的状态可以是以下取值之一：
+
+      - `"ControllerResizeInProgress"`：当控制面中的重设大小控制器开始调整大小时设置此状态。
+      - `"ControllerResizeFailed"`：当重设大小控制器以终结性错误终止时，
+        设置此状态表明调整大小失败。
+      - `"NodeResizePending"`：当重设大小控制器已经完成了卷的大小变更，
+        但需要在节点上执行对卷进行大小变更的进一步操作时，设置此状态。
+      - `"NodeResizeInProgress"`：当 kubelet 开始调整卷的大小时设置此状态。
+      - `"NodeResizeFailed"`：当 kubelet 遇到终结性错误，进而无法完成调整大小的操作时，
+        设置为此状态。临时性的错误不会设置这个状态。
+
+      如果这个字段没有被设置时，意味着对于给定的 PVC 没有正在被处理的大小调整操作。
+
+      如果一个控制器收到了 PVC 更新事件，其中给出的 `resourceName` 是之前未知的，或者 PVC
+      的状态是不可识别的，应该忽略这类更新，专注于控制器原本用来设计执行的操作。
+      例如，如果一个控制器仅负责对卷的容量进行调整，那么它就应该忽略与 PVC
+      相关的其他合法资源的变更。
+
+      此字段处于 Alpha 阶段，需要启用 `RecoverVolumeExpansionFailure` 特性门控。
+    type: object
+    x-kubernetes-map-type: granular
+  allocatedResources:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      This tracks the resources allocated to a PVC including its capacity.
+      Key names follow standard Kubernetes label syntax. Valid values are either:
+
+      - Un-prefixed keys:
+        - `storage`: the capacity of the volume.
+      - Custom resources must use implementation-defined prefixed names such as
+        `"example.com/my-custom-resource"`.
+
+      Apart from above values, keys that are unprefixed or have `"kubernetes.io"` prefix are
+      considered reserved and hence may not be used.
+
+      Capacity reported here may be larger than the actual capacity when a volume expansion
+      operation is requested.
+      For storage quota, the larger value from `allocatedResources` and `PVC.spec.resources`
+      is used. If `allocatedResources` is not set, `PVC.spec.resources` alone is used for
+      quota calculation.
+
+      If a volume expansion capacity request is lowered, `allocatedResources` is only lowered
+      if there are no expansion operations in progress and if the actual volume capacity is
+      equal or lower than the requested capacity.
+
+      A controller that receives PVC update with previously unknown `resourceName` should
+      ignore the update for the purpose it was designed.
+      For example, a controller that only is responsible for resizing capacity of the volume
+      should ignore PVC updates that change other valid resources associated with PVC.
+
+      This is an Alpha field and requires enabling the `RecoverVolumeExpansionFailure` feature.
+
+    x-kab-description-zh: |
+      此字段跟踪分配给 PVC 的资源，包括其存储容量变化。
+      主键名称遵从 Kubernetes 标准的标签语法。合法的值包括：
+
+      - 没有前缀的主键。目前仅支持 `"storage"`，意为卷的容量。
+      - 自定义的资源必须使用特定于具体实现的、带前缀的名字，例如：
+        `"example.com/my-custom-resource"`。
+
+      除了以上的取值之外，没有前缀的或者前缀为 `"kubernetes.io"` 的名字都应被视为保留的，
+      因而不可使用的。
+
+      这里所报告的容量信息可能比申请对卷进行扩容操作时的实际容量大。
+      就存储配额管理而言，会选用 `allocatedResources` 和 `PVC.spec.resources` 二者中较大者。
+      如果未设置 `allocatedResources`，则 `PVC.spec.resources` 自身被用来计算配额用量。
+
+      如果卷扩展容量请求被降低，则 `allocatedResources` 只有在没有扩展操作在进行中，
+      并且实际卷容量等于或者低于所请求容量时，才会被减少。
+
+      如果一个控制器收到了 PVC 更新事件，其中给出的 `resourceName` 是之前未知的，
+      它应该忽略这类更新，专注于控制器原本用来设计执行的操作。
+      例如，如果一个控制器仅负责对卷的容量进行调整，那么它就应该忽略与 PVC
+      相关的其他合法资源的变更。
+
+      此字段处于 Alpha 阶段，需要启用 `RecoverVolumeExpansionFailure` 特性门控。
+
+    type: object
+  capacity:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: The actual resource capacity of the underlying volume.
+    x-kab-description-zh: 下层存储卷的实际资源容量。
+    type: object
+  conditions:
+    description: |
+      Current condition of the PVC.
+      If the underlying PV is being resized then the `condition` will be set to
+      `"ResizeStarted"`.
+    x-kab-description-zh: |
+      PVC 的当前状况。如果下层的 PV 卷正在被调整大小，则 `condition` 会被设置为
+      `"ResizeStarted"`。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition'
+    type: array
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  currentVolumeAttributesClassName:
+    description: |
+      `currentVolumeAttributesClassName` is the current name of the VolumeAttributesClass the PVC is using.
+      When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim.
+      This is an Alpha field and requires enabling VolumeAttributesClass feature.
+    x-kab-description-zh: |
+      `currentVolumeAttributesClassName` 是此 PVC 所使用的 VolumeAttributesClass 的名称。
+      未设置时表明没有 VolumeAttributeClass 被应用到此 PersistentVolumeClaim。
+      此字段处于 Alpha 阶段，需要启用 VolumeAttributesClass 特性门控。
+    type: string
+  modifyVolumeStatus:
+    $ref: '#/definitions/io.k8s.api.core.v1.ModifyVolumeStatus'
+    description: |
+      此字段用来表示 ControllerModifyVolume 操作的状态对象。
+      未设置此字段时，意味着未尝试 ModifyVolume 操作。
+      此字段处于 Alpha 阶段，需要启用 VolumeAttributesClass 特性门控。
+  phase:
+    description: |
+      The current phase of PersistentVolumeClaim.
+
+      - `"Bound"`: The PVC is already bound;
+      - `"Pending"`: The PVC is not yet bound;
+      - `"Lost"`: The PVC has lost its underlying PersistentVolume. The claim was bound to
+        a PersistentVolume and the volume does not exist any longer and all data on it was lost.
+    x-kab-description-zh: |
+      PersistentVolumeClaim 当前所处的阶段：
+
+      - `"Bound"`：PVC 已经被绑定；
+      - `"Pending"`：PVC 尚未被绑定；
+      - `"Lost"`：PVC 已经失去下层 PV 存储卷。PVC 原来绑定到某个 PersistentVolume，
+        但是该卷不再存在，卷上所有数据都已丢失。
+    enum:
+      - Bound
+      - Lost
+      - Pending
+    type: string
+type: object
+

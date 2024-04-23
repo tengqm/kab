@@ -1,0 +1,23 @@
+description: This describes a class of Pods that should avoid the node.
+x-kab-description-zh: 描述需要避开节点的 Pod 类型。
+properties:
+  evictionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Time at which this entry was added to the list.
+    x-kab-description-zh: 此条目被添加到列表中的时间。
+  message:
+    description: Human readable message indicating why this entry was added to the list.
+    x-kab-description-zh: 人类可读的字符串消息，标明条目被加入列表的原因。
+    type: string
+  podSignature:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodSignature'
+    description: The class of Pods.
+    x-kab-description-zh: Pod 的类型。
+  reason:
+    description: A (brief) reason why this entry was added to the list.
+    x-kab-description-zh: 关于条目被添加到列表的（简短）原因。
+    type: string
+required:
+  - podSignature
+type: object
+

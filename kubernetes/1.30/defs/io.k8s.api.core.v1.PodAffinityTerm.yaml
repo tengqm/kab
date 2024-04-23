@@ -1,0 +1,115 @@
+description: |
+  A set of Pods (namely those matching the `labelSelector` relative to the given namespace(s))
+  that this Pod should be co-located (affinity) or not co-located (anti-affinity) with,
+  where co-located is defined as running on a node whose value of the label with key `topologyKey`
+  matches that of any node on which a Pod of the set of Pods is running.
+x-kab-description-zh: |
+  应该与当前 Pod 并置（Co-located）的（亲和性），或者不应该与当前 Pod 并置的（反亲和性）一组 Pod。
+  这组 Pod 应该处于所给的名字空间内，并且与所给的 `labelSelector` 匹配。
+  所谓“并置”是指这样一种情况：Pod 运行在某个节点上，这个节点具有 `topologyKey` 所指定的标签。
+  如果 Pod 运行的节点上指定标签的取值与另一组 Pod 中的任何一个节点的标签值相同，
+  则认为这些 Pod 是“并置”的。
+properties:
+  labelSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: A label query over a set of Pods. If this is not specified, the PodAffinityTerm matches no Pods.
+    x-kab-description-zh: 对一组 Pod 的标签查询。若未设置此字段，则此 PodAffinityTerm 不会匹配任何 Pod。
+  matchLabelKeys:
+    description: |
+      `matchLabelKeys` is a set of Pod label keys to select which Pods will be taken into consideration.
+      The keys are used to lookup values from the incoming Pod labels, those key-value labels are merged with
+      `labelSelector` as `key in (value)` to select the group of existing Pods which pods will be taken into consideration
+      for the incoming Pod's Pod (anti) affinity. Keys that don't exist in the incoming Pod labels will be ignored.
+
+      The default value is empty. The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`.
+      Also, `matchLabelKeys` cannot be set when `labelSelector` isn't set.
+
+      This is an Alpha field and requires enabling `MatchLabelKeysInPodAffinity` feature gate.
+    x-kab-description-zh: |
+      `matchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
+      这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key in (value)` 算符，
+      选择已存在的 Pod 集合。处理新建 Pod 的（反）亲和性时，只针对所选中的 Pod 集合。
+      如果所给的主键名称在新建 Pod 的标签中不存在，则这些主键会被忽略。
+
+      此字段的默认值是空表。同一个主键不可以同时出现在 `matchLabelKeys` 和 `labelSelector` 中。
+      未设置 `labelSelector` 时，也不可以设置 `matchLabelKeys`。
+
+      此字段处于 Alpha 阶段，需要启用 `MatchLabelKeysInPodAffinity` 特性门控。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  mismatchLabelKeys:
+    description: |
+      `mismatchLabelKeys` is a set of Pod label keys to select which Pods will be taken into consideration.
+      The keys are used to lookup values from the incoming Pod labels, those key-value labels are merged with
+      `labelSelector` as `key notin (value)` to select the group of existing Pods which pods will be taken into consideration
+      for the incoming Pod's Pod (anti) affinity. Keys that don't exist in the incoming Pod labels will be ignored.
+      The default value is empty. The same key is forbidden to exist in both `mismatchLabelKeys` and `labelSelector`.
+      Also, `mismatchLabelKeys` cannot be set when `labelSelector` isn't set.
+
+      This is an alpha field and requires enabling the `MatchLabelKeysInPodAffinity` feature gate.
+    x-kab-description-zh: |
+      `mismatchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
+      这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key notin (value)` 算符，
+      选择已存在的 Pod 集合。处理新建 Pod 的（反）亲和性时，只针对所选中的 Pod 集合。
+      如果所给的主键名称在新建 Pod 的标签中不存在，则这些主键会被忽略。
+
+      此字段的默认值是空表。同一个主键不可以同时出现在 `mismatchLabelKeys` 和 `labelSelector` 中。
+      未设置 `labelSelector` 时，也不可以设置 `mismatchLabelKeys`。
+
+      此字段处于 Alpha 阶段，需要启用 `MatchLabelKeysInPodAffinity` 特性门控。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  namespaceSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      A label query over the set of namespaces that the term applies to. The term is applied to the
+      union of the namespaces selected by this field and the ones listed in the `namespaces` field.
+      null selector and null or empty `namespaces` list means _this Pod's namespace_.
+      An empty selector (`{}`) matches all namespaces.
+    x-kab-description-zh: |
+      对此条件所适用的名字空间的标签查询条件。此 PodAffinityTerm 会被应用到被此 `namespaceSelector`
+      选中的所有名字空间上，也会被应用到 `namespaces` 字段所列举的所有名字空间上。
+      如果此选择算符为空，并且 `namespaces` 列表为 null 值或空表，则意味着适用范围为当前 Pod 的名字空间。
+      如果此选择算符为空（`{}`），则可以匹配所有名字空间。
+  namespaces:
+    description: |
+      A static list of namespace names that the term applies to.
+      The term is applied to the union of the namespaces listed in this field and the ones selected by
+      `namespaceSelector`.
+      null or empty namespaces list and null `namespaceSelector` means _this Pod's namespace_.
+    x-kab-description-zh: |
+      此 PodAffinityTerm 所适用的所有名字空间的一个静态列表。
+      此 PodAffinityTerm 会被应用到 `namespaces` 字段所列举的所有名字空间上，也会被应用到被
+      `namespaceSelector` 选中的所有名字空间上。
+      如果 `namespaces` 列表为 null 值或空，并且 `namespaceSelector` 未设置，则意味着适用范围为当前
+      Pod 的名字空间。
+    items:
+      type: string
+    type: array
+  topologyKey:
+    description: |
+      This Pod should be co-located (affinity) or not co-located (anti-affinity) with the Pods matching
+      the `labelSelector` in the specified namespaces, where co-located is defined as running on a node
+      whose value of the label with key `topologyKey` matches that of any node on which any of the
+      selected Pods is running. Empty `topologyKey` is not allowed.
+    x-kab-description-zh: |
+      对于亲和性设置，表示当前 Pod 应该与给定名字空间与 `labelSelector` 匹配的 Pod 并置（Co-located）。 
+      对于反亲和性设置，表示当前 Pod 不能与给定名字空间与 `labelSelector` 匹配的 Pod 并置（Co-located）。 
+      
+      所谓“并置”是指这样一种情况：Pod 运行在具有 `topologyKey` 所指定的标签的节点上。
+      如果 Pod 运行的节点上这一标签的取值与另一组 Pod 所在的任何一个节点的标签值相同，
+      则认为这些 Pod 是“并置”的。
+
+      `topologyKey` 不可为空。
+    minLength: 1
+    type: string
+required:
+  - topologyKey
+type: object
+

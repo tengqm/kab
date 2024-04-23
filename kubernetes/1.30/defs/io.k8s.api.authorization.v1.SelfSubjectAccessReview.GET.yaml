@@ -1,0 +1,47 @@
+description: |
+  SelfSubjectAccessReview checks whether or the current user can perform an action.
+  Not filling in a `spec.namespace` means *in all namespaces*.
+  Self is a special case, because users should always be able to check
+  whether they can perform an action.
+x-kab-description-zh: |
+  SelfSubjectAccessReview 检查是否当前用户可以执行某操作。
+  如果不设置 `spec.namespace`，则意味着**在所有的名字空间中**。
+  `Self-` 是一种特殊情况，因为用户总应该能够检查自己是否能够执行某项操作。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - authorization.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - SelfSubjectAccessReview
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.SelfSubjectAccessReviewSpec'
+    description: Information about the request being evaluated.
+  status:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.SubjectAccessReviewStatus'
+    description: |
+      Status filled by the server and indicates whether the request is allowed or not.
+    x-kab-description-zh: |
+      由服务器填充的状态信息，表明请求是否被允许。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: authorization.k8s.io
+    kind: SelfSubjectAccessReview
+    version: v1
+

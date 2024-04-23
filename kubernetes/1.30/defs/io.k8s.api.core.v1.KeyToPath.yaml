@@ -1,0 +1,41 @@
+description: Maps a key string to a path within a volume.
+x-kab-description-zh: 将主键字符串映射到卷中的路径。
+properties:
+  key:
+    description: The key to project.
+    x-kab-description-zh: 要投射的主键。
+    minLength: 1
+    type: string
+  mode:
+    description: |
+      Mode bits used to set permissions on this file.
+      Must be an octal value between `0` and `0777` or a decimal value between `0` and `511`.
+      YAML accepts both octal and decimal values, JSON requires decimal values for `mode` bits.
+      If not specified, the volume `defaultMode` will be used.
+      This might be in conflict with other options that affect the file mode, like `fsGroup`,
+      and the result can be other mode bits set.
+    x-kab-description-zh: |
+      要设置在文件上的访问权限模式位，必须是介于 `0` 和 `0777` 之间的八进制数，
+      或者介于 `0` 和 `511` 之间的十进制数。
+      YAML 既能接受八进制数，也能接受十进制数，JSON 要求模式位要用十进制数来表达。
+      如果没有设置此字段，则使用卷的 `defaultMode` 设置。
+      这里的设置可能与其他影响文件模式的选项（如 `fsGroup`）有冲突，
+      所以最终结果可能出现其他模式位被设置的情况。
+    format: int32
+    maximum: 511
+    minimum: 0
+    type: integer
+  path:
+    description: |
+      The relative path of the file to map the key to. May not be an absolute path.
+      May not contain the path element `".."`.  May not start with the string `".."`.
+    x-kab-description-zh: |
+      要将主键映射到的文件的相对路径。字段值不可以是绝对路径。
+      字段值不可以包含 `".."`，也不可以以 `".."` 开头。
+    minLength: 1
+    type: string
+required:
+  - key
+  - path
+type: object
+

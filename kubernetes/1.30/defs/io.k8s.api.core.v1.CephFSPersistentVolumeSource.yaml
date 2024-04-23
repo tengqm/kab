@@ -1,0 +1,43 @@
+description: |
+  A Ceph filesystem mount that lasts the lifetime of a Pod.
+  `cephfs` volumes do not support ownership management or SELinux relabeling.
+x-kab-description-zh: |
+  在整个 Pod 生命周期内都有效的某个 Ceph 文件系统。
+  `cephfs` 卷不支持属主管理，也不支持 SELinux 重新打标签。
+properties:
+  monitors:
+    description: A collection of Ceph monitors.
+    x-kab-description-zh: 一组 Ceph 监视器（Monitors）。
+    items:
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+  path:
+    default: /
+    description: Path to use as the mounted root, rather than the full Ceph tree.
+    x-kab-description-zh: 作为挂载根使用的路径，不打算挂载整个 Ceph 树的时候使用。
+    type: string
+  readOnly:
+    default: false
+    description: Force the filesystem to be mounted in read-only mode.
+    x-kab-description-zh: 强制以只读模式挂载文件系统。
+    type: boolean
+  secretFile:
+    default: /etc/ceph/user.secret
+    description: The path to key ring for User.
+    x-kab-description-zh: 用户秘钥环的路径。
+    type: string
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: The reference to the authentication Secret for user, default is empty.
+    x-kab-description-zh: 为用户提供身份认证的 Secret。默认为空。
+  user:
+    default: admin
+    description: The rados user name.
+    x-kab-description-zh: RADOS 用户名。
+    type: string
+required:
+  - monitors
+type: object
+

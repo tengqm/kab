@@ -1,0 +1,40 @@
+description: Spec to control the desired behavior of rolling update for a StatefulSet.
+x-kab-description-zh: 用来控制 StatefulSet 滚动更新时期望行为的规约。
+properties:
+  maxUnavailable:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      The maximum number of Pods that can be unavailable during the update.
+      Value can be an absolute number (ex: `5`) or a percentage of desired pods (ex: `"10%"`).
+      Absolute number is calculated from percentage by rounding up.
+      This can not be 0. When specified as percentage, the value cannot be greater than 100%.
+      Defaults to `1`. This field is Alpha-level and is only honored by servers that
+      enable the `MaxUnavailableStatefulSet` feature. The field applies to all Pods
+      in the range `0` to `replicas-1`. That means if there is any unavailable Pod
+      in the range `0` to `replicas-1`, it will be counted towards `maxUnavailable`.'
+    x-kab-description-zh: |
+      此字段设置更新过程中不可用的 Pod 个数的上限。
+      字段值可以是一个绝对数（例如 5）或者期望 Pod 个数的百分比（如 `"10%"`）。
+      控制器会基于百分比值向上取整得到一个绝对数。
+      此字段的取值不能为 0.
+      此字段处于 Alpha 阶段，只有启用了 `MaxUnavailableStatefulSet` 特性的服务器才会处理。
+      设置此字段会影响到索引为 `0` 到 `replicas-1` 的 Pod。
+      如果在 `0` 到 `replicas-1` 之间存在不可用的 Pod，这类 Pod 会被记入到 `maxUnavailable`
+      统计中。
+  partition:
+    default: 0
+    description: |
+      The ordinal at which the StatefulSet should be partitioned for updates.
+      During a rolling update, all Pods from ordinal `replicas-1` to `partition` are updated.
+      All Pods from ordinal `partition-1` to `0` remain untouched.
+      This is helpful in being able to do a canary based deployment.
+    x-kab-description-zh: |
+      对 StatefulSet 进行更新时，可以将 Pod 集合分区。此字段用来设置分区边界的索引。
+      在滚动更新期间，所有序号为 `replicas-1` 到 `partition` 之间的 Pod 会先被更新，
+      需要为 `partition-` 到 0 之间的 Pod 会保持不动。
+      这种设置可以用来实现基于金丝雀策略的部署。
+    format: int32
+    minimum: 0
+    type: integer
+type: object
+

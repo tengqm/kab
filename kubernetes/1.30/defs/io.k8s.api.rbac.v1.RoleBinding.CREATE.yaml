@@ -1,0 +1,50 @@
+description: |
+  RoleBinding references a Role in the same namespace or a ClusterRole in the global namespace,
+  and binds it to some subjects in the namespace.
+x-kab-description-zh: |
+  RoleBinding 引用同一名字空间内的某个 Role 或者集群全局的某个 ClusterRule，
+  并将其绑定到名字空间中的某些主体。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - rbac.authorization.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - RoleBinding
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的路径段名称。
+  roleRef:
+    $ref: '#/definitions/io.k8s.api.rbac.v1.RoleRef'
+    description: |
+      The reference to a Role in the current namespace or a ClusterRole.
+      If the `roleRef` cannot be resolved, the authorizer must return an error.
+      This field is immutable.
+    x-kab-description-zh: |
+      字段为对当前名字空间中某个 Role 或者对某个 ClusterRole 的引用。
+      如果鉴权组件无法解析 `roleRef` 所引用的资源，则必须返回错误。
+      此字段不可变更。
+  subjects:
+    description: References to the subjects the Role applies to.
+    x-kab-description-zh: 对此 Role 所适用的主体的引用。
+    items:
+      $ref: '#/definitions/io.k8s.api.rbac.v1.Subject'
+    type: array
+required:
+  - apiVersion
+  - kind
+  - roleRef
+  - subjects
+type: object
+x-kubernetes-group-version-kind:
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+    version: v1
+

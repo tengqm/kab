@@ -1,0 +1,39 @@
+description: This describes how to convert different versions of a CustomResource.
+x-kab-description-zh: 此字段描述如何转换不同版本的 CustomResource。
+properties:
+  strategy:
+    description: |
+      The conversion strategy.
+
+      - `"None"` means the converter only change the `"apiVersion"` and would not touch
+        any other fields in the CustomResource;
+      - `"Webhook"` means that the API server will call an external webhook to do the conversion.
+        Additional information is specified in `webhook`.
+        This requires `preserveUnknownFields` to be `false` and `spec.conversion.webhook` to be set.
+
+        If `spec.preserveUnknownFields` is `true`, this must be `"None"`.
+    x-kab-description-zh: |
+      转换策略设置：
+
+      - `"None"`：转换器只改变 `"apiVersion"`，不会触碰 CustomResource 的其它任何字段；
+      - `"Webhook"`：API 会调用外部的 Webhook 来完成转换。额外所需的信息通过 `webhook` 设置。
+        使用此值时要求自定义资源的 `preserveUnknownFields` 为 `false` 并且要设置
+        `spec.conversion.webhook` 字段。
+
+      如果 `spec.preserveUnknownFields` 为 `true`，字段只能设置为 `"None"`.
+    enum:
+      - None
+      - Webhook
+    minLength: 1
+    type: string
+  webhook:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookConversion'
+    description: |
+      This describes how to call the conversion webhook.
+      Required when `strategy` is set to `"Webhook"`.
+    x-kab-description-zh: |
+      此字段描述如何调用转换用的 Webhook。当 `strategy` 被设置为 `"Webhook"` 时必须设置。
+required:
+  - strategy
+type: object
+

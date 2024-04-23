@@ -1,0 +1,46 @@
+description: The result of the token authentication request.
+x-kab-description-zh: 令牌身份认证请求的结果。
+properties:
+  audiences:
+    description: |
+      The audience identifiers chosen by the authenticator that are compatible
+      with both the TokenReview and `token`.
+      An identifier is any identifier in the intersection of the `audiences`
+      in the TokenReview's `spec` and the token's `audiences`.
+      A client of the TokenReview API that sets the `spec.audiences` field
+      should validate that a compatible audience identifier is returned in the
+      `status.audiences` field to ensure that the TokenReview server is audience aware.
+      If a TokenReview returns an empty `status.audiences` field where
+      `status.authenticated` is `"true"`, the token is valid against the audience
+      of the Kubernetes API server.
+    x-kab-description-zh: |
+      身份认证组件所选择的受众标识列表，其中的身份标识与 TokenReview 和 `token` 兼容。
+      所谓的标识（Identifier）可以是 TokenReview 的 `spec` 中的 `audiences`
+      与令牌的 `audiences` 的交集中的任何一个受众标识。
+      TokenRview API 的客户端如果设置了 `spec.audiences` 字段，就需要对
+      `status.audiences` 字段中返回的受众标识符是否兼容，从而确认 TokenReview
+      服务器是否能够感知受众信息。
+      如果 TokenReview API 返回的 `status.audiences` 字段为空，而
+      `status.authenticated` 为 `"true"`，则可认为令牌对于 Kubernetes API
+      服务器的受众而言是合法的。
+    items:
+      description: One of the audience identifiers.
+      x-kab-description-zh: 受众标识之一。
+      type: string
+    type: array
+  authenticated:
+    description: This indicates that the token was associated with a known user.
+    x-kab-description-zh: 此字段标明令牌是否与某用户关联。
+    type: boolean
+  error:
+    description: This indicates that the token couldn't be checked
+    x-kab-description-zh: 此字段表明令牌无法被检验。
+    type: string
+  user:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.UserInfo'
+    description: The UserInfo associated with the provided token.
+    x-kab-description-zh: 与所提供的令牌相关的 UserInfo。
+required:
+  - audiences
+type: object
+

@@ -1,0 +1,54 @@
+description: |
+  Subject matches the originator of a request, as identified by the request authentication system.
+  There are three ways of matching an originator - by user, group, or ServiceAccount.
+  One and only one of the subject kind must be specified.
+x-kab-description-zh: |
+  Subject 用来匹配请求的发起者，请求的身份认证系统能够识别出这类信息。
+  匹配发起者的方法有三种：按用户、按用户组、按服务账号。
+  此结构中可以且仅可以设置三种主体中的一种。
+properties:
+  group:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.GroupSubject'
+    description: |
+      The group of the request originator.
+      Required when `type` is set to `"Group"` and invalid otherwise.
+    x-kab-description-zh: |
+      请求发起者所属的用户组。
+      当 `type` 为 `"Group"` 时必须设置。其他情况下不可设置。
+  kind:
+    description: |
+      `kind` indicates which one of the other fields is non-empty.
+    x-kab-description-zh: |
+      `kind` 用来标示结构中哪个字段内包含有意义的信息。
+    enum:
+      - Group
+      - ServiceAccount
+      - User
+    minLength: 1
+    type: string
+  serviceAccount:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.ServiceAccountSubject'
+    description: |
+      The ServiceAccount of the request originator.
+      Required when `type` is set to `"ServiceAccount"` and invalid otherwise.
+    x-kab-description-zh: |
+      发起请求的 ServiceAccount。
+      当 `type` 为 `"ServiceAccount"` 时必须设置。其他情况下不可设置。
+  user:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.UserSubject'
+    description: |
+      The user of the request originator.
+      Required when `type` is set to `"User"` and invalid otherwise.
+    x-kab-description-zh: |
+      发起请求的用户。
+      当 `type` 为 `"User"` 时必须设置。其他情况下不可设置。
+required:
+  - kind
+type: object
+x-kubernetes-unions:
+  - discriminator: kind
+    fields-to-discriminateBy:
+      group: Group
+      serviceAccount: ServiceAccount
+      user: User
+

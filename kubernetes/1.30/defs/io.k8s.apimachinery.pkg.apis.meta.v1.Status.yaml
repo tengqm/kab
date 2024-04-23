@@ -1,0 +1,288 @@
+description: |
+  Status is a return value for calls that don't return other objects.
+  This object is returned by the API in two cases:
+
+  - When an operation is not successful;
+  - When a HTTP `DELETE` call is successful.
+x-kab-description-zh: |
+  Status 是不返回其他对象的 API 调用的返回值。API 服务器在以下两种情况返回此对象：
+
+  - 某项操作不成功；
+  - HTTP `DELETE` 操作成功。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  code:
+    description: Suggested HTTP return code for this status, 0 if not set.
+    x-kab-description-zh: 针对此状态的建议 HTTP 返回代码，如果未设置，默认为 0。
+    format: int32
+    type: integer
+  details:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.StatusDetails'
+    description: |
+      Extended data associated with the `reason`. Each `reason` may define its own extended details.
+      This field is optional and the data returned is not guaranteed to conform to any schema except that
+      defined by the reason type.
+    x-kab-description-zh: |
+      与 `reason` 关联的扩展数据。每个 `reason` 可以定义自己的扩展细节。
+      此字段是可选的，所返回的数据也不保证会符合任何模式定义，除非对应的 `reason` 类型有额外的约定。
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Status
+    type: string
+  message:
+    description: A human-readable description of the status of this operation.
+    x-kab-description-zh: 关于此操作状态的、人类可读的描述信息。
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata.
+    x-kab-description-zh: 标准的列表元数据。
+  reason:
+    description: |
+      A machine-readable description of why this operation is in the `"Failure"` status.
+      If this value is empty there is no information available.
+      A reason clarifies an HTTP status code but does not override it. The reasons defined are:
+
+      - `""`: The server has declined to indicate a specific reason.
+        The `details` field may contain other information about this error.
+        Status code: 500.
+      - `"Unauthorized"`: The server can be reached and understood the request, but requires the user
+        to present appropriate authorization credentials (identified by the `"WWW-Authenticate"` header)
+        in order for the action to be completed.
+        If the user has specified credentials on the request, the server considers them insufficient.
+        Status code: 401.
+      - `"Forbidden"`: The server can be reached and understood the request, but refuses to take
+        any further action. It is the result of the server being configured to deny access for some reason
+        to the requested resource by the client.
+        In the `details`, you can check the `kind` field for a string representing the `kind` of
+        the forbidden resource. On some operations, this may differ from the requested resource.
+        The `id` field in the `details` may contain the identifier of the forbidden resource.
+        Status code: 403.
+      - `"Not Found"`: One or more resources required for the operation cannot be found.
+        In the `details`, you can check the `kind` string which is the `kind` of the missing resource.
+        On some operations, this may differ from the requested resource.
+        The `details.id` may have the identifier of the missing resource.
+        Status code: 404.
+      - `"AlreadyExists"`: The resource you are creating already exists.
+        The `details.kind` has the `kind` of the conflicting resource, and the `details.id` may have
+        the identifier of the conflicting resource.
+        Status code: 409.
+      - `"Conflict"`: The requested operation cannot be completed due to a conflict in the operation.
+        The client may need to alter the request. Each resource may define custom `details` that indicate
+        the nature of the conflict.
+        Status code: 409.
+      - `"Gone"`: This means the item is no longer available at the server and no forwarding address is known.
+        Status code: 410.
+      - `"Invalid"`: The requested create or update operation cannot be completed due to invalid data
+        provided as part of the request. The client may need to alter the request.
+        When set, the client may use the `details.message` field as a summary of the issues encountered.
+        The `details.kind` field contains the `kind` of the invalid resource; the `details.id` field
+        contains the identifer of the invalid resource; and the `details.causes` may contain one or more
+        entires indicating the data in the provided resource that was invalid.
+        Status code: 422.
+      - `"ServerTimeout"`: The server can be reached and understood the request, but cannot complete
+        the action in a reasonable time. The client should retry the request.
+        This is may be due to temporary server load or a transient communication issue with another server.
+        Status code 500 is used because the HTTP spec provides no suitable server-requested client retry and
+        the 5xx class represents actionable errors.
+        The `details.kind` provides the `kind` of the resource being acted on.
+        The `details.id` string has the operation that is being attempted.
+        The `details.retryAfterSeconds` contains the number of seconds before the operation should be retried.
+        Status code: 500.
+      - `"Timeout"`: The request could not be completed within the given time.
+        Clients can get this response only when they specified a `timeout` param in the request, or
+        if the server cannot complete the operation within a reasonable amount of time.
+        The request might succeed with an increased value of `timeout` param. The client *should* wait
+        at least the number of seconds specified by the `details.retryAfterSeconds` field.
+        Status code: 504.
+      - `"TooManyRequests"`: The server experienced too many requests within a given window and that the
+        client must wait to perform the action again.
+        A client may always retry the request that led to this error, although the client should wait
+        at least the number of seconds specified by the `details.retryAfterSeconds` field.
+        Status code: 429.
+      - `"BadRequest"`: The request itself was invalid, because the request doesn't make any sense,
+        for example deleting a read-only object. This is different than `"Invalid"` above which indicates
+        that the API call could possibly succeed, but the data was invalid.
+        API calls that return `"BadRequest"` can never succeed.
+        Status code: 400.
+      - `"MethodNotAllowed"`: The action the client attempted to perform on the resource was not supported
+        by the code - for instance, attempting to delete a resource that can only be created.
+        API calls that return `"MethodNotAllowed"` can never succeed.
+        Status code: 405.
+      - `"NotAcceptable"`: The `accept` types indicated by the client were not acceptable to the server.
+        For instance, attempting to receive `"protobuf"` for a resource that supports only JSON and YAML.
+        API calls that return `"NotAcceptable"` can never succeed.
+        Status code: 406.
+      - `"RequestEntityTooLarge"`: The request entity is too large.
+        Status code: 413.
+      - `"UnsupportedMediaType"`: The `"content-type"` sent by the client is not acceptable to the server
+        For instance, attempting to send `"protobuf"` for a resource that supports only JSON and YAML.
+        API calls that return `"UnsupportedMediaType"` can never succeed.
+        Status code: 415.
+      - `"InternalError"`: An internal error occurred, it is unexpected and the outcome of the call is unknown.
+        The `details.causes` field has the original error. Status code: 500
+      - `"Expired"`: The request is invalid because the content you are requesting has expired and
+        is no longer available. It is typically associated with watches that can't be serviced.
+        Status code: 410.
+      - `"ServiceUnavailable"`: The request itself was valid, but the requested service is unavailable at
+        this time. Retrying the request after some time might succeed.
+        Status code: 503.
+    x-kab-description-zh: |
+      关于此操作为何处于 `"Failure"` 状态的描述，机器可读。若此值为空，则意味着没有其他可参考信息。
+      `reason` 可以用来进一步说明 HTTP 状态码，但不是用来替代 HTTP 状态码的。
+      目前已经定义了的原因有：
+
+      - `""`：服务器拒绝提供原因说明。`details` 字段中可能包含一些与此错误相关的信息。
+
+        **状态码**：500
+
+      - `"Unauthorized"`：服务器可达且服务器能够理解请求的意图，但它要求用户提供合适的鉴权凭据
+        （通过 `"WWW-Authenticate"` 头部给出）才能完成所请求的动作。
+        如果用户已经为请求提供了凭据数据，那就意味着服务器认为所提供的信息不充分。
+
+        **状态码**：401
+
+      - `"Forbidden"`：服务器可达且能够理解请求的意图，但是拒绝进一步的操作。
+        通常是因为服务器因为某种原因拒绝客户访问所请求的资源。用户可以在 `detail` 字段中查看 `kind`
+        字段内容，了解被拒绝的资源的类别。对于某些其他操作，`kind` 值可能与所请求的资源不同。
+        `details` 中的 `id` 字段可能包含了被拒绝访问的资源的 UID。
+
+        **状态码**：403
+
+      - `"Not Found"`：操作所需要的一个或者多个资源无法找到。用户可以检查 `details` 字段中的 `kind`
+        字符串，该字符串是无法找到的资源的类别。对于某些其他操作，`kind` 值可能与所请求的资源不同。
+        `details` 中的 `id` 字段可能包含了被拒绝访问的资源的 UID。
+
+        **状态码**：404
+
+      - `"AlreadyExists"`：用户请求创建的资源已经存在。`details.kind` 中具有发生冲突的资源的 `kind` 值，
+        `details.id` 中可能包含冲突的资源的标识符。
+
+        **状态码**：409
+
+      - `"Conflict"`：所请求的操作无法完成，因为操作自身存在冲突。客户可能需要更改需求。
+        每种资源可能会定义不同的 `details` 信息，给出发生冲突的本质。
+
+        **状态码**：409
+
+      - `"Gone"`：所请求的资源在服务器上不可用，并且服务器不掌握转发请求所需要的信息。
+
+        **状态码**：410
+
+      - `"Invalid"`：所请求的 CREATE 或者 UPDATE 操作无法完成，因为请求中提供的数据非法。
+        客户端可能需要更改请求。用户可以查看 `details.message` 字段，了解发生的问题的概要。
+        `details.kind` 字段包含非法资源的 `kind` 类别，`details.id` 字段包含非法资源的标识符，
+        `details.causes` 字段可能中可能包含一个或者多个条目，表明所提供的资源中非法的数据项。
+
+        **状态码**：422
+
+      - `"ServerTimeout"`：服务器可达且能够理解请求的意图，但是无法在合理的时间内完成操作。
+        客户端应该重新尝试请求。发生这一问题的原因可能是服务器临时负载过高，
+        或者与另一服务器之间出现临时性的通信错误。
+        状态码使用 500 是因为 HTTP 规约中没有提供合适的 '5xx' 代码来表达服务器要求客户端重试的情况。
+        `details.kind` 字段中包含被操作的资源的 `kind` 类别；
+        `details.id` 字符串包含尝试执行的操作；
+        `details.retryAfterSeconds` 包含重试之前要等待的秒数。
+        
+        **状态码**：500
+
+      - `"Timeout"`：请求无法在给定时间内完成。只有客户端在请求中设置了 `timeout` 参数时才会收到此状态。
+        状态表明服务器无法在合理的时间内完成所请求的操作。
+        提升 `timeout` 参数的设置或许会让请求能够成功。客户端应该至少等待 `details.retryAfterSeconds`
+        所给的时长秒数之后才发起重试操作。
+
+        **状态码**：504
+
+      - `"TooManyRequests"`：服务器在一给定时间窗口内收到了过多的请求，客户端必须等待一段时间后再发起请求。
+        客户端可以反复重试导致此错误状态的请求，尽管客户端应该至少等待 `details.retryAfterSeconds`
+        所给的时长秒数之后才发起重试操作。
+
+        **状态码**：429
+
+      - `"BadRequest"`：请求本身是非法的，因为所发起的请求本身有问题，例如，请求删除一个只读的对象。
+        这个状态与前面的 `"Invalid"` 有所不同，`"Invalid"` 表达的是 API 调用有可能成功，但数据是非法的。
+        返回 `"BadRequest"` 的 API 调用永远不会成功。
+
+        **状态码**：400
+
+      - `"MethodNotAllowed"`：客户端尝试在资源上执行的操作是代码所不支持的。例如，尝试删除一个只能被创建的资源。
+        返回 `"MethodNotAllowed"` 的 API 调用永远不会成功。
+
+        **状态码**：405
+
+      - `"NotAcceptable"`：客户端所给的 `Accept` 类型是服务器端无法接受的。例如针对一个仅支持 JSON 和 YAML
+        的资源请求返回 `"protobuf"` 响应。
+        返回 `"NotAcceptable"` 的 API 调用永远不会成功。
+
+        **状态码**：406
+
+      - `"RequestEntityTooLarge"`：请求的实体过大。
+
+        **状态码**：413
+
+      - `"UnsupportedMediaType"`：客户端所提供的 `"Content-Type"` 是服务器所无法接受的。
+        例如针对一个仅支持 JSON 和 YAML 的资源请求发送 `"protobuf"` 请求数据。
+        返回 `"UnsupportedMediaType"` 的 API 调用永远不会成功。
+
+        **状态码**：415
+
+      - `"InternalError"`：发生了内部错误，出现的状况是未预期的，调用的产出是未知的。
+        `details.causes` 字段中包含有原始的错误信息。
+
+        **状态码**：500
+
+      - `"Expired"`：请求非法，因为所请求的内容已经过期并且无法访问。通常与无法服务的 watch 请求有关。
+
+        **状态码**：410
+
+      - `"ServiceUnavailable"`：请求本身是合法的，但是所请求的服务现在不可用。
+        过一段时间再重试有可能成功。
+
+        **状态码**：503
+    enum:
+      - ''
+      - Unauthorized
+      - Forbidden
+      - NotFound
+      - AlreadyExists
+      - Conflict
+      - Gone
+      - Invalid
+      - ServerTimeout
+      - Timeout
+      - TooManyRequests
+      - BadRequest
+      - MethodNotAllowed
+      - NotAcceptable
+      - RequestEntityTooLarge
+      - UnsupportedMediaType
+      - InternalError
+      - Expired
+      - ServiceUnavailable
+    type: string
+  status:
+    description: Status of the operation.
+    x-kab-description-zh: 操作的状态。
+    enum:
+      - Failure
+      - Success
+    type: string
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Status
+    version: v1
+  - group: resource.k8s.io
+    kind: Status
+    version: v1alpha2
+

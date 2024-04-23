@@ -1,0 +1,55 @@
+description: Spec to control the desired behavior of rolling update for a Deployment.
+x-kab-description-zh: 用来控制 Deployment 滚动更新时期望行为的规约。
+properties:
+  maxSurge:
+    default: '25%'
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      The maximum number of Pods that can be scheduled above the desired number of Pods.
+      Value can be an absolute number (ex: `"5"`) or a percentage of desired pods (ex: `"10%"`).
+      This can not be `"0"` if `maxUnavailable` is `"0"`.
+      Absolute number is calculated from percentage by rounding up.
+      Example: when this is set to `"30%"`, the new ReplicaSet can be scaled up immediately
+      when the rolling update starts, such that the total number of old and new Pods
+      do not exceed 130% of desired Pods.
+      Once old Pods have been killed, new ReplicaSet can be scaled up further,
+      ensuring that total number of Pods running at any time during the update is
+      at most 130% of desired Pods.
+
+    x-kab-description-zh: |
+      滚动更新期间，被调度的 Pod 个数可以超出期望 Pod 个数。此字段为所调度的 Pod 总数设置上限。
+      字段值可以是一个绝对数字（例如 5），也可以是期望 Pod 个数的百分比（例如 `"10%"`）。
+      当 `maxUnavailable` 为 0 时，此字段不可以为 0。
+      控制器会基于百分比值向上取整，计算得到一个绝对数。
+      例如：当此值设置为 `"30%"` 时，如果启动滚动更新，则新的 ReplicaSet 可以被立即被扩容，
+      新 Pod 和老 Pod 的总数不能超出预期 Pod 副本数的 130%。
+      一旦老的 Pod 都被杀死，则新的 ReplicaSet 可以进一步扩容，从而确保滚动更新过程中的任何时刻，
+      处于运行状态的 Pod 个数不会超出预期副本个数的 130%。
+
+  maxUnavailable:
+    default: '25%'
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      The maximum number of Pods that can be unavailable during the update.
+      Value can be an absolute number (ex: `"5"`) or a percentage of desired pods (ex: `"10%"`).
+      Absolute number is calculated from percentage by rounding down.
+      This can not be `"0"` if `maxSurge` is `"0"`.
+      Example: when this is set to `"30%"`, the old ReplicaSet can be scaled down to
+      70% of desired Pods immediately when the rolling update starts.
+      Once new Pods are ready, old ReplicaSet can be scaled down further, followed by
+      scaling up the new ReplicaSet, ensuring that the total number of Pods available
+      at all times during the update is at least 70% of desired Pods.
+      This value cannot be more than `"100%"`.
+    x-kab-description-zh: |
+      滚动更新过程中可以处于不可用状态的 Pod 的个数上限。
+      字段值可以是一个绝对数（例如 5），也可以是一个期望 Pod 副本数的百分比（如 `"10%"`）。
+      控制器会根据百分比值向上取整，得到一个绝对数。
+      当 `maxSurge` 为 0 时，此字段不可以为 0。
+      例如：当此字段被设置为 `"30%"` 时，如果启动了滚动更新，则老的 ReplicaSet 可以立即被缩容，
+      使得 Pod 总数在期望 Pod 副本数的 70% 左右。
+      一旦新的 Pod 进入就绪状态，则老的 ReplicaSet 可以被进一步缩容，同时对新的 ReplicaSet 扩容。
+      这样，在整个更新过程中，处于可用状态的 Pod 的总数不会低于期望 Pod 总数的 70%。
+      此数值不可大于 `"100%"`。
+
+type: object
+

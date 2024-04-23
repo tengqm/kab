@@ -1,0 +1,34 @@
+description: Role is a namespaced, logical group of policy rules.
+x-kab-description-zh: Role 是特定名字空间内的一组策略规则。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - rbac.authorization.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Role
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的路径段名称。
+  rules:
+    description: All the policy rules for this Role.
+    x-kab-description-zh: 此 Role 的策略规则集合。
+    items:
+      $ref: '#/definitions/io.k8s.api.rbac.v1.PolicyRule'
+    type: array
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: rbac.authorization.k8s.io
+    kind: Role
+    version: v1
+

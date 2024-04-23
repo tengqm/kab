@@ -1,0 +1,50 @@
+description: |
+  ResourceClaim describes which resources are needed by a resource consumer.
+  Its `status` tracks whether the resource has been allocated and what the resulting attributes are.
+
+  This is an Alpha type and requires enabling the `DynamicResourceAllocation` feature gate.
+x-kab-description-zh: |
+  ResourceClaim 描述资源用户所需要的某种资源。
+  其 `status` 部分会记录资源是否已经被分配，以及最终的资源属性信息。
+
+  此类别处于 Alpha 阶段，需要启用 `DynamicResourceAllocation` 特性门控。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha2
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceClaim
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. The name of a ResourceClaim must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimSpec'
+    description: |
+      This describes the desired attributes of a resource that then needs to be allocated.
+      It can only be set once when creating the ResourceClaim.
+    x-kab-description-zh: |
+      此字段描述需要被分配的资源的预期属性。只能在创建 ResourceClaim 时一次性设置。
+  status:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimStatus'
+    description: This describes whether the resource is available and with which attributes.
+    x-kab-description-zh: 此字段描述资源是否空闲可用，以及一些其他属性。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceClaim
+    version: v1alpha2
+

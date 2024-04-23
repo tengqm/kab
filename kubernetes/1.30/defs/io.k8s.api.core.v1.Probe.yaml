@@ -1,0 +1,92 @@
+description: |
+  A health check to be performed against a container to determine whether it is alive or ready
+  to receive traffic. One and only one of the `exec`, `httpGet` and `tcpSocket` action can be specified.
+x-kab-description-zh: |
+  要针对容器执行的一种健康检查，用来确定容器是否存活或者准备好接收请求。
+  只能设置 `exec`、`grpc`、`httpGet` 和 `tcpSocket` 之一。
+properties:
+  exec:
+    $ref: '#/definitions/io.k8s.api.core.v1.ExecAction'
+    description: This specifies the action to take.
+    x-kab-description-zh: 指定要执行的动作。
+  failureThreshold:
+    default: 3
+    description: |
+      Minimum consecutive failures for the probe to be considered failed after having succeeded.
+    x-kab-description-zh: |
+      当此探针连续失败次数达到此阈值时，系统会认为探针失败。
+    format: int32
+    minimum: 1
+    type: integer
+  grpc:
+    $ref: '#/definitions/io.k8s.api.core.v1.GRPCAction'
+    description: An action involving a GRPC port.
+    x-kab-description-zh: 与某 GRPC 端口相关的一个动作。
+  httpGet:
+    $ref: '#/definitions/io.k8s.api.core.v1.HTTPGetAction'
+    description: This specifies the HTTP request to perform.
+    x-kab-description-zh: 指定要执行的 HTTP 请求。
+  initialDelaySeconds:
+    description: |
+      Number of seconds after the container has started before liveness probes are initiated.
+    x-kab-description-zh: 在容器启动指定的秒数之后，才启动存活态探针。
+    format: int32
+    minimum: 0
+    type: integer
+  periodSeconds:
+    default: 10
+    description: How often (in seconds) to perform the probe.
+    x-kab-description-zh: 执行探测的频度（按秒计）。
+    format: int32
+    minimum: 1
+    type: integer
+  successThreshold:
+    default: 1
+    description: |
+      Minimum consecutive successes for the probe to be considered successful after having failed.
+      Must be 1 for liveness and startup probes.
+    x-kab-description-zh: |
+      探针一旦失败之后，需要其连续成功次数达到此阈值之后，才认为其再次成功。
+      对于存活态探针和启动探针，此字段必须为 1。
+    format: int32
+    minimum: 1
+    type: integer
+  tcpSocket:
+    $ref: '#/definitions/io.k8s.api.core.v1.TCPSocketAction'
+    description: This specifies an action involving a TCP port.
+    x-kab-description-zh: 此字段设置使用 TCP 端口的一个动作。
+  terminationGracePeriodSeconds:
+    description: |
+      Optional duration in seconds the Pod needs to terminate gracefully upon probe failure.
+      The grace period is the duration in seconds after the processes running in the Pod are sent
+      a termination signal and the time when the processes are forcibly halted with a kill signal.
+      Set this value longer than the expected cleanup time for your process.
+      If this value is `nil`, the Pod's `terminationGracePeriodSeconds` will be used.
+      Otherwise, this value overrides the value provided by the Pod spec.
+      Value must be non-negative integer. The value zero indicates stop immediately via the kill signal
+      (no opportunity to shut down).
+      This is a Beta field and requires enabling the `ProbeTerminationGracePeriod` feature gate.
+
+    x-kab-description-zh: |
+      可选字段，用来设置 Pod 在探针失败时可以获得的终止宽限期。
+      宽限期计时从 kubelet 向 Pod 中运行的进程发送 TERM 信号开始，宽限期结束时，
+      kubelet 会向容器中进程发送 KILL 信号强制终止进程。
+      为此字段所设置的值要长于进程完成清理操作所需要的时间。
+      如果字段未设置，则使用 Pod 层面定义的 `terminationGracePeriodSeconds`。
+      否则，这里定义的值会覆盖 Pod 规约所提供的值。字段值必须是非负整数。
+      如果字段值为零，则意味着 kubelet 会直接发送 KILL 信号终止进程（因而没有机会执行关闭操作）。
+
+      此字段处于 Beta 阶段，需要启用 `ProbeTerminationGracePeriod` 特性门控。
+
+    format: int64
+    minimum: 1
+    type: integer
+  timeoutSeconds:
+    default: 1
+    description: Number of seconds after which the probe times out.
+    x-kab-description-zh: 探针执行的超时秒数。
+    format: int32
+    minimum: 1
+    type: integer
+type: object
+

@@ -1,0 +1,46 @@
+description: The current status of the ReplicationController.
+x-kab-description-zh: ReplicationController 的当前状态。
+properties:
+  availableReplicas:
+    description: |
+      The number of available replicas (ready for at least `minReadySeconds`)
+      for this ReplicationController.
+    x-kab-description-zh: |
+      当前可用的副本个数（就绪时长超过 `minReadySeconds`）。
+    format: int32
+    type: integer
+  conditions:
+    description: The latest observations of a ReplicationController's current state.
+    x-kab-description-zh: 对 ReplicationController 的当前状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ReplicationControllerCondition'
+    type: array
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  fullyLabeledReplicas:
+    description: |
+      The number of Pods that have labels matching the `labels` of the Pod `template` of
+      the ReplicationController.
+    x-kab-description-zh: |
+      标签与此 ReplicationController 的 Pod `template` 中的 `labels` 匹配的 Pod 个数。
+    format: int32
+    type: integer
+  observedGeneration:
+    description: The generation of the most recently observed ReplicationController.
+    x-kab-description-zh: 最新观测到的 ReplicationController 的代数。
+    format: int64
+    type: integer
+  readyReplicas:
+    description: The number of ready replicas for this ReplicationController.
+    x-kab-description-zh: 此 ReplicationController 的就绪的副本个数。
+    format: int32
+    type: integer
+  replicas:
+    description: The most recently observed number of replicas.
+    x-kab-description-zh: 最近观测到的副本个数。
+    format: int32
+    type: integer
+required:
+  - replicas
+type: object
+

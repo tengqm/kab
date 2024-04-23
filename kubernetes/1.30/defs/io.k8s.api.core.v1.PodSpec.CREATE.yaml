@@ -1,0 +1,542 @@
+description: The specification for a Pod.
+x-kab-description-zh: Pod 的规约。
+properties:
+  activeDeadlineSeconds:
+    description: |
+      Duration in seconds the Pod may be active on the node relative to `startTime` before
+      the system will actively try to mark it failed and kill associated containers.
+      Value must be a positive 32-bit integer. This is not supported in `ReplicationController`,
+      `Deployment`, `ReplicaSet`, `DaemonSet` or `StatefulSet`.
+    x-kab-description-zh: |
+      从 `startTime` 开始计时的时长（秒数值），Pod 如果在此时间窗口内没能进入存活状态，
+      系统会反复尝试标记其已失败并杀死与其关联的容器。
+      字段值必须是一个 32 位的正整数。
+      `ReplicationController`、`Deployment`、`ReplicaSet`、`DaemonSet` 或 `StatefulSet`
+      中都不支持此设置。
+    format: int64
+    minimum: 1
+    type: integer
+  affinity:
+    $ref: '#/definitions/io.k8s.api.core.v1.Affinity'
+    description: If specified, the Pod's scheduling constraints.
+    x-kab-description-zh: 此可选字段用于配置 Pod 的调度亲和性约束。
+  automountServiceAccountToken:
+    description: Flag indicating whether a service account token should be automatically mounted.
+    x-kab-description-zh: 标明是否需要为 Pod 自动挂载服务账号令牌的标记。
+    type: boolean
+  containers:
+    description: |
+      List of containers in the Pod. Containers currently cannot be added or removed.
+      There must be at least one container in a Pod.
+      Cannot be updated.
+    x-kab-description-zh: |
+      Pod 中容器的列表。目前不支持添加或者删除容器。每个 Pod 中至少包含一个容器。
+      此字段不可变更。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.Container'
+    minItems: 1
+    type: array
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  dnsConfig:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodDNSConfig'
+    description: |
+      Specifies the DNS parameters of a Pod.
+      Parameters specified here will be merged to the generated DNS configuration based on `dnsPolicy`.
+      If `dnsPolicy` is set to `"None"`, this must be provided.
+    x-kab-description-zh: |
+      此字段用于配置 Pod 的 DNS 参数。
+      这里设置的参数会被合并到基于 `dnsPolicy` 所生成的 DNS 配置中。
+      如果 `dnsPolicy` 被设置为 `"None"`，则必须设置此字段。
+  dnsPolicy:
+    default: ClusterFirst
+    description: |
+      Set DNS policy for the Pod. DNS parameters given in `dnsConfig` will be merged with
+      the policy selected with `dnsPolicy`. To have DNS options set along with `hostNetwork`,
+      you have to specify DNS policy explicitly to `"ClusterFirstWithHostNet"`.
+
+      Possible enum values:
+
+      - `"ClusterFirst"` indicates that the Pod should use cluster DNS first unless
+        `hostNetwork` is true, if it is available, then fall back on the default
+        (as determined by kubelet) DNS settings.
+      - `"ClusterFirstWithHostNet"` indicates that the Pod should use cluster DNS first, if it is
+        available, then fall back on the default (as determined by kubelet) DNS settings.
+      - `"Default"` indicates that the Pod should use the default (as determined by kubelet)
+        DNS settings.
+      - `"None"` indicates that the Pod should use empty DNS settings.
+        DNS parameters such as nameservers and search paths should be defined via `dnsConfig`.
+        If `dnsPolicy` is set to `"None" `, `dnsConfig` must be specified.
+
+    x-kab-description-zh: |
+      为 Pod 设置 DNS 策略。在 `dnsConfig` 中设置的 DNS 参数会与 `dnsPolicy` 中选定的策略合并。
+      如果 Pod 设置了 `hostNetwork`，你只能将 DNS 策略显式地设置为 `"ClusterFirstWithHostNet"`。
+      此字段的可能取值包括：
+
+      - `"ClusterFirst"` 表明在可能的情况下， Pod 应该首先使用集群内的 DNS 服务器，除非
+        `hostNetwork` 被设置为 `true`。如果集群 DNS 不可用，则回退为默认的 DNS 设置（由 kubelet 决定）。
+      - `"ClusterFirstWithHostNet"` 表明在集群 DNS 可用的情况下，此采用主机网络的 Pod
+        应该首先尝试使用集群 DNS 服务，并在集群 DNS 不可用时，回退到使用 kubelet 所提供的默认 DNS 设置。
+      - `"Default"` 表明 Pod 要优先尝试 kubelet 所提供的默认 DNS 设置。
+      - `"None"` 标明 Pod 中的 DNS 设置为空，需要通过 `dnsConfig` 字段来定义类似名字服务器、
+        搜索路径这类 DNS 参数。若 `dnsPolicy` 设置为 `"None" `，必须设置 `dnsConfig`。
+    enum:
+      - ClusterFirst
+      - ClusterFirstWithHostNet
+      - Default
+      - None
+    type: string
+  enableServiceLinks:
+    default: true
+    description: |
+      This flag indicates whether information about Services should be injected into Pod's
+      environment variables, matching the syntax of Docker links.
+    x-kab-description-zh: |
+      此标志用来表明关于 Service 的信息是否要以环境变量的形式注入到 Pod 中。
+      注入的语法类似于 Docker 链接。
+    type: boolean
+  hostAliases:
+    description: |
+      A list of hosts and IPs that will be injected into the Pod's `hosts` file.
+      This is only valid for non-`hostNetwork` Pods.
+    x-kab-description-zh: |
+      要注入到 Pod 中的 `hosts` 文件内的一组主机和 IP 地址。
+      此设置仅对于未 `hostNetwork` 为 `false` 的 Pod。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.HostAlias'
+    type: array
+    x-kubernetes-patch-merge-key: ip
+    x-kubernetes-patch-strategy: merge
+  hostIPC:
+    default: false
+    description: Use the host's IPC namespace.
+    x-kab-description-zh: 是否使用主机的 IPC 名字空间。
+    type: boolean
+  hostNetwork:
+    default: false
+    description: |
+      Host networking requested for this Pod. Use the host's network namespace.
+      If this option is set, the ports that will be used must be specified.
+    x-kab-description-zh: |
+      此字段表明 Pod 要求访问主机网络，使用所在主机的 network 名字空间。
+      若设置了此字段，则必须指定要使用的端口。
+    type: boolean
+  hostPID:
+    default: false
+    description: Use the host's PID namespace.
+    x-kab-description-zh: 表明 Pod 要使用主机的 PID 名字空间。
+    type: boolean
+  hostUsers:
+    default: true
+    description: |
+      Use the host's user namespace. If set to true or not present, the Pod will be run in
+      the host user namespace, useful when the Pod needs a feature only available to the host
+      user namespace, such as loading a kernel module with `CAP_SYS_MODULE`.
+      When set to false, a new userns is created for the Pod.
+      Setting false is useful for mitigating container breakout vulnerabilities even allowing users
+      to run their containers as root without actually having root privileges on the host.
+      This field is Alpha-level and is only honored by servers that enable the
+      `UserNamespacesSupport` feature.
+    x-kab-description-zh: |
+      表明 Pod 要使用宿主系统上的 user 名字空间。当此字段设置为 `true` 或者未设置时，Pod
+      会运行在宿主的 user 名字空间内，如果 Pod 需要访问只能在主机的 user 名字空间中才能使用的特性，
+      这种设置是有用的，例如使用 `CAP_SYS_MODULE` 权能加载内核模块。
+      此字段被设置为 `false` 时，系统会为 Pod 创建一个 user 名字空间。
+      将次字段设置为 `false` 可以有助于缓解容器逃逸问题，甚至允许用户在实际未获得宿主系统上 root
+      特权的情况下以 root 账号运行其容器。
+
+      此字段为 Alpha 阶段，需要启用 `UserNamespacesSupport` 特性。
+    type: boolean
+  hostname:
+    description: |
+      The hostname of the Pod. When specified, the value must be a valid DNS label.
+      If not specified, the Pod's hostname will be set to a system-defined value.
+    x-kab-description-zh: |
+      Pod 的主机名。如果设置了此字段，则字符串值必须是合法的 DNS 标签值。
+      如果未设置此字段，则 Pod 的主机名会被设置为一个系统定义的值。
+    type: string
+  imagePullSecrets:
+    description: |
+      A list of references to Secrets in the same namespace for pulling images used by this Pod.
+      If specified, these Secrets will be passed to individual puller implementations for them to use.
+      For each entry in the list, only the `name` field may be set.
+    x-kab-description-zh: |
+      此字段为列表值，包含对 Pod 所在名字空间中的 Secret 的引用。Pod 拉取镜像时会使用这些 Secret。
+      如果设置了此字段，则所引用的 Secret 会被传递给各镜像拉取组件，供后者使用。
+      列表中的各个条目只能设置 `name` 字段。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
+    type: array
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  initContainers:
+    description: |
+      List of initialization containers in the Pod.
+      Init containers are executed in order prior to application containers being started.
+      If any init container fails, the Pod is considered to have failed and is handled according
+      to its `restartPolicy`.Init containers may not have `lifecycle` actions, `readinessProbe`,
+      `livenessProbe` or `startupProbe`.
+      The `resources.requests` of an init container are taken into account during scheduling by
+      finding the highest `request`/`limit` for each resource type, and then using the max of
+      that value or the sum of the application containers.
+      `resources.limits` are applied to init containers in a similar fashion.
+      The name of an init container cannot conflict with other init containers, ephemeral containers
+      or application containers. Init containers currently cannot be added, removed.
+    x-kab-description-zh: |
+      Pod 中的初始化容器列表。初始化容器在应用容器启动之前按序执行。
+      如果任何一个初始化容器失败，则认为 Pod 失败，需要根据其 `restartPolicy` 设置作进一步处理。
+      初始化容器不可以包含 `lifecycle` 动作、`readinessProbe`、`livenessProbe` 或 `startupProbe`。
+      初始化容器的 `resources.requests` 在 Pod 被调度时会被检查，调度器会检查每种资源类型的最大
+      `request`/`limit` 设置值，并将此最大值与应用容器资源量之和做比较，取其较大者作为决策依据。
+      系统用类似的方式来对初始化容器实施 `resources.limits` 约束。
+      初始化容器与其他初始化容器、临时容器或应用容器之间不可以存在名字冲突。
+      目前，初始化容器不可添加或者删除。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.Container'
+    type: array
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  nodeName:
+    description: |
+      If this is not empty, the scheduler simply schedules this Pod onto that node, assuming that
+      it fits resource requirements. This field cannot be set until all `schedulingGates` have been
+      cleared. The value must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      如果此字段不为空，则调度器会直接将 Pod 调度到所指定的节点，假定节点可以满足其资源需求。
+      只有所有的 `schedulingGates` 都被清除之后，才可以设置此字段。
+      此字段值必须是一个合法的 DNS 子域名。
+    type: string
+  os:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodOS'
+    description: |
+      Specifies the OS of the containers in the Pod.
+      Some Pod and container fields are restricted if this is set.
+      If the `os` field is set to `"linux"` , the following fields must be unset:
+
+      - `securityContext.windowsOptions`
+
+      If the `os` field is set to `"windows"`, the following fields must be unset:
+      - `spec.hostPID`
+      - `spec.hostIPC`
+      - `spec.hostUser`
+      - `spec.securityContext.seLinuxOptions`
+      - `spec.securityContext.seccompProfile`
+      - `spec.securityContext.fsGroup`
+      - `spec.securityContext.fsGroupChangePolicy`
+      - `spec.securityContext.sysctls`
+      - `spec.shareProcessNamespace`
+      - `spec.securityContext.runAsUser`
+      - `spec.securityContext.runAsGroup`
+      - `spec.securityContext.supplementalGroups`
+      - `spec.containers[*].securityContext.seLinuxOptions`
+      - `spec.containers[*].securityContext.seccompProfile`
+      - `spec.containers[*].securityContext.capabilities`
+      - `spec.containers[*].securityContext.readOnlyRootFilesystem`
+      - `spec.containers[*].securityContext.privileged`
+      - `spec.containers[*].securityContext.allowPrivilegeEscalation`
+      - `spec.containers[*].securityContext.procMount`
+      - `spec.containers[*].securityContext.runAsUser`
+      - `spec.containers[*].securityContext.runAsGroup`
+
+    x-kab-description-zh: |
+      设置 Pod 中容器的操作系统。如果设置了这个字段，则某些 Pod 和容器字段会受到限制。
+      如果 `os` 字段的取值为 `"linux"`，则不可以设置下面的字段：
+
+      - `securityContext.windowsOptions`
+
+      如果 `os` 字段的取值为 `"windows"`，则不可以设置以下字段：
+
+      - `spec.hostPID`
+      - `spec.hostIPC`
+      - `spec.hostUser`
+      - `spec.securityContext.seLinuxOptions`
+      - `spec.securityContext.seccompProfile`
+      - `spec.securityContext.fsGroup`
+      - `spec.securityContext.fsGroupChangePolicy`
+      - `spec.securityContext.sysctls`
+      - `spec.shareProcessNamespace`
+      - `spec.securityContext.runAsUser`
+      - `spec.securityContext.runAsGroup`
+      - `spec.securityContext.supplementalGroups`
+      - `spec.containers[*].securityContext.seLinuxOptions`
+      - `spec.containers[*].securityContext.seccompProfile`
+      - `spec.containers[*].securityContext.capabilities`
+      - `spec.containers[*].securityContext.readOnlyRootFilesystem`
+      - `spec.containers[*].securityContext.privileged`
+      - `spec.containers[*].securityContext.allowPrivilegeEscalation`
+      - `spec.containers[*].securityContext.procMount`
+      - `spec.containers[*].securityContext.runAsUser`
+      - `spec.containers[*].securityContext.runAsGroup`
+
+  overhead:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The resource overhead associated with running a Pod for a given RuntimeClass.
+      This field will be auto-populated at admission time by the `RuntimeClass` admission controller.
+      If the `RuntimeClass` admission controller is enabled, `overhead` must not be set in Pod
+      create requests. The `RuntimeClass` admission controller will reject Pod create requests
+      which have the `overhead` already set.
+      If `RuntimeClass` is configured and selected in the Pod `spec`, `overhead` will be set to the
+      value defined in the corresponding `RuntimeClass`, otherwise it will remain unset and treated
+      as zero.
+    x-kab-description-zh: |
+      使用某给定 RuntimeClass 运行 Pod 时会带来的额外资源开销。
+      在 Pod 被准入时，此字段由 `RuntimeClass` 准入控制器来自动填写。
+      如果启用了 `RuntimeClass` 准入控制器，则不可以在 Pod 创建请求中设置 `overhead`。
+      `RuntimeClass` 准入控制器会拒绝设置了 `overhead` 的 Pod 创建请求。
+      如果配置了 `RuntimeClass` 并且在 Pod 的 `spec` 中选择了运行时类，则 `overhead` 会被设置为对应的
+      `RuntimeClass` 中定义的值，否则，`overhead` 会保持未设置状态且被视为 0。
+    type: object
+  preemptionPolicy:
+    default: PreemptLowerPriority
+    description: |
+      The policy for preempting Pods with lower priority.
+
+      - `"Never"`: the Pod never preempts other Pods with lower priority;
+      - `"PreemptLowerPriority"`: the Pod can preempt other Pods with lower priority.
+    x-kab-description-zh: |
+      设置 Pod 抢占优先级较低的其他 Pod 的策略。
+
+      - `"Never"`：此 Pod 不会抢占其他优先级较低的 Pod。
+      - `"PreemptLowerPriority"`：此 Pod 可以抢占其他优先级较低的 Pod。
+    enum:
+      - Never
+      - PreemptLowerPriority
+    type: string
+  priority:
+    description: |
+      The priority value. Various system components use this field to find the priority of the Pod.
+      When the `Priority` Admission Controller is enabled, it prevents users from setting this field.
+      The admission controller populates this field from PriorityClassName.
+      The higher the value, the higher the priority.
+    x-kab-description-zh: |
+      优先级数值。不同的系统组件会使用这个字段来查看 Pod 的优先级值。
+      当启用了 `Priority` 准入控制器时，该控制器会禁止用户自行设置此字段。
+      准入控制器会根据 Pod 的 `priorityClassName` 自动设置此字段。
+      此字段的值越大，代表 Pod 的优先级越高。
+    format: int32
+    type: integer
+  priorityClassName:
+    description: |
+      The Pod's priority class. The value must be a valid DNS subdomain.
+      The value `"system-node-critical"` and `"system-cluster-critical"` are two special keywords which
+      indicate the highest priorities with the former being the highest priority.
+      Any other values must match the name of a PriorityClass object.
+      If not specified, the Pod priority will be default or zero if there is no default.
+    x-kab-description-zh: |
+      Pod 的优先级类。此字段值必须是一个合法的 DNS 子域名。
+      字符串值 `"system-node-critical"` 和 `"system-cluster-critical"` 是两个特殊的关键词，
+      用来表示系统中最高的两个优先级类，前者的优先级最高。
+      字段设置为其他值时，字符串要与某 PriorityClass 对象同名。
+      如果没有设置这个字段，则 Pod 的优先级会是默认优先级类对应的值，或者当没有默认优先级类时为 0。
+    type: string
+  readinessGates:
+    description: |
+      If specified, all readiness gates will be evaluated for Pod readiness.
+      A Pod is ready when all its containers are ready AND all conditions specified in the readiness
+      gates have status equal to `"True"`.
+    x-kab-description-zh: |
+      如果为 Pod 设置了这个字段，则判断 Pod 就绪态时需要评估其中其中的每个就绪态门控。
+      Pod 当其中所有容器都已就绪且此列表中所有状况的状态都为 `"True"` 时才真正就绪。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodReadinessGate'
+    type: array
+  resourceClaims:
+    description: |
+      The `resourceClaims` defines which ResourceClaims must be allocated and reserved before
+      the Pod is allowed to start.
+      The resources will be made available to those containers which consume them by name.
+
+      This is an Alpha field and requires enabling the `DynamicResourceAllocation` feature gate.
+
+      This field is immutable.
+    x-kab-description-zh: |
+      `resourceClaims` 字段定义允许 Pod 启动之前必须分配并预留的 ResourceClaim 列表。
+      这里引用的资源会被提供给那些按名称来使用它们的容器。
+      此字段是一个 Alpha 阶段字段，需要启用 `DynamicResourceAllocation` 特性门控。
+      此字段不可变更。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodResourceClaim'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge,retainKeys
+  restartPolicy:
+    default: Always
+    description: |
+      Restart policy for all containers within the Pod. For ReplicationController, Deployment,
+      DaemonSet, ReplicaSet and StatefulSet, the `restartPolicy` must be `"Always"`.
+      For Job, the `restartPolicy` must be `"OnFailure"` or `"Never"`.
+    x-kab-description-zh: |
+      Pod 内所有容器的重启策略。对于 ReplicationController、Deployment、DaemonSet、ReplicaSet 和
+      StatefulSet，`restartPolicy` 必须设置为 `"Always"`。对于 Job， `restartPolicy` 必须是
+      `"OnFailure"` 或者 `"Never"`。
+    enum:
+      - Always
+      - Never
+      - OnFailure
+    type: string
+  runtimeClassName:
+    description: |
+      This refers to a RuntimeClass object in the `node.k8s.io` group, which should be used to
+      run this Pod.
+      If no RuntimeClass resource matches the name, the Pod will not run.
+      If unset or empty, the `"legacy"` RuntimeClass will be used, which is an implicit class
+      with an empty definition that uses the default runtime handler.
+      The value must be a valid DNS subdomain.
+    x-kab-description-zh: |
+      此字段通过名字引用 `node.k8s.io` 组中的某个 RuntimeClass 对象，意为要使用该运行时类来运行此 Pod。
+      如果找不到名字匹配的 RuntimeClass 资源，则 Pod 不会运行。
+      如果此字段没有配置或者为空，则会使用 `"legacy"` RuntimeClass，也就是一个隐式的、定义为空的
+      RuntimeClass。该 RuntimeClass 使用默认的容器运行时处理程序。
+      所给的名字字符串必须是合法的 DNS 子域名。
+    type: string
+  schedulerName:
+    description: |
+      If specified, the Pod will be dispatched by specified scheduler.
+      If not specified, the Pod will be dispatched by default scheduler.
+    x-kab-description-zh: |
+      如果设置了此字段，则 Pod 会使用所指定的调度器来调度。
+      如果未设置此字段，则 Pod 会使用默认的调度器来调度。
+    type: string
+  schedulingGates:
+    description: |
+      `schedulingGates` is an opaque list of values that, if specified, will block scheduling the Pod.
+      If `schedulingGates` is not empty, the Pod will stay in the `SchedulingGated` state and
+      the scheduler will not attempt to schedule the pod.
+
+      `schedulingGates` can only be set at Pod creation time, and be removed only afterwards.
+
+      This is a Beta feature enabled by the PodSchedulingReadiness feature gate.
+    x-kab-description-zh: |
+      `schedulingGates` 是一个列表，其中的元素会阻止 Pod 被调度。
+      当 `schedulingGates` 不为空时，Pod 会一直处于 `"SchedulingGated"` 状态，调度器也不会尝试调度该 Pod。
+
+      `schedulingGates` 只能在 Pod 创建时设置，Pod 创建之后只能从中移除表项。
+
+      此字段处于 Beta 阶段，由特性门控 `PodSchedulingReadiness` 控制。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodSchedulingGate'
+    type: array
+    uniqueItems: true
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  securityContext:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodSecurityContext'
+    description: |
+      Pod-level security attributes and settings common to all containers. Defaults to empty.
+    x-kab-description-zh: |
+      Pod 层面的安全属性与配置，对所有容器起作用。默认值为空。
+  serviceAccountName:
+    description: |
+      The name of the ServiceAccount to use to run this Pod. The value must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      用来运行此 Pod 的 ServiceAccount 的名字。字符串值必须时合法的 DNS 子域名。
+    type: string
+  setHostnameAsFQDN:
+    default: false
+    description: |
+      If `true` the Pod's hostname will be configured as the Pod's fully qualified domain name (FQDN),
+      rather than the leaf name which is the default.
+      For Linux containers, this means setting the FQDN in the `hostname` field of the kernel
+      (the `nodename` field of struct `utsname`).
+      In Windows containers, this means setting the registry value of hostname for the registry key
+      `"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters"` to FQDN.
+      If a Pod does not have FQDN, this has no effect.
+      This field is Beta, gated by the `SetHostnameAsFQDN` feature gate.
+    x-kab-description-zh: |
+      如果此字段为 `true`，则 Pod 的主机名会被配置为 Pod 的全限定域名（FQDN），
+      而不是默认情况下的叶子域名（Leaf Name）。
+      对于 Linux 容器而言，这意味着会将内核的 `hostname` 字段（`utsname` 结构中的 `nodename` 字段）
+      设置为 FQDN 值。
+      对于 Windows 容器，则意味着要将注册表中用来控制主机名的注册表项
+      `"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters"`
+      设置为 FQDN 值。
+      如果 Pod 没有对应的 FQDN，则此字段设置无效。
+      此字段处于 Beta 阶段，需要启用 `SetHostnameAsFQDN` 特性门控。
+    type: boolean
+  shareProcessNamespace:
+    default: false
+    description: |
+      Share a single process namespace between all of the containers in a Pod.
+      When this is set containers will be able to view and signal processes from other containers
+      in the same Pod, and the first process in each container will not be assigned PID 1.
+      `hostPID` and `shareProcessNamespace` cannot both be set.
+    x-kab-description-zh: |
+      在同一个 Pod 中所有容器之间共享进程名字空间。
+      如果这个字段被设置为 `true`，则一个容器就能看到同一个 Pod 中其他容器内的进程并向其发送信号。
+      此外，每个容器中的第一个进程的 PID 也不再是 1。
+      不可以同时设置 `hostPID` 和 `shareProcessNamespace`。
+    type: boolean
+  subdomain:
+    description: |
+      If specified, the value must be a valid DNS label. The fully qualified Pod hostname will be
+      `"<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>"`.
+      If not specified, the Pod will not have a domain name at all.
+    x-kab-description-zh: |
+      如果设置了此字段，所设置的字符串值必须是合法的 DNS 标签值。
+      Pod 的全限定主机名将是 `"<hostname>.<subdomain>.<Pod 名字空间>.svc.<集群域名>"`。
+      如果没有设置此字段，则 Pod 不会获得域名。
+    type: string
+  terminationGracePeriodSeconds:
+    default: 30
+    description: |
+      Optional duration in seconds the Pod needs to terminate gracefully.
+      May be decreased in delete request. Value must be non-negative integer.
+      The value zero indicates stop immediately via the kill signal (no opportunity to shut down).
+      If this value is `nil`, the default grace period will be used instead.
+      The grace period is the duration in seconds after the processes running in the Pod are sent
+      a termination signal and the time when the processes are forcibly halted with a kill signal.
+      Set this value longer than the expected cleanup time for your process.
+    x-kab-description-zh: |
+      可选的、按秒计的时长值。Pod 需要在所给的时间段内体面终止。在 DELETE 请求中可以减少此值。
+      字段值必须是非负数。数值 0 意味着立即使用 KILL 信号终止容器（没有关闭的机会）。
+      如果未设置，则会使用默认的宽限期限。宽限期以秒计，从 Pod 内的进程收到终止信号开始计时，
+      到使用 KILL 信号强制终止进程为止。
+      用户应该将此值设置为一个超出进程完成清理操作所需时间的时长。
+    minimum: 0
+    format: int64
+    type: integer
+  tolerations:
+    description: The Pod's tolerations.
+    x-kab-description-zh: Pod 的容忍度。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.Toleration'
+    type: array
+  topologySpreadConstraints:
+    description: |
+      This describes how a group of Pods are to spread across topology domains.
+      Scheduler will schedule Pods in a way which abides by the constraints.
+      All items in the list are AND'ed. The tuple `(topologyKey, whenUnsatisfiable)` must be unique
+      in the list.
+    x-kab-description-zh: |
+      此字段描述如何在多个拓扑域（Topology Domain）之间分布一组 Pod。
+      调度器会采取已经能够满足限制条件的方式来调度 Pod。此列表中的条目会以逻辑 AND 操作进行汇总。
+      在整个列表中，`(topologyKey, whenUnsatisfiable)` 元组必须唯一。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.TopologySpreadConstraint'
+    type: array
+    x-kubernetes-list-map-keys:
+      - topologyKey
+      - whenUnsatisfiable
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: topologyKey
+    x-kubernetes-patch-strategy: merge
+  volumes:
+    description: List of volumes that can be mounted by containers in the Pod.
+    x-kab-description-zh: 可被 Pod 中容器挂载的卷的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.Volume'
+    type: array
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge,retainKeys
+required:
+  - containers
+type: object
+

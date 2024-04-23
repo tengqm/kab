@@ -1,0 +1,45 @@
+description: Pod is a collection of Containers that can run on a host.
+x-kab-description-zh: Pod 是一组可以运行在某个宿主系统上的容器。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Pod
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: |
+      Standard object metadata. When updating a Pod,
+      - If the Pod has an annotation `"container.apparmor.security.beta.kubernetes.io/"`,
+        the annotation cannot be removed or changed. If the Pod doesn't have this annotation,
+        it cannot be added.
+      - If the Pod alreay has an annotation `"kubernetes.io/config.mirror"`, the annotation
+        cannot be changed or removed. If the Pod doesn't have this annotation, it cannot be added.
+    x-kab-description-zh: |
+      标准的对象元数据。在更新 Pod 时，
+
+      - 如果 Pod 上设置了注解 `"container.apparmor.security.beta.kubernetes.io/"`，
+        则该注解在更新的时候不可以被删除或改变。如果 Pod 原来没有这一注解，变更时不可添加。
+      - 如果 Pod 上已经设置了注解 `"kubernetes.io/config.mirror"`，此注解不可被变更或者删除。
+        如果 Pod 上原来没有这个注解，变更时不可添加。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodSpec.UPDATE'
+    description: Specification of the desired behavior of the pod.
+    x-kab-description-zh: 关于 Pod 预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Pod
+    version: v1
+

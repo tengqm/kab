@@ -1,0 +1,67 @@
+description: |
+  MatchCondition represents a condition which must be fulfilled for a request
+  to be sent to a webhook.
+x-kab-description-zh: |
+  MatchCondition 表示的是一种条件，只有请求满足了这一条件才有可能被发送到某 Webhook。
+properties:
+  expression:
+    description: |
+      This represents the expression which will be evaluated by CEL. Must evaluate to bool.
+      CEL expressions have access to the contents of the AdmissionRequest and Authorizer,
+      organized into CEL variables:
+
+      - `object` - The object from the incoming request. The value is null for DELETE requests.
+      - `oldObject` - The existing object. The value is null for CREATE requests.
+      - `request` - Attributes of the admission request of type
+        [AdmissionRequest](https://pkg.go.dev/k8s.io/apiserver/pkg/apis/admission/types.go#AdmissionRequest).
+      - `authorizer` - A CEL Authorizer. May be used to perform authorization checks
+        for the principal (user or ServiceAccount) of the request.
+        See [Authz docs](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz).
+      - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer`
+        and configured with the request resource.
+        See more [documentation on CEL](https://kubernetes.io/docs/reference/using-api/cel/).
+
+    x-kab-description-zh: |
+      此字段包含的是要由 CEL 来评估（求值）的表达式，求值结果必须是布尔值。
+      CEL 表达式可以访问 AdmissionRequest 和 Authorizer 的一些内容，
+      这些内容被组织成 CEL 变量：
+
+      - `object` - 请求所携带的对象。对于 DELETE 请求，取值是 null。
+      - `oldObject` - 当前的对象。对于 CREATE 请求，取值为 null。
+      - `request` - 准入请求的属性，类型为 [AdmissionRequest](https://pkg.go.dev/k8s.io/apiserver/pkg/apis/admission/types.go#AdmissionRequest)。
+      - `authorizer` - CEL Authorizer。可用来针对请求的主体（用户或者 ServiceAccount）
+        执行鉴权检查。
+        参阅 [Authz 文档](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
+      - `authorizer.requestResource` -根据 `authorizer` 和请求资源构造的 CEL ResourceCheck 对象。
+        参阅 [CEL 文档](https://kubernetes.io/zh-cn/docs/reference/using-api/cel/)。
+
+    minLength: 1
+    type: string
+  name:
+    description: |
+      This is an identifier for this match condition, used for strategic
+      merging of `matchConditions`, as well as providing an identifier for logging purposes.
+      A good name should be descriptive of the associated expression.
+      The `name` must be a qualified name consisting of alphanumeric characters, `'-'`,
+      `'_'` or `'.'`, and must start and end with an alphanumeric character
+      (e.g. `'MyName'`,  or `'my.name'`,  or `'123-abc'`, regex used for validation is
+      `([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]')` with an optional DNS subdomain prefix
+      and `'/'` (e.g. `'example.com/MyName'`).
+
+    x-kab-description-zh: |
+      此字段为匹配条件的标识符，在执行对 `matchConditions` 进行策略性合并时，
+      以及生成日志时会用到。比较好的名字应该是能够描述所关联的表达式的。
+      `name` 字段必须是一个限定名（Qualified Name），包含字母数字字符、`'-'`、
+      `'_'` 或者 `'.'`，并且必须以字母或数字开头和结束。
+      例如：`"MyName"`、`"my.name"` 或者 `"123-abc"`。
+      用来执行正确性检查的正则表达式为 `([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]')`。
+      `name` 值可以带一个可选的 DNS 子域名加上 `'/'` 作为前缀。
+      例如：`"example.com/MyName"`。
+
+    minLength: 1
+    type: string
+required:
+  - expression
+  - name
+type: object
+

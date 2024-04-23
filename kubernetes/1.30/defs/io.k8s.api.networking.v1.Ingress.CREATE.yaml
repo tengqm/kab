@@ -1,0 +1,41 @@
+description: |
+  Ingress is a collection of rules that allow inbound connections to reach the endpoints
+  defined by a backend.
+  An Ingress can be configured to give services externally-reachable URLs, load balance traffic,
+  terminate SSL, offer name-based virtual hosting etc.
+x-kab-description-zh: |
+  Ingress 是一组规则，允许入站连接到达后端定义的端点。
+  通过配置 Ingress 可以可以为 Service 提供外部可访问的 URL，可以完成流量负载均衡，
+  可以终结 SSL 链接，提供基于名字的虚拟托管等等。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - networking.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Ingress
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The name must be a valid DNS subdomain.
+    x-kab-description-zh: 标准的对象元数据。对象名必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IngressSpec'
+    description: The desired state of the Ingress.
+    x-kab-description-zh: Ingress 的预期状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: networking.k8s.io
+    kind: Ingress
+    version: v1
+

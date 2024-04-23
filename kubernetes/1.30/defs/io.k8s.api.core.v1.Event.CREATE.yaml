@@ -1,0 +1,108 @@
+description: |
+  Event is a report of an event somewhere in the cluster.
+  Events have a limited retention time and triggers and messages may evolve with time.
+  Event consumers should not rely on the timing of an event with a given `reason` reflecting
+  a consistent underlying trigger, or the continued existence of events with that `reason`.
+  Events should be treated as informative, best-effort, supplemental data.
+x-kab-description-zh: |
+  Event 是集群中某处发生的事件的报告。Event 数据的保存时长有限，其触发源和消息也会随着时间变化。
+  Event 的用户不应基于给定 `reason` 的事件的时间推测是下层触发源是否一致，以及相同 `reason`
+  的事件是否会一直存在。Event 应该被视作一种通知性质的、尽力而为的、补充说明类型的数据。
+properties:
+  action:
+    description: What action was taken/failed regarding to the involved object.
+    x-kab-description-zh: 就所牵涉的对象而言，采取了的（或者失败了的）操作是什么。
+    type: string
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  count:
+    description: The number of times this event has occurred.
+    x-kab-description-zh: 事件的发生次数。
+    format: int32
+    type: integer
+  eventTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: Time when this Event was first observed.
+    x-kab-description-zh: 第一次观测到此事件的时间。
+  firstTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      The time at which the event was first recorded. (Time of server receipt is in `metadata`.)
+    x-kab-description-zh: |
+      事件第一次记录的时间。(服务器收到事件的时间记录在 `metadata` 中）。
+  involvedObject:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: |
+      The object that this event is about. The namespace must match that of the Event.
+    x-kab-description-zh: |
+      此事件所关联的对象。名字空间必须与 Event 的名字空间对应。
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Event
+    type: string
+  lastTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: The time at which the most recent occurrence of this Event was recorded.
+    x-kab-description-zh: 事件最近一次出现并被记录的时间。
+  message:
+    description: A human-readable description of the status of this operation.
+    x-kab-description-zh: 关于此操作的状态的一种人类可读的描述。
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  reason:
+    description: |
+      This should be a short, machine understandable string that gives
+      the reason for the transition into the object's current status.
+    x-kab-description-zh: |
+      此字段为较短的、机器可理解的字符串，给出对象进入当前状态的原因。
+    type: string
+  related:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: Optional secondary object for more complex actions.
+    x-kab-description-zh: 可选字段，关联另一个对象，用于较复杂的动作。
+  reportingComponent:
+    description: Name of the controller that emitted this Event, e.g. `"kubernetes.io/kubelet"`.
+    x-kab-description-zh: 生成此 Event 的控制器的名称，例如：`"kubernetes.io/kubelet"`。
+    type: string
+  reportingInstance:
+    description: ID of the controller instance, e.g. `"kubelet-xyzf"`.
+    x-kab-description-zh: 控制器实例的 ID。例如，`"kubelet-xyzf"`。
+    type: string
+  series:
+    $ref: '#/definitions/io.k8s.api.core.v1.EventSeries'
+    description: |
+      Data about the Event series this Event represents or nil if it's a singleton Event.
+    x-kab-description-zh: |
+      关于此 Event 所代表的 Event 序列的数据。对于单实例 Event 而言，此字段为 nil。
+  source:
+    $ref: '#/definitions/io.k8s.api.core.v1.EventSource'
+    description: |
+      The component reporting this Event. Should be a short machine understandable string.
+    x-kab-description-zh: 报告此 Event 的组件。取值是一个机器可理解的较短字符串。
+  type:
+    description: Type of this event. New types could be added in the future.
+    x-kab-description-zh: 此事件的类型。未来可能会添加新的类型。
+    enum:
+      - Normal
+      - Warning
+    type: string
+required:
+  - apiVersion
+  - kind
+  - involvedObject
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Event
+    version: v1
+

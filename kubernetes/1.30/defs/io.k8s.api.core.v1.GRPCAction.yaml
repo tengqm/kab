@@ -1,0 +1,22 @@
+description: A probe for GRPC action.
+x-kab-description-zh: 一个用于 GRPC 动作的探针。
+properties:
+  port:
+    description: Port number for the gRPC service. Number must be in the range 1 to 65535.
+    x-kab-description-zh: gRPC 服务要使用的端口号。数字必须介于 1 到 65535 之间。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+  service:
+    description: |
+      The name of the service to place in the gRPC HealthCheckRequest.
+      If this is not specified, the default behavior is defined by gRPC.
+    x-kab-description-zh: |
+      在 gRPC HealthCheckRequest 中要设置的服务名称。
+      如果未设置此字段，则默认行为由 gRPC 定义。
+    type: string
+required:
+  - port
+type: object
+

@@ -1,0 +1,48 @@
+description: |
+  A Quobyte mount that lasts the lifetime of a Pod.
+  Quobyte volumes do not support ownership management or SELinux relabeling.
+x-kab-description-zh: |
+  在 Pod 生命周期内持续有效的 Quobyte 挂载卷。
+  Quobyte 卷不支持属主管理或者 SELinux 重新打标签操作。
+properties:
+  group:
+    description: Group to map volume access to. Default is no group.
+    x-kab-description-zh: 访问卷时要映射的用户组。默认没有用户组信息。
+    type: string
+  readOnly:
+    default: false
+    description: Force the Quobyte volume to be mounted with read-only permissions.
+    x-kab-description-zh: 强制使用只读模式挂载 Quobyte 卷。
+    type: boolean
+  registry:
+    description: |
+      A single or multiple Quobyte registry services which act as the central registries for volumes,
+      specified as a string as `"host:port"` pair (multiple entries are separated with commas).
+    x-kab-description-zh: |
+      一个或者多个 Quobyte 仓库服务，用作存储卷的集中仓库。
+      设置值为 `"host:port"` 形式的字符串，多个条目之间用逗号隔开。
+    minLength: 1
+    type: string
+  tenant:
+    description: |
+      Tenant owning the given Quobyte volume in the backend.
+      This is used with dynamically provisioned Quobyte volumes, value is set by the plugin.
+    x-kab-description-zh: |
+      后台拥有此 Quobyte 数据卷的租户。
+      此字段用于动态制备的 Quobyte 数据卷，字段值由插件负责填充。
+    maxLength: 64
+    type: string
+  user:
+    description: User to map volume access to. Defaults to SerivceAccount user.
+    x-kab-description-zh: 访问卷时要映射的用户。默认使用 SerivceAccount 用户。
+    type: string
+  volume:
+    description: A string that references the name of an existing Quobyte volume.
+    x-kab-description-zh: 引用现有 Quobyte 存储卷名的一个字符串。
+    minLength: 1
+    type: string
+required:
+  - registry
+  - volume
+type: object
+

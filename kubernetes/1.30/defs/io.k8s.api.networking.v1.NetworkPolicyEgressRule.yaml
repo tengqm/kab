@@ -1,0 +1,39 @@
+description: |
+  A set of traffic that is allowed out of Pods matched by a NetworkPolicySpec's `podSelector`.
+  The traffic must match both `ports` and `to`.
+x-kab-description-zh: |
+  针对和 NetworkPolicy 规约中 `podSelector` 匹配的 Pod 集合，设置被允许的可以从 Pod 指向外界的流量。
+  这类流量必须同时满足 `ports` 和 `to` 规则。
+properties:
+  ports:
+    description: |
+      List of destination ports for outgoing traffic.
+      Each item in this list is combined using a logical OR.
+      If this field is empty or missing, this rule matches all ports (traffic not restricted by port).
+      If this field is present and contains at least one item, then this rule allows traffic
+      only if the traffic matches at least one port in the list.
+    x-kab-description-zh: |
+      此字段列举离站流量的目标端口。最终语义是对此列表中的各个条目取逻辑 OR 操作。
+      如果此字段未设置，或者为空列表，则规则会匹配所有端口（流量不受端口限制）。
+      如果此字段设置了，至少含有一个表项，则只有流量至少与列表中某个端口匹配时才是被允许的。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyPort'
+    type: array
+  to:
+    description: |
+      List of destinations for outgoing traffic of Pods selected for this rule.
+      Items in this list are combined using a logical OR operation.
+      If this field is empty or missing, this rule matches all destinations
+      (traffic not restricted by destination).
+      If this field is present and contains at least one item, this rule allows traffic only
+      if the traffic matches at least one item in the `to` list.
+    x-kab-description-zh: |
+      当前规则所选定的 Pod 的离站流量的目标地址。
+      最终判定结果是对列表中各个条目取逻辑 OR 操作。
+      如果此字段未设置，或者为空列表，则此规则会匹配所有目标地址（流量不受目标地址限制）。
+      如果设置了此字段且列表中至少包含一个表项，则只有流量至少与 `to` 列表中某个条目匹配时才是被允许的。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyPeer'
+    type: array
+type: object
+

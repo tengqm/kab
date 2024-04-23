@@ -1,0 +1,143 @@
+description: The current status of a Job.
+x-kab-description-zh: Job 的当前状态。
+properties:
+  active:
+    description: The number of pending and running Pods.
+    x-kab-description-zh: 当前处于悬决和运行状态的 Pod 个数。
+    format: int32
+    minimum: 0
+    type: integer
+  completedIndexes:
+    description: |
+      This holds the completed indexes when `.spec.completionMode="Indexed"` in a text format.
+      The indexes are represented as decimal integers separated by commas.
+      The numbers are listed in increasing order.
+      Three or more consecutive numbers are compressed and represented by the first and
+      last element of the series, separated by a hyphen.
+      For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as
+      `"1,3-5,7"`.
+    x-kab-description-zh: |
+      此字段中是 `.spec.completionMode` 为 `"Indexed"` 时的 Pod 完成索引。
+      这些索引值是用逗号分隔的十进制整数来表示的。列表中的整数按增序排列。
+      三个或三个以上的连续整数序列会被压缩，表示为用连字符串接的第一个元素和最后一个元素。
+      例如，如果完成索引为 1、3、4、5 和 7，则其表现形式为：`"1,3-5,7"`。
+    type: string
+  completionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      Time when the Job was completed. It is not guaranteed to be set in **happens-before**
+      order across separate operations. It is represented in RFC3339 form and is in UTC.
+      The completion time is only set when the Job finishes successfully.
+    x-kab-description-zh: |
+      Job 的完成时间。Job 上存在多个操作时，无法保证此时间戳的设置严格遵循先后顺序。
+      字段值以 RFC3339 的形式给出，使用 UTC 时区。
+      只有当 Job 成功结束时才会设置完成时间。
+  conditions:
+    description: |
+      The latest available observations of an object's current state.
+      When a Job fails, one of the conditions will have `type` set to `"Failed"`.
+      When a Job is suspended, one of the conditions will have `type` "Suspended" and
+      `status` true; when the Job is resumed, the status of this condition will become `false`.
+      When a Job is completed, one of the conditions will have type "Complete" and `status` true.
+    x-kab-description-zh: |
+      关于 Job 当前状态的最新可用观测结果。
+      如果 Job 失败了，其状况之一的 `type` 会被设置为 `"Failed"`。
+      如果 Job 被挂起，则状况之一的 `type` 会是 `"Suspended"`，并且 `status` 为 `"True"`。
+      当 Job 被恢复执行时，对应的 `"Suspended"` 状况的 `status` 会变为 `"False"`。
+      当 Job 结束时，其状况之一的 `type` 会是 `"Complete"`，而 `status` 为 `"True"`。
+    items:
+      $ref: '#/definitions/io.k8s.api.batch.v1.JobCondition'
+    type: array
+    x-kubernetes-list-type: atomic
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  failed:
+    description: The number of Pods which reached phase `"Failed"`.
+    x-kab-description-zh: 到达 `"Failed"` 阶段的 Pod 个数。
+    format: int32
+    minimum: 0
+    type: integer
+  failedIndexes:
+    description: |
+      This holds the failed indexes when `backoffLimitPerIndex=true`.
+      The indexes are represented in the text format analogous as for the `completedIndexes`
+      field, ie. they are kept as decimal integers separated by commas.
+      The numbers are listed in increasing order.
+      Three or more consecutive numbers are compressed and represented by the first and
+      last element of the series, separated by a hyphen.
+      For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as `"1,3-5,7"`.
+      This field is Beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate
+      is enabled (enabled by default).
+    x-kab-description-zh: |
+      当 `backoffLImitPerIndex` 为 `true` 时，此字段给出的是失败的 Pod 索引。
+      索引值的表示方式与 `compeltedIndexes` 字段类似，也是用逗号分隔的十进制数字来表示的。
+      索引数字按增序方式给出。三个以及三个以上的连续数字会被压缩，
+      呈现为序列中第一个元素与最后一个元素之间添加连字符的形式。
+      例如，如果失败索引为 1、3、4、5 和 7，则其表现形式为：`"1,3-5,7"`。
+      此字段为 Beta 级别，可通过 `JobBackoffLimitPerIndex` 特性门控启用（默认启用）。
+    type: string
+  ready:
+    description: |
+      The number of Pods which have a Ready condition.
+    x-kab-description-zh: |
+      包含 `"Ready"` 状况的 Pod 的 个数。
+    format: int32
+    minimum: 0
+    type: integer
+  startTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      The time when the Job controller started processing a Job.
+      When a Job is created in the suspended state, this field is not set until
+      the first time it is resumed.
+      This field is reset every time a Job is resumed from suspension.
+      It is represented in RFC3339 form and is in UTC.
+    x-kab-description-zh: |
+      Job 控制器开始处理 Job 对象的时间。
+      如果 Job 创建时处于挂起状态，则此字段直到 Job 被首次恢复执行时才会被设置。
+      Job 每次从挂起状态恢复执行时，都会重置此字段。
+      字段值的表示形式遵从 RFC3339 约定，并使用 UTC 时区。
+  succeeded:
+    description: The number of Pods which reached phase `"Succeeded"`.
+    x-kab-description-zh: 到达 `"Succeeded"` 阶段的 Pod 的个数。
+    format: int32
+    minimum: 0
+    type: integer
+  terminating:
+    description: |
+      The number of Pods which are terminating (in phase `"Pending"` or `"Running"`
+      and have a `deletionTimestamp`). This field is Beta-level.
+      The Job controller populates the field when the feature gate `JobPodReplacementPolicy`
+      is enabled (disabled by default).
+    x-kab-description-zh: |
+      处于正被终止状态的 Pod（阶段为 `"Pending"` 或 `"Running"` 且设置了 `deletionTimestamp`）
+      的个数。此字段为 Beta 阶段。
+      当 `JobPodReplacementPolicy` 特性门控被启用时（默认启用），Job 控制器会填充此字段。
+    format: int32
+    minimum: 0
+    type: integer
+  uncountedTerminatedPods:
+    $ref: '#/definitions/io.k8s.api.batch.v1.UncountedTerminatedPods'
+    description: |
+      This contains the UIDs of Pods that have terminated but the Job controller hasn't
+      yet accounted for in the status counters.
+      The Job controller creates Pods with a finalizer.
+      When a Pod terminates (`Succeeded` or `Failed`), the controller does three steps
+      to account for it in the Job status:
+      (1) Add the Pod UID to the arrays in this field.
+      (2) Remove the Pod finalizer.
+      (3) Remove the Pod UID from the arrays while increasing the corresponding counter.
+      Old Jobs might not be tracked using this field, in which case the field remains null.
+    x-kab-description-zh: |
+      此字段包含已经被终止的 Pod 的 UID。Job 控制器尚未将这些 Pod 记入其状态计数器中。
+      Job 控制器在创建 Pod 时会为其设置终结器（Finalizer）信息。
+      Pod 终止时（`Succeeded` 或 `Failed`），控制器会执行以下三个步骤来将其计入 Job 状态：
+
+      1. 将 Pod 的 UID 添加到此字段的数组值中；
+      1. 去掉 Pod 上的终结器；
+      1. 从此字段的数组中去除 Pod UID，同时将其对应的计数器加一。
+
+      较老的 Job 可能不使用这一字段来实现状态跟踪，这些 Job 上的此字段会一直为 null 值。
+
+type: object
+

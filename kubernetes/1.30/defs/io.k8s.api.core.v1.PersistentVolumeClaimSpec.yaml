@@ -1,0 +1,186 @@
+description: The common attributes and the provider-specific attributes of storage devices.
+x-kab-description-zh: 存储设备的公共属性及其特定于供应者的属性。
+properties:
+  accessModes:
+    description: |
+      The desired access modes of the volume.
+
+      - `"ReadOnlyMany"`: can be mounted in read-only mode to many hosts;
+      - `"ReadWriteMany"`: can be mounted in read/write mode to many hosts;
+      - `"ReadWriteOnce"`: can be mounted in read/write mode to exactly 1 host;
+      - `"ReadWriteOncePod"`: can be mounted in read/write mode to exactly 1 pod,
+        cannot be used in combination with other access modes.
+    x-kab-description-zh: |
+      数据卷预期的访问模型。
+
+      - `"ReadOnlyMany"`：可以被多个主机以只读模式挂载；
+      - `"ReadWriteMany"`：可以被多个主机以读写模式挂载；
+      - `"ReadWriteOnce"`：只能被一个主机以读写模式挂载；
+      - `"ReadWriteOncePod"`：只能被一个 Pod 以读写模式挂载，不能与其他模式组合使用。
+    items:
+      enum:
+        - ReadOnlyMany
+        - ReadWriteMany
+        - ReadWriteOnce
+        - ReadWriteOncePod
+      type: string
+    minItems: 1
+    type: array
+  dataSource:
+    $ref: '#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference'
+    description: |
+      This field can be used to specify either:
+
+      - An existing `VolumeSnapshot` object (`"snapshot.storage.k8s.io/VolumeSnapshot"`- beta)
+      - An existing PVC (`PersistentVolumeClaim`).
+
+      If the provisioner or an external controller can support the specified data source,
+      it will create a new volume based on the contents of the specified data source.
+      When the `AnyVolumeDataSource` feature gate is enabled, the `dataSource` contents
+      will be copied to `dataSourceRef`, and `dataSourceRef` contents will be copied to
+      `dataSource` when `dataSourceRef.namespace` is not specified.
+      If the namespace is specified, then `dataSourceRef` will not be copied to `dataSource`.
+
+    x-kab-description-zh: |
+      此字段可以用来设置：
+      - 一个现有的 `VolumeSnapshot` 对象
+        （`"snapshot.storage.k8s.io/VolumeSnapshot"`- Beta 阶段)；
+      - 一个现有的 PVC（`PersistentVolumeClaim`）。
+
+      如果制备者或者某个外部控制器可以支持所设定的数据源，
+      则会根据所设置的数据源中的内容创建新的数据卷。
+
+      当启用了`AnyVolumeDataSource` 特性门控时，`dataSource` 的内容会被复制到 `dataSourceRef`
+      中，而当 `dataSourceRef.namespace` 未设置时，`dataSourceRef` 的内容会被复制到
+      `dataSource` 中。
+      如果 `dataSourceRef.namespace` 被设置了，则 `dataSourceRef` 的内容不会被复制到
+      `dataSource` 中。
+  dataSourceRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference'
+    description: |
+      Specifies the object from which to populate the volume with data, if a non-empty volume
+      is desired. This may be any object from a non-empty API group (non core object) or
+      a PersistentVolumeClaim object.
+      When this field is specified, volume binding will only succeed if the type of the
+      specified object matches some installed volume populator or dynamic provisioner.
+      This field will replace the functionality of the `dataSource` field and as such
+      if both fields are non-empty, they must have the same value.
+      For backwards compatibility, when namespace isn't specified in `dataSourceRef`,
+      both fields (`dataSource` and `dataSourceRef`) will be set to the same value
+      automatically if one of them is empty and the other is non-empty.
+      When namespace is specified in `dataSourceRef`, `dataSource` isn't set to the same value
+      and must be empty.
+      There are three important differences between `dataSource` and `dataSourceRef`:
+
+      - While `dataSource` only allows two specific types of objects, `dataSourceRef`
+        allows any non-core object, as well as PersistentVolumeClaim objects.
+      - While `dataSource` ignores disallowed values (dropping them), `dataSourceRef`
+        preserves all values, and generates an error if a disallowed value is specified.
+      - While `dataSource` only allows local objects, `dataSourceRef` allows objects
+        in any namespaces.
+
+      (Beta) Using this field requires the `AnyVolumeDataSource` feature gate to
+      be enabled.
+      (Alpha) Using the namespace field of `dataSourceRef` requires the
+      `CrossNamespaceVolumeDataSource` feature gate to be enabled.
+
+    x-kab-description-zh: |
+      如果希望使用一个非空数据卷时，可使用此字段指定一个对象作为数据源，为数据卷填充数据。
+      此字段可以是非空 API 组（即非核心 API 组）的任意对象，也可以是一个 PersistentVolumeClaim
+      对象。
+      设置了此字段时，只有所指定的对象的类别与已安装的某种卷填充组件或动态制备组件匹配时，
+      卷绑定才会成功。此字段会替代 `dataSource` 字段的功能，因此，当此字段和 `dataSource`
+      都不为空时，二者的取值必须相同。出于向后兼容的目的，如果在 `dataSourceRef`
+      中未指定名字空间，那么如果 `dataSource` 和 `dataSourceRef` 这两个字段中一个设置了，
+      另一个为空，则系统会自动将二者设置为相同的值。
+      如果在 `dataSourceRef` 中设置了名字空间，则 `dataSource` 不会被设置为相同的值，必须为空。
+      `dataSource` 和 `dataSourceRef` 之间存在三点重要区别：
+
+      - `dataSource` 只能指定两种类别的对象，`dataSourceRef` 允许使用非核心组的对象，
+        也可以使用 PersistentVolumeClaim 对象；
+      - `dataSource` 会忽略非法的属性值（将其丢弃）`dataSourceRef` 则会保留所有值，
+        并在设置了非法属性值时报错；
+      - `dataSource` 只能使用当前名字空间中的对象，`dataSourceRef` 允许使用任何名字空间中的对象。
+
+      **Beta 特性**：使用此字段需要启用 `AnyVolumeDataSource` 特性门控。
+
+      **Alpha 特性**：使用 `dataSourceRef` 中的 `namespace` 字段要求启用特性门控
+      `CrossNamespaceVolumeDataSource`。
+
+  resources:
+    $ref: '#/definitions/io.k8s.api.core.v1.VolumeResourceRequirements'
+    description: |
+      The minimum resources the volume should have.
+      The `requests.storage` must be specified as a positive quantity value.
+      If the `RecoverVolumeExpansionFailure` feature is enabled users are allowed to
+      specify resource requirements that are lower than previous value but must still
+      be higher than capacity recorded in the status field of the claim.
+    x-kab-description-zh: |
+      卷所应具备的最低资源配置。`requests.storage` 必须设置为一个正数数量值。
+      如果启用了 `RecoverVolumeExpansionFailure` 特性门控，用户可以设置低于之前设置值的新值，
+      但所设置的值仍然必须高于 PVC 的 `status` 字段中记录的容量。
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: A label query over volumes to be considered for binding.
+    x-kab-description-zh: 在确定绑定关系时用来查询存储卷的一个选择算符。
+  storageClassName:
+    description: |
+      Name of the StorageClass required by the claim.
+      The name must be a valid DNS subdomain, if specified.
+    x-kab-description-zh: |
+      此 PVC 所要求的 StorageClass 名称。如果设置了，字段值必须是一个合法的 DNS 子域名。
+    type: string
+  volumeAttributesClassName:
+    description: |
+      This may be used to set the VolumeAttributesClass used by this claim.
+      This has a different purpose than `storageClassName`, it can be changed after the claim is created.
+      If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set
+      by the persistentvolume controller if it exists.
+
+      If specified, the CSI driver will create or update the volume with the attributes defined in
+      the corresponding VolumeAttributesClass.
+      An empty string value means that no VolumeAttributesClass will be applied to the claim.
+      If the resource referred to by `volumeAttributesClassName` does not exist, this PersistentVolumeClaim will
+      be set to a Pending state, as reflected by the `modifyVolumeStatus` field, until such as a resource exists.
+
+      This field is at Alpha stage. Using this field requires the `VolumeAttributesClass` feature gate to be enabled.
+      If the `VolumeAttributesClass` gate is not enabled, this field cannot be updated.
+      When updating this field, it's not allowed to update this field from a non-empty string to an empty string.
+      The field value must be a valid DNS subdomain name.
+
+      More info can be found at [official docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass).
+    x-kab-description-zh: |
+      此字段用来设置对应 PVC 所使用的 VolumeAttributesClass。
+      字段的用途与 `storageClassName` 不同；此字段可以在 PVC 已经被创建之后变更。
+      如果未指定此字段，并且 PersistentVolumeClaim 处于未绑定状态，则 PV 控制器会尝试设置默认的 VolumeAttributesClass（如果有的话）。
+
+      如果设置了此字段，则 CSI 驱动会根据对应的 VolumeAttributesClass 中定义的属性来创建或更新存储卷。
+      字段为空字符串意味着没有 VolumeAttributesClass 适用于当前的 PVC。
+      如果 `volumeAttributesClassName` 所引用的资源尚不存在，则 PVC 会被设置为 Pending 状态，反映在 `modifyVolumeStatus` 中，
+      直到对应的资源存在为止。
+
+      此字段处于 Alpha 阶段。使用此字段需要启用 `VolumeAttributesClass` 特性门控。
+      如果未启用 `VolumeAttributesClass` 特性门控，则此字段不可被更新。
+      更新此字段时，不允许将字段值从非空字符串改为空字符串。
+      字段值必须是合法的 DNS 子域名。
+
+      参阅[官方文档](https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass)，
+      可以了解进一步的信息。
+    type: string
+  volumeMode:
+    default: Filesystem
+    description: Type of volume required by the claim.
+    x-kab-description-zh: 此 PVC 所要求的卷的类型。
+    enum:
+      - Block
+      - Filesystem
+    type: string
+  volumeName:
+    description: The binding reference to the PersistentVolume backing this claim.
+    x-kab-description-zh: 对为此 PVC 提供存储的 PV 的绑定引用。
+    type: string
+required:
+  - accessModes
+  - resources
+type: object
+

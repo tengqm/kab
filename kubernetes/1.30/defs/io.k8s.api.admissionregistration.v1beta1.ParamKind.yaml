@@ -1,0 +1,33 @@
+description: ParamKind is a tuple of resource kind and API version.
+x-kab-description-zh: ParamKind 是由资源类别（kind）和 API 版本组成的元组。
+properties:
+  apiVersion:
+    description: |
+      `apiVersion` is the API group version the resources belong to.
+      In format of `"group/version"`.
+      The `group` part, if not empty, must be a valid DNS subdomain name.
+      The `version` part cannot be empty string and it must be a valid DNS label name.
+
+    x-kab-description-zh: |
+      资源所属的 API 组版本，格式为 `"group/version"`。
+      `group` 部分如果不为空，则必须是一个合法的 DNS 子域名。
+      `version` 部分不能是空字符串，且其取值必须是合法的 DNS 标签名称。
+
+    minLength: 1
+    type: string
+  kind:
+    description: |
+      `kind` is the API kind the resources belong to.
+      The string must be a valid DNS label name.
+
+    x-kab-description-zh: |
+      资源所属的 API 类别（kind）。此字符串值必须是合法的 DNS 标签名称。
+
+    minLength: 1
+    type: string
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-map-type: atomic
+

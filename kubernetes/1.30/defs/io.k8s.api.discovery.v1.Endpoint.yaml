@@ -1,0 +1,81 @@
+description: A logical backend implementing a Service.
+x-kab-description-zh: 实现某 Service 的逻辑后端。
+properties:
+  addresses:
+    description: |
+      Addresses of this endpoint. The contents of this field are interpreted according to
+      the corresponding EndpointSlice `addressType` field.
+      This allows for cases like dual-stack (IPv4 and IPv6) networking.
+      Consumers (e.g. `kube-proxy`) must handle different types of addresses in the context of
+      their own capabilities.
+      This must contain at least one address but no more than 100.
+      These are all assumed to be fungible and clients may choose to only use the first element.
+    x-kab-description-zh: |
+      此端点的地址。字段的内容会根据 EndpointSlice 的 `addressType` 来解释。
+      此字段可用于双协议栈（IPv4 和 IPv6）联网支持。
+      用户（例如，`kube-proxy`）必须根据其自身能力处理不同的地址类型。
+      此字段要包含至少一个地址，但不能超过 100 个。
+      所有地址都可视为可替代的，客户端可以选择只使用其中第一个元素。
+    items:
+      type: string
+    maxItems: 100
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+  conditions:
+    $ref: '#/definitions/io.k8s.api.discovery.v1.EndpointConditions'
+    description: Information about the current status of the Endpoint.
+    x-kab-description-zh: 关于 Endpoint 当前状态的信息。
+  deprecatedTopology:
+    additionalProperties:
+      type: string
+    description: |
+      This contains topology information part of the v1beta1 API.
+      **DEPRECATED**: This field will be removed when the v1beta1 API is removed
+      (no sooner than kubernetes v1.24).
+      While this field can hold values, it is not writable through the v1 API, and any attempts to
+      write to it will be silently ignored.
+      Topology information can be found in the zone and nodeName fields instead.
+    x-kab-description-zh: |
+      此字段保存 v1beta1 API 所定义的拓扑信息。
+      **已弃用**： 此字段会在 v1beta1 API 被移除后删掉（不早于 v1.24）。
+      尽管此字段可以存放数值，用户不能通过 v1 API 为其赋值，所有的写入操作都会被忽略。
+      关于拓扑的信息可以使用 `zone` 和 `nodeName` 字段。
+    type: object
+  hints:
+    $ref: '#/definitions/io.k8s.api.discovery.v1.EndpointHints'
+    description: Information associated with how an endpoint should be consumed.
+    x-kab-description-zh: 关于此端点应如何使用的信息。
+  hostname:
+    description: |
+      The hostname of this Endpoint.
+      This field may be used by consumers of endpoints to distinguish endpoints from each other
+      (e.g. in DNS names).
+      Multiple endpoints which use the same `hostname` should be considered fungible
+      (e.g.  multiple A values in DNS).
+      The value must be lowercase and a valid DNS label (RFC 1123) when specified.
+    x-kab-description-zh: |
+      此端点的主机名。此字段可能被端点的用户用来区分不同端点（例如，使用 DNS 名称）。
+      多个端点使用相同的 `hostname` 时，应该被视为彼此可替代的（例如，DNS 中的多个 A 值记录）。
+      此字段的设置值必须是小写字母字符串，并且是合法的 DNS 标签（RFC 1123）。
+    type: string
+  nodeName:
+    description: |
+      The name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
+      The name must be a valid DNS subdomain name when specified.
+    x-kab-description-zh: |
+      托管此端点的 Node 的名称。此字段可用来判断端点是否在节点本地。
+      所给的名称必须是合法的 DNS 子域名。
+    type: string
+  targetRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: A reference to a Kubernetes object that represents this endpoint.
+    x-kab-description-zh:  对代表此端点的 Kubernetes 对象的引用。
+  zone:
+    description: The name of the Zone this endpoint exists in.
+    x-kab-description-zh: 此端点所处的可用区名称。
+    type: string
+required:
+  - addresses
+type: object
+

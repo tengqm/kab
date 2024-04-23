@@ -1,0 +1,11 @@
+description: A running state of a Container.
+x-kab-description-zh: 容器的运行状态。
+properties:
+  startedAt:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Time at which the Container was last (re-)started.
+    x-kab-description-zh: 容器（重新）启动的时间。
+required:
+  - startedAt
+type: object
+

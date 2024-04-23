@@ -1,0 +1,14 @@
+description: The spec defines a min/max usage limit for resources that match a kind.
+x-kab-description-zh: 此规约定义与某类别匹配的所有资源的最小、最大用量限制。
+properties:
+  limits:
+    description: The list of LimitRangeItem that are enforced.
+    x-kab-description-zh: 要实施的 LimitRangeItem 列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.LimitRangeItem'
+    minItems: 1
+    type: array
+required:
+  - limits
+type: object
+

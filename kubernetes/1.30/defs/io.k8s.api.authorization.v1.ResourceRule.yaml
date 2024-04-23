@@ -1,0 +1,74 @@
+description: |
+  The list of actions the subject is allowed to perform on resources.
+  The list ordering isn't significant, may contain duplicates, and
+  possibly be incomplete.
+x-kab-description-zh: |
+  访问主体针对资源可以执行的操作的列表。
+  此列表中条目的顺序并不重要，并且可能包含重复表项。
+  列表可能不完整。
+properties:
+  apiGroups:
+    description: |
+      The name of the API group that contains the resources.
+      If multiple API groups are specified, any action requested against
+      one of the enumerated resources in any API group will be allowed.
+      `"*"` means all.
+    x-kab-description-zh: |
+      包含资源的 API 组的名称。当存在多个 API 组时，如果所列出的资源出现任一
+      API 组中，则意味着允许访问这些资源。`"*"` 表示所有 API 组。
+    items:
+      description: |
+        The name of the API group that contains the resources. `"*"` means all.
+      x-kab-description-zh: 包含资源的 API 组的名称。"*"` 表示所有 API 组。
+      type: string
+    type: array
+  resourceNames:
+    description: |
+      An optional list of names that the rule applies to.
+      An empty set means that everything is allowed.
+      `"*"` means all.
+    x-kab-description-zh: |
+      可选的列表值，其中每个元素是规则所适用的资源名称。
+      列表为空意味着所有资源都可以访问。
+      列表中存在 `"*"` 同样意味着所有资源都可访问。
+    items:
+      description: A name of the resource that the rule applies to. `"*"` means all.
+      x-kab-description-zh: 规则所适用的资源名称。`"*"` 同样意味着所有资源都可访问。
+      minLength: 1
+      type: string
+    type: array
+  resources:
+    description: |
+      A list of resources this rule applies to:
+      - `"*"` means all in the specified `apiGroups`.
+      - `"*/foo"` represents the subresource `"foo"` for all resources
+        in the specified `apiGroups`.
+    x-kab-description-zh: |
+      此规则所适用的资源类别列表，特殊通配符包括：
+      - `"*"` 意味着给定 `apiGroups` 范围的所有资源；
+      - `"*/foo"` 表示给定 `apiGroups` 范围内所有资源的 `"foo"` 子资源。
+    items:
+      description: A resource this rule applies to.
+      x-kab-description-zh: 规则所适用的资源。
+      minLength: 1
+      type: string
+    type: array
+  verbs:
+    description: |
+      A list of kubernetes resource API verbs, like: `"get"`, `"list"`,
+      `"watch"`, `"create"`, `"update"`, `"delete"`, `"proxy"`.
+      `"*"` means all.
+    x-kab-description-zh: |
+      此列表给出一组 Kubernetes 资源 API 动词，例如：`"get"`、`"list"`、
+      `"watch"`、`"create"`、`"update"`、`"delete"`、`"proxy"`。
+      `"*"` 表示所有动词。
+    items:
+      description: A resource API verb.
+      x-kab-description-zh: 一个资源 API 动词。
+      minLength: 1
+      type: string
+    type: array
+required:
+  - verbs
+type: object
+

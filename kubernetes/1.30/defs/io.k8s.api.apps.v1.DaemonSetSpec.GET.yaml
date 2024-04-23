@@ -1,0 +1,60 @@
+description: The specification of a DaemonSet.
+x-kab-description-zh: DaemonSet 的规约。
+properties:
+  minReadySeconds:
+    default: 0
+    description: |
+      The minimum number of seconds for which a newly created DaemonSet Pod should be ready
+      without any of its container crashing, for it to be considered available.
+      Default value 0 means the Pods will be considered available as soon as it is ready.
+    x-kab-description-zh: |
+      新创建的 DaemonSet Pod 需要进入就绪状态、没有容器崩溃，并持续给定的秒数之后，才会被认为可用。
+      默认值 0 意味着 Pod 一旦进入就绪状态之后立即被视为可用。
+    format: int32
+    minimum: 0
+    type: integer
+  revisionHistoryLimit:
+    default: 10
+    description: |
+      The number of old history to retain to allow rollback.
+      This is a pointer to distinguish between explicit zero and not specified.
+    x-kab-description-zh: |
+      出于回滚需要，应为此 DeamonSet 保留的历史记录个数。
+      实现上，这一字段是一个指针，用来区别设置与否和数值是否为零的情况。
+    format: int32
+    minimum: 0
+    type: integer
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      A label query over Pods that are managed by the DaemonSet.
+      Must match in order to be controlled. It must match the Pod template's labels.
+    x-kab-description-zh: |
+      一个标签查询算子，用来确定要由此 DaemonSet 来管理的 Pod 集合。
+      Pod 的标签必须与此算符匹配才会被管理。这里设置的值还必须与 Pod 模板中给出的 `labels` 一致。
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET'
+    description: |
+      An object that describes the Pod that will be created.
+      The DaemonSet will create exactly one copy of this Pod on every node that matches the template's
+      node selector (or on every node if no node selector is specified).
+      The only allowed `template.spec.restartPolicy` value is `"Always"`.
+    x-kab-description-zh: |
+      一个用来描述要被创建的 Pod 的对象。在每个与模板中节点选择算符匹配的节点上，
+      DaemonSet 都会创建此 Pod 的一个副本。
+      模板中未设置节点选择算符时，DaemonSet 会在每个节点上创建一个 Pod 副本。
+      注意 `template.spec.restartPolicy` 的取值只能是 `"Always"`。
+  updateStrategy:
+    $ref: '#/definitions/io.k8s.api.apps.v1.DaemonSetUpdateStrategy'
+    description: |
+      An update strategy to replace existing DaemonSet Pods with new Pods.
+    x-kab-description-zh: |
+      用新 Pod 替换现有的 DaemonSet Pod 时使用的更新策略。
+required:
+  - minReadySeconds
+  - revisionHistoryLimit
+  - selector
+  - template
+  - updateStrategy
+type: object
+

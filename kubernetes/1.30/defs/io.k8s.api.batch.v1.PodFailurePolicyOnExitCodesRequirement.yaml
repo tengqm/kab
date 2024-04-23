@@ -1,0 +1,78 @@
+description: |
+  PodFailurePolicyOnExitCodesRequirement describes the requirement for
+  handling a failed Pod based on its container exit codes.
+  In particular, it lookups the `.state.terminated.exitCode` for each app container
+  and init container status, represented by the `.status.containerStatuses` and
+  `.status.initContainerStatuses` fields in the Pod status, respectively.
+  Containers completed with success (exit code 0) are excluded from the requirement check.
+x-kab-description-zh: |
+  PodFailurePolicyOnExitCodesRequirement 如何描述基于 Pod 中容器的退出代码来决定处理 Pod
+  失败状况的方式。
+  这里设置的条件会检查每个应用容器和 Init 容器的 `.state.terminated.exitCode` 信息。
+  对应的信息在 Pod 状态中分别呈现为 `.status.containerStatuses` and
+  `.status.initContainerStatuses` 字段。
+  执行需求检查时会忽略成功完成（退出码为 0）的容器。
+properties:
+  containerName:
+    description: |
+      Restricts the check for exit codes to the container with the specified name.
+      When null, the rule applies to all containers.
+      When specified, it should match one of the container or initContainer names
+      in the Pod template.
+    x-kab-description-zh: |
+      限制仅对名字匹配的容器执行退出码检查。此字段为 null 时，检查所有容器。
+      设置此字段时，字段值应该与 Pod 模板中的容器或者初始化容器的名字匹配。
+    type: string
+  operator:
+    description: |
+      Represents the relationship between the container exit code(s) and the specified values.
+      Containers completed with success (exit code 0) are excluded from the requirement check.
+      Possible values are:
+      - `"In"`: the requirement is satisfied if at least one container exit code
+        (might be multiple if there are multiple containers not restricted by the
+        `containerName` field) is in the set of specified values.
+      - `"NotIn"`: the requirement is satisfied if at least one container exit code
+        (might be multiple if there are multiple containers not restricted by the
+        `containerName` field) is not in the set of specified values.
+
+      Additional values are considered to be added in the future.
+      Clients should react to an unknown operator by assuming the requirement is not satisfied.
+    x-kab-description-zh: |
+      此字段所包含的是容器退出码与特定数值之间的关系。
+      执行需求检查时会忽略成功完成（退出码为 0）的容器。
+      可选择值包括：
+      - `"In"`：只要有一个容器的退出码位于所给的值集中则认为需求被满足。
+        如果存在多个容器，且不存在 `containerName` 约束，则会有多个容器退出码。
+      - `"NotIn"`：至少有一个容器的退出码不在所给的值集中，则认为需求被满足。
+        如果存在多个容器，且不存在 `containerName` 约束，则会有多个容器退出码。
+
+      在将来的版本中，可能会添加新的取值。
+      客户端如果遇到无法识别的操作符，应该认为需求不满足。
+    enum:
+      - NotIn
+      - In
+    type: string
+  values:
+    description: |
+      Specifies the set of values. Each returned container exit code
+      (might be multiple in case of multiple containers) is checked against this set of values
+      with respect to the `operator`.
+      The list of values must be ordered and must not contain duplicates.
+      Value '0' cannot be used for the `In` operator.
+    x-kab-description-zh: |
+      此字段给出用于需求判断的值集。针对每个容器的退出码（如果有多个容器则退出码也不止一个），
+      控制器会结合 `operator` 的设置使用此值集来完成检查。
+      此列表中的数值必须是有序的，并且不可以包含重复条目。
+      对于 `"In"` 操作符而言，值集中不可以包含 `0`。
+    items:
+      format: int32
+      type: integer
+    maxItems: 255
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+required:
+  - operator
+  - values
+type: object
+

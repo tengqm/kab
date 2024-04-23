@@ -1,0 +1,36 @@
+description: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation.
+x-kab-description-zh: ModifyVolumeStatus 代表的是 ControllerModifyVolume 操作的状态对象。
+properties:
+  status:
+    description: |
+      `status` is the status of the ControllerModifyVolume operation. It can be in any of following states:
+
+      - `"Pending"`: The PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+        the specified VolumeAttributesClass not existing.
+      - `"InProgress"`: The volume is being modified.
+      - `"Infeasible"`: The request has been rejected as invalid by the CSI driver. To resolve the error,
+        a valid VolumeAttributesClass needs to be specified.
+
+      **Note**: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+    x-kab-description-zh: |
+      `status` 是 ControllerModifyVolume 操作的状态。其取值可以是以下值之一：
+
+      - `"Pending"`：PersistentVolumeClaim 对象因为需求未被满足而无法并修改，需求未满足的例子之一是所指定的
+        VolumeAttributesClass 对象尚不存在。
+      - `"InProgress"`：卷变更正在进行中。
+      - `"Infeasible"`：请求因为非法已经被 CSI 驱动拒绝。要解决这一问题，需要指定一个合法的 VolumeAttributesClass。
+
+      **注意**：将来可能会添加新的状态值。用户应该检查状态字段值无法识别的情况，并作出合适的响应。
+    enum:
+      - Infeasible
+      - InProgress
+      - Pending
+    type: string
+  targetVolumeAttributesClassName:
+    description: targetVolumeAttributesClassName is the name of the VolumeAttributesClass
+      the PVC currently being reconciled
+    type: string
+required:
+  - status
+type: object
+
