@@ -1,0 +1,46 @@
+consumes:
+  - '*/*'
+description: create ResourceClassParameters
+x-kab-description: 创建 ResourceClassParameters
+operationId: createResourceV1alpha2NamespacedResourceClassParameters
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClassParameters'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+path: /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclassparameters
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClassParameters'
+  '201':
+    description: Created
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClassParameters'
+  '202':
+    description: Accepted
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClassParameters'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - resource_v1alpha2
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: resource.k8s.io
+  kind: ResourceClassParameters
+  version: v1alpha2
+
