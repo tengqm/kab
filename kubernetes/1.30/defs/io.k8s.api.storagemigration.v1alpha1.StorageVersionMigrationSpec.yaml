@@ -1,0 +1,21 @@
+description: Spec of the storage version migration.
+x-kab-description-zh: 存储版本迁移的规约。
+properties:
+  continueToken:
+    description: |
+      The token used in the list options to get the next chunk of objects to migrate.
+      When the `.status.conditions` indicates the migration is "Running", users can use this token to check the progress of the migration.
+    x-kab-description-zh: |
+      list 选项中所使用的令牌，用来读取要迁移的下一批次对象。
+      当 `.status.conditions` 表明迁移处于 "Running" 状态时，用户可以使用此令牌来检视迁移的进度。
+    type: string
+  resource:
+    $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.GroupVersionResource'
+    description: |
+      The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+    x-kab-description-zh: |
+      正在被迁移的资源。迁移组件将请求发送到提供此资源的端点。此字段不可被变更。
+required:
+  - resource
+type: object
+
