@@ -1,0 +1,14 @@
+description: NamedResourcesResources is used in ResourceModel.
+x-kab-description: NamedResourcesResources 在资源模型中使用。
+properties:
+  instances:
+    description: The list of all individual resources instances currently available.
+    x-kab-description-zh: 此字段列举当前可用的各个资源实例。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesInstance'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - instances
+type: object
+

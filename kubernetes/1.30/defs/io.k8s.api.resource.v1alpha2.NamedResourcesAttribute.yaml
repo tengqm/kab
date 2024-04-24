@@ -1,0 +1,40 @@
+description: NamedResourcesAttribute is a combination of an attribute name and its value.
+x-kab-description-zh: NamedResourcesAttribute 是属性名称与取值的组合。
+properties:
+  bool:
+    description: This is a true/false value.
+    x-kab-description-zh: 此字段取值为 true 或者 false。
+    type: boolean
+  int:
+    description: This is a 64-bit integer.
+    x-kab-description-zh: 此字段为一个 64 位整数值。
+    format: int64
+    type: integer
+  intSlice:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesIntSlice'
+    description: This is an array of 64-bit integers.
+    x-kab-description-zh: 此字段为一个 64 位整数所构成的数组。
+  name:
+    description: This is the unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+    x-kab-description-zh: 此字段为驱动在节点上所管理的所有资源实例之间的唯一标识。字段值必须是合法的 DNS 子域名。
+    type: string
+  quantity:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: This is a quantity.
+    x-kab-description-zh: 此字段为一个量纲值。
+  string:
+    description: This is a string.
+    x-kab-description: 此字段为一个字符串值。
+    type: string
+  stringSlice:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesStringSlice'
+    description: This is an array of strings.
+    x-kab-description-zh: 此字段为字符串数组。
+  version:
+    description: This is a semantic version according to semver.org spec 2.0.0.
+    x-kab-description-zh: 此字段为符合 semver.org 2.0.0 规范的版本号字符串。
+    type: string
+required:
+  - name
+type: object
+

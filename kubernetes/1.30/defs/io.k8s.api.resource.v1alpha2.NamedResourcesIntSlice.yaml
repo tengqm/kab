@@ -1,0 +1,15 @@
+description: NamedResourcesIntSlice contains a slice of 64-bit integers.
+x-kab-description-zh: NamedResourcesIntSlice 包含一个由 64 位整数组成的数组。
+properties:
+  ints:
+    description: A slice of 64-bit integers.
+    x-kab-description-zh: 由 64 位整数所构成的一个序列。
+    items:
+      format: int64
+      type: integer
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - ints
+type: object
+

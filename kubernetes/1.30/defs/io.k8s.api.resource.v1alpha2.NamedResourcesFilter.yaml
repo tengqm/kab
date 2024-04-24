@@ -1,0 +1,30 @@
+description: NamedResourcesFilter is used in ResourceFilterModel.
+x-kab-description-zh: NamedResourcesFilter 用于 ResourceFilterModel 中。
+properties:
+  selector:
+    description: |
+      This is a CEL expression which must evaluate to true if a resource instance is suitable.
+      The language is as defined in https://kubernetes.io/docs/reference/using-api/cel/.
+      In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of
+      the instance under evaluation. For example:
+
+      ```
+      attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+         attributes.stringslice["b"].isSorted()
+      ```
+    x-kab-description: |
+      此字段是一个 CEL 表达式，当资源实例合适时，此表达式的取值必须为 true。
+      所使用的表达式按[官方文档](https://kubernetes.io/docs/reference/using-api/cel/)定义。
+      此外，对于属性值中的每个 `namedResources` 类型，都存在一个可以解析为对应实例取值的映射。
+      例如：
+
+      ```
+      attributes.quantity["a"].isGreaterThan(quantity("0")) &&
+         attributes.stringslice["b"].isSorted()
+      ```
+    minLength: 1
+    type: string
+required:
+  - selector
+type: object
+

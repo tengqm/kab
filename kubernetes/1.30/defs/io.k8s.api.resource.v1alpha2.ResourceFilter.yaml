@@ -1,0 +1,23 @@
+description: ResourceFilter is a filter for resources from one particular driver.
+x-kab-description-zh: ResourceFilter 是针对某特定驱动的资源过滤器。
+properties:
+  driverName:
+    description: The name used by the DRA driver kubelet plugin. The name must be a valid
+      DNS subdomain name. The name must be unique in the enclosing list.
+    x-kab-description-zh: DRA 驱动 kubelet 插件所使用的名称。所给名称必须是合法的 DNS 子域名。
+      在上层的列表中，此字段取值必须唯一。
+    maxLength: 63
+    minLength: 1
+    type: string
+  namedResources:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesFilter'
+    description: |
+      A resource filter using the named resources model.
+      For the same resource model, there could be exactly one `namedResources` entry.
+    x-kab-description-zh: |
+      使用所给名称资源模型时要执行的一个过滤器。
+      对于同一个资源模型而言，只允许存在一个 `namedResources` 条目。
+required:
+  - driverName
+type: object
+

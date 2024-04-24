@@ -1,0 +1,13 @@
+description: VendorParameters are opaque parameters for one particular driver.
+x-kab-description-zh: 针对某特定驱动的不透明参数。
+properties:
+  driverName:
+    description: DriverName is the name used by the DRA driver kubelet plugin.
+    x-kab-description-zh: DRA 驱动 kubelet 插件所使用的名称。
+    type: string
+  parameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
+    x-kab-description-zh: 此字段包含任意配置参数。在分配申领时会被忽略。
+type: object
+

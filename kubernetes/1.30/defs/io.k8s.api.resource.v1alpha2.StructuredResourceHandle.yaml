@@ -1,0 +1,26 @@
+description: StructuredResourceHandle is the in-tree representation of the allocation result.
+x-kab-description-zh: StructuredResourceHandle 是资源分配结果的表示。
+properties:
+  nodeName:
+    description: NodeName is the name of the node providing the necessary resources if the resources are local to a node.
+    x-kab-description-zh: 对于节点本地资源而言，此字段为提供必要资源的节点的名称。
+    type: string
+  results:
+    description: This lists all allocated driver resources.
+    x-kab-description-zh: 此字段雷剧所有已分配驱动资源。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.DriverAllocationResult'
+    type: array
+    x-kubernetes-list-type: atomic
+  vendorClaimParameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: The per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
+    x-kab-description-zh: 此字段包含申领被分配时，基于资源申领参数构造的配置参数，配置数据按不同申领组织。
+  vendorClassParameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: The per-claim configuration parameters from the resource class at the time that the claim was allocated.
+    x-kab-description-zh: 此字段包含申领被分配时，基于资源类构造的配置参数，配置数据按不同申领组织。
+required:
+  - results
+type: object
+

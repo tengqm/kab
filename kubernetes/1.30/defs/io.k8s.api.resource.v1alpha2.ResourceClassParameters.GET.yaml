@@ -1,0 +1,58 @@
+description: ResourceClassParameters defines resource requests for a ResourceClass
+  in an in-tree format understood by Kubernetes.
+x-kab-description-zh: ResourceClassParameters 以内联的形式为 ResourceClass 的资源请求，
+  所给的形式是 Kubernetes 能够理解的。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha2
+    type: string
+  filters:
+    description: Additional contraints that must be met when using the class.
+    x-kab-description-zh: 使用此资源类时需要满足的一些额外约束。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceFilter'
+    type: array
+    x-kubernetes-list-type: atomic
+  generatedFrom:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClassParametersReference'
+    description: |
+      If this object was created from some other resource, then this links back to that resource.
+      This field is used to find the in-tree representation of the class parameters when
+      the parameter reference of the class refers to some unknown type.
+    x-kab-description-zh: |
+      如果此对象经由其他资源创建，则 `generatedFrom` 字段会链接到对应的资源。
+      当资源类的参数引用指向某未知类型时，可以使用此字段来寻找对应的类参数的树内表示形式。
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceClassParameters
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  vendorParameters:
+    description: This includes arbitrary setup parameters for all claims using this class.
+      They are ignored while allocating the claim. There must not be more than one entry per driver.
+    x-kab-description-zh: |
+      此字段向使用此资源类的所有资源申领提供形式不确定的参数。
+      在分配资源申领时，此字段会被忽略。每个资源驱动所对应的表项至多为一个。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.VendorParameters'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceClassParameters
+    version: v1alpha2
+

@@ -1,0 +1,33 @@
+description: ResourceSlice provides information about available resources on individual nodes.
+x-kab-description-zh: ResourceSlice 提供各个节点上可用的资源的信息。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha2
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceSlice
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  namedResources:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesResources'
+    description: This describes available resources using the named resources model.
+    x-kab-description-zh: 此字段描述给定资源模型下可用的资源。每个资源模型下只能包含一套参数。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceSlice
+    version: v1alpha2
+

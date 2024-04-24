@@ -1,0 +1,13 @@
+description: DriverAllocationResult contains vendor parameters and the allocation result for one request.
+x-kab-description-zh: DriverAllocationResult 包含供应商参数以及资源请求的分配结果。
+properties:
+  namedResources:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesAllocationResult'
+    description: The allocation result when using the named resources model.
+    x-kab-description-zh: 使用给定资源模型时对应的分配结果。
+  vendorRequestParameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: The per-request configuration parameters from the time that the claim was allocated.
+    x-kab-description-zh: 申领被分配时的配置参数，按请求组织。
+type: object
+

@@ -1,0 +1,25 @@
+description: NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
+x-kab-description-zh: NamedResourcesInstance 代表的是可以基于属性来完成选择的各个硬件实例。
+properties:
+  attributes:
+    description: |
+      This defines the attributes of this resource instance.
+      The name of each attribute must be unique.
+    x-kab-description-zh: |
+      此字段定义此资源实例的属性。每个属性的名称必须是唯一的。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesAttribute'
+    type: array
+    x-kubernetes-list-type: atomic
+  name:
+    description: |
+      The unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
+    x-kab-description-zh: |
+      对于节点上指定驱动所管理的所有资源实例，可以使用此字段值作为各个实例的标识符。
+      字段值必须是合法的 DNS 子域名。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+

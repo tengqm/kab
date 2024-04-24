@@ -1,0 +1,15 @@
+description: ResourceRequest is a request for resources from one particular driver.
+x-kab-description-zh: ResourceRequest 是对某特定驱动所提供的资源的请求。
+properties:
+  namedResources:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesRequest'
+    description: This describes a request for resources with the named resources model.
+    x-kab-description-zh: 此字段描述对通过名字所引用的资源模型的资源的请求。
+  vendorParameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: |
+      This contains arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
+    x-kab-description-zh: |
+      此字段包含针对所请求资源的任意安装参数。在分配申领时，这些信息会被忽略。
+type: object
+

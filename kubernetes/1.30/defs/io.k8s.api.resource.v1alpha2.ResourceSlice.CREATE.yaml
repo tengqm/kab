@@ -1,0 +1,53 @@
+description: ResourceSlice provides information about available resources on individual nodes.
+x-kab-description-zh: ResourceSlice 提供各个节点上可用的资源的信息。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha2
+    type: string
+  driverName:
+    description: |
+      This field identifies the DRA driver providing the capacity information.
+      A field selector can be used to list only ResourceSlice objects with a certain driver name.
+    x-kab-description-zh: |
+      此字段用来辨识提供容量信息的 DRA 驱动。可以使用字段选择算符来列举给定驱动名称下的 ResourceSlice 对象。
+    maxLength: 63
+    minLength: 1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceSlice
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  namedResources:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.NamedResourcesResources'
+    description: This describes available resources using the named resources model.
+    x-kab-description-zh: 此字段描述给定资源模型下可用的资源。每个资源模型下只能包含一套参数。
+  nodeName:
+    description: |
+      The node which provides the resources if they are local to a node.
+      A field selector can be used to list only ResourceSlice objects with a certain node name.
+      The value, when provided, must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      对于节点本地的资源，此字段给出包含此资源的节点。
+      用户可以使用节点选择算符来过滤与指定节点名称相关联的 ResourceSlice 对象。
+      当设置了此字段时，其取值必须是合法的 DNS 子域名。
+    type: string
+required:
+  - apiVersion
+  - driverName
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceSlice
+    version: v1alpha2
+

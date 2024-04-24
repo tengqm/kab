@@ -1,0 +1,30 @@
+description: NamedResourcesRequest is used in ResourceRequestModel.
+x-kab-description-zh: NamedResourcesRequest 用在 ResourceRequestModel 中。
+properties:
+  selector:
+    description: |
+      This is a CEL expression which must evaluate to true if a resource instance is suitable.
+      The language is as defined in https://kubernetes.io/docs/reference/using-api/cel.
+      In addition, for each type NamedResourcesin AttributeValue there is a map that resolves to the corresponding value of
+      the instance under evaluation. For example:
+
+      ```
+      attributes.quantity["a"].isGreaterThan(quantity("0")) && \
+         attributes.stringslice["b"].isSorted()"
+      ```
+    x-kab-description-zh: |
+      此字段是一个 CEL 表达式，如果某资源实例合适，则此表达式求值结果必须为 true。
+      语言本身的定义可参考[官方文档](https://kubernetes.io/docs/reference/using-api/cel)。
+      此外，对于资源模型中的每个类别的属性集合，都存在一个映射可以解析为当前评估的资源对应的属性值。
+      例如： 
+
+      ```
+      attributes.quantity["a"].isGreaterThan(quantity("0")) && \
+         attributes.stringslice["b"].isSorted()"
+      ```
+    minLength: 1
+    type: string
+required:
+  - selector
+type: object
+

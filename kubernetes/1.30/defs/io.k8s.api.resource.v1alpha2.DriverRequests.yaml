@@ -1,0 +1,27 @@
+description: DriverRequests describes all resources that are needed from one particular driver.
+x-kab-description-zh: DriverRequests 描述针对特定驱动所需要的所有资源。
+properties:
+  driverName:
+    description: The name used by the DRA driver kubelet plugin. The name must be unique in the enclosing list.
+      The name must be a valid DNS subdomain name.
+    x-kab-description-zh: DRA 驱动 kubelet 插件所使用的名称。此字段名在上级列表中必须唯一。
+      字段值必须是合法的 DNS 子域名。
+    maxLength: 63
+    minLength: 1
+    type: string
+  requests:
+    description: This describes all resources that are needed from the driver.
+    x-kab-description-zh: 此字段描述针对指定驱动所需要的所有资源。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceRequest'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  vendorParameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: |
+      This includes arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
+    x-kab-description-zh: |
+      此字段包含申领的所有请求所对应的部署参数。在分配申领时此字段值会被忽略。
+type: object
+

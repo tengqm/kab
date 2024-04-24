@@ -1,0 +1,61 @@
+description: ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
+x-kab-description-zh: ResourceClaimParameters 用 Kubernetes 可以理解的一种内建形式为某个 ResourceClaim 定义资源请求。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha2
+    type: string
+  driverRequests:
+    description: |
+      This describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers.
+      For each driver, this array has at most one entry. That means the `driverName` of an entry must be unique in the list.
+      Each entry in the list may have one or more per-driver requests.
+
+      May be empty, in which case the claim can always be allocated.
+    x-kab-description-zh: |
+      此字段描述所分配的申领所需要的全部资源。同一个申领可以使用来自不同驱动的资源。
+      每个驱动至多在此列表中对应一个表项，即其中的 `driverName` 在列表中要唯一。
+      在该表项中可以包含一个或者多个与该驱动相关的请求。
+
+      此列表可以为空，意味着对应的申领总是可以被分配。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.DriverRequests'
+    type: array
+    x-kubernetes-list-type: atomic
+  generatedFrom:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceClaimParametersReference'
+    description: |
+      If this object was created from some other resource, then this links back to that resource.
+      This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to
+      some unknown type.
+    x-kab-description-zh: |
+      如果此对象被其他资源所创建，则 `generatedFrom` 字段给出指向这一资源的链接。
+      在申领的参数引用信息引用了未知类别时，可以用此字段来查找申领参数的内部表示形式。
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceClaimParameters
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  shareable:
+    description: |
+      This indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
+    x-kab-description-zh: |
+      此字段用来表明所分配的申领是否可以在同一时刻被多个用户共享。
+    type: boolean
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceClaimParameters
+    version: v1alpha2
+
