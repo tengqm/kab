@@ -8,7 +8,7 @@ parameters:
     name: body
     required: true
     schema:
-      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration'
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.CREATE'
   - $ref: '#/parameters/dryRun'
   - $ref: '#/parameters/fieldManager'
   - $ref: '#/parameters/fieldValidation'
@@ -21,15 +21,15 @@ responses:
   '200':
     description: OK
     schema:
-      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration'
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.GET'
   '201':
     description: Created
     schema:
-      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration'
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.GET'
   '202':
     description: Accepted
     schema:
-      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration'
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.GET'
   '401':
     description: Unauthorized
 schemes:

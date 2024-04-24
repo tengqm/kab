@@ -233,24 +233,23 @@ properties:
       `selector` 的设置值必须与 Pod 模板中定义的 `labels` 匹配。
 
       此字段不可更新。
-    successPolicy:
-      $ref: #/definitions/io.k8s.api.batch.v1.SuccessPolicy
-      description: |
-        successPolicy specifies the policy when the Job can be declared as succeeded.
-        If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions.
-        When the field is specified, it must be immutable and works only for the Indexed Jobs.
-        Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+  successPolicy:
+    $ref: '#/definitions/io.k8s.api.batch.v1.SuccessPolicy'
+    description: |
+      successPolicy specifies the policy when the Job can be declared as succeeded.
+      If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions.
+      When the field is specified, it must be immutable and works only for the Indexed Jobs.
+      Once the Job meets the SuccessPolicy, the lingering pods are terminated.
 
-        This field is Alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate.
+      This field is Alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate.
 
-      x-kab-description-zh: |
-        此字段设置何时可以宣称 Job 成功。
-        此字段为空时，系统的默认行为是在 Job 中成功的 Pod 个数等于其 `completions` 字段设置时宣称 Job 成功。
-        此字段一旦设置则不能变更，并且字段仅对带索引的 Job 起作用。
-        一旦 Job 满足了 SuccessPolicy 策略所规定的条件，则剩余的 Pod 都会被终止。
+    x-kab-description-zh: |
+      此字段设置何时可以宣称 Job 成功。
+      此字段为空时，系统的默认行为是在 Job 中成功的 Pod 个数等于其 `completions` 字段设置时宣称 Job 成功。
+      此字段一旦设置则不能变更，并且字段仅对带索引的 Job 起作用。
+      一旦 Job 满足了 SuccessPolicy 策略所规定的条件，则剩余的 Pod 都会被终止。
 
-        此字段处于 Alpha 状态。使用此字段需要启用 `JobSuccessPolicy` 特性门控。
-
+      此字段处于 Alpha 状态。使用此字段需要启用 `JobSuccessPolicy` 特性门控。
   suspend:
     default: false
     description: |

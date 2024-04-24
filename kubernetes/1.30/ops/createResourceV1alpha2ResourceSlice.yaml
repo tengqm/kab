@@ -8,7 +8,7 @@ parameters:
     name: body
     required: true
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice'
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice.CREATE'
   - $ref: '#/parameters/dryRun'
   - $ref: '#/parameters/fieldManager'
   - $ref: '#/parameters/fieldValidation'
@@ -21,15 +21,15 @@ responses:
   '200':
     description: OK
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice'
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice.GET'
   '201':
     description: Created
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice'
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice.GET'
   '202':
     description: Accepted
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice'
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha2.ResourceSlice.GET'
   '401':
     description: Unauthorized
 schemes:
