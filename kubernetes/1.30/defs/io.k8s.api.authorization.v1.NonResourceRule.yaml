@@ -15,6 +15,7 @@ properties:
       x-kab-description-zh: 一个不完整的 URL，用来代表用户应该有权访问的路径。 
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   verbs:
     description: |
       A list of HTTP API verbs, like: `"get"`, `"post"`, `"put"`, `"delete"`,
@@ -28,6 +29,7 @@ properties:
       x-kab-description-zh: 一个 HTTP API 动词。
       type: string
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - verbs
 type: object

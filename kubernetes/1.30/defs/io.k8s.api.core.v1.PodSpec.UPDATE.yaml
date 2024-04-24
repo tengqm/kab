@@ -1,6 +1,5 @@
 description: |
-  The new specification of a Pod. When updating a Pod, only some fields can
-  be changed.
+  The new specification of a Pod. When updating a Pod, only some fields can be changed.
 x-kab-description-zh: |
   Pod 的新规约。在更新 Pod 时，只有部分字段可以被更新。
 properties:
@@ -38,6 +37,9 @@ properties:
       $ref: '#/definitions/io.k8s.api.core.v1.Container'
     minItems: 1
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   initContainers:
@@ -52,6 +54,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Container'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   nodeSelector:
@@ -82,8 +87,6 @@ properties:
 
       `schedulingGates` can only be set at Pod creation time, and be removed only afterwards.
 
-      This is a Beta feature enabled by the PodSchedulingReadiness feature gate.
-
       Only deletions are allowed during a Pod update.
     x-kab-description-zh: |
       `schedulingGates` 是一个列表，其中的元素会阻止 Pod 被调度。
@@ -91,8 +94,6 @@ properties:
 
       `schedulingGates` 只能在 Pod 创建时设置，Pod 创建之后只能从中移除表项。
 
-      此字段处于 Beta 阶段，由特性门控 `PodSchedulingReadiness` 控制。
-  
       Pod 变更时只能移除已有的元素，不可添加新的元素。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodSchedulingGate'
@@ -135,5 +136,6 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Toleration'
     type: array
+    x-kubernetes-list-type: atomic 
 type: object
 

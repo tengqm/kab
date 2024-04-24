@@ -7,6 +7,12 @@ x-kab-description-zh: |
   某些字段也会出现在容器 `spec` 的 `securityContext` 字段中。
   容器层面的设置的优先级高于 Pod 层面设置的字段值。
 properties:
+  appArmorProfile:
+    $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
+    description: |
+      This is the AppArmor options to use by the containers in this Pod. Note that this field cannot be set when `.spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      字段值为此 Pod 中容器要使用的 AppArmor 选项。注意当 `.spec.os.name` 被设置为 `"windows"` 时不可设置此字段。
   fsGroup:
     description: |
       A special supplemental group that applies to all containers in a Pod.
@@ -131,6 +137,7 @@ properties:
       format: int64
       type: integer
     type: array
+    x-kubernetes-list-type: atomic
   sysctls:
     description: |
       A list of namespaced sysctls used for the Pod.
@@ -145,6 +152,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Sysctl'
     type: array
+    x-kubernetes-list-type: atomic
   windowsOptions:
     $ref: '#/definitions/io.k8s.api.core.v1.WindowsSecurityContextOptions'
     description: |

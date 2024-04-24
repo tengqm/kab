@@ -40,6 +40,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.authorization.v1.NonResourceRule'
     type: array
+    x-kubernetes-list-type: atomic
   resourceRules:
     description: |
       The list of actions the subject is allowed to perform on resources.
@@ -51,6 +52,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.authorization.v1.ResourceRule'
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - incomplete
   - nonResourceRules

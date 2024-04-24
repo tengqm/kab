@@ -31,5 +31,9 @@ properties:
       中的 `data` 数据。
       此字段的值可能与 ResourceHandle 所在的 ResourceClaimStatus 中的 `driverName` 不同。
     type: string
+  structuredData:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha2.StructuredResourceHandle'
+    description: If `structuredData` is set, then it needs to be used instead of `data`.
+    x-kab-description-zh: 如果设置了 `structuredData`，则应该使用该字段而不是 `data` 的内容。
 type: object
 

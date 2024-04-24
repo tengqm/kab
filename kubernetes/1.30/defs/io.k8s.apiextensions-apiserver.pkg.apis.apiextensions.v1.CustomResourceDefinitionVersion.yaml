@@ -11,6 +11,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition'
     type: array
+    x-kubernetes-list-type: atomic
   deprecated:
     default: false
     description: |
@@ -53,6 +54,16 @@ properties:
       The schema used for validation, pruning, and defaulting of this version of the custom resource.
     x-kab-description-zh: |
       针对此版本的自定义资源，用来执行合法性检查、属性裁剪和默认值设置的模式定义。
+  selectableFields:
+    description: |
+      `selectableFields` specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed.
+    x-kab-description-zh: |
+      `selectableFields` 设置的是一些字段的路径，这些路径可以用来作为字段选择符使用。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.SelectableField'
+    maxItems: 8
+    type: array
+    x-kubernetes-list-type": atomic
   served:
     description: A flag enabling/disabling this version to be served via REST APIs.
     x-kab-description-zh: 布尔值字段，用来允许或者禁止通过 REST API 来提供此版本的资源。

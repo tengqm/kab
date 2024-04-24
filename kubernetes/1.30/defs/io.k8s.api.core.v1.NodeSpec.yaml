@@ -30,6 +30,7 @@ properties:
       type: string
     maxItems: 2
     type: array
+    x-kubernetes-list-type: set
     x-kubernetes-patch-strategy: merge
   providerID:
     description: |
@@ -50,6 +51,7 @@ properties:
       x-kab-description-zh: 节点的一个污点设置。
       $ref: '#/definitions/io.k8s.api.core.v1.Taint'
     type: array
+    x-kubernetes-list-type: atomic
   unschedulable:
     default: false
     description: |

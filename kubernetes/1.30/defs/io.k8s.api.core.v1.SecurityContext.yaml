@@ -21,6 +21,14 @@ properties:
       1) 容器中设置了 `securityContext.privileged` 为 `true`；
       2) 容器在其 `securityContext.capabilities.add` 中包含了 `CAP_SYS_ADMIN`。
       如果 `privileged` 被设置为 `true`，则此字段不可设置为 `false`。
+    appArmorProfile:
+      $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
+      description: |
+        `appArmorProfile` is the AppArmor options to use by this container. If set, this profile overrides the pod's `appArmorProfile`.
+        Note that this field cannot be set when `.spec.os.name` is `"windows"`.
+      x-kab-description-zh: |
+        `appArmorProfile` 是容器要使用的 AppArmor 选项。如果设置了此选项，则所给的配置会覆盖 Pod 的 `appArmorProfile` 设置。
+        注意，此字段在 `.spec.os.name` 值为 `"windows"` 时不可以设置。
   capabilities:
     $ref: '#/definitions/io.k8s.api.core.v1.Capabilities'
     description: |

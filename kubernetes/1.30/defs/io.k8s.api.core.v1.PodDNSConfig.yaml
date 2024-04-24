@@ -19,6 +19,7 @@ properties:
       type: string
     maxItems: 3
     type: array
+    x-kubernetes-list-type: atomic
   options:
     description: |
       A list of DNS resolver options.
@@ -33,6 +34,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodDNSConfigOption'
     type: array
+    x-kubernetes-list-type: atomic
   searches:
     description: |
       A list of DNS search domains for hostname lookup.
@@ -52,5 +54,6 @@ properties:
       type: string
     maxItems: 6
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 

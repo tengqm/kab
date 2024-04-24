@@ -28,6 +28,7 @@ properties:
       x-kab-description-zh: 要测试的用户组之一。
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   nonResourceAttributes:
     $ref: '#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes'
     description: Information for a non-resource access request.

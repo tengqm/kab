@@ -10,12 +10,14 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement'
     type: array
+    x-kubernetes-list-type: atomic
   matchFields:
     description: A list of Node selector based on Node's fields.
     x-kab-description-zh: 基于 Node 字段的一组 Node 选择算符。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorRequirement'
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 x-kubernetes-map-type: atomic
 

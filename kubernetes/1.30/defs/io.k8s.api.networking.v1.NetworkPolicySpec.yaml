@@ -22,6 +22,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyEgressRule'
     type: array
+    x-kubernetes-list-type: atomic
   ingress:
     description: |
       List of ingress rules to be applied to the selected Pods.
@@ -40,6 +41,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyIngressRule'
     type: array
+    x-kubernetes-list-type: atomic
   podSelector:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
     description: |
@@ -84,6 +86,7 @@ properties:
         - Ingress
       type: string
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - podSelector
 type: object

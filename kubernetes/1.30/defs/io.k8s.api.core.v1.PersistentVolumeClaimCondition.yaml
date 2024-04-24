@@ -16,11 +16,11 @@ properties:
   reason:
     description: |
       Unique, this should be a short, machine understandable string that gives the reason
-      for condition's last transition. If it reports `"ResizeStarted"` that means
+      for condition's last transition. If it reports `"Resizing"` that means
       the underlying persistent volume is being resized.
     x-kab-description-zh: |
       上次状况转换的原因，通常是唯一性的、简短的、机器可理解的字符串。 
-      如果所报告的 `reason` 是 `"ResizeStarted"`，则意味着下层的持久卷正给被重设大小。
+      如果所报告的 `reason` 是 `"Resizing"`，则意味着下层的持久卷正给被重设大小。
     type: string
   status:
     description: The status of the condition.

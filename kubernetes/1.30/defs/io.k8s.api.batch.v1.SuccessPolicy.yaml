@@ -1,0 +1,25 @@
+description: SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
+x-kab-description-zh: SuccessPolicy 描述 Job 何时可以基于某些索引的成功来宣称整个 Job 成功。
+properties:
+  rules:
+    description: |
+      This represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`.
+      Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed.
+      The terminal state for such a Job has the "Complete" condition.
+      Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored.
+      At most 20 elements are allowed.
+    x-kab-description-zh: |
+      此字段给出一个列表，其中每个条目是一条规则。各个规则均描述在 `.status.succeeded >= .spec.completions` 之前是否以及如何宣称 Job 成功。
+      只要列表中某一条或者多条规则被满足，则 `"SucceededCriteriaMet"` 状况就会被添加到 Job 上，而尚未终止的 Pod 都会被删除。
+      这类 Job 的终止状态中会包含 `"Completed"` 状况。
+      此外，系统会按顺序对这些规则进行评估，只要其中一条规则被满足，则其他规则会被忽略掉。
+      列表最多包含 20 个元素（规则）。
+    items:
+      $ref: '#/definitions/io.k8s.api.batch.v1.SuccessPolicyRule'
+    maxItems: 20
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - rules
+type: object
+

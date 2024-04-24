@@ -20,6 +20,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.WeightedPodAffinityTerm'
     type: array
+    x-kubernetes-list-type: atomic
   requiredDuringSchedulingIgnoredDuringExecution:
     description: |
       If the affinity requirements specified by this field are not met at scheduling time,
@@ -37,5 +38,6 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodAffinityTerm'
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 

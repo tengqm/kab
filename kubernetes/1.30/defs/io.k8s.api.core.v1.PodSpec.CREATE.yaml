@@ -28,14 +28,19 @@ properties:
     description: |
       List of containers in the Pod. Containers currently cannot be added or removed.
       There must be at least one container in a Pod.
-      Cannot be updated.
+      Cannot be updated, but the `image` field and the `resources` field can be changed.
+      When the Pod is resized in place, its QoS cannot be changed.
     x-kab-description-zh: |
       Pod 中容器的列表。目前不支持添加或者删除容器。每个 Pod 中至少包含一个容器。
-      此字段不可变更。
+      此字段不可变更，但是 `image` 和 `resources` 字段可以变更。
+      当 Pod 被就地重设大小时，其 QoS 类不可发生变化。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Container'
     minItems: 1
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   dnsConfig:
@@ -98,13 +103,14 @@ properties:
   hostAliases:
     description: |
       A list of hosts and IPs that will be injected into the Pod's `hosts` file.
-      This is only valid for non-`hostNetwork` Pods.
     x-kab-description-zh: |
       要注入到 Pod 中的 `hosts` 文件内的一组主机和 IP 地址。
-      此设置仅对于未 `hostNetwork` 为 `false` 的 Pod。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.HostAlias'
     type: array
+    x-kubernetes-list-map-keys:
+      - ip
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: ip
     x-kubernetes-patch-strategy: merge
   hostIPC:
@@ -167,6 +173,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   initContainers:
@@ -194,6 +203,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Container'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   nodeName:
@@ -219,6 +231,7 @@ properties:
       - `spec.hostPID`
       - `spec.hostIPC`
       - `spec.hostUser`
+      - `spec.securityContext.appArmorProfile`
       - `spec.securityContext.seLinuxOptions`
       - `spec.securityContext.seccompProfile`
       - `spec.securityContext.fsGroup`
@@ -228,6 +241,7 @@ properties:
       - `spec.securityContext.runAsUser`
       - `spec.securityContext.runAsGroup`
       - `spec.securityContext.supplementalGroups`
+      - `spec.containers[*].securityContext.appArmorProfile`
       - `spec.containers[*].securityContext.seLinuxOptions`
       - `spec.containers[*].securityContext.seccompProfile`
       - `spec.containers[*].securityContext.capabilities`
@@ -342,6 +356,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodReadinessGate'
     type: array
+    x-kubernetes-list-type: atomic
   resourceClaims:
     description: |
       The `resourceClaims` defines which ResourceClaims must be allocated and reserved before
@@ -409,15 +424,11 @@ properties:
       the scheduler will not attempt to schedule the pod.
 
       `schedulingGates` can only be set at Pod creation time, and be removed only afterwards.
-
-      This is a Beta feature enabled by the PodSchedulingReadiness feature gate.
     x-kab-description-zh: |
       `schedulingGates` 是一个列表，其中的元素会阻止 Pod 被调度。
       当 `schedulingGates` 不为空时，Pod 会一直处于 `"SchedulingGated"` 状态，调度器也不会尝试调度该 Pod。
 
       `schedulingGates` 只能在 Pod 创建时设置，Pod 创建之后只能从中移除表项。
-
-      此字段处于 Beta 阶段，由特性门控 `PodSchedulingReadiness` 控制。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodSchedulingGate'
     type: array
@@ -509,6 +520,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Toleration'
     type: array
+    x-kubernetes-list-type: atomic
   topologySpreadConstraints:
     description: |
       This describes how a group of Pods are to spread across topology domains.
@@ -534,6 +546,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Volume'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge,retainKeys
 required:

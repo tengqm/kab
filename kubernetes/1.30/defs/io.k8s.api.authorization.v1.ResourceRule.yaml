@@ -22,6 +22,7 @@ properties:
       x-kab-description-zh: 包含资源的 API 组的名称。"*"` 表示所有 API 组。
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   resourceNames:
     description: |
       An optional list of names that the rule applies to.
@@ -37,6 +38,7 @@ properties:
       minLength: 1
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   resources:
     description: |
       A list of resources this rule applies to:
@@ -53,6 +55,7 @@ properties:
       minLength: 1
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   verbs:
     description: |
       A list of kubernetes resource API verbs, like: `"get"`, `"list"`,
@@ -68,6 +71,7 @@ properties:
       minLength: 1
       type: string
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - verbs
 type: object

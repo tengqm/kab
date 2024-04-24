@@ -125,9 +125,6 @@ properties:
       because computed skew will be 3 (3 - 0) if a new Pod is scheduled to any of the three zones,
       it will violate `maxSkew`.
 
-      This is an Beta field and requires the `MinDomainsInPodTopologySpread` feature gate
-      to be enabled (enabled by default).
-
     x-kab-description-zh: |
       此字段用来给出候选拓扑域的最小数目。
       当带有匹配拓扑主键的候选域个数小于 `minDomains` 阈值时，Pod 拓扑分布机制将其视为**全局最小值**为
@@ -151,8 +148,6 @@ properties:
       候选拓扑域的个数小于 5（`minDomains`），所以**全局最小值**被视为 0。
       在这种情况下，新的匹配 `labelSelector` 的 Pod 无法被调度，因为 Pod 被调度到这三个可用区中任何一个，
       都会导致计算得到的偏差值为 3（3 - 0），因而违反了 `maxSkew` 所设置的约束。
-
-      此字段处于 Beta 阶段，需要启用`MinDomainsInPodTopologySpread` 特性门控才能使用。
     format: int32
     type: integer
   nodeAffinityPolicy:

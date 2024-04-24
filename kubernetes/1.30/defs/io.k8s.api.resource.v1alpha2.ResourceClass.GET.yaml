@@ -48,6 +48,12 @@ properties:
       此字段用来引用一个特别的、独立的对象，驱动程序分配使用此资源类 ResourceClaim 时，
       可以使用其中保存的参数数据。
       动态资源的驱动程序可以对所引用的对象中存放的参数与存放于 `ResourceClaimSpec` 中的参数进行区分。
+  structuredParameters:
+    description: |
+      If and only if allocation of claims using this class is handled via structured parameters, then `structuredParameters` must be set to true.
+    x-kab-description-zh: |
+      当且仅当此基于资源类来分配申领时是通过结构化参数来进行的，需要将此字段设置为 true。
+    type: boolean
   suitableNodes:
     $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
     description: |

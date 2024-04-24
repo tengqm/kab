@@ -46,6 +46,7 @@ properties:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ServerAddressByClientCIDR'
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
   versions:
     description: The versions supported in this API group.
     x-kab-description-zh: 此 API 组中支持的版本列表。
@@ -53,6 +54,7 @@ properties:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.GroupVersionForDiscovery'
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - apiVersion
   - kind

@@ -46,7 +46,9 @@ properties:
         depending on the Pod's security policy. This is the default behavior if no other policy
         is defined.
 
-      This field is immutable.
+      This field was immutable in Kubernetes < 1.29 and now is mutable.
+      With the default policy the defined fsGroup will only be applied if a fstype is defined and
+      the volume's access mode contains ReadWriteOnce.
     x-kab-description-zh: |
       此字段表明下层的存储卷是否支持在被挂载之前变更属主和访问权限。
 
@@ -62,7 +64,8 @@ properties:
         `fsGroup`。如果需要根据 Pod 的安全策略来决定是否要修改 `fsGroup` 设置，应该选择这种模式。
         如果没有定义其他策略，则这个选项是默认的行为。
 
-      此字段是不可变更的。
+      此字段在 v1.29 之前是不可变更的，从 v1.30 开始可以变更。如果使用了默认的策略，则只有设置了 `fstype`
+      并且卷的访问模式中包含 `ReadWriteOnce` 时，才会应用 `fsGroup` 设置。
     enum:
       - File
       - None
@@ -89,7 +92,7 @@ properties:
         for drivers which support both the `"Persistent"` and `"Ephemeral"` `volumeLifecycleMode`.
         Other drivers can leave Pod info disabled and/or ignore this field.
 
-      This field is immutable.
+      This field was immutable in Kubernetes < 1.29 and now is mutable.
     x-kab-description-zh: |
       此字段设置为 `true` 表示 CSI 卷驱动程序在执行 `mount` 操作时需要一些额外的 Pod 信息
       （`"podName"`、`"podUID"` 等）。 若设置为 `false`，则不会在 `mount` 操作时传递 Pod 信息。
@@ -107,7 +110,7 @@ properties:
         只有同时支持 `"Persistent"` 和 `"Ephemeral"` 两种 `volumeLifecycleMode` 的驱动才需要处理。 
         其他驱动可以禁止 Pod 信息，同时忽略此字段。
 
-      此字段是不可变更的。
+      此字段在 v1.29 之前是不可变更的，从 v1.30 开始支持变更。
     type: boolean
   requiresRepublish:
     description: |

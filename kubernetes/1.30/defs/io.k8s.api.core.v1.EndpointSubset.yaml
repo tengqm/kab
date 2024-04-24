@@ -69,6 +69,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EndpointAddress'
     type: array
+    x-kubernetes-list-type: atomic
   notReadyAddresses:
     description: |
       IP addresses which offer the related ports but are not currently marked as ready because
@@ -80,11 +81,13 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EndpointAddress'
     type: array
+    x-kubernetes-list-type: atomic
   ports:
     description: Port numbers available on the related IP addresses.
     x-kab-description-zh: 在相关的 IP 地址上可以访问的端口号。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EndpointPort'
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 

@@ -23,6 +23,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.NodeAddress'
     type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: type
     x-kubernetes-patch-strategy: merge
   allocatable:
@@ -46,6 +49,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.NodeCondition'
     type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: type
     x-kubernetes-patch-strategy: merge
   config:
@@ -68,6 +74,7 @@ properties:
       参数来设置。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.ContainerImage'
+    x-kubernetes-list-type: atomic
     type: array
   nodeInfo:
     $ref: '#/definitions/io.k8s.api.core.v1.NodeSystemInfo'
@@ -94,17 +101,26 @@ properties:
       - Running
       - Terminated
     type: string
+  runtimeHandlers:
+    description: The available runtime handlers.
+    x-kab-description-zh: 可用的运行时处理程序列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeRuntimeHandler'
+    type: array
+    x-kubernetes-list-type: atomic
   volumesAttached:
     description: List of volumes that are attached to the node.
     x-kab-description-zh: 挂接到节点上的卷的列表。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.AttachedVolume'
     type: array
+    x-kubernetes-list-type: atomic
   volumesInUse:
     description: List of attachable volumes in use (mounted) by the node.
     x-kab-description-zh: 节点上可挂接的、正在被使用（已被挂载）的卷的列表。
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 

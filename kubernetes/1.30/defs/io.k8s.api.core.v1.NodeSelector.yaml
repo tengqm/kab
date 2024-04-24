@@ -12,6 +12,7 @@ properties:
       $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorTerm'
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - nodeSelectorTerms
 type: object

@@ -19,6 +19,7 @@ properties:
     x-kab-description-zh: 要访问的 HTTP 服务器上的路径。
     minLength: 1
     type: string
+    x-kubernetes-list-type: atomic
   port:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
     description: |

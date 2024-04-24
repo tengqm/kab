@@ -27,10 +27,11 @@ properties:
     type: integer
   items:
     description: A list of downward API volume file (DownwardAPIVolumeFile) objects.
+    x-kab-description-zh: |
+      由 Downward API 卷文件（DownwardAPIVolumeFile）对象组成的列表。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeFile'
     type: array
-    x-kab-description-zh: |
-      由 Downward API 卷文件（DownwardAPIVolumeFile）对象组成的列表。
+    x-kubernetes-list-type: atomic
 type: object
 

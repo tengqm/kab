@@ -41,12 +41,14 @@ properties:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ServerAddressByClientCIDR'
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
   versions:
     description: 可用的 API 版本。
     items:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - apiVersion
   - kind

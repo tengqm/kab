@@ -26,6 +26,7 @@ properties:
         - ReadWriteOncePod
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   allocatedResourceStatuses:
     additionalProperties:
       type: string
@@ -160,13 +161,16 @@ properties:
     description: |
       Current condition of the PVC.
       If the underlying PV is being resized then the `condition` will be set to
-      `"ResizeStarted"`.
+      `"Resizing"`.
     x-kab-description-zh: |
       PVC 的当前状况。如果下层的 PV 卷正在被调整大小，则 `condition` 会被设置为
-      `"ResizeStarted"`。
+      `"Resizing"`。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimCondition'
     type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: type
     x-kubernetes-patch-strategy: merge
   currentVolumeAttributesClassName:

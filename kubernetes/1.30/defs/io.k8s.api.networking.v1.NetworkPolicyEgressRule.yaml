@@ -19,6 +19,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyPort'
     type: array
+    x-kubernetes-list-type: atomic
   to:
     description: |
       List of destinations for outgoing traffic of Pods selected for this rule.
@@ -35,5 +36,6 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyPeer'
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 

@@ -1,0 +1,42 @@
+description: |
+  SuccessPolicyRule describes rule for declaring a Job as succeeded.
+  Each rule must have at least one of the `succeededIndexes` or `succeededCount` specified.
+x-kab-description-zh: |
+  SuccessPolicyRule 描述用来宣布 Job 成功的规则。
+  每条规则至少要设置 `succeededIndexes` 或 `succeededCount` 之一。
+
+properties:
+  succeededCount:
+    description: |
+      The `succeededCount` specifies the minimal required size of the actual set of the succeeded indexes for the Job.
+      When `succeededCount` is used along with `succeededIndexes`, the check is constrained only to the set of indexes specified by `succeededIndexes`.
+      For example, given that `succeededIndexes` is "1-4", `succeededCount` is "3", and completed indexes are "1", "3", and "5",
+      the Job isn't declared as succeeded because only "1" and "3" indexes are considered in that rules.
+      When this field is null, this doesn't default to any value and is never evaluated at any time.
+    x-kab-description-zh: |
+      `succeededCount` 字段设置 Job 成功完成的索引个数的下限。
+      当 `succeededCount` 与 `succeededIndexes` 结合使用时，统计索引个数时仅统计 `succeededIndexes` 所指定的索引。
+      例如，当 `succeededIndexes` 取值为 `"1-4"` 而 `succeededCount` 为 3 时，如果已完成的索引为 1、3 和 5，
+      则 Job 不会被宣布为已成功，因为规则中只会考虑索引为 1 和 3 的情况。
+      如果此字段未设置，字段不会获得默认值，系统也不会就此作任何评估操作。
+    format: int32
+    minimal: 1
+    type: integer
+  succeededIndexes:
+    description: |
+      `succeededIndexes` specifies the set of indexes which need to be contained in the actual set of the succeeded indexes for the Job.
+      The list of indexes must be within 0 to ".spec.completions-1" and must not contain duplicates. At least one element is required.
+      The indexes are represented as intervals separated by commas.
+      The intervals can be a decimal integer or a pair of decimal integers separated by a hyphen.
+      The number are listed in represented by the first and last element of the series, separated by a hyphen.
+      For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+      When this field is null, this field doesn't default to any value and is never evaluated at any time.
+    x-kab-description-zh: |
+      `succeededIndexes` 给出 Job 被宣布成功时其已成功的索引中必须包含的索引列表。
+      索引的取值从 0 计数，最大为 `.spec.completions-1`，并且其中不可以包含重复数字。索引范围不能为空。
+      索引值的表示方法是字符串，内容为用逗号分割的整数段。每个整数段可以是一个十进制整数，也可以是用连字符连接的两个整数。
+      例如，如果完成的索引为 1、3、4、5 和 7，则可以表示为 `"1,3-5,7"`。
+      此字段为空（未设置）时，不会获得默认值设置，系统也不会就此规则作任何评估。
+    type: string
+type: object
+

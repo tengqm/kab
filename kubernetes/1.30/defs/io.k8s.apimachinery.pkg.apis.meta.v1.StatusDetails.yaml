@@ -21,6 +21,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.StatusCause'
     type: array
+    x-kubernetes-list-type: atomic
   group:
     description: The group attribute of the resource associated with the status `reason`.
     x-kab-description-zh: 与 Status 的 `reason` 相关联的资源的组属性。

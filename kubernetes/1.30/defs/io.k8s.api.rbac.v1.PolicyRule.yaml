@@ -23,6 +23,7 @@ properties:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
   nonResourceURLs:
     description: |
       A set of partial URLs that a user should have access to.
@@ -40,6 +41,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   resourceNames:
     description: |
       A list of resource names the rule applies to.
@@ -49,6 +51,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   resources:
     description: |
       A list of resources this rule applies to. `"*"` represents all resources.
@@ -60,6 +63,7 @@ properties:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
   verbs:
     description: |
       A list of verbs that apply to **ALL** the resource kinds contained in this rule.
@@ -71,6 +75,7 @@ properties:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
 required:
   - apiGroups
   - verbs

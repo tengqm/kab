@@ -11,6 +11,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodCondition'
     type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: type
     x-kubernetes-patch-strategy: merge
   containerStatuses:
@@ -19,12 +22,14 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
     type: array
+    x-kubernetes-list-type: atomic
   ephemeralContainerStatuses:
     description: Status for any ephemeral containers that have run in this Pod.
     x-kab-description-zh: 此列表中包含 Pod 中曾经运行的临时容器的状态。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
     type: array
+    x-kubernetes-list-type: atomic
   hostIP:
     description: |
       `hostIP` holds the IP address of the host to which the Pod is assigned.
@@ -66,6 +71,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
     type: array
+    x-kubernetes-list-type: atomic
   message:
     description: |
       A human readable message indicating details about why the Pod is in this condition.
@@ -154,6 +160,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodIP'
     type: array
+    x-kubernetes-list-map-keys:
+      - ip 
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: ip
     x-kubernetes-patch-strategy: merge
   qosClass:

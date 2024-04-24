@@ -21,6 +21,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyPeer'
     type: array
+    x-kubernetes-list-type: atomic
   ports:
     description: |
       List of ports which should be made accessible on the Pods selected by this rule.
@@ -35,5 +36,6 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.networking.v1.NetworkPolicyPort'
     type: array
+    x-kubernetes-list-type: atomic
 type: object
 

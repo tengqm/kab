@@ -1,0 +1,37 @@
+description: VolumeMountStatus shows status of volume mounts.
+x-kab-description-zh: VolumeMountStatus 显示卷挂载的状态。
+properties:
+  mountPath:
+    description: |
+      `mountPath` corresponds to the original VolumeMount.
+    x-kab-description-zh: |
+      `mountPath` 对应于原来的 VolumeMount 对象。
+    type: string
+  name:
+    description: |
+      `name` corresponds to the name of the original VolumeMount.
+    x-kab-description-zh: |
+      `name` 对应与原来的 VolumeMount 的名称。
+    type: string
+  readOnly:
+    description: |
+      `readOnly` corresponds to the original VolumeMount.
+    x-kab-description-zh: |
+      `readOnly` 对应于原来的 VolumeMount 挂载模式。
+    type: boolean
+  recursiveReadOnly:
+    description: |
+      `recursiveReadOnly` must be set to `"Disabled"`, `"Enabled"`, or unspecified (for non-readonly mounts).
+      An `"IfPossible"` value in the original VolumeMount must be translated to `"Disabled"` or `"Enabled"`, depending on the mount result.
+    x-kab-description-zh: |
+      `recursiveReadOnly` 必须被设置为 `"Disabled"`、`"Enabled"` 或者干脆不设置（用于非只读挂载）。
+      原来的 VolumeMount 中的 `"IfPossible"` 值必须被翻译为 `"Disabled"` 或者 `"Enabled"`，具体翻译情况取决于挂载结果。
+    enum:
+      - Disabled
+      - Enabled
+    type: string
+required:
+  - name
+  - mountPath
+type: object
+

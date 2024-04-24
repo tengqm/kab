@@ -102,6 +102,17 @@ properties:
     $ref: '#/definitions/io.k8s.api.core.v1.ContainerState'
     description: Details about the container's current condition.
     x-kab-description-zh: 容器当前状况的详细信息。
+  volumeMounts:
+      description: Status of volume mounts.
+      x-kab-description-zh: 卷挂载状态。
+      items:
+        $ref: #/definitions/io.k8s.api.core.v1.VolumeMountStatus
+      type: array
+      x-kubernetes-list-map-keys:
+        - mountPath
+      x-kubernetes-list-type: map,
+      x-kubernetes-patch-merge-key: mountPath
+      x-kubernetes-patch-strategy: merge
 required:
   - containerID
   - image

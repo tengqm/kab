@@ -9,6 +9,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   group:
     description: |
       The preferred group of the resource. Empty implies the group of the containing resource list.
@@ -37,6 +38,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   singularName:
     description: |
       The singular name of the resource. This allows clients to handle plural and singular opaquely.
@@ -72,6 +74,7 @@ properties:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
   version:
     description: |
       The preferred version of the resource. Empty implies the version of the containing resource list.

@@ -70,6 +70,7 @@ properties:
         也可以包含最多一个斜线（`'/'`），即带域名的限定名称。
       type: string
     type: array
+    x-kubernetes-list-type: set
     x-kubernetes-patch-strategy: merge
   generateName:
     description: |
@@ -139,6 +140,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry'
     type: array
+    x-kubernetes-list-type: atomic
   name:
     description: The name cannot be updated so the value (if provided) must match the current name.
     x-kab-description-zh: 对象名称不可变更，如果提供了此字段，必须与当前名称相同。
@@ -162,6 +164,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference'
     type: array
+    x-kubernetes-list-map-keys:
+      - uid
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: uid
     x-kubernetes-patch-strategy: merge
   uid:

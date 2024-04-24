@@ -22,6 +22,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   command:
     description: |
       Entrypoint array. The container image's `ENTRYPOINT` is used if this is not provided.
@@ -43,6 +44,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   env:
     description: |
       List of environment variables to set in the container. Cannot be updated.
@@ -51,6 +53,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EnvVar'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   envFrom:
@@ -74,6 +79,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EnvFromSource'
     type: array
+    x-kubernetes-list-type: map
   image:
     description: |
       Container image name. The special value `""` is reserved to allow higher level
@@ -326,6 +332,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.VolumeDevice'
     type: array
+    x-kubernetes-list-map-keys:
+      - devicePath
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: devicePath
     x-kubernetes-patch-strategy: merge
   volumeMounts:
@@ -334,6 +343,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.VolumeMount'
     type: array
+    x-kubernetes-list-map-keys:
+      - mountPath
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: mountPath
     x-kubernetes-patch-strategy: merge
   workingDir:

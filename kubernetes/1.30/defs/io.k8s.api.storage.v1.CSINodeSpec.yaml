@@ -13,6 +13,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.storage.v1.CSINodeDriver'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
 required:

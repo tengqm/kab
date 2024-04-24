@@ -44,6 +44,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.KeyToPath'
     type: array
+    x-kubernets-list-type: atomic
   name:
     description: Name of the referenced ConfigMap. The string must be a valid DNS subdomain.
     x-kab-description-zh: 被引用的 ConfigMap 的名字。字符串的值必须是一个合法的 DNS 子域名。

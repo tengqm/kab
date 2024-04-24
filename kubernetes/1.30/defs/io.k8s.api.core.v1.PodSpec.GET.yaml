@@ -36,6 +36,9 @@ properties:
       $ref: '#/definitions/io.k8s.api.core.v1.Container'
     minItems: 1
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   dnsConfig:
@@ -112,6 +115,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EphemeralContainer'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   hostAliases:
@@ -124,6 +130,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.HostAlias'
     type: array
+    x-kubernetes-list-map-keys:
+      - ip 
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: ip
     x-kubernetes-patch-strategy: merge
   hostIPC:
@@ -187,6 +196,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   initContainers:
@@ -214,6 +226,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Container'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge
   nodeName:
@@ -255,6 +270,7 @@ properties:
       - `spec.hostPID`
       - `spec.hostIPC`
       - `spec.hostUser`
+      - `spec.securityContext.appArmorProfile`
       - `spec.securityContext.seLinuxOptions`
       - `spec.securityContext.seccompProfile`
       - `spec.securityContext.fsGroup`
@@ -264,6 +280,7 @@ properties:
       - `spec.securityContext.runAsUser`
       - `spec.securityContext.runAsGroup`
       - `spec.securityContext.supplementalGroups`
+      - `spec.containers[*].securityContext.appArmorProfile`
       - `spec.containers[*].securityContext.seLinuxOptions`
       - `spec.containers[*].securityContext.seccompProfile`
       - `spec.containers[*].securityContext.capabilities`
@@ -377,6 +394,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodReadinessGate'
     type: array
+    x-kubernetes-list-type: atomic
   resourceClaims:
     description: |
       The `resourceClaims` defines which ResourceClaims must be allocated and reserved before
@@ -444,15 +462,11 @@ properties:
       the scheduler will not attempt to schedule the pod.
 
       `schedulingGates` can only be set at Pod creation time, and be removed only afterwards.
-
-      This is a Beta feature enabled by the PodSchedulingReadiness feature gate.
     x-kab-description-zh: |
       `schedulingGates` 是一个列表，其中的元素会阻止 Pod 被调度。
       当 `schedulingGates` 不为空时，Pod 会一直处于 `"SchedulingGated"` 状态，调度器也不会尝试调度该 Pod。
 
       `schedulingGates` 只能在 Pod 创建时设置，Pod 创建之后只能从中移除表项。
-
-      此字段处于 Beta 阶段，由特性门控 `PodSchedulingReadiness` 控制。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.PodSchedulingGate'
     type: array
@@ -544,6 +558,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Toleration'
     type: array
+    x-kubernetes-list-type: atomic
   topologySpreadConstraints:
     description: |
       This describes how a group of Pods are to spread across topology domains.
@@ -569,6 +584,9 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.Volume'
     type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: name
     x-kubernetes-patch-strategy: merge,retainKeys
 required:

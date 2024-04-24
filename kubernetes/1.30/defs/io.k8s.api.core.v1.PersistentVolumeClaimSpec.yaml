@@ -26,6 +26,7 @@ properties:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: atomic
   dataSource:
     $ref: '#/definitions/io.k8s.api.core.v1.TypedLocalObjectReference'
     description: |
@@ -148,7 +149,7 @@ properties:
       When updating this field, it's not allowed to update this field from a non-empty string to an empty string.
       The field value must be a valid DNS subdomain name.
 
-      More info can be found at [official docs](https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass).
+      More info can be found at [official docs](https://kubernetes.io/docs/concepts/storage/volume-attributes-class/).
     x-kab-description-zh: |
       此字段用来设置对应 PVC 所使用的 VolumeAttributesClass。
       字段的用途与 `storageClassName` 不同；此字段可以在 PVC 已经被创建之后变更。
@@ -164,7 +165,7 @@ properties:
       更新此字段时，不允许将字段值从非空字符串改为空字符串。
       字段值必须是合法的 DNS 子域名。
 
-      参阅[官方文档](https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass)，
+      参阅[官方文档](https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-class/)，
       可以了解进一步的信息。
     type: string
   volumeMode:

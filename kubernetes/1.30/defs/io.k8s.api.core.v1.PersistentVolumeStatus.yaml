@@ -6,11 +6,11 @@ properties:
     description: |
       `lastPhaseTransitionTime` is the time the phase transitioned from one to another and
       automatically resets to current time everytime a volume phase transitions.
-      This is an Alpha field and requires enabling `PersistentVolumeLastPhaseTransitionTime` feature.
+      This is an Beta field and requires enabling `PersistentVolumeLastPhaseTransitionTime` feature.
     x-kab-description-zh: |
       `lastPhaseTransitionTime` 是 PV 从一个阶段进入另一个阶段的时间点，每次阶段转换完成之后，
       此时间戳会被重置为当前时间。
-      此字段为 Alpha 字段，需要启用 `PersistentVolumeLastPhaseTransitionTime` 特性门控。
+      此字段为 Beta 字段，需要启用 `PersistentVolumeLastPhaseTransitionTime` 特性门控。
   message:
     description: |
       A human-readable message indicating details about why the volume is in this state.

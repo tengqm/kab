@@ -20,6 +20,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   clientConfig:
     $ref: '#/definitions/io.k8s.api.admissionregistration.v1.WebhookClientConfig'
     description: Information for communicating with the hook.
@@ -47,7 +48,7 @@ properties:
          - If `failurePolicy=Ignore`, the error is ignored and the webhook is skipped
 
       The items in the array must have names that are unique across the array.
-      This is an Beta feature and managed by the `AdmissionWebhookMatchConditions` feature gate.
+
     x-kab-description-zh: |
       这里列出的是一些条件，一个请求只有满足了这里的条件才会被发送给 Webhook。
       这一过滤器会对 `rules`、`namespaceSelector` 和 `objectSelector`  所匹配到的请求做进一步的过滤。
@@ -64,7 +65,6 @@ properties:
 
       数组中的各个元素的名字不可重复。
       
-      此字段为 Beta 特性，通过特性门控 `AdmissionWebhookMatchConditions` 来管理。
     maxItems: 64
     items:
       $ref: '#/definitions/io.k8s.api.admissionregistration.v1.MatchCondition'
@@ -263,6 +263,7 @@ properties:
     items:
       $ref: '#/definitions/io.k8s.api.admissionregistration.v1.RuleWithOperations'
     type: array
+    x-kubernetes-list-type: atomic
   sideEffects:
     description: |
       Whether this webhook has any side effects. Webhooks with side effects **MUST** implement a

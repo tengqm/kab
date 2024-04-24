@@ -18,6 +18,7 @@ properties:
       type: string
     minItems: 1
     type: array
+    x-kubernetes-list-type: aotmic
   awsElasticBlockStore:
     $ref: '#/definitions/io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource'
     description: |
@@ -127,6 +128,7 @@ properties:
     items:
       type: string
     type: array
+    x-kubernetes-list-type: atomic
   nfs:
     $ref: '#/definitions/io.k8s.api.core.v1.NFSVolumeSource'
     description: An NFS mount on the node.
