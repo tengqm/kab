@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load core_tags %}
 
 <table class="table table-borderless table-sm mb-0" width="100%">
@@ -7,7 +8,7 @@
         <td>
           <a data-toggle="collapse" href="#fieldsAdded" aria-expanded="false"
              aria-controls="fieldsAdded"><i class="far fa-plus-square"></i></a>
-          Parameters Added <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_ADDED|length }}</span>
+          {% translate "Parameters Added" %} <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_ADDED|length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="fieldsAdded">
@@ -37,7 +38,7 @@
           <a data-toggle="collapse" href="#fieldsRemoved" aria-expanded="false"
               aria-controls="fieldsRemoved"><i class="far fa-plus-square"></i></a>
           </a>
-          Parameters Removed <span class="badge badge-danger" style="vertical-align: super;">{{ RESULT.P_REMOVED|length }}</span>
+          {% translate "Parameters Removed" %} <span class="badge badge-danger" style="vertical-align: super;">{{ RESULT.P_REMOVED|length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="fieldsRemoved">
@@ -66,7 +67,7 @@
         <td>
           <a data-toggle="collapse" href="#fieldsChanged" aria-expanded="false"
               aria-controls="fieldsChanged"><i class="far fa-plus-square"></i></a>
-          Parameters Changed <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_CHANGED|length }}</span>
+          {% translate "Parameters Changed" %} <span class="badge badge-info" style="vertical-align: super;">{{ RESULT.P_CHANGED|length }}</span>
         </td>
       </tr>
       <tr id="fieldsChanged" class="collapse">
@@ -99,7 +100,7 @@
         <td>
           <a data-toggle="collapse" href="#opChanges" aria-expanded="false"
               aria-controls="opChanges"><i class="far fa-plus-square"></i></a>
-          Changes <span class="badge badge-info">{{ RESULT.CHANGED |length }}</span>
+          {% translate "Other Changes" %} <span class="badge badge-info">{{ RESULT.CHANGED |length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="opChanges">
@@ -131,7 +132,7 @@
         <td>
           <a data-toggle="collapse" href="#descChanges" aria-expanded="false"
               aria-controls="descChanges"><i class="far fa-plus-square"></i></a>
-          Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
+          {% translate "Description Changes" %} <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="descChanges">

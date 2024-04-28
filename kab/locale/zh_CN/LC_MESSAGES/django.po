@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 20:38+0800\n"
+"POT-Creation-Date: 2024-04-28 18:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,18 +21,651 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr "切换导航"
 
-#: kab/templates/base.html:43
-msgid "Overview"
-msgstr "概览"
-
-#: kab/templates/base.html:69
+#: kab/templates/base.html:65 kab/templates/core/apis.html:20
+#: kab/templates/core/resource-list.html:8
 msgid "Resources"
 msgstr "资源"
 
-#: kab/templates/base.html:74
+#: kab/templates/base.html:70 kab/templates/core/apis.html:21
+#: kab/templates/core/def-list.html:8 kab/templates/core/def-list.html:36
+#: kab/templates/core/try-yaml.html:22
 msgid "Definitions"
 msgstr "定义"
 
-#: kab/templates/base.html:79
+#: kab/templates/base.html:75 kab/templates/core/apis.html:22
+#: kab/templates/core/op-list.html:8 kab/templates/core/op-list.html:36
 msgid "Operations"
 msgstr "操作"
+
+#: kab/templates/core/apis.html:5
+msgid "APIs Overview"
+msgstr "APIs 概览"
+
+#: kab/templates/core/apis.html:10
+msgid "APIs summary"
+msgstr "API 概况"
+
+#: kab/templates/core/apis.html:14
+msgid "API Version"
+msgstr "API 版本"
+
+#: kab/templates/core/apis.html:15
+msgid "Release Date"
+msgstr "发布日期"
+
+#: kab/templates/core/apis.html:16
+msgid "Spec"
+msgstr "规范"
+
+#: kab/templates/core/apis.html:17
+msgid "Changes"
+msgstr "变更"
+
+#: kab/templates/core/apis.html:18
+msgid "Features"
+msgstr "特性"
+
+#: kab/templates/core/apis.html:19
+msgid "API Groups"
+msgstr "API 组"
+
+#: kab/templates/core/compare-defs.html:6
+#: kab/templates/core/compare-defs.html:137
+#: kab/templates/core/compare-ops.html:7
+#: kab/templates/core/compare-ops.html:146
+msgid "Comparison"
+msgstr "比较"
+
+#: kab/templates/core/compare-defs.html:21
+#: kab/templates/core/compare-ops.html:25
+msgid "API Versions:"
+msgstr "API 版本："
+
+#: kab/templates/core/compare-defs.html:49
+#: kab/templates/core/compare-ops.html:53
+msgid "API Groups:"
+msgstr "API 组："
+
+#: kab/templates/core/compare-defs.html:76
+#: kab/templates/core/compare-ops.html:81
+msgid "Group Versions:"
+msgstr "组版本："
+
+#: kab/templates/core/compare-defs.html:103
+msgid "Definitions:"
+msgstr "定义："
+
+#: kab/templates/core/compare-defs.html:131
+#: kab/templates/core/compare-ops.html:140
+msgid "Compare!"
+msgstr "比较！"
+
+#: kab/templates/core/compare-defs.html:162
+msgid "The two definitions are <em>identical</em>!"
+msgstr "两个版本的定义完全相同！"
+
+#: kab/templates/core/compare-ops.html:109
+#: kab/templates/core/def-details.html:207
+msgid "Operations:"
+msgstr "操作："
+
+#: kab/templates/core/compare-ops.html:170
+msgid "The two operations are <em>identical</em>!"
+msgstr "两个版本的操作完全相同！"
+
+#: kab/templates/core/def-details.html:6
+msgid "Name:"
+msgstr "名称："
+
+#: kab/templates/core/def-details.html:9 kab/templates/core/try-yaml.html:8
+#: kab/templates/core/try-yaml.html:24
+msgid "Resource"
+msgstr "资源"
+
+#: kab/templates/core/def-details.html:11
+#: kab/templates/core/def-details.html:180 kab/templates/core/try-yaml.html:26
+msgid "DEPRECATED"
+msgstr "已弃用"
+
+#: kab/templates/core/def-details.html:14
+msgid "Group/Version:"
+msgstr "组/版本："
+
+#: kab/templates/core/def-details.html:23 kab/templates/core/op-view.html:77
+msgid "Description:"
+msgstr "描述："
+
+#: kab/templates/core/def-details.html:28
+msgid "No description"
+msgstr "无描述说明"
+
+#: kab/templates/core/def-details.html:35
+msgid "Appears In:"
+msgstr "出现于："
+
+#: kab/templates/core/def-details.html:54
+msgid "Properties:"
+msgstr "属性："
+
+#: kab/templates/core/def-details.html:63
+msgid "Field"
+msgstr "字段"
+
+#: kab/templates/core/def-details.html:64 kab/templates/core/features.html:20
+#: kab/templates/core/full-history.html:82 kab/templates/core/op-view.html:182
+#: kab/templates/core/op-view.html:265
+msgid "Description"
+msgstr "描述"
+
+#: kab/templates/core/def-details.html:102
+msgid "patch strategy:"
+msgstr "补丁策略："
+
+#: kab/templates/core/def-details.html:108
+msgid "patch merge key:"
+msgstr "补丁合并主键："
+
+#: kab/templates/core/def-details.html:114
+msgid "list type:"
+msgstr "列表类型："
+
+#: kab/templates/core/def-details.html:120
+msgid "list map keys:"
+msgstr "列表映射主键："
+
+#: kab/templates/core/def-details.html:126
+msgid "map type:"
+msgstr "映射类型："
+
+#: kab/templates/core/def-details.html:140
+msgid "default"
+msgstr "默认值"
+
+#: kab/templates/core/def-details.html:150
+msgid "format"
+msgstr "格式"
+
+#: kab/templates/core/def-details.html:155
+msgid "minimum"
+msgstr "最小值"
+
+#: kab/templates/core/def-details.html:160
+msgid "maximum"
+msgstr "最大值"
+
+#: kab/templates/core/def-details.html:166
+msgid "const"
+msgstr "固定值"
+
+#: kab/templates/core/def-details.html:169
+msgid "choices:"
+msgstr "可选值："
+
+#: kab/templates/core/def-details.html:183
+msgid "Beta Feature"
+msgstr "Beta 特性"
+
+#: kab/templates/core/def-details.html:186
+msgid "Alpha Feature"
+msgstr "Alpha 特性"
+
+#: kab/templates/core/def-details.html:194
+msgid "Item description:"
+msgstr "元素描述："
+
+#: kab/templates/core/def-diff.html:11
+msgid "Fields Added"
+msgstr "添加的字段"
+
+#: kab/templates/core/def-diff.html:31
+msgid "Fields Removed"
+msgstr "移除的字段"
+
+#: kab/templates/core/def-diff.html:50
+msgid "Fields Changed"
+msgstr "变更的字段"
+
+#: kab/templates/core/def-diff.html:63
+msgid "From:"
+msgstr "原来："
+
+#: kab/templates/core/def-diff.html:64
+msgid "To:"
+msgstr "现在："
+
+#: kab/templates/core/def-diff.html:79 kab/templates/core/op-diff.html:135
+msgid "Description Changes"
+msgstr "描述变更"
+
+#: kab/templates/core/def-history.html:7
+msgid "History:"
+msgstr "变更历史："
+
+#: kab/templates/core/def-history.html:12
+msgid "History of"
+msgstr "变更历史："
+
+#: kab/templates/core/def-history.html:24 kab/templates/core/op-history.html:29
+msgid "Added in this version."
+msgstr "在此版本中出现"
+
+#: kab/templates/core/def-history.html:28 kab/templates/core/op-history.html:33
+msgid "Removed in this version."
+msgstr "在此版本中移除"
+
+#: kab/templates/core/def-history.html:41
+msgid "The definition has not changed between the version"
+msgstr "定义在版本"
+
+#: kab/templates/core/def-history.html:41
+msgid "and"
+msgstr "和"
+
+#: kab/templates/core/def-history.html:42
+msgid "."
+msgstr "之间没有发生变更。"
+
+#: kab/templates/core/def-list.html:19
+msgid "Filter"
+msgstr "过滤条件"
+
+#: kab/templates/core/def-list.html:23
+msgid "Reset"
+msgstr "清除"
+
+#: kab/templates/core/def-list.html:31 kab/templates/core/op-list.html:31
+#: kab/templates/core/resource-list.html:22
+msgid "Group/Version"
+msgstr "组/版本"
+
+#: kab/templates/core/def-list.html:73
+msgid "No definition found"
+msgstr "未找到定义"
+
+#: kab/templates/core/def-view.html:8
+msgid "Definition:"
+msgstr "定义："
+
+#: kab/templates/core/def-view.html:20
+msgid "Toggle navigation tree"
+msgstr "显示或隐藏导航树"
+
+#: kab/templates/core/def-view.html:28
+msgid "Switch to other versions of the Definition"
+msgstr "切换到此定义的其他版本"
+
+#: kab/templates/core/def-view.html:37
+msgid "Compare to other versions of the definition (resource)"
+msgstr "与此定义（资源）的其他版本进行比较"
+
+#: kab/templates/core/def-view.html:45
+msgid "View history of the definition (resource)"
+msgstr "查看此定义（资源）的变更历史"
+
+#: kab/templates/core/def-view.html:52
+msgid "View definition in YAML code editor"
+msgstr "在 YAML 代码编辑器中查看此定义"
+
+#: kab/templates/core/def-view.html:61
+msgid "Switch to another version of this definition:"
+msgstr "切换到此定义的其他版本："
+
+#: kab/templates/core/def-view.html:74 kab/templates/core/def-view.html:101
+#: kab/templates/core/op-view.html:56 kab/templates/core/op-view.html:70
+msgid "No other version found!"
+msgstr "未找到其他版本！"
+
+#: kab/templates/core/def-view.html:82 kab/templates/core/op-view.html:64
+msgid "Choose another version of this definition for comparison:"
+msgstr "选择此定义的其他版本进行比较："
+
+#: kab/templates/core/edit-api.html:6
+msgid "Service Definition"
+msgstr "服务定义"
+
+#: kab/templates/core/edit-api.html:14
+msgid "Service definition information"
+msgstr "服务定义信息"
+
+#: kab/templates/core/edit-api.html:75
+msgid "Authentication Path:"
+msgstr "身份认证路径："
+
+#: kab/templates/core/edit-api.html:80
+msgid "Request Method:"
+msgstr "请求方法："
+
+#: kab/templates/core/edit-api.html:103
+msgid "<Default to same as session header>"
+msgstr "<默认与会话头部字段相同>"
+
+#: kab/templates/core/edit-api.html:154
+msgid "Choose file..."
+msgstr "选择文件..."
+
+#: kab/templates/core/edit-api.html:162
+msgid "Input URL here and then click the GET button."
+msgstr "在此输入 URL，之后点击下载按钮"
+
+#: kab/templates/core/edit-api.html:169
+msgid "Spec successfully downloaded!"
+msgstr "成功地下载了 API 规范"
+
+#: kab/templates/core/edit-api.html:172
+msgid "Cannot download the specified content."
+msgstr "无法下载指定的内容"
+
+#: kab/templates/core/edit-api.html:184
+msgid "Save"
+msgstr "保存"
+
+#: kab/templates/core/edit-api.html:187
+msgid "Cancel"
+msgstr "取消"
+
+#: kab/templates/core/features.html:8
+msgid "Feature gates"
+msgstr "特性门控"
+
+#: kab/templates/core/features.html:16 kab/templates/core/group-list.html:16
+#: kab/templates/core/op-view.html:180 kab/templates/core/op-view.html:311
+msgid "Name"
+msgstr "名称"
+
+#: kab/templates/core/features.html:17
+msgid "Default"
+msgstr "默认值"
+
+#: kab/templates/core/features.html:18
+msgid "Stage"
+msgstr "阶段"
+
+#: kab/templates/core/features.html:19
+msgid "Since"
+msgstr "起始版本"
+
+#: kab/templates/core/features.html:41
+msgid "No Features Found"
+msgstr "未找到特性门控数据"
+
+#: kab/templates/core/full-history.html:7 kab/templates/core/op-history.html:7
+#: kab/templates/core/op-history.html:17
+msgid "History"
+msgstr "历史"
+
+#: kab/templates/core/full-history.html:20
+msgid "API changes from"
+msgstr "API 变更历史：从"
+
+#: kab/templates/core/full-history.html:20
+msgid "to"
+msgstr "到"
+
+#: kab/templates/core/full-history.html:20
+msgid ".."
+msgstr "之间的变更"
+
+#: kab/templates/core/full-history.html:22
+msgid "Definition Changes"
+msgstr "定义变更"
+
+#: kab/templates/core/full-history.html:26
+msgid "Definition"
+msgstr "定义"
+
+#: kab/templates/core/full-history.html:27
+#: kab/templates/core/full-history.html:81 kab/templates/core/op-view.html:181
+msgid "Type"
+msgstr "类型"
+
+#: kab/templates/core/full-history.html:28
+msgid "Related"
+msgstr "相关条目"
+
+#: kab/templates/core/full-history.html:77
+msgid "Operation Changes"
+msgstr "操作变更"
+
+#: kab/templates/core/full-history.html:80 kab/templates/core/op-view.html:7
+msgid "Operation"
+msgstr "操作"
+
+#: kab/templates/core/group-list.html:8
+msgid "API groups"
+msgstr "API 组"
+
+#: kab/templates/core/group-list.html:21
+msgid "Display Name"
+msgstr "显示名称"
+
+#: kab/templates/core/group-list.html:23
+msgid "The string to use as the apiVersion when specifying a resource"
+msgstr "指定资源时用作 apiVersion 的字符串"
+
+#: kab/templates/core/group-list.html:25
+msgid "Versions"
+msgstr "版本"
+
+#: kab/templates/core/group-list.html:45
+msgid "No API groups found"
+msgstr "未找到 API 组"
+
+#: kab/templates/core/help-dialog.html:18
+msgid "Close"
+msgstr "关闭"
+
+#: kab/templates/core/op-diff.html:11
+msgid "Parameters Added"
+msgstr "添加的参数"
+
+#: kab/templates/core/op-diff.html:41
+msgid "Parameters Removed"
+msgstr "移除的参数"
+
+#: kab/templates/core/op-diff.html:70
+msgid "Parameters Changed"
+msgstr "变更的参数"
+
+#: kab/templates/core/op-diff.html:103
+msgid "Other Changes"
+msgstr "其他变更"
+
+#: kab/templates/core/op-history.html:45
+msgid "The operation has not changed between the specified versions."
+msgstr "在指定的版本之间操作定义没有发生变化"
+
+#: kab/templates/core/op-list.html:82
+msgid "No operations found"
+msgstr "未定义任何操作"
+
+#: kab/templates/core/op-view.html:24
+msgid "Switch to another version of this operation"
+msgstr "切换到此操作的其他版本"
+
+#: kab/templates/core/op-view.html:33
+msgid "Compare to another version of this operation"
+msgstr "切换到此操作的其他版本"
+
+#: kab/templates/core/op-view.html:41
+msgid "View history of the operation"
+msgstr "查看此操作的变更历史"
+
+#: kab/templates/core/op-view.html:50
+msgid "Switch to another version of this definition"
+msgstr "切换到此定义的其他版本："
+
+#: kab/templates/core/op-view.html:89
+msgid "Verb:"
+msgstr "动词："
+
+#: kab/templates/core/op-view.html:104
+msgid "Path:"
+msgstr "路径："
+
+#: kab/templates/core/op-view.html:113
+msgid "Params"
+msgstr "参数"
+
+#: kab/templates/core/op-view.html:133
+msgid "Schemes:"
+msgstr "模式："
+
+#: kab/templates/core/op-view.html:139
+msgid "Tags:"
+msgstr "标签："
+
+#: kab/templates/core/op-view.html:146
+msgid "Consumes:"
+msgstr "输入类型："
+
+#: kab/templates/core/op-view.html:159
+msgid "Produces:"
+msgstr "输出类型："
+
+#: kab/templates/core/op-view.html:166
+msgid "Note that"
+msgstr "注意"
+
+#: kab/templates/core/op-view.html:168
+msgid "is a kubernetes specific content-type."
+msgstr "Kubernetes 独有的内容类型"
+
+#: kab/templates/core/op-view.html:175
+msgid "Query Parameters:"
+msgstr "查询参数："
+
+#: kab/templates/core/op-view.html:240
+msgid "Body:"
+msgstr "主体："
+
+#: kab/templates/core/op-view.html:255
+msgid "Responses:"
+msgstr "响应："
+
+#: kab/templates/core/op-view.html:260
+msgid "Status"
+msgstr "状态"
+
+#: kab/templates/core/op-view.html:266
+msgid "Response"
+msgstr "响应"
+
+#: kab/templates/core/op-view.html:293
+msgid "Related Operations:"
+msgstr "相关操作："
+
+#: kab/templates/core/op-view.html:306
+msgid "Extensions"
+msgstr "扩展"
+
+#: kab/templates/core/op-view.html:312
+msgid "Value"
+msgstr "取值"
+
+#: kab/templates/core/resource-list.html:13
+msgid "Resource Toolbar"
+msgstr "资源工具条"
+
+#: kab/templates/core/resource-list.html:74
+msgid "No API group found."
+msgstr "未找到 API 组"
+
+#: kab/templates/core/static-container.html:8
+msgid "Concept:"
+msgstr "概念："
+
+#: kab/templates/core/try-yaml.html:38
+msgid "Export"
+msgstr "导出"
+
+#: kab/templates/core/try-yaml.html:49
+msgid "Back"
+msgstr "返回"
+
+#: kab/templates/core/try-yaml.html:55
+msgid "export"
+msgstr "导出"
+
+#: kab/templates/core/view-source.html:16
+msgid "Source View"
+msgstr "源码视图"
+
+#: kab/templates/index.html:10
+msgid "Welcome to Kubernetes API Browser"
+msgstr "欢迎使用 Kuberrnetes API 浏览器"
+
+#: kab/templates/index.html:17
+msgid "Features Overview"
+msgstr "特性概览"
+
+#: kab/templates/index.html:22
+msgid "Complete reference for versions"
+msgstr "支持多个版本 API 参考"
+
+#: kab/templates/index.html:26
+msgid "API definitions from version"
+msgstr "API 定义支持从版本"
+
+#: kab/templates/index.html:26
+msgid "to version"
+msgstr "到版本"
+
+#: kab/templates/index.html:28
+msgid "Concise specification manually verified against implementation"
+msgstr "基于代码实现，通过手动检查来精确化的 API 规范"
+
+#: kab/templates/index.html:29
+msgid "Browse through definition hierarchy tree"
+msgstr "支持以层次结构来浏览类型定义"
+
+#: kab/templates/index.html:30
+msgid "Explore history of a definition or an operation"
+msgstr "支持查看某个定义或操作的详细变更历史"
+
+#: kab/templates/index.html:31
+msgid "Quick switch to other versions or variants of a definition or operation"
+msgstr "快速切换到某个定义或操作的其他版本或变种"
+
+#: kab/templates/index.html:32
+msgid "Compare between versions or variants of a definition or an operation"
+msgstr "支持在定义的不同版本、不同变种之间进行比较"
+
+#: kab/templates/index.html:33
+msgid "Explore feature gate change history."
+msgstr "支持浏览特性门控（Feature Gate）变更历史浏览"
+
+#: kab/templates/index.html:37
+msgid "Kubernetes specific API concepts"
+msgstr "Kubernetes 基本 API 概念介绍"
+
+#: kab/templates/index.html:41
+msgid "Common concepts for verbs, path, content type, responses etc."
+msgstr "针对动词、路径、内容类型、响应规约的一般性概念"
+
+#: kab/templates/index.html:42
+msgid "Kubernetes specific extensions such as naming, versioning, paging, etc."
+msgstr "Kubernetes 在命名、版本编码以及分页方面的扩展"
+
+#: kab/templates/index.html:43
+msgid ""
+"Concepts can be called out when browsing API details and they can be browsed"
+msgstr "在浏览 API 时可以弹出概念解释，也可单独浏览 Kubernetes API 概念"
+
+#: kab/templates/notfound.html:13
+msgid "If you are hitting this page, it means the"
+msgstr "如果你看到当前这个页面，就意味着"
+
+#: kab/templates/notfound.html:14
+msgid "is not defined in the"
+msgstr "未在 API 组"
+
+#: kab/templates/notfound.html:16
+msgid "API group in API version"
+msgstr "中定义，API 版本"
+
+#: kab/templates/notfound.html:20
+msgid ""
+"If you are sure the definition IS defined in the group version provided, "
+"please consider submitting a github issue."
+msgstr ""
+"如果你确定所浏览的定义在给定的组版本中是存在的，请在 GitHub 上报告问题。"

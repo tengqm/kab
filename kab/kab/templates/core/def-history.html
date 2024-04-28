@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load core_tags %}
 
 {% block title %}
-  <title>History: {{ GROUP }}/{{ VERSION }} {{ NAME }}</title>
+<title>{% translate "History:" %} {{ GROUP }}/{{ VERSION }} {{ NAME }}</title>
 {% endblock %}
 
 {% block main_content %}
 
-<h4 align="center">History of <samp>{{ NAME|humanize_name }}</samp> (<code>{{ GROUP }}/{{ VERSION }}</code>)</h4>
+<h4 align="center">{% translate "History of" %} <samp>{{ NAME|humanize_name }}</samp> (<code>{{ GROUP }}/{{ VERSION }}</code>)</h4>
 
   <div>
     {% for APIV, DIFFITEM in DIFFDATA.items %}
@@ -20,11 +21,11 @@
         <div class="card-body p-2">
           {% if DIFFITEM.status == "ADDED" %}
             <div class="alert alert-success" role="alert">
-              Added in this version.
+              {% translate "Added in this version." %}
             </div>
           {% elif DIFFITEM.status == "DELETED" %}
             <div class="alert alert-danger" role="alert">
-              Removed in this version.
+              {% translate "Removed in this version." %}
             </div>
           {% elif DIFFITEM.status == "CHANGED" %}
             {# The RESULT is rendered in the included template #}
@@ -37,7 +38,8 @@
 
     {% empty %}
       <div class="alert alert-success" role="alert">
-        The definition has not changed between the version {{ START_API }} and {{ END_API }}.
+        {% translate "The definition has not changed between the version" %}{{ START_API }} {% translate "and" %} {{
+        END_API }} {% translate "." %}.
       </div>
     {% endfor %}
   </div> <!-- accordion -->

@@ -1,24 +1,25 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}
-  <title>APIs Overview</title>
+<title>{% translate "APIs Overview" %}</title>
 {% endblock %}
 
 {% block main_content %}
 
-  <h5>APIs summary </h5>
+  <h5>{% translate "APIs summary" %} </h5>
   <table class="table table-striped" width="100%">
     <thead>
       <tr>
-        <th class="text-center" scope="col">API Version</th>
-        <th class="text-center" scope="col">Release Date</th>
-        <th class="text-center" scope="col">Spec</th>
-        <th class="text-center" scope="col">Changes</th>
-        <th class="text-center" scope="col">Features</th>
-        <th class="text-center" scope="col">API Groups</th>
-        <th class="text-center" scope="col">Resources</th>
-        <th class="text-center" scope="col">Definitions</th>
-        <th class="text-center" scope="col">Operations</th>
+        <th class="text-center" scope="col">{% translate "API Version" %}</th>
+        <th class="text-center" scope="col">{% translate "Release Date" %}</th>
+        <th class="text-center" scope="col">{% translate "Spec" %}</th>
+        <th class="text-center" scope="col">{% translate "Changes" %}</th>
+        <th class="text-center" scope="col">{% translate "Features" %}</th>
+        <th class="text-center" scope="col">{% translate "API Groups" %}</th>
+        <th class="text-center" scope="col">{% translate "Resources" %}</th>
+        <th class="text-center" scope="col">{% translate "Definitions" %}</th>
+        <th class="text-center" scope="col">{% translate "Operations" %}</th>
       </tr>
     </thead>
     <tbody>

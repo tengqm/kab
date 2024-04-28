@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load core_tags %}
 
 {% block title %}
-  <title>History</title>
+  <title>{% translate "History" %}</title>
 <style>
 p {
   margin-bottom: .2rem;
@@ -16,15 +17,15 @@ p {
 {# The follow loop is a placeholder for more than one version comparison #}
 {% for APIV, CHANGE in DATA.items %}
 
-  <h4 align="center">API changes from {{ APIV.0 }} to {{ APIV.1 }}</h4>
+  <h4 align="center">{% translate "API changes from" %} {{ APIV.0 }} {% translate "to" %} {{ APIV.1 }} {% translate ".." %}</h4>
 
-  <h5>Definition Changes</h5>
+  <h5>{% translate "Definition Changes" %}</h5>
 
   <table class="table table-bordered table-responsive">
     <thead>
-      <th>Definition</th>
-      <th style="min-width: 130px;">Type</th>
-      <th width="100%">Related</th>
+      <th>{% translate "Definition" %}</th>
+      <th style="min-width: 130px;">{% translate "Type" %}</th>
+      <th width="100%">{% translate "Related" %}</th>
     </thead>
     <tbody>
       {% for GVK, ITEM in CHANGE.DEFS.items %}
@@ -73,12 +74,12 @@ p {
     </tbody>
   </table>
 
-  <h5>Operation Changes</h5>
+  <h5>{% translate "Operation Changes" %}</h5>
   <table class="table table-bordered table-responsive">
     <thead>
-      <th>Operation</th>
-      <th style="min-width: 130px;">Type</th>
-      <th width="100%">Description</th>
+      <th>{% translate "Operation" %}</th>
+      <th style="min-width: 130px;">{% translate "Type" %}</th>
+      <th width="100%">{% translate "Description" %}</th>
     </thead>
     <tbody>
       {% for ITEM in CHANGE.OPS %}

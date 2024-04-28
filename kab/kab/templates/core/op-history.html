@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load core_tags %}
 
 {% block title %}
-  <title>History: {{ NAME }}</title>
+  <title>{% translate "History" %} | {{ NAME }}</title>
 <style>
 p {
   margin-bottom: .2rem;
@@ -13,7 +14,7 @@ p {
 
 {% block main_content %}
 
-<h4 align="center">History of <samp>{{ NAME }}</samp></h4>
+<h4 align="center">{% translate "History" %}： <samp>{{ NAME }}</samp></h4>
 
 <div>
   {% for APIV, DIFFITEM in DIFFDATA.items %}
@@ -25,11 +26,11 @@ p {
       <div class="card-body p-2">
         {% if DIFFITEM.status == "ADDED" %}
           <div class="alert alert-success" role="alert">
-            Added in this version.
+            {% translate "Added in this version." %}
           </div>
         {% elif DIFFITEM.status == "DELETED" %}
           <div class="alert alert-danger" role="alert">
-            Removed in this version.
+            {% translate "Removed in this version." %}
           </div>
         {% elif DIFFITEM.status == "CHANGED" %}
           {# The RESULT is rendered in the included template #}
@@ -41,7 +42,7 @@ p {
     </div> <!-- card -->
   {% empty %}
     <div class="alert alert-success" role="alert">
-      The operation has not changed between the version  {{ START_API }} and {{ END_API }}.
+      {% translate "The operation has not changed between the specified versions." %}
     </div>
   {% endfor %}
 </div>

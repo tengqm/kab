@@ -1,14 +1,17 @@
+{% load i18n %}
 {% load core_tags %}
 
   <dl class="row mt-2 mb-0">
     {# group version #}
-    <dt class="col-3 col-md-2">Name:</dt>
+    <dt class="col-3 col-md-2">{% translate "Name:" %}</dt>
     <dd class="col-9 col-md-10">
       {{ KIND }}
-      {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">Resource</span>{% endif %}
-        {% if "DEPRECATED" in DEFINITION.description %}  <span class="badge badge-danger" style="vertical-align: super;">DEPRECATED</span>{% endif %}
+      {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">{% translate "Resource" %}</span>{% endif %}
+        {% if "DEPRECATED" in DEFINITION.description %}
+          <span class="badge badge-danger" style="vertical-align: super;">{% translate "DEPRECATED" %}</span>
+        {% endif %}
     </dd>
-    <dt class="col-3 col-md-2">Group/Version:</dt>
+    <dt class="col-3 col-md-2">{% translate "Group/Version:" %}</dt>
     <dd class="col-9 col-md-10">
       <code>{% if GROUP != "" %}{{ FULL_GROUP }}/{% endif %}{{ VERSION }}</code>
       <button type="button" class="btn" onclick="show_help('apiversion')">
@@ -17,19 +20,19 @@
     </dd>
 
     {# description #}
-    <dt class="col-3 col-md-2">Description:</dt>
+    <dt class="col-3 col-md-2">{% translate "Description:" %}</dt>
     <dd class="col-9 col-md-10">
       {% if DEFINITION.description %}
         {% markdown_html DEFINITION.description %}
       {% else %}
-        &lt;No description&gt;
+        &lt;{% translate "No description" %}&gt;
       {% endif %}
     </dd>
   </dl>
 
   {# Appears In#}
   {% if APPEARS_IN %}
-  <div class="row px-3" style="font-weight: 700;">Appears In:</div>
+  <div class="row px-3" style="font-weight: 700;">{% translate "Appears In:" %}</div>
   <div id="appears_in" class="row px-3 ml-2">
     <p id="appearsList" class="collapse col-12 p-0">
     {% for A in APPEARS_IN %}
@@ -48,7 +51,7 @@
 
   {# properties #}
   {% if DEFINITION.properties %}
-    <div class="row px-3" style="font-weight: 700;">Properties:</div>
+    <div class="row px-3" style="font-weight: 700;">{% translate "Properties:" %}</div>
     <div id="tbl-properties" class="row px-3 ml-2">
       <table class="table table-sm table-striped" width="100%">
         <colgroup>
@@ -57,8 +60,8 @@
         </colgroup>
         <thead>
           <tr class="table-active"r>
-            <th>Field</th>
-            <th>Description</th>
+            <th>{% translate "Field" %}</th>
+            <th>{% translate "Description" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -96,31 +99,31 @@
                     {% patch_strategy DATA as PATCH_STRATEGY %}
                     {% if PATCH_STRATEGY %}
                     <br/>
-                    <small><b>patch strategy:</b></small>  <samp>{{ PATCH_STRATEGY }}</samp>
+                    <small><b>{% translate "patch strategy:" %}</b></small>  <samp>{{ PATCH_STRATEGY }}</samp>
                     {% endif %}
 
                     {% patch_merge_key DATA as PATCH_MERGE_KEY %}
                     {% if PATCH_MERGE_KEY %}
                     <br/>
-                    <small><b>patch merge key:</b></small>  <samp>{{ PATCH_MERGE_KEY }}</samp>
+                    <small><b>{% translate "patch merge key:" %}</b></small>  <samp>{{ PATCH_MERGE_KEY }}</samp>
                     {% endif %}
 
                     {% list_type DATA as LIST_TYPE %}
                     {% if LIST_TYPE %}
                     <br/>
-                    <small><b>list type:</b></small>  <samp>{{ LIST_TYPE }}</samp>
+                    <small><b>{% translate "list type:" %}</b></small>  <samp>{{ LIST_TYPE }}</samp>
                     {% endif %}
 
                     {% list_map_keys DATA as LIST_KEYS %}
                     {% if LIST_KEYS %}
                     <br/>
-                    <small><b>list map keys:</b></small>  <samp>{{ LIST_KEYS }}</samp>
+                    <small><b>{% translate "list map keys:" %}</b></small>  <samp>{{ LIST_KEYS }}</samp>
                     {% endif %}
 
                     {% map_type DATA as MAP_TYPE %}
                     {% if MAP_TYPE %}
                     <br/>
-                    <small><b>map type:</b><small>  <samp>{{ MAP_TYPE }}</samp>
+                    <small><b>{% translate "map type:" %}</b><small>  <samp>{{ MAP_TYPE }}</samp>
                     {% endif %}
 
                   {% else %}
@@ -134,7 +137,7 @@
 
                 {% if 'default' in DATA %}
                   <br/>
-                  <small><b>default</b></small>:
+                  <small><b>{% translate "default" %}</b></small>:
                   {% if DATA.type == "string" %}
                     <samp style="font-family:monospace;">"{{ DATA.default }}"</samp>
                   {% else %}
@@ -144,26 +147,26 @@
 
                 {% if 'format' in DATA %}
                   <br/>
-                  <small><b>format</b></small>: <samp>{{ DATA.format }}</samp>
+                  <small><b>{% translate "format" %}</b></small>: <samp>{{ DATA.format }}</samp>
                 {% endif %}
 
                 {% if 'minimum' in DATA %}
                   <br/>
-                  <small><b>minimum</b></small>: <samp>{{ DATA.minimum }}</samp>
+                  <small><b>{% translate "minimum" %}</b></small>: <samp>{{ DATA.minimum }}</samp>
                 {% endif %}
 
                 {% if 'maximum' in DATA %}
                   <br/>
-                  <small><b>maximum</b></small>: <samp>{{ DATA.maximum }}<samp>
+                  <small><b>{% translate "maximum" %}</b></small>: <samp>{{ DATA.maximum }}<samp>
                 {% endif %}
 
                 {% if 'enum' in DATA %}
                   {% if DATA.enum|length_is:"1" %}
                     <br/>
-                    <small><b>const</b></small>: <samp>{{ DATA.enum.0 }}</samp>
+                    <small><b>{% translate "const" %}</b></small>: <samp>{{ DATA.enum.0 }}</samp>
                   {% else %}
                     <br/>
-                    <small><b>choices</b></small>: [
+                    <small><b>{% translate "choices:" %}</b></small> [
                     {% for E in DATA.enum %}
                       <samp>"{{ E }}"</samp>{% if not forloop.last %}, {% endif %}
                     {%endfor %} 
@@ -174,13 +177,13 @@
                 {# Support level related #}
                 {% if "*DEPRECATED*" in DATA.description and PNAME != "metadata" %}
                   <br/>
-                  <p class="text-danger"><strong>DEPRECATED</strong></p>
+                  <p class="text-danger"><strong>{% translate "DEPRECATED" %}</strong></p>
                 {% elif "Beta" in DATA.description %}
                   <br/>
-                  <p class="text-danger"><strong>Beta Feature</strong></p>
+                  <p class="text-danger"><strong>{% translate "Beta Feature" %}</strong></p>
                 {% elif "Alpha" in DATA.description %}
                   <br/>
-                  <p class="text-danger"><strong>ALpha Feature</strong></p>
+                  <p class="text-danger"><strong>{% translate "Alpha Feature" %}</strong></p>
                 {% endif %}
 
               </td>
@@ -188,7 +191,7 @@
                 {% markdown_html DATA.description %}
                 {% if DATA.type == "array" %}
                   {% if DATA.items.description %}
-                    <div><strong>Item description:</strong> {% markdown_html DATA.items.description %}</div>
+                    <div><strong>{% translate "Item description:" %}</strong> {% markdown_html DATA.items.description %}</div>
                   {% endif %}
                 {% endif %}
               </td>
@@ -201,7 +204,7 @@
 
   {# operations #}
   {% if OPERATIONS %}
-    <div class="row px-3" style="font-weight: 700;">Operations:</div>
+    <div class="row px-3" style="font-weight: 700;">{% translate "Operations:" %}</div>
     <div class="row px-3 ml-2">
       {% for K, V in OPERATIONS.items %}
         <a class="btn btn-outline-secondary btn-sm mb-1 mx-1 text-monospace" role="button"

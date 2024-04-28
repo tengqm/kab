@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load static %}
 {% load core_tags %}
 
 {% block title %}
-  <title>Resource: {{ API }} - {{ GROUP }}/{{ VERSION }} - {{ KIND }}</title>
+  <title>{% translate "Resource" %} | {{ API }} - {{ GROUP }}/{{ VERSION }} - {{ KIND }}</title>
   <link rel="stylesheet" data-name="vs/editor/editor.main" href="{% static 'css/monaco/editor.main.css' %}">
   <style>
     .x-highlight-range {
@@ -18,10 +19,12 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"></a></li>
       <li class="breadcrumb-item">{{ API }}</li>
-      <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>Definitions</a></li>
+      <li class="breadcrumb-item"><a href='{% url "list-definitions" API "all" %}'>{% translate "Definitions" %}</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ KIND }}
-        {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">Resource</span>{% endif %}
-        {% if "DEPRECATED" in DEFINITION.description %}  <span class="badge badge-danger" style="vertical-align: super;">DEPRECATED</span>{% endif %}
+        {% if IS_RESOURCE %}  <span class="badge badge-info" style="vertical-align: super;">{% translate "Resource" %}</span>{% endif %}
+        {% if "DEPRECATED" in DEFINITION.description %}
+          <span class="badge badge-danger" style="vertical-align: super;">{% translate "DEPRECATED" %}</span>
+        {% endif %}
       </li>
     </ol>
   </nav>
@@ -32,7 +35,7 @@
     <div class="btn-group shadow-sm my-2" role="group">
       <button id="btnExport" type="button" class="btn btn-outline-info dropdown-toggle"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-file-export"></i> Export
+        <i class="fa fa-file-export"></i> {% translate "Export" %}
       </button>
       <div class="dropdown-menu" aria-labelledby="btnExport">
         <a class="btn btn-link dropdown-item" onclick="exportData('json')">
@@ -43,13 +46,13 @@
         </a>
       </div>
     </div> <!-- export -->
-    <a class="btn btn-outline-primary hBack" href="#">Back</a>
+    <a class="btn btn-outline-primary hBack" href="#">{% translate "Back" %}</a>
     </div>
   </div>
   <div id="container" style="height:600px; border:1px solid grey">
   </div>
 
-  <a id="download_link" class="d-none" href="">export</a>
+  <a id="download_link" class="d-none" href="">{% translate "export" %}</a>
 {% endblock %}
 
 {% block javascript %}

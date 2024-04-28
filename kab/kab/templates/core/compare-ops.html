@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load core_tags %}
 
 {% block title %}
-  <title>Comparison</title>
+  <title>{% translate "Comparison" %}</title>
   <style>
     P {line-height: 1.2; margin-bottom: 2px;}
   </style>
@@ -21,7 +22,7 @@
     <fieldset id="fieldSets">
       <div class="form-group row">
         <label class="col-md-2 col-form-label" for="id_apis">
-          API Versions:
+          {% translate "API Versions:" %}
         </label>
         <div class="col-md-5">
           <select class="form-control text-monospace" id="id_apis_1" name="api1">
@@ -49,7 +50,7 @@
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label" for="id_groups">
-          API Groups:
+          {% translate "API Groups:" %}
         </label>
         <div class="col-md-5">
           <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_groups_1" name="group1">
@@ -77,7 +78,7 @@
       {# Group Versions List #}
       <div class="form-group row">
         <label class="col-md-2 col-form-label" for="id_versions_1">
-          Group Versions:
+          {% translate "Group Versions:" %}
         </label>
         <div class="col-md-5">
           <select class="form-control" style="font-size: 120%; font-family: monospace;" id="id_versions_1" name="version1">
@@ -105,7 +106,7 @@
       {# Operations List #}
       <div class="form-group row">
         <label class="col-md-2 col-form-label" for="id_ops_1">
-          Operations:
+          {% translate "Operations:" %}
         </label>
         <div class="col-md-5">
           <select class="form-control" style="font-size: 120%; font-family: monospace;"  id="id_ops_1" name="op1">
@@ -136,13 +137,13 @@
 
     <div class="row py-2 text-right">
       <div class="col">
-        <button type="submit" style="width:110px;" class="form-control btn btn-primary">Compare!</button>
+        <button type="submit" style="width:110px;" class="form-control btn btn-primary">{% translate "Compare!" %}</button>
       </div>
     </div>
   </form>
 
   {% if RESULT %}
-    <h4 align="center">Comparison
+      <h4 align="center">{% translate "Comparison" %}
       <button class="btn btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#compare" aria-expanded="false"
         aria-controls="compare">
         <i class="fa fa-chevron-circle-down"></i>
@@ -166,7 +167,7 @@
     {% if "IDENTICAL" in RESULT %}
       <table class="table" width="100%">
         <tr class="table-info">
-          <td>The two operations are <em>identical</em>!</td>
+          <td>{% translate "The two operations are <em>identical</em>!" %}</td>
         </tr>
       </table>
     {% else %}

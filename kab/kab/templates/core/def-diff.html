@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load core_tags %}
 
 <table class="table table-borderless table-sm mb-0" width="100%">
@@ -7,7 +8,7 @@
         <td colspan="2">
           <a data-toggle="collapse" href="#fields-added-{{ APIV|slugify }}" aria-expanded="false"
               aria-controls="fields-added-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
-          Fields Added <span class="badge badge-info">{{ RESULT.ADDED|length }}</span>
+          {% translate "Fields Added" %}<span class="badge badge-info">{{ RESULT.ADDED|length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="fields-added-{{ APIV|slugify }}">
@@ -27,7 +28,7 @@
           <a data-toggle="collapse" href="#fields-removed-{{ APIV|slugify }}" aria-expanded="false"
               aria-controls="fields-removed-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
           </a>
-          Fields Removed <span class="badge badge-danger">{{ RESULT.REMOVED|length }}</span>
+          {% translate "Fields Removed" %} <span class="badge badge-danger">{{ RESULT.REMOVED|length }}</span>
         </td>
       </tr>
       <tr class="collapse" id="fields-removed-{{ APIV|slugify }}">
@@ -46,7 +47,7 @@
         <td colspan="2">
           <a data-toggle="collapse" href="#fields-changed-{{ APIV|slugify }}" aria-expanded="false"
               aria-controls="fields-changed-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
-          Fields Changed <span class="badge badge-info">{{ RESULT.CHANGED|length }}</span>
+          {% translate "Fields Changed" %} <span class="badge badge-info">{{ RESULT.CHANGED|length }}</span>
         </td>
       </tr>
       <tr id="fields-changed-{{ APIV|slugify }}" class="collapse">
@@ -59,8 +60,8 @@
                     <var>{{ K }}</var>
                   </td>
                   <td>
-                    <strong>From:</strong> <var>{{ V.BEFORE }}</var>
-                    <strong> To: </strong> <var>{{ V.AFTER }}</var>
+                    <strong>{% translate "From:" %}</strong> <var>{{ V.BEFORE }}</var>
+                    <strong>{% translate "To:" %}</strong> <var>{{ V.AFTER }}</var>
                   </td>
                 </tr>
               {% endfor %}
@@ -75,7 +76,7 @@
         <td colspan="2">
           <a data-toggle="collapse" href="#desc-changes-{{ APIV|slugify }}" aria-expanded="false"
               aria-controls="desc-changes-{{ APIV|slugify }}"><i class="far fa-plus-square"></i></a>
-          Description Changes <span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
+          {% translate "Description Changes" %}<span class="badge badge-info">{{ RESULT.DESCRIPTION|length }}</span>
         </td>
       </tr>
       <tr id="desc-changes-{{ APIV|slugify }}" class="collapse">

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+{% load i18n %}
 {% load static %}
 {% load core_tags %}
 <html lang="en">
@@ -11,7 +13,7 @@
     <link href="{% static 'css/bootstrap-4.3.1.min.css' %}" rel="stylesheet" integrity="sha256-D4vVfyDgPBxpWhtpeh7r9dpdZb+rN013inMq9x39e28=">
     <link href="{% static 'css/fontawesome-5.8.2.min.css' %}" rel="stylesheet" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=">
     <link href="{% static 'css/kab.css' %}" rel="stylesheet" integrity="sha256-4p5aLR5qZ301XK9F7EiPZJPjSstp6QWjRpdM3GWW9nU=">
-    <title>Source View</title>
+    <title>{% translate "Source View" %}</title>
   </head>
 
   <body>

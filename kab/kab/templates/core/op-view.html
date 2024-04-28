@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load core_tags %}
 
 {% block title %}
-  <title>Operation: {{ API }} - {{ OP.operationId }}</title>
+  <title>{% translate "Operation" %} | {{ API }} - {{ OP.operationId }}</title>
 <style>
 p {
     margin-bottom: 0.3rem !important;
@@ -20,7 +21,7 @@ p {
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnSwitchTo" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divSwitchTo" aria-haspopup="true" aria-expanded="false">
-        <i data-toggle="tooltip" title="Switch to another version of this operation"
+        <i data-toggle="tooltip" title="{% translate 'Switch to another version of this operation' %}"
           class="fas fa-fw fa-code-branch"></i>
       </a>
     </div>
@@ -29,7 +30,7 @@ p {
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnCompare" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divCompare" aria-haspopup="true" aria-expanded="false">
-        <i data-toggle="tooltip" title="Compare to another version of this operation"
+        <i data-toggle="tooltip" title="{% translate 'Compare to another version of this operation' %}"
           class="fas fa-fw fa-exchange-alt" aria-hidden="true"></i>
       </a>
     </div>
@@ -37,7 +38,7 @@ p {
     <!-- History -->
     <a id="btnHistory" class="btn btn-outline-secondary mr-2" type="button"
         href="{% url 'op-history' OP.operationId %}">
-      <i data-toggle="tooltip" title="View history of the operation"
+      <i data-toggle="tooltip" title="{% translate 'View history of the operation' %}"
         class="fas fa-fw fa-history"></i>
     </a>
   </div>
@@ -46,13 +47,13 @@ p {
   <div id="divSwitchTo" class="collapse px-1 bg-light" aria-labelledby="btnSwitchTo"
     style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="row px-2" z-index="3">
-      <p class="col-12 my-2 px-1">Switch to another version of this definition:</p>
+      <p class="col-12 my-2 px-1">{% translate "Switch to another version of this definition" %}</p>
       {% for AV in VERSIONS%}
         <a class="btn btn-secondary btn-sm mx-1 my-1" role="button"
           href="{% url 'view-operation' AV OP.operationId %}">
           {{ AV }}</a>
       {% empty %}
-        <a class="disabled" href="#">No other version found!</a>
+        <a class="disabled" href="#">{% translate "No other version found!" %}</a>
       {% endfor %}
     </div>
   </div>
@@ -60,20 +61,20 @@ p {
   <div id="divCompare" class="collapse px-1 bg-light" aria-labelledby="btnCompare"
     style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="row px-2">
-      <p class="col-12 my-2 px-1">Choose another version of this definition for comparison:</p>
+      <p class="col-12 my-2 px-1">{% translate "Choose another version of this definition for comparison:" %}</p>
       {% for AV in VERSIONS %}
         <a class="btn btn-secondary btn-sm mx-1 my-1" role="button" href="#"
             onclick="compareOp('{{ AV }}')">{{ AV }}</a>
         </a>
       {% empty %}
-        <a class="disabled" href="#">No other version found!</a>
+        <a class="disabled" href="#">{% translate "No other version found!" %}</a>
       {% endfor %}
     </div>
   </div>
 
   <dl class="row mb-0">
     {# Description #}
-    <dt class="col-md-2 col-sm-3">Description:
+    <dt class="col-md-2 col-sm-3">{% translate "Description:" %}
     </dt>
     <dd class="col-md-10 col-sm-9 condense" style="word-break:break-word;">
       {% if OP.description %}
@@ -85,7 +86,7 @@ p {
   </dl>
 
   <dl class="row">
-    <dt class="col-md-2 col-sm-3">Verb:
+    <dt class="col-md-2 col-sm-3">{% translate "Verb:" %}
       <a type="button" class="btn p-0" onclick="show_help('verbs')">
         <i class="fa far fa-question-circle text-info"></i>
       </a>
@@ -100,7 +101,7 @@ p {
     </dd>
 
     {# Path and Path Parameters #}
-    <dt class="col-md-2 col-sm-3">Path:
+    <dt class="col-md-2 col-sm-3">{% translate "Path:" %}
       <a type="button" class="btn p-0" onclick="show_help('path')">
         <i class="fa far fa-question-circle text-info"></i>
       </a>
@@ -109,7 +110,7 @@ p {
       <p><code> {{ OP.path}}</code></p>
       {% if PATH %}
         <table class="table table-sm table-striped mb-0 mt-2">
-          <tr class="table-secondary"><td colspan="3">Params<td></tr>
+          <tr class="table-secondary"><td colspan="3">{% translate "Params" %}<td></tr>
           {% for P in PATH %}
             <tr>
               <td style="min-width:100px;"><samp>{{ P.name }}</samp>
@@ -129,20 +130,20 @@ p {
     </dd>
 
     {# Schemes #}
-    <dt class="col-md-2 col-sm-3">Schemes:</dt>
+    <dt class="col-md-2 col-sm-3">{% translate "Schemes:" %}</dt>
     <dd class="col-md-10 col-sm-9 text-uppercase">
       <var>{{ OP.schemes|safeseq|join:", " }}</var>
     </dd>
 
     {# Tags #}
-    <dt class="col-md-2 col-sm-3">Tags:</dt>
+    <dt class="col-md-2 col-sm-3">{% translate "Tags:" %}</dt>
     <dd class="col-md-10 col-sm-9">
       <var>{{ OP.tags|safeseq|join:", " }}<var>
     </dd>
 
     {# Consumes #}
     {% if OP.consumes %}
-      <dt class="col-md-2 col-sm-3">Consumes:
+      <dt class="col-md-2 col-sm-3">{% translate "Consumes:" %}
         <a type="button" class="btn p-0"
           onclick="show_help('content-type')">
           <i class="fa far fa-question-circle text-info"></i>
@@ -155,30 +156,30 @@ p {
 
     {# Produces #}
     {% if OP.produces %}
-      <dt class="col-md-2 col-sm-3">Produces:
-          <a type="button" class="btn p-0" onclick="show_help('apigroup')">
-            <i class="fa far fa-question-circle text-info"></i>
-          </a>
+      <dt class="col-md-2 col-sm-3">{% translate "Produces:" %}
+        <a type="button" class="btn p-0" onclick="show_help('apigroup')">
+          <i class="fa far fa-question-circle text-info"></i>
+        </a>
       </dt>
       <dd class="col-md-10 col-sm-9">
         <var>{{ OP.produces|safeseq|join:", " }}</var><br/>
-        <em>(Note that <a href="#" onclick="show_help('protobuf')">
+        <em>({% translate "Note that" %} <a href="#" onclick="show_help('protobuf')">
           <var>application/vnd.kubernetes.protobuf</var>
-        </a> is a kubernetes specific content-type.)
+          </a> {% translate "is a kubernetes specific content-type." %})
         </em>
       </dd>
     {% endif %}
 
     {% if QUERY %}
     {# Query Parameters #}
-    <dt class="col-md-2 col-sm-3">Query Parameters:</dt>
+    <dt class="col-md-2 col-sm-3">{% translate "Query Parameters:" %}</dt>
     <dd class="col-md-10 col-sm-9">
       <table class="table table-sm table-striped table-bordered mt-2">
         <thead>
           <tr class="table-secondary">
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
+            <th>{% translate "Name" %}</th>
+            <th>{% translate "Type" %}</th>
+            <th>{% translate "Description" %}</th>
           <tr>
         </thead>
         <tbody>
@@ -236,40 +237,40 @@ p {
 
     {% if BODY %}
     {# Body #}
-    <dt class="col-md-2 col-sm-3">Body:</dt>
+    <dt class="col-md-2 col-sm-3">{% translate "Body:" %}</dt>
     <dd class="col-md-10 col-sm-9">
       {% if BODY.0.schema.type == "array" %}
         {% escape_ref API BODY.0.schema.items as TARGET %}
         [<code>{{ TARGET.REF|safe }}</code>]
       {% else %}
         {% escape_ref API BODY.0.schema as TARGET %}
-        <a class="btn btn-outline-dark btn-sm" role="button"
-             href="{{ TARGET.REF.0 }}">{{ TARGET.REF.1 }}</a>
-
+        <a class="btn btn-outline-dark btn-sm" role="button" href="{{ TARGET.REF.0 }}">
+          {{ TARGET.REF.1 }}
+        </a>
       {% endif %}
     </dd>
     {% endif %}
 
     {% if OP.responses %}
-    <dt class="col-md-2 col-sm-3">Responses:</dt>
+    <dt class="col-md-2 col-sm-3">{% translate "Responses:" %}</dt>
     <dd class="col-md-10 col-sm-9">
       <table class="table table-sm table-striped table-bordered mt-2">
         <thead>
           <tr class="table-secondary">
-            <th style="width: 15%;">Status
+            <th style="width: 15%;">{% translate "Status" %}
               <a type="button" class="btn p-0" onclick="show_help('status')">
                 <i class="fa far fa-question-circle text-info"></i>
               </a>
             </th>
-            <th style="width: 15%;">Description</th>
-            <th>Response</th>
+            <th style="width: 15%;">{% translate "Description" %}</th>
+            <th>{% translate "Response" %}</th>
           </tr>
         </thead>
         <tbody>
           {% for key, data in OP.responses.items %}
           <tr>
             <td>{{ key }}</td>
-            <td>{{ data.description|default:"no description" }}</td>
+            <td>{{ data.description|default:"{% translate 'no description' %}" }}</td>
             <td>
             {% if data.schema %}
               {% escape_ref API data.schema as RESP %}
@@ -289,7 +290,7 @@ p {
     {% endif %}
 
     {% if RELATED %}
-    <dt class="col-md-2 col-sm-3">Related Operations:</dt>
+    <dt class="col-md-2 col-sm-3">{% translate "Related Operations:" %}</dt>
     <dd class="col-md-10 col-sm-9">
       {% for K, V in RELATED.items %}
         <a class="btn btn-outline-secondary btn-sm mb-1 mx-1 text-monospace" role="button"
@@ -302,13 +303,13 @@ p {
 
   {% if OP.extensions %}
     <div class="card" style="width: 100%;">
-      <h5 class="card-header">Extensions</h5>
+      <h5 class="card-header">{% translate "Extensions" %}</h5>
       <div class="card-body p-0">
         <table class="table table-sm table-hover">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Value</th>
+              <th>{% translate "Name" %}</th>
+              <th>{% translate "Value" %}</th>
             </tr>
           </thead>
           <tbody>

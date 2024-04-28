@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load static %}
 {% load core_tags %}
 
 {% block title %}
-  <title>Feature gates in {{ API }}</title>
+  <title>{% translate "Feature gates" %} | {{ API }}</title>
 {% endblock %}
 
 {% block main_content %}
@@ -12,11 +13,11 @@
   <table id="table" class="table table-sm table-bordered" width="100%">
     <thead>
       <tr class="table-active">
-        <th>Name</th>
-        <th>Default</th>
-        <th>Stage</th>
-        <th>Since</th>
-        <th class="sorter-false" width="50%">Description</th>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "Default" %}</th>
+        <th>{% translate "Stage" %}</th>
+        <th>{% translate "Since" %}</th>
+        <th class="sorter-false" width="50%">{% translate "Description" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -37,7 +38,7 @@
         </tr>
       {% empty %}
         <tr>
-          <td colspan="4">No Features Found</td>
+          <td colspan="4">{% translate "No Features Found" %}</td>
         </tr>
       {% endfor %}
     </tbody>

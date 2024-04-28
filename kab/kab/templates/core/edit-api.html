@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+
+{% load i18n %}
 {% load core_tags %}
 {% block title %}
-<title>Service Definition</title>
+<title>{% translate "Service Definition" %}</title>
 {% endblock %}
 
 {% block main_content %}
@@ -9,7 +11,7 @@
   <div class="row p-2 ds-bg-contextual-blue-2 justify-content-between mb-3">
     <div class="blockquote col-md-6">
       <h4><strong>Service Definition</strong></h4>
-      <h6><i>Service definition information</i></h6>
+      <h6><i>{% translate "Service definition information" %}</i></h6>
     </div>
   </div>
 
@@ -70,12 +72,12 @@
 
         <div class="form-group row">
           <label class="col-md-2 col-form-label text-right" for="{{ FORM.auth_path.auto_id }}">
-            Authentication Path:
+            {% translate "Authentication Path:" %}
           </label>
           {{ FORM.auth_path|widget_with_class:"col-md-4 form-control" }}
 
           <label class="col-md-2 col-form-label text-right" for="{{ FORM.auth_request.auto_id }}">
-            Request Method:
+            {% translate "Request Method:" %}
           </label>
           {{ FORM.auth_request|widget_with_class:"col-md-3 form-control" }}
         </div>
@@ -98,7 +100,7 @@
           </label>
           <input type="text" name="resp_key" maxlength="40" class="col-md-4 form-control"
               id="id_resp_key"
-              placeholder="<Default to same as session header>"
+              placeholder="{% translate "<Default to same as session header>" %}"
               value="{{ FORM.resp_key.value }}">
 
           <label class="col-md-2 col-form-label text-right" for="{{ FORM.resp_in.auto_id }}">
@@ -149,7 +151,7 @@
                   <input id="id_spec_file" name="spec_file" type="file" class="custom-file-input">
                   <label id="id_spec_file_label" class="custom-file-label"
                       style="font-weight:normal">
-                    Choose file...
+                    {% translate "Choose file..." %}
                   </label>
               </label>
             </div>
@@ -157,17 +159,17 @@
               <div class="input-group">
                 <input type="text" class="form-control" name="spec_url"
                     id="id_spec_url" value=""
-                    placeholder="Input URL here and then click the GET button.">
+                    placeholder="{% translate 'Input URL here and then click the GET button.' %}">
                 <div class="input-group-append">
                   <button type="button" class="btn btn-outline-secondary"
                     onclick="download_url()">GET</button>
                 </div>
               </div> <!-- input-group -->
               <div id="id_download_success" class="d-none">
-                <p class="text-success">Spec successfully downloaded!</p>
+                <p class="text-success">{% translate "Spec successfully downloaded!" %}</p>
               </div>
               <div id="id_download_failure" class="d-none">
-                <p id="id_download_error" class="text-danger">Cannot download the specified content.</p>
+                <p id="id_download_error" class="text-danger">{% translate "Cannot download the specified content." %}</p>
               </div>
 
             </div> <!-- ssRemote -->
@@ -179,17 +181,17 @@
     <div class="form-group mt-3">
       <div class="mx-auto text-center">
         <button type="submit" name="save" value="Save" class="btn btn-primary">
-          <i class="fa fa-save"></i> Save
+          <i class="fa fa-save"></i> {% translate "Save" %}
         </button>
         <a class="btn btn-secondary" role="button" href="{% url 'list-apis' %}">
-          <i class="fa fa-ban"></i> Cancel
+          <i class="fa fa-ban"></i> {% translate "Cancel" %}
         </a>
       </div>
     </div> 
   </form>
 
   {% if ERRORS %}
-    {% include "core/widgets/toast.html" with TYPE="Warning" TITLE="Data error" NOTES=ERRORS %}
+    {% include "core/widgets/toast.html" with TYPE="Warning" TITLE="{% translate 'Data error' %}" NOTES=ERRORS %}
   {% endif %}
 
 {% endblock %}

@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
+{% load i18n %}
 {% load core_tags %}
 {% load static %}
 
 {% block title %}
-  <title>Definition: {{ API }} - {{ KIND }}</title>
+  <title>{% translate "Definition:" %} {{ API }} - {{ KIND }}</title>
   <link rel="stylesheet" href="{% static 'css/jstree-3.2.1.min.css' %}">
 {% endblock %}
 
@@ -16,7 +17,7 @@
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <button id="btnTree" class="btn btn-outline-primary" type="button" href="#" data-toggle="collapse"
           data-target="#schema_tree" aria-controls="schema_tree" aria-expanded="false">
-         <i data-toggle="tooltip" title="Toggle navigation tree" class="fas fa-fw fa-project-diagram"></i>
+        <i data-toggle="tooltip" title="{% translate 'Toggle navigation tree' %}" class="fas fa-fw fa-project-diagram"></i>
       </button>
     </div>
 
@@ -24,7 +25,7 @@
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnSwitchTo" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divSwitchTo" aria-haspopup="true" aria-expanded="false">
-        <i data-toggle="tooltip" title="Switch to other versions of the Definition"
+        <i data-toggle="tooltip" title="{% translate 'Switch to other versions of the Definition' %}"
           class="fas fa-fw fa-code-branch"></i>
       </a>
     </div>
@@ -33,7 +34,7 @@
     <div class="btn-group-toggle mr-2" data-toggle="buttons">
       <a id="btnCompare" type="button" class="btn btn-outline-secondary"
           data-toggle="collapse" data-target="#divCompare" aria-haspopup="true" aria-expanded="false">
-        <i data-toggle="tooltip" title="Compare to other versions of the definition (resource)"
+        <i data-toggle="tooltip" title="{% translate 'Compare to other versions of the definition (resource)' %}"
           class="fas fa-fw fa-exchange-alt" aria-hidden="true"></i>
       </a>
     </div>
@@ -41,14 +42,14 @@
     <!-- History -->
     <a id="btnHistory" class="btn btn-outline-secondary mr-2" type="button"
         href="{% url 'definition-history' GROUP VERSION NAME %}">
-      <i data-toggle="tooltip" title="View history of the definition (resource)"
+      <i data-toggle="tooltip" title="{% translate 'View history of the definition (resource)' %}"
         class="fas fa-fw fa-history"></i>
     </a>
 
     <!-- try -->
     <a id="btnTry" class="btn btn-outline-info" type="button"
         href="{% url 'try-resource' API GROUP VERSION NAME %}">
-      <i data-toggle="tooltip" title="View definition in YAML code editor"
+      <i data-toggle="tooltip" title="{% translate 'View definition in YAML code editor' %}"
         class="fas fa-fw fa-code"></i>
     </a>
   </div>
@@ -57,7 +58,7 @@
   <div id="divSwitchTo" class="collapse px-1 bg-light" aria-labelledby="btnSwitchTo"
     style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="row px-2" z-index="3">
-      <p class="col-12 my-2 px-1">Switch to another version of this definition:</p>
+      <p class="col-12 my-2 px-1">{% translate "Switch to another version of this definition:" %}</p>
       {% for AV, VLIST in VERSIONS.items %}
         {% for V in VLIST %}
           {% if V.group %}
@@ -70,7 +71,7 @@
           </a>
         {% endfor %}
       {% empty %}
-        <a class="disabled" href="#">No other version found!</a>
+      <a class="disabled" href="#">{% translate "No other version found!" %}</a>
       {% endfor %}
     </div>
   </div>
@@ -78,7 +79,7 @@
   <div id="divCompare" class="collapse px-1 bg-light" aria-labelledby="btnCompare"
     style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
     <div class="row px-2">
-      <p class="col-12 my-2 px-1">Choose another version of this definition for comparison:</p>
+      <p class="col-12 my-2 px-1">{% translate "Choose another version of this definition for comparison:" %}</p>
       {% for AV, VLIST in VERSIONS.items %}
         {% for V in VLIST %}
           {% if V.group %}
@@ -97,7 +98,7 @@
           </a>
         {% endfor %}
       {% empty %}
-        <a class="disabled" href="#">No other version found!</a>
+        <a class="disabled" href="#">{% translate "No other version found!" %}</a>
       {% endfor %}
     </div>
   </div>
