@@ -1,20 +1,22 @@
+{% load i18n %}
+
 <div class="modal fade" id="id_confirm_delete" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header ds-bg-contextual-blue-2 py-1">
-        <h4 class="modal-title">Confirmation</h4>
+        <h4 class="modal-title">{% translate "Confirmation" %}</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -0.7rem">
           <span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete <span id="delete_obj_name"></span>?</p>
+        <p>{% translate "Are you sure you want to delete" %} <span id="delete_obj_name"></span>?</p>
       </div>
       <div class="modal-footer row">
         <div class="col text-center">
           <form id="form_delete" action="#" method="POST">
             {% csrf_token %}
-            <button id='id_del_confirm' type="submit" class="btn btn-primary ">Confirm</button>
-            <button id='id_del_close' type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id='id_del_confirm' type="submit" class="btn btn-primary ">{% translate "Confirm" %}</button>
+            <button id='id_del_close' type="button" class="btn btn-secondary" data-dismiss="modal">{% translate "Close" %}</button>
           </form>
         </div>
       </div>
