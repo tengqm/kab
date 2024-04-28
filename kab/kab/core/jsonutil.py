@@ -81,8 +81,8 @@ def load_json(fn, api=None, recursive=True, root=None):
         LOG.error("Cannot read file %s: %s", fn, str(ex))
         return None
 
-    # if not recursive:
-    #    return data
+    if not recursive:
+       return data
 
     result = {}
 
