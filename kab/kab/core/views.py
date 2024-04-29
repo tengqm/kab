@@ -96,7 +96,9 @@ class SwitchLang(generic.View):
             new_kwargs["group"] = "all"
             new_target = urls.reverse("list-resources", kwargs=new_kwargs)
 
-        return http.HttpResponseRedirect(new_target)
+        response = http.HttpResponseRedirect(new_target)
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, new_lang)
+        return response
 
 
 class SwitchAPI(generic.View):
