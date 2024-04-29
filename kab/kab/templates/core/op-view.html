@@ -14,6 +14,7 @@ p {
 
 {% block main_content %}
 
+{% get_current_language as LANG %}
   <div class="btn-toolbar pb-3 bg-light" role="toolbar" aria-label="OperationToolbar"
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
 
@@ -244,7 +245,7 @@ p {
         [<code>{{ TARGET.REF|safe }}</code>]
       {% else %}
         {% escape_ref API BODY.0.schema as TARGET %}
-        <a class="btn btn-outline-dark btn-sm" role="button" href="{{ TARGET.REF.0 }}">
+        <a class="btn btn-outline-dark btn-sm" role="button" href="/{{ LANG }}{{ TARGET.REF.0 }}">
           {{ TARGET.REF.1 }}
         </a>
       {% endif %}
@@ -276,7 +277,7 @@ p {
               {% escape_ref API data.schema as RESP %}
               {% if "REF" in RESP %}
                 <a class="btn btn-outline-dark btn-sm" role="button"
-                     href="{{ RESP.REF.0 }}">{{ RESP.REF.1 }}</a>
+                  href="/{{ LANG }}{{ RESP.REF.0 }}">{{ RESP.REF.1 }}</a>
               {% elif "type" in RESP %}
                 <code>{{ RESP.type }}
               {% endif %}

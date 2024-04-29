@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block main_content %}
-
+{% get_current_language as LANG %}
   <div class="btn-toolbar pb-3 bg-light" role="toolbar" aria-label="Definition Toolbar"
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;">
 
@@ -66,7 +66,7 @@
           {% else %}
             {% dereference AV "*" "*" NAME as LINK %}
           {% endif %}
-          <a class="btn btn-secondary btn-sm mx-1 my-1" role="button" href="{{ LINK.0 }}">
+          <a class="btn btn-secondary btn-sm mx-1 my-1" role="button" href="/{{ LANG }}{{ LINK.0 }}">
             {{ AV }}: {% if V.group %}{{ V.group }}/{{ V.version}}{% else %}*/*{% endif %}
           </a>
         {% endfor %}

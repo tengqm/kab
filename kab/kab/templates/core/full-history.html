@@ -14,6 +14,7 @@ p {
 
 {% block main_content %}
 
+{% get_current_language as LANG %}
 {# The follow loop is a placeholder for more than one version comparison #}
 {% for APIV, CHANGE in DATA.items %}
 
@@ -45,7 +46,7 @@ p {
             {% endif %}
 
             {% if ITEM.status == "Changed" or ITEM.status == "Removed" %}
-              <a class="badge bg-primary text-white" href="{{ LINK0.0 }}">{{ APIV.0 }}</a>
+            <a class="badge bg-primary text-white" href="/{{ LANG }}{{ LINK0.0 }}">{{ APIV.0 }}</a>
             {% else %}
               <span class="badge bg-secondary text-white-50">{{ APIV.0 }}</span>
             {% endif %}
@@ -61,7 +62,7 @@ p {
             {% endif %}
 
             {% if ITEM.status == "Added" or ITEM.status == "Changed" %}
-              <a class="badge bg-primary text-white" href="{{ LINK1.0 }}">{{ APIV.1 }}</a>
+            <a class="badge bg-primary text-white" href="{{ LANG }}/{{ LINK1.0 }}">{{ APIV.1 }}</a>
             {% else %}
               <span class="badge bg-secondary text-white-50">{{ APIV.1 }}</span>
             {% endif %}

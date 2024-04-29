@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load core_tags %}
-
+{% get_current_language as LANG %}
   <dl class="row mt-2 mb-0">
     {# group version #}
     <dt class="col-3 col-md-2">{% translate "Name:" %}</dt>
@@ -91,7 +91,7 @@
                     {% if DATA.items.REF %}
                       <code>array</code> of
                         <a class="btn btn-outline-dark btn-sm" role="button"
-                           href="{{ DATA.items.REF.0 }}">{{ DATA.items.REF.1 }}</a>
+                          href="/{{ LANG }}{{ DATA.items.REF.0 }}">{{ DATA.items.REF.1 }}</a>
                     {% else %}
                       <code>array</code> of <code>{{ DATA.items.type }}</code>
                     {% endif %}
@@ -132,7 +132,7 @@
                 {% elif DATA.REF %}
                   <i class="fa fa-share-alt"></i>
                     <a class="btn btn-outline-dark btn-sm" role="button"
-                           href="{{ DATA.REF.0 }}">{{ DATA.REF.1 }}</a>
+                      href="/{{ LANG }}{{ DATA.REF.0 }}">{{ DATA.REF.1 }}</a>
                 {% endif %}
 
                 {% if 'default' in DATA %}

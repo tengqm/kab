@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main_content %}
-
+{% get_current_language as LANG %}
   <div class="btn-toolbar pb-1 bg-light" role="toolbar" aria-label="{% translate 'Resource Toolbar' %}" 
       style="border-bottom-color:gray; border-bottom-style:solid; border-bottom-width: 1px;font-size:90%;">
     <label class="align-self-center"><i class="fa fa-circle text-danger"></i> =Alpha</label>&nbsp;
@@ -54,7 +54,7 @@
                   <div class="dropdown-menu" aria-labelledby="id-{{ R.name }}">
                     {% for DEF in DEFS.values %}
                       {% dereference API GV.0 GV.1 DEF as LINK %}
-                      <a class="dropdown-item" href="{{ LINK.0 }}">{{ LINK.1 }}</a>
+                      <a class="dropdown-item" href="/{{ LANG }}{{ LINK.0 }}">{{ LINK.1 }}</a>
                     {% endfor %}
                   </div>
                 </div>
