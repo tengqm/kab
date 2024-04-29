@@ -26,6 +26,7 @@ from django import http
 from django import shortcuts
 from django import template
 from django import urls
+from django.utils import translation
 from django.views import generic
 import markdown
 import yaml
@@ -64,6 +65,38 @@ class ListAPIs(generic.View):
             "APIS": result,
         }
         return shortcuts.render(req, 'core/apis.html', ctx)
+
+
+class SwitchLang(generic.View):
+    """Generic view to Switch Language"""
+
+    def get(self, req, *args, **kwargs):
+        new_lang = kwargs.get("lang")
+        def_target = urls.reverse("home")
+        orig_url = ""
+        try:
+            orig_url = req.META.get("HTTP_REFERER")
+        except Exception:
+            LOG.warning("HTTP_REFERER not found")
+            return http.HttpResponseRedirect(def_target)
+
+        o = parse.urlparse(orig_url)
+        try:
+            rm = urls.resolve(o.path)
+            new_kwargs = copy.deepcopy(rm.kwargs)
+        except Exception as ex:
+            LOG.warning("Failed resolving origin path: %s", str(ex))
+            return http.HttpResponseRedirect(def_target)
+
+        translation.activate(new_lang)
+        try:
+            new_target = urls.reverse(rm.url_name, kwargs=new_kwargs)
+        except Exception:
+            # redirect to resource list if the reverse parsing failed
+            new_kwargs["group"] = "all"
+            new_target = urls.reverse("list-resources", kwargs=new_kwargs)
+
+        return http.HttpResponseRedirect(new_target)
 
 
 class SwitchAPI(generic.View):

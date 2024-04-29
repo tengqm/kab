@@ -16,12 +16,13 @@ import logging
 import os
 
 from django.conf import settings
+from django.utils import translation
 import yaml
 
 LOG = logging.getLogger(__name__)
 
 
-def _parse_dict(api, data, prop, root=None):
+def _parse_dict(api, data, prop, recursive, root=None, lang='en'):
     if root is None:
         if settings.configured:
             base = settings.DATA_DIR
@@ -33,11 +34,11 @@ def _parse_dict(api, data, prop, root=None):
     result = {}
     for k, v in data.items():
         if isinstance(v, dict):
-            result[k] = _parse_dict(api, v, k, root=base)
+            result[k] = _parse_dict(api, v, k, recursive, root=base, lang=lang)
         elif isinstance(v, list):
-            result[k] = _parse_list(api, v, k, root=base)
+            result[k] = _parse_list(api, v, k, recursive, root=base)
         elif isinstance(v, str):
-            if k == "$ref" and v.startswith("#/definitions/"):
+            if k == "$ref" and recursive and v.startswith("#/definitions/"):
                 def_file = "{}/{}/defs/{}.json".format(base, api, v[14:])
                 needle = "JSONSchemaProps"
                 if (v.endswith(needle) and prop != "openAPIV3Schema"):
@@ -49,25 +50,27 @@ def _parse_dict(api, data, prop, root=None):
             result[k] = v
         else:
             result[k] = v
-        if 'x-kab-description-zh' in result:
+
+        if lang == 'zh' and  'x-kab-description-zh' in result:
             result['description'] = result['x-kab-description-zh']
 
     return result
 
 
-def _parse_list(api, data, prop, root=None):
+def _parse_list(api, data, prop, recursive, root=None, lang='en'):
     result = []
     for item in data:
         if isinstance(item, dict):
-            result.append(_parse_dict(api, item, prop, root=root))
+            result.append(_parse_dict(api, item, prop, recursive, root=root, lang=lang))
         elif isinstance(item, list):
-            result.append(_parse_list(api, item, prop, root=root))
+            result.append(_parse_list(api, item, prop, recursive, root=root, lang=lang))
         else:
             result.append(item)
     return result
 
 
 def load_json(fn, api=None, recursive=True, root=None):
+    lang = translation.get_language()
     data = {}
     if not os.path.exists(fn):
         fn = fn[:-5] + ".yaml"
@@ -81,20 +84,17 @@ def load_json(fn, api=None, recursive=True, root=None):
         LOG.error("Cannot read file %s: %s", fn, str(ex))
         return None
 
-    if not recursive:
-       return data
-
     result = {}
-
+    
     for k, v in data.items():
         if isinstance(v, dict):
-            new_v = _parse_dict(api, v, k, root=root)
+            new_v = _parse_dict(api, v, k, recursive, root=root, lang=lang)
         elif isinstance(v, list):
-            new_v = _parse_list(api, v, k, root=root)
+            new_v = _parse_list(api, v, k, recursive, root=root, lang=lang)
         else:
             new_v = v
         result[k] = new_v
-    
-    if 'x-kab-description-zh' in data:
+
+    if lang == 'zh' and 'x-kab-description-zh' in data:
         result['description'] = result.get('x-kab-description-zh', '')
     return result

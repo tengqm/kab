@@ -84,6 +84,10 @@ urlpatterns += i18n_patterns(
             views.Features.as_view(),
             name='feature-gates'),
 
+    re_path(r'^apis/lang/(?P<lang>[^\/\s]*)/$',
+            views.SwitchLang.as_view(),
+            name='switch-lang'),
+
     re_path(r'^apis/switch/(?P<api>[^\/\s]*)/$',
             views.SwitchAPI.as_view(),
             name='switch-apiv'),

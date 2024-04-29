@@ -17,6 +17,7 @@ import logging
 from os import path
 
 from django.conf import settings
+from django.utils import translation
 import markdown
 
 from kab import consts
@@ -278,7 +279,7 @@ def get_definition(apiv, group, version, defn, recursive=False):
     # def_name is too short, need full path
     fn = get_definition_name(group, version, defn)
     fpath = path.join("data", apiv, "defs", fn)
-    return jsonutil.load_json(fpath, apiv, recursive)
+    return jsonutil.load_json(fpath, apiv, recursive=recursive)
 
 
 def resources(apiv, group_version):
@@ -334,6 +335,10 @@ def operations(api_version, group_version):
         else:
             ops = opdict.get(op["target"], [])
 
+        if (translation.get_language() == 'zh' and
+            'x-kab-description-zh' in op):
+            op['description'] = op.get('x-kab-description-zh', '')
+
         ops.append({
             "op_type": op["op_type"],
             "description": op["description"],
@@ -364,7 +369,7 @@ def get_operation(api_version, name, root=None):
     if root is None:
         root = settings.DATA_DIR
     path = "{}/{}/ops/{}.json".format(root, api_version, name)
-    data["spec"] = jsonutil.load_json(path, api_version, False)
+    data["spec"] = jsonutil.load_json(path, api_version, recursive=False)
     return data
 
 

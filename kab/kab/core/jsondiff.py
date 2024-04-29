@@ -205,11 +205,11 @@ def compare(apis, file1, file2, root=None, recursive=True):
     :returns: None if either one of the data cannot be loaded.
     """
 
-    json1 = jsonutil.load_json(file1, apis[0], root=root, recursive=recursive)
+    json1 = jsonutil.load_json(file1, apis[0], recursive=recursive, root=root)
     if json1 is None:
         return None
 
-    json2 = jsonutil.load_json(file2, apis[-1], root=root, recursive=recursive)
+    json2 = jsonutil.load_json(file2, apis[-1], recursive=recursive, root=root)
     if json2 is None:
         return None
 
