@@ -45,7 +45,7 @@ RUN mkdir -p $KAB_ROOT && \
 # NOTE: The following ADD contents are sorted by change frequency
 COPY kab/LICENSE kab/manage.py $KAB_ROOT/
 COPY kab/dist $KAB_ROOT/dist
-COPY kab/dist $KAB_ROOT/locale
+COPY kab/locale $KAB_ROOT/locale
 
 RUN mkdir -p $KAB_ROOT/data && \
     mkdir -p $KAB_ROOT/data/1.24 && \
