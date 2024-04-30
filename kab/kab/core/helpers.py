@@ -543,7 +543,12 @@ def features(apiv, include_all=False):
             continue
 
         # convert description
-        desc = _markdown(fdata["description"])
+        if (translation.get_language() == 'zh' and 'x-kab-description-zh' in fdata):
+            desc = fdata['x-kab-description-zh']
+        else:
+            desc = fdata['description']
+
+        desc = _markdown(desc)
         ato = alpha.get("to", "0.0")
         if ato is None or _VGE(ato, apiv):
             result[fname] = {
