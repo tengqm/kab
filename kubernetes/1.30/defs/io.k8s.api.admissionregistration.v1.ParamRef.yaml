@@ -67,10 +67,9 @@ properties:
     description: |
       `parameterNotFoundAction` controls the behavior of the binding when the resource exists,
       and name or selector is valid, but there are no parameters matched by the binding.
-      If the value is set to `Allow`, then no matched parameters will be treated
-      as successful validation by the binding.
-      If set to `Deny`, then no matched parameters will be subject to the `failurePolicy`
-      of the policy.
+
+      - `"Allow"`: no matched parameters will be treated as successful validation by the binding.
+      - `"Deny"`: no matched parameters will be subject to the `failurePolicy` of the policy.
 
     x-kab-description-zh: |
       此字段用来控制当资源存在、`name` 或 `selector` 也合法，
@@ -103,9 +102,6 @@ properties:
       求值的结果会用逻辑与操作组合。
 
       `name` 和 `selector` 是互斥的，二者必须设置其一，但不能同时设置。
-
-required:
-  - parameterNotFoundAction
 type: object
 x-kubernetes-map-type: atomic
 
