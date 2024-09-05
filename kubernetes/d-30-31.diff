@@ -1,0 +1,692 @@
+# diff -r 1.30orig/defs/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyBindingList.json 1.31orig/defs/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyBindingList.json
+# 30a31
+# >     "items",
+# diff -r 1.30orig/defs/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyList.json 1.31orig/defs/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyList.json
+# 30a31
+# >     "items",
+# diff -r 1.30orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingList.json 1.31orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingList.json
+# 30a31
+# >     "items",
+# diff -r 1.30orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyList.json 1.31orig/defs/io.k8s.api.admissionregistration.v1alpha1.ValidatingAdmissionPolicyList.json
+# 30a31
+# >     "items",
+# diff -r 1.30orig/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingList.json 1.31orig/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingList.json
+# 30a31
+# >     "items",
+# diff -r 1.30orig/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyList.json 1.31orig/defs/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyList.json
+# 30a31
+# >     "items",
+# diff -r 1.30orig/defs/io.k8s.api.apps.v1.StatefulSetSpec.json 1.31orig/defs/io.k8s.api.apps.v1.StatefulSetSpec.json
+# 11c11
+# <       "description": "ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a \"0\" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta."
+# ---
+# >       "description": "ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a \"0\" index to the first replica and increments the index by one for each additional replica requested."
+# 15c15
+# <       "description": "persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional"
+# ---
+# >       "description": "persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta."
+# 
+# Only in 1.31orig/defs: io.k8s.api.authorization.v1.FieldSelectorAttributes.json
+# Only in 1.31orig/defs: io.k8s.api.authorization.v1.LabelSelectorAttributes.json
+
+# diff -r 1.30orig/defs/io.k8s.api.authorization.v1.ResourceAttributes.json 1.31orig/defs/io.k8s.api.authorization.v1.ResourceAttributes.json
+# 3a4,7
+# >     "fieldSelector": {
+# >       "$ref": "#/definitions/io.k8s.api.authorization.v1.FieldSelectorAttributes",
+# >       "description": "fieldSelector describes the limitation on access based on field.  It can only limit access, not broaden it.\n\nThis field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default)."
+# >     },
+# 6a11,14
+# >     },
+# >     "labelSelector": {
+# >       "$ref": "#/definitions/io.k8s.api.authorization.v1.LabelSelectorAttributes",
+# >       "description": "labelSelector describes the limitation on access based on labels.  It can only limit access, not broaden it.\n\nThis field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default)."
+# diff -r 1.30orig/defs/io.k8s.api.batch.v1.JobSpec.json 1.31orig/defs/io.k8s.api.batch.v1.JobSpec.json
+# 29c29
+# <       "description": "ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first \"/\" must be a valid subdomain as defined by RFC 1123. All characters trailing the first \"/\" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 64 characters.\n\nThis field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).",
+# ---
+# >       "description": "ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first \"/\" must be a valid subdomain as defined by RFC 1123. All characters trailing the first \"/\" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.\n\nThis field is alpha-level. The job controller accepts setting the field when the feature gate JobManagedBy is enabled (disabled by default).",
+# 48c48
+# <       "description": "Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.\n\nThis field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default)."
+# ---
+# >       "description": "Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure."
+# 60c60
+# <       "description": "successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.\n\nThis field  is alpha-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (disabled by default)."
+# ---
+# >       "description": "successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.\n\nThis field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default)."
+# diff -r 1.30orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.31orig/defs/io.k8s.api.batch.v1.JobStatus.json
+# 37c37
+# <       "description": "The number of pods which have a Ready condition.",
+# ---
+# >       "description": "The number of active pods which have a Ready condition and are not terminating (without a deletionTimestamp).",
+# diff -r 1.30orig/defs/io.k8s.api.coordination.v1.LeaseSpec.json 1.31orig/defs/io.k8s.api.coordination.v1.LeaseSpec.json
+# 9c9
+# <       "description": "holderIdentity contains the identity of the holder of a current lease.",
+# ---
+# >       "description": "holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.",
+# 13c13
+# <       "description": "leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.",
+# ---
+# >       "description": "leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.",
+# 21a22,25
+# >     "preferredHolder": {
+# >       "description": "PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.",
+# >       "type": "string"
+# >     },
+# 24a29,32
+# >     },
+# >     "strategy": {
+# >       "description": "Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.",
+# >       "type": "string"
+
+# Only in 1.31orig/defs: io.k8s.api.coordination.v1alpha1.LeaseCandidate.json
+# Only in 1.31orig/defs: io.k8s.api.coordination.v1alpha1.LeaseCandidateList.json
+# Only in 1.31orig/defs: io.k8s.api.coordination.v1alpha1.LeaseCandidateSpec.json
+
+# Only in 1.30orig/defs: io.k8s.api.core.v1.ClaimSource.json
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ConfigMapEnvSource.json 1.31orig/defs/io.k8s.api.core.v1.ConfigMapEnvSource.json
+# 5c5
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ConfigMapKeySelector.json 1.31orig/defs/io.k8s.api.core.v1.ConfigMapKeySelector.json
+# 9c9
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ConfigMapProjection.json 1.31orig/defs/io.k8s.api.core.v1.ConfigMapProjection.json
+# 13c13
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+
+diff -r 1.30orig/defs/io.k8s.api.core.v1.ConfigMapVolumeSource.json 1.31orig/defs/io.k8s.api.core.v1.ConfigMapVolumeSource.json
+18c18
+<       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+---
+>       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ContainerStatus.json 1.31orig/defs/io.k8s.api.core.v1.ContainerStatus.json
+# 10a11,23
+# >     "allocatedResourcesStatus": {
+# >       "description": "AllocatedResourcesStatus represents the status of various resources allocated for this Pod.",
+# >       "items": {
+# >         "$ref": "#/definitions/io.k8s.api.core.v1.ResourceStatus"
+# >       },
+# >       "type": "array",
+# >       "x-kubernetes-list-map-keys": [
+# >         "name"
+# >       ],
+# >       "x-kubernetes-list-type": "map",
+# >       "x-kubernetes-patch-merge-key": "name",
+# >       "x-kubernetes-patch-strategy": "merge"
+# >     },
+# 50a64,67
+# >     },
+# >     "user": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.ContainerUser",
+# >       "description": "User represents user identity information initially attached to the first process of the container"
+# Only in 1.31orig/defs: io.k8s.api.core.v1.ContainerUser.json
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.HostAlias.json 1.31orig/defs/io.k8s.api.core.v1.HostAlias.json
+# 16a17,19
+# >   "required": [
+# >     "ip"
+# >   ],
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.HostIP.json 1.31orig/defs/io.k8s.api.core.v1.HostIP.json
+# 8a9,11
+# >   "required": [
+# >     "ip"
+# >   ],
+
+# Only in 1.31orig/defs: io.k8s.api.core.v1.ImageVolumeSource.json
+# Only in 1.31orig/defs: io.k8s.api.core.v1.LinuxContainerUser.json
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.LocalObjectReference.json 1.31orig/defs/io.k8s.api.core.v1.LocalObjectReference.json
+# 5c5
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# Only in 1.31orig/defs: io.k8s.api.core.v1.NodeFeatures.json
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.NodeRuntimeHandlerFeatures.json 1.31orig/defs/io.k8s.api.core.v1.NodeRuntimeHandlerFeatures.json
+# 2c2
+# <   "description": "NodeRuntimeHandlerFeatures is a set of runtime features.",
+# ---
+# >   "description": "NodeRuntimeHandlerFeatures is a set of features implemented by the runtime handler.",
+# 5a6,9
+# >       "type": "boolean"
+# >     },
+# >     "userNamespaces": {
+# >       "description": "UserNamespaces is set to true if the runtime handler supports UserNamespaces, including for volumes.",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.NodeStatus.json 1.31orig/defs/io.k8s.api.core.v1.NodeStatus.json
+# 28c28
+# <       "description": "Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity",
+# ---
+# >       "description": "Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity",
+# 50a51,54
+# >     },
+# >     "features": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.NodeFeatures",
+# >       "description": "Features describes the set of features implemented by the CRI implementation."
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.NodeSystemInfo.json 1.31orig/defs/io.k8s.api.core.v1.NodeSystemInfo.json
+# 21c21
+# <       "description": "KubeProxy Version reported by the node.",
+# ---
+# >       "description": "Deprecated: KubeProxy Version reported by the node.",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json 1.31orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimSpec.json
+# 33c33
+# <       "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.",
+# ---
+>       "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimStatus.json 1.31orig/defs/io.k8s.api.core.v1.PersistentVolumeClaimStatus.json
+# 48c48
+# <       "description": "currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.",
+# ---
+# >       "description": "currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).",
+# 53c53
+# <       "description": "ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is an alpha field and requires enabling VolumeAttributesClass feature."
+# ---
+# >       "description": "ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default)."
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PersistentVolumeSpec.json 1.31orig/defs/io.k8s.api.core.v1.PersistentVolumeSpec.json
+# 129c129
+# <       "description": "Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is an alpha field and requires enabling VolumeAttributesClass feature.",
+# ---
+# >       "description": "Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PersistentVolumeStatus.json 1.31orig/defs/io.k8s.api.core.v1.PersistentVolumeStatus.json
+# 6c6
+# <       "description": "lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is a beta field and requires the PersistentVolumeLastPhaseTransitionTime feature to be enabled (enabled by default)."
+# ---
+# >       "description": "lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions."
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json 1.31orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json
+# 9c9
+# <       "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.",
+# ---
+# >       "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).",
+# 17c17
+# <       "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.",
+# ---
+# >       "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PodIP.json 1.31orig/defs/io.k8s.api.core.v1.PodIP.json
+# 8a9,11
+# >   "required": [
+# >     "ip"
+# >   ],
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PodResourceClaim.json 1.31orig/defs/io.k8s.api.core.v1.PodResourceClaim.json
+# 2c2
+# <   "description": "PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.",
+# ---
+# >   "description": "PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.\n\nIt adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.",
+# 8,10c8,14
+# <     "source": {
+# <       "$ref": "#/definitions/io.k8s.api.core.v1.ClaimSource",
+# <       "description": "Source describes where to find the ResourceClaim."
+# ---
+# >     "resourceClaimName": {
+# >       "description": "ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.\n\nExactly one of ResourceClaimName and ResourceClaimTemplateName must be set.",
+# >       "type": "string"
+# >     },
+# >     "resourceClaimTemplateName": {
+# >       "description": "ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.\n\nThe template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.\n\nThis field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.\n\nExactly one of ResourceClaimName and ResourceClaimTemplateName must be set.",
+# >       "type": "string"
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PodResourceClaimStatus.json 1.31orig/defs/io.k8s.api.core.v1.PodResourceClaimStatus.json
+# 9c9
+# <       "description": "ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.",
+# ---
+# >       "description": "ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PodSecurityContext.json 1.31orig/defs/io.k8s.api.core.v1.PodSecurityContext.json
+# 40c40
+# <       "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.",
+# ---
+# >       "description": "A list of groups applied to the first process run in each container, in addition to the container's primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.",
+# 46a47,50
+# >     },
+# >     "supplementalGroupsPolicy": {
+# >       "description": "Defines how supplemental groups of the first container processes are calculated. Valid values are \"Merge\" and \"Strict\". If not specified, \"Merge\" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.",
+# >       "type": "string"
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.PodSpec.json 1.31orig/defs/io.k8s.api.core.v1.PodSpec.json
+# 115c115
+# <       "description": "NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.",
+# ---
+# >       "description": "NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename",
+# 128c128
+# <       "description": "Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.\n\nIf the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions\n\nIf the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup"
+# ---
+# >       "description": "Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.\n\nIf the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions\n\nIf the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup"
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ProjectedVolumeSource.json 1.31orig/defs/io.k8s.api.core.v1.ProjectedVolumeSource.json
+# 10c10
+# <       "description": "sources is the list of volume projections",
+# ---
+# >       "description": "sources is the list of volume projections. Each entry in this list handles one source.",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ResourceClaim.json 1.31orig/defs/io.k8s.api.core.v1.ResourceClaim.json
+# 6a7,10
+# >     },
+# >     "request": {
+# >       "description": "Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.",
+# >       "type": "string"
+
+# Only in 1.31orig/defs: io.k8s.api.core.v1.ResourceHealth.json
+# Only in 1.31orig/defs: io.k8s.api.core.v1.ResourceStatus.json
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.SecretEnvSource.json 1.31orig/defs/io.k8s.api.core.v1.SecretEnvSource.json
+# 5c5
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.SecretKeySelector.json 1.31orig/defs/io.k8s.api.core.v1.SecretKeySelector.json
+# 9c9
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.SecretProjection.json 1.31orig/defs/io.k8s.api.core.v1.SecretProjection.json
+# 13c13
+# <       "description": "Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+# ---
+# >       "description": "Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.SecurityContext.json 1.31orig/defs/io.k8s.api.core.v1.SecurityContext.json
+# 21c21
+# <       "description": "procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.",
+# ---
+# >       "description": "procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.",
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.ServiceSpec.json 1.31orig/defs/io.k8s.api.core.v1.ServiceSpec.json
+# 108c108
+# <       "description": "TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to \"PreferClose\", implementations should prioritize endpoints that are topologically close (e.g., same zone).",
+# ---
+# >       "description": "TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to \"PreferClose\", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is an alpha field and requires enabling ServiceTrafficDistribution feature.",
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.Volume.json 1.31orig/defs/io.k8s.api.core.v1.Volume.json
+# 71a72,75
+# >     "image": {
+# >       "$ref": "#/definitions/io.k8s.api.core.v1.ImageVolumeSource",
+# >       "description": "image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:\n\n- Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.\n\nThe volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type."
+# >     },
+
+# diff -r 1.30orig/defs/io.k8s.api.core.v1.VolumeProjection.json 1.31orig/defs/io.k8s.api.core.v1.VolumeProjection.json
+# 2c2
+# <   "description": "Projection that may be projected along with other supported volume types",
+# ---
+# >   "description": "Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.",
+
+# diff -r 1.30orig/defs/io.k8s.api.networking.v1.ServiceBackendPort.json 1.31orig/defs/io.k8s.api.networking.v1.ServiceBackendPort.json
+# 14c14,15
+# <   "type": "object"
+# ---
+# >   "type": "object",
+# >   "x-kubernetes-map-type": "atomic"
+
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.IPAddress.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.IPAddress.json
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.IPAddressList.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.IPAddressList.json
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.IPAddressSpec.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.IPAddressSpec.json
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.ParentReference.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.ParentReference.json
+
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDR.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.ServiceCIDR.json
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDRList.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.ServiceCIDRList.json
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDRSpec.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.ServiceCIDRSpec.json
+# Only in 1.30orig/defs: io.k8s.api.networking.v1alpha1.ServiceCIDRStatus.json
+# Only in 1.31orig/defs: io.k8s.api.networking.v1beta1.ServiceCIDRStatus.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.AllocationResult.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.AllocationResult.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.BasicDevice.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.CELDeviceSelector.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.DriverAllocationResult.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.DriverRequests.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesAllocationResult.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesAttribute.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesFilter.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesInstance.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesIntSlice.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesRequest.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesResources.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.NamedResourcesStringSlice.json
+
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.Device.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceAllocationConfiguration.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceAllocationResult.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceAttribute.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceClaim.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceClaimConfiguration.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceClass.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceClassConfiguration.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceClassList.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceClassSpec.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceConstraint.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceRequest.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceRequestAllocationResult.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.DeviceSelector.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.OpaqueDeviceConfiguration.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.PodSchedulingContext.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.PodSchedulingContext.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.PodSchedulingContextList.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.PodSchedulingContextList.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.PodSchedulingContextSpec.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.PodSchedulingContextSpec.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.PodSchedulingContextStatus.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.PodSchedulingContextStatus.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaim.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaim.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimConsumerReference.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimConsumerReference.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimList.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimList.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimSchedulingStatus.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimSchedulingStatus.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimSpec.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimSpec.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimStatus.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimStatus.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimTemplate.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimTemplate.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimTemplateList.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimTemplateList.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimTemplateSpec.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceClaimTemplateSpec.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimParameters.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimParametersList.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClaimParametersReference.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClass.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClassList.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClassParameters.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClassParametersList.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceClassParametersReference.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceFilter.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceHandle.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceRequest.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceSlice.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceSlice.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.ResourceSliceList.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceSliceList.json
+
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.StructuredResourceHandle.json
+# Only in 1.30orig/defs: io.k8s.api.resource.v1alpha2.VendorParameters.json
+
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourcePool.json
+# Only in 1.31orig/defs: io.k8s.api.resource.v1alpha3.ResourceSliceSpec.json
+
+# Only in 1.31orig/defs: io.k8s.api.storage.v1beta1.VolumeAttributesClass.json
+# Only in 1.31orig/defs: io.k8s.api.storage.v1beta1.VolumeAttributesClassList.json
+
+# diff -r 1.30orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.31orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+# 182a183,187
+# >       "version": "v1alpha1"
+# >     },
+# >     {
+# >       "group": "coordination.k8s.io",
+# >       "kind": "DeleteOptions",
+# 298c303
+# <       "version": "v1alpha2"
+# ---
+# >       "version": "v1alpha3"
+
+# Only in 1.31orig/defs: io.k8s.apimachinery.pkg.apis.meta.v1.FieldSelectorRequirement.json
+
+# diff -r 1.30orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.Status.json 1.31orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.Status.json
+# 5a6,8
+# >       "enum": [
+# >         "v1"
+# >       ],
+# 19a23,25
+# >       "enum": [
+# >         "Status"
+# >       ],
+# 38a45,48
+# >   "required": [
+# >     "apiVersion",
+# >     "kind"
+# >   ],
+# 45,49d54
+# <     },
+# <     {
+# <       "group": "resource.k8s.io",
+# <       "kind": "Status",
+# <       "version": "v1alpha2"
+# diff -r 1.30orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.31orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
+# 160a161,165
+# >       "version": "v1alpha1"
+# >     },
+# >     {
+# >       "group": "coordination.k8s.io",
+# >       "kind": "WatchEvent",
+# 276c281
+# <       "version": "v1alpha2"
+# ---
+# >       "version": "v1alpha3"
+
+# Only in 1.30orig/ops: getNetworkingV1alpha1APIResources.json
+# Only in 1.31orig/ops: getNetworkingV1beta1APIResources.json
+# Only in 1.30orig/ops: getResourceV1alpha2APIResources.json
+# Only in 1.31orig/ops: getResourceV1alpha3APIResources.json
+# Only in 1.31orig/ops: getStorageV1beta1APIResources.json
+
+# Only in 1.31orig/ops: createCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: deleteCoordinationV1alpha1CollectionNamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: deleteCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: getCoordinationV1alpha1APIResources.json
+# Only in 1.31orig/ops: listCoordinationV1alpha1LeaseCandidateForAllNamespaces.json
+# Only in 1.31orig/ops: listCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: patchCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: readCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: replaceCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: watchCoordinationV1alpha1LeaseCandidateListForAllNamespaces.json
+# Only in 1.31orig/ops: watchCoordinationV1alpha1NamespacedLeaseCandidate.json
+# Only in 1.31orig/ops: watchCoordinationV1alpha1NamespacedLeaseCandidateList.json
+
+# Only in 1.30orig/ops: createNetworkingV1alpha1IPAddress.json
+# Only in 1.31orig/ops: createNetworkingV1beta1IPAddress.json
+# Only in 1.30orig/ops: deleteNetworkingV1alpha1CollectionIPAddress.json
+# Only in 1.31orig/ops: deleteNetworkingV1beta1CollectionIPAddress.json
+# Only in 1.30orig/ops: deleteNetworkingV1alpha1IPAddress.json
+# Only in 1.31orig/ops: deleteNetworkingV1beta1IPAddress.json
+# Only in 1.30orig/ops: listNetworkingV1alpha1IPAddress.json
+# Only in 1.31orig/ops: listNetworkingV1beta1IPAddress.json
+# Only in 1.30orig/ops: patchNetworkingV1alpha1IPAddress.json
+# Only in 1.31orig/ops: patchNetworkingV1beta1IPAddress.json
+# Only in 1.30orig/ops: readNetworkingV1alpha1IPAddress.json
+# Only in 1.31orig/ops: readNetworkingV1beta1IPAddress.json
+# Only in 1.30orig/ops: replaceNetworkingV2alpha1IPAddress.json
+# Only in 1.31orig/ops: replaceNetworkingV1beta1IPAddress.json
+# Only in 1.30orig/ops: watchNetworkingV1alpha1IPAddress.json
+# Only in 1.30orig/ops: watchNetworkingV1alpha1IPAddressList.json
+# Only in 1.31orig/ops: watchNetworkingV1beta1IPAddress.json
+# Only in 1.31orig/ops: watchNetworkingV1beta1IPAddressList.json
+
+# Only in 1.30orig/ops: createNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.31orig/ops: createNetworkingV1beta1ServiceCIDR.json
+# Only in 1.30orig/ops: deleteNetworkingV1alpha1CollectionServiceCIDR.json
+# Only in 1.31orig/ops: deleteNetworkingV1beta1CollectionServiceCIDR.json
+# Only in 1.30orig/ops: deleteNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.31orig/ops: deleteNetworkingV1beta1ServiceCIDR.json
+# Only in 1.30orig/ops: listNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.31orig/ops: listNetworkingV1beta1ServiceCIDR.json
+# Only in 1.30orig/ops: patchNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.31orig/ops: patchNetworkingV1beta1ServiceCIDR.json
+# Only in 1.30orig/ops: patchNetworkingV1alpha1ServiceCIDRStatus.json
+# Only in 1.31orig/ops: patchNetworkingV1beta1ServiceCIDRStatus.json
+# Only in 1.30orig/ops: readNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.31orig/ops: readNetworkingV1beta1ServiceCIDR.json
+# Only in 1.30orig/ops: readNetworkingV1alpha1ServiceCIDRStatus.json
+# Only in 1.31orig/ops: readNetworkingV1beta1ServiceCIDRStatus.json
+# Only in 1.30orig/ops: replaceNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.30orig/ops: replaceNetworkingV1alpha1ServiceCIDRStatus.json
+# Only in 1.31orig/ops: replaceNetworkingV1beta1ServiceCIDR.json
+# Only in 1.31orig/ops: replaceNetworkingV1beta1ServiceCIDRStatus.json
+# Only in 1.30orig/ops: watchNetworkingV1alpha1ServiceCIDR.json
+# Only in 1.30orig/ops: watchNetworkingV1alpha1ServiceCIDRList.json
+# Only in 1.31orig/ops: watchNetworkingV1beta1ServiceCIDR.json
+# Only in 1.31orig/ops: watchNetworkingV1beta1ServiceCIDRList.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: createResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionNamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3CollectionNamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: listResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: listResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: listResourceV1alpha2PodSchedulingContextForAllNamespaces.json
+# Only in 1.31orig/ops: listResourceV1alpha3PodSchedulingContextForAllNamespaces.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: patchResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedPodSchedulingContextStatus.json
+# Only in 1.31orig/ops: patchResourceV1alpha3NamespacedPodSchedulingContextStatus.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: readResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedPodSchedulingContextStatus.json
+# Only in 1.31orig/ops: readResourceV1alpha3NamespacedPodSchedulingContextStatus.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedPodSchedulingContextStatus.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3NamespacedPodSchedulingContextStatus.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedPodSchedulingContext.json
+# Only in 1.31orig/ops: watchResourceV1alpha3NamespacedPodSchedulingContext.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedPodSchedulingContextList.json
+# Only in 1.31orig/ops: watchResourceV1alpha3NamespacedPodSchedulingContextList.json
+# Only in 1.30orig/ops: watchResourceV1alpha2PodSchedulingContextListForAllNamespaces.json
+# Only in 1.31orig/ops: watchResourceV1alpha3PodSchedulingContextListForAllNamespaces.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionNamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: listResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: listResourceV1alpha2ResourceClaimParametersForAllNamespaces.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClaimParameters.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClaimParametersList.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceClaimParametersListForAllNamespaces.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: createResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionNamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3CollectionNamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: listResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: listResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: listResourceV1alpha2ResourceClaimTemplateForAllNamespaces.json
+# Only in 1.31orig/ops: listResourceV1alpha3ResourceClaimTemplateForAllNamespaces.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: patchResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: readResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClaimTemplate.json
+# Only in 1.31orig/ops: watchResourceV1alpha3NamespacedResourceClaimTemplate.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClaimTemplateList.json
+# Only in 1.31orig/ops: watchResourceV1alpha3NamespacedResourceClaimTemplateList.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceClaimTemplateListForAllNamespaces.json
+# Only in 1.31orig/ops: watchResourceV1alpha3ResourceClaimTemplateListForAllNamespaces.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionNamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: listResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: listResourceV1alpha2ResourceClassParametersForAllNamespaces.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClassParameters.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClassParametersList.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceClassParametersListForAllNamespaces.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionResourceClass.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: listResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: patchResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: readResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceClass.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceClassList.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2ResourceSlice.json
+# Only in 1.31orig/ops: createResourceV1alpha3ResourceSlice.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionResourceSlice.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3CollectionResourceSlice.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2ResourceSlice.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3ResourceSlice.json
+# Only in 1.30orig/ops: listResourceV1alpha2ResourceSlice.json
+# Only in 1.31orig/ops: listResourceV1alpha3ResourceSlice.json
+# Only in 1.30orig/ops: patchResourceV1alpha2ResourceSlice.json
+# Only in 1.31orig/ops: patchResourceV1alpha3ResourceSlice.json
+# Only in 1.30orig/ops: readResourceV1alpha2ResourceSlice.json
+# Only in 1.31orig/ops: readResourceV1alpha3ResourceSlice.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2ResourceSlice.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3ResourceSlice.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceSlice.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceSliceList.json
+# Only in 1.31orig/ops: watchResourceV1alpha3ResourceSlice.json
+# Only in 1.31orig/ops: watchResourceV1alpha3ResourceSliceList.json
+
+# Only in 1.31orig/ops: createResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3CollectionDeviceClass.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: listResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: patchResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: readResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: watchResourceV1alpha3DeviceClass.json
+# Only in 1.31orig/ops: watchResourceV1alpha3DeviceClassList.json
+
+# Only in 1.31orig/ops: createStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: deleteStorageV1beta1CollectionVolumeAttributesClass.json
+# Only in 1.31orig/ops: deleteStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: listStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: patchStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: readStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: replaceStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: watchStorageV1beta1VolumeAttributesClass.json
+# Only in 1.31orig/ops: watchStorageV1beta1VolumeAttributesClassList.json
+
+# Only in 1.30orig/ops: createResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: createResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2CollectionNamespacedResourceClaim.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3CollectionNamespacedResourceClaim.json
+# Only in 1.30orig/ops: deleteResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: deleteResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: listResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: listResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: listResourceV1alpha2ResourceClaimForAllNamespaces.json
+# Only in 1.31orig/ops: listResourceV1alpha3ResourceClaimForAllNamespaces.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: patchResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: patchResourceV1alpha2NamespacedResourceClaimStatus.json
+# Only in 1.31orig/ops: patchResourceV1alpha3NamespacedResourceClaimStatus.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: readResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: readResourceV1alpha2NamespacedResourceClaimStatus.json
+# Only in 1.31orig/ops: readResourceV1alpha3NamespacedResourceClaimStatus.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: replaceResourceV1alpha2NamespacedResourceClaimStatus.json
+# Only in 1.31orig/ops: replaceResourceV1alpha3NamespacedResourceClaimStatus.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClaim.json
+# Only in 1.31orig/ops: watchResourceV1alpha3NamespacedResourceClaim.json
+# Only in 1.30orig/ops: watchResourceV1alpha2NamespacedResourceClaimList.json
+# Only in 1.31orig/ops: watchResourceV1alpha3NamespacedResourceClaimList.json
+# Only in 1.30orig/ops: watchResourceV1alpha2ResourceClaimListForAllNamespaces.json
+# Only in 1.31orig/ops: watchResourceV1alpha3ResourceClaimListForAllNamespaces.json
+
