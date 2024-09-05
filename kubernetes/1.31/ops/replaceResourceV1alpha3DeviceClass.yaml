@@ -8,7 +8,7 @@ parameters:
   name: body
   required: true
   schema:
-    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass'
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.UPDATE'
 - $ref: '#/parameters/dryRun'
 - $ref: '#/parameters/fieldManager'
 - $ref: '#/parameters/fieldValidation'
@@ -30,12 +30,12 @@ responses:
     description: OK
     x-kab-description-zh: 成功
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass'
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.GET'
   '201':
     description: Created
     x-kab-description-zh: 对象已创建
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass'
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.GET'
   '401':
     description: Unauthorized
     x-kab-description-zh: 操作未授权
