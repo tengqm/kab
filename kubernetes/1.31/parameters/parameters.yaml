@@ -15,7 +15,7 @@ allowWatchBookmarks:
   type: boolean
   uniqueItems: true
 command:
-  description: |
+  description: |-
     Command is the remote command to execute. argv array. Not executed within a shell.
   x-kab-description-zh: |
     需要在远程执行的命令。所给的字符串会被当作空格分割的参数数组来解释。
@@ -248,7 +248,7 @@ limit:
   x-kab-description-zh: |
     `limit` 限制 `list` 请求返回的对象个数。如果存在更多的条目，服务器会设置列表元数据中的 `continue`
     字段，使用所返回的这一字段值重新执行初始查询时，将会返回下一组结果。
-    设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素）， 
+    设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素），
     例如所请求的对象被过滤掉的情况。客户端只能通过 `continue` 字段存在与否来判断是否还有更多的结果待取回。
     服务器端可能不支持 `limit` 参数，因而返回所有结果。
     如果设置了 `limit`，但响应中的 `continue` 字段为空，客户端可以假定没有更多的结果。
