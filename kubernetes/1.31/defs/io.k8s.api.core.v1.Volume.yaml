@@ -104,7 +104,7 @@ properties:
       此字段引用宿主机器上之前存在的一个文件或目录，将其直接公开给容器使用。
       这种数据卷通常用于系统代理或者其他被允许查看主机的特权事务。大多数容器不需要这种数据卷。
   image:
-    $ref: #/definitions/io.k8s.api.core.v1.ImageVolumeSource
+    $ref: '#/definitions/io.k8s.api.core.v1.ImageVolumeSource'
     description: |
       `image` represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
       The volume is resolved at Pod startup depending on which `pullPolicy` value is provided.

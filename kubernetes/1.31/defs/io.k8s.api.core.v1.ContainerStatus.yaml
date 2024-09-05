@@ -15,7 +15,7 @@ properties:
     description: The status of various resources allocated for this Pod.
     x-kab-description-zh: 分配给此 Pod 的各类资源的状态。
     items:
-      $ref: #/definitions/io.k8s.api.core.v1.ResourceStatus
+      $ref: '#/definitions/io.k8s.api.core.v1.ResourceStatus'
     type: array
     x-kubernetes-list-map-keys:
       - name
@@ -114,7 +114,7 @@ properties:
     description: Details about the container's current condition.
     x-kab-description-zh: 容器当前状况的详细信息。
   user:
-    $ref: #/definitions/io.k8s.api.core.v1.ContainerUser
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerUser'
     description: The user identity information initially attached to the first process of the container.
     x-kab-description-zh: 与最初挂接到容器中第一个进程的用户相关的标识信息。
   volumeMounts:
