@@ -1,0 +1,43 @@
+description: |
+  ServiceCIDR defines a range of IP addresses using CIDR format (e.g. `"192.168.0.0/24"` or `"2001:db2::/64"`).
+  This range is used to allocate ClusterIPs to Service objects.
+x-kab-description-zh: |
+  ServiceCIDR 使用 CIDR 格式（例如，`"192.168.0.0/24"` 或 `"2001:db2::/64"`）来定义一组 IP 地址。
+  所给的地址范围用来为 Service 对象分配集群 IP 地址。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - networking.k8s.io/v1beta1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ServiceCIDR
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.networking.v1beta1.ServiceCIDRSpec'
+    description: The desired state of the ServiceCIDR.
+    x-kab-description-zh: 此 ServiceCIDR 的期望状态。
+  status:
+    $ref: '#/definitions/io.k8s.api.networking.v1beta1.ServiceCIDRStatus'
+    description: The current state of the ServiceCIDR.
+    x-kab-description-zh: 此 ServiceCIDR 的当前状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: networking.k8s.io
+    kind: ServiceCIDR
+    version: v1beta1
+

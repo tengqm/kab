@@ -1,0 +1,72 @@
+consumes:
+  - '*/*'
+description: read log of the specified Pod
+x-kab-description-zh: 读取指定的 Pod 对象的日志（log）数据
+operationId: readCoreV1NamespacedPodLog
+parameters:
+  - description: |
+      The container for which to stream logs.
+      Defaults to only container if there is one container in the Pod.
+    x-kab-description-zh: |
+      流式读取日志时使用的容器。
+      如果 Pod 中只有一个容器，则默认为该容器。
+    in: query
+    name: container
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/follow'
+  - $ref: '#/parameters/insecureSkipTLSVerifyBackend'
+  - $ref: '#/parameters/limitBytes'
+  - description: name of the Pod
+    x-kab-description-zh: Pod 的名称
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+  - $ref: '#/parameters/previous'
+  - $ref: '#/parameters/sinceSeconds'
+  - description: |
+      RFC3339 timestamp from which to show logs. If this value precedes
+      the time a Pod was started, only logs since the Pod start will be returned.
+      If this value is in the future, no logs will be returned.
+      Only one of `sinceSeconds` or `sinceTime` may be specified.
+    x-kab-description-zh: |
+      一个 RFC3339 格式的时间戳字符串，日志范围从该时间戳开始。
+      如果所给时间早于 Pod 启动时间，则仅返回 Pod 启动以来生成的日志。
+      如果时间戳表示的是将来的时间，则不会返回日志数据。
+      `sinceSeconds` 和 `sinceTime` 只能指定其一。
+    in: query
+    name: sinceTime
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/tailLines'
+  - $ref: '#/parameters/timestamps'
+path: /api/v1/namespaces/{namespace}/pods/{name}/log
+produces:
+  - text/plain
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description:  OK
+    x-kab-description-zh: 成功
+    schema:
+      type: string
+  '401':
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
+schemes:
+  - https
+tags:
+  - core_v1
+verb: get
+x-kubernetes-action: get
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: Pod
+  version: v1
+

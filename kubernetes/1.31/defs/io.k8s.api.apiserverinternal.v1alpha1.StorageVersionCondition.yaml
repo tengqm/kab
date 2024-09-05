@@ -1,0 +1,50 @@
+description: Describes the state of the StorageVersion at a certain point in time.
+x-kab-description-zh: 描述 StorageVersion 对象在某个时间点的状态。
+properties:
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition transitioned from one status to another.
+    x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间。
+  message:
+    description: A human readable message indicating details about the transition.
+    x-kab-description-zh: 人类可读的消息，给出状况转换的细节。
+    minLength: 1
+    type: string
+  observedGeneration:
+    description: |
+      If set, this represents the `metadata.generation` that the condition
+      was set based upon.
+    x-kab-description-zh: |
+      此字段如果被设置，所表示的是状况被设置时所针对的 `metadata.generation`。
+    format: int64
+    type: integer
+  reason:
+    description: The reason for the condition's last transition.
+    x-kab-description-zh: 上次状况转换的原因。 
+    minLength: 1
+    type: string
+  status:
+    description: Status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    minLength: 1
+    type: string
+  type:
+    description: |
+      Type of the condition. This must be unique in the `conditions` map.
+      The string must be a qualified name.
+    x-kab-description-zh: |
+      状况的类型。在整个 `conditions` 映射中，`type` 的取值不可重复。
+      此字符串必须是一个限定名。
+    minLength: 1
+    type: string
+required:
+  - message
+  - reason
+  - status
+  - type
+type: object
+

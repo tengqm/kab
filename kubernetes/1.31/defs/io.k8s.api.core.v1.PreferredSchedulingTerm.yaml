@@ -1,0 +1,23 @@
+description: |
+  An empty term matches all objects with implicit weight 0 (i.e. it's a no-op).
+  A null term matches no objects (i.e. is also a no-op).
+x-kab-description-zh: |
+  空的条件（Term）会匹配所有对象，且权重为 0（即，对应着无操作）。
+  条件为 null 时，不会匹配任何对象（即，也对应着无操作）。
+properties:
+  preference:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelectorTerm'
+    description: A node selector term, associated with the corresponding weight.
+    x-kab-description-zh: 一个节点选择条件，对应着此结构中的权重设置。
+  weight:
+    description: Weight associated with matching the corresponding preference.
+    x-kab-description-zh: 对应匹配 `preference` 的权重。
+    format: int32
+    maximum: 100
+    minimum: 1
+    type: integer
+required:
+  - preference
+  - weight
+type: object
+

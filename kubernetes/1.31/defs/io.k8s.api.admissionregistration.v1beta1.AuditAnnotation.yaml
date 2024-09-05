@@ -1,0 +1,60 @@
+description: AuditAnnotation describes how to produce an audit annotation for an API request.
+x-kab-description-zh: AuditAnnotation 描述如何为一个 API 请求生成审计注解。
+properties:
+  key:
+    x-kab-description-zh: |
+      此字段设置审计注解的主键。ValidatingAdmissionPolicy 的审计注解的主键必须唯一。
+      主键字符串必须是一个限定名（Qualified Name），即 `[A-Za-z0-9][-A-Za-z0-9_.]*`。
+
+      `key` 的值会与 ValidatingAdmissionPolicy 的资源名称一起构造审计注解主键：
+      `"{ValidatingAdmissionPolicy 名称}/{key 值}"`.
+
+      如果某个准入 Webhook 使用了与 ValidatingAdmissionPolicy 相同的资源名称，
+      并且其审计注解主键也相同，那么最终的注解主键也会相同。
+      这时候，先使用此主键写入的注解会被记录到审计日志中，后续的、主键相同的注解会被丢弃。
+
+    description: |
+      This specifies the audit annotation key. The audit annotation keys
+      of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name
+      (`[A-Za-z0-9][-A-Za-z0-9_.]*`).
+
+      The key is combined with the resource name of the ValidatingAdmissionPolicy
+      to construct an audit annotation key:
+      `"{ValidatingAdmissionPolicy name}/{key}"`.
+
+      If an admission webhook uses the same resource name as this
+      ValidatingAdmissionPolicy and the same audit annotation key, the annotation
+      key will be identical. In this case, the first annotation written with the key
+      will be included in the audit event and all subsequent annotations with the
+      same key will be discarded.
+    type: string
+  valueExpression:
+    x-kab-description-zh: |
+      此字段给出的是一个表达式，CEL 处理此表达式后得到审计注解的值。
+      此表达式的处理结果必须是一个字符串或者 Null 值。
+      如果结果是一个字符串，则该字符串值会被包含到审计注解中。
+      反之，如果处理结果是 Null 值或者空字符串，则对应的审计注解会被略过。
+      字符串超出 10 KB 时会被截断。
+
+      如果有多个 ValidatingAdmissionPolicyBinding 资源与同一个 API 请求匹配，
+      则针对每个绑定资源都会处理一遍`valueExpression` 表达式。
+      所生成的不同字符串会被串接起来，构成一个逗号分隔的列表，作为审计注解值。
+
+    description: |
+      This represents the expression which is evaluated by CEL to produce
+      an audit annotation value. The expression must evaluate to either a string or
+      null value. If the expression evaluates to a string, the audit annotation is
+      included with the string value. If the expression evaluates to null or empty
+      string, the audit annotation will be omitted. If the result of the `valueExpression`
+      is more than 10kb in length, it will be truncated to 10kb.
+
+      If multiple ValidatingAdmissionPolicyBinding
+      resources match an API request, then the `valueExpression` will be evaluated
+      for each binding. All unique values produced by the `valueExpression`'s will
+      be joined together in a comma-separated list.
+    type: string
+required:
+  - key
+  - valueExpression
+type: object
+

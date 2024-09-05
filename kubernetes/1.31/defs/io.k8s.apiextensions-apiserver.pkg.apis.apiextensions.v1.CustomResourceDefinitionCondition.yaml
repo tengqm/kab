@@ -1,0 +1,80 @@
+description: Details for the current condition of a resource.
+x-kab-description-zh: 资源当前状况的详细信息。
+properties:
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition transitioned from one status to another.
+    x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间。
+  message:
+    description: Human-readable message indicating details about last transition.
+    x-kab-description-zh: 人类可读的消息，给出状况转换的细节。
+    type: string
+  reason:
+    description: Unique, one-word, CamelCase reason for the condition's last transition.
+    x-kab-description-zh: 上次状况转换的原因，采用唯一的、驼峰拼写单个单词的形式。
+    type: string
+  status:
+    description: The status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    description: |
+      The type of the condition.
+
+      - `"Established"`: The resource has become active.
+        A resource is established when all names are accepted without a conflict for the first time.
+        A resource stays established until deleted, even during a later `"NamesAccepted"`
+        due to changed names. Note that not all names can be changed.
+      - `"NamesAccepted"`: The names chosen for this CustomResourceDefinition do not conflict with
+        others in the group and are therefore accepted.
+      - `"NoStructuralSchema"`: This means that one or more OpenAPI schema is not structural.
+        A schema is structural if it specifies types for all values, with the only exceptions of
+        those with `"x-kubernetes-int-or-string: true"`
+        (for fields which can be either integer or string),
+        or `"x-kubernetes-preserve-unknown-fields: true"` (for raw, unspecified JSON values).
+        In a structural schema, there is no `type`, `additionalProperties`, `nullable` or
+        `x-kubernetes-*` vendor extensions specified under `allOf`, `anyOf`, `oneOf` or `not`.
+        In the v1 API version, non-structural schemas are not allowed.
+      - `"Terminating"`: This means the CustomResourceDefinition has been deleted and is cleaning up.
+      - `"KubernetesAPIApprovalPolicyConformant"`: This indicates that an API in `"*.k8s.io"` or
+        `"*.kubernetes.io"` is or is not approved.
+        For CRDs outside tohse groups, this condition will not be set.
+        For CRDs inside those groups, the condition will be true if
+        `.metadata.annotations["api-approved.kubernetes.io"]` is set to a URL, othersise it will be false.
+    x-kab-description-zh: |
+      状况的类型。
+
+      - `"Established"`：资源已被启用。当所有的名字都被接受并且没有发生冲突时，资源进入此状况。
+        此状况会一直保持，直到被删除位置，甚至在后续因为更改名称而发生 `"NamesAccepted"` 也如此。
+        注意并不是所有的名字都可以变更。
+      - `"NamesAccepted"`：为此 CustomResourceDefinition 所选择的名称与 API 组中其他资源没有冲突，
+        因而被接受。
+      - `"NoStructuralSchema"`：资源的 OpenAPI 模式定义中至少有一个是非结构化的。
+        如果模式定义中为所有的取值都指定了数据类型，则认为模式定义是结构化的。
+        唯一的例外是 `"x-kubernetes-int-or-string: true"`（用于表达既可是整数也可是字符串的字段）或者
+        `"x-kubernetes-preserve-unknown-fields: true"`（用于原生的、未作规约的 JSON 值）。
+        在结构化的模式定义中，在 `allOf`、`anyOf`、`oneOf` 或者 `not` 之下没有 `type`、
+        `additionalProperties`、`nullable` 或者 `x-kubernetes-*` 这类厂商扩展。
+        API 的 v1 版本中，不允许使用非结构化的模式定义。
+      - `"Terminating"`：表示此 CustomResourceDefinition 已经被删除，处于清理过程中。
+      - `"KubernetesAPIApprovalPolicyConformant"`：表明位于 `"*.k8s.io"` 或 `"*.kubernetes.io"`
+        组的定义是否已经被批准。对于不在这类 API 组中的 CRD，不会设置此状况。
+        若 CRD 位于这些 API 组中，如果 `.metadata.annotations["api-approved.kubernetes.io"]`
+        被设置为一个 URL 值，则此状况为 `"True"`，否则此状况的状态为 `"False"`。
+    enum:
+      - Established
+      - KubernetesAPIApprovalPolicyConformant
+      - NamesAccepted
+      - NoStructuralSchema
+      - Terminating
+    minLength: 1
+    type: string
+required:
+  - status
+  - type
+type: object
+

@@ -1,0 +1,31 @@
+description: |
+  A possible state of the Container. Only one of its members may be specified.
+  If none of them is specified, the default one is `\"waiting\"`.
+x-kab-description-zh: |
+  容器的可能状态之一。结构中只能有一个成员是被设置的。如果所有成员都未设置，
+  可以认为容器处于 `"waiting"` 状态。
+properties:
+  running:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerStateRunning'
+    description: Details about a running Container.
+    x-kab-description-zh: 关于一个运行状态中的容器的详细信息。
+  terminated:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerStateTerminated'
+    description: |
+      Details about a terminated Container. When updating, if the Pod's `restartPolicy` is not
+      `\"Always\"` and the container has terminated, the server checks if the container's exit code
+      is non zero.
+      If the the Pod's `restartPolicy` is `\"OnFailure\"` and the container's exit code is non zero,
+      updating the container to a non-terminated state is allowed, or else the server rejects
+      the update request.
+    x-kab-description-zh: |
+      关于一个已经终止的容器的详细信息。更新容器状态时，如果 Pod 的 `restartPolicy`
+      不是 `"Always"`，并且容器已经终止，服务器检查容器的退出代码是否为零。
+      如果 Pod 的 `restartPolicy` 是 `"OnFailure"` 并且容器的退出代码不是零，
+      允许将容器状态更新为某个非终止状态，否则服务器会拒绝更新请求。
+  waiting:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerStateWaiting'
+    description: Details about a waiting Container.
+    x-kab-description-zh: 关于处于等待状态的容器的详细信息。
+type: object
+

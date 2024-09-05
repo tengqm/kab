@@ -1,0 +1,55 @@
+description: |
+  The status of a load-balancer ingress point.
+  Traffic intended for the Service should be sent to an ingress point.
+x-kab-description-zh: |
+  此结构包含某负载均衡 Ingress 点的状态。
+  指向某 Service 的请求流量应该被发送到某 Ingress 点。
+properties:
+  hostname:
+    description: |
+      The `hostname` is set for load-balancer ingress points that are DNS based
+      (typically AWS load-balancers)
+    x-kab-description-zh: |
+      基于 DNS 的负载均衡器 Ingress 点会设置 `hostname` 字段（通常是 AWS 上的负载均衡器）。
+    type: string
+  ip:
+    description: |
+      The `ip` is set for load-balancer ingress points that are IP based
+      (typically GCE or OpenStack load-balancers).
+    x-kab-description-zh: |
+      基于 IP 的负载均衡器 Ingress 点会设置 `ip` 字段（通常是 GCE 或 OpenStack 上的负载均衡器）。
+    type: string
+  ipMode:
+    description: |
+      This specifies how the load-balancer IP behaves. 
+      Setting this to `"VIP"` indicates that traffic is delivered to the node with the destination set to
+      the load-balancer's IP and port.
+      Setting this to `"Proxy"` indicates that traffic is delivered to the node or pod with the destination set to
+      the node's IP and node port or the pod's IP and port.
+      Service implementations may use this information to adjust traffic routing.
+      This field is required when the `LoadBalancerIPMode` feature gate is enabled and the `ip` field is set.
+      It may be specified only when the `ip` field is specified.
+    x-kab-description-zh: |
+      此字段设定负载均衡器的 IP 地址作用。
+      设置此字段为 `"VIP"` 意味着流量被转发到节点时，目标地址会设置为负载均衡器的 IP 地址和端口。
+      设置此字段为 `"Proxy"` 时意味着流量被转发到节点或者 Pod 时，目测地址设置为节点的 IP 和端口，或者 Pod 的 IP 和端口。
+      Service 的实现可以使用这一设置来决定如何对流量进行路由。
+      当启用了 `LoadBalancerIPMode` 特性门控时，如果设置了 `ip` 字段，则必须设置此字段。
+      只有设置了 `ip` 字段的时候，才可以设置此字段。
+    enum:
+      - Proxy
+      - VIP
+    type: string
+  ports:
+    description: |
+      A list of records of service ports.
+      If used, every port defined in the Service should have an entry in it.
+    x-kab-description-zh: |
+      服务端口记录的列表。
+      如果使用了此字段，则在 Service 上定义的每个端口都会在此列表中有对应表项存在。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PortStatus'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

@@ -1,0 +1,13 @@
+description: This describes the class of Pods that should avoid this node.
+x-kab-description-zh: 此结构描述要避开此节点的 Pod 类别。
+properties:
+  podController:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference'
+    description: |
+      Reference to controller whose Pods should avoid this node.
+      The `controller` field must point to a controller.
+    x-kab-description-zh: |
+      对某控制器的引用。该控制器的所有 Pod 都应该避开此节点。
+      `controller` 字段必须指向一个控制器。
+type: object
+

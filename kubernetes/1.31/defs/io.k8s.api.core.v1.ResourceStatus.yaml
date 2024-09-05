@@ -1,0 +1,27 @@
+description: ResourceStatus is the status of a resource allocated for a Pod.
+x-kab-description-zh: ResourceStatus 是分配给某 Pod 的某资源的状态信息。
+properties:
+  name:
+    description: |
+      Name of the resource. Must be unique within the Pod and match one of the resources from the Pod spec.
+    x-kab-description-zh: |
+      资源的名称。必须在 Pod 内唯一，并且与 Pod 规约中的某个资源名称相同。
+    minLength: 1
+    type: string
+  resources:
+    description: |
+      List of unique Resources health. Each element in the list contains an unique resource ID and resource health.
+      At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod.
+    x-kab-description-zh: |
+      关于各个资源的健康状态的列表。列表中每个元素包含一个唯一的资源 ID 和该资源的健康状态。
+      资源 ID 要能够唯一性地标识节点上分配给 Pod 的资源，并在 Pod 的整个生命周期内有效。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ResourceHealth'
+    type: array
+    x-kubernetes-list-map-keys:
+    - resourceID
+    x-kubernetes-list-type: map
+required:
+- name
+type: object
+

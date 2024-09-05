@@ -1,0 +1,216 @@
+description: AuditAnnotation describes how to produce an audit annotation for an API request.
+x-description-zh: Validation 给出的是用来执行验证检查时要使用的 CEL 表达式。
+properties:
+  expression:
+    description: |
+      `expression` represents the expression which will be evaluated by
+      [CEL](https://github.com/google/cel-spec).
+      CEL expressions have access to the contents of the API request/response,
+      organized into CEL variables as well as some other useful variables:
+
+      - `object` - The object from the incoming request.
+        The value is null for DELETE requests.
+      - `oldObject` - The existing object. The value is null for CREATE requests.
+      - `request` - Attributes of the API request which is an
+        [AdmissionRequest](https://pkg.go.dev/k8s.io/apiserver/pkg/apis/admission/types.go#AdmissionRequest) object.
+      - `params` - Parameter resource referred to by the policy binding being evaluated.
+        Only populated if the policy has a `paramKind`.
+      - `namespaceObject` - The namespace object that the incoming object belongs to.
+        The value is null for cluster-scoped resources.
+      - `variables` - Map of composited variables, from its name to its lazily
+        evaluated value.
+        For example, a variable named `foo` can be accessed as `variables.foo`.
+      - `authorizer` - A CEL Authorizer. May be used to perform authorization checks
+        for the principal (user or ServiceAccount) of the request.
+        See [Authz struct documentation](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz).
+      - `authorizer.requestResource` - A CEL ResourceCheck constructed from the 'authorizer'
+        and configured with the request resource.
+
+      The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always
+      accessible from the root of the object.
+      No other metadata properties are accessible.
+
+      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+      Accessible property names are escaped according to the following rules when
+      accessed in the expression:
+
+      - '__' escapes to '__underscores__'
+      - '.' escapes to '__dot__'
+      - '-' escapes to '__dash__'
+      - '/' escapes to '__slash__'
+      - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'.
+      
+      The keywords are:
+
+      ```
+      true, false, null, in, as, break, const, continue, else,
+      for, function, if, import, let, loop, package, namespace, return
+      ```
+
+      Examples:
+
+      - Expression accessing a property named `"namespace"`:
+        `{"Expression": "object.__namespace__ > 0"}`
+      - Expression accessing a property named `"x-prop"`:
+        `{"Expression": "object.x__dash__prop > 0"}`
+      - Expression accessing a property named `"redact__d"`:
+        `{"Expression": "object.redact__underscores__d > 0"}`
+
+      Equality on arrays with list type of `set` or `map` ignores element order,
+      i.e. [1, 2] == [2, 1]. Concatenation on arrays with `x-kubernetes-list-type`
+      use the semantics of the list type:
+
+      - `set`: `X + Y` performs a union where the array positions of all elements
+        in `X` are preserved and non-intersecting elements in `Y` are appended,
+        retaining their partial order.
+      - `map`: `X + Y` performs a merge where the array positions of all keys in `X`
+        are preserved but the values are overwritten by values in `Y` when
+        the key sets of `X` and `Y` intersect. Elements in `Y` with non-intersecting
+        keys are appended, retaining their partial order.
+
+    x-kab-description-zh: |
+      `expression` 包含要通过 [CEL](https://github.com/google/cel-spec) 来处理的表达式。
+      API 请求和响应中的内容被组织成 CEL 变量，和一些其他的有用变量一起供 CEL 表达式访问：
+
+      - `object` - 来自集接收到的请求中的对象。对于 DELETE 请求而言，此变量值为 null。
+      - `oldObject` - 现有的对象。对于 CREATE 请求而言，此变量值为 null。
+      - `request` - API 请求（类型为
+        [AdmissionRequest](https://pkg.go.dev/k8s.io/apiserver/pkg/apis/admission/types.go#AdmissionRequest)
+        对象）的属性。
+      - `params` - 当前评估的策略所引用的参数资源内容。
+        只有策略设置了 `paramKind` 时可用。
+      - `namespaceObject` - 接收到的对象所属的名字空间对象。
+        对于集群作用域的对象，此变量值为 null。
+      - `variables` - 复合类型的变量，是一个从变量名到懒惰求值表达式的映射。
+        例如，一个名为 `foo` 的变量可以用 `variables.foo` 的形式访问。
+      - `authorizer` - 一个 CEL 鉴权组件（Authorizer），可用来对请求的主体（用户或者
+        ServiceAccount）执行鉴权检查。
+        参见 [Authz 结构文档](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
+      - `authorizer.requestResource` - 根据 `authorizer` 配置构造的 CEL ResourceCheck
+        结构，根据请求资源作了定制。
+
+      字段 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName`
+      都是可以通过对象的根来访问的。对象的其他元数据属性都无法访问。
+
+      表达式只能访问格式为 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性。
+      在表达式中使用可访问的属性名时，会根据下面的规则做转义处理：
+
+      - `__` 被转义为 `__underscores__`
+      - `.` 被转义为 `__dot__`
+      - `-` 被转义为 `__dash__`
+      - `/` 被转义为 `__slash__`
+      - 与 CEL 保留的关键字完全重名的属性名会被转移为 '__{keyword}__'
+
+      CEL 的内置关键字包括：
+
+      ```
+      true, false, null, in, as, break, const, continue, else,
+      for, function, if, import, let, loop, package, namespace, return
+      ```
+
+      示例：
+
+      - 访问名为 `"namespace"` 的属性：
+        `{"Expression": "object.__namespace__ > 0"}`
+      - 访问名为 `"x-prop"` 的属性：
+        `{"Expression": "object.x__dash__prop > 0"}`
+      - 访问名为 `"redact__d"` 的属性：
+        `{"Expression": "object.redact__underscores__d > 0"}`
+
+      对于列表类型为 `set` 或 `map` 的两个数组而言，判断其是否相等时，会忽略元素的顺序，
+      即 `[1, 2] == [2, 1]`。
+      对于设置了 `x-kubernetes-list-type` 的数组进行串接时，会根据列表类型的语义来处理：
+
+      - `set`：`X + Y` 会执行数组取并集的操作，数组 `X` 中所有元素的位置不会发生变化，
+        `Y` 是原来不在 `X` 内的元素会被追加在后面，且保留其原来的顺序。
+      - `map`：`X + Y` 会执行一个合并操作，`X` 中的所有主键的位置被保留，
+        但是当 `X` 和 `Y` 是的主键集合相交时，`X` 中主键的取值会被 `Y` 中的取值覆盖。
+        原来不在 `X` 内的 `Y` 中元素会被追加到后面，且保留其原来的顺序。
+
+    type: string
+  message:
+    x-kab-description-zh: |
+      `message` 给出的是检查失败时要显示的错误信息。
+      `message` 的内容中不能包含换行符。
+      如果`expression` 中包含换行符时，需要设置此字段。
+      如果没有设置此字段，则错误信息为 `"failed expression: {expression}"`。
+      例如：`"must be a URL with the host matching spec.host"`。
+      此字段经过头尾去空格处理之后，不可以是空字符串。
+
+    description: |
+      `message` represents the message displayed when validation fails.
+      The message must not contain line breaks.
+      If the `expression` contains line breaks, `message` is required.
+      If unset, the message is `"failed expression: {expression}"`.
+      e.g. "must be a URL with the host matching spec.host".
+      The string, when trimmed, cannot be empty string.
+
+    minLength: 1
+    type: string
+
+  messageExpression:
+
+    description: |
+      `messageExpression` declares a CEL expression that evaluates to the validation
+      failure message that is returned when this rule fails.
+      Since `messageExpression` is used as a failure message, it must evaluate to a string.
+      If both `message` and `messageExpression` are present on a validation, then
+      `messageExpression` will be used if validation fails.
+      If `messageExpression` results in a runtime error, the runtime error is logged,
+      and the validation failure message is produced as if the `messageExpression` field
+      were unset.
+      If `messageExpression` evaluates to an empty string, a string with only spaces,
+      or a string that contains line breaks, then the validation failure message will
+      also be produced as if the `messageExpression` field were unset, and the fact
+      that messageExpression produced an empty string/string with only spaces/string
+      with line breaks will be logged.
+      `messageExpression` has access to all the same variables as the `expression` except
+      for `authorizer` and `authorizer.requestResource`.
+
+      Example: `"object.x must be less than max ("+string(params.max)+")"`
+
+    x-kab-description-zh: |
+      `messageExpression` 给出一个 CEL 表达式，其处理结果是一个检查出错消息字符串。
+      当规则失败时会返回此字符串。
+      由于此字段所表达的是一个出错消息，其处理结果必须是字符串。
+      如果在执行检查时，`message` 和 `messageExpression` 都存在，
+      那么在检查失败时会使用 `messageExpression`。
+      如果在处理 `messageExpression` 表达式时出现运行时错误，所发生的运行时错误会被记录到日志中，
+      引擎在生成检查失败消息时，就好像 `messageExpression` 字段没有设置一样。
+      如果 `messageExpression` 的处理结果是一个空字符串、一个只包含空白字符的字符串、
+      或者一个包含了换行符的字符串，则引擎在生成检查失败消息时也会忽略 `messageExpression`
+      的设置，同时将 `messageExpression` 生成了空字符串、只有空白字符的字符串、
+      或者包含换行符的字符串这一事实记录到日志中。
+      `messageExpression` 所能访问的变量范围与 `expression` 基本相同，
+      不同之处在于它不能访问 `authorizer` 和 `authorizer.requestResource`。
+      例如：`"object.x must be less than max ("+string(params.max)+")"`。
+
+    type: string
+  reason:
+    default: Invalid
+    description: |
+      `reason` represents a machine-readable description of why this validation
+      failed. If this is the first validation in the list to fail, this reason, as
+      well as the corresponding HTTP response code, are used in the HTTP response
+      to the client. The currently supported reasons are: `"Unauthorized"`, `"Forbidden"`,
+      `"Invalid"`, `"RequestEntityTooLarge"`.
+      If not set, `"Invalid"` is used in the response to the client.
+
+    x-kab-description-zh: |
+      `reason` 给出的是一个机器可读的字符串，描述当前检查为何失败。
+      如果当前检查是整个检查列表中第一个失败的条目，则失败的原因以及对应的
+      HTTP 响应代码会包含在提供给客户端的 HTTP 响应中。
+      目前支持的 `reason` 值有：`"Unauthorized"`、`"Forbidden"`、`"Invalid"`,
+      `"RequestEntityTooLarge"`。
+      如果没有设置此字段，则向客户端发送响应时会使用 `"Invalid"`。
+
+    enum:
+      - Forbidden
+      - Invalid
+      - RequestEntityTooLarge
+      - Unauthorized
+    type: string
+required:
+  - expression
+type: object
+

@@ -1,0 +1,184 @@
+description: ValidatingAdmissionPolicySpec is the specification of the desired behavior
+  of the AdmissionPolicy.
+x-kab-description-zh: ValidatingAdmissionPolicySpec 是准入策略预期行为的规约。
+properties:
+  auditAnnotations:
+    description: |
+      `auditAnnotations` contains CEL expressions which are used to produce
+      audit annotations for the audit event of the API request.
+      `validations` and `auditAnnotations` may not both be empty;
+      at least one of `validations` or `auditAnnotations` is required.
+      The keys in the items must be unique in the array.
+
+    x-kab-description-zh: |
+      此字段包含 CEL 表达式，用来为 API 请求的审计事件生成审计注解。
+      `validations` 和 `auditAnnotations` 不可以同时为空，但二者之一是必须设置的。
+      此字段的数组中，各个元素的主键必须唯一。
+
+    maxItems: 20
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.AuditAnnotation'
+    type: array
+    x-kubernetes-list-type: atomic
+  failurePolicy:
+    default: Fail
+    description: |
+      `failurePolicy` defines how to handle failures for the admission policy.
+      Failures can occur from CEL expression parse errors, type check errors,
+      runtime errors and invalid or mis-configured policy definitions or bindings.
+      
+      A policy is invalid if `spec.paramKind` refers to a non-existent kind.
+      A binding is invalid if `spec.paramRef.name` refers to a non-existent resource.
+
+      `failurePolicy` does not define how validations that evaluate to false are handled.
+
+      When `failurePolicy` is set to `"Fail"`, ValidatingAdmissionPolicyBinding
+      `validationActions` define how failures are enforced.
+
+    x-kab-description-zh: |
+      `failurePolicy` 定义如何处理准入策略的失败情况。
+      失败可能缘于 CEL 表达式解析错误、类型检查错误、运行时错误，
+      以及策略或绑定本身的配置不合法等等。
+
+      当某个策略的 `spec.paramKind` 引用一个不存在的资源类别时，该策略是非法的。
+      当某个绑定的 `spec.paramRef.name` 引用一个不存在的资源时，该绑定是非法的。
+      
+      `failurePolicy` 并不定义检查项评估结果为 False 的情况如何处理。
+      当 `failurePolicy` 设置为 `"Fail"` 时，ValidatingAdmissionPolicyBinding
+      的 `validationActions` 负责定义如何处理对应的失败。
+
+    enum:
+      - Fail
+      - Ignore
+    type: string
+
+  matchConditions:
+    description: |
+      `matchConditions` is a list of conditions that must be met for a request to be validated.
+      Match conditions filter requests that have already been matched by the `rules`,
+      `namespaceSelector`, and `objectSelector`.
+      An empty list of `matchConditions` matches all requests.
+
+      If a parameter object is provided, it can be accessed via the `params` handle
+      in the same manner as validation expressions.
+
+      The `name` of the match conditions must be unique across the list.
+      The exact matching logic is (in order):
+
+      1. If ANY `matchCondition` evaluates to False, the policy is skipped.
+      1. If ALL `matchConditions` evaluate to True, the policy is evaluated.
+      1. If any `matchCondition` evaluates to an error (but none are False).
+         If `failurePolicy=Fail`, reject the request;
+         If `failurePolicy=Ignore`, the policy is skipped.
+
+    x-kab-description-zh: |
+      此字段是一个列表值，其中包含请求要被检查之前所需满足的条件。
+      这里设置的条件负责对已经通过 `rules`、`namespaceSelector` 和
+      `objectSelector` 筛选的请求作进一步过滤。
+      若此列表为空，则意味着匹配所有请求。
+      
+      如果提供了参数对象，可以和其他检查表达式一样，通过 `params` 句柄来访问。
+
+      此列表中各个元素的 `name` 必须在整个列表中唯一。
+      精确匹配的逻辑如下（按顺序执行）：
+      1. 若 `matchCondition` 中的任一条目取值为 False，则策略被略过；
+      1. 若 `matchConditions` 所有条目取值为 True，则对策略进行评估；
+      1. 若 `matchCondition` 中任一条目评估出错（但都没有取 False 值）：
+         如果 `failurePolicy=Fail`，则拒绝请求；如果 `failurePolicy=Ignore`，
+         则策略会被略过。
+    maxItems: 64
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.MatchCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+
+  matchConstraints:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.MatchResources'
+    description: |
+      `matchConstraints` specifies what resources this policy is designed to validate.
+      The admission policy cares about a request if it matches _all_ constraints.
+      However, in order to prevent clusters from being put into an unstable state that
+      cannot be recovered from via the API, the ValidatingAdmissionPolicy
+      cannot match the ValidatingAdmissionPolicyBinding.
+      The `resourceRules` must be specified.
+
+    x-kab-description-zh: |
+      `matchConstraints` 设置此策略被设计用来检查的资源。
+      只有某个请求匹配了这里的**所有**约束，才会被此准入策略处理。
+      不过，为了避免将集群带入某种无法通过 API 来恢复的不稳定状态，
+      ValidatingAdmissionPolicy 不可以用来匹配 ValidatingAdmissionPolicyBinding 资源。
+      约束中的 `resourceRules` 字段必须被设置。
+
+  paramKind:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ParamKind'
+    description: |
+      `paramKind` specifies the kind of resources used to parameterize this policy.
+      If absent, there are no parameters for this policy and the param CEL variable
+      will not be provided to validation expressions.
+      If `paramKind` refers to a non-existent kind, this policy definition is mis-configured and
+      the `failurePolicy` is applied.
+      If `paramKind` is specified but `paramRef` is unset in the
+      ValidatingAdmissionPolicyBinding, the params variable will be null.
+
+    x-kab-description-zh: |
+      `paramKind` 设置用来为策略提供参数的资源的类别。
+      此字段未设置时，策略没有额外的参数，检查表达式中也不存在 CEL 变量 `params`。
+      如果 `paramKind` 引用的是一个不存在的类别，则此策略定义是非法的，
+      需要根据 `failurePolicy` 策略作进一步处置。
+      如果设置了 `paramKind`，但 ValidatingAdmissionPolicyBinding 中未设置
+      `paramRef`，则 CEL 变量 `params` 为 Null 值。
+
+  validations:
+    description: |
+      `validations` contain CEL expressions which is used to apply the validation.
+      `validations` and `auditAnnotations` may not both be empty; at least
+      one of `validations` or `auditAnnotations` is required.
+
+    x-kab-description-zh: |
+      此字段包含用来执行检查的 CEL 表达式。
+      `validations` 和 `auditAnnotations` 之中至少要设置其一。
+
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.Validation'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+
+  variables:
+    description: |
+      `variables` contain definitions of variables that can be used in composition of
+      other expressions. Each variable is defined as a named CEL expression.
+      The variables defined here will be available under `variables` in other expressions
+      of the policy except `matchConditions` because `matchConditions` are evaluated
+      before the rest of the policy.
+
+      The expression of a variable can refer to other variables defined earlier in
+      the list but not those after. Thus, variables must be sorted by the order of
+      first appearance and acyclic.
+
+    x-kab-description-zh: |
+      此字段包含一些变量的定义，这些变量可用于构造其他表达式。
+      每个变量被定义为一个有名字的 CEL 表达式。
+      这里定义的变量可以在策略中的其他表达式中用 `variables` 来引用，
+      除了 `matchConditions`。这是因为`matchConditions` 的处理是早于策略的其他部分的。
+      
+      变量的表达式可以引用列表中先前定义的其他变量，但不能引用后来才定义的变量。
+      因此，变量必须按出现的先后顺序排序，并且不允许存在循环引用。
+
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.Variable'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+required:
+  - failurePolicy
+  - matchConstraints
+type: object
+

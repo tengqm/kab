@@ -1,0 +1,19 @@
+description: Reference to an external resource for extended documentation.
+x-kab-description-zh: 对外部资源的引用，目的是提供更为详细的文档。
+properties:
+  description:
+    description: |
+      A short description of the target documentation.
+      CommonMark syntax MAY be used for rich text representation.
+    x-kab-description-zh: |
+      对目标文档的简单描述。
+      如果要提供富文本表示，可以使用 CommonMark 语法。
+    type: string
+  url:
+    description: The URL for the target documentation. Value MUST be in the format of a URL.
+    x-kab-description-zh: 目标文档的 URL。取值必须是 URL 的格式。
+    type: string
+required:
+  - url
+type: object
+

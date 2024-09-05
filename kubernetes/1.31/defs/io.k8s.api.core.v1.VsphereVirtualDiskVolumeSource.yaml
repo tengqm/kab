@@ -1,0 +1,29 @@
+description: A vSphere volume resource.
+x-kab-description-zh: vSphere 卷资源。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系统所支持的文件系统之一。
+    type: string
+  storagePolicyID:
+    description: |
+      Storage Policy Based Management (SPBM) profile ID associated with the `storagePolicyName`.
+    x-kab-description-zh: |
+      与 `storagePolicyName` 相关联的、基于存储策略的管理（SPBM）配置 ID。
+    type: string
+  storagePolicyName:
+    description: Storage Policy Based Management (SPBM) profile name.
+    x-kab-description-zh: 基于存储策略的管理（SPBM）配置名称。
+    type: string
+  volumePath:
+    description: Path that identifies vSphere volume VMDK.
+    x-kab-description-zh: 用来标识某 vSphere 卷 VMDK 的路径。
+    minLength: 1
+    type: string
+required:
+  - volumePath
+type: object
+

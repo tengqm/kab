@@ -1,0 +1,30 @@
+description: The method of a flow distinguisher.
+x-kab-description-zh: 流分类器（Flow Distinguisher）划分请求流的方法。
+properties:
+  type:
+    description: |
+      The type of flow distinguisher method.
+      - `"ByUser"`: Use the username in the request as the flow distinguisher so that
+        requests from different users can be insulated.
+      - `"ByNamespace"`: Use the namespace of the object targeted by the request as
+        the flow distinguisher. If the object is not namespaced, or if the request is
+        a non-resource request, the distinguisher will be an empty string.
+        An example usage of this type is to provide some insulation between
+        projects in a multi-tenant environment.
+    x-kab-description-zh: |
+      对请求数据流进行划分的方法：
+
+      - `"ByUser"`：使用请求中的用户名来区分不同的数据流，用户名成为分类器。
+      - `"ByNamespace"`：使用请求所针对的对象的名字空间来区分数据流，名字空间名称成为分类器。
+        如果所请求的对象是集群作用域的，或者请求本身不是一个针对资源的请求，
+        请求会被划分到一个特殊的组中（分类器是一个空字符串）。
+        使用这种方法的个例子是在多租户场景对不同项目进行限流。
+    enum:
+      - ByNamespace
+      - ByUser
+    minLength: 1
+    type: string
+required:
+  - type
+type: object
+

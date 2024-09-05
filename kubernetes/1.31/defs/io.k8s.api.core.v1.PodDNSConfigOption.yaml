@@ -1,0 +1,16 @@
+description: This defines a DNS resolver option for a Pod.
+x-kab-description-zh: This defines a DNS resolver option for a Pod.
+properties:
+  name:
+    description: Name of the resolve option.
+    x-kab-description-zh: 配置选项的名称。
+    minLength: 1
+    type: string
+  value:
+    description: The value of the option.
+    x-kab-description-zh: 配置选项值。
+    type: string
+required:
+  - name
+type: object
+

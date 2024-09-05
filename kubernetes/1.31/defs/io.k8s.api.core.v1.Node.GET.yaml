@@ -1,0 +1,42 @@
+description: |
+  Node is a worker node in Kubernetes.
+  Each Node will have a unique identifier in the cache (i.e. in etcd).
+x-kab-description-zh: |
+  Node 是 Kubernetes 中的一个工作节点。每个 Node 都在缓存（即 etcd）中有一个唯一的标识符。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Node
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSpec'
+    description: Spec defines the behavior of a Node.
+    x-kab-description-zh: Node 行为的规约。
+  status:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeStatus'
+    description: Most recently observed status of the Node.
+    x-kab-description-zh: Node 的最新观测状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Node
+    version: v1
+

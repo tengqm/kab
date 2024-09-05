@@ -1,0 +1,33 @@
+description: 
+  ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests.
+  In the mandatory exempt configuration object the values in the fields here can be modified
+  by authorized users, unlike the rest of the `spec`.
+x-kab-description-zh: |
+  ExemptPriorityLevelConfiguration 描述处理豁免请求的一些可配置方面。
+  在强制豁免配置对象中，这里的字段取值可被授权的用户修改，与 `spec` 中的其他字段不同。
+properties:
+  lendablePercent:
+    description: |
+      This prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.
+    x-kab-description-zh: |
+      `lendablePercent` 包含一个百分比值，给出的是当前级别的 NominalCL 中可被其他优先级别借用的比例。
+      根据此百分比，可以计算其他优先级别能够从本级别借用的席位数目，
+    format: int32
+    type: integer
+  nominalConcurrencyShares:
+    default: 0
+    description: |
+      This (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level.
+      This is the number of execution seats nominally reserved for this priority level.
+      This DOES NOT limit the dispatching from this priority level but affects the other priority
+      levels through the borrowing mechanism.
+      The server's concurrency limit (ServerCL) is divided among all the priority levels
+      in proportion to their NCS values.
+    x-kab-description-zh: |
+      此字段是当前优先级别名义上预留的执行席位数目，可用来帮助计算本级别可供其他级别借用的席位数目。
+      此字段值对当前优先级别的请求派发没有影响，只会影响其他级别从此级别借用的席位。
+      服务器上的并发度是基于各个优先级别的名义执行席位数来按比例分配的。
+    format: int32
+    type: integer
+type: object
+

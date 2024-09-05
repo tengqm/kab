@@ -1,0 +1,53 @@
+description: |
+  Information for locating an object across namespaces.
+x-kab-description-zh: |
+  用来跨名字空间引用资源对象的信息。目前用于引用 PVC 对象。
+properties:
+  apiGroup:
+    description: |
+      The group for the resource being referenced.
+      If `apiGroup` is not specified, the specified `kind` must be in the core API group.
+      For any other third-party types, `apiGroup` is required.
+    x-kab-description-zh: |
+      所引用的资源对应的 API 组。
+      如果未指定，则视为空字符串，即所引用的 `kind` 必须位于 `"core"` API 组。
+      针对其他类别，需要设置 `apiGroup`。
+    type: string
+  kind:
+    description: |
+      The type of resource being referenced.
+      This must be "PersistentVolumeClaim" if `apiGroup` is empty string.
+    x-kab-description-zh: |
+      被引用的资源的类别。目前，引用 `"core"` API 组时，只能引用 `"PersistentVolumeClaim"`。
+    minLength: 1
+    type: string
+  name:
+    description: The name of resource being referenced.
+    x-kab-description-zh: 被引用资源的名称。
+    minLength: 1
+    type: string
+  namespace:
+    description: |
+      The namespace of resource being referenced.
+      Note that when a namespace is specified, a `gateway.networking.k8s.io/ReferenceGrant`
+      object is required in the referent namespace to allow that namespace's owner to accept
+      the reference.
+      See the ReferenceGrant documentation for details.
+
+      This field is Alpha-level, and it requires the `CrossNamespaceVolumeDataSource` feature gate
+      to be enabled. When specified, the namespace string must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      被引用资源所在名字空间。
+      注意，如果指定了名字空间，需要在被引用的 Namespace 设置 `gateway.networking.k8s.io/ReferenceGrant`
+      对象，从而允许该名字空间的属主接受此引用。
+      参见 ReferenceGrant 文档了解详情。
+      字段值必须是合法的 DNS 子域名。
+
+      此字段为 Alpha 阶段，需要启用 `CrossNamespaceVolumeDataSource` 特性门控。
+
+    type: string
+required:
+  - kind
+  - name
+type: object
+

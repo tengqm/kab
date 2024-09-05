@@ -1,0 +1,87 @@
+description: The most recently observed status of the Deployment.
+x-kab-description-zh: Deployment 的最近观测状态。
+properties:
+  availableReplicas:
+    description: |
+      Total number of available Pods (ready for at least `minReadySeconds`) targeted by this Deployment.
+      It cannot be greater than the desired replicas or the ready replicas.
+    x-kab-description-zh: |
+      此 Deployment 所关联到的、处于可用状态下的 Pod（持续 `minReadySeconds` 秒保持就绪）个数。
+      此值不会超出期望副本个数或者就绪副本个数。
+    format: int32
+    minimum: 0
+    type: integer
+  collisionCount:
+    description: |
+      Count of hash collisions for the Deployment.
+      The Deployment controller uses this field as a collision avoidance mechanism when
+      it needs to create the name for the newest ReplicaSet.
+      When updated, this value cannot be decremented.
+    x-kab-description-zh: |
+      Deployment 上发生的哈希冲突计数。
+      Deployment 控制器在为最新的 ReplicaSet 生成名字时，
+      使用此字段来作为一种冲突避免机制，
+      更新此字段时，字段值不可以减少。
+    format: int32
+    minimum: 0
+    type: integer
+  conditions:
+    description: The latest observations of a Deployment's state.
+    x-kab-description-zh: 关于 Deployment 状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.apps.v1.DeploymentCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  observedGeneration:
+    description: The generation observed by the Deployment controller.
+    x-kab-description-zh: Deployment 控制器所观测到的最新的代数。
+    format: int64
+    minimum: 0
+    type: integer
+  readyReplicas:
+    description: |
+      Total number of ready Pods targeted by this Deployment with a `Ready` condition.
+      This cannot be greater than the desired `replicas`.
+    x-kab-description-zh: |
+      此 Deployment 所关联的、处于就绪状态（带有 `Ready` 状况）的 Pod 个数。
+      此值不能大于期望的副本个数。
+    format: int32
+    minimum: 0
+    type: integer
+  replicas:
+    description: |
+      Total number of non-terminated Pods targeted by this Deployment (their labels match the `selector`).
+    x-kab-description-zh: |
+      此 Deployment 所关联的、未被终止的 Pod 个数。
+    format: int32
+    minimum: 0
+    type: integer
+  unavailableReplicas:
+    description: |
+      Total number of unavailable Pods targeted by this Deployment.
+      This is the total number of Pods that are still required for the Deployment to
+      have 100% available capacity.
+      They may either be Pods that are running but not yet available or Pods that still have not been created.
+    x-kab-description-zh: |
+      此 Deployment 所关联的、未就绪的 Pod 个数。
+      此 Pod 需要这些 Pod 都可用才能达到 100% 的可用容量。
+      所统计的 Pod 可能处于运行状态但还不可用，或者还未被创建。
+    format: int32
+    minimum: 0
+    type: integer
+  updatedReplicas:
+    description: |
+      Total number of non-terminated Pods targeted by this Deployment that have the desired template spec.
+      Must be less than the desired `replicas`.
+    x-kab-description-zh: |
+      此 Deployment 所关联的、未终止的且模板规约为预期版本的 Pod。
+      此字段值要小于期望的副本个数。
+    format: int32
+    minimum: 0
+    type: integer
+type: object
+

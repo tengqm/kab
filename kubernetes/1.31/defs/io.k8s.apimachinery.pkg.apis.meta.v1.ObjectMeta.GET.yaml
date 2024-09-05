@@ -1,0 +1,270 @@
+description: |
+  Metadata that all persisted resources must have, which includes all objects users create.
+x-kab-description-zh: |
+  所有要被持久化存储的资源都必须关联的元数据部分。这些资源包括用户创建的资源。
+  此结构是官方 ObjectMeta 的变种，主要关注读取对象时可能或一定存在的字段。
+
+properties:
+  annotations:
+    additionalProperties:
+      type: string
+    description: |
+      An unstructured key value map stored with a resource that may be set by external tools to store
+      and retrieve arbitrary metadata.
+      They are not queryable and should be preserved when modifying objects.
+      The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with
+      an alphanumeric character. The key must be less than 63 characters.
+      The total size of the keys and values cannot exceed 256 KB.
+    x-kab-description-zh: |
+      一个非结构化的键值映射，和资源一起被保存到持久性存储。
+      此字段可以被外部工具来设置，保存或者检索任意的元数据。
+      `annotations` 字段是不可查询的，在更改对象时要予以保留。
+      映射中的键必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，必须以字母或数字字符开头并结尾。
+      映射中的键长度不能超过 63 个字符。
+      整个键、值集合的总体尺寸不能超过 256 KB。
+    type: object
+  creationTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      A timestamp representing the server time when this object was created.
+      It is not guaranteed to be set in "happens-before" order across separate operations.
+      It is represented in RFC3339 form and is in UTC. It is populated by the system,
+      read-only. Null for lists.
+    x-kab-description-zh: |
+      一个用来标示对象被创建时的服务器时间的时间戳。
+      在存在多个对象操作时，这个字段的设置时机是不确定的。
+      字段值是 RFC3339 格式的字符串，使用 UTC 时区。
+      系统负责填写此字段。字段内容只能读取。
+      对于列表性质的对象，此字段为 null。
+  deletionGracePeriodSeconds:
+    description: |
+      Number of seconds allowed for this object to gracefully terminate before it will be removed
+      from the system. Only set when `deletionTimestamp` is also set.
+      May only be shortened. Read-only.
+    x-kab-description-zh: |
+      在将对象从系统中删除之前，允许对象执行体面终止操作的时长。
+      只有设置了 `deletionTimestamp` 的时候才会设置。
+      字段是只读的。
+    format: int64
+    type: integer
+  deletionTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      A RFC 3339 date and time at which this resource will be deleted.
+      This field is set by the server when a graceful deletion is requested by the user,
+      and is not directly settable by a client.
+      The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name)
+      after the time in this field, once the `finalizers` list is empty.
+      As long as the `finalizers` list contains items, deletion is blocked.
+      Once the `deletionTimestamp` is set, this value may not be unset or be set further into the future,
+      although it may be shortened or the resource may be deleted prior to this time.
+
+      For example, a user may request that a Pod is deleted in 30 seconds.
+      The kubelet will react by sending a graceful termination signal to the Containers in the Pod.
+      After that 30 seconds, the kubelet will send a hard termination signal (`SIGKILL`) to the Container
+      and after cleanup, remove the Pod from the API.
+      In the presence of network partitions, this object may still exist after this timestamp,
+      until an administrator or automated process can determine the resource is fully terminated.
+
+      If not set, graceful deletion of the object has not been requested.
+      Populated by the system when a graceful deletion is requested.
+      Read-only.
+    x-kab-description-zh: |
+      一个 RFC3339 格式的日期时间字符串，给出的是资源的预期删除时间。
+      当用户为资源设置了体面终止宽限期限时，服务器会设置此字段，客户端不可以直接设置此字段。
+      在经过此字段所设置的时间（秒数）之后，一旦 `finalizers` 列表为空，
+      该资源应该被删除（在资源列表中消失，无法通过名字访问）。
+      只要 `finalizers` 列表中包含表项，则删除操作就会被阻塞。
+      一旦设置了 `deletionTimestamp`，则不可以取消该设置，也不可以将其改为将来的别的时间点。
+      这个字段值可以被缩短，而且资源有可能在所给的期限之前已经被删除。
+
+      例如，一个用户可能希望某个 Pod 在 30 秒后被删除。kubelet 会借此作出响应，向 Pod 中的容器发出体面终止信号。
+      30 秒钟之后，kubelet 会向 Pod 中的容器发送硬性的终止信号（`SIGKILL`），并且在完成清理操作之后，
+      从 API 服务器上删除 Pod 对象。
+      如果出现了网络分区的情况，则超过了所设置的时间戳时对象仍然存在，
+      知道管理员或者某个自动化的过程可以确定该资源被完全删除位置。
+
+      如果没有设置此字段，则意味着对象没有请求体面删除处理。
+      字段是由系统在请求了对象体面删除处理的时候设置的。
+      字段值是只读的。
+  finalizers:
+    description: |
+      Must be empty before the object is deleted from the registry.
+      Each entry is an identifier for the responsible component that will remove the entry from the list.
+      If the `deletionTimestamp` of the object is non-nil, entries in this list can only be removed.
+      Finalizers may be processed and removed in any order. Order is NOT enforced because
+      it introduces significant risk of stuck finalizers.
+      `finalizers` is a shared field, any actor with permission can reorder it.
+    x-kab-description-zh: |
+      在从后端存储中删除对象之前，此列表字段必须被清空。
+      列表中的每一项是一个标识符，对应的是一个要负责将该表项从列表中删除的组件。
+      如果对象的 `deletionTimestamp` 字段非空，此列表中的项目只可以被删除，不能再添加。
+      列表中的元素可以按任意顺序添加和删除。没有引入排序约束是因为可能造成管理组件之间的互锁。
+      `finalizers` 是一个共享的字段，所有具备相应权限的主体都可以对其进行重排序。
+    items:
+      description: |
+        The name of the finalizer must is either a standard finalizer name
+        (e.g. `"kubernetes"`, `"orphan"`, `"foregroundDeletion"`), or it contains at least one slash (`'/'`).
+      x-kab-description-zh: |
+        某个终结器（Finalizer）的名称。字符串可以是标准的终结器名称
+        （如，`"kubernetes"`、`"orphan"`、`"foregroundDeletion"`），
+        也可以包含最多一个斜线（`'/'`），即带域名的限定名称。
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+    x-kubernetes-patch-strategy: merge
+  generateName:
+    description: |
+      An optional prefix, used by the server, to generate a unique name **only if** the `name` field
+      has not been provided.
+      If this field is used, the `name` returned to the client will be different than the `name` passed.
+      This value will also be combined with a unique suffix.
+      The provided value has the same validation rules as the `name` field, and may be truncated by
+      the length of the suffix required to make the value unique on the server.
+      If this field is specified and the generated name exists, the server will return a `409`.
+
+      Applied only if `name` is not specified.
+    x-kab-description-zh: |
+      此字段给出的是一个供服务器使用的前缀，服务器在对象没有设置 `name` 
+      字段时会使用此前缀生成一个唯一的对象名称。
+      如果使用了此字段，则返回给客户端的 `name` 值会与请求中包含的 `name` 值不同。
+      所给的前缀字符串最终会被加上唯一的后缀字符串。
+      对所给的前缀字符串，其合法性检查规则与 `name` 字段相同，可能会因为后缀长度（要保证名字在服务器上唯一）
+      的原因而被截断。
+      如果使用了此字段的时候，遇到所生成的名字已经存在的情况，服务器会返回 `409`。
+
+      此字段只有在没有设置 `name` 属性的时候才起作用。
+    type: string
+  generation:
+    description: |
+      A sequence number representing a specific generation of the desired state.
+      Populated by the system. Read-only.
+    x-kab-description-zh: |
+      代表对象期望状态的特定世代的序列数字。
+      由系统填写。字段只读。
+    format: int64
+    type: integer
+  labels:
+    additionalProperties:
+      type: string
+    description: |
+      Map of string keys and values that can be used to organize and categorize (scope and select) objects.
+      Both the key and the value must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`, and
+      must start and end with an alphanumeric character.
+      The key must be between 1 and 63 characters.
+      The key can have `'/'` in it thus referred to as **qualified name**.
+      The prefix part of a qualified name must be a valid DNS subdomain name.
+      The value must be less than 64 characters with empty string allowed.
+    x-kab-description-zh: |
+      由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
+      键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+      标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
+      限定名称的前缀部分必须是合法的 DNS 子域名。
+      标签值不能超过 64 个字符，允许空字符。
+    type: object
+  managedFields:
+    description: |
+      This maps workflow-id and version to the set of fields that are managed by that workflow.
+      This is mostly for internal housekeeping, and users typically shouldn't need to set or
+      understand this field.
+      A workflow can be the user's name, a controller's name, or the name of a specific apply path
+      like 'ci-cd'.
+      The set of fields is always in the version that the workflow used when modifying the object.
+    x-kab-description-zh: |
+      此字段是将工作流 ID 及版本映射到由该工作流所管理的字段集合。
+      这一机制主要用来服务于内部状态维护，用户通常不需要设置或者理解这一字段的内容。
+      所谓的工作流，可以是用户的名称、控制器的名称或者像 `"ci-cd"` 这样的某个特定的 apply 路径。
+      字段的集合总是对应于工作流在更改对象时使用的版本。 
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry'
+    type: array
+    x-kubernetes-list-type: atomic
+  name:
+    description: |
+      Name must be unique within a namespace.
+      Is required when creating resources, although some resources may allow a client to request
+      the generation of an appropriate name automatically.
+      Name is primarily intended for creation idempotence and configuration definition.
+      Cannot be updated.
+    x-kab-description-zh: |
+      对象的名称在名字空间内必须唯一。
+      在创建资源时，通常需要为其指定名称，尽管某些资源允许客户端请求服务器端自动为其生成合适的名称。
+      名称的用途主要是确保创建操作的幂等性，以及配置的定义。
+      字段值不可变更。
+    type: string
+  namespace:
+    default: default
+    description: |
+      The space within which each `name` must be unique.
+      An empty `namespace` is equivalent to the `"default"` namespace.
+      Not all objects are required to be scoped to a namespace - the value of this field for those
+      objects will be empty.
+      Must be a DNS_LABEL.
+      Cannot be updated.
+    x-kab-description-zh: |
+      某个名字空间的名称，`name` 属性值在其中必须唯一。
+      如果 `namespace` 为空，则等价于指定的是 `"default"` 名字空间。
+      并非所有对象都只能在名字空间范围内其定义，对于集群作用域的对象而言，此字段应该为空。
+      字段值必须是合法的 DNS_LABEL。一经设置不可变更。
+    type: string
+  ownerReferences:
+    description: |
+      List of objects depended by this object.
+      If **all** objects in the list have been deleted, this object will be garbage collected.
+      If this object is managed by a controller, an entry in this list will point to the controller,
+      with the `controller` field set to `true`.
+      There cannot be more than one managing controller.
+    x-kab-description-zh: |
+      此对象所依赖的对象的列表。
+      如果列表中的所有对象都已被删除，则此对象也会被删除。
+      如果此对象由某个控制器负责管理，此列表中会有一项指向该控制器，且其 `controller` 字段被设置为 `true`。
+      同一个对象在同一时刻只能由一个负责管理的控制器。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference'
+    type: array
+    x-kubernetes-list-map-keys:
+      - uid
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: uid
+    x-kubernetes-patch-strategy: merge
+  resourceVersion:
+    description: |
+      An opaque value that represents the internal version of this object that can be used by clients
+      to determine when objects have changed.
+      May be used for optimistic concurrency, change detection, and the watch operation on a resource
+      or set of resources.
+      Clients must treat these values as opaque and passed unmodified back to the server.
+      They may only be valid for a particular resource or set of resources.
+      Populated by the system. Read-only.
+    x-kab-description-zh: |
+      一个不透明的字符串值，用来标示对象的内部版本号。客户端可以使用它来判断对象是否发生了变更。
+      客户端可以使用此字段来实现乐观并发控制、变更检测以及对一个或一组资源的监视（watch）操作。 
+      客户端必须视字段值为不透明数据，将其原封不动地传回给服务器端。
+      字段值可能只对一个或者一组资源而言是合法的。
+      系统负责填写此字段。客户端只能读取。
+    type: string
+  selfLink:
+    description: |
+      **DEPRECATED**: `selfLink` is a legacy read-only field that is no longer populated by the system.
+    x-kab-description-zh: |
+      **已弃用**： `selfLink` 是一个历史遗留的只读字段，系统不再填写此字段。
+    type: string
+  uid:
+    description: |
+      A value unique in time and space for this object.
+      It is typically generated by the server on successful creation of a resource and is not allowed
+      to change on `PUT` operations. Populated by the system. Read-only.
+    x-kab-description-zh: |
+      为此对象生成的一个从时间维度空间维度都保证唯一性的值。
+      通常由服务器端在成功创建完资源之后生成，在 `PUT` 等操作时不可更改。
+      字段值由系统填写。客户端只能读取。
+    type: string
+required:
+  - creationTimestamp
+  - generation
+  - name
+  - resourceVersion
+  - selfLink
+  - uid
+type: object
+

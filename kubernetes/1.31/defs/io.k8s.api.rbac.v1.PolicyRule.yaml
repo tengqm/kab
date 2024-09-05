@@ -1,0 +1,83 @@
+description: |
+  Information that describes a policy rule. Rules can either apply to API resources
+  (such as `"pods"` or `"secrets"`) or non-resource URL paths (such as '"/api"'),
+  but not both.
+x-kab-description-zh: |
+  用来描述一条策略规则的信息。此规则可以应用到 API 资源（`"pods"` 或 `"secrets"`）
+  或者非资源的 URL 路径（如 `"/api"`）上，但只能选择其一。
+
+properties:
+  apiGroups:
+    description: |
+      The name of the API group that contains the resources.
+      If multiple API groups are specified, any action requested against one of the enumerated
+      resources in any API group will be allowed.
+      This field is required when `nonResourceURLs` is empty.
+      "" represents the core API group and "*" represents all API groups.
+    x-kab-description-zh: |
+      包含资源的 API 组名。如果指定了多个 API 组，则针对列举的 API 组而言，
+      在 `resources` 中枚举的所有资源类别都是可访问的。
+      当 `nonResourceURLs` 字段为空时，需要设置此字段。
+      `""` 表示核心 API 组，`"*"` 表示所有 API 组。
+    items:
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  nonResourceURLs:
+    description: |
+      A set of partial URLs that a user should have access to.
+      Wildcards (`"*"`) are allowed, but only as the full, final step in the path.
+      Since non-resource URLs are not namespaced, this field is only applicable for
+      ClusterRoles referenced from a ClusterRoleBinding.
+      If this field is not empty, other fields including `apiGroups`, `resources`,
+      `resourceNames` must be empty.
+    x-kab-description-zh: |
+      字段值是一组不完整的 URL，用户会被授权访问这些路径。
+      可以使用通配符（`"*"`），但只能作为所给路径中的最后一步，并且是完整的一步。
+      由于非资源 URL 路径是不受名字空间限制的，此字段值适用于从 ClusterRoleBinding 引用的
+      ClusterRole 对象。
+      当此列表不为空时，其他字段，包括 `apiGroups`、`resources`、`resourceNames` 都必须为空。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  resourceNames:
+    description: |
+      A list of resource names the rule applies to.
+      An empty set means that everything is allowed.
+    x-kab-description-zh: |
+      一个字符串列表，包含了此规则所适用的资源名称。如果此集合为空，则意味着适用于所有对象。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  resources:
+    description: |
+      A list of resources this rule applies to. `"*"` represents all resources.
+      This field cannot be empty when `nonResourceURLs` is empty.
+    x-kab-description-zh: |
+      此规则所适用的资源类别列表。`"*"` 表示适用于所有资源类别。
+      当 `nonResourceURLs` 字段为空时，此字段必须设置，且不为空。
+    items:
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  verbs:
+    description: |
+      A list of verbs that apply to **ALL** the resource kinds contained in this rule.
+      `"*"` means all verbs.
+    x-kab-description-zh: |
+      适用于此规则中所筛选的所有资源类别的一组动词。
+      `"*"` 意味着所有动词。
+    items:
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - apiGroups
+  - verbs
+type: object
+

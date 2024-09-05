@@ -1,0 +1,399 @@
+description: A JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+x-kab-description-zh: 遵从 [JSON Specification v4](http://json-schema.org/) 规范的 JSON 模式定义。
+properties:
+  $ref:
+    description: Reference to another definition in the specification.
+    x-kab-description-zh: 对规范中其它定义的引用。
+    type: string
+  $schema:
+    description: Inlined schema for a property.
+    x-kab-description-zh: 某个属性的内联模式定义。
+    type: string
+  additionalItems:
+    description: |
+      A struct for additional items or a boolean indicating whether additional items are allowed.
+    x-kab-description-zh: |
+      用来存放额外条目的结构，或者是一个表明是否允许额外的条目的布尔值。
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool'
+  additionalProperties:
+    description: |
+      The map definition of a property or a boolean indicating whether additional properties are allowed.
+      This is mutual exclusive to `properties` because otherwise they contradict
+      Kubernetes's API convention to ignore unknown fields.
+    x-kab-description-zh: |
+      此映射给出一个属性的定义，或者是一个布尔值，表明是否允许额外的属性。
+      此字段与 `properties` 是互斥的，因为如果这两个字段都存在，就不符合 Kubernetes API
+      忽略未知字段的惯例。
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrBool'
+  allOf:
+    description: A key indicating the union of all items listed are part of the definition.
+    x-kab-description-zh: 此主键表明所列举的所有条目都是定义的一部分。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    type: array
+  anyOf:
+    description: A key indicating the subset of provided items are part of the definition.
+    x-kab-description-zh: 此主键表明所列举的所有条目的子集是定义的一部分。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    type: array
+  default:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON'
+    description: |
+      A default value for undefined object fields. Defaulting is a Beta feature under the
+      `CustomResourceDefaulting` feature gate.
+      Defaulting requires `spec.preserveUnknownFields` to be false.
+    x-kab-description-zh: |
+      为未定义的对象字段提供的默认值。设置默认值的能力是一种 Beta 阶段特性，需要启用
+      `CustomResourceDefaulting` 特性门控。
+      如果启用此门控，则要求 `spec.preserveUnknownFields` 为 `false`。
+  definitions:
+    description: A map containing definitions for the current definition.
+    x-kab-description-zh: JSON 模式给出的定义列表。
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    type: object
+  dependencies:
+    description: A map containing dependencies on other fields.
+    x-kab-description-zh: 包含对其他字段的以来的映射。
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrStringArray'
+    type: object
+  description:
+    description: Description for current definition.
+    x-kab-description-zh: 当前定义的文字性说明。
+    type: string
+  enum:
+    description: An enumeration for the current definition.
+    x-kab-description-zh: 当前定义的枚举值。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON'
+    type: array
+  example:
+    description: An example for the current definition, in JSON.
+    x-kab-description-zh: 以 JSON 格式给出的当前定义的示例。
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSON'
+  exclusiveMaximum:
+    description: Whether the `maximum` should include the limit value.
+    x-kab-description-zh: 标示 `maximum` 字段所给的值自身是否合法。
+    type: boolean
+  exclusiveMinimum:
+    description: Whether the `minimum` should include the limit value.
+    x-kab-description-zh: 标示 `minimum` 字段所给的值自身是否合法。
+    type: boolean
+  externalDocs:
+    description: A reference to an external documentation.
+    x-kab-description-zh: 对外部文档的引用。
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ExternalDocumentation'
+  format:
+    description: |
+      `format` is an OpenAPI v3 format string. Unknown formats are ignored.
+      The following formats are validated:
+      - `bsonobjectid`: a bson object ID, i.e.  a 24 characters hex string
+      - `uri`: an URI as parsed by Golang net/url.ParseRequestURI
+      - `email`: an email address as parsed by Golang net/mail.ParseAddress
+      - `hostname`: a valid representation for an Internet host name, as defined by RFC 1034,
+        section 3.1 [RFC1034]
+      - `ipv4`: an IPv4 IP as parsed by Golang net.ParseIP
+      - `ipv6`: an IPv6 IP as parsed by Golang net.ParseIP
+      - `cidr`: a CIDR as parsed by Golang net.ParseCIDR
+      - `mac`: a MAC address as parsed by Golang net.ParseMAC
+      - `uuid`: an UUID that allows uppercase defined by the regex
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$"`
+      - `uuid3`: an UUID3 that allows uppercase defined by the regex 
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$"`
+      - `uuid4`: an UUID4 that allows uppercase defined by the regex
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$"`
+      - `uuid5`: an UUID5 that allows uppercase defined by the regex
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$"`
+      - `isbn`: an ISBN10 or ISBN13 number string like `"0321751043"` or `"978-0321751041"`
+      - `isbn10`: an ISBN10 number string like `"0321751043"`
+      - `isbn13`: an ISBN13 number string like `"978-0321751041"`
+      - `creditcard`: a credit card number defined by the regex
+        `"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35d{3})d{11})$"`
+        with any non digit characters mixed in
+      - `ssn`: a U.S. social security number following the regex `^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$`
+      - `hexcolor`: an hexadecimal color code like `"#FFFFFF"`: following the regex
+        `^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$`.
+      - `rgbcolor`: an RGB color code like rgb like `"rgb(255,255,2559)"`
+      - `byte`: base64 encoded binary data
+      - `password`: any kind of string
+      - `date`: a date string like `"2006-01-02"` as defined by full-date in RFC3339
+      - `duration`: a duration string like `"22 ns"` as parsed by Golang `time.ParseDuration`
+        or compatible with Scala duration format
+      - `datetime`: a date time string like `"2014-12-15T19:30:20.000Z"` as defined by
+        `date-time` in RFC3339.
+    x-kab-description-zh: |
+      `format` 是一个 OpenAPI v3 的 `format` 字符串。无法识别的格式字符串会被忽略。
+      以下 `format` 值的字符串会被执行正确性检查：
+
+      - `bsonobjectid`：一个 bson 对象 ID，即一个 24 字符组成的 16 进制字符串
+      - `uri`：Golang `net/url.ParseRequestURI` 所能解析的 URI 地址
+      - `email`：Golang `net/mail.ParseAddress` 所能解析的 email 地址
+      - `hostname`：英特网上主机名的合法呈现形式，如 RFC 1034, section 3.1 所定义
+      - `ipv4`：Golang `net.ParseIP` 所能解析的 IPv4 地址
+      - `ipv6`：Golang `net.ParseIP` 所能解析的 IPv6 地址
+      - `cidr`：Golang `net.ParseCIDR` 所能解析的 CIDR 网段
+      - `mac`：Golang `net.ParseMAC` 所能解析的 MAC 地址
+      - `uuid`：允许包含大写字母的 UUID 字符串，正则表达式为
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$"`
+      - `uuid3`：允许使用大写字母的 UUID3 字符串，正则表达式为 
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$"`
+      - `uuid4`：允许使用大写字母的 UUID4 字符串，正则表达式为
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$"`
+      - `uuid5`：允许大写字母的 UUID5 字符串，正则表达式为
+        `"(?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$"`
+      - `isbn`： 一个 ISBN10 或 ISBN13 号码字符串，例如 `"0321751043"` 或 `"978-0321751041"`
+      - `isbn10`：一个 ISBN10 书号字符串，例如 `"0321751043"`
+      - `isbn13`：一个 ISBN13 书号字符串，例如 `"978-0321751041"`
+      - `creditcard`：一个信用卡号码字符串，正则表达式为
+        `"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35d{3})d{11})$"`，
+        其中可能包含一些非数字字符
+      - `ssn`：一个每个社会保险号码字符串，正则表达式为 `^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$`
+      - `hexcolor`：一个十六进制表示的颜色代码，如 `"#FFFFFF"`，正则表达式为
+        `^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$`.
+      - `rgbcolor`：一个 RGB 编码的颜色代码，例如 `"rgb(255,255,2559)"`
+      - `byte`：base64 编码的二进制数据
+      - `password`：任何形式的字符串
+      - `date`：一个类似于 `"2006-01-02"` 的日期字符串，按 RFC3339 `full-date` 标准检查
+      - `duration`：一个时长字符串，例如 `"22 ns"`，可由Golang `time.ParseDuration` 解析，
+        或者与 Scala 的 duration 格式兼容
+      - `datetime`：一个类似于 `"2014-12-15T19:30:20.000Z"` 的日期时间字符串，按 RFC3339
+        中的 `date-time` 格式解析检查
+    type: string
+  id:
+    description: The ID of the current entity.
+    x-kab-description-zh: 当前实体的 ID。
+    type: string
+  items:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaPropsOrArray'
+  maxItems:
+    description: The maximum items in an array.
+    x-kab-description-zh: 数组中元素个数上限。
+    format: int64
+    type: integer
+  maxLength:
+    description: The maximum length of a string.
+    x-kab-description-zh: 字符串的最大长度。
+    format: int64
+    type: integer
+  maxProperties:
+    description: The maximum number of properties.
+    x-kab-description-zh: 属性个数的上限。
+    format: int64
+    type: integer
+  maximum:
+    description: The maximum value of the field.
+    x-kab-description-zh: 字段可取的最大值。
+    format: double
+    type: number
+  minItems:
+    description: The minimum items in an array.
+    x-kab-description-zh: 数组中元素个数下限。
+    format: int64
+    type: integer
+  minLength:
+    description: The minimum length of a string.
+    x-kab-description-zh: 字符串的最小长度。
+    format: int64
+    type: integer
+  minProperties:
+    description: The minimum number of properties.
+    x-kab-description-zh: 属性个数的下限。
+    format: int64
+    type: integer
+  minimum:
+    description: The minimum value of the field.
+    x-kab-description-zh: 字段可取的最小值。
+    format: double
+    type: number
+  multipleOf:
+    description: The value should be the multiple of the specified value.
+    x-kab-description-zh: 字段需要能被所给的数字整除。
+    format: double
+    type: number
+  not:
+    description: Exclude the specified definition.
+    x-kab-description-zh: 排除所给的模式定义。
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+  nullable:
+    description: Whether the field can be null value.
+    x-kab-description-zh: 字段是否可以为空。
+    type: boolean
+  oneOf:
+    description: A list of schemas to choose from.
+    x-kab-description-zh: 定义可以选择使用的模式定义之一。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    type: array
+  pattern:
+    description: The regular pattern of a field.
+    x-kab-description-zh: 字段要符合的正则表达式形式。
+    type: string
+  patternProperties:
+    description: The patterned properties of an object.
+    x-kab-description-zh: 带正则表达式约束的结构。
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    type: object
+  properties:
+    description: The properties of an object.
+    x-kab-description-zh: 带属性的映射对象结构。
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    type: object
+  required:
+    description: List of properties that are required.
+    x-kab-description-zh: 需要设置的属性的列表。
+    items:
+      type: string
+    type: array
+  title:
+    description: A human readable description for the property.
+    x-kab-description-zh: 对属性的一种人类可读的描述。
+    type: string
+  type:
+    description: The type of the property.
+    x-kab-description-zh: 属性的类型。
+    type: string
+  uniqueItems:
+    description: |
+      A flag indicating whether items are treated as unique in a map.
+      This cannot be `true` because the runtime doesn't support it.
+    x-kab-description-zh: |
+      表明是否映射中的元素可以视为唯一。
+      此字段不可为 `true`，因为运行时无法提供支持。
+    type: boolean
+  x-kubernetes-embedded-resource:
+    description: |
+      This flag indicates that the value is an embedded Kubernetes `runtime.Object`,
+      with `TypeMeta` and `ObjectMeta`. The type must be `"object"`.
+      It is allowed to further restrict the embedded object.
+      `kind`, `apiVersion` and `metadata` are validated automatically.
+      `x-kubernetes-preserve-unknown-fields` is allowed to be true, but does not have to be
+      if the object is fully specified (up to `kind`, `apiVersion`, `metadata`).
+    x-kab-description-zh: |
+      此扩展属性表明属性值是一个嵌套的 Kubernetes `runtime.Object` 对象，包含 `TypeMeta` 和 `ObjectMeta`。
+      字段的类型一定是 `"object"`。进一步对嵌套对象进行约束也是可以的。
+      `kind`、`apiVersion` 和 `metadata` 的合法性检查都是自动进行的。
+      `x-kubernetes-preserve-unknown-fields` 可以为 `true`，但如果对象不是完全规约的
+      （规约中只包含 `kind`、`apiVersion` 和 `metadata`），也可以不是 `true`。
+    type: boolean
+  x-kubernetes-int-or-string:
+    description: |
+      This flag indicates that this value is either an integer or a string.
+      If this is true, an empty type is allowed and type as child of `"anyOf"` is permitted
+      if following one of the following patterns:
+      1. `"anyOf": [{"type": "integer"}, {"type": "string"}]`
+      1. `"allOf": [{"anyOf": [{"type": "integer"}, {"type": "string"} ...]}]`
+    x-kab-description-zh: |
+      此标志表明字段的值可以是一个整数或者字符串。
+      如果设置为 `true`，则可以不直接设置 `type` 属性而直接通过 `"anyOf"` 的下层模式定义设置数据类型。
+      前提是字段定义符合以下模式之一：
+
+      1. `"anyOf": [{"type": "integer"}, {"type": "string"}]`
+      1. `"allOf": [{"anyOf": [{"type": "integer"}, {"type": "string"} ...]}]`
+
+    type: boolean
+  x-kubernetes-list-map-keys:
+    description: |
+      This annotates an array with the `x-kubernetes-list-type: map` by specifying the keys used
+      as the index of the map. This tag MUST only be used on lists that have the
+      `"x-kubernetes-list-type`" extension set to `"map"`.
+      Also, the values specified for this attribute must be a scalar typed field of the child structure
+      (no nesting is supported).
+      The properties specified must either be required or have a default value, to ensure
+      those properties are present for all list items.
+    x-kab-description-zh: |
+      此标志用来为带有 `x-kubernetes-list-type: map` 属性的数组提供注解，给出可以用来作为映射索引的主键。
+      此标志只能用在带有 `"x-kubernetes-list-type"` 扩展，且扩展值为`"map"` 的数组之上。
+      此外，此属性的取值列表必须是子级结构的一个标量类型的字段（不支持嵌套结构）。
+      所列举的属性还必须是子级结构中必需的或者带有默认值的字段，
+      以确保列表的所有条目都带有所列举的属性。
+    items:
+      type: string
+    type: array
+  x-kubernetes-list-type:
+    description: |
+      This annotates an array to further describe its topology.
+      This extension must only be used on lists and may have 3 possible values:
+
+      1. `"atomic"`(Default): the list is treated as a single entity, like a scalar.
+         Atomic lists will be entirely replaced when updated.
+         This extension may be used on any type of list (struct, scalar, ...).
+      1. `"set"`: Sets are lists that must not have multiple items with the same value.
+         Each value must be a scalar, an object with `x-kubernetes-map-type: atomic`
+         or an array with `x-kubernetes-list-type: atomic`.
+      1. `"map"`: These lists are like maps in that their elements have a non-index key used to
+         identify them. Order is preserved upon merge.
+         The map tag must only be used on a list with elements of type `"object"`.
+    x-kab-description-zh: |
+      此标志用来为数组结构提供注解，用来进一步描述数组的拓扑结构。
+      此扩展只能用于数组（列表）数据；标志的取值有三种可能：
+
+      1. `"atomic"`（默认）：整个数组应该视为一个整体，就像一个标量数据一样。
+         执行更新操作时，这类数组都会被整体替换。
+         此扩展类型可以用在任何类型的列表，包括对象列表、标量列表等。
+      1. `"set"`：这是一种不允许重复值存在的列表，可以想象成一个集合。
+         每个元素都必须是一个标量值、一个带有 `x-kubernetes-map-type: atomic` 设置的对象，
+         或者带有 `x-kubernetes-list-type: atomic` 的数组。
+      1. `"map"`：这类列表类似于映射，其中的每个约束都有一个非索引的主键用于标识自身。
+         两个列表合并时，元素的顺序不会发生变化。`"map"` 这中设置仅适用于元素为 `"object"`
+         类型的列表。
+    enum:
+      - atomic
+      - map
+      - set
+    type: string
+  x-kubernetes-map-type:
+    description: |
+      This annotates an object to further describe its topology.
+      This extension must only be used when type is `"object"` and may have 2 possible values:
+
+      1. `"granular"`: These maps are actual maps (key-value pairs) and each fields are independent
+         from each other (they can each be manipulated by separate actors).
+         This is the default behaviour for all maps.
+      1. `"atomic"`: the list is treated as a single entity, like a scalar.
+         Atomic maps will be entirely replaced when updated.
+    x-kab-description-zh: |
+      此标志用来为对象提供注解，进一步描述其拓扑结构。
+      只有类型为 `"object"` 时才能使用此扩展。此扩展标志支持两种取值：
+
+      1. `"granular"`：所标注的映射是真实的映射（键值对），各个字段是相互独立的
+         （字段可以由不同的主体来操控）。这时所有映射的默认行为。
+      1. `"atomic"`：整个映射应被视为一个整体，像一个标量一样。
+         这种类型的映射在被更新时要整体替换掉。
+    enum:
+      - atomic
+      - granular
+    type: string
+  x-kubernetes-preserve-unknown-fields:
+    description: |
+      This flag stops the API server decoding step from pruning fields which are not specified
+      in the validation schema. This affects fields recursively, but switches back to normal
+      pruning behaviour if nested `properties` or `additionalProperties` are specified in the schema.
+      This can either be true or undefined. False means forbidden.
+    x-kab-description-zh: |
+      此字段会让 API 服务器在解码阶段不再裁剪未在合法性验证模式定义中给出的字段。
+      这一设置会递归地影响下级字段。
+      当下级字段的模式定义中包含了 `properties` 或者 `additionalProperties` 时会切回默认的裁剪行为。
+      此字段值可以是 `true` 或者未定义。`false` 意味着禁止无法识别的字段。
+    type: boolean
+  x-kubernetes-validations:
+    description: |
+      This describes a list of validation rules written in the CEL expression language.
+      This field is Alpha-level. Using this field requires the feature gate
+      `CustomResourceValidationExpressions` to be enabled.
+    x-kab-description-zh: |
+      此标志描述的是一组使用 CEL 表达式语言编写的合法性检查规则。
+      此字段处于 Alpha 阶段。使用此字段需要启用 `CustomResourceValidationExpressions` 特性门控。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ValidationRule'
+    type: array
+    x-kubernetes-list-map-keys:
+      - rule
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: rule
+    x-kubernetes-patch-strategy: merge
+type: object
+

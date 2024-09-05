@@ -1,0 +1,50 @@
+description: DeviceRequestAllocationResult contains the allocation result for one request.
+x-kab-description-zh: DeviceRequestAllocationResult 包含某个设备请求的分配结果。
+properties:
+  device:
+    description: |
+      `device` references one device instance via its name in the driver's resource pool. It must be a DNS label.
+    x-kab-description-zh: |
+      `device` 通过名字引用驱动的资源池中的某个设备实例。字段值必须是一个合法的 DNS 标签。
+    minLength: 1
+    type: string
+  driver:
+    description: |
+      `driver` specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+    x-kab-description-zh: |
+      `driver` 所给的是一个 DRA 驱动的名称。当在节点上需要分配申领时，系统将调用该驱动的 kubelet 插件处理分配动作。
+      
+      字段值必须是合法的 DNS 子域名，并且应该以驱动厂商所拥有的 DNS 域名结尾。
+    minLength: 1
+    type: string
+  pool:
+    description: |
+      This name together with the driver name and the device name field identify which device was allocated
+      (`<driver name>/<pool name>/<device name>`).
+
+      This field may contain one or more DNS sub-domains separated by slashes.
+    x-kab-description-zh: |
+      此字段给出资源池的名称。此名称和驱动名称、设备名称一起用来标识所分配的设备
+      （`<驱动名称>/<资源池名称>/<设备名称e>`）。
+
+      字段可以包含用斜线分割的一个或多个 DNS 子域名。
+    maxLength: 253
+    type: string
+  request:
+    description: |
+      `request` is the name of the request in the claim which caused this device to be allocated.
+      Multiple devices may have been allocated per request.
+    x-kab-description-zh: |
+      `request` 是设备申领中的请求名称，设备分配的触发者即这里所引用的请求。
+      每个请求可以分配多个设备。
+    minLength: 1
+    type: string
+required:
+- device
+- driver
+- pool
+- request
+type: object
+

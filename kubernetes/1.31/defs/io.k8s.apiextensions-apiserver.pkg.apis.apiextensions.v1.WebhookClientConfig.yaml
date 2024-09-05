@@ -1,0 +1,52 @@
+description: |
+  Information to make a TLS connection with a webhook. Either `service` or `url` must be specified.
+  If the webhook is running within the cluster, then you should use `service`.
+x-kab-description-zh: |
+  用于和 Webhook 建立 TLS 连接所需要的信息。`service` 和 `url` 必须设定其一。
+  如果 Webhook 运行在集群内，则应该使用 `service`。
+properties:
+  caBundle:
+    description: |
+      A PEM encoded CA bundle which will be used to validate the webhook's server certificate.
+      If unspecified, system trust roots on the apiserver are used.
+    x-kab-description-zh: |
+      PEM 编码的 CA 证书包，用来对 Webhook 的服务器整数作合法性检查。
+      如果没有设置此字段，则使用 API 服务器上的系统信任根。
+    format: byte
+    type: string
+  service:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.ServiceReference'
+    description: A reference to the Service for this webhook.
+    x-kab-description-zh: 指向此 Webhook 的 Service 的引用。
+  url:
+    description: |
+      The location of the webhook, in standard URL form (`"scheme://host:port/path"`).
+      The `host` should not refer to a Service running in the cluster; use the `service` field instead.
+      The `host` might be resolved via external DNS in some apiservers
+      (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation).
+      `host` may also be an IP address. Please note that using `"localhost"` or `"127.0.0.1"` as a `host`
+      is risky unless you take great care to run this webhook on all hosts which run an apiserver
+      which might need to make calls to this webhook.
+      Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+      The scheme must be `"https"`.
+      A path is optional, and if present may be any string permissible in a URL.
+      You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+      Attempting to use a user or basic auth e.g. `"user:password@"` is not allowed.
+      Fragments (`"#..."`) and query parameters (`"?..."`) are not allowed, either.
+    x-kab-description-zh: |
+      Webhook 的位置，格式为标准的 URL（`"scheme://host:port/path"`）。
+      其中的 `host` 部分不能引用集群中运行的某个 Service；如果需要引用 Service，则要使用 `service` 字段。
+      `host` 值必须能够通过 API 服务器上配置的外部 DNS 解析（`kube-apiserver` 不能解析集群内的 DNS，
+      因为那样会破坏系统设计的分层原则）。`host` 也可以是一个 IP 地址。
+      需要注意的是，使用 `"localhost"` 或者 `"127.0.0.1"` 作为 `host` 是风险很高的做法，
+      除非你精心布局，让此 Webhook 在 API 服务器所在的所有主机上都存在，毕竟这些 API
+      服务器都可能需要调用此 Webhook。这种配置很可能是不可移植的，在新集群中很难顺利部署起来。
+
+      连接所使用的 `schem` 必须是 `"https"`。`path` 部分是可选的。
+      如果提供了 `path` 部分，则其内容必须是允许处在 URL 中的字符串。
+      你可以使用 `path` 来向 Webhook 传递任意字符串（例如，集群的标识符）。
+      设置用户或者基本身份认证（例如，`"user:password@"`）是不允许的。
+      同样，`path` 中不允许使用片段（`"#..."`）和查询参数（`"?..."`）。
+    type: string
+type: object
+

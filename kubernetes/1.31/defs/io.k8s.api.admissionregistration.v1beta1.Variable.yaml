@@ -1,0 +1,44 @@
+description: |
+  Variable is the definition of a variable that is used for composition.
+  A variable is defined as a named expression.
+x-kab-description-zh: |
+  Variable 是用来构造复合表达式的变量的定义。
+  变量被定义为一个有名字的表达式。
+
+properties:
+  expression:
+    description: |
+      The expression that will be evaluated as the value of the variable.
+      The CEL expression has access to the same identifiers as the CEL expressions
+      in `validation`.
+
+    x-kab-description-zh: |
+      将被处理为变量取值的一个表达式。此 CEL 表达式所能访问到的标识符与
+      `Validation` 结构中的 CEL 表达式相同。
+
+    minLength: 1
+    type: string
+
+  name:
+    description: |
+      The name of the variable. The name must be a valid CEL identifier
+      (matching the pattern but cannot be one of the keywords) and unique among all
+      variables. The variable can be accessed in other expressions through `variables`.
+      For example, if `name` is `"foo"`, the variable will be available as `variables.foo`.
+
+    x-kab-description-zh: |
+      变量的名称。此名称字符串必须是一个合法的 CEL 标识符
+      （满足其正则表达式要求且不能是其关键字之一），
+      并且在所有变量中不存在重名的情况。
+      在其他表达式中可以通过 `variables` 来访问此变量。
+      例如，如果这里的 `name` 是 `"foo"`，则可以通过 `variables.foo` 来访问它。
+
+    minLength: 1
+    pattern: '[_a-zA-Z][_a-zA-Z0-9]*'
+    type: string
+required:
+  - expression
+  - name
+type: object
+x-kubernetes-map-type: atomic
+

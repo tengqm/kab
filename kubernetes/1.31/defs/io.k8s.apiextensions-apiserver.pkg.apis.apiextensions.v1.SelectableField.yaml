@@ -1,0 +1,22 @@
+description: SelectableField specifies the JSON path of a field that may be used with field selectors.
+x-kab-description-zh: SelectableField 给出一些字段的 JSON 路径，所选字段可用作字段选择算符。
+properties:
+  jsonPath:
+    description: |
+      `jsonPath` is a simple JSON path which is evaluated against each custom resource to produce a field selector value.
+      Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer.
+      Types with enum values and strings with formats are allowed.
+      If `jsonPath` refers to absent field in a resource, the jsonPath evaluates to an empty string.
+      Must not point to metadata fields.
+    x-kab-description-zh: |
+      `jsonPath` 是一个简单的 JSON 路径字符串，可以针对每个自定义资源求值，进而得到一个字段选择算符值。
+      只允许不带数组符号的 JSON 路径。路径必须指向类型为 string、boolean 或者 integer 的字段。
+      具有 enum 值的类型以及带有 format 约束的字符串也是可接受的。
+      如果 `jsonPath` 引用的是资源中不存在的字段，则 `jsonPath` 的求值结果为空字符串。
+      `jsonPath` 不允许指向 `metadata` 下面的字段。
+    minLength: 1
+    type: string
+required:
+  - jsonPath
+type: object
+

@@ -1,0 +1,16 @@
+description: The resource overhead associated with running a Pod.
+x-kab-description-zh: 与运行某个 Pod 相关联的资源开销。
+properties:
+  podFixed:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The fixed resource overhead associated with running a Pod.
+      Data in this map are validated as if they are specified as `limits` for Pod
+      resource requirements.
+    x-kab-description-zh: |
+      与运行某个 Pod 相关的、确定的资源开销。
+      此映射的合法性检查与 Pod 的 `resources.limits` 字段相同。 
+    type: object
+type: object
+

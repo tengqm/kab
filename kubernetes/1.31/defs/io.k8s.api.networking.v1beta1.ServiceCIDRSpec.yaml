@@ -1,0 +1,21 @@
+description: ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
+x-kab-description-zh: ServiceCIDRSpec 定义用户在为 Service 分配集群 IP 时希望使用的 CIDR 网段。
+properties:
+  cidrs:
+    description: |
+      The IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs.
+      Max of two items is allowed, one of each IP family. This field is immutable.
+    x-kab-description-zh: |
+      以 CIDR 方式（例如，`"192.168.0.0/24"` 或者 `"2001:db8::/64"`）给出的 IP 网段，集群将从中为 Service 分配集群 IP 地址。
+      此数组最多两个元素，分别用于不同的 IP 地址族。
+      此字段不可变更。
+    maxItems: 2
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - cidrs
+type: object
+

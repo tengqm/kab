@@ -1,0 +1,65 @@
+description: |
+  The node this Taint is attached to has the `effect` on any Pod that does not tolerate the Taint.
+x-kab-description-zh: |
+  关联此 Taint 的节点对于无法忍受该 Taint 的所有 Pod 而言具有效果 `effect`。
+properties:
+  effect:
+    description: |
+      The effect of the taint on Pods that do not tolerate the taint.
+      Possible enum values:
+
+      - `"NoExecute"` Evict any already-running Pods that do not tolerate the taint.
+        Currently enforced by the node controller.
+      - `"NoSchedule"` Do not allow new Pods to schedule onto the node unless they tolerate the taint,
+        but allow all Pods submitted to Kubelet without going through the scheduler to start,
+        and allow all already-running Pods to continue running. Enforced by the scheduler.
+      - `"PreferNoSchedule"` Like `"NoSchedule"`, but the scheduler tries not to schedule new Pods
+        onto the node, rather than prohibiting new Pods from scheduling onto the node entirely.
+        Enforced by the scheduler.
+    x-kab-description-zh: |
+      节点上的此污点对于无法忍受该污点的 Pod 的影响。可选的枚举值有：
+
+      - `"NoExecute"`： 驱逐已经被运行的、无法忍受该污点的 Pod。目前由节点控制器保证这一点。
+      - `"NoSchedule"`：不允许新的 Pod 被调度到该节点，除非 Pod 能够忍受该污点，但允许通过 kubelet
+        提交的 Pod 不经过调度器的调度而启动，并且允许已经运行的 Pod 继续运行。由调度器保证。
+      - `"PreferNoSchedule"`： 与 `"NoSchedule"` 类似，但是调度器会尽量不向节点调度新的 Pod，
+        而不是完全杜绝向节点调度新 Pod。此效果由调度器保证。
+    enum:
+      - NoExecute
+      - NoSchedule
+      - PreferNoSchedule
+    type: string
+  key:
+    description:
+      The taint key to be applied to a node. The string must be a qualified name.
+      It must consist of alphanumeric characters, `'-'`, `'_'`, or `'.'` and must start and end with
+      an alphanumeric character. The prefix, if exists, must be a valid DNS subdomain name.
+      The name part may have at most 63 characters.
+    x-kab-description-zh:
+      要向节点添加的污点主键。字符串必须是限定名。
+      也就是主键只能包含字母、数字、`'-'`、`'_'` 或者 `'.'`，并且必须以字母或数字开头并结尾。
+      如果字符串中包含前缀，则前缀必须是合法的 DNS 子域名。
+      名字部分最长为 63 个字符。
+    minLength: 1
+    type: string
+  timeAdded:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      The time at which the taint was added. It is only written for `"NoExecute"` taints.
+    x-kab-description-zh: |
+      添加污点的时间。只有 `"NoExecute"` 污点才会添加这个时间。
+  value:
+    description:
+      The taint value corresponding to the taint key.
+      The value must be an empty string or consists of alphanumeric characters, `'-'`, `'_'` or `'.'`,
+      and it must start and end with an alphanumeric character.
+    x-kab-description-zh:
+      与污点主键对应的值。此字符串可以是空字符串，或者由字母、数字、`'-'`、`'_'` 或 `'.'` 组成。
+      字符串必须以字母或数字开头并结尾。
+    maxLength: 63
+    type: string
+required:
+  - effect
+  - key
+type: object
+

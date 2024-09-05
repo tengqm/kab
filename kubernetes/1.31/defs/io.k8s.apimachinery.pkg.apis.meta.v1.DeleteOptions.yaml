@@ -1,0 +1,265 @@
+description: DeleteOptions may be provided when deleting an API object.
+x-kab-description-zh: DeleteOptions 可以作为输入提供给删除 API 对象的请求。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    type: string
+  dryRun:
+    description: |
+      When present, indicates that modifications should not be persisted.
+      An invalid or unrecognized dryRun directive will result in an error response and no further
+      processing of the request. Valid values are:
+      - `"All"`: all dry run stages will be processed.
+    x-kab-description-zh: |
+      设置了此字段时，表示所发起的变更不要写入到持久性存储中。
+      如果发现了非法的或无法识别的 `dryRun` 指令，则系统会给出出错反馈，并停止进一步处理 API 请求。
+      目前支持的值有：
+
+      - `"All"`：处理排练的所有阶段。
+    items:
+      enum:
+        - All
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  gracePeriodSeconds:
+    description: |
+      The duration in seconds before the object should be deleted.
+      The value zero indicates delete immediately.
+      If this value is nil, the default grace period for the specified type will be used.
+      Defaults to a per object value if not specified.
+    x-kab-description-zh: |
+      在对象被删除之前要等待的时长秒数。此值为零时意味着要马上删除。
+      如果未设置此值，则使用对应类别所设置的宽限期限。默认情况下，宽限期限是按对象设置的。
+    format: int64
+    minimum: 0
+    type: integer
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    type: string
+  orphanDependents:
+    description: |
+      Should the dependent objects be orphaned.
+      If true/false, the `"orphan"` finalizer will be added to/removed from the object's `finalizers` list.
+      Either this field or `propagationPolicy` may be set, but not both.
+      **DEPRECATED**: please use the `propagationPolicy`.
+    x-kab-description-zh: |
+      是否要保留依赖对象，使其成为孤儿对象。
+      如果设置为 `true`，则会向对象的 `finalizers` 列表中添加 `"orphan"` 终结器，
+      反之则会从对象的 `finalizers` 列表中去除 `"orphan"` 终结器。
+      此字段与 `propagationPolicy` 二者不可同时设置。
+
+      **已弃用**： 建议使用 `propagationPolicy`。
+    type: boolean
+  preconditions:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Preconditions'
+    description: |
+      Must be fulfilled before a deletion is carried out.
+      If not possible, a `"409 Conflict"` status will be returned.
+    x-kab-description-zh: |
+      在执行删除动作之前必须满足的条件。
+      如果条件无法满足，则会返回 `"409 Conflict"` 状态。
+  propagationPolicy:
+    description: |
+      Whether and how garbage collection will be performed.
+      Either this field or `orphanDependents` may be set, but not both.
+      The default policy is decided by the existing finalizer set in the `metadata.finalizers` and
+      the resource-specific default policy. Acceptable values are:
+      - `"Orphan"` - orphan the dependents;
+      - `"Background"` - allow the garbage collector to delete the dependents in the background;
+      - `"Foreground"` - a cascading policy that deletes all dependents in the foreground.
+    x-kab-description-zh: |
+      关于是否以及如何执行垃圾收集的设置。此字段和 `orphanDependents` 不可同时设置。
+      默认的策略取决于 `metadata.finalizers` 中已有的终结器，以及特定于资源的默认策略。
+      可接受的值包括：
+
+      - `"Orphan"` - 让依赖对象成为孤儿对象；
+      - `"Background"` - 允许垃圾收集器在后台删除依赖对象；
+      - `"Foreground"` - 一种级联的策略，在前台删除所有依赖对象。
+    enum:
+      - Background
+      - Foreground
+      - Orphan
+    type: string
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: DeleteOptions
+    version: v1
+  - group: admission.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: admission.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: admissionregistration.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: admissionregistration.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: admissionregistration.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: apiextensions.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: apiextensions.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: apiregistration.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: apiregistration.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: apps
+    kind: DeleteOptions
+    version: v1
+  - group: apps
+    kind: DeleteOptions
+    version: v1beta1
+  - group: apps
+    kind: DeleteOptions
+    version: v1beta2
+  - group: authentication.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: authentication.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: authentication.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: authorization.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: authorization.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: autoscaling
+    kind: DeleteOptions
+    version: v1
+  - group: autoscaling
+    kind: DeleteOptions
+    version: v2
+  - group: autoscaling
+    kind: DeleteOptions
+    version: v2beta1
+  - group: autoscaling
+    kind: DeleteOptions
+    version: v2beta2
+  - group: batch
+    kind: DeleteOptions
+    version: v1
+  - group: batch
+    kind: DeleteOptions
+    version: v1beta1
+  - group: certificates.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: certificates.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: certificates.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: coordination.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: coordination.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: discovery.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: discovery.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: events.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: events.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: extensions
+    kind: DeleteOptions
+    version: v1beta1
+  - group: flowcontrol.apiserver.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: flowcontrol.apiserver.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: flowcontrol.apiserver.k8s.io
+    kind: DeleteOptions
+    version: v1beta2
+  - group: flowcontrol.apiserver.k8s.io
+    kind: DeleteOptions
+    version: v1beta3
+  - group: imagepolicy.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: internal.apiserver.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: networking.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: networking.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: networking.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: node.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: node.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: node.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: policy
+    kind: DeleteOptions
+    version: v1
+  - group: policy
+    kind: DeleteOptions
+    version: v1beta1
+  - group: rbac.authorization.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: rbac.authorization.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: resource.k8s.io
+    kind: DeleteOptions
+    version: v1alpha2
+  - group: scheduling.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: scheduling.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: scheduling.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: storage.k8s.io
+    kind: DeleteOptions
+    version: v1
+  - group: storage.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+  - group: storage.k8s.io
+    kind: DeleteOptions
+    version: v1beta1
+  - group: storagemigration.k8s.io
+    kind: DeleteOptions
+    version: v1alpha1
+

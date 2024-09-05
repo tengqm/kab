@@ -1,0 +1,43 @@
+description: The state of the CustomResourceDefinition.
+x-kab-description-zh: CustomResourceDefinition 的状态。
+properties:
+  acceptedNames:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionNames'
+    description: |
+      The names that are actually used to serve discovery.
+      They may be different than the `names` in the `spec`.
+    x-kab-description-zh: |
+      支持 API 发现时实际使用的名称。
+      此字段值可能与 `spec` 中给出的 `names` 不同。
+  conditions:
+    description: The state for particular aspect of the CustomResourceDefinition.
+    x-kab-description-zh: CustomResourceDefinition 的某一方面的状态。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+  storedVersions:
+    description: |
+      A list of all versions of CustomResources that were ever persisted.
+      Tracking these versions allows a migration path for stored versions in etcd.
+      The field is mutable so a migration controller can finish a migration to another version
+      (ensuring no old objects are left in the storage), and then remove the rest of the versions
+      from this list.
+      Versions may not be removed from `spec.versions` while they exist in this list.
+    x-kab-description-zh: |
+      持久保存资源时使用过的自定义资源的版本。
+      对这些版本进行跟踪有助于为 etcd 中存储的各个版本构建迁移路径。
+      此字段是可变更的，所以迁移控制器可以将资源迁移到其他版本后（确保存储中没有老的对象），
+      去掉此列表中的其余版本。
+      如果某一版本仍然存在于此列表中，那么该版本就不可以从 `spec.versions` 中去除。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - acceptedNames
+  - storedVersions
+type: object
+

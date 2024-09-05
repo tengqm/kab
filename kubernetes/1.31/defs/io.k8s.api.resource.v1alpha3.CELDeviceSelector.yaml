@@ -1,0 +1,91 @@
+description: CELDeviceSelector contains a CEL expression for selecting a device.
+x-kab-description-zh: CELDeviceSelector 包含用来选择设备的一个 CEL 表达式。
+properties:
+  expression:
+    description: |
+      `expression` is a CEL expression which evaluates a single device.
+      It must evaluate to true when the device under consideration satisfies the desired criteria, and false when it does not.
+      Any other result is an error and causes allocation of devices to abort.
+
+      The expression's input is an object named `device`, which carries the following properties:
+
+      - `driver (string)`: the name of the driver which defines this device.
+      - `attributes (map[string]object)`: the device's attributes, grouped by prefix
+        (e.g. `device.attributes["dra.example.com"]` evaluates to an object with all of the attributes which were prefixed by `dra.example.com`.
+      - `capacity (map[string]object)`: the device's capacities, grouped by prefix.
+
+      Example: Consider a device with `driver="dra.example.com"`, which exposes two attributes named `model` and `ext.example.com/family`
+      and which exposes one capacity named `modules`. This input to this expression would have the following fields:
+
+      ```
+      device.driver
+      device.attributes["dra.example.com"].model
+      device.attributes["ext.example.com"].family
+      device.capacity["dra.example.com"].modules
+      ```
+
+      The `device.driver` field can be used to check for a specific driver, either as a high-level precondition
+      (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is
+      meant to consider devices from different drivers.
+
+      The value type of each attribute is defined by the device definition, and users who write these expressions must
+      consult the documentation for their specific drivers.
+      The value type of each capacity is Quantity.
+
+      If an unknown prefix is used as a lookup in either `device.attributes` or `device.capacity`, an empty map will be returned.
+
+      Any reference to an unknown field will cause an evaluation error and allocation to abort.
+
+      A robust expression should check for the existence of attributes before referencing them.
+
+      For ease of use, the `cel.bind()` function is enabled, and can be used to simplify expressions that access multiple attributes with
+      the same domain. For example:
+
+      ```
+      cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)`
+      ```
+
+    x-kab-description-zh: |
+      `expression` 是一个用来考察设备的 CEL 表达式。
+      当所考察的设备满足期望的条件时，表达式求值结果必须为 true，否则必须为 false。
+      所有其他求值结果都视为出错，并且会导致终止设备分配操作。
+
+      表达式的输入是一个名为 `device` 的对象。该对象具有以下属性：
+
+      - `driver (string)`：定义此设备的驱动的名称。
+      - `attributes (map[string]object)`：按前缀组织的设备属性信息。
+        例如 `device.attributes["dra.example.com"]` 的求值结果为一个对象，该对象的所有属性都带有前缀 `dra.example.com`。
+      - `capacity (map[string]object)`：设备的容量信息，按前缀组织。
+
+      例如，假定某个设备 `driver="dra.example.com"`，该设备提供两个名为 `model`、`ext.example.com/family` 的属性，
+      该设备还提供一个名为 `modules` 的容量信息。那么表达式的输入就会包含以下字段：
+
+      ```
+      device.driver
+      device.attributes["dra.example.com"].model
+      device.attributes["ext.example.com"].family
+      device.capacity["dra.example.com"].modules
+      ```
+
+      字段 `device.driver` 可以用来检查特定驱动的设备。这一检测可以作为高层逻辑的先决条件
+      （即，你只想考察属于指定驱动的设备），也可以作为一个包含多个子句的表达式的一部分。
+      在后面这种场景中，你要考察的设备可能是由不同驱动提供的。
+
+      `attributes` 中每个数值的类型由设备定义给出，编写此表达式的用户必须查阅特定驱动的文档。
+      `capacity` 下面每个元素的数据类型都是 Quantity。
+
+      如果在 `device.attributes` 或 `device.capacity` 中检索过滤属性时使用了未知的前缀，所返回的会是一个空的映射。
+
+      引用未知字段会导致表达式求值出错，进而终止设备分配动作。
+
+      一个较好的表达式会在引用属性之前先检查属性是否存在。
+
+      为了便于使用，这里启用了 `cel.bind()` 函数。用户可以用它来简化对同一域中多个属性的引用。例如：
+
+      `cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)`
+
+    type: string
+required:
+- expression
+type: object
+

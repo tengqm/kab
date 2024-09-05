@@ -1,0 +1,33 @@
+description: Describes the state of a migration at a certain point.
+x-kab-description: 此结构描述迁移在某个时间点的状态。
+properties:
+  lastUpdateTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: The last time this condition was updated.
+    x-kab-description-zh: 状况上次被变更的时间。
+  message:
+    description: A human readable message indicating details about the transition.
+    x-kab-description-zh: 一条供人类阅读的消息，给出状况变化的详细信息。
+    type: string
+  reason:
+    description: The reason for the condition's last transition.
+    x-kab-description-zh: 关于状况最近一次变更的原因。
+    type: string
+  status:
+    description: Status of the condition.
+    enum:
+      - "False"
+      - "True"
+      - "Unknown"
+    x-kab-description-zh: 状况的状态。
+    type: string
+  type:
+    description: Type of the condition.
+    x-kab-description-zh: 状况的类型。
+    minLength: 1
+    type: string
+required:
+  - type
+  - status
+type: object
+

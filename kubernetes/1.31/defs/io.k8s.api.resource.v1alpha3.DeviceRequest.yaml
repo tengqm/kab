@@ -1,0 +1,106 @@
+description: |
+  DeviceRequest is a request for devices required for a claim.
+  This is typically a request for a single resource like a device, but can also ask for several identical devices.
+
+  A `deviceClassName` is currently required. Clients must check that it is indeed set.
+  It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.
+x-kab-description-zh: |
+  DeviceRequest 是关于某个申领所需要的设备的请求。
+  设备请求通常是针对类似于设备这种单个资源的请求，不过也可以请求若干一模一样的设备。
+
+  目前 `deviceClassName` 字段是要求指定的。客户端必须检查该字段确实被设置了。
+  如果没有设置该字段，则意味着客户端尚不支持的某个机制发生了变更，这时客户端必须拒绝处理请求。
+properties:
+  adminAccess:
+    description: |
+      `adminAccess indicates that this is a claim for administrative access to the device(s).
+      Claims with `adminAccess` are expected to be used for monitoring or other management services for a device.
+      They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+    x-kab-description-zh: |
+      `adminAccess 表明当前设备申领的意图是获得对设备的管理性访问。
+      设置了 `adminAccess` 的申领预期是要对设备执行监控或者其他管理服务的。
+      就设备的访问模式以及资源分配而言，它们会忽略所有普通的设备申领。
+    type: boolean
+  allocationMode:
+    default: ExactCount
+    description: |
+      `allocationMode` and its related fields define how devices are allocated to satisfy this request.
+      Supported values are:
+
+      - `"ExactCount"`: This request is for a specific number of devices.
+        This is the default. The exact number is provided in the `count` field.
+      - `"All"`: This request is for all of the matching devices in a pool.
+        Allocation will fail if some devices are already allocated, unless `adminAccess` is requested.
+
+      If the mode is `"ExactCount"` and `count` is not specified, the default count is 1.
+      Any other requests must specify this field.
+
+      More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+    enum:
+      - All
+      - ExactCount
+    x-kab-description-zh: |
+      `allocationMode` 及其相关的字段用来定义如何分配设备以满足此请求。合法的取值有：
+
+      - `"ExactCount"`：请求的目标是获得指定数目的设备。确切的设备数目通过 `count` 字段来表达。
+      - `"All"`：请求的目标是获得池中所有匹配的设备。
+        如果某些设备已经被分配，除非设置了 `adminAccess`，否则设备分配会失败。
+
+      如果分配模式是 `"ExactCount"` 而 `count` 字段没有设置，则默认的设备个数为 1。
+      所有其他请求都必须指定此字段。
+
+      将来可能会添加新的模式值。客户必须拒绝处理模式无法识别的请求。
+    type: string
+  count:
+    description: |
+      `count` is used only when the count mode is "ExactCount". Must be greater than zero.
+      If `allocationMode` is `"ExactCount"` and this field is not specified, the default is 1.
+    x-kab-description-zh: |
+      只有分配模式为 `"ExactCount"` 时才会使用 `count` 字段。
+      如果 `allocationMode` 为 `"ExactCount"` 而此字段未设置，则默认值为 1。
+    format: int64
+    minimum: 1
+    type: integer
+  deviceClassName:
+    description: |
+      `deviceClassName` references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
+
+      A class is required. Which classes are available depends on the cluster.
+
+      Administrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices.
+      If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.
+    x-kab-description-zh: |
+      `deviceClassName` 引用某个特定的 DeviceClass 对象，被引用的设备类对象可以定义一些附加的配置参数以及选择算符，供此请求继承使用。
+      目前设备类是必须指定的。可用的设备类取决于所使用的集群。
+
+      管理员可能使用此字段来限制哪些设备可被请求，方法是仅为通过选择算符选定的可访问设备安装设备类。
+      如果用户可以随意申请任何设备，不加限制，则管理员可以创建一个空的 DeviceClass 供用户来引用。
+    minLength: 1
+    type: string
+  name:
+    description: |
+      `name` can be used to reference this request in a `pod.spec.containers[].resources.claims` entry and in a constraint of the claim.
+
+      Must be a DNS label.
+    x-kab-description-zh: |
+      `name` 可以被用来在 Pod 中容器规约的 `resources.claims` 字段以及设备申领的约束字段引用此请求。
+
+      字段取值必须是合法的 DNS 标签。
+    minLength: 1
+    type: string
+  selectors:
+    description: |
+      `selectors` define criteria which must be satisfied by a specific device in order for that device to be considered for this request.
+      All selectors must be satisfied for a device to be considered.
+    x-kab-description-zh: |
+      `selectors` 定义一些判定条件。只有特定设备满足这些条件时，该设备才会被考虑为此请求的候选。
+      注意，设备要满足这里的所有选择算符条件。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceSelector'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+- deviceClassName
+- name
+type: object
+

@@ -1,0 +1,37 @@
+consumes:
+  - '*/*'
+description: read status of the specified StorageVersionMigration
+x-kab-description-zh: 读取指定的 StorageVersionMigration 对象的状态
+operationId: readStoragemigrationV1alpha1StorageVersionMigrationStatus
+parameters:
+  - description: name of the StorageVersionMigration
+    x-kab-description-zh: StorageVersionMigration 对象的名称
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/status
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - storagemigration_v1alpha1
+verb: get
+x-kubernetes-action: get
+x-kubernetes-group-version-kind:
+  group: storagemigration.k8s.io
+  kind: StorageVersionMigration
+  version: v1alpha1
+

@@ -1,0 +1,52 @@
+description: |
+  A generic volume resource that is provisioned/attached using an exec based plugin.
+x-kab-description-zh: |
+  一种使用基于 exec 插件来制备和挂接的、通用的卷资源。
+properties:
+  driver:
+    description: The name of the driver to use for this volume.
+    x-kab-description-zh: 此卷要使用的驱动名称。
+    type: string
+  fsType:
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+      For example: `"ext4"`, `"xfs"`, `"ntfs"`. The default filesystem depends on the FlexVolume script.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系数所支持的文件系统类型之一。如：`"ext4"`, `"xfs"`, `"ntfs"`。
+      默认的文件系统取决于 FlexVolume 脚本。
+    type: string
+  options:
+    additionalProperties:
+      type: string
+    description: |
+      Extra command options if any.
+      The option name can be namespaced but the namespace cannot use `"kubernetes.io"` or `".k8s.io"`
+      as its suffix. The option name cannot use these suffix either.
+    x-kab-description-zh: |
+      额外的命令选项（如果有的话）。
+      选项名字是可以带有名字空间的，但是名字空间不可以使用保留的后缀字符串，
+      如 `"k8s.io"` 或者 `"kubernetes.io"`。选项名称也不可以使用这些后缀。
+    type: object
+  readOnly:
+    default: false
+    description: |
+      Defaults to `false` (read/write).
+      `readOnly` here will force the `readOnly` setting in `volumeMounts`.
+    x-kab-description-zh: |
+      默认值为 `false`（可读可写模式）。
+      这里设置的 `readOnly` 会对 `volumeMounts` 的 `readOnly` 设置起到限制作用。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
+    description: |
+      A reference to the Secret object containing sensitive information to pass to the plugin scripts.
+      This may be empty if no Secret object is specified.
+      If the Secret object contains more than one secret, all secrets are passed to the plugin scripts.
+    x-kab-description-zh: |
+      对某个 Secret 对象的引用，其中包含要传递给插件脚本的敏感信息。
+      如果不需要 Secret 对象时，此字段可以为空。
+      如果 Secret 中包含的数据条目不止一条，则所有的数据条目都会被传递给插件脚本。
+required:
+  - driver
+type: object
+

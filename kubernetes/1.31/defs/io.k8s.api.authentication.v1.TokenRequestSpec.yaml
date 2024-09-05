@@ -1,0 +1,55 @@
+description: Client provided parameters for a token request.
+x-kab-description-zh: 客户端为令牌请求提供的参数。
+properties:
+  audiences:
+    description: |
+      The intendend audiences of the token.
+      A recipient of a token must identify himself with an identifier in the list of
+      `audiences` of the token, and otherwise should reject the token.
+      A token issued for multiple `audiences` may be used to authenticate against
+      any of the `audiences` listed but implies a high degree of trust
+      between the target audiences.
+    x-kab-description-zh: |
+      令牌所针对的受众。
+      收到此令牌者必须能够提供一个身份标识，并且该身份标识位于令牌的 `audiences`
+      列表中，否则就应该拒绝此令牌。
+      针对多个 `audiences` 所发放的令牌可以用来对 `audiences`
+      列表中的任意标识提供身份认证，不过这也意味着着目标受众之间存在高度信任。
+    items:
+      description: One of the audiences.
+      x-kab-description-zh: 受众之一
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  boundObjectRef:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.BoundObjectReference'
+    description: |
+      A reference to an object that the token will be bound to.
+      The token will only be valid for as long as the bound object exists.
+      The API server's `TokenReview` endpoint will validate the `boundObjectRef`,
+      but other `audiences` may not.
+      Keep `expirationSeconds` small if you want prompt revocation.
+    x-kab-description-zh: |
+      对令牌将要绑定的对象的引用。
+      只有在所绑定的对象存在时，令牌是合法有效的。
+      API 服务器的 `TokenReview` 端点会对 `boundObjectRef` 作合法性检查，
+      但 `audiences` 中的其他主体未必这样做。
+      如果你希望令牌能够被及时回收，可以控制 `expirationSeconds` 的值不要过大。
+  expirationSeconds:
+    description: |
+      The requested duration of validity of the request.
+      The token issuer may return a token with a different validity duration
+      so a client needs to check the `expirationTimestamp` field in a response.
+    x-kab-description-zh: |
+      请求中对令牌合法期限的要求。
+      令牌的发放者可能会返回一个合法期限时长不同的令牌，所以客户端需要检查响应中的
+      `expirationTimestamp` 字段值。
+    format: int64
+    maximum: 4294967295
+    minimum: 600
+    type: integer
+required:
+  - audiences
+type: object
+

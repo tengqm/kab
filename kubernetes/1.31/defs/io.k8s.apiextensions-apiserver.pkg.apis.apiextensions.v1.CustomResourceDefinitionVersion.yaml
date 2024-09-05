@@ -1,0 +1,88 @@
+description: A version for CustomResourceDefinition.
+x-kab-description-zh: CustomResourceDefinition 的一个版本。
+properties:
+  additionalPrinterColumns:
+    description: |
+      Additional columns returned in table output.
+      If no columns are specified, a single column displaying the age of the custom resource is used.
+    x-kab-description-zh: |
+      在表格形式输出时，要打印的列（字段）。
+      如果没有指定任何列（字段），则只会打印一列，给出自定义资源的存在时长。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceColumnDefinition'
+    type: array
+    x-kubernetes-list-type: atomic
+  deprecated:
+    default: false
+    description: |
+      This indicates this version of the custom resource API is deprecated.
+      When set to `true`, API requests to this version receive a warning header in the server response.
+    x-kab-description-zh: |
+      此字段表明自定义资源 API 的这个版本已被弃用。 
+      字段设置为 `true` 时，针对此版本的 API 请求会在其服务器响应中收到 `"warning"` HTTP 头部。
+    type: boolean
+  deprecationWarning:
+    description: |
+      This overrides the default warning returned to API clients.
+      May only be set when `deprecated` is `true`.
+      The default warning indicates this version is deprecated and recommends use of
+      the newest served version of equal or greater stability, if one exists.
+      This string may only contain printable UTF-8 characters.
+    x-kab-description-zh: |
+      此字段会重载返回给 API 客户端的警告信息。
+      只有 `deprecated` 字段取值为 `true` 时才可以设置此字段。
+      默认的警告信息会表明此版本已被启用，建议使用稳定性相近或更好的更新版本。
+      此字段只能包含可打印的 UTF-8 字符。
+    maxLength: 256
+    minLenght: 1
+    type: string
+  name:
+    description: |
+      The version name, e.g. `"v1"`, `"v2beta1"`, etc.
+      The custom resources are served under this version at `"/apis/<group>/<version>/..."`
+      if `served` is `true`.
+      The value must be a valid DNS label and it must be unique among all versions.
+    x-kab-description-zh: |
+      版本名称。例如 `"v1"`、`"v2beta1"` 等。
+      如果 `served` 为 `true`，此版本的自定义资源可以在 `"/apis/<group>/<version>/..."` 处访问。
+      版本名称字段的内容必须是合法的 DNS 标签，并且在所有版本中唯一。
+    minLength: 1
+    type: string
+  schema:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceValidation'
+    description: |
+      The schema used for validation, pruning, and defaulting of this version of the custom resource.
+    x-kab-description-zh: |
+      针对此版本的自定义资源，用来执行合法性检查、属性裁剪和默认值设置的模式定义。
+  selectableFields:
+    description: |
+      `selectableFields` specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed.
+    x-kab-description-zh: |
+      `selectableFields` 设置的是一些字段的路径，这些路径可以用来作为字段选择符使用。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.SelectableField'
+    maxItems: 8
+    type: array
+    x-kubernetes-list-type": atomic
+  served:
+    description: A flag enabling/disabling this version to be served via REST APIs.
+    x-kab-description-zh: 布尔值字段，用来允许或者禁止通过 REST API 来提供此版本的资源。
+    type: boolean
+  storage:
+    description: |
+      This flag indicates that this version should be used when persisting custom resources to storage.
+      There must be exactly one version with `storage` set to `true`.
+    x-kab-description-zh: |
+      此布尔值字段用来表明在将自定义资源写入持久存储时，要使用此版本。
+      `storage` 设置为 `true` 的版本有且只能有一个。
+    type: boolean
+  subresources:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceSubresources'
+    description: What subresources this version of the defined custom resource have.
+    x-kab-description-zh: 所定义的自定义资源的这个版本有哪些子资源。
+required:
+  - name
+  - served
+  - storage
+type: object
+

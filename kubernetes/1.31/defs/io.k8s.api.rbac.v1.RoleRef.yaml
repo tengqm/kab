@@ -1,0 +1,33 @@
+description: Information for referencing a Role or a ClusteRole.
+x-kab-description-zh: 用来引用某个 Role 或 ClusterRole 对象的信息。
+properties:
+  apiGroup:
+    description: |
+      The API group for the referenced resource.
+      Currently this must be `"rbac.authorization.k8s.io"`.
+    x-kab-description-zh: |
+      被引用资源所在的 API 组。目前此值必须是 `"rbac.authorization.k8s.io"`。
+    minLength: 1
+    type: string
+  kind:
+    description: The kind of the target resource referenced.
+    x-kab-description-zh: 所引用的目标资源的类别。
+    enum:
+      - ClusterRole
+      - Role
+    minLength: 1
+    type: string
+  name:
+    description: |
+      The name of the referenced resource. This value must be a valid path segment name.
+    x-kab-description-zh: |
+      被引用资源的名称。此字段值必须是一个合法的路径段落名。
+    minLength: 1
+    type: string
+required:
+  - apiGroup
+  - kind
+  - name
+type: object
+x-kubernetes-map-type: atomic
+

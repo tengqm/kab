@@ -1,0 +1,32 @@
+description: |
+  The Service port referenced. Either `name` or `number` must be specified.
+x-kab-description-zh: |
+  所引用的 Service 端口。`name` 或 `number` 二者要设置其一。
+properties:
+  name:
+    description: |
+      The name of the port on the Service. This is a mutually exclusive setting with `number`.
+      When specified, the name string must be a non-empty string and no more than 15 characters long.
+      It must contain only `"[-a-z0-9]"` and must contain at least one letter `"[a-z]"`.
+      It must not start or end with a hyphen, or contain adjacent hyphens.
+      **Note**: Kubernetes only allow lower-case characters, even though RFC 6335 is case insensitive.
+    x-kab-description-zh: |
+      在 Service 上定义的端口名称。此字段设置与 `number` 字段是互斥的。
+      设置此字段时，名字字符串不可以为空，不可以超过 15 个字符长度。
+      其中必须只包含 `"[-a-z0-9]"` 字符，并且字少包含一个字母。
+      名字字符串不可以以连字符开头或结尾，不可以包含连续的连字符。
+      **注意**： Kubernetes 值允许小写字母字符，尽管 RFC 6335 是大小写不敏感的。
+    type: string
+  number:
+    description: |
+      The numerical port number (e.g. 80) on the Service.
+      This is a mutually exclusive setting with `name`.
+    x-kab-description-zh: |
+      Service 上定义的、数字表示的端口号（例如 80）。
+      此字段设置与 `name` 字段是互斥的。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+type: object
+

@@ -1,0 +1,116 @@
+description: The mounting of a volume into a container.
+x-kab-description-zh: 容器内挂载指定卷。
+properties:
+  mountPath:
+    description: |
+      Path within the container at which the volume should be mounted.  Must not contain `":"`.
+      The mounting point must be unique in the container and it cannot overlap
+      with those from the container's `volumeDevices`.
+    x-kab-description-zh: |
+      容器内路径，给出卷的挂载位置。路径字符串不能包含 `":"`。
+      挂载点必须在容器内唯一，并且不能与容器的 `volumeDevices` 中的挂载点重叠。
+    minLength: 1
+    type: string
+  mountPropagation:
+    default: None
+    description: |
+      This attribute determines how mounts are propagated from the host to container
+      and the other way around. `"Bidirectional"` mount propagation is only available
+      to privileged containers, i.e., the `securityContext.privileged` is `true`.
+      This field is Beta in 1.10.
+
+      When `recursiveReadOnly` is set to `"IfPossible"` or to `"Enabled"`, `mountPropagation`
+      must be `"None"` or unspecified (which defaults to `"None"`).
+    x-kab-description-zh: |
+      此属性决定卷挂载如何从主机传播到容器以及从容器传播到主机。
+      `"Bidirectional"` 选项只能用于特权容器，即 `securityContext.privileged` 为 `true` 的容器。
+      此字段从 v1.10 开始进入 Beta 阶段。
+
+      当 `recursiveReadOnly` 被设置为 `"IfPossible"` 或者 `"Enabled"`，`mountPropagation`
+      必须是 `"None"` 或者未设置（会被默认当作 `"None"` 处理）。
+    enum:
+      - Bidirectional
+      - HostToContainer
+      - None
+    type: string
+  name:
+    description: |
+      This must match the `name` of a volume.
+      The name cannot overlap with any of the container's `volumeDevices`.
+    x-kab-description-zh: |
+      卷名称，必须与某个卷的 `name` 属性匹配。
+      此卷名称不可以与容器中 `volumeDevices` 的任何条目重叠。
+    minLength: 1
+    type: string
+  readOnly:
+    default: false
+    description: |
+      Mounted read-only if `true`, read-write otherwise (`false` or unspecified).
+    x-kab-description-zh: |
+      如果此字段为 `true` 则以只读模式挂载，否则以可读可写模式挂载。
+    type: boolean
+
+  recursiveReadOnly:
+    description: |
+      `recursiveReadOnly` specifies whether read-only mounts should be handled recursively.
+
+      If `readOnly` is false, this field has no meaning and must be unspecified.
+
+      If `readOnly` is true, and this field is set to `"Disabled"`, the mount is not made recursively read-only.
+      If this field is set to `"IfPossible"`, the mount is made recursively read-only, if it is supported by the container runtime.
+      If this field is set to `"Enabled"`, the mount is made recursively read-only if it is supported by the container runtime,
+      otherwise the pod will not be started and an error will be generated to indicate the reason.
+
+      If this field is set to `"IfPossible"` or `"Enabled"`, `mountPropagation` must be set to `"None"` (or be unspecified,
+      which defaults to `"None"`).
+
+      If this field is not specified, it is treated as an equivalent of `"Disabled"`.
+    x-kab-description-zh: |
+      `recursiveReadOnly` 设置是否需要以递归的方式去处理只读的卷挂载。
+
+      如果 `readOnly` 为 false，则此字段无意义，并且不可以设置。
+
+      如果 `readOnly` 为 true 并且此字段被设置为 `"Disabled"`，则挂载卷不会按递归只读来处理。
+      如果此字段被设置为 `"IfPossible"`，则挂载卷会被按递归性只读来挂载，前提是容器运行时支持这种处理。
+      如果此字段被设置为 `"Enabled"`，则只有被容器运行时支持的情况下，卷挂载会以递归性只读来处理；
+      否则 Pod 不会被启动，系统会生成一个错误信息给出原因。
+
+      如果此字段被设置为 `"IfPossible"` 或 `"Enabled"`，则 `mountPropagation` 必须被设置为 `"None"`
+      （或者留空不设，同样视为 `"None"` 处理）。
+
+      如果未设置此字段，则系统默认其取值等效于 `"Disabled"`。
+    enum:
+      - Disabled
+      - Enabled
+      - IfPossible
+    type: string
+  subPath:
+    default: ''
+    description: |
+      Path within the volume from which the container's volume should be mounted.
+      Default value `""` means the volume's root. This path cannot contain `".."` or prefixed with `"/"`.
+      This `subPath` property is mutual exclusive to the `subPathExpr` property.
+    x-kab-description-zh: |
+      容器的卷要挂载的卷中路径。默认值 `""` 表示挂载卷的根目录。
+      此目录字符串不能包含 `".."`，也不能以 `"/"` 开头。
+      `subPath` 属性与 `subPathExpr` 属性是互斥的。
+    type: string
+  subPathExpr:
+    description: |
+      Expanded path within the volume from which the container's volume should be mounted.
+      Behaves similarly to the `subPath` property but environment variable references
+      `$(VAR_NAME)` are expanded using the container's environment.
+      Defaults to `""` (volume's root). `subPathExpr` and `subPath` are mutually exclusive.
+      The path must be relative path and it cannot contain `".."` or prefix with `".."`.
+    x-kab-description-zh: |
+      可被展开的表达式，给出容器的卷要挂载的卷中路径。
+      与 `subPath` 的行为相同，只是字段值中的环境变量引用 `$(VAR_NAME)` 会使用容器的环境变量展开。
+      默认值 `""` 表示挂载卷的根目录。
+      `subPathExpr` 属性与 `subPath` 属性是互斥的。
+      此字符串必须是相对路径，不能包含 `".."`，也不能以 `".."` 开头。
+    type: string
+required:
+  - mountPath
+  - name
+type: object
+

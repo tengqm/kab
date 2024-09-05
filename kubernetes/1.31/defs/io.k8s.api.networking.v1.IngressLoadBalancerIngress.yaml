@@ -1,0 +1,30 @@
+description: |
+  IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+x-kab-description-zh: |
+  IngressLoadBalancerIngress 代表的是某个负载均衡 Ingress 点的状态。
+properties:
+  hostname:
+    description: |
+      Hostname is set for load-balancer ingress points that are DNS based.
+      The value of this field must be a valid DNS subdomain name rather than an IP address.
+    x-kab-description-zh: |
+      hostname 字段为基于 DNS 的负载均衡器 Ingress 点设置的。
+      字段的取值必须是合法的 DNS 子域名，而不是一个 IP 地址。
+    type: string
+  ip:
+    description: |
+      IP is set for load-balancer ingress points that are IP based.
+      The value of this field must be a valid IP address.
+    x-kab-description-zh: |
+      ip 字段是为基于 IP 的负载均衡器 Ingress 点设置的。
+      字段的取值必须是合法的 IP 地址。
+    type: string
+  ports:
+    description: Information about the ports exposed by this LoadBalancer.
+    x-kab-description-zh: 关于此 LoadBalancer 所公开的端口的信息。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.IngressPortStatus'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

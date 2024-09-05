@@ -1,0 +1,26 @@
+description: |
+  UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't
+  been accounted in Job status counters.
+x-kab-description-zh: |
+  UncountedTerminatedPods 中保存的是已经终止，但尚未被统计到 Job 状态计数器中的 Pod 的 UID。
+properties:
+  failed:
+    description: UIDs of failed Pods.
+    x-kab-description-zh: 失败的 Pod 的 UID 列表。
+    items:
+      description: The UID of a failed Pod.
+      x-kab-description-zh: 某失败的 Pod 的 UID。
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+  succeeded:
+    description: UIDs of succeeded Pods.
+    x-kab-description-zh: 成功的 Pod 的 UID 列表。
+    items:
+      description: The UID of a succeeded Pod.
+      x-kab-description-zh: 某成功的 Pod 的 UID。
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+type: object
+

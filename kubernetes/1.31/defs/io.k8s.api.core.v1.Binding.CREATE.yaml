@@ -1,0 +1,39 @@
+description: Binding ties a Pod to a node.
+x-kab-description-zh: Binding 建立 Pod 与节点之间的关联关系。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Binding
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      Standard object metadata. The `name` field in metadata must be the name of an existing Pod.
+    x-kab-description-zh: 标准的对象元数据。其中的 `name` 字段值必须是某已有 Pod 的名称。
+  target:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: |
+      The target node that you want to bind to the Pod.
+      The `kind` if provided must be `"Node"` and the `name` must be provided.
+    x-kab-description-zh: |
+      你所希望 Pod 绑定到的目标节点。
+      如果指定了 `kind`，其取值必须是 `"Node"`。`name` 字段是必须设置的。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - target
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Binding
+    version: v1
+

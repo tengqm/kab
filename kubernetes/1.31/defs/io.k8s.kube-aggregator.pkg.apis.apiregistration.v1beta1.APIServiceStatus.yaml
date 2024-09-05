@@ -1,0 +1,16 @@
+description: Derived information about an API server.
+x-kab-description-zh: 关于某 API 服务器的派生信息。
+properties:
+  conditions:
+    description: Current service state of APIService.
+    x-kab-description-zh: APIService 当前的服务状态。
+    items:
+      $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+type: object
+

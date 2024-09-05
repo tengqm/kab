@@ -1,0 +1,27 @@
+description: ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+x-kab-description-zh: ResourceClaimSpec 定义 ResourceClaim 中的资源请求以及配置方式。
+properties:
+  controller:
+    description: |
+      `controller` is the name of the DRA driver that is meant to handle allocation of this claim.
+      If empty, allocation is handled by the scheduler while scheduling a Pod.
+
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+
+      This is an Alpha field and requires enabling the DRAControlPlaneController feature gate.
+    x-kab-description-zh: |
+      `controller` 是应该处理资源申领分配的 DRA 驱动的名称。
+      如果此字段为空，则分配是由调度器在调度 Pod 时完成的。
+
+      字段值必须是合法的 DNS 子域名，并且应该以驱动厂商所拥有的域名结尾。
+
+      此字段为 Alpha 阶段，需要启用 `DRAControlPlaneController` 特性门控。
+    type: string
+  devices:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClaim'
+    description: |
+      `devices` defines how to request devices. At most 32 devices can be requested.
+    x-kab-description-zh: |
+      `devices` 定义如何请求设备。最多可以请求 32 个设备。
+type: object
+

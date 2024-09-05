@@ -1,0 +1,91 @@
+description: The specification of the desired behavior of the Deployment.
+x-kab-description-zh: Deployment 预期行为的规约。
+properties:
+  minReadySeconds:
+    default: 0
+    description: |
+      Minimum number of seconds for which a newly created Pod should be ready without
+      any of its container crashing, for it to be considered available.
+      Defaults to 0 which means a Pod will be considered available as soon as it is ready.
+    x-kab-description-zh: |
+      新创建的 Pod 需要进入就绪状态、没有容器崩溃，并持续给定的秒数之后，才会被认为可用。
+      默认值 0 意味着 Pod 一旦进入就绪状态之后立即被视为可用。
+    format: int32
+    minimum: 0
+    type: integer
+  paused:
+    description: |
+      Indicates that the Deployment is paused and will not be processed
+      by the Deployment controller.
+    x-kab-description-zh: |
+      表明 Deployment 当前被暂停，并且不会被 Deployment 控制器处理。
+    type: boolean
+  progressDeadlineSeconds:
+    default: 600
+    description: |
+      The maximum time in seconds for a Deployment to make progress before it is considered to be failed.
+      The Deployment controller will continue to process failed Deployments and a condition with a
+      `"ProgressDeadlineExceeded"` reason will be surfaced in the Deployment `status`.
+      Note that progress will not be estimated during the time a Deployment is paused.
+      The value must be greater than the `minReadySeconds`.
+    x-kab-description-zh: |
+      Deployment 操作至少要在这里所给的秒数之内取得进展，否则会被视为处于失败状态。
+      Deployment 的控制器会继续处理失败的 Deployment，不过会在 Deployment 的 `status`
+      中添加原因为 `"ProgressDeadlineExceeded"` 的状况。
+      需要注意的是，在 Deployment 被暂停的时候，控制器不再对进展时间进行跟踪。
+      此值必须大于 `minReadySeconds` 属性值。
+    format: int32
+    minimum: 0
+    type: integer
+  replicas:
+    default: 1
+    description: |
+      Number of desired Pods. This is a pointer to distinguish between explicit zero and not specified.
+    x-kab-description-zh: |
+      预期的 Pod 副本个数。实现上，此字段是一个指针，用来显式区分设置与否和设置值是否为零的状况。
+    format: int32
+    minimum: 0
+    type: integer
+  revisionHistoryLimit:
+    default: 10
+    description: |
+      The number of old ReplicaSets to retain to allow rollback.
+      This is a pointer to distinguish between explicit zero and not specified.
+    x-kab-description-zh: |
+      出于回滚需要，应为此 Deployment 保留的历史记录个数。
+      实现上，这一字段是一个指针，用来区别设置与否和数值是否为零的情况。
+    format: int32
+    minimum: 0
+    type: integer
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      Label selector for Pods. Existing ReplicaSets whose Pods are selected
+      by this will be the ones affected by this Deployment. It must match the Pod
+      template's labels. The `matchLabels` and `matchExpressions` cannot be both empty.
+    x-kab-description-zh: |
+      此字段为一个针对 Pod 的标签查询算符。已有的、其 Pod 被此算符选中的 ReplicaSet
+      会被此 Deployment 影响到。这里设置的选择算符必须与 Pod 模板中的 `labels` 一致。
+      并且，算符中的 `matchLabels` 和 `matchExpressions` 至少要设置其一。
+
+  strategy:
+    $ref: '#/definitions/io.k8s.api.apps.v1.DeploymentStrategy'
+    description: |
+      The deployment strategy to use when replacing existing Pods with new ones.
+    x-kab-description-zh: |
+      用新的 Pod 替换现有 Pd 时要采用的部署策略。
+    x-kubernetes-patch-strategy: retainKeys
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.CREATE'
+    description: |
+      A template describes the Pods that will be created. The only allowed
+      template.spec.restartPolicy value is "Always".
+    x-kab-description-zh: |
+      一个用来描述要被创建的 Pod 的对象。
+      注意 `template.spec.restartPolicy` 的取值只能是 `"Always"`。
+
+required:
+  - selector
+  - template
+type: object
+

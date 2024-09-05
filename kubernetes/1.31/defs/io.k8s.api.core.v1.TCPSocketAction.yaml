@@ -1,0 +1,19 @@
+description: TCPSocketAction describes an action based on opening a socket.
+x-kab-description-zh: TCPSocketAction 描述某个基于打开的套接字来执行的动作。
+properties:
+  host:
+    description: Host name to connect to, defaults to the Pod IP.
+    x-kab-description-zh: 要连接到的主机名，默认为 Pod IP 地址。
+    type: string
+  port:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      Number or name of the port to access on the container.
+      Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+    x-kab-description-zh: |
+      容器上要访问的端口的端口号或名称。
+      端口号码必须在 1 和 65535 之间。端口名称必须是 IANA_SVC_NAME。
+required:
+  - port
+type: object
+

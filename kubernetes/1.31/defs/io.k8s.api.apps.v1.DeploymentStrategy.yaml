@@ -1,0 +1,29 @@
+description: This specifies how to replace existing Pods with new ones.
+x-kab-description-zh: 设置如何用新的 Pod 替换已有的 Pod。
+properties:
+  rollingUpdate:
+    $ref: '#/definitions/io.k8s.api.apps.v1.RollingUpdateDeployment'
+    description: |
+      Rolling update configuration parameters. This is required when `type` is `"RollingUpdate"`.
+      When `type` is `"Recreate"`, this field is disallowed.
+    x-kab-description-zh: |
+      滚动更新的配置参数。当 `type` 为 `"RollingUpdate"` 时，此字段是必需的。
+      当 `type` 是 `"Recreate"` 时，此字段不可设置。
+  type:
+    default: RollingUpdate
+    description: |
+      Type of update strategy. Possible enum values:
+      - `"Recreate"`：Kill all existing Pods before creating new ones.
+      - `"RollingUpdate"`：Replace the old ReplicaSets by new one using rolling update.
+        i.e., gradually scale down the old ReplicaSets and scale up the new one.
+    x-kab-description-zh: |
+      更新策略类型。可选的值有：
+      - `"Recreate"`：在创建新的 Pod 之前先杀死所有已有的 Pod。
+      - `"RollingUpdate"`：使用滚动更新方式用新的 ReplicaSet 替换旧的 ReplicaSet。
+        换言之，逐步完成对旧 ReplicaSet 的缩容和对新 ReplicaSet 的扩容。
+    enum:
+      - Recreate
+      - RollingUpdate
+    type: string
+type: object
+

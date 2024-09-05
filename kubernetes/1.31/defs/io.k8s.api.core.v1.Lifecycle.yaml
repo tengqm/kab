@@ -1,0 +1,40 @@
+description: |
+  Lifecycle describes actions that the management system should take in response to container
+  lifecycle events. For `postStart` and `preStop`, management of the container blocks until
+  the action is complete, unless the container process fails, in which case the handler is aborted.
+x-kab-description-zh: |
+  Lifecycle 描述的是管理系统为应对容器生命周期事件所要采取的动作。
+  对于 `postStart` 和 `preStop`，容器的管理操作会被阻塞，直到对应的动作执行完毕，除非容器进程失败。
+  若容器进程失败，则这里给出的处理逻辑也会被中止。
+properties:
+  postStart:
+    $ref: '#/definitions/io.k8s.api.core.v1.LifecycleHandler'
+    description: |
+      The `postStart` handler is called immediately after a container is created.
+      If the handler fails, the container is terminated and restarted according to its restart policy.
+      Other management of the container blocks until the hook completes.
+    x-kab-description-zh: |
+      `postStart` 处理逻辑会在容器被创建之后立即被调用。
+      如果处理逻辑失败，则容器会被中止并根据其重启策略实施重启。
+      容器的其他管理机制都会被阻塞，直到此回调完成。
+  preStop:
+    $ref: '#/definitions/io.k8s.api.core.v1.LifecycleHandler'
+    description: |
+      The `preStop` handler is called immediately before a container is terminated due to an API request
+      or management event such as liveness/startup probe failure, preemption, resource contention, etc.
+      The handler is not called if the container crashes or exits.
+      The Pod's termination grace period countdown begins before the `preStop` handler is executed.
+      Regardless of the outcome of the handler, the container will eventually terminate within
+      the Pod's termination grace period (unless delayed by finalizers).
+      Other management of the container blocks until the hook completes or until the termination grace
+      period is reached.
+    x-kab-description-zh: |
+      容器会因为 API 请求或者诸如活跃态探针、启动探针失败、Pod 抢占、资源竞争等原因而被终止，
+      在容器被终止之前，`preStop` 的处理逻辑会被调用。
+      如果容器崩溃或者退出，则 `preStop` 处理逻辑不会被调用。
+      在 `preStop` 处理程序开始执行之前，Pod 的终止宽限期倒计时开始。
+      无论处理程序的最终结果如何，容器最终都会在 Pod 的终止宽限期之内终止（除非被 finalizers 延误）。 
+      容器的其他管理组件会被阻塞，直到回调完成或者直到达到终止宽限期。 
+type: object
+
+

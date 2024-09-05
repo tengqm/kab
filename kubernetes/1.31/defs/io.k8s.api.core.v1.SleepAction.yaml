@@ -1,0 +1,17 @@
+description: SleepAction describes a _sleep_ action.
+x-kab-description-zh: SleepAction 描述的是睡眠动作。
+properties:
+  seconds:
+    description: |
+      Seconds is the number of seconds to sleep.
+      The number must be greater than 0 and less than `terminationGracePeriodSeconds`.
+    x-kab-description-zh: |
+      此字段为睡眠的秒数。
+      字段值必须大于零，并且小于 `terminationGracePeriodSeconds` 的数值。
+    format: int64
+    minimum: 1
+    type: integer
+required:
+  - seconds
+type: object
+

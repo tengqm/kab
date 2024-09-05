@@ -1,0 +1,73 @@
+description: |
+  CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object.
+x-kab-description-zh: |
+  CertificateSigningRequestCondition 描述 CertificateSigningRequest 对象的当前状况。
+properties:
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      lastTransitionTime is the time the condition last transitioned from one status to another.
+      If unset, when a new condition type is added or an existing condition's status is changed,
+      the server defaults this to the current time.
+    x-kab-description-zh: |
+      状况上次从一种状态转换为另一种状态的时间。
+      若此字段为空，添加新的状况类型或者变更已有状况的状态时，服务器默认将此字段设置为当前时间。
+  lastUpdateTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Timestamp of the last update to this condition.
+    x-kab-description-zh: 上次状况更新的时间。
+  message:
+    description: Human readable message with details about the request state.
+    x-kab-description-zh: 人类可读的消息，给出上次状况转换的细节。
+    type: string
+  reason:
+    description: Brief reason for the request state.
+    x-kab-description-zh: 关于请求状态的简短原因。 
+    type: string
+  status:
+    description: |
+      Status of the condition, one of "`True`", "`False`", "`Unknown`".
+      `Approved`, `Denied`, and `Failed` conditions may not be "False" or "Unknown".
+    x-kab-description-zh: |
+      状况的状态，取值为 "`True`", "`False`", "`Unknown`" 之一。
+      `"Approved"`、`"Denied"`、和 `"Failed"` 状况的状态不可以是 `"False"` 或 `"Unknown"`。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    description: |
+      Request approval state. Possible enum values:
+      - `"Approved"` indicates the request was approved and should be issued by the signer.
+        It is added via the `/approval` subresource.
+      - `"Denied"` indicates the request was denied and should not be issued by the signer.
+        It is added via the `/approval` subresource.
+      - `"Failed"` indicates the signer failed to issue the certificate.
+        It is added via the `/status` subresource.
+
+      `"Approved"` and `"Denied"` conditions are mutually exclusive.
+      `"Approved"`, `"Denied"`, and `"Failed"` conditions cannot be removed once added.
+      Only one condition of a given type is allowed.
+    x-kab-description-zh: |
+      请求的批复状态。可能的取值有：
+      - `"Approved"` 表明请求已被批准，并应由签发组件来发放。
+        此状况通过 `/approval` 子资源来添加。
+      - `"Denied"` 表明请求已经被拒绝，且不能被签发组件发放。
+        此状况通过 `/approval` 子资源来添加。
+      - `"Failed"` 表明签发组件未能成功地签发证书。
+        此状况通过 `/status` 子资源来添加。
+
+      `"Approved"` 和 `"Denied"` 状况是互斥的。
+      `"Approved"`、`"Denied"` 和 `"Failed"` 状况一旦添加之后即不可移除。
+      给定状况类型只能有一个状况记录存在。
+    enum:
+      - Approved
+      - Denied
+      - Failed
+    minLength: 1
+    type: string
+required:
+  - type
+type: object
+

@@ -1,0 +1,47 @@
+description:
+  The SeccompProfile defines the seccomp profile settings for a container or a Pod.
+  Only one profile source may be set.
+x-kab-description-zh:
+  SeccompProfile 定义容器或者 Pod 的 seccomp 配置。
+  结构中只能配置配置源之一。
+properties:
+  localhostProfile:
+    description: |
+      This indicates a profile defined in a file on the node should be used.
+      The profile must be preconfigured on the node to work.
+      Must be a descending path, relative to the kubelet's configured seccomp profile location.
+      Must be set if `type` is `"Localhost"`. Must NOT be set for any other `type`.
+    x-kab-description-zh: |
+      此字段表明要使用节点上某文件中保存的配置。Seccomp 的配置必须在节点上事先配置好才能使用。
+      路径必须是自 kubelet 所配置的 seccomp 配置位置开始单向下降的。
+      当 `type` 为 `"Localhost"` 时，必须设置此字段。
+      对于其他的 `type` 值，不可设置此字段。
+    type: string
+  type:
+    description: |
+      The type of seccomp profile to apply. Valid options are:
+
+      - `"Localhost"`: a profile defined in a file on the node should be used.
+        The file's location relative to `<kubelet-root-dir>/seccomp`.
+      - `"RuntimeDefault"`: the container runtime default profile should be used.
+      - `"Unconfined"`: no profile should be applied.
+    x-kab-description-zh: |
+      要应用的 Seccomp 配置类型。合法的选项有：
+
+      - `"Localhost"`：要使用节点上某文件中定义的配置。所给的文件位置是相对于
+        `<kubelet 根目录>/seccomp` 的。
+      - `"RuntimeDefault"`：使用容器运行时所决定的默认配置。
+      - `"Unconfined"`：不应用任何配置。
+    enum:
+      - Localhost
+      - RuntimeDefault
+      - Unconfined
+    type: string
+required:
+  - type
+type: object
+x-kubernetes-unions:
+  - discriminator: type
+    fields-to-discriminateBy:
+      localhostProfile: LocalhostProfile
+

@@ -1,0 +1,83 @@
+description: The specification of a Lease.
+x-kab-description-zh: Lease 的规约。
+properties:
+  acquireTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: The time when the current Lease was acquired.
+    x-kab-description-zh: 当前 Lease 的获得时间。
+  holderIdentity:
+    description: |
+      The identity of the current holder of the Lease.
+      If Coordinated Leader Election is used, the holder identity must be equal to the `.metadata.name` field of the elected LeaseCandidate.
+    x-kab-description-zh: |
+      当前 Lease 的持有者的标识。
+      如果采用了协同的领导者选举（Coordinated Leader Election），则持有者的标识必须与被选中的
+      LeaseCandidate 的 `metadata.name` 字段值相同。
+    type: string
+  leaseDurationSeconds:
+    description: |
+      A duration that candidates for a Lease need to wait before it can acquire the Lease
+      by force. This is measured against the last observed `renewTime`.
+    x-kab-description-zh: |
+      字段值是一个时长值。Lease 的候选持有者只有过了指定时长之后才可以强制获得 Lease。
+      时长的度量起点是上次观测到的 `renewTime`。
+    format: int32
+    minimum: 1
+    type: integer
+  leaseTransitions:
+    description: The number of transitions of a Lease between holders.
+    x-kab-description-zh: Lease 在不同的持有者之间流转的次数。
+    format: int32
+    minimum: 0
+    type: integer
+  preferredHolder:
+    description: |
+      This signals to a lease holder that the lease has a more optimal holder and should be given up.
+      This field can only be set if `strategy` is also set.
+      Empty string is treated as not specified.
+    x-kab-description-zh: |
+      此字段向 Lease 的当前持有者表明，Lease 有一个更好的持有者候选，因此 Lease 应该交给后者。
+      只有设置了 `strategy` 字段的时候才可以设置此字段。 
+      空字符值被视为未设置。
+    type: string
+  renewTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: The time when the current holder last updated the Lease.
+    x-kab-description-zh: 当前持有者上次更新 Lease 时间。
+  strategy:
+    description: |
+      This indicates the strategy for picking the leader for coordinated leader election.
+      If the field is not specified, there is no active coordination for this Lease.
+      The field value can be a Kubernetes-defined name, such as `OldestEmulationVersion`,
+      or it can be a user-defined string. The user-defined string must be a qualified name,
+      with a domain name as its prefix.
+
+      When the field value is `OldestEmulationVersion`, the oldest LeaseCandidate is selected.
+      The \"oldest\" here is defined as 
+
+      - Select the candidate(s) with the lowest emulation version;
+      - If multiple candidates have the same emulation version, selecte the candidate(s) with the lowest binary version.
+        (Note that binary version must be greater than or equal to the emulation version.)
+      - If multiple candidates have the same binary version, select the candidate with the oldest `creationTimestamp`.
+
+      If a candidate does not specify the `emulationVersion` and `binaryVersion` fields, it will not be considered as a candidate for the Lease.
+
+      This field is Alpha. Using this field requires the `CoordinatedLeaderElection` feature gate to be enabled.
+    x-kab-description-zh: |
+      此字段用来表明针对协同领导者选举所使用的选择策略。如果未指定此字段，则针对当前的 Lease 尚未发生协同动作。
+      此字段的取值可以是一个 Kubernetes 所定义的常数值，如 `OldestEmulationVersion`，也可以是用户自定义的字符串。
+      如果使用自定义字符串，则所给字符串值必须符合全限定名格式要求，即，包含一个用斜线分隔开的域名前缀。
+
+      当此字段取值为 `OldestEmulationVersion`，系统会选择最老的 LeaseCandidate。这里所谓的“最老”是按如下规则定义的：
+
+      - 选择模拟版本最低的候选者（可能不止一个）；
+      - 如果多个候选者的模拟板本相同，则选择其中二进制版本最低者（可能不止一个）。
+        （需要注意的是，二进制版本必须大于或等于模拟版本。）
+      - 如果多个候选者的二进制版本仍然相同，则选择 `creationTimestamp` 属性值最老者。
+
+      如果某个候选者没有定义 `emulationVersion` 或 `binaryVersion` 字段，则该候选者不会被视为当前 Lease 的合格候选。
+
+      此字段处于 Alpha 阶段。使用此字段需要启用 `CoordinatedLeaderElection` 特性门控。
+    type: string
+type: object
+

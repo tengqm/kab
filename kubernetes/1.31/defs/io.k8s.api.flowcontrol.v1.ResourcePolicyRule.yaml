@@ -1,0 +1,102 @@
+description: |
+  A predicate that matches some resource requests, testing the request's verb and the target resource.
+  A resource request is matched if and only if:
+  - at least one member of `verbs` matches the request,
+  - at least one member of `apiGroups` matches the request,
+  - at least one member of `resources` matches the request, and
+  - either a) the request does not specify a namespace (i.e., `namespace==""`)
+    and `clusterScope` is true or b) the request specifies a namespace and
+    at least one member of `namespaces` matches the request's namespace.
+x-kab-description-zh: |
+  用来通过测试请求的动词与目标资源来匹配过滤资源请求的条件。
+  只有满足了以下条件的请求才会被筛选出来：
+
+  - 请求动词与 `verbs` 中的至少一项匹配，并且
+  - 请求的 API 组与 `apiGroups` 中的至少一项匹配，并且
+  - 请求的资源与 `resources` 中的至少一项匹配，并且
+  - 请求满足以下条件之一：
+    a) 请求未指定名字空间（即 `namespace==""`）而 ResourcePolicyRule 中的 `clusterScope` 为 true，或者
+    b) 请求指定了名字空间，且该名字空间与 `namespaces` 中至少一项匹配。
+properties:
+  apiGroups:
+    description: |
+      A list of matching API groups and may not be empty.
+      `"*"` matches all API groups and, if present, must be the only entry.
+    x-kab-description-zh: |
+      一个用来匹配的 API 组的列表，不可为空。
+      `"*"` 可以匹配所有 API 组。
+      如果数组中存在 `"*"`，则不可存在其他条目。
+    items:
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+  clusterScope:
+    description: |
+      This indicates whether to match requests that do not specify a namespace
+      (which happens either because the resource is not namespaced or the request
+      targets all namespaces).
+      If this field is omitted or `false` then the `namespaces` field must contain a non-empty list.
+    x-kab-description-zh: |
+      此字段标明是否允许匹配未指定名字空间的请求（当所请求的资源是集群作用域的，
+      或者请求针对所有名字空间时，会出现这种情况）。
+      未设置此字段或者将其设置为 `false` 时，`namespaces` 字段不可为空列表。 
+    type: boolean
+  namespaces:
+    description: |
+      A list of target namespaces that restricts matches.
+      A request that specifies a target namespace matches only if either:
+
+      1. this list contains that target namespace or
+      1. this list contains `"*"`.
+
+      Note that `"*"` matches any specified namespace but does not match a request that does NOT
+      specify a namespace (see the `clusterScope` field for that).
+      This list may be empty only if `clusterScope` is `true`.
+    x-kab-description-zh: |
+      用来匹配请求的名字空间列表。当请求是针对具体名字空间时，满足如下条件的请求会被过滤出来：
+
+      1. `namespaces` 中包括了请求所针对的名字空间，或者
+      1. `namespaces` 列表中包含 `"*"`。
+
+      注意，`"*"` 会匹配所有指定了名字空间的请求，但不会匹配未指定名字空间的请求。
+      只有 `clusterScope` 设置为 `true` 时，此列表才可以为空。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+  resources:
+    description: |
+      A list of matching resources (i.e., lowercase and plural) with, if desired, subresource.
+      For example, `["services", "nodes/status"]`. This list may not be empty.
+      `"*"` matches all resources and, if present, must be the only entry.
+    x-kab-description-zh: |
+      用来匹配请求的资源（小写、负数）列表。如有需要，可以包含子资源。
+      例如，`["services", "nodes/status"]`。
+      此列表不可为空。
+      `"*"` 可以用来匹配所有的资源。如果列表中包含了 `"*"`，则不可包含其他条目。
+    items:
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+  verbs:
+    description: |
+      A list of matching verbs. `"*"` matches all verbs and, if present, must be the only entry.
+    x-kab-description-zh: |
+      一个用来匹配的动词列表，不可为空。`"*"` 可以匹配所有动词。
+      如果数组中存在 `"*"`，则不可存在其他条目。
+    items:
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: set
+required:
+  - apiGroups
+  - resources
+  - verbs
+type: object
+

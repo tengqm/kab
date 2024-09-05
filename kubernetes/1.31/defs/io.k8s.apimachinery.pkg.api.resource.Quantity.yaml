@@ -1,0 +1,96 @@
+description: |
+  Quantity is a fixed-point representation of a number.
+  It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to `String()` and
+  `AsInt64()` accessors.
+
+  The serialization format is:
+
+  ```
+  <quantity> ::= <signedNumber><suffix>
+  (Note that <suffix> may be empty, from the "" case in <decimalSI>.)
+  <digit> ::= 0 | 1 | ... | 9
+  <digits> ::= <digit> | <digit><digits>
+  <number> ::= <digits> | <digits>.<digits> | <digits>. | .<digits>
+  <sign> ::= "+" | "-"
+  <signedNumber> ::= <number> | <sign><number>
+  <suffix> ::= <binarySI> | <decimalExponent> | <decimalSI>
+  <binarySI> ::= Ki | Mi | Gi | Ti | Pi | Ei
+  (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)
+  <decimalSI> ::= m | "" | k | M | G | T | P | E
+  (Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)
+  <decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber>
+  ```
+
+  No matter which of the three exponent forms is used, no quantity may represent a number
+  greater than 2^63-1 in magnitude, nor may it have more than 3 decimal places.
+  Numbers larger or more precise will be capped or rounded up. (E.g. `"0.1m"` will rounded up to `"1m"`.)
+  This may be extended in the future if we require larger or smaller quantities.
+
+  When a Quantity is parsed from a string, it will remember the type of suffix it had, and will use
+  the same type again when it is serialized.
+  
+  Before serializing, Quantity will be put in **canonical form**. This means that exponent/suffix
+  will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that
+
+  - No precision is lost
+  - No fractional digits will be emitted
+  - The exponent (or suffix) is as large as possible.
+
+  The sign will be omitted unless the number is negative.
+
+  Examples:
+
+  - `1.5` will be serialized as `"1500m"`
+  - `"1.5Gi"` will be serialized as `"1536Mi"`
+  
+  Note that the quantity will **NEVER** be internally represented by a floating point number.
+  That is the whole point of this exercise.
+  Non-canonical values will still parse as long as they are well formed, but will be re-emitted
+  in their canonical form. (So always use canonical form, or don't diff.)
+
+  This format is intended to make it difficult to use these numbers without writing some sort of
+  special handling code in the hopes that that will cause implementors to also use a fixed point
+  implementation.
+x-kab-description-zh: |
+  Quantity 数字的一种定点表示形式，为 JSON 和 YAML 提供一种方便的编码、解码方式，同时还提供
+  `String()` 和 `AsInt64()` 等访问函数。
+
+  Quantity 的序列化格式如下：
+
+  ```
+  <quantity> ::= <signedNumber><suffix>    (注意 <suffix> 可以为空)
+  <digit> ::= 0 | 1 | ... | 9
+  <digits> ::= <digit> | <digit><digits>
+  <number> ::= <digits> | <digits>.<digits> | <digits>. | .<digits>
+  <sign> ::= "+" | "-"
+  <signedNumber> ::= <number> | <sign><number>
+  <suffix> ::= <binarySI> | <decimalExponent> | <decimalSI>
+  <binarySI> ::= Ki | Mi | Gi | Ti | Pi | Ei
+  (国际单位系统，参见 http://physics.nist.gov/cuu/Units/binary.html)
+  <decimalSI> ::= m | "" | k | M | G | T | P | E     (注意 1024 = 1Ki 但是 1000 = 1k)
+  <decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber>
+  ```
+
+  无论采用的是三种指数形式的哪一种，Quantity 所表达的数字不会超出 2^63-1，小数位数也不能超过3。
+  更大的数字或者精度更高的数字都要被截断或者进位（例如，`"0.1m"` 会被进位为 `"1m"`）。
+  未来如果需要更大的或者更小的数量值时，这一限制可能会被放宽。
+
+  从字符串中解析 Quantity 时，Quantity 会记得其原来的后缀类型，当其再次被序列化时，会使用相同的类型。
+  在进行序列化之前，Quantity 对象会先被转换为一种 **典型格式（Canonical Form）**。
+  这也意味着，指数和后缀部分可能会被向上或向下调整（对应的尾数增加或减少），从而满足 
+
+  - 没有精度上的损失
+  - 不需要输出小数部分
+  - 指数部分（或者后缀）已经尽可能大
+
+  除非数字为负数，否则正负号会被忽略。例如：
+
+  - `"1.5"` 会被序列化为 `"1500m"`
+  - `"1.5Gi"` 会被序列化为 `"1536Mi"`
+
+  注意，Quantity 的内部表现方式不是浮点数，而这也正是设计 Quantity 的初衷。
+  非典型的数值仍然会被解析，前提是数值格式上没有问题。所有数值都通过典型格式输出。
+  这种数值格式的设计目的之一是使得用户必须编写一些转换代码来使用其中存放的数字，
+  进而强迫实现者也使用定点的实现方式。
+type: string
+

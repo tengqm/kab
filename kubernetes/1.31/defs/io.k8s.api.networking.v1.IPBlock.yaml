@@ -1,0 +1,33 @@
+description: |
+  A particular CIDR (e.g. `"192.168.1.1/24"`,`"2001:db8::/64"`) that is allowed for the Pods
+  matched by a NetworkPolicySpec's `podSelector`.
+  The `except` entry describes CIDRs that should not be included within this rule.
+x-kab-description-zh: |
+  此结构包含一个特定的 CIDR（例如 `"192.168.1.1/24"`、`"2001:db8::/64"`）。
+  某个 NetworkPolicy 的规约中使用 `podSelector` 选中的 Pod 可以允许此 CIDR 地址段访问。
+  `except` 字段描述不应被包含在此规则中的 CIDR。
+properties:
+  cidr:
+    description: |
+      A string representing the IP Block. Valid examples are `"192.168.1.1/24"` or `"2001:db8::/64"`.
+    x-kab-description-zh: |
+      代表 IP 块的一个字符串。合法的取值例子：`"192.168.1.1/24"` 或 `"2001:db8::/64"`。
+    minLength: 1
+    type: string
+  except:
+    description: |
+      A list of CIDRs that should not be included within an IP Block.
+      Valid examples are `"192.168.1.1/24"` or `"2001:db8::/64"`.
+      `except` values will be rejected if they are outside the `cidr` range.
+    x-kab-description-zh: |
+      此字段给出一个 CIDR 的列表。列表中的网段都是需要从 IP 块中排除的。
+      合法的取值例子：`"192.168.1.1/24"` 或 `"2001:db8::/64"`。
+      `except` 的值如果不在 `cidr` 所给的范围，则会被拒绝。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - cidr
+type: object
+

@@ -1,0 +1,78 @@
+description: A set of IDs/UUIDs to uniquely identify the node.
+x-kab-description-zh: 一组能够唯一标识节点的 ID 和 UUID。
+properties:
+  architecture:
+    description: The architecture reported by the node.
+    x-kab-description-zh: 节点报告的硬件体系结构。
+    minLength: 1
+    type: string
+  bootID:
+    description: Boot ID reported by the node.
+    x-kab-description-zh: 节点报告的 Boot ID 字符串。
+    minLength: 1
+    type: string
+  containerRuntimeVersion:
+    description: |
+      Container runtime version as reported by the node through runtime remote API (e.g. `"containerd://1.4.2"`).
+    x-kab-description-zh: 节点通过运行时远程 API 所报告的容器运行时版本（例如，`"containerd://1.4.2"`）。
+    minLength: 1
+    type: string
+  kernelVersion:
+    description: Kernel version as reported by the node from `uname -r` (e.g. `"3.16.0-0.bpo.4-amd64"`).
+    x-kab-description-zh: 节点通过 `uname -r` 报告的内核版本（如 `"3.16.0-0.bpo.4-amd64"`）。
+    minLength: 1
+    type: string
+  kubeProxyVersion:
+    description: **DEPRECATED**: kube-proxy version reported by the node.
+    x-kab-description-zh: 【已弃用】节点报告的 kube-proxy 版本。
+    minLength: 1
+    type: string
+  kubeletVersion:
+    description: kubelet version reported by the node.
+    x-kab-description-zh: 节点报告的 kubelet 版本。
+    minLength: 1
+    type: string
+  machineID:
+    description: |
+      Machine ID reported by the node.
+      For unique machine identification in the cluster this field is preferred.
+      Learn more from [man(5) machine-id](http://man7.org/linux/man-pages/man5/machine-id.5.html).
+    x-kab-description-zh: |
+      节点报告的 Machine ID。推荐使用此字段作为集群中唯一的机器标识符。
+      参阅 [man(5) machine-id](http://man7.org/linux/man-pages/man5/machine-id.5.html)。
+    minLength: 1
+    type: string
+  operatingSystem:
+    description: The operating system reported by the node.
+    x-kab-description-zh: 节点所报告的操作系统版本。
+    minLength: 1
+    type: string
+  osImage:
+    description: |
+      OS image reported by the node from /etc/os-release (e.g. `"Debian GNU/Linux 7 (wheezy)"`).
+    x-kab-description-zh: |
+      节点根据 `/etc/os-release` 所报告的 OS 信息（例如：`"Debian GNU/Linux 7 (wheezy)"`）。
+    minLength: 1
+    type: string
+  systemUUID:
+    description: |
+      System UUID reported by the node. For unique machine identification, `machineID` is preferred.
+      This field is specific to Red Hat hosts.
+    x-kab-description-zh: |
+      节点所报告的系统 UUID 信息。如果需要节点的唯一性标识，建议使用 `machineID`。
+      此字段仅在 Red Hat 节点上可用。
+    minLength: 1
+    type: string
+required:
+  - architecture
+  - bootID
+  - containerRuntimeVersion
+  - kernelVersion
+  - kubeletVersion
+  - kubeProxyVersion
+  - machineID
+  - operatingSystem
+  - osImage
+  - systemUUID
+type: object
+

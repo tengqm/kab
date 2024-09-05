@@ -1,0 +1,51 @@
+description: |
+  A persistent disk resource in AWS. An AWS EBS disk must exist before being mounted to
+  a container. The disk must also be in the same AWS zone as the node.
+  An AWS EBS disk can only be mounted as `"ReadWriteOnce"`.
+  AWS EBS volumes support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  AWS 上面的一种持久性磁盘资源。一个 AWS EBS 磁盘在被挂载到某个容器中之前必须已经存在。
+  磁盘必须与节点处于相同是的 AWS 区中。AWS EBS 磁盘只能以 `"ReadWriteOnce"` 模式挂载。
+  AWS EBS 卷支持属主管理，也支持 SELinux 的重新打标签。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type of the volume that you want to mount.
+      Ensure that the filesystem type is supported by the host operating system.
+      Examples: `"ext4"`, `"xfs"`, `"ntfs"`.
+    x-kab-description-zh: |
+      你希望挂载的卷的文件系统类型。
+      需要确保所指定的文件系统类型是宿主操作系统所支持的文件系统。
+      示例：`"ext4"`, `"xfs"`, `"ntfs"`.
+    type: string
+  partition:
+    description: |
+      The partition in the volume that you want to mount.
+      If omitted, the default is to mount by volume name.
+      Examples: For volume `"/dev/sda1"`, you specify the partition as `"1"`.
+      Similarly, the volume partition for `"/dev/sda"` is `"0"`
+      (or you can leave the property empty).
+    x-kab-description-zh: |
+      卷中你所希望挂载的分区。如果不指定此字段，则默认会根据卷名称来挂载。
+      例如：对于卷 `"/dev/sda1"`，你可以将 `partition` 设置为 `"1"`。
+      类似的，`"/dev/sda"` 的卷分区为 `"0"`（或者你可以将此属性留空）。
+    format: int32
+    maximum: 255
+    minimum: 0
+    type: integer
+  readOnly:
+    default: false
+    description: Value `true` will force the `readOnly` setting in `volumeMounts`.
+    x-kab-description-zh: 
+      字段值设置为 `true` 会强制要求在 `volumeMounts` 中使用 `readOnly` 的配置来挂载。
+    type: boolean
+  volumeID:
+    description: Unique ID of the persistent disk resource in the AWS EBS volume.
+    x-kab-description-zh: AWS EBS 卷中持久性磁盘资源的唯一性 ID。
+    minLength: 1
+    type: string
+required:
+  - volumeID
+type: object
+

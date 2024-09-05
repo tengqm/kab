@@ -1,0 +1,160 @@
+description: |
+  NamedRuleWithOperations is a tuple of `operations` and `resources` with `resourceNames`.
+
+x-kab-description-zh: |
+  NamedRuleWithOperations 是一个 `operations` 和带有 `resourceNames` 的
+  `resources` 组成的元组。
+
+properties:
+  apiGroups:
+    description: |
+      `apiGroups` is the API groups the resources belong to. '*' is all groups.
+      If '*' is present, the length of the list must be one. Required.
+    x-kab-description-zh: |
+      资源所属的 API 组。`"*"` 是用来表示所有 API 组的通配符。
+      如果列表中包含 `"*"`，则列表的长度必须为 1，即其中不能再包含其他 API 组。
+      此字段为必需字段。
+
+    items:
+      description: The API group the resources belong to.
+        An empty string "" means the legacy "v1" API.
+      x-kab-description-zh: 资源所属的 API 组。`""` 表示原来的 `"v1"` API 组。
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  apiVersions:
+    description: |
+      `apiVersions` is the API versions the resources belong to. `"*"` is all versions.
+      If `"*"` is present, the length of the list must be one.
+    x-kab-description-zh: |
+      资源所属的 API 版本。`"*"` 是用来表示所有 API 版本的通配符。
+      如果列表中包含 `"*"`，则列表的长度必须为 1，即其中不能再包含其他 API 版本。
+    items:
+      description: The API version a resource belongs to. This string cannot be empty.
+      x-kab-description-zh: 资源所属的 API 版本。此字符串不可为空。
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  operations:
+    description: |
+      `operations` is the operations the admission hook cares about -
+      `CREATE`, `UPDATE`, `DELETE`, `CONNECT` or `*` for all of those operations and
+      any future admission operations that are added.
+      If '*' is present, the length of the slice must be one."
+    x-kab-description-zh: |
+      准入策略所关心的操作。可以设置为
+      `"CREATE"`、`"UPDATE"`、`"DELETE"`、`"CONNECT"` 或 `"*"` 
+      （表示所有这些操作，包括将来会添加的准入操作）。
+      如果列表中包含 `"*"`，则列表的长度必须为 1，即其中不能再包含其他操作。
+
+    items:
+      description: The name of a supported operation
+      enum:
+        - '*'
+        - CONNECT
+        - CREATE
+        - DELETE
+        - UPDATE
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  resourceNames:
+    description: |
+      `resourceNames` is an optional white list of names that the rule applies to.
+      An empty set means that everything is allowed.
+    x-kab-description-zh: |
+      可选的字段，用来给出规则所适用的资源名称的白名单。
+      如果此数组为空，则意味着所有资源名称都是可接受的。
+    items:
+      description: |
+        The name of a resource. It has to be a valid path segment name,
+        which means it cannot be `".."` or `"."`; it may not contain `'/'` or `'%'`. 
+      type: string
+    type: array
+    uniqueItems: true
+    x-kubernetes-list-type: atomic
+  resources:
+    description: |
+      `resources` is a list of resources this rule applies to. For example:
+
+      - 'pods' means Pods.
+      - 'pods/log' means the `log` subresource of Pods.
+      - '*' means all resources, but not subresources. If '*' is in the list,
+        all other items in the list can only specify subresources.
+      - 'pods/*' means all subresources of pods. If 'pod/*' is included,
+        there cannot be other 'pod/subres' item in the list.
+      - '*/scale' means all `scale` subresources. If '*/scale' is in the list,
+        there cannot be other 'resource/scale' item in the list.
+      - '*/*' means all resources and their subresources. If '*/*' is in the list,
+        there cannot be any other items in the list.
+
+        If wildcard is present, the validation rule will ensure `resources` do not
+        overlap with each other.
+        Depending on the enclosing object, subresources might not be allowed.
+
+    x-kab-description-zh: |
+      此规则所适用的资源列表。例如：
+
+      - `"pods"` 意味着适用于 Pod 资源；
+      - `"pods/log"` 意味着适用于 Pod 的 `"log"` 子资源；
+      - `"*"` 意味着适用于所有资源，但不包括其子资源；
+        如果列表中包含了 `"*"`，则列表中的其他条目只能用于设置子资源；
+      - `"pods/*"` 意味着适用于 Pod 的所有子资源；
+        如果列表中包含了这个字符串，列表中不能再出现其他 `pod/subresource` 条目；
+      - `"*/scale"` 意味着适用于所有的 `"scale"` 子资源；
+        若列表中出现了此字符串，则列表中不可存在其他 `resource/scale` 条目；
+      - `"*/*"` 意味着适用于所有资源及其子资源；
+        如果列表中存在这个字符串，则列表中不可存在其他条目。
+
+      如果列表中包含了通配符，
+      则 API 服务器在作合法性检查时会确保 `resources` 条目之间不会发生重叠覆盖的情况。
+      取决于所指定的资源对象是什么，有些资源是不支持设置子资源的。
+
+    items:
+      description: The resource this rule applies to. This string cannot be empty.
+      x-kab-description-zh: 此规则所适用的资源。字符串不可为空。
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  scope:
+    default: '*'
+    description: |
+      `scope` specifies the scope of this rule. Valid values are `"Cluster"`,
+      `"Namespaced"`, and `"*"`:
+
+      - `"Cluster"` means that only cluster-scoped resources will match this rule.
+        Namespace API objects are cluster-scoped.
+      - `"Namespaced"` means that only namespaced resources will match this rule.
+      - `"*"` means that there are no scope restrictions.
+
+      Subresources match the scope of their parent resource.
+
+    x-kab-description-zh: |
+      规则的适用范围。
+
+      - `"Cluster"` 意味着仅集群作用域的资源会与此规则匹配；
+        Namespace API 对象是集群作用域的。
+      - `"Namespaced"` 表示只有名字空间作用域的资源与此规则匹配；
+      - `"*"` 意味着没有作用域方面的限制。
+
+      子资源的作用域匹配按其父资源作用域处理。
+
+    enum:
+      - Cluster
+      - Namespaced
+      - '*'
+    type: string
+required:
+  - apiGroups
+  - apiVersions
+  - operations
+  - resources
+type: object
+x-kubernetes-map-type: atomic
+

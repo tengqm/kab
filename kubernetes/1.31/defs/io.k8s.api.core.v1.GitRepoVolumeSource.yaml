@@ -1,0 +1,34 @@
+description: |
+  A volume populated with the contents of a git repository.
+  Git repo volumes do not support ownership management.
+  Git repo volumes support SELinux relabeling.
+  **DEPRECATED**: To provision a container with a git repo, mount an `emptyDir` into an `initContainer`
+  that clones the repo using git, then mount the `emptyDir` into the Pod's container."
+x-kab-description-zh: |
+  使用 GIT 仓库内容填充的一个数据卷。GIT 仓库卷不支持属主管理，但支持 SELinux 重新打标签操作。
+  **已弃用**：要为一个容器提供 GIT 仓库，可以在一个 `initContainer` 中挂载一个 `emptyDir` 卷，
+  在该容器中使用 GIT 命令克隆仓库，之后将 `emptyDir` 卷挂载到 Pod 中的应用容器内。
+properties:
+  directory:
+    description: |
+      Target directory name. Must not contain or start with `".."`.
+      If `"."` is supplied, the volume directory will be the git repository. Otherwise, if specified,
+      the volume will contain the git repository in the subdirectory with the given name.
+    x-kab-description-zh: |
+      目标目录的名称。不可以包含 `".."`，也不可以用 `".."` 开头。
+      如果设置为 `"."`，则卷目录即是 GIT 仓库；否则，如果设置了此字段，
+      则 GIT 仓库会被克隆到卷中给定名称的子目录下。
+    type: string
+  repository:
+    description: Repository URL.
+    x-kab-description-zh: 仓库的 URL 地址。
+    minLength: 1
+    type: string
+  revision:
+    description: Commit hash for the specified revision.
+    x-kab-description-zh: 指定修订版本的提交哈希代码。
+    type: string
+required:
+  - repository
+type: object
+

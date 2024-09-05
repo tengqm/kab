@@ -1,0 +1,195 @@
+description: |
+  Pod-level security attributes and settings common to all containers.
+  Some fields are also present in the `securityContext` field of a container's `spec`.
+  Container level settings take precedence over field values specified at Pod level.
+x-kab-description-zh: |
+  Pod 层面的安全属性和设置，适用于 Pod 中所有容器。
+  某些字段也会出现在容器 `spec` 的 `securityContext` 字段中。
+  容器层面的设置的优先级高于 Pod 层面设置的字段值。
+properties:
+  appArmorProfile:
+    $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
+    description: |
+      This is the AppArmor options to use by the containers in this Pod. Note that this field cannot be set when `.spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      字段值为此 Pod 中容器要使用的 AppArmor 选项。注意当 `.spec.os.name` 被设置为 `"windows"` 时不可设置此字段。
+  fsGroup:
+    description: |
+      A special supplemental group that applies to all containers in a Pod.
+      Some volume types allow the kubelet to change the ownership of that volume to be owned by the Pod:
+
+      1. The owning GID will be the `fsGroup`;
+      1. The `setgid` bit is set (new files created in the volume will be owned by `fsGroup`);
+      1. The permission bits are OR'd with `"rw-rw----"`;
+
+      If unset, the kubelet will not modify the ownership and permissions of any volume.
+      The group ID must be between 0 and 1^32 - 1.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      适用于 Pod 中所有容器的一个特殊的、附加的用户组。
+      某些存储卷类型允许 kubelet 改变卷的属主配置，将其属主设置为当前 Pod：
+
+      1. 卷的属主 GID 将被设置为 `fsGroup`；
+      1. 卷的 `setgid` 位会被置位，从而卷中新创建的文件也会属于 `fsGroup`；
+      1. 访问权限位会与 `"rw-rw----"` 做“或”操作。
+
+      如果没有设置此字段，则 kubelet 不会更改卷的属主设置或访问权限配置。
+      这里给出的组 ID 必须介于 0 和 1^32 - 1 之间。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+    format: int64
+    type: integer
+  fsGroupChangePolicy:
+    default: Always
+    description: |
+      The behavior of changing ownership and permission of the volume before being exposed inside Pod.
+      This field will only apply to volume types which support `fsGroup` based ownership
+      (and permissions). It will have no effect on ephemeral volume types such as,
+      `"secret"`, `"configmap"` and `"emptydir"`.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      在将卷提供给 Pod 内访问之前对卷的属主与访问权限配置的修改策略。
+      此字段仅适用于支持基于 `fsGroup` 来设置属主信息（及访问权限）的卷类型。
+      对于临时性的卷类型无效，如 `"secret"`、`"configmap"` 和 `"emptydir"`。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+    enum:
+      - Always
+      - OnRootMismatch
+    type: string
+  runAsGroup:
+    description: |
+      The group ID (GID) to run the entry point of the container process.
+      Uses runtime default if unset. May also be set in `securityContext` of a container.
+      The group ID must be between 0 and 1^32 - 1.
+      Note tha this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      运行容器进程的入口点时要使用的组 ID（GID）。
+      如果未设置此字段，则使用运行时内置的默认值。此配置也可以在容器的 `securityContext` 中设置。
+      这里给出的组 ID 必须介于 0 和 1^32 - 1 之间。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+    format: int64
+    type: integer
+  runAsNonRoot:
+    description: |
+      Indicates that the container must run as a non-root user.
+      If `true`, the Kubelet will validate the image at runtime to ensure that it does not run
+      as UID 0 (root) and fail to start the container if it does.
+      If unset or `false`, no such validation will be performed.
+      May also be set in `container.securityContext`.
+    x-kab-description-zh: |
+      表明必须以 root 之外的用户账号来运行容器。
+      如果此字段设置为 `true`，kubelet 会在运行时检查镜像，确保它不是以 UID 0（root）启动。
+      尝试以 root 账号启动的容器会失败。
+      如果此字段未设置或者设置为 `false`，则 kubelet 不会执行这项检查。
+      此配置也可以在容器的 `securityContext` 中设置。
+    type: boolean
+  runAsUser:
+    description: |
+      The user ID (UID) to run the entry point of the container process.
+      Defaults to user specified in image metadata if unspecified. May also be set in
+      `securityContext` of a container. The user ID must be between 0 and 1^32 - 1.
+      Note that this field cannot be set when `spec.os.name` is "windows".
+    x-kab-description-zh: |
+      运行容器进程的入口点时要使用的用户 ID（GID）。
+      如果未设置此字段，则默认使用镜像元数据中指定的用户账号。
+      此配置也可以在容器的 `securityContext` 中设置。
+      这里给出的用户 ID 必须介于 0 和 1^32 - 1 之间。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+    format: int64
+    type: integer
+  seLinuxOptions:
+    $ref: '#/definitions/io.k8s.api.core.v1.SELinuxOptions'
+    description: |
+      The SELinux context to be applied to all containers.
+      If unspecified, the container runtime will allocate a random SELinux context for each container.
+      May also be set in `container.securityContext`.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      此字段给出要应用到所有容器之上的 SELinux 上下文。
+      未设置此字段时，容器运行时会为每个容器分配一个随机的 SELinux 上下文。
+      此配置也可以在容器的 `securityContext` 中设置。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+  seccompProfile:
+    $ref: '#/definitions/io.k8s.api.core.v1.SeccompProfile'
+    description: |
+      The seccomp options to use by the containers in this Pod.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      Pod 中容器要使用的 seccomp 选项。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+  supplementalGroups:
+    description: |
+      A list of groups applied to the first process run in each container, in addition to
+      the container's primary GID, the `fsGroup` (if specified).
+      If the SupplementalGroupsPolicy feature is enabled, the `supplementalGroupsPolicy` field determines
+      whether these are in addition to or instead of any group memberships defined in the container image.
+      If unspecified, no additional groups are added, though group memberships defined in the container
+      image may still be used, depending on the `supplementalGroupsPolicy` field.
+      Each group ID must be between 0 and 1^32 - 1.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      针对每个容器中运行的第一个进程的用户组列表，此列表是在容器的主 GID、`fsGroup` （若有）之外的。
+      如果启用了 SupplementalGroupsPolicy 特性，则 `supplementalGroupsPolicy` 字段用来确定这里所给的额外组身份如何起作用，
+      是作为容器中定义的组成员身份的补充还是将其替换掉。
+      如果没有设置此字段，则不会为任何容器添加额外的用户组，不过取决于 `supplementalGroupsPolicy`
+      的字段设置，容器镜像内定义的组成员可能仍然有效。
+      所有的组 ID 都必须介于 0 和 1^32 - 1 之间。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+    items:
+      format: int64
+      type: integer
+    type: array
+    x-kubernetes-list-type: atomic
+  supplementalGroupsPolicy:
+    default: Merge
+    description: |
+      Defines how supplemental groups of the first container processes are calculated.
+      Valid values are `"Merge"` and `"Strict"`.
+
+      - `"Merge"`：The container's provided `supplementalGroups` and `fsGroup` (specified in SecurityContext)
+        will be merged with the primary user's groups as defined in the ontainer image (in `/etc/group`).
+      - `"Strict"`：The container's provided `supplementalGroups` and `fsGroup` (specified in SecurityContext)
+        will be used instead of any groups defined in the ontainer image.
+
+      This is an Alpha field. Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and
+      the container runtime must implement support for this feature.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      此字段定义如何计算容器中第一个进程的附加组身份信息。合法取值包括 `"Merge"` 和 `"Strict"`：
+
+      - `"Merge"`：容器所提供的 `supplementalGroups` 和 SecurityContext 中包含的 `fsGroup` 会与容器镜像中定义的
+        （在 `/etc/group` 中）主用户的组身份合并。
+      - `"Strict"`：容器所提供的 `supplementalGroups` 和 SecurityContext 中包含的 `fsGroup` 会用来替换容器镜像中定义的组身份。
+
+      此字段为 Alpha 字段。使用此字段需要启用 `SupplementalGroupsPolicy` 特性门控，
+      同时要求下层的容器运行时支持此特性。
+      注意，当 `spec.os.name` 为 `"windows"` 时不可设置此字段。
+    enum:
+      - Merge
+      - Strict
+    type": "string"
+  sysctls:
+    description: |
+      A list of namespaced sysctls used for the Pod.
+      Pods with unsupported sysctls (by the container runtime) might fail to launch.
+      The `name` of each item must be unique in the array.
+      Note that this field cannot be set when `spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      用于此 Pod 的一组名字空间作用域的 sysctl 配置。
+      设置了不被支持的 sysctl（可能来源是容器运行时）的 Pod 可能无法启动。
+      列表中每个条目的 `name` 必须在列表中唯一。
+      注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.Sysctl'
+    type: array
+    x-kubernetes-list-type: atomic
+  windowsOptions:
+    $ref: '#/definitions/io.k8s.api.core.v1.WindowsSecurityContextOptions'
+    description: |
+      The Windows specific settings applied to all containers.
+      If unspecified, the options within a container's `securityContext` will be used.
+      Note that this field cannot be set when `spec.os.name` is `"linux"`.
+    x-kab-description-zh: |
+      适用于所有容器的、特定于 Windows 的配置选项。如果未设置，则使用容器内部设置的 `securityContext`。
+      注意当 `spec.os.name` 是 `"linux"` 时不能设置此字段。
+type: object
+

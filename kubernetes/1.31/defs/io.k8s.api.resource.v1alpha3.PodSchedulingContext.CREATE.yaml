@@ -1,0 +1,44 @@
+description: |
+  PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims
+  that use `"WaitForFirstConsumer"` allocation mode.
+  This is an Alpha type and requires enabling the `DRAControlPlaneController` feature gate.
+x-kab-description-zh: |
+  PodSchedulingContext 对象中包含调度使用了 `"WaitForFirstConsumer"` 分配模式的 ResourceClaim
+  的 Pod 时所需要的信息。
+  此字段处于 Alpha 阶段，需要启用 `DRAControlPlaneController` 特性门控。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1alpha3
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PodSchedulingContext
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.PodSchedulingContextSpec'
+    description: This describes where resources for the Pod are needed.
+    x-kab-description-zh: 此字段描述哪里需要 Pod 资源。
+  status:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.PodSchedulingContextStatus'
+    description: This describes where resources for the Pod can be allocated.
+    x-kab-description-zh: 此字段描述在哪里可分配 Pod 资源。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: PodSchedulingContext
+    version: v1alpha3
+

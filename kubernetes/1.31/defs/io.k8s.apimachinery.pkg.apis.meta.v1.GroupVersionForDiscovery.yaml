@@ -1,0 +1,23 @@
+description: |
+  The `"group/version"` and `"version"` string of a version.
+  It is made a struct to keep extensibility.
+x-kab-description-zh: |
+  某个版本的 `"group/version"` 和 `"version"` 字符串。
+  定义此结构的目的是确保其扩展性。
+
+properties:
+  groupVersion:
+    description: The API group and version in the form `"group/version"`.
+    x-kab-description-zh: 用 `"group/version"` 形式给出的 API 组和版本。
+    minLength: 1
+    type: string
+  version:
+    description: The version in the form of `"version"`.
+    x-kab-description-zh: 用 `"version"` 形式给出的 API 版本。
+    minLength: 1
+    type: string
+required:
+  - groupVersion
+  - version
+type: object
+

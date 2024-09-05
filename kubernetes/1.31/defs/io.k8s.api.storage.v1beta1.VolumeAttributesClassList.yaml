@@ -1,0 +1,36 @@
+description: VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+x-kab-description-zh: VolumeAttributesClassList 是一个 VolumeAttributesClass 对象的列表。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1beta1
+    type: string
+  items:
+    description: A list of VolumeAttributesClass objects.
+    x-kab-description-zh: VolumeAttributesClass 对象的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.storage.v1beta1.VolumeAttributesClass.GET'
+    type: array
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - VolumeAttributesClassList
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata.
+    x-kab-description-zh: 标准的列表元数据。
+required:
+  - apiVersion
+  - items
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: VolumeAttributesClassList
+    version: v1beta1
+

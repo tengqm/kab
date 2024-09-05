@@ -1,0 +1,79 @@
+description: The specification of a StatefulSet.
+x-kab-description-zh: StatefulSet 的规约。
+properties:
+  minReadySeconds:
+    default: 0
+    description: |
+      Minimum number of seconds for which a newly created Pod should be ready without
+      any of its Container crashing for it to be considered available.
+      Defaults to 0 (Pod will be considered available as soon as it is ready).
+    x-kab-description-zh: |
+      新创建的 Pod 需要进入到没有容器崩溃的就绪状态，并持续给定的秒数之后，才会被认为可用。
+      默认值 0 （Pod 一旦进入就绪状态之后立即被视为可用）。
+    format: int32
+    minimum: 0
+    type: integer
+  ordinals:
+    $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSetOrdinals'
+    description: |
+      `ordinals` controls the numbering of replica indices in a StatefulSet.
+      The default ordinals behavior assigns a `0` index to the first replica and increments
+      the index by one for each additional replica requested.
+    x-kab-description-zh: |
+      此字段控制如何为 StatefulSet 中的副本索引编号。
+      默认的序号分配行为是将索引 `0` 分配给第一个副本，之后对所请求的每个额外副本将索引加一。
+  persistentVolumeClaimRetentionPolicy:
+    $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy'
+    description: |
+      This describes the lifecycle of persistent volume claims created from `volumeClaimTemplates`.
+      By default, all persistent volume claims are created as needed and retained
+      until manually deleted.
+      This policy allows the lifecycle to be altered, for example by deleting persistent
+      volume claims when their StatefulSet is deleted, or when their Pod is scaled down.
+      This requires the `StatefulSetAutoDeletePVC` feature gate to be enabled, which is Beta.
+    x-kab-description-zh: |
+      此字段描述基于 `volumeClaimTemplates` 所创建的 PVC 的生命周期。
+      默认情况下，按需创建的所有 PVC 都会被保留，直至手动删除。
+      这一字段允许 PVC 的生命周期用不同方式管理。例如当它们所对应的 StatefulSet 被删除，
+      或者 Pod 集合被缩容时，可以删除按需创建的 PVC。
+      设置此字段要求启用 `StatefulSetAutoDeletePVC` 特性门控。该特性目前处于 Beta 阶段。
+  replicas:
+    default: 1
+    description: |
+      The desired number of replicas of the given `template`.
+      These are replicas in the sense that they are instantiations of the same `template`,
+      but individual replicas also have a consistent identity.
+    x-kab-description-zh: |
+      期望运行的、使用给定 `template` 的副本个数。这里的副本都是基于同一个 `template` 创建的，
+      不过各个副本都有一个一致性的标识。
+    format: int32
+    minimum: 0
+    type: integer
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE'
+    description: |
+      An object that describes the Pod that will be created if insufficient replicas are detected.
+      Each Pod stamped out by the StatefulSet will fulfill this `template`,
+      but have a unique identity from the rest of the StatefulSet.
+      Each Pod will be named with the format `<statefulsetname>-<podindex>`.
+      For example, a Pod in a StatefulSet named `"web"` with index number `"3"` would be named `"web-3"`.
+      Currently only check if the `metadata.labels` are set.
+      The only allowed `template.spec.restartPolicy` value is "Always".
+    x-kab-description-zh: |
+      一个用来描述要被创建的 Pod 的对象。当检测到副本个数不足时，会基于此对象来创建 Pod。
+      StatefulSet 所创建的每个 Pod 都是基于此 `template` 的，但各个 Pod 都有一个与众不同的标识。
+      所有 Pod 的名称都遵从 `<StatefulSet 名称>-<Pod 索引>` 的格式。
+      例如，对于一个名为 `"web"` 的 StatefulSet 中的、索引编号为 `"3"` 的 Pod，
+      其名称为 `"web-3"`。
+      目前，服务器端仅检查 `metadata.labels` 是否被设置了。
+      另外，模板中的 `spec.restartPolicy` 只能取值 `"Always"`。
+  updateStrategy:
+    $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSetUpdateStrategy'
+    description: |
+      The update strategy that will be employed to update Pods in the StatefulSet
+      when a revision is made to `template`.
+    x-kab-description-zh: |
+      当对 `template` 进行修订时，需要更新 StatefulSet 中的 Pod。
+      此字段用来确定更新的策略。
+type: object
+

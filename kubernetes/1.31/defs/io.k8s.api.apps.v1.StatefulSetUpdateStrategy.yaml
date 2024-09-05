@@ -1,0 +1,51 @@
+description: |
+  StatefulSetUpdateStrategy indicates the strategy that the StatefulSet
+  controller will use to perform updates.
+  It includes any additional parameters necessary to perform the update
+  for the indicated strategy.
+x-kab-description-zh: |
+  StatefulSetUpdateStrategy 设置 StatefulSet 控制器用来执行更新的策略。
+  其中包含针对所给策略来执行更新时所需要的参数。
+properties:
+  rollingUpdate:
+    $ref: '#/definitions/io.k8s.api.apps.v1.RollingUpdateStatefulSetStrategy'
+    description: |
+      Rolling update configuration parameters.
+      Present only if `type` is set to `"RollingUpdate"`.
+      This is required for rolling update.
+      It cannot be specified when `type` is not `"RollingUpdate"`.
+    x-kab-description-zh: |
+      滚动更新的配置参数。当 `type` 为 `"RollingUpdate"` 时，此字段是必需的。
+      当 `type` 是 `"Recreate"` 时，此字段不可设置。
+  type:
+    default: RollingUpdate
+    description: |
+      This indicates the type of the StatefulSet update strategy.
+      Possible enum values:
+
+      - `"OnDelete"`: triggers the legacy behavior.
+        Version tracking and ordered rolling restarts are disabled.
+        Pods are recreated from the StatefulSet spec when they are manually deleted.
+        When a scale operation is performed with this strategy, specification version
+        indicated by the StatefulSet's `currentRevision`.
+      - `"RollingUpdate"`: indicates that update will be applied to all Pods
+        in the StatefulSet with respect to the StatefulSet ordering constraints.
+        When a scale operation is performed with this strategy, new Pods will be created
+        from the specification version indicated by the StatefulSet's `updateRevision`.
+    x-kab-description-zh: |
+      此字段标明 StatefulSet 更新策略的类型。可选值包括：
+
+      - `"OnDelete"`：触发原来的更新行为；不支持版本跟踪和带顺序的滚动重启操作。
+        当 Pod 被手动删除时，会基于 StatefulSet 的规约来重新创建。
+        设置了此策略之后，执行规模扩缩操作时，会使用 StatefulSet 的 `currentVersion`
+        所给的规约版本。
+      - `"RollingUpdate"`：标明对 StatefulSet 中所有 Pod 执行更新操作时都会遵从
+        StatefulSet 的顺序约束。
+        设置了此策略之后，执行规模扩缩操作时，创建新 Pod 会使用 StatefulSet 的
+        `updateVersion` 所给的规约版本。
+    enum:
+      - OnDelete
+      - RollingUpdate
+    type: string
+type: object
+

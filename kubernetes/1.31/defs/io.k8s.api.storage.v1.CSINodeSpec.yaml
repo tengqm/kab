@@ -1,0 +1,24 @@
+description: Information about the specification of all CSI drivers installed on a Node.
+x-kab-description-zh: 关于节点上所安装的全部 CSI 驱动的规约信息。
+properties:
+  drivers:
+    description: |
+      A list of information of all CSI Drivers existing on a Node.
+      If all drivers in the list are uninstalled, this can become empty.
+      Items in the list must have unique names.
+    x-kab-description-zh: |
+      关于节点上所有 CSI 驱动的信息列表。
+      如果列表中的所有驱动都被卸载，则此列表会变为空表。
+      列表中的每个元素要有唯一的名称。
+    items:
+      $ref: '#/definitions/io.k8s.api.storage.v1.CSINodeDriver'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+required:
+  - drivers
+type: object
+

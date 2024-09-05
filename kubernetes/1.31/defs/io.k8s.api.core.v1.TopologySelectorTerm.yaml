@@ -1,0 +1,21 @@
+description: |
+  A topology selector term represents the result of label queries.
+  A null or empty term matches no objects. The requirements of them are ANDed.
+  It provides a subset of functionality as NodeSelectorTerm.
+  This is an Alpha feature and may change in the future.
+x-kab-description-zh: |
+  此结构表达一种拓扑选择条件，根据标签查询判定结果。
+  条件为 null 或者空的时候，不会匹配任何对象。判定时会对各个需求进行逻辑与（AND）运算。
+  此结构所表达的是 NodeSelectorTerm 的功能的一个子集。
+  此结构目前处于 Alpha 阶段，将来版本中可能会变更。
+properties:
+  matchLabelExpressions:
+    description: A list of topology selector requirements by labels.
+    x-kab-description-zh: 按标签执行拓扑选择条件的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.TopologySelectorLabelRequirement'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+x-kubernetes-map-type: atomic
+

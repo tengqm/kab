@@ -1,0 +1,33 @@
+description: AllocationResult contains attributes of an allocated resource.
+x-kab-description-zh: AllocationResult 包含某已分配资源的属性。
+properties:
+  controller:
+    description: |
+      `controller` is the name of the DRA driver which handled the allocation. That driver is also responsible for deallocating the claim.
+      It is empty when the claim can be deallocated without involving a driver.
+
+      A driver may allocate devices provided by other drivers, so this driver name here can be different from the driver names listed for the results.
+
+      This is an Alpha field and requires enabling the DRAControlPlaneController feature gate.
+    x-kab-description-zh: |
+      `controller` 是处理资源分配的 DRA 驱动的名称。驱动也负责对资源申领的去配操作。
+      如果资源申领可以在驱动不参与的情况下完成去配，此字段为空。
+
+      一个驱动可以分配其他驱动所提供的设备，所以这里的驱动名称可能与列举驱动时返回的结果不同。
+
+      此字段为 Alpha 字段，需要启用 `DRAControlPlaneController` 特性门控。
+    type: string
+  devices:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceAllocationResult'
+    description: |
+      `devices` is the result of allocating devices.
+    x-kab-description-zh: |
+      `devices` 是设备分配的结果。
+  nodeSelector:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |
+      `nodeSelector` defines where the allocated resources are available. If unset, they are available everywhere.
+    x-kab-description-zh: |
+      `nodeSelector` 定义所分配的设备可以在哪些节点上访问。如果未设置，则意味着可以在任意位置访问。
+type: object
+
