@@ -1,0 +1,74 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "list or watch objects of kind ResourceSlice",
+  "operationId": "listResourceV1alpha3ResourceSlice",
+  "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/resourceVersionMatch"
+    },
+    {
+      "$ref": "#/parameters/sendInitialEvents"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/resource.k8s.io/v1alpha3/resourceslices",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceSliceList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "resource_v1alpha3"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "list",
+  "x-kubernetes-group-version-kind": {
+    "group": "resource.k8s.io",
+    "kind": "ResourceSlice",
+    "version": "v1alpha3"
+  }
+}

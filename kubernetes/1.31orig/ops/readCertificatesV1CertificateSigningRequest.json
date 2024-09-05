@@ -1,0 +1,50 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified CertificateSigningRequest",
+  "operationId": "readCertificatesV1CertificateSigningRequest",
+  "parameters": [
+    {
+      "description": "name of the CertificateSigningRequest",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/certificates.k8s.io/v1/certificatesigningrequests/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequest"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "certificates.k8s.io",
+    "kind": "CertificateSigningRequest",
+    "version": "v1"
+  }
+}

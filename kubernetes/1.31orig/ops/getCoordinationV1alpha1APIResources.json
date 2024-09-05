@@ -1,0 +1,33 @@
+{
+  "consumes": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "description": "get available resources",
+  "operationId": "getCoordinationV1alpha1APIResources",
+  "path": "/apis/coordination.k8s.io/v1alpha1/",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "coordination_v1alpha1"
+  ],
+  "verb": "get"
+}

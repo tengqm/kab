@@ -1,0 +1,78 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "delete a LeaseCandidate",
+  "operationId": "deleteCoordinationV1alpha1NamespacedLeaseCandidate",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "description": "name of the LeaseCandidate",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/coordination.k8s.io/v1alpha1/namespaces/{namespace}/leasecandidates/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "coordination_v1alpha1"
+  ],
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
+  "x-kubernetes-group-version-kind": {
+    "group": "coordination.k8s.io",
+    "kind": "LeaseCandidate",
+    "version": "v1alpha1"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified Ingress",
+  "operationId": "readNetworkingV1NamespacedIngress",
+  "parameters": [
+    {
+      "description": "name of the Ingress",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.networking.v1.Ingress"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "networking_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "networking.k8s.io",
+    "kind": "Ingress",
+    "version": "v1"
+  }
+}
