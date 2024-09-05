@@ -420,11 +420,15 @@ properties:
       Implementations can use this field as a hint, but are not required to guarantee strict adherence.
       If the field is not set, the implementation will apply its default routing strategy.
       If set to `"PreferClose"`, implementations should prioritize endpoints that are topologically close (e.g., same zone).
+
+      This is an Alpha field that requires enabling ServiceTrafficDistribution feature.
     x-kab-description-zh: |
       `trafficDistribution` 为用户提供一种方式来设置如何将请求流量分布到 Service 的各个端点之上。
       具体的实现中，可以将此字段设置值作为一种提示信息，但并不要求严格意义上的一致。
       如果未设置此字段，则实现会应用其默认的路由策略。
       如果设置为 `"PreferClose"`，则实现会将拓扑逻辑上更近的端点（例如，同一节点）的优先级提高。
+
+      此字段处于 Alpha 阶段，需要启用 ServiceTrafficDistribution 特性。
     type: string
   type:
     default: ClusterIP
