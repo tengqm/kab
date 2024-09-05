@@ -49,7 +49,7 @@ properties:
       The default value is empty. The same key is forbidden to exist in both `mismatchLabelKeys` and `labelSelector`.
       Also, `mismatchLabelKeys` cannot be set when `labelSelector` isn't set.
 
-      This is an alpha field and requires enabling the `MatchLabelKeysInPodAffinity` feature gate.
+      This is an Alpha field and requires enabling the `MatchLabelKeysInPodAffinity` feature gate.
     x-kab-description-zh: |
       `mismatchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
       这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key notin (value)` 算符，
