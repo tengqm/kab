@@ -6,15 +6,32 @@ import jsonref
 import os
 import shutil
 import sys
+import yaml
 
-from yaml import load, dump
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
     from yaml import Loader, Dumper
 
 basedir = "."
-filetype = "json"
+filetype = "yaml"
+
+# Hack the dumper for list indentation
+class Dumper(yaml.Dumper):
+    def increase_indent(self, flow=False, *args, **kwargs):
+        return super().increase_indent(flow=flow, indentless=False)
+
+# configures yaml for dumping multiline strings
+def str_presenter(dumper, data):
+    data = "\n".join([line.rstrip() for line in data.splitlines()])
+    if data.count('\n') > 0:
+        # Remove any trailing spaces, then put it back together again
+        data = "\n".join([line.rstrip() for line in data.splitlines()])
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='|')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+
+yaml.add_representer(str, str_presenter)
+yaml.representer.SafeRepresenter.add_representer(str, str_presenter)
 
 
 def process_basic():
@@ -25,7 +42,7 @@ def process_basic():
         if filetype == "json":
             data = json.load(f)
         else:
-            data = load(f, Loader=Loader)
+            data = yaml.load(f, Loader=Loader)
 
     return data
 
@@ -49,7 +66,7 @@ def process_definitions(data):
                 if ext == "json":
                     defs[basename] = json.loads(f.read())
                 else:
-                    defs[basename] = load(f, Loader=Loader)
+                    defs[basename] = yaml.load(f, Loader=Loader)
         except Exception as ex:
             print("\033[31mFailed file: %s, %s\033[0m" % (fullname, str(ex)))
 
@@ -72,6 +89,9 @@ def validate_definition(needle, hack):
                 r = validate_definition(v, hack)
                 if not r:
                     res = False
+        elif v is None:
+            print("\033[31m  value not found for %s in %s \033[0m" % (k, needle))
+            res = False
         else:
             if "/parameters/" in v:
                 pos = v.index("/parameters/")
@@ -110,7 +130,7 @@ def process_operations(data):
             if ext == "json": 
                 opdata = json.loads(f.read())
             else:
-                opdata = load(f, Loader=Loader)
+                opdata = yaml.load(f, Loader=Loader)
 
         path = opdata.pop("path", None)
         verb = opdata.pop("verb", None)
@@ -143,14 +163,14 @@ def process_security(data):
         if filetype == 'json':
             data["security"] = json.loads(f.read())
         else:
-            data["security"] = load(f, Loader=Loader)
+            data["security"] = yaml.load(f, Loader=Loader)
 
     fullname = os.path.join(securitydir, "securityDefinitions." + filetype)
     with open(fullname, "r") as f:
         if filetype == "json":
             data["securityDefinitions"] = json.loads(f.read())
         else:
-            data["securityDefinitions"] = load(f, Loader=Loader)
+            data["securityDefinitions"] = yaml.load(f, Loader=Loader)
 
 
 def process_parameters(data):
@@ -162,7 +182,7 @@ def process_parameters(data):
         if filetype == "json":
             data["parameters"] = json.loads(f.read())
         else:
-            data["parameters"] = load(f, Loader=Loader)
+            data["parameters"] = yaml.load(f, Loader=Loader)
 
 def main():
     global basedir, filetype
@@ -208,7 +228,7 @@ def main():
     if filetype == "json":
         print(json.dumps(data, indent=2, sort_keys=True))
     else:
-        print(dump(data, Dumper=Dumper, allow_unicode=True))
+        print(yaml.dump(data, Dumper=Dumper, allow_unicode=True))
 
     sys.exit(0)
 
