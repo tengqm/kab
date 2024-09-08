@@ -472,7 +472,12 @@ def parse_params(api_version, op):
         param = target[13:]
         param_def = DATA["parameters"].get(param, {}).get(api_version, {})
         if param_def:
+            if (translation.get_language() == 'zh' and
+                    'x-kab-description-zh' in param_def):
+                desc = param_def['x-kab-description-zh']
+                param_def['description'] = desc
             params.append(param_def)
+
     return params
 
 
