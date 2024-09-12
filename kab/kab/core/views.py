@@ -408,8 +408,11 @@ class ViewOperation(generic.View):
         apiv = kwargs.pop('api')
         name = kwargs.pop('name')
         op = helpers.get_operation(apiv, name)
-        if not op:
-            raise exc.SuspiciousOperation("Unknown operation")
+        if op is None:
+            raise exc.BadRequest("Unknown operation")
+        if apiv not in op.get('versions', []):
+            raise exc.BadRequest("Operation not supported in %s" % apiv)
+
         params = helpers.parse_params(apiv, op["spec"])
         gv_list = op["group_version"].split("/")
         group_name = gv_list[0]
