@@ -369,7 +369,11 @@ def get_operation(api_version, name, root=None):
     if root is None:
         root = settings.DATA_DIR
     path = "{}/{}/ops/{}.json".format(root, api_version, name)
-    data["spec"] = jsonutil.load_json(path, api_version, recursive=False)
+    spec = jsonutil.load_json(path, api_version, recursive=False)
+    # The operation file is not found
+    if spec is None:
+        return None
+    data["spec"] = spec
     return data
 
 
