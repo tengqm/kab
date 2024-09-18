@@ -12,6 +12,7 @@
 # limitations under the License.
 
 import collections
+import copy
 import difflib
 import logging
 from os import path
@@ -357,14 +358,13 @@ def operations(api_version, group_version):
 
 
 def get_operation(api_version, name, root=None):
-    data = DATA["operations"].get(name, {})
+    op_data = DATA["operations"].get(name, {})
 
-    if not data:
+    if not op_data:
         LOG.error("Operation '%s' not found", name)
-        return {}
+        return None
 
-    if api_version in data["versions"]:
-        data["versions"].remove(api_version)
+    data = copy.deepcopy(op_data)
 
     if root is None:
         root = settings.DATA_DIR

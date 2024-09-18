@@ -409,8 +409,12 @@ class ViewOperation(generic.View):
         name = kwargs.pop('name')
         op = helpers.get_operation(apiv, name)
         if op is None:
-            raise exc.BadRequest("Unknown operation")
-        if apiv not in op.get('versions', []):
+            # raise exc.BadRequest("Unknown operation")
+            return http.HttpResponseNotFound(
+                "<h1>Operation %s is not found in version %s</h1>" % (name, apiv))
+        if apiv in op.get('versions', []):
+            op["versions"].remove(apiv)
+        else:
             raise exc.BadRequest("Operation not supported in %s" % apiv)
 
         params = helpers.parse_params(apiv, op["spec"])
