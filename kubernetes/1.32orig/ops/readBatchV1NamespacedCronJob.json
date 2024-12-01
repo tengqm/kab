@@ -1,0 +1,54 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified CronJob",
+  "operationId": "readBatchV1NamespacedCronJob",
+  "parameters": [
+    {
+      "description": "name of the CronJob",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/batch/v1/namespaces/{namespace}/cronjobs/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.batch.v1.CronJob"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "batch_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "batch",
+    "kind": "CronJob",
+    "version": "v1"
+  }
+}

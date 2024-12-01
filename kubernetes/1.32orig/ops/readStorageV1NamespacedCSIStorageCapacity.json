@@ -1,0 +1,54 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified CSIStorageCapacity",
+  "operationId": "readStorageV1NamespacedCSIStorageCapacity",
+  "parameters": [
+    {
+      "description": "name of the CSIStorageCapacity",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1.CSIStorageCapacity"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "storage.k8s.io",
+    "kind": "CSIStorageCapacity",
+    "version": "v1"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "connect OPTIONS requests to proxy of Node",
+  "operationId": "connectCoreV1OptionsNodeProxyWithPath",
+  "parameters": [
+    {
+      "description": "name of the NodeProxyOptions",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/path"
+    },
+    {
+      "$ref": "#/parameters/path"
+    }
+  ],
+  "path": "/api/v1/nodes/{name}/proxy/{path}",
+  "produces": [
+    "*/*"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "type": "string"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "options",
+  "x-kubernetes-action": "connect",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "NodeProxyOptions",
+    "version": "v1"
+  }
+}
