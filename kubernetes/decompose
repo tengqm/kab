@@ -199,6 +199,7 @@ def extract_parameters(data):
         "stderr",  # extracted in 1.28
         "stdin",  # extracted in 1.28
         "stdout", # extracted in 1.28
+        "stream",  # extracted in 1.32
         "tailLines",  # extracted in 1.28
         "timeoutSeconds",
         "timestamps",  # extracted in 1.28
@@ -355,8 +356,8 @@ def main():
     process_basic(data)
     process_definitions(data)
     process_operations(data)
-    process_security(data)
     process_parameters(data)
+    process_security(data)
 
 if __name__ == "__main__":
     main()
