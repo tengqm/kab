@@ -72,6 +72,11 @@ properties:
       they should update the `renewTime`.
       Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew.
       The `pingTime` field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+    x-kab-description-zh: |-
+      `renewTime` 是 LeaseCandidate 最近一次被更新的时间。
+      在 Lease 需要进行领导者选举的任何时候，`pingTime` 字段都会被更新，进而通知 LeaseCandidate 更新它们的 `renewTime`。
+      如果自从上次续约以来已经过了几个小时，老的 LeaseCandidate 对象会被垃圾回收。
+      `pingTime` 字段会被定期更新以避免仍在活跃的 LeaseCandidate 对象被垃圾回收。
 required:
 - leaseName
 - preferredStrategies
