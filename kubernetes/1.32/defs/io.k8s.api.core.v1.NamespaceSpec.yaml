@@ -1,0 +1,13 @@
+description: NamespaceSpec describes the attributes of a Namespace.
+x-kab-description-zh: NamespaceSpec 描述 Namespace 的属性。
+properties:
+  finalizers:
+    description: An opaque list of values that must be empty to permanently remove object from storage.
+    x-kab-description-zh: |
+      在从存储中永久移除 Namespace 对象之前必须清空的一个列表，其中包含不透明的字符串值。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

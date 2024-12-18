@@ -1,0 +1,16 @@
+description: The status of a load-balancer.
+x-kab-description-zh: 负载均衡器的状态。
+properties:
+  ingress:
+    description: |
+      A list containing ingress points for the load-balancer.
+      Traffic intended for the Service should be sent to these ingress points.
+    x-kab-description-zh: |
+      包含负载均衡器的 Ingress 点的列表。
+      指向 Service 的请求流量应该被发送到这些 Ingress 点上。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.LoadBalancerIngress'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

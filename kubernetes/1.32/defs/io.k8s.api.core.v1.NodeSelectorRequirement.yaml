@@ -1,0 +1,67 @@
+description: |
+  A selector that contains `values`, a `key`, and an `operator` that relates the `key` and `values`.
+x-kab-description-zh: |
+  此结果描述一个选择算符，其中包含 `values` 和 `key`，以及一个将 `key` 和 `values` 关联起来的 `operator`。
+properties:
+  key:
+    description: |
+      The label key or the field that the selector applies to.
+      This string must be a qualified name, i.e. consist of alphanumeric characters, `'-'`, `'_'`,
+      or `'.'`, and must start and end with an alphanumeric character.
+      It can have domain name prefix like `"<domain>/"`, where `<domain>` must be a valid DNS
+      subdomain name. The name part can be no more than 63 characters.
+      When this struct is used to select nodes based on their fields, the currently supported key is
+      `"metadata.name"`.
+    x-kab-description-zh: |
+      此选择算符所适用的标签主键或者字段。此字符串必须是一个限定名称，即，由字母、数字、`'-'`、`'_'`、
+      或 `'.'` 组成，并且必须以字母或数字开头，以字母或数字结尾。
+      字符串可以带有 `"<domain>/"` 这类域名前缀，其中 `<domain>` 必须是一个合法的 DNS 子域名。
+      名字部分不可以超过 63 字符。
+      使用此结构来根据节点字段选择节点时，目前支持的主键是 `"metadata.name"`。
+    minLength: 1
+    type: string
+  operator:
+    description: |
+      Represents a key's relationship to a set of values.
+      When this struct is used to select nodes based on their labels, valid operators are
+      `"In"`, `"NotIn"`, `"Exists"`, `"DoesNotExist"`. `"Gt"`, and `"Lt"`.
+      When this struct is used to select nodes based on fields, valid operators are `"In"` and `"NotIn"`.
+    x-kab-description-zh: |
+      此字段代表的是 `key` 与 `values` 之间的关系。当使用此结构来基于节点标签选择节点时，合法的
+      `operator` 包括：`"In"`、`"NotIn"`、`"Exists"`、`"DoesNotExist"`、`"Gt"` 和 `"Lt"`。
+      当此结构用来基于字段选择节点时，合法的 `operator` 为 `"In"` 和 `"NotIn"`。
+    enum:
+      - DoesNotExist
+      - Exists
+      - Gt
+      - In
+      - Lt
+      - NotIn
+    minLength: 1
+    type: string
+  values:
+    description: |
+      An array of string values.
+      - If the `operator` is `"In"` or `"NotIn"`, the `values` array must be non-empty.
+      - If the `operator` is `"Exists"` or `"DoesNotExist"`, the `values` array must be empty.
+      - If the operator is `"Gt"` or `"Lt"`, the `values` array must have a single element,
+        which will be interpreted as an integer.
+      This array is replaced during a strategic merge patch.
+    x-kab-description-zh: |
+      由字符串值组成的一个数组。
+
+      - 如果 `operator` 是 `"In"` 或 `"NotIn"`，`values` 数组不可以为空；
+      - 如果 `operator` 是 `"Exists"` 或者 `"DoesNotExist"`，则 `values` 数组必须为空；
+      - 如果 `operator` 是 `"Gt"` 或者 `"Lt"`，则 `values` 数组只能包含一个元素，
+        并且该元素会被当做整数值。
+
+      在执行策略性合并补丁（Strategic Merge Patch）操作时，此数组会被替换掉。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - key
+  - operator
+type: object
+

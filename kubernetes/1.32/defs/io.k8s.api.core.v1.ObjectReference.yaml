@@ -1,0 +1,87 @@
+description: |
+  ObjectReference contains enough information to let you inspect or modify the referred object.
+
+  New uses of this type are discouraged because of difficulty describing its usage when embedded in APIs.
+
+  1. **Ignored fields**. It includes many fields which are not generally honored.
+     For instance, `resourceVersion` and `fieldPath` are both very rarely valid in actual usage.
+  1. **Invalid usage help**.  It is impossible to add specific help for individual usage.
+     In most embedded usages, there are particular restrictions like,
+     **must refer only to types A and B** or **UID not honored** or **name must be restricted**.
+     Those cannot be well described when embedded.
+  1. **Inconsistent validation**. Because the usages are different, the validation rules are different
+     by usage, which makes it hard for users to predict what will happen.
+  1. **The fields are both imprecise and overly precise**. Kind is not a precise mapping to a URL.
+     This can produce ambiguity during interpretation and require a REST mapping.  In most cases,
+     the dependency is on the group,resource tuple and the version of the actual struct is irrelevant.
+  1. **We cannot easily change it**. Because this type is embedded in many locations, updates to
+     this type will affect numerous schemas. Don't make new APIs embed an underspecified API type
+     they do not control.
+
+  Instead of using this type, create a locally provided and used type that is well-focused on
+  your reference. For example, `ServiceReferences` for admission registration.
+x-kab-description-zh: |
+  ObjectReference 包含足够的信息以让你检视或者修改所引用的对象。
+
+  Kubernetes 不建议继续使用这个类别，因为当此结构嵌套到 API 中的时候很难描述其用法。
+
+  1. **被忽略的字段**：其中包含很多通常不会被重视的字段。例如：`resourceVersion` 和 `fieldPath`
+     都是在实际场景中很少具有合法取值的字段。
+  1. **用法的帮助信息不合理**：为某种用法来添加特定的帮助信息很困难。在大多数被嵌入使用的场景中，
+     存在一些额外的限制，例如，A）只能引用类别 A 和 B；B）UID 不会被重视；C）名字必须有限制。
+     这些额外的限制都很难在此结构被嵌入时很好地描述出来。
+  1. **检验操作不一致**：由于用法伤的区别，合法性检查的规则也会因用法而有区别。
+     这就使得用户更难判断可能会发生什么事情。
+  1. **字段可能不精确也可能过于精确**：类别（kind）信息无法精确映射到某 URL。
+     这可能会导致在解释的时候会出现二义性问题，进而需要构造 REST 映射。
+     在大多数场合，依赖关系是基于 `(<group>,<resource>)` 元组来确定的，实际结构的版本并不重要。
+  1. **我们很难轻易执行变更**：因为此类别被嵌入到多个不同位置，更改此类别会影响很多的数据模式。
+     一般性的建议是，在创建新的 API 时，不要嵌入自己无法控制的、规约不明确的 API 类别。
+
+  如果不使用此类别，替代方式是创建一个本地来制备并使用的、聚焦在你的偏好上的类别。
+  例如，对于准入控制场景，可以构造 `ServiceReferences`。
+properties:
+  apiVersion:
+    description: API version of the referenced object.
+    x-kab-description-zh: 被引用对象的 API 版本。
+    type: string
+  fieldPath:
+    description: |
+      If referring to a piece of an object instead of an entire object, this string should contain
+      a valid JSON/Go field access statement, such as `"desiredState.manifest.containers[2]"`.
+      For example, if this references a container within a Pod, it would take on a value like
+      `"spec.containers{name}"` (where `"name"` refers to the name of the container that triggered
+      the event) or if no container name is specified `"spec.containers[2]"`
+      (container with index 2 in this Pod).
+      This syntax is chosen only to have some well-defined way of referencing a part of an object.
+    x-kab-description-zh: |
+      如果引用的是某个对象的一部分而不是整个对象，可以用这个字段设置一个合法的 JSON/Go 字段访问语句，
+      例如，`"desiredState.manifest.containers[2]"`。
+      如果此字段引用某个 Pod 中的某个容器，其取值应该类似于 `"spec.containers{name}"` 这种形式
+      （其中 `"name"` 因为触发此时间的容器的名称），或者当没有容器名称的时候也可以使用
+      `"spec.containers[2]"`（Pod 中索引为 2 的容器）。
+      此语法的选择视为了提供一种良定的形式来引用对象的一部分。
+    type: string
+  kind:
+    description: Kind of the referenced object.
+    x-kab-description-zh: 被引用对象的类别。
+    type: string
+  name:
+    description: Name of the referenced object.
+    x-kab-description-zh: 被引用对象的名称。
+    type: string
+  namespace:
+    description: Namespace of the referenced object.
+    x-kab-description-zh: 被引用对象的名字空间。
+    type: string
+  resourceVersion:
+    description: Specific `resourceVersion` to which this reference is made, if any.
+    x-kab-description-zh: 此引用所针对的特定 `resourceVersion`，如果有的话。
+    type: string
+  uid:
+    description: UID of the referenced object.
+    x-kab-description-zh: 被引用对象的 UID。
+    type: string
+type: object
+x-kubernetes-map-type: atomic
+

@@ -1,0 +1,23 @@
+description: |
+  The `weight`s of all of the matched `podAffinityTerm`s are added per-node to find
+  the most preferred node(s).
+x-kab-description-zh: |
+  此结构定义 Pod 亲和性条件及其对应的权重。
+  在寻找最合适的节点或节点集合时，使用者会按节点将所有被满足条件的权重加和。
+properties:
+  podAffinityTerm:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodAffinityTerm'
+    description: A Pod affinity term, associated with the corresponding weight.
+    x-kab-description-zh: Pod 亲和性条件，与所给的权重对应。
+  weight:
+    description: Weight associated with matching the corresponding term.
+    x-kab-description-zh: 与亲和性条件对应的权重。
+    format: int32
+    maximum: 100
+    minimum: 1
+    type: integer
+required:
+  - podAffinityTerm
+  - weight
+type: object
+

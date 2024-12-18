@@ -1,0 +1,29 @@
+description: |
+  Information for locating the typed referenced object inside the same namespace.
+x-kab-description-zh: |
+  关于引用当前名字空间中某个指定类型的对象的的信息。
+properties:
+  apiGroup:
+    description: |
+      The group for the resource being referenced.
+      If not specified, the specified `kind` must be in the `"core"` API group.
+    x-kab-description-zh: |
+      被引用的资源对象所属的 API 组。
+      如果未指定则视为空字符串，意味着所给的 `kind` 必须位于 `"core"` API 组中。
+    type: string
+  kind:
+    description: The kind for the resoruce being referenced.
+    x-kab-description-zh: 被引用的资源对象的类别。
+    minLength: 1
+    type: string
+  name:
+    description: The name of resource being referenced.
+    x-kab-description-zh: 被引用的资源对象的名称。
+    minLength: 1
+    type: string
+required:
+  - kind
+  - name
+type: object
+x-kubernetes-map-type: atomic
+

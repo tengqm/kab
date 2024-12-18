@@ -1,0 +1,26 @@
+description: |
+  EventSeries contain information on series of Events, i.e. thing that was/is happening continuously
+  for some time. How often to update the EventSeries is up to the event reporters.
+  The default event reporter in `"k8s.io/client-go/tools/events/event_broadcaster.go"`
+  shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+x-kab-description-zh: |
+  EventSeries 包含关于 Event 序列的信息，即一段时间以来持续发生的某件事情。
+  事件的报告者负责决定更新此 EventSeries 的频率。
+  位于 `"k8s.io/client-go/tools/events/event_broadcaster.go"` 中的默认事件报告组件是一个例子，
+  展示如何根据心跳更新此字段，可用来做事件报告实现的参考。
+
+properties:
+  count:
+    description: The number of occurrences in this series up to the last heartbeat time.
+    x-kab-description-zh: 到上次心跳为止，事件序列中累计的事件计数。
+    format: int32
+    type: integer
+  lastObservedTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: Time when last Event from the series was seen before last heartbeat.
+    x-kab-description-zh: 到上次心跳之前，最后一个事件出现时的时间戳。
+required:
+  - count
+  - lastObservedTime
+type: object
+

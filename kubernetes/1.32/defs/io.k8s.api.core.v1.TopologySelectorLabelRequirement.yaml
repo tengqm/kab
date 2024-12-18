@@ -1,0 +1,29 @@
+description: |
+  A topology selector requirement is a selector that matches given label.
+  This is an Alpha feature and may change in the future.
+x-kab-description-zh: |
+  拓扑选择需求是一个用给定标签来做选择的算符。
+  此特性处于 Alpha 阶段，将来可能会变更。
+properties:
+  key:
+    description: The label key that the selector applies to.
+    x-kab-description-zh: 选择算符所适用的标签主键。
+    minLength: 1
+    type: string
+  values:
+    description: |
+      An array of string values. One value must match the label to be selected.
+      Each entry in Values is ORed.
+    x-kab-description-zh: |
+      字符串数组值。其中有一个值与标签取值相同才会选中。
+      执行判断时要对 `values` 中的所有条目取逻辑或（OR）运算。
+    items:
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - key
+  - values
+type: object
+

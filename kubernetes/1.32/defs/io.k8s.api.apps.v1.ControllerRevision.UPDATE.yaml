@@ -1,0 +1,61 @@
+description: |
+  An immutable snapshot of state data. Clients are responsible for serializing
+  and deserializing the objects that contain their internal state.
+  Once a `ControllerRevision` has been successfully created, it can not be updated.
+  The API server will fail validating all requests that attempt to mutate the `data` field.
+  A `ControllerRevision` object may be deleted.
+  Note that, due to its use by both the `DaemonSet` and `StatefulSet` controllers
+  for update and rollback, this object is Beta.
+  However, it may be subject to name and representation changes in future releases,
+  and clients should not depend on its stability.
+  It is primarily for internal use by controllers.
+x-kab-description-zh: |
+  此对象是状态数据的一份不可变更的快照。客户端需要负责通过序列化来写入、
+  或者通过反序列化来读取包含其内部状态的对象。
+  一旦成功创建了 `ControllerRevision` 之后，该对象就不可以再被更改。
+  API 服务器会在对所有尝试变更 `data` 字段的请求进行合法性检查时返回错误。
+  `ControllerRevision` 对象可以被删除。
+  需要注意的是，由于 `DaemonSet` 和 `StatefulSet` 控制器都使用了这个字段来执行更新与回滚，
+  对象的成熟度是 Beta 阶段。
+  不过，在未来的版本中，此资源的名称及其表示形式都可能发生变化，
+  客户端不要假定这个字段是稳定的。
+  此字段的存在目的主要是为控制器提供服务。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - apps/v1
+    type: string
+  data:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: The serialized representation of the state. This cannot be updated.
+    x-kab-description-zh: 状态的序列化表示。此字段不可更新。
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ControllerRevision
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  revision:
+    description: The revision of the state represented by `data`.
+    x-kab-description-zh: |
+      `data` 字段所表示的状态的修订版本号。
+    format: int64
+    minimum: 0
+    type: integer
+required:
+  - apiVersion
+  - kind
+  - revision
+type: object
+x-kubernetes-group-version-kind:
+  - group: apps
+    kind: ControllerRevision
+    version: v1
+

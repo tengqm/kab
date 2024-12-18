@@ -1,0 +1,27 @@
+description: ExpressionWarning is a warning information that targets a specific expression.
+x-kab-description-zh: ExpressionWarning 针对某个特定表达式的警告信息。
+properties:
+  fieldRef:
+    description: The path to the field that refers the expression. The value must
+      be a valid JSON path expression. For example, the reference to the expression
+      of the first item of validations is "spec.validations[0].expression".
+    x-kab-description-zh: |
+      引用表达式的字段的路径。字段值必须是一个合法的 JSON 路径表达式。
+      例如，对 `validations` 中的一个元素的 `expression`
+      字段的引用可以写作 `"spec.validations[0].expression"`。
+    minLength: 1
+    type: string
+  warning:
+    description: The content of type checking information in a human-readable form.
+      Each line of the warning contains the type that the expression is checked against,
+      followed by the type check error from the compiler.
+    x-kab-description-zh: |
+      以人类可读的形式给出的类型检查信息。
+      `warning` 的每一行都包含表达式所检查的类型，后接编译器给出的类型检查错误信息。
+    minLength: 1
+    type: string
+required:
+  - fieldRef
+  - warning
+type: object
+

@@ -1,0 +1,70 @@
+description: A persistent ScaleIO volume.
+x-kab-description-zh: 一个 ScaleIO 持久卷资源。
+properties:
+  fsType:
+    default: xfs
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系统所支持的文件系统类型之一。
+    type: string
+  gateway:
+    description: The host address of the ScaleIO API gateway.
+    x-kab-description-zh: ScaleIO API 网关的主机地址。
+    minLength: 1
+    type: string
+  protectionDomain:
+    description: The name of the ScaleIO protection domain for the configured storage.
+    x-kab-description-zh: 所配置的存储的 ScaleIO 保护域名称。
+    type: string
+  readOnly:
+    default: false
+    description: Force the volume to be mounted in read-only mode.
+    x-kab-description-zh: 强制以只读模式挂载存储卷。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: |
+      Reference to the Secret for ScaleIO user and other sensitive information.
+      If this is not provided, Login operation will fail.
+    x-kab-description-zh: |
+      对某 Secret 对象的引用，该 Secret 中包含 ScaleIO 用户及一些其他敏感信息。
+      如果不提供此信息，登录操作会失败。
+  sslEnabled:
+    default: false
+    description: Flag to enable/disable SSL communication with `gateway`.
+    x-kab-description-zh: 用来启用或禁止与 `gateway` 之间 SSL 通信的标志。
+    type: boolean
+  storageMode:
+    default: ThinProvisioned
+    description: |
+      Indicates whether the storage for a volume should be `"ThickProvisioned"` or `"ThinProvisioned"`.
+    x-kab-description-zh: |
+      表明卷存储的制备方式。可以选择 `"ThickProvisioned"` 和 `"ThinProvisioned"` 之一。
+    enum:
+      - ThickProvisioned
+      - ThinProvisioned
+    type: string
+  storagePool:
+    description: The ScaleIO storage pool associated with the protection domain.
+    x-kab-description-zh: 与保护域相关联的 ScaleIO 存储池。
+    type: string
+  system:
+    description: The name of the storage system as configured in ScaleIO.
+    x-kab-description-zh: ScaleIO 中配置的存储系统的名称。
+    minLength: 1
+    type: string
+  volumeName:
+    description: |
+      The name of an existing volume in the ScaleIO system that is associated with this volume source.
+    x-kab-description-zh: |
+      ScaleIO 系统中某个现有卷的名称，该卷与此卷源相关联。
+    minLength: 1
+    type: string
+required:
+  - gateway
+  - secretRef
+  - system
+  - volumeName
+type: object
+

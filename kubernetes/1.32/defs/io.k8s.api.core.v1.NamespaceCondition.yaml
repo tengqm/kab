@@ -1,0 +1,55 @@
+description: Details about the state of the Namespace.
+x-kab-description-zh: Namespace 的状态细节。
+properties:
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition transitioned from one status to another.
+    x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间。
+  message:
+    description: A human readable message indicating details about the transition.
+    x-kab-description-zh: 人类可读的消息，给出状况转换的细节。
+    type: string
+  reason:
+    description: Unique, one-word, CamelCase reason for the condition's last transition.
+    x-kab-description-zh: 上次状况转换的原因。字段值为一个唯一的、驼峰拼写的单词。 
+    type: string
+  status:
+    description: Status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    description: |
+      Type of Namespace controller condition.
+      - `"NamespaceDeletionDiscoveryFailure"` contains information about Namespace deleter errors
+        during resource discovery.
+      - `"NamespaceDeletionContentFailure"` contains information about Namespace deleter errors
+        during deletion of resources.
+      - `"NamespaceDeletionGroupVersionParsingFailure"` containrs information about Namespace
+        deleter errors parsing group-version for legacy types.
+      - `"NamespaceContentRemaining"` contains information about resources remaining in a Namespace.
+      - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on
+        resources remaining in a Namespace.
+    x-kab-description-zh: |
+      Namespace 控制器状况的类型：
+      - `"NamespaceDeletionDiscoveryFailure"`：包含关于名字空间删除过程中资源发现操作出错的信息；
+      - `"NamespaceDeletionContentFailure"`：包含关于名字空间删除过程中删除资源操作出错的信息；
+      - `"NamespaceDeletionGroupVersionParsingFailure"`：包含名字空间删除过程中，
+        为较老的类别解析组-版本信息时出错的详细信息；
+      - `"NamespaceContentRemaining"`：包含名字空间中剩余资源的信息；
+      - `"NamespaceFinalizersRemaining"` 包含名字空间中资源上仍有终止器（Finalizer）的信息。
+    enum:
+      - NamespaceContentRemaning
+      - NamespaceDeletionContentFailure
+      - NamespaceDeletionDiscoveryFailure
+      - NamespaceDeletionGroupVersionParsingFailure
+      - NamespaceFinalizersRemaining
+    type: string
+required:
+  - status
+  - type
+type: object
+

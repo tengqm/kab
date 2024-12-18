@@ -1,0 +1,52 @@
+consumes:
+- '*/*'
+description: delete a DeviceClass
+x-kab-description-zh: 删除 DeviceClass
+operationId: deleteResourceV1alpha3DeviceClass
+parameters:
+- in: body
+  name: body
+  schema:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+- $ref: '#/parameters/dryRun'
+- $ref: '#/parameters/gracePeriodSeconds'
+- $ref: '#/parameters/orphanDependents'
+- $ref: '#/parameters/propagationPolicy'
+- description: name of the DeviceClass
+  x-kab-description: DeviceClass 的名称
+  in: path
+  name: name
+  required: true
+  type: string
+  uniqueItems: true
+- $ref: '#/parameters/pretty'
+path: /apis/resource.k8s.io/v1alpha3/deviceclasses/{name}
+produces:
+- application/json
+- application/yaml
+- application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description: OK
+    x-kab-description: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.GET'
+  '202':
+    description: Accepted
+    x-kab-description-zh: 请求已接受
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.GET'
+  '401':
+    description: Unauthorized
+    x-kab-description-zh: 操作未授权
+schemes:
+- https
+tags:
+- resource_v1alpha3
+verb: delete
+x-kubernetes-action: delete
+x-kubernetes-group-version-kind:
+  group: resource.k8s.io
+  kind: DeviceClass
+  version: v1alpha3
+

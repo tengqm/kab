@@ -1,0 +1,66 @@
+description: |
+  ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
+  ClusterTrustBundle objects are considered to be readable by any authenticated user
+  in the cluster, because they can be mounted by Pods using the `clusterTrustBundle` projection.
+  All service accounts have read access to ClusterTrustBundles by default.
+  Users who only have namespace-level access to a cluster can read ClusterTrustBundles
+  by impersonating a ServiceAccount that they have access to.
+
+  It can be optionally associated with a particular assigner, in which case it contains
+  one valid set of trust anchors for that signer.
+  Signers may have multiple associated ClusterTrustBundles; each is an independent set of
+  trust anchors for that signer.
+  Admission control is used to enforce that only users with permissions on the signer can
+  create or modify the corresponding bundle.
+x-kab-description-zh: |
+  ClusterTrustBundle 是一个集群作用域的容器，用来存放 X.509 信任锚点（Trust Anchor），
+  也就是根证书。因为 ClusterTrustBundle 中的数据可以通过 `clusterTrustBundle` 投射挂载到
+  Pod 中。可以认为集群中所有通过了身份认证的用户都可以读取 ClusterTrustBundle 对象。
+  默认情况下，所有的服务账号都可以读取 ClusterTrustBundle 中的内容。
+  对于只有某集群中名字空间级别访问权限的用户而言，可以通过伪装成他们可访问的 ServiceAccount
+  之一来读取 ClusterTrustBundle 的内容。
+
+  每个 ClusterTrustBundle 对象可以选择与特定的签名者关联起来，为该签名者保存合法信任锚点的集合。
+  每个签名者则可以关联到多个 ClusterTrustBundle 对象，每个对象是该签名者的一个独立的信任锚点集合。
+  系统内置的准入控制机制能够确保只有有权访问某签名者的用户才能创建或修改其所对应的信任包。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - certificates.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ClusterTrustBundle
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      Standard object metadata.
+      The trust bundle must not have `':'` in its name if the `spec.signerName` is empty.
+      If the `spec.signerName` is not empty, the name must has the `spec.signerName`
+      as its prefix, with `'/'` replaced by `':'`.
+      The name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      标准的对象元数据。如果 `spec.signerName` 为空，则信任包的名字中不能包含 `':'` 字符。
+      如果 `spec.signerName` 不是空字符串，则信任包对象的名称必须将 `spec.signerName`
+      作为前缀，并将其中的 `'/'` 字符替换成 `':'` 字符。
+      信任包的名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.certificates.v1alpha1.ClusterTrustBundleSpec'
+    description: This contains the signer (if any) and trust anchors.
+    x-kab-description-zh: 此字段包含签名者信息（可选）以及信任锚点数据。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: certificates.k8s.io
+    kind: ClusterTrustBundle
+    version: v1alpha1
+

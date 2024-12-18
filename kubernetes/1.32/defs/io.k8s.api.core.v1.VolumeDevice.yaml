@@ -1,0 +1,29 @@
+description: VolumeDevice describes a mapping of a raw block device within a container.
+x-kab-description-zh: VolumeDevice 描述容器内的原生块设备映射。
+properties:
+  devicePath:
+    description: |
+      The path inside the container that the device will be mapped to.
+      The path must be unique inside a container. The path cannot contain `".."` in it.
+      It cannot overlap with the paths in the container's `volumeMounts`.
+    x-kab-description-zh: |
+      设备要映射到的、位于容器内部的路径。此路径必须在容器内唯一。路径中不可包含 `".."`。
+      此路径不可与容器的 `volumeMounts` 内的路径重叠。
+    minLength: 1
+    type: string
+  name:
+    description: |
+      The name must match the `name` of a `persistentVolumeClaim` volume in the Pod.
+      It must be unique in the scope of the container.
+      It cannot overlap with names in the container's `volumeMounts`.
+    x-kab-description-zh: |
+      此名称必须与 Pod 中某个 `persistentVolumeClaim` 的 `name` 属性匹配。
+      字段值必须在容器范围内唯一。
+      此名称不可与容器的 `volumeMounts` 中的名称重叠。
+    minLength: 1
+    type: string
+required:
+  - devicePath
+  - name
+type: object
+

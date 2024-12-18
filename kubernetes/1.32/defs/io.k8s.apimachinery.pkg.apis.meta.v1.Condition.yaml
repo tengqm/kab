@@ -1,0 +1,68 @@
+description: |
+  This contains the details for one aspect of the current state of this API Resource.
+  This struct is intended for direct use as an array at the field path `.status.conditions`.
+x-kab-description-zh: |
+  此结构包含此 APIResource 的当前状态的某个侧面的细节。
+  用户要将 `.status.conditions` 下的数组作为一个整体来处理。
+
+properties:
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      The last time the condition transitioned from one status to another.
+      This should be the time when the underlying condition changed.
+      If that is not known, then using the time when the API field changed is acceptable.
+    x-kab-description-zh: |
+      状况上次从一种状态转换为另一种状态的时间。
+      此字段应该是下层状况发生变化的时间。
+      如果发生变化的时间点未知，则使用 API 字段发生变化的时间也是可接受的。
+  message:
+    description: |
+      A human readable message indicating details about the transition.
+      This may be an empty string.
+    x-kab-description-zh: 人类可读的消息，给出状况转换的细节。此字段可以是一个空字符串。
+    type: string
+  observedGeneration:
+    description: |
+      The `.metadata.generation` that the condition was set based upon.
+      For instance, if `.metadata.generation` is currently 12, but the
+      `.status.conditions[x].observedGeneration` is 9, the condition is out of date
+      with respect to the current state of the instance.
+    x-kab-description-zh: |
+      设置此状况时所针对的对象 `.metadata.generation` 值。
+      例如，如果对象的 `.metadata.generation` 的当前值为 12，而 `.status.conditions[x].observedGeneration`
+      值为 9，则意味着就对象实例的当前状态而言，所记录的状况已经过时。
+    format: int64
+    type: integer
+  reason:
+    description: |
+      A programmatic identifier indicating the reason for the condition's last transition.
+      Producers of specific condition types may define expected values and meanings for this field,
+      and whether the values are considered a guaranteed API.
+      The value should be a CamelCase string. This field may not be empty.
+    x-kab-description-zh: |
+      一个可用程序识别的标识符，用来给出最近一次状况转换的原因。 
+      生成特定类型的状况的可以设置此字段的取值并赋予其含义，包括决定哪些值是 API 层面可保障的。
+      此字段值应该是驼峰形式的字符串。字段不可为空。
+    minLength: 1
+    type: string
+  status:
+    description: Status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    description: Type of condition in CamelCase or in `"foo.example.com/CamelCase"`.
+    x-kab-description-zh: 用驼峰拼写（可带域名前缀）给出的状况的类型。
+    type: string
+required:
+  - lastTransitionTime
+  - message
+  - reason
+  - status
+  - type
+type: object
+

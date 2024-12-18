@@ -1,0 +1,99 @@
+description: The current state of a DaemonSet.
+x-kab-description-zh: DaemonSet 的当前状态。
+properties:
+  collisionCount:
+    description: |
+      The count of hash collisions for the DaemonSet.
+      The DaemonSet controller uses this field as a collision avoidance mechanism when
+      it needs to create the name for the newest `ControllerRevision`.
+    x-kab-description-zh: |
+      DaemonSet 上发生的哈希冲突计数。
+      DaemonSet 控制器在为最新的 `ControllerRevision` 生成名字时，
+      使用此字段来作为一种冲突避免机制，
+    format: int32
+    minimum: 0
+    type: integer
+  conditions:
+    description: The latest observations of the DaemonSet's state.
+    x-kab-description-zh: 关于 DaemonSet 状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.apps.v1.DaemonSetCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  currentNumberScheduled:
+    description: |
+      The number of nodes that are running at least 1 DaemonSet Pod and are
+      supposed to run the DaemonSet Pod.
+    x-kab-description-zh: |
+      当前应该运行 DaemonSet Pod 并且至少运行了一个 DaemonSet Pod 的节点个数。
+    format: int32
+    minimum: 0
+    type: integer
+  desiredNumberScheduled:
+    description: |
+      The total number of nodes that should be running the daemon Pod
+      (including nodes correctly running the daemon Pod).
+    x-kab-description-zh: |
+      当前应该运行此 DaemonSet 的 Pod 的节点个数（包括那些已经在运行 DaemonSet Pod 的节点）。
+    format: int32
+    type: integer
+
+  numberAvailable:
+    description: |
+      The number of nodes that should be running the daemon Pod and have one or more of
+      the daemon Pod running and available (ready for at least `spec.minReadySeconds`).
+    x-kab-description-zh: |
+      当前运行着 DaemonSet Pod 且至少有一个 Pod 处于运行且就可用的节点个数。
+      这里的“可用”指的是 Pod 至少处于就绪状态 `spec.minReadySeconds` 秒。
+    format: int32
+    type: integer
+
+  numberMisscheduled:
+    description: |
+      The number of nodes that are running the daemon Pod, but are not supposed to run the daemon Pod.
+    x-kab-description-zh: |
+      当前运行着 DaemonSet 的 Pod，但理论上不应该运行其 Pod 的节点个数。
+    format: int32
+    type: integer
+
+  numberReady:
+    description: |
+      The number of nodes that should be running the daemon Pod and have one or more of
+      the daemon Pod running with a `Ready` condition.
+    x-kab-description-zh: |
+      当前运行着 DaemonSet 的 Pod 且至少有一个 Pod 处于 `Ready` 状况的节点个数。
+    format: int32
+    type: integer
+
+  numberUnavailable:
+    description: |
+      The number of nodes that should be running the daemon Pod and have
+      none of the daemon Pod running and available (ready for at least `spec.minReadySeconds`)
+    x-kab-description-zh: |
+      当前应该运行 DaemonSet 的 Pod，但没有 Pod 处于 `Ready` 状况的节点个数。
+    format: int32
+    type: integer
+
+  observedGeneration:
+    description: The most recent generation observed by the DaemonSet controller.
+    x-kab-description-zh: DaemonSet 控制器所观测到的最新的代数。
+    format: int64
+    type: integer
+
+  updatedNumberScheduled:
+    description: The total number of nodes that are running updated DaemonSet Pod.
+    x-kab-description-zh: 当前运行着更新后的 DaemonSet Pod 的节点个数。
+    format: int32
+    type: integer
+
+required:
+  - currentNumberScheduled
+  - desiredNumberScheduled
+  - numberMisscheduled
+  - numberReady
+type: object
+

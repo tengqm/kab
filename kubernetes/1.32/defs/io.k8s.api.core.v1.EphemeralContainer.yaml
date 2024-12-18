@@ -1,0 +1,285 @@
+description: |
+  A temporary container that you may add to an existing Pod for user-initiated activities
+  such as debugging. Ephemeral containers have no resource or scheduling guarantees,
+  and they will not be restarted when they exit or when a Pod is removed or restarted.
+  The kubelet may evict a Pod if an ephemeral container causes a Pod to exceed its resource allocation.
+
+  To add an ephemeral containeer, use the `ephemeralcontainers` subresource of an existing Pod.
+  Ephemeral containers may not be removed or restarted.
+x-kab-description-zh: |
+  一个你可以添加到现有 Pod 的临时容器，可用于用户发起的活动，例如调试。
+  临时容器没有资源保障或者调度保障，这些容器在自身退出或者 Pod 被删除或重启时不会被重启。
+  kubelet 可以在临时容器导致 Pod 超出其资源分配量时驱逐该 Pod。
+
+  要添加临时容器，需要使用现有 Pod 的 `ephemeralcontainers` 子资源。
+  临时容器不可以被删除或者重启。
+properties:
+  args: 
+    description: |
+      Arguments to the `command`.
+      The container image's `CMD` is used if this is not provided.
+      Variable references `$(VAR_NAME)` are expanded using the container's environment.
+      If a variable cannot be resolved, the reference in the input string will be unchanged.
+      Double dollar (`$$`) are reduced to a single dollar (`$`), 
+      which allows for escabing the `$(VAR_NAME)` syntax. i.e.
+      `"$$(VAR_NAME)"` will produce the string literal `"$(VAR_NAME)"`.
+      Escaped references will never be expanded, regardless of whether the variable exists or not.
+      Cannot be updated.
+    x-kab-description-zh: |
+      为 `command` 命令提供的参数列表。如果没有设置此字段，则使用容器镜像中的 `CMD` 值。
+      `args` 中可以通过语法 `"$(VAR_NAME)"` 引用环境变量，但只能使用容器内部的环境变量。
+      如果所给的环境变量无法解析，变量引用不会被处理。可以使用 `"$$"` 来对 `"$"` 进行转义，
+      从而可以对 `"$(VAR_NAME)"` 这种语法进行转义。例如，`"$$(VAR_NAME)"` 会被转义为
+      `"$(VAR_NAME)"`。被转义后的引用不会再被展开，无论对应的环境变量是否存在。
+      此字段不能更新。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  command:
+    description: |
+      Entrypoint array. The container image's `ENTRYPOINT` is used if this is not provided.
+      The command is **NOT** executed within a shell.
+      Variable references `"$(VAR_NAME)"` are expanded using the container's environment.
+      If a variable cannot be resolved, the reference in the input string will be unchanged.
+      Double dollars (`"$$"`) are reduced to a single dollar (`"$"`), which allows for
+      escaping the `"$(VAR_NAME)"` syntax: i.e. the `"$(VAR_NAME)"` will produce the string literal
+      `"$(VAR_NAME)"`.
+      Escaped references will never be expanded, regardless of whether the variable exists or not.
+      Cannot be updated.
+    x-kab-description-zh: |
+      描述容器入口点的数组。如果没有提供 `command`，则使用镜像中的 `ENTRYPOINT` 设置。
+      这里所给的命令不会在一个 Shell 中执行。类似 `$(VAR_NAME)` 这类环境变量会使用容器的环境变量值展开。
+      如果所引用的变量无法被解析，则对应的引用字符串不会被处理。可以使用 `$$` 来对 `$` 进行转义，
+      从而可以对 `$(VAR_NAME)` 这种语法进行转义。例如，`$$(VAR_NAME)` 会被转义为
+      `$(VAR_NAME)`。被转义后的引用不会再被展开，无论对应的环境变量是否存在。
+      此字段只能在创建时设置，不能更新。
+
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  env:
+    description: |
+      List of environment variables to set in the container. Cannot be updated.
+    x-kab-description-zh: |
+      需要为容器设置的环境变量。只能创建时设置，不能更新。
+
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.EnvVar'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  envFrom:
+    description: |
+      List of sources to populate environment variables in the container.
+      The keys defined within a source must be a valid DNS subdomain name.
+      They must consist of alphanumeric characters, `'.'`, `'-'`, or `'_'`.
+      They cannot start with `".."` or a digit. They cannot be `"."` or `".."`.
+      All invalid keys will be reported as an event when the container is starting.
+      When a key exists in multiple sources, the value associated with the last source
+      will take precedence.
+      Values defined by an `env` with a duplicate key will take precedence.
+      Cannot be updated.
+    x-kab-description-zh: |
+      此字段为一个列表，给出一组来源，用来为容器设置环境变量。
+      每个来源定义所使用的键名必须是合法的 DNS 子域名，其中只能包含字母、数字以及
+      `'.'`、`'-'` 或者 `'_'`。键名不能以 `".."` 或者数字开头，也不可以是 `"."` 或者 `".."`。
+      对于所有的非法键名，在容器启动时都会以事件形式形成报告。如果某个键名在多个来源中同时存在，
+      优先选择最后一个来源中的键值。如果 `env` 中存在重名的键名，以 `env` 中的定义为准。
+      此字段不可更新。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.EnvFromSource'
+    type: array
+    x-kubernetes-list-type: atomic
+  image:
+    description: |
+      Container image name. The image string cannot contain leading or tracing whitespaces.
+    x-kab-description-zh: |
+      容器镜像名称。`image` 字符串不能以空白符号开头或结尾。
+    type: string
+  imagePullPolicy:
+    description: |
+      Image pull policy. Defaults to `"Always"` if the `":latest"` tag is specified,
+      or `"IfNotPresent"` otherwise. Possible enum values:
+      - `"Always"` means that kubelet always attempts to pull the latest image.
+        Container will fail if the pull fails.
+      - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk.
+        Container will fail if the image isn't present and the pull fails.
+      - `"Never"` means that kubelet never pulls an image, but only uses a local image.
+        Container will fail if the image isn't present.
+      Cannot be updated. 
+    x-kab-description-zh: |
+      镜像拉取策略设置。如果使用了标签为 `":latest"` 的镜像，则默认值为 `"Always"`，
+      否则默认值为 `"IfNotPresent"`。合法的取值包括：
+
+      - `"Always"`：意味着 kubelet 总会尝试去拉取最新的镜像。如果镜像拉取不成功，则容器也会失败。
+      - `"IfNotPresent"`：kubelet 会在磁盘上不存在镜像时才拉取镜像。当镜像不存在并且拉取操作失败时，容器也失败。
+      - `"Never"`：kubelet 不会发起镜像拉取操作，只使用本地已存在的镜像。如果镜像不存在则容器会失败。
+
+      此字段不可更新。
+    enum:
+      - Always
+      - Never
+      - IfNotPresent
+    minLength: 1
+    type: string
+  name:
+    description: |
+      Name of the ephemeral container specified as a DNS label.
+      This name must be unique among all containers, init containers and ephemeral containers.
+    x-kab-description-zh: |
+      临时容器的名称，名称要符合 DNS 标签格式要求。
+      此名称要在所有容器、初始化容器和临时容器中唯一。
+    minLength: 1
+    type: string
+  resizePolicy:
+    description: Resources resize policy for the container.
+    x-kab-description-zh: 容器的资源大小重设策略。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerResizePolicy'
+    type: array
+    x-kubernetes-list-type: atomic
+  securityContext:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecurityContext'
+    description: |
+      The security options the ephemeral container should be run with.
+      If set, the fields of `securityContext` override the equivalent fields of Pod `securityContext`.
+    x-kab-description-zh: |
+      容器运行的安全选项。如果设置了这个字段，则其中的设置值会重载 Pod 层面的 `securityContext` 设置。
+  stdin:
+    default: false
+    description: |
+      Whether this container should allocate a buffer for stdin in the container runtime.
+      If this is not set, reads from stdin in the container will always result in EOF.
+    x-kab-description-zh: |
+      用来指示容器是否要从容器运行时那里分配用于标准输入的缓冲区。
+      若未设置此字段，则容器内读取标准输入时总会读到 EOF。
+    type: boolean
+  stdinOnce:
+    default: false
+    description: |
+      Whether the container runtime should close the stdin channel after it has been opened by a single
+      attach`. When `stdin` is true the stdin stream will remain open across multiple `attach` sessions.
+      If `stdinOnce` is set to `true`, stdin is opened on container start,
+      is empty until the first client attaches to stdin, and then remains open and accepts data
+      until the client disconnects, at which time stdin is closed and remains closed until
+      the container is restarted.
+      If this flag is false, a container processes that reads from stdin will never receive an EOF.
+    x-kab-description-zh: |
+      指示容器运行时是否应该在为某个 `attach` 操作打开标准输入通道之后将其关闭。
+      当 `stdin` 设置为 `true` 时，标准输入的数据流会一直被打开，可用于多个 `attach` 会话。
+      若 `stdinOnce` 被设置为 `true`, 容器启动时标准输入是打开状态的，在第一个客户端挂接到标准输入之前保持为空。
+      接下来一直保持打开状态，接收客户端的数据，直到客户端断开链接。
+      此后，标准输入通道一直处于关闭状态，直到容器被再次重启为止。
+      当 `stdinOnce` 为 `false` 时，从标准输入读数据的容器进程不会收到 EOF。
+      此字段是提供给交互式容器使用的，设计所针对的场景主要是调试，不应该用于一般目的的容器。
+    type: boolean
+  targetContainerName:
+    description: |
+      If set, the name of the Container from the containing Pod that this ephemeral container targets.
+      The ephemeral container will be run in the namespaces (IPC, PID, etc) of the target Container.
+      If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+
+      The container runtime must implement support for this feature.
+      If the runtime does not support namespace targeting then the result of setting this field
+      is undefined.
+    x-kab-description-zh: |
+      如果设置了此字段，则其所表示的是所在 Pod 中某个容器的名称，该容器是此临时容器的目标。
+      临时容器会在目标容器的名字空间（IPC、PID 等）中运行。
+      如果不设置此字段，则临时容器会使用 Pod 规约中配置的名字空间。
+
+      容器运行时必须实现对此特性的支持。
+      如果容器运行时不支持设置目标名字空间，则设置此字段的后果是不确定的。
+    type: string
+  terminationMessagePath:
+    default: /dev/termination-log
+    description:
+      File path to which the container's termination message will be written.
+      Message written is intended to be brief final status, such as an assertion failure message.
+      Will be truncated by the node if greater than 4096 bytes.
+      The total message length across all containers will be limited to 12kb.
+      Cannot be updated.
+    x-kab-description-zh: |
+      容器的终止消息要写入的文件路径。
+      写入到这里的消息通常是比较简单的状态描述，例如某种断言失败消息。
+      如果消息文字大于 4096 字节，则节点会将其截断。所有容器的终止消息的长度不能超过 12 KB。
+      此字段不支持更新。
+    type: string
+  terminationMessagePolicy:
+    default: File
+    description: |
+      This attribute indicates how the termination message should be populated.
+      - `"File"`: use the contents of `terminationMessagePath` file to populate the container status
+        message on both success and failure.
+      - `"FallbackToLogsOnError"`: use the last chunk of container log output if the termination
+        message file is empty and the container exited with an error.
+      The log output is limited to 2048 bytes or 80 lines, whichever is smaller.
+      Cannot be updated.
+    x-kab-description-zh: |
+      此属性用来标明如何填充终止消息。
+
+      - `"File"\`：默认行为，使用 `terminationMessagePath` 所设置文件的内容来填充容器状态消息，
+        无论容器是否以成功状态结束。
+
+      - `"FallbackToLogsOnError"`：当容器以出错状态结束且终止消息文件为空时，
+        读取容器日志的最新数据块，作为容器的状态消息。
+        日志输出限制为 2048 字节或者 80 行，取其中较小者。
+
+      此字段不能更新。
+
+    enum:
+      - FallbackToLogsOnError
+      - File
+    type: string
+  tty:
+    default: false
+    description: |
+      Whether this container should allocate a TTY for itself, also requires `stdin` to be true.
+    x-kab-description-zh: |
+      设置此容器是否需要为自己分配一个 TTY 终端，设置此字段时要求 `stdin` 属性也必须为 `true`。
+    type: boolean
+  volumeDevices:
+    description: The list of block devices to be used by the container.
+    x-kab-description-zh: 容器所使用的块设备列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.VolumeDevice'
+    type: array
+    x-kubernetes-list-map-keys:
+      - devicePath
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: devicePath
+    x-kubernetes-patch-strategy: merge
+  volumeMounts:
+    description: |
+      Pod volumes to mount into the container's filesystem.
+      Subpath mounts are not allowed for ephemeral containers.
+      Cannot be updated.
+    x-kab-description-zh: |
+      要挂载到容器内文件系统中的 Pod 层定义的卷。对于临时容器而言，不支持子路径挂载。
+      不支持更新。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.VolumeMount'
+    type: array
+    x-kubernetes-list-map-keys:
+      - mountPath
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: mountPath
+    x-kubernetes-patch-strategy: merge
+  workingDir:
+    description: |
+      Container's working directory. If not specified, the container runtime's default will be used,
+      which might be configured in the container image.
+      Cannot be updated.
+    x-kab-description-zh: |
+      容器的工作目录。如果未设置，将使用容器运行时所给的默认值。
+      这一默认值可能会根据容器镜像的配置来设定。
+      不支持更新。
+    type: string
+required:
+  - name
+type: object
+

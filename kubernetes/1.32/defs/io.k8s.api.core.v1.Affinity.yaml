@@ -1,0 +1,23 @@
+description: A group of affinity scheduling rules.
+x-kab-description-zh: 一组亲和性调度规则。
+properties:
+  nodeAffinity:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeAffinity'
+    description: Node affinity scheduling rules for the Pod.
+    x-kab-description-zh: Pod 的节点亲和性调度规则。
+  podAffinity:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodAffinity'
+    description: |
+      Pod affinity scheduling rules
+      (e.g. co-locate this Pod in the same node, zone, etc. as some other Pod(s)).
+    x-kab-description-zh: |
+      Pod 亲和性调度规则（例如，将此 Pod 调度到其他 Pod 所在节点、可用区等）。
+  podAntiAffinity:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodAntiAffinity'
+    description: |
+      Pod anti-affinity scheduling rules (e.g. avoid putting this Pod in
+      the same node, zone, etc. as some other Pod(s)).
+    x-kab-description-zh: |
+      Pod 反亲和性调度规则（例如，避免将此 Pod 调度到其他 Pod 所在节点、可用区等）。
+type: object
+

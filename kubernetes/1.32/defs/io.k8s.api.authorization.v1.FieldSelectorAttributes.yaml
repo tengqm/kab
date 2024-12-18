@@ -1,0 +1,56 @@
+description: |
+  FieldSelectorAttributes indicates a field limited access. Webhook authors are encouraged to
+
+  * ensure `rawSelector` and `requirements` are not both set
+  * consider the `requirements` field if set
+  * not try to parse or consider the `rawSelector` field if set.
+    This is to avoid another CVE-2022-2880, i.e. getting different systems to agree on how exactly to parse a query is not something we want.
+
+  For the SubjectAccessReview endpoints of the kube-apiserver,
+
+  * If `rawSelector` is empty and `requirements` are empty, the request is not limited.
+  * If `rawSelector` is present and `requirements` are empty, the `rawSelector` will be parsed and limited if the parsing succeeds.
+  * If `rawSelector` is empty and `requirements` are present, the `requirements` should be honored
+  * If `rawSelector` is present and `requirements` are present, the request is invalid.
+x-kab-description-zh: |
+  FieldSelectorAttributes 用来表示字段受限的访问。建议 Webhook 的开发人员：
+
+  * 确保 `rawSelector` 和 `requirements` 没有被同时设置
+  * 在设置了 `requirements` 时主要考虑该字段
+  * 如果 `rawSelector` 被设置了，不要尝试去解析其内容。
+    这样做是为了避免 CVE-2022-2880 安全漏洞。该漏洞可能导致不同系统在如何解析查询上达成一致，
+    而这是我们不希望看到的。
+
+  对于 API 服务器上的 SubjectAccessReview 端点而言：
+
+  * 如果 `rawSelector` 为空且 `requirements` 为空，则请求不受限制；
+  * 如果 `rawSelector` 被设置而 `requirements` 为空，则服务器解析 `rawSelector` 内容，
+    并且在解析成功时实施限制；
+  * 如果 `rawSelector` 为空而 `requirements` 存在，则服务器根据 `requirements` 设置进行处理；
+  * 如果 `rawSelector` 和 `requirements` 都存在，则请求会被视为非法请求。
+properties:
+  rawSelector:
+    description: |
+      `rawSelector` is the serialization of a field selector that would be included in a query parameter.
+      Webhook implementations are encouraged to ignore `rawSelector`.
+      The kube-apiserver's SubjectAccessReview will parse the `rawSelector` as long as the `requirements` are not present.
+    x-kab-description-zh: |
+      `rawSelector` 是包含在查询参数中的，对字段选择算符的序列化形式。
+      鼓励 Webhook 实现忽略 `rawSelector` 字段设置。
+      API 服务器在处理 SubjectAccessReview 时，如果不存在 `requirements`，则会解析 `rawSelector`。
+    type: string
+  requirements:
+    description: |
+      `requirements` is the parsed interpretation of a field selector. All `requirements` must be met for a resource instance to match the selector.
+      Webhook implementations should handle `requirements`, but how to handle them is up to the webhook.
+      Since `requirements` can only limit the request, it is safe to authorize as unlimited request if the `requirements` are not understood.
+    x-kab-description-zh: |
+      `requirements` 是对字段选择算符的解析形式。资源实例必须满足所有 `requirements` 条件才会被视为与算符匹配。
+      Webhook 实现应该处理 `requirements` 的内容，但具体处理方式取决于 Webhook 的设计目的。
+      由于 `requirements` 只能对请求进行约束，如果 `requirements` 的内容无法理解，将请求鉴权为未被限制的请求也是安全的。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.FieldSelectorRequirement'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

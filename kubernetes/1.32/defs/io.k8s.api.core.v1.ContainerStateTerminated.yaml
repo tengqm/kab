@@ -1,0 +1,42 @@
+description: A terminated state of a Container.
+x-kab-description-zh: 容器的终止状态。
+properties:
+  containerID:
+    description: Container's ID in the format `<type>://<container_id>`.
+    x-kab-description-zh: 格式为 `<type>://<container_id>` 的容器 ID。
+    type: string
+  exitCode:
+    description: Exit status from the last termination of the Container.
+    x-kab-description-zh: 容器上次终止时的退出状态。
+    format: int32
+    type: integer
+  finishedAt:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Time at which the Container last terminated.
+    x-kab-description-zh: 容器上次终止时的时间戳。
+  message:
+    description: Message regarding the last termination of the Container.
+    x-kab-description-zh: 容器上次终止时生成的消息。
+    type: string
+  reason:
+    description: A (brief) reason from the last termination of the Container.
+    x-kab-description-zh: 容器上次终止时的简短原因。
+    type: string
+  signal:
+    description: Signal from the last termination of the Container.
+    x-kab-description-zh: 来自上次容器终止时的信号。
+    format: int32
+    type: integer
+  startedAt:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Time at which previous execution of the Container started.
+    x-kab-description-zh: 容器上次运行时的启动时间。
+required:
+  - containerID
+  - exitCode
+  - finishedAt
+  - message
+  - reason
+  - startedAt
+type: object
+

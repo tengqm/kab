@@ -1,0 +1,48 @@
+description: |
+  Service is a named abstraction of software service consisting of local port that the proxy listens on,
+  and the selector that determines which Pods will answer requests sent through the proxy.
+x-kab-description-zh: |
+  Service 是有名字的，是对软件服务的一种抽象。所谓软件服务，由代理所监听的本地端口及选择算符组成。
+  选择算符决定哪些 Pod 会对通过代理发送过来的请求作出回应。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Service
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      Standard object metadata. The service name must be valid DNS label.
+      The annotation `"service.beta.kubernetes.io/load-balancer-source-ranges"` can be set to
+      specify the Ingress range allowed when Service `type` is `"LoadBalancer"`.
+      The annotation value should be a comma separated list of CIDRs.
+      Default value is `"0.0.0.0/0"` which allows full access.
+      Not all cloud-providers support this annotation.
+    x-kab-description-zh: |
+      标准的对象元数据。服务的名称必须是合法的 DNS 标签。当 `type` 为 `"LoadBalancer"` 是，
+      可以设置注解 `"service.beta.kubernetes.io/load-balancer-source-ranges"` 来指定所允许的
+      Ingress 范围。该注解的值应该是用逗号分割的一组 CIDR 列表。
+      默认值为 `"0.0.0.0/0"`，意味着允许所有 Ingress 访问。
+      并非所有云平台都支持这一注解。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.ServiceSpec'
+    description: Spec defines the behavior of the Service.
+    x-kab-description-zh: 此字段定义 Service 的行为。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Service
+    version: v1
+

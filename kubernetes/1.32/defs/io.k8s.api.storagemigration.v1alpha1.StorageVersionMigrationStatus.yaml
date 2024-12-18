@@ -1,0 +1,25 @@
+description: Status of the storage version migration.
+x-kab-description-zh: 存储版本迁移的状态。
+properties:
+  conditions:
+    description: The latest available observations of the migration's current state.
+    x-kab-description-zh: 对当前迁移状态的最近一次观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.MigrationCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  resourceVersion:
+    description: |
+      ResourceVersion to compare with the GC cache for performing the migration.
+      This is the current resource version of given group, version and resource when kube-controller-manager first observes
+      this StorageVersionMigration resource.
+    x-kab-description-zh: |
+      执行迁移期间用来与 GC 缓存进行比较用的资源版本信息。
+      字段值为 kube-controller-manager 第一次监测到此 StorageVersionMigration 资源时给定组、版本和资源当时的资源版本。
+    type: string
+type: object
+

@@ -1,0 +1,43 @@
+description: |
+  Service is a named abstraction of software service consisting of local port that the proxy listens on,
+  and the selector that determines which Pods will answer requests sent through the proxy.
+x-kab-description-zh: |
+  Service 是有名字的，是对软件服务的一种抽象。所谓软件服务，由代理所监听的本地端口及选择算符组成。
+  选择算符决定哪些 Pod 会对通过代理发送过来的请求作出回应。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Service
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.ServiceSpec'
+    description: Spec defines the behavior of a service.
+    x-kab-description-zh: 此字段定义 Service 的行为。
+  status:
+    $ref: '#/definitions/io.k8s.api.core.v1.ServiceStatus'
+    description: Most recently observed status of the service.
+    x-kab-description-zh: Service 的最近观测状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Service
+    version: v1
+

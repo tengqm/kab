@@ -1,0 +1,43 @@
+description: |
+  A list of APIResource objects. It is used to expose the name of the resources
+  supported in a specific group and version, and if the resource is namespaced.
+x-kab-description-zh: |
+  包含 APIResource 对象的列表。此列表用来公布特定组和版本所支持的资源的名称，
+  以及资源是否是名字空间作用域的。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  groupVersion:
+    description: The group and version this APIResourceList is for.
+    x-kab-description-zh: 此 APIResourceList 所针对的组和版本。
+    minLength: 1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - APIResourceList
+    type: string
+  resources:
+    description: A list of APIResource objects and if they are namespaced.
+    x-kab-description-zh: APIResource 对象列表，且给出各个对象是否是名字空间作用域的。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResource'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - apiVersion
+  - groupVersion
+  - kind
+  - resources
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: APIResourceList
+    version: v1
+

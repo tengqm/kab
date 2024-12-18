@@ -1,0 +1,114 @@
+description: |
+  Information for locating and communicating with a server.
+  Only HTTPS is supported, though you can disable certificate verification.
+x-kab-description-zh: |
+  用来定位服务器并与之通信的信息。仅支持 HTTPS，不过你可以禁用证书检查。
+
+properties:
+  caBundle:
+    description: |
+      A PEM encoded CA bundle for validating an API server's serving certificate.
+      If unspecified, system trust roots on the apiserver are used.
+      This field cannot be specified if `service` is provided because local APIServices
+      cannot have a CA bundle.
+    x-kab-description-zh: |
+      PEM 编码的 CA 证书包，用来验证 API 服务器的服务证书。
+      若未设置 `caBundle`，则系统会使用 API 服务器上的信任根。
+      如果设置了 `service` 字段则不能设置此字段，因为本地的 APIService 不可以有 CA 证书包。
+    format: byte
+    type: string
+    x-kubernetes-list-type: atomic
+  group:
+    description: |
+      The API group name this server hosts. If `group` is empty, `version` must be `"v1"`.
+      Value must be a valid DNS subdomain.
+    x-kab-description-zh: |
+      此服务器所托管的 API 组名称。如果 `group` 为空，则 `version` 必须为 `"v1"`。
+      字段值必须是合法的 DNS 子域名。
+    type: string
+  groupPriorityMinimum:
+    description: |
+      The priority this group should have at least.
+      Higher priority means that the group is preferred by clients over lower priority ones.
+      Note that other versions of this group might specify even higher `groupPriorityMininum` values
+      such that the whole group gets a higher priority.
+      The primary sort is based on `groupPriorityMinimum`, ordered highest number to lowest (20 before 10).
+      The secondary sort is based on the alphabetical comparison of the name of the object
+      (`"v1.bar"` before `"v1.foo"`). We'd recommend something like:
+      `"*.k8s.io"` (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be
+      in the 2000s.
+    x-kab-description-zh: |
+      此 API 组所应具有的最低优先级。优先级较高意味着比低优先级者更容易受客户端偏爱。
+      注意本 API 组的其他版本可能会设置更高的 `groupPriorityMinimum` 值，因此整个组获得更高的优先级。
+      排序的第一步是基于 `groupPriorityMinimum`，从数值最高到最低。
+      第二步是基于对象名称的字典序（`"v1.bar"` 先于 `"v1.foo"`）。
+      建议的设置值是：为 `"*.k8s.io"` 设置为 18000，将 PaaS 服务设置在 2000 左右。
+    format: int32
+    maximum: 20000
+    minimum: 1
+    type: integer
+  insecureSkipTLSVerify:
+    description: |
+      This flag disables TLS certificate verification. This is strongly discouraged.
+      You should use the `caBundle` instead. If `caBundle` is specified, this field cannot be True.
+      If `service` is not specified, this field cannot be specified because local APIServices
+      cannot have TLS certificate verification.
+    x-kab-description-zh: |
+      此标志用于禁止 TLS 证书校验操作。这个设置是非常不鼓励的。建议使用 `caBundle` 配置。
+      如果设置了 `caBundle`，则此字段不可以为 `true`。
+      如果未指定 `service`，则此字段不可设置，因为本地的 APIService 不可以有 TLS 证书校验。
+    type: boolean
+  service:
+    $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1.ServiceReference'
+    description: |
+      A reference to the service for this API server. It must communicate on port 443.
+      If the `service` is nil, it means the handling for the API groupversion is handled locally on this server.
+      The call will simply delegate to the normal handler chain to be fulfilled.
+      In that case, `caBundle` and `insecureSkipTLSVerify` cannot be specified.
+    x-kab-description-zh: |
+      此字段为对 API 服务器的服务引用。此服务必须使用端口 443 提供服务。
+      如果未设置 `service`，则意味着 API 组版本的处理是由当前服务器在本地处理的。
+      服务调用可以直接交给常规的处理程序链完成。
+      在这种情况下，`caBundle` 和 `insecureSkipTLSVerify` 都不可以设置。
+  version:
+    description: The API version this server hosts. Value must be a valid DNS label. For example, `"v1"`.
+    x-kab-description-zh: 服务器所托管的 API 版本。取值必须是合法的 DNS 标签。例如：`"v1"`。
+    type: string
+  versionPriority:
+    description: |
+      This field controls the ordering of this API version inside of its group.
+      The primary sort is based on `versionPriority`, ordered highest to lowest (20 before 10).
+      Since it's inside of a group, the number can be small, probably in the 10s.
+      In case of equal version priorities, the version string will be used to compute the order
+      inside a `group`.
+      If the version string is *kube-like*, it will sort above non *kube-like* version strings,
+      which are ordered lexicographically.
+      *Kube-like* versions start with a `'v'`, then are followed by a number (the major version),
+      then optionally the string `\"alpha\"` or `\"beta\"` and another number (the minor version).
+      These are sorted first by `GA>"beta">"alpha"` (where GA is a version with no suffix such as
+      `"beta"` or `"alpha"`), and then by comparing major version, then minor version.
+      An example sorted list of versions,
+      `"v10"`, `"v2"`, `"v1"`, `"v11beta2"`, `"v10beta3"`, `"v3beta1"`, `"v12alpha1"`, `"v11alpha2"`,
+      `"foo1"`, `"foo10"`.
+    x-kab-description-zh: |
+      此字段用来控制当前 API 版本在所在的组中的排序顺序。
+      排序首先基于 `versionPriority` 进行，从高到低。由于多个版本都在同一个组内，数字可以比较小（几十之内）。
+      当版本优先级相同时，会使用版本字符串来决定在 `group` 内的排序关系。
+      如果版本字符串是 Kubernetes 风格的，那么该版本会排在非 Kubernetes 风格的版本前面。
+      非 Kubernetes 风格的版本会按字母顺序排序。
+      
+      Kubernetes 风格的版本字符串以 `'v'` 开头，后接一个数字（主版本号）。在后面可选地可以是字符串
+      `"alpha"` 或 `"beta"` 接上另一个数字（次版本号）。
+      版本字符串排序时要遵从 `GA>"beta">"alpha"` 规则（其中 `GA` 是不带 `"beta"` 或 `"alpha"` 的版本），
+      之后比较主版本号再比较次版本号。版本号排序的示例：
+      `"v10"`、`"v2"`、`"v1"`、`"v11beta2"`、`"v10beta3"`、`"v3beta1"`、`"v12alpha1"`、`"v11alpha2"`、
+      `"foo1"`、`"foo10"`。
+    format: int32
+    maximum: 1000
+    minimum: 1
+    type: integer
+required:
+  - groupPriorityMinimum
+  - versionPriority
+type: object
+

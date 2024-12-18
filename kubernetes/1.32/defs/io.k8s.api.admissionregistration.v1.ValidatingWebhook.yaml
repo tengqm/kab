@@ -1,0 +1,262 @@
+description: An admission webhook and the resources and operations it applies to.
+x-kab-description-zh: 准入 Webhook 及其所适用的资源和操作。
+properties:
+  admissionReviewVersions:
+    description: |
+      An ordered list of preferred `AdmissionReview` versions the webhook expects.
+      API server will try to use first version in the list which it supports.
+      If none of the versions specified in this list supported by API server, validation will fail
+      for this object.
+      If a persisted webhook configuration specifies allowed versions and does not include any
+      versions known to the API Server, calls to the webhook will fail and be subject to the
+      failure policy.
+    x-kab-description-zh: |
+      Webhook 预期能够处理的 `AdmissionReview` 对象的版本列表，列表是有顺序的。
+      API 服务器会尝试使用列表中它所支持的第一个版本。
+      如果此列表中所给出的版本都不被 API 服务器支持，对象就无法通过合法性检查。
+      如果已经保存起来 Webhook 配置中给出了所允许的版本列表，但其中的版本都是 API
+      服务器所能够理解的，则调用 Webhook 的操作会失败，并根据 `failurePolicy`
+      的设置执行进一步处理。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  clientConfig:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1.WebhookClientConfig'
+    description: Information for communicating with the webhook.
+    x-kab-description-zh: 与 Webhook 交互所需要的信息。
+  failurePolicy:
+    default: Fail
+    description: How unrecognized errors from the admission endpoint are handled.
+    x-kab-description-zh: 准入插件返回无法识别的错误时要如何处理。
+    enum:
+      - Fail
+      - Ignore
+    type: string
+  matchConditions:
+    description: |
+      This is a list of conditions that must be met for a request to be sent to this webhook.
+      Match conditions filter requests that have already been matched by the `rules`,
+      `namespaceSelector`, and `objectSelector`.
+      An empty list of `matchConditions` matches all requests.
+      The exact matching logic is (in order):
+
+      1. If ANY `matchCondition` evaluates to False, the webhook is skipped.
+      1. If ALL `matchCondition`s evaluate to True, the webhook is called.
+      1. If any `matchCondition` evaluates to an error (but none are False):
+         - If `failurePolicy=Fail`, reject the request
+         - If `failurePolicy=Ignore`, the error is ignored and the webhook is skipped
+
+      The items in the array must have names that are unique across the array.
+    x-kab-description-zh: |
+      这里列出的是一些条件，一个请求只有满足了这里的条件才会被发送给 Webhook。
+      这一过滤器会对 `rules`、`namespaceSelector` 和 `objectSelector`  所匹配到的请求做进一步的过滤。
+      如果此列表为空，则会匹配所有请求。最终的匹配逻辑如下（按顺序执行）：
+
+      1. 如果 `matchCondition` 中的任何一个条件为假，则 Webhook 不会被调用；
+      1. 如果 `matchCondition` 中的所有条件都为真，则 Webhook 会被调用；
+      1. 如果`matchCondition` 中某个条件在执行判定时出错，但不能判定为假。
+
+      对于第三种情况：
+
+      - 如果 `failurePolicy=Fail`，请求会被拒绝；
+      - 如果 `failurePolicy=Ignore`，忽略错误，并略过当前 Webhook。
+
+      数组中的各个元素的名字不可重复。
+    maxItems: 64
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1.MatchCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  matchPolicy:
+    default: Equivalent
+    description: |
+      How the `rules` list is used to match incoming requests.
+
+      - `"\Exact"`: matching a request only if it exactly matches a specified rule. For example,
+        if `deployments` can be modified via `"apps/v1"`, `"apps/v1beta1"`, and
+        `"extensions/v1beta1"`, but `rules` only included
+        `"apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to
+        `"apps/v1beta1"` or `"extensions/v1beta1"` would not be sent to the webhook.
+      - `"Equivalent"`: matching a request if modifies a resource listed in `rules`, even via
+        another API group or version. For example, if `deployments` can be modified via
+        `"apps/v1"`, `"apps/v1beta1"`, and `"extensions/v1beta1" `, and `rules` only included
+        `"apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to
+        `"apps/v1beta1"` or `"extensions/v1beta1"` would be converted to `"apps/v1"` and sent to
+        the webhook.
+    x-kab-description-zh: |
+      此字段指定如何使用 `rules` 列表来对收到的请求进行匹配：
+
+      - `"Exact"` 意味着只有请求与某个指定规则精确匹配时才视为匹配。
+        例如，资源 `deployments` 可以通过 `"apps/v1"`、`"apps/v1beta1"` 和
+        `"extensions/v1beta1"` 来修改，但 `rules` 中仅包含了
+        `"apiGroups":["apps"], "apiVersions": ["v1"], "resources": ["deployments"]`，
+        这时针对 `"apps/v1beta1"` 或 `"extensions/v1beta1"` 的请求不会被发送到 Webhook。
+      - `"Equivalent"` 意味着如果某个请求所修改的资源位于 `rules` 列表中，
+        即便请求使用的是不同的 API 组或版本，也视为匹配。
+        例如，如果资源 `deployments` 可以通过 `"apps/v1"`、`"apps/v1beta1"` 和
+        `"extensions/v1beta1"` 来修改，而 `rules` 中仅包含了
+        `"apiGroups":["apps"], "apiVersions":["v1"], "resources": ["deployments"]`，
+        这时针对 `"apps/v1beta1"` 或 `"extensions/v1beta1"` 的请求会被转换为
+        `"apps/v1"`，并被发送给 Webhook。
+    enum:
+      - Equivalent
+      - Exact
+    type: string
+  name:
+    description: |
+      The name of the admission webhook.
+      Name should be fully qualified, e.g., `"imagepolicy.kubernetes.io"`, where `"imagepolicy"`
+      is the name of the webhook, and `"kubernetes.io"` is the name of the organization.
+      The name must be unique among all validating Webhooks.
+    x-kab-description-zh: |
+      准入 Webhook 的名称。这里给出的名称必须是全限定名称（Fully-Qualified Name）。
+      例如 `"imagepolicy.kubernetes.io"`。其中的 `"imagepolicy"` 是 Webhook
+      的名称，`"kubernetes.io"` 是组织的名称。所有验证式 Webhook 的名称都必须各不相同。
+    minLength: 1
+    type: string
+  namespaceSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      This decides whether to run the webhook on an object based on the match between the object
+      namespace and the selector. If the object itself is a namespace, the matching is performed on
+      `object.metadata.labels`. If the object is another cluster scoped resource, it never skips
+      the webhook.
+      For example, to run the webhook on any objects whose namespace is not associated with
+      `runlevel` of `"0"` or `"1"`;  you will set the selector as follows:
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "runlevel",
+          "operator"\: "NotIn",
+          "values": ["0", "1"]
+        }]
+      }
+      ```
+
+      If instead you want to only run the webhook on any objects whose namespace is associated with
+      the "environment" of "prod" or "staging", you will set the selector as follows:
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "environment",
+          "operator": "In",
+          "values": ["prod", "staging"]
+        }]
+      }
+      ```
+
+      Default to the empty label selector, which matches everything.
+    x-kab-description-zh: |
+      此字段设置在判定是否要针对某对象来执行此 Webhook 时，要考虑对象名字空间是否符合预期。
+      如果对象自身就是一个 Namespace，则匹配是针对 `object.metadata.labels` 来进行的。
+      如果对象是一个集群作用域的对象，则 Webhook 不会被略过（总会被调用）。
+      例如，如果希望针对没有设置 `runlevel` 为 '0' 或 '1' 的 名字空间中的所有对象运行 Webhook，
+      你可以像这样设置选择算符：
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "runlevel",
+          "operator"\: "NotIn",
+          "values": ["0", "1"]
+        }]
+      }
+      ```
+
+      如果你希望仅针对 `environment` 为 `"prod"` 或 `"staging"` 的名字空间中的对象运行 Webhook，
+      你可以像这样设置选择算符：
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "environment",
+          "operator": "In",
+          "values": ["prod", "staging"]
+        }]
+      }
+      ```
+
+      此字段默认为空的标签选择算符，其效果是与所有对象匹配。
+
+  objectSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      This decides whether to run the webhook based on if the object has matching labels.
+      `objectSelector` is evaluated against both the `oldObject` and `newObject` that would be
+      sent to the webhook, and is considered to match if either object matches the selector.
+      A `null` object (`oldObject` in the case of create, or `newObject` in the case of delete)
+      or an object that cannot have labels (like a `DeploymentRollback` or a `PodProxyOptions`
+      object) is not considered to match.
+      Use the object selector only if the webhook is opt-in, because end users may skip the
+      admission webhook by setting the labels.
+
+      Default to the empty Label selector, which matches everything.
+    x-kab-description-zh: |
+      此字段用来根据对象上是否存在匹配的标签来决定是否运行 Webhook。
+      `objectSelector` 会针对要发送给 Webhook 的  `oldObject` 和 `newObject` 来评估。
+      如果这两个对象之一与此选择算符匹配，则请求为匹配。
+      空（Null）对象（创建请求中的 `oldObject` 或删除请求中的 `newObject`），
+      或者不存在标签的对象（例如一个 `DeploymentRollback` 或 `PodProxyOptions` 对象）
+      不会被视为匹配。只有当 Webhook 是可选的时候才建议使用此对象选择算符，
+      因为最终用户可能会通过操控标签来略过准入 Webhook 的检查。
+
+      此字段的默认值为空的标签选择算符，其效果是能够匹配所有对象。
+  rules:
+    description: |
+      What operations on what resources/subresources the webhook cares about.
+      The webhook cares about an operation if it matches **any** entry defined in the `rules` list.
+      However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks
+      from putting the cluster in a state which cannot be recovered from without completely
+      disabling the plugin,
+      ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission
+      requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+    x-kab-description-zh: |
+      用来设置 Webhook 关心哪些对象、子对象上的哪些操作。如果某项操作与 `rules` 列表中定义的任意表项匹配，
+      则可认为它是 Webhook 所关心的。不过，为了避免 ValidatingAdmissionWebhook
+      和 MutatingAdmissionWebhook 把集群带到一种只能靠完全禁止某插件才能彻底恢复的状态，
+      对于 ValidatingWebhookConfiguration 和 MutatingWebhookConfiguration 对象的请求，
+      都不会被调用 ValidatingAdmissionWebhook 和 MutatingAdmissionWebhook。
+
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1.RuleWithOperations'
+    type: array
+    x-kubernetes-list-type: atomic
+  sideEffects:
+    description: |
+      Whether this webhook has side effects.
+      Webhooks with side effects **MUST** implement a reconciliation system, since a request
+      may be rejected by a future step in the admission change and the side effects therefore
+      need to be undone.
+    x-kab-description-zh: |
+      用来标明此 Webhook 是否具有一定的副作用。带有副作用的 Webhook **必须** 实现一种协调机制，
+      原因是某个请求可能会被准入判定链条中的下游插件所拒绝，这里产生的副作用需要被消除掉。
+    enum:
+      - None
+      - NoneOnDryRun
+    type: string
+  timeoutSeconds:
+    default: 10
+    description: |
+      The timeout for this webhook. After the timeout passes, the webhook call will be ignored or
+      the API call will fail based on the `failurePolicy`.
+    x-kab-description-zh: |
+      Webhook 的超时时间。超出给定的时限之后，Webhook 调用会被忽略，
+      或者 API 调用会以 `failurePolicy` 中设置的方式来返回错误。
+    format: int32
+    maximum: 30
+    minimum: 1
+    type: integer
+required:
+  - admissionReviewVersions
+  - clientConfig
+  - name
+  - sideEffects
+type: object
+

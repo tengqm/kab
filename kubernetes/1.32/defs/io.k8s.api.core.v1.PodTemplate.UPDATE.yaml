@@ -1,0 +1,32 @@
+description: A template for creating copies of a predefined Pod.
+x-kab-description-zh: 用来创建预定义 Pod 的副本的模板。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PodTemplate
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. The `name` must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE'
+    description: Template defines the Pods that will be created from this Pod template.
+    x-kab-description-zh: 定义从此 Pod 模板所创建的 Pod 的规约。
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: PodTemplate
+    version: v1
+

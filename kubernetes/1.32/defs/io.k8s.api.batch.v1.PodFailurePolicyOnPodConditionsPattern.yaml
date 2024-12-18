@@ -1,0 +1,28 @@
+description: |
+  PodFailurePolicyOnPodConditionsPattern describes a pattern for matching
+  an actual Pod condition type.
+x-kab-description-zh: |
+  PodFailurePolicyOnPodConditionsPattern 描述的是用来匹配实际 Pod 状况类型的模式。
+properties:
+  status:
+    default: "True"
+    description: |
+      Specifies the required Pod condition status. To match a Pod condition,
+      it is required that the specified `status` equals the Pod condition `status`.
+    x-kab-description-zh: |
+      此字段设置所要求的 Pod 状况状态。要与某个 Pod 状况匹配，要求这里所给的 `status`
+      与 Pod 中状况的 `status` 相同。
+    type: string
+  type:
+    description: |
+      Specifies the required Pod condition type. To match a Pod condition,it
+      is required that specified `type` equals the pod condition `type`.
+    x-kab-description-zh: |
+      此字段设置所要求的 Pod 状况类型。要与某个 Pod 状况匹配，要求这里所给的 `type`
+      与 Pod 中状况的 `type` 相同。
+    type: string
+required:
+  - status
+  - type
+type: object
+

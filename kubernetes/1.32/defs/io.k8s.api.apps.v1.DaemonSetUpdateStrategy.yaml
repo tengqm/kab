@@ -1,0 +1,30 @@
+description: The update strategy for a DaemonSet.
+x-kab-description-zh: DaemonSet 的更新策略。
+properties:
+  rollingUpdate:
+    $ref: '#/definitions/io.k8s.api.apps.v1.RollingUpdateDaemonSet'
+    description: |
+      Rolling update configuration parameters. Present only if `type` is set to `"RollingUpdate"`.
+      This is required for rolling update.
+  type:
+    default: RollingUpdate
+    description: |
+      Type of DaemonSet update. Possible enum values:
+
+      - `"OnDelete"`: Replace the old Pod only when it's killed.
+      - `"RollingUpdate"` Replace the old Pod by new ones using rolling update.
+        i.e replace them on each node one after the other.
+
+    x-kab-description-zh: |
+      DaemonSet 更新的类型。可能的枚举值有：
+
+      - `"OnDelete"`: 当旧的 Pod 被杀死时执行替换。
+      - `"RollingUpdate"` 通过滚动更新方式用新的 Pod 替换旧的 Pod。
+        也就是逐个节点地完成替换操作。
+
+    enum:
+      - OnDelete
+      - RollingUpdate
+    type: string
+type: object
+

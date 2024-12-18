@@ -1,0 +1,65 @@
+description: |
+  CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by
+  submitting a certificate signing request, and having it asynchronously approved and issued.
+  Kubelets use this API to obtain:
+
+  1. client certificates to authenticate to `kube-apiserver`
+     (with the `signerName` set to `"kubernetes.io/kube-apiserver-client-kubelet"`).
+  1. serving certificates for TLS endpoints `kube-apiserver` can connect to securely
+      (with the `signerName` set to `"kubernetes.io/kubelet-serving"`).
+
+  This API can be used to request client certificates to authenticate to `kube-apiserver`
+  (with the `signerName` set to `"kubernetes.io/kube-apiserver-client"`), or to
+  obtain certificates from custom non-Kubernetes signers.
+x-kab-description-zh: |
+  CertificateSigningRequest 对象提供了一种获得 X.509 证书的机制，通过提供一份证书签名请求，
+  并异步完成该请求的批准与发放，即可以获得证书。
+  Kubeletes 使用此 API 来获得：
+
+  1. 向 `kube-apiserver` 作身份认证的客户端证书
+     （其 `signerName` 设置为 `"kubernetes.io/kube-apiserver-client-kubelet"`）；
+  1. TLS 端点的服务端证书，便于 `kube-apiserver` 与其建立安全的链接
+     （其 `signerName` 设置为 `"kubernetes.io/kubelet-serving"`）。
+
+  此 API 可以用来获得客户端证书，以便完成向 `kube-apiserver` 的身份认证
+  （`signerName` 设置为 `"kubernetes.io/kube-apiserver-client"`），
+  或从定制的、非 Kubernetes 证书签发组件获得证书。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - certificates.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CertificateSigningRequest
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.certificates.v1.CertificateSigningRequestSpec'
+    description: |
+      The certificate request itself and some additional information.
+      It is immutable after creation. Only the `request`, `signerName`, `expirationSeconds`
+      and `usages` fields can be set on creation.
+      Other fields are derived by Kubernetes and cannot be modified by users.
+    x-kab-description-zh: |
+      此字段包含证书请求自身，以及一些额外信息。对象创建之后，此字段不可变更。
+      创建对象时只能设置 `request`、`signerName`、`expirationSeconds` 和 `usages` 字段。
+      其他字段都是由 Kubernetes 推导获得的，不可以被用户修改。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: certificates.k8s.io
+    kind: CertificateSigningRequest
+    version: v1
+

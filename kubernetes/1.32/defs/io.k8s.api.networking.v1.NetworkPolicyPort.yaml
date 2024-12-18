@@ -1,0 +1,42 @@
+description: A port on which traffic is allowed.
+x-kab-description-zh: 给定的一个流量被放通的端口。
+properties:
+  endPort:
+    description: |
+      If set, indicates that the range of ports from `port` to `endPort`, inclusive,
+      should be allowed by the policy.
+      This field cannot be defined if the `port` field is not defined or if the `port` field
+      is defined as a named (string) port.
+      The `endPort` must be equal or greater than `port`.
+    x-kab-description-zh: |
+      如果设置了此字段，则表明从 `port` 到 `endPort`（包括 `port` 和 `endPort` 自身）
+      的端口范围都是策略所允许的。
+      如果 `port` 字段未定义，或者 `port` 字段所定义的是一个端口名称（字符串），则不能设置此字段。
+      设置此字段时，字段值要大于等于 `port` 所给的端口号。
+    format: int32
+    type: integer
+  port:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      The port on the given protocol. This can either be a numerical or named port on a Pod.
+      The port number must be between 1 and 65535, if specified.
+      If it is a port name, the name string subject to validation.
+      If this field is not provided, this matches all port names and numbers.
+      If present, only traffic on the specified `protocol` AND `port` will be matched.
+    x-kab-description-zh: |
+      给定协议上的端口。可以是 Pod 上的端口号或者端口名称。
+      如果设置的是端口号，则数值必须介于 1 和 65535 之间。
+      如果设置的是端口名称，则名字字符串需要通过合法性检查。
+      如果没有设置此字段，则此结构会匹配所有的端口名和端口号。
+      如果设置了此字段，则所匹配的是指定端口上指定协议的流量。
+  protocol:
+    default: TCP
+    description: The protocol which traffic must match.
+    x-kab-description-zh: 要匹配的流量协议类型。
+    enum:
+      - SCTP
+      - TCP
+      - UDP
+    type: string
+type: object
+

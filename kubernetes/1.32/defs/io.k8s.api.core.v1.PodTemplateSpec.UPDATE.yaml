@@ -1,0 +1,13 @@
+description: The specification a Pod should have when created from the template.
+x-kab-description-zh: 基于此模板所创建的 Pod 所具有的规约。
+properties:
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.INNERUPDATE'
+    description: Object metadata for nested Pod template.
+    x-kab-description-zh: 用于嵌套的 Pod 模板的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodSpec.UPDATE'
+    description: Specification of the desired behavior of the Pod.
+    x-kab-description-zh: 关于 Pod 预期行为的规约。
+type: object
+

@@ -1,0 +1,41 @@
+description: AppArmorProfile defines a pod or container's AppArmor settings.
+x-kab-description-zh: AppArmorProfile 为一个 Pod 或 Container 定义 AppArmor 设置。
+properties:
+  localhostProfile:
+    description: |
+      `localhostProfile` indicates a profile loaded on the node that should be used.
+      The profile must be preconfigured on the node to work. Must match the loaded name of the profile.
+      Must be set if and only if `type` is `"Localhost"`.
+    x-kab-description-zh: |
+      `localhostProfile` 用来指定已经被加载到节点上并且要被使用的配置。
+      此配置必须已经在节点上预先完成设置才能被使用。此字段值必须与所加载的配置的名称完全相同。
+      只有当 `type` 被设置为 `"Localhost"` 时才可以设置此字段。
+    type: string
+  type:
+    description: |
+      `type` indicates which kind of AppArmor profile will be applied.
+      Valid options are:
+
+      - Localhost - a profile pre-loaded on the node.
+      - RuntimeDefault the container runtime's default profile.
+      - Unconfined - no AppArmor enforcement.
+
+    x-kab-defines-zh: |
+      `type` 表明要应用的 AppArmor 配置类型。合法的选项包括：
+
+      - Localhost - 预先加载到节点上的一种配置；
+      - RuntimeDefault - 使用容器运行时的默认配置；
+      - Unconfined - 不实施 AppArmor 策略。
+    enum:
+      - Localhost
+      - RuntimeDefault
+      - Unconfined
+    type: string
+required:
+  - type
+type: object
+x-kubernetes-unions:
+  - discriminator: type
+    fields-to-discriminateBy:
+      localhostProfile: LocalhostProfile
+

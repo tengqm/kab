@@ -1,0 +1,46 @@
+description: |
+  Data that are projected into a container as part of a projected volume.
+  The data projected cannot have duplicated paths. One and only one of the fields
+  can be specified per-volume.
+x-kab-description-zh: |
+  作为投射卷的一部分投射到容器内的数据。所投射的数据不可以包含重复的路径。
+  每个卷中可以且只能挂载一种数据源。
+properties:
+  clusterTrustBundle:
+    $ref: '#/definitions/io.k8s.api.core.v1.ClusterTrustBundleProjection'
+    description: |
+      `clusterTrustBundle` allows a Pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+
+      ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+      Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.
+      Esoteric PEM features such as inter-block comments and block headers are stripped. Certificates are deduplicated.
+      The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+
+      This field is in Alpha state, gated by the ClusterTrustBundleProjection feature gate.
+    x-kab-description-zh: |
+      `clusterTrustBundle` 允许 Pod 以自动更新文件的方式访问 ClusterTrustBundle 对象的 `.spec.trustBundle` 字段。
+
+      ClusterTrustBundle 对象可以通过名字来选择，也可以通过签名者名称与标签选择算符组合的形式来选择。
+      kubelet 会对写入到 Pod 文件系统中的 PEM 内容执行比较激进的规格化操作。
+      较少使用的一些 PEM 特性（如块间注释、块头部信息）会被去掉，重复的证书也会被删除。
+      文件内证书的顺序是比较随意的，并且 kubelet 可能会随时改变证书顺序。
+
+      此字段处于 Alpha 阶段，需要启用 ClusterTrustBundleProjection 特性门控。
+  configMap:
+    $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapProjection'
+    description: Information about a ConfigMap whose data will be projected.
+    x-kab-description-zh: 关于要被投射的 ConfigMap 的信息。
+  downwardAPI:
+    $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIProjection'
+    description: Information about the downwardAPI data to project.
+    x-kab-description-zh: 关于要被投射的 DownwardAPI 数据的信息。
+  secret:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretProjection'
+    description: Information about a Secret whose data will be projected.
+    x-kab-description-zh: 关于要被投射的 Secret 的信息。
+  serviceAccountToken:
+    $ref: '#/definitions/io.k8s.api.core.v1.ServiceAccountTokenProjection'
+    description: Information about the ServiceAccountToken whose data will be projected.
+    x-kab-description-zh: 关于要被投射的服务账号令牌的信息。
+type: object
+

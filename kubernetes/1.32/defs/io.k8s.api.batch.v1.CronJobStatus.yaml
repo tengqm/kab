@@ -1,0 +1,27 @@
+description: The current state of a CronJob.
+x-kab-description-zh: CronJob 的当前状态。
+properties:
+  active:
+    description: |
+      A list of references to currently running Jobs.
+    x-kab-description-zh: |
+      对当前运行中的 Job 的引用的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+      description: A reference to a currently running Job.
+      x-kab-description-zh: 对当前运行中的 Job 的引用。
+    type: array
+    x-kubernetes-list-type: atomic
+  lastScheduleTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: The last time the Job was successfully scheduled.
+    x-kab-description-zh: Job 上次成功调度的时间。
+  lastSuccessfulTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: The last time the Job successfully completed.
+    x-kab-description-zh: Job 上次完成调度的时间。
+required:
+  - active
+  - lastScheduleTime
+type: object
+

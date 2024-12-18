@@ -1,0 +1,15 @@
+description: |
+  A source of Node configuration. Exactly one subfield (excluding metadata) must be non-nil.
+  This API is DEPRECATED since 1.22.
+x-kab-description-zh: |
+  节点配置信息的来源。至少指定其中一个来源。
+  **已弃用**：此 API 从 v1.22 版本开始弃用。
+properties:
+  configMap:
+    $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapNodeConfigSource'
+    description: A description about the reference to a Node's ConfigMap.
+    x-kab-description-zh: 关于对节点的 ConfigMap 的引用的描述。
+required:
+  - configMap
+type: object
+

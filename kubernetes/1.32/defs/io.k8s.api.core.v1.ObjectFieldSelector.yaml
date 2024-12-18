@@ -1,0 +1,35 @@
+description: This selects an API versioned field of an object.
+x-kab-description-zh: 此结构用来选择某对象上的带 API 版本的字段。
+properties:
+  apiVersion:
+    default: v1
+    description: |
+      Version of the schema the `fieldPath` is written in terms of. Currently, this must be `"v1"`.
+    x-kab-description-zh: |
+      `fieldPath` 字段所用的模式版本。目前，此字段只能是 `"v1"`。
+    type: string
+  fieldPath:
+    description: |
+      Path of the field to select in the specified API version. The supported fields can be
+      `"metadata.name"`, `"metadata.namespace"`, `"metadata.uid"`, `"spec.nodeName`",
+      `"spec.serviceAccountName"`, `"status.hostIP"`, `"status.podIP"`, `"status.podIPs"`
+      and `"spec.host"`.
+      The `"spec.host"` is for backword compatibility, and treated as `"spec.nodeName"`.
+      For `"metadata.annotations"` and `"metadata.labels"`, subscripts `"[<key>]"` are supported
+      where the `<key>` must be a qualified name.
+    x-kab-description-zh: |
+      在指定 API 版本中要选择的字段的路径。支持的字段可以是
+      `"metadata.name"`、`"metadata.namespace"`、`"metadata.uid"`、`"spec.nodeName`"、
+      `"spec.serviceAccountName"`、`"status.hostIP"`、`"status.podIP"`、`"status.podIPs"` 和
+      `"spec.host"`。
+      其中的 `"spec.host"` 用来向后兼容，并当做 `"spec.nodeName"` 来处理。
+      对于 `"metadata.annotations"` 和 `"metadata.labels"`，支持用 `"[<key>]"` 的形式来指定下标，
+      其中 `<key>` 必须是限定名称。
+    minLength: 1
+    type: string
+required:
+  - apiVersion
+  - fieldPath
+type: object
+x-kubernetes-map-type: atomic
+

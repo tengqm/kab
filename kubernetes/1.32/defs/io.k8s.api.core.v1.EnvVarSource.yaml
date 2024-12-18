@@ -1,0 +1,36 @@
+description: |
+  A source for the value of an EnvVar. One and only one of the sources can be specified.
+x-kab-description-zh: |
+  EnvVar 中变量值的来源。各个来源之中必须且只能设置其一。
+properties:
+  configMapKeyRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector'
+    description: Selects a key of a ConfigMap.
+    x-kab-description-zh: 选择某个 ConfigMap 的一个主键。
+  fieldRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectFieldSelector'
+    description: |
+      Selects a field of the Pod. Supports `"metadata.name"`, `"metadata.namespace"`,
+        `"metadata.labels['<KEY>']"`, `"metadata.annotations['<KEY>']"`,
+        `"spec.nodeName"`, `"spec.serviceAccountName"`, `"status.hostIP"`, `"status.podIP"`,
+        `"status.podIPs"`.
+    x-kab-description-zh: |
+      选择 Pod 的某个字段。支持的字段包括 `"metadata.name"`、`"metadata.namespace"`、
+      `"metadata.labels['<KEY>']"`、`"metadata.annotations['<KEY>']"`、`"spec.nodeName"`、
+      `"spec.serviceAccountName"`、`"status.hostIP"`、`"status.podIP"` 和 `"status.podIPs"`。
+  resourceFieldRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ResourceFieldSelector'
+    description: |
+      Selects a resource of the container. Only resources `limits` and `requests` are suppored.
+      `"limits.cpu"`, `"limits.memory"`, `"limits.ephemeral-storage"`, `"requests.cpu"`,
+      `"requests.memory"` and `"requests.ephemeral-storage"`.
+    x-kab-description-zh: |
+      选择容器的的一个资源。仅支持资源的 `limits` 和 `requests`。
+      `"limits.cpu"`、`"limits.memory"`、`"limits.ephemeral-storage"`、`"requests.cpu"`、
+      `"requests.memory"` 和 `"requests.ephemeral-storage"`。
+  secretKeyRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretKeySelector'
+    description: Selects a key of a Secret in the Pod's namespace.
+    x-kab-description-zh: 选择 Pod 所在名字空间中某个 Secret 的一个主键。
+type: object
+

@@ -1,0 +1,61 @@
+description: |
+  ListMeta describes metadata that synthetic resources must have, including lists and various status objects.
+  A resource may have only one of ObjectMeta and ListMeta.
+x-kab-description-zh: |
+  ListMeta 描述合成的资源必须具备的元数据，包括列表及各种状态对象。
+  每个资源只能包含 ObjectMeta 和 ListMeta 之一。
+properties:
+  continue:
+    description: |
+      `continue` may be set if the user set a `limit` on the number of items returned, and indicates that
+      the server has more data available.
+      The value is opaque and may be used to issue another request to the endpoint that served this list
+      to retrieve the next set of available objects.
+      Continuing a consistent list may not be possible if the server configuration has changed or more than
+      a few minutes have passed.
+      The `resourceVersion` field returned when using this `continue` value will be identical to
+      the value in the first response, unless you have received this token from an error message.
+    x-kab-description-zh: |
+      如果用户设置了 `limit` 来限制返回的条目个数，`continue` 字段可能会被设置以表示服务器上还有更多的数据。
+      字段值是不透明的，可以用来向返回当前列表的端点发出另一个请求，以检索下一组可用对象。
+      如果服务器侧配置发生的变化，或者后续请求是在几分钟之后才发出的，
+      有可能无法通过继续前一次查询来获得一个一致的列表。
+      使用此 `continue` 值继续查询时返回的 `resourceVersion` 字段应该与第一个响应中的 `resourceVersion` 相同，
+      除非你是从出错消息中获得的此令牌。
+    type: string
+  remainingItemCount:
+    description: |
+      The number of subsequent items in the list which are not included in this response.
+      If the list request contained label or field selectors, then the number of remaining items
+      is unknown and the field will be left unset and omitted during serialization.
+      If the list is complete (either because it is not chunking or because this is the last chunk),
+      then there are no more remaining items and this field will be left unset and omitted during
+      serialization. Clients should not rely on the `remainingItemCount` to be set or to be exact.
+    x-kab-description-zh: |
+      属于列表但未包含在当前响应中的后续元素的个数。
+      如果列表请求本身包含了标签或者字段选择算符，则剩余元素的个数是未知的，此字段也就不会被设置，
+      在对响应进行序列化操作的时候会被忽略掉。
+      如果列表是完整的（原因可能是列表操作没有分批分块，或者当前响应是最后一批元素），
+      则没有剩余的元素待取回，此字段也不会被设置，并且在序列化时同样会被忽略。
+      客户端不能假定 `remainingItemCount` 总是被设置，也不能假定其值是准确的。
+    format: int64
+    type: integer
+  resourceVersion:
+    description: |
+      String that identifies the server's internal version of this object that can be used by clients
+      to determine when objects have changed.
+      Value must be treated as opaque by clients and passed unmodified back to the server.
+      Populated by the system. Read-only.
+    x-kab-description-zh: |
+      标示此对象的服务器内部版本号，可被客户端用来确定对象是否已被变更。
+      客户端必须视此字段值为不透明的，原封不动地传回到服务器端。
+      字段值是系统填写的。只读。
+    type: string
+  selfLink:
+    description: |
+      **DEPRECATED**: `selfLink` is a legacy read-only field that is no longer populated by the system.
+    x-kab-description-zh: |
+      **已弃用**： `selfLink` 是一个历史遗留的只读字段，系统已经不再填写此字段。
+    type: string
+type: object
+

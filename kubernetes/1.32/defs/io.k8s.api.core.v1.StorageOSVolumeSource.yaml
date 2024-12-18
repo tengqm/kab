@@ -1,0 +1,60 @@
+description: A StorageOS persistent volume resource.
+x-kab-description-zh: StorageOS 持久卷资源。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+      Implicitly inferred to be `"ext4"` if unspecified.
+    x-kab-definitions-zh: |
+      要挂载的文件系统类型。必须是宿主操作系统所支持的文件系统类型之一。
+      若为指定，则假设为 `"ext4"`。
+    type: string
+  readOnly:
+    default: false
+    description: |
+      Defaults to `false` (read/write).
+      `readOnly` here will force the `readOnly` setting in `volumeMounts`.
+    x-kab-description-zh: |
+      默认为 `false` 支持可读可写的挂载。
+      这里设置 `readOnly` 为 `true` 时，会强制 `volumeMounts` 中 `readOnly` 也设置为 `true`。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
+    description: |
+      The Secret to use for obtaining the StorageOS API credentials.
+      If not specified, default values will be attempted.
+      When specified, the `name` cannot be empty.
+    x-kab-description-zh: |
+      对某 Secret 资源的引用，该 Secret 可用来获得 StorageOS API 访问凭据。
+      如果未设置此字段，系统会尝试使用默认值。
+      如果设置了此字段，则 `name` 必须设置。
+  volumeName:
+    description: |
+      The human-readable name of the StorageOS volume.
+      Volume names are only unique within a namespace and must be a valid DNS label.
+    x-kab-description-zh: |
+      人类可读的一个字符串，用作 StorageOS 卷的名称。卷名称仅在名字空间内唯一。
+      所给的字符串必须是合法的 DNS 标签。
+    type: string
+  volumeNamespace:
+    description: |
+      The scope of the volume within StorageOS.
+      If no namespace is specified then the Pod's namespace will be used.
+      This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration.
+      Set `volumeName` to any name to override the default behaviour.
+      Set to `"default"` if you are not using namespaces within StorageOS.
+      Namespaces that do not pre-exist within StorageOS will be created.
+      The string, if specified, must be a valid DNS label.
+    x-kab-description-zh: |
+      卷在 StorageOS 中的作用域。如果没有设置名字空间，则会使用 Pod 的名字空间。
+      这个字段的设计使得用户可以在 StorageOS 中模拟 Kubernetes 的名字作用域，实现更紧密的集成。
+      将 `volumeName` 设置为任何其他的名称都会重载默认的行为。
+      如果你没有在 StorageOS 中使用名字空间，可以将此字段设置为 `"default"`。
+      在 StorageOS 中之前不存在的名字空间会被自动创建。
+      如果设置了此字段，其取值必须是合法的 DNS 标签。
+    type: string
+required:
+  - volumeName
+type: object
+

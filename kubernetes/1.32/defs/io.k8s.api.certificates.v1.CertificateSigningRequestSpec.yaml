@@ -1,0 +1,207 @@
+description: |
+  This information is immutable after the request is created.
+  Only the `request`, `signerName`, `expirationSeconds` and `usages` fields can be set
+  on creation, other fields are derived by Kubernetes and cannot be modified by users.
+x-kab-description-zh: |
+  此信息在证书签名请求被创建之后即不可更改。
+  创建证书签名请求时，只能设置 `request`、`signerName`、`expirationSeconds` 和 `usages`
+  字段，其他字段都由 Kubernetes 负责推导，不可以被用户修改。
+properties:
+  expirationSeconds:
+    description: |
+      The requested duration of validity of the issued certificate.
+      The certificate signer may issue a certificate with a different validity duration
+      so a client must check the delta between the `notBefore` and `notAfter` fields
+      in the issued certificate to determine the actual duration.
+
+      The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor
+      this field as long as the requested duration is not greater than the maximum duration
+      they will honor per the `--cluster-signing-duration` CLI flag to the Kubernetes controller
+      manager.
+
+      Certificate signers may not honor this field for various reasons:
+
+      1. Old signer that is unaware of the field (such as the in-tree implementations
+         prior to v1.22)
+      1. Signer whose configured maximum is shorter than the requested duration
+      1. Signer whose configured minimum is longer than the requested duration
+      
+      The minimum valid value for `expirationSeconds` is 600, i.e. 10 minutes.
+    x-kab-description-zh: |
+      针对要发放的证书所请求的合法性时长。
+      证书的签发者可能会签发一个合法性时长不同的证书，因此客户端必须检查所发放证书的
+      `notBefore` 和 `notAfter` 这两个字段的时间差，确定实际上的证书合法性时长。
+
+      在 v1.22 及之后的 Kubernetes 版本中，内置的、众所周知的签名者都会注意到这个字段的设置，
+      只要所请求的时长没有超过通过 `kube-controller-manager` 命令行标志
+      `--cluster-signing-duration` 所给出的时长上限，签名者都会尽可能满足这里的时长值请求。
+
+      证书签名者可能会出于某些原因忽略此字段的设置：
+
+      1. 签名组件版本较老的话（例如早于 v1.22 的内置版本），无法识别并处理此字段。
+      1. 签名组件自身所配置的最大时长低于请求中要求的时长；
+      1. 签名组件自身所配置的最小市场超出了请求中要求的时长。
+      
+      `expirationSeconds` 的最小合法值是 600，即 10 分钟。
+    format: int32
+    minimum: 600
+    type: integer
+  extra:
+    additionalProperties:
+      items:
+        type: string
+      type: array
+    description: |
+      Extra attributes of the user that created the CertificateSigningRequest.
+      Populated by the API server on creation and immutable.
+    x-kab-description-zh: |
+      关于发起此 CertificateSigningRequest 的用户的一些额外信息。
+      API 服务器在创建对象时自动填充。所填充的值不可变更。
+    type: object
+  groups:
+    description: |
+      Group membership of the user that created the CertificateSigningRequest.
+      Populated by the API server on creation and immutable.
+    x-kab-description-zh: |
+      发起此 CertificateSigningRequest 的用户的组成员身份信息。
+      API 服务器在创建对象时自动填充。所填充的值不可变更。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  request:
+    description: |
+      An x509 certificate signing request encoded in a `"CERTIFICATE REQUEST"` PEM block.
+      When serialized as JSON or YAML, the data is additionally base64-encoded.
+    x-kab-description-zh: |
+      以 `"CERTIFICATE REQUEST"` PEM 块的形式编码的 X509 证书签名请求。
+      当对象被序列化为 JSON 或者 YAML 时，其中的数据会被转化为 base64 编码。 
+    format: byte
+    minLength: 1
+    type: string
+    x-kubernetes-list-type: atomic
+  signerName:
+    description: |
+      The requested signer, and is a qualified name. A **list**/**watch** request for
+      CertificateSigningRequests can filter on this field by setting the `fieldSelector`
+      parameter to `\"spec.signerName=NAME\"`. Well-known Kubernetes signers are:
+
+      1. `"kubernetes.io/kube-apiserver-client"` for issuing client certificates that
+         can be used to authenticate to `kube-apiserver`.
+         Requests for this signer are never auto-approved by the `kube-controller-manager`.
+         It can be issued by the `csrsigning` controller in the `kube-controller-manager`.
+      1. `"kubernetes.io/kube-apiserver-client-kubelet"` for issuing client certificates
+         that a kubelet uses to authenticate to `kube-apiserver`.
+         Requests for this signer can be auto-approved by the `csrapproving` controller
+         in the `kube-controller-manager`. It can be issued by the `csrsigning` controller
+         in the `kube-controller-manager`.
+      1. `"kubernetes.io/kubelet-serving"` for issuing serving certificates a kubelet uses
+         to serve TLS endpoints, which `kube-apiserver` can connect to securely.
+         Requests for this signer are never auto-approved by the `kube-controller-manager`.
+         It can be issued by the `csrsigning` controller in the `kube-controller-manager`.
+      
+      Custom `signerName`s can also be specified. The signer defines:
+      1. Trust distribution: how trust (CA bundles) are distributed.
+      1. Permitted subjects: and behavior when a disallowed subject is requested.
+      1. Required, permitted, or forbidden x509 extensions in the request
+         (including whether `subjectAltNames` are allowed, which types, restrictions on
+         allowed values) and behavior when a disallowed extension is requested.
+      1. Required, permitted, or forbidden key usages/extended key usages.
+      1. Expiration/certificate lifetime: whether it is fixed by the signer,
+         configurable by the admin.
+      1. Whether or not requests for CA certificates are allowed.
+    x-kab-description-zh: |
+      所请求的签名者。字段值必须是限定名称（Qualified Name）。
+      针对 CertificateSigningRequest 对象的 **list**/**watch** 请求可以通过设置
+      `fieldSelector` 参数为 `"spec.signerName=<名称>"` 的方式，基于这个字段完成数据过滤。
+      一些众所周知的（被广泛使用的）Kubernetes 签名者如下：
+
+      1. `"kubernetes.io/kube-apiserver-client"` 负责颁发客户端证书，
+         所颁发的证书可以用来向 `kube-apiserver` 完成身份认证。
+         针对此签名者的请求从来不会被 `kube-controller-manager` 自动批准。
+         这类证书可以使用 `kube-controller-manager` 中的 `csisigning` 控制器来颁发。
+      1. `"kubernetes.io/kube-apiserver-client-kubelet"` 负责客户端证书，
+         所颁发的证书可供 kubelet 完成向 `kube-apiserver` 的身份认证。
+         针对此签名者的请求可以被 `kube-controller-manager` 中的 `csrapproving` 控制器自动批准。
+         证书可以由 `kube-controller-manager` 中的 `csrsigning` 控制器来发放。
+      1. `"kubernetes.io/kubelet-serving"` 负责发放服务端证书，可以为 kubelet
+         签发用于在 TLS 端点上提供服务时的服务证书，`kube-apiserver` 可以安全地连接到这些端点。
+         针对此签名者的请求从不会被 `kube-controller-manager` 自动批准。
+         证书可以由 `kube-controller-manager` 中的 `csrsigning` 控制器来发放。
+      
+      请求中也可以设置自定义的 `signerName`。签名者要定义：
+
+      1. 信任数据的分发：如何将信任（CA 证书包）分发出去；
+      1. 可信任的主体，以及所请求的主体不在白名单内时的行为；
+      1. 请求中必需存在的、准予存在的、不许存在的 X.509 扩展
+         （包括是否允许给定 `subjectAltNames`、对合法值的类型和约束），
+         以及请求中包含被禁止的扩展时的行为；
+      1. 要求的、准许的或者禁止的秘钥用法及扩展秘钥用法；
+      1. 过期时间（即证书生命周期）是由签名者硬编码确定，还是允许管理员来配置；
+      1. 是否允许请求访问 CA 证书。
+    type: string
+  uid:
+    description: |
+      The UID of the user that created the CertificateSigningRequest.
+      Populated by the API server on creation and immutable.
+    x-kab-description-zh: |
+      创建 CertificateSigningRequest 的用户的 UID。
+      此字段由 API 服务器在创建此对象时填充，不可变更。
+    type: string
+  usages:
+    description: |
+      A set of key usages requested in the issued certificate.
+      - Requests for TLS client certificates typically request:
+        `"digital signature"`, `"key encipherment"`, `"client auth"`;
+      - Requests for TLS serving certificates typically request:
+        `"key encipherment"`, `"digital signature"`, `"server auth"`.
+    x-kab-description-zh: |
+      所请求的一组秘钥用法选项，保存在所发放的证书中
+      - 请求 TLS 客户端证书时通常会请求的用法有：
+        `"digital signature"`、`"key encipherment"`、`"client auth"`；
+      - 请求 TLS 服务端服务证书时通常会请求的用法有：
+        `"key encipherment"`、`"digital signature"`、`"server auth"`。
+    items:
+      enum:
+        - any
+        - cert sign
+        - client auth
+        - code signing
+        - content commitment
+        - crl sign
+        - data encipherment
+        - decipher only
+        - digital signature
+        - email protection
+        - encipher only
+        - ipsec end system
+        - ipsec tunnel
+        - ipsec user
+        - key agreement
+        - key encipherment
+        - microsoft sgc
+        - netscape sgc
+        - ocsp signing
+        - s/mime
+        - server auth
+        - signing
+        - timestamping
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  username:
+    description: |
+      The name of the user that created the CertificateSigningRequest.
+      Populated by the API server on creation and immutable.
+    x-kab-description-zh: |
+      创建此 CertificateSigningRequest 对象的用户的用户名。
+      此字段由 API 服务器在创建对象时填充，且不可变更。
+    type: string
+required:
+  - request
+  - signerName
+  - usages
+type: object
+

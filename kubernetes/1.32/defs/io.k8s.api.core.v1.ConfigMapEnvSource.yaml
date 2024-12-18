@@ -1,0 +1,23 @@
+description: |
+  ConfigMapEnvSource populates the environment variables of a container with data from
+  a ConfigMap in the same namespace. The key-value pairs in the ConfigMap's
+  `data` field will be represented as environment variables.
+x-kab-description-zh: |
+  ConfigMapEnvSource 使用容器所在的名字空间的某个 ConfigMap 中的数据为容器设置环境变量。
+  ConfigMap 的 `data` 字段中的键值对会被转换成环境变量。
+properties:
+  name:
+    description: |
+      Name of the referenced ConfigMap. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      被引用的 ConfigMap 的名字。名字必须是一个合法的 DNS 子域名。
+    minLength: 1
+    type: string
+  optional:
+    description: Specify whether the ConfigMap must be defined.
+    x-kab-description-zh: 设置 ConfigMap 必须已经被定义。
+    type: boolean
+required:
+  - name
+type: object
+

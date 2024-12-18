@@ -1,0 +1,18 @@
+description: A set of resource limits for the scheduling of volumes.
+x-kab-description-zh: 调度存储卷时要满足的一组资源约束。
+properties:
+  count:
+    description: |
+      Maximum number of unique volumes managed by the CSI driver that can be used on a Node.
+      A volume that is both attached and mounted on a Node is considered to be used once, not twice.
+      The same rule applies for a unique volume that is shared among multiple Pods on the same Node.
+      If this field is not specified, then the supported number of volumes on this Node is unbounded.
+    x-kab-description-zh: |
+      此 CSI 驱动所管理的各不相同的存储卷中，能够在同一节点上使用的最大个数。
+      被挂接到节点上并且已被挂载的卷被视为使用了一次，而不是两次。
+      对于被同一个节点上多个 Pod 共享的卷而言，适用同样的规则。
+      如果此字段没有设置，则对在此节点上可以支持的卷数没有限制。
+    format: int32
+    type: integer
+type: object
+

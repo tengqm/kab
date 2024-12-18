@@ -1,0 +1,11 @@
+description: The configuration for session affinity.
+x-kab-description-zh: 会话亲和性的配置。
+properties:
+  clientIP:
+    $ref: '#/definitions/io.k8s.api.core.v1.ClientIPConfig'
+    description: The configuration for client IP based session affinity.
+    x-kab-description-zh: 针对客户端 IP 会话亲和性的配置。
+required:
+  - clientIP
+type: object
+

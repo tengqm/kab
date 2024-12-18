@@ -1,0 +1,42 @@
+description: |
+  The configuration of an admission webhook that accepts or rejects an object and may change it.
+x-kab-description-zh: 准入 Webhook 的配置信息，用于能够接受、拒绝某对象甚至变更该对象的准入 Webhook。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - admissionregistration.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - MutatingWebhookConfiguration
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  webhooks:
+    description: A list of webhooks and the affected resources and operations.
+    x-kab-description-zh: Webhook 及其所影响的资源和操作的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1.MutatingWebhook'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - webhooks
+type: object
+x-kubernetes-group-version-kind:
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+    version: v1
+

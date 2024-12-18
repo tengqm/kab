@@ -1,0 +1,142 @@
+description: The detailed status of a Container.
+x-kab-description-zh: 容器的详细状态。
+properties:
+  allocatedResources:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: This is the compute resources allocated for this container by the node.
+      Kubelet sets this value to `container[*].resources.requests` upon successful
+      Pod admission and after successfully admitting desired Pod resize.
+    x-kab-description-zh: |
+      节点上分配给次容器的计算资源。kubelet 在成功接收 Pod 或者成功地执行 Pod 变更大小操作之后，
+      将此值设置为 `container[*].resources.requests` 的值。
+    type: object
+  allocatedResourcesStatus:
+    description: The status of various resources allocated for this Pod.
+    x-kab-description-zh: 分配给此 Pod 的各类资源的状态。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ResourceStatus'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge
+  containerID:
+    description: Container's ID in the format `"<type>://<container_id>"`, where `<type>`
+      is the container runtime identifier, returned from `Version` call of CRI API
+      (for example, `"containerd"`).
+    x-kab-description-zh: |
+      容器的 ID 字符串。格式为 `"<type>://<container_id>"`，其中 `<type>` 是容器运行时的标识符，
+      例如 `"containerd"`）。
+    type: string
+  image:
+    description: The name of the image the container is running.
+      The container image may not match the `image` used in the Pod `spec`, as it may have been
+      resolved by the runtime.
+    x-kab-description-zh: |
+      容器运行所使用的镜像。容器镜像可能与 Pod 的 `spec` 中设置的 `image` 有所不同，
+      因为容器运行时可能将其解析为不同的镜像。
+    type: string
+  imageID:
+    description: ID of the container's image. The image ID may not match the image ID of the `image`
+      used in the Pod `spec`, as it may have been resolved by the runtime.
+    x-kab-description-zh: |
+      容器镜像的 ID 字符串。镜像 ID 可能与 Pod 的 `spec` 中所设置的 `image` 的 ID 不同，
+      因为容器运行时可能将其解析为不同的镜像。
+    type: string
+  lastState:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerState'
+    description: The last termination state of the container to help debug container crashes and restarts.
+      This field is not populated if the container is still running and `restartCount` is 0.
+    x-kab-description-zh: |
+      容器最近一次终止状态，用来调试容器崩溃和重启问题。当容器仍处于运行状态且
+      `restartCount` 为 0 时，此字段不会被填充。
+  name:
+    description: |
+      A DNS_LABEL representing the unique name of the container.
+      Each container in a Pod must have a unique name across all container types.
+      Cannot be updated.
+    x-kab-description-zh: |
+      用来标识容器的唯一性名称，符合 DNS_LABEL 格式。Pod 中每个容器都必须有一个在整个 Pod
+      范围内唯一的名称。此字段不能被更新。
+    type: string
+  ready:
+    description: |
+      This specifies whether the container is currently passing its readiness check.
+      The value will change as readiness probes keep executing.If no readiness probes are specified,
+      this field defaults to true once the container is fully started (see `started` field).
+
+      The value is typically used to determine whether a container is ready to accept traffic.
+    x-kab-description-zh: |
+      此字段标明容器当前是否通过了其就绪态（Readiness）检查。因为就绪探针会持续运行，
+      此字段会被动态更新。如果未设置就绪态探针，则在容器完全启动（参见 `started` 字段）之后，
+      此字段会被自动设置为 `true`。
+
+      此字段通常用来判断容器是否已经为接收请求做好准备。
+    type: boolean
+  resources:
+    $ref: '#/definitions/io.k8s.api.core.v1.ResourceRequirements'
+    description: |
+      This represents the compute resource requests and limits that have been successfully enacted
+      on the running container after it has been started or has been successfully resized.
+    x-kab-description-zh: |
+      此字段标明容器被启动或者成功变更规格之后，当前生效的计算资源请求与限制值。
+  restartCount:
+    description: This holds the number of times the container has been restarted.
+      Kubelet makes an effort to always increment the value, but there are cases when the state
+      may be lost due to node restarts and then the value may be reset to 0.
+      The value is never negative.
+    x-kab-description-zh: |
+      此字段为容器被重启的次数。kubelet 尽可能在重启重启时增加这一计数值，
+      但由于节点被重启等一些原因可能导致此计数无法做到百分百准确。
+      遇到不可控的原因时，kubelet 会将此值复位为 0。此值不会变成负数。
+    format: int32
+    type: integer
+  started:
+    description: |
+      This indicates whether the container has finished its `postStart` lifecycle hook and
+      passed its startup probe. Initialized as `false`, becomes `true` after `startupProbe`
+      is considered successful. Resets to `false` when the container is restarted, or
+      if kubelet loses state temporarily. In both cases, startup probes will run again.
+      Is always true when no `startupProbe` is defined and container is running and has passed
+      the `postStart` lifecycle hook. The null value must be treated the same as false.
+    x-kab-description-zh: |
+      此字段用来标明容器是否已经完成其 `postStart` 生命周期回调并且通过了启动探针检查。
+      初始值为 `false`，当 `startupProbe` 成功完成检查时变为 `true`。
+      容器被重启时或者 kubelet 临时无法跟踪其状态时再次变为 `false`。
+      无论哪种情形，启动探针都会再次运行。
+      容器上没有定义启动探针时，如果容器通过了 `postStart` 生命周期回调并处于运行状态，此字段值始终为 `true`。
+      如果此值未设置（null），应被视为等价于 `false`。
+    type: boolean
+  state:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerState'
+    description: Details about the container's current condition.
+    x-kab-description-zh: 容器当前状况的详细信息。
+  user:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerUser'
+    description: The user identity information initially attached to the first process of the container.
+    x-kab-description-zh: 与最初挂接到容器中第一个进程的用户相关的标识信息。
+  volumeMounts:
+      description: Status of volume mounts.
+      x-kab-description-zh: 卷挂载状态。
+      items:
+        $ref: '#/definitions/io.k8s.api.core.v1.VolumeMountStatus'
+      type: array
+      x-kubernetes-list-map-keys:
+        - mountPath
+      x-kubernetes-list-type: map,
+      x-kubernetes-patch-merge-key: mountPath
+      x-kubernetes-patch-strategy: merge
+required:
+  - containerID
+  - image
+  - imageID
+  - lastState
+  - name
+  - ready
+  - restartCount
+  - started
+  - state
+type: object
+

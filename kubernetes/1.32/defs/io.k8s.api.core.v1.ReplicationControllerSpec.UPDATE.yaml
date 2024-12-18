@@ -1,0 +1,47 @@
+description: The specification of a ReplicationController.
+x-kab-description-zh: ReplicationController 的规约。
+properties:
+  minReadySeconds:
+    default: 0
+    description: |
+      Minimum number of seconds for which a newly created Pod should be ready without any of
+      its Container crashing for it to be considered available.
+      The default value 0 meands a Pod will be considered available as soon as it is ready.
+    x-kab-description-zh: |
+      新创建的 Pod 必须在所给的秒数内保持就绪态，没有容器崩溃，才会被视为可用。
+      默认值 0 意为 Pod 就绪之后就被视为可用。
+    format: int32
+    minimum: 0
+    type: integer
+  replicas:
+    default: 1
+    description: The number of desired replicas.
+    x-kab-description-zh: 期望的副本个数。
+    format: int32
+    minimum: 0
+    type: integer
+  selector:
+    additionalProperties:
+      type: string
+    description: |
+      Label keys and values for Pods that must match in order to be controlled by this
+      ReplicationController. If `selector` is empty, it defaults to the labels present on the `template`.
+      If `selector` is not empty, it must match the `labels` defined on the `template`.
+    x-kab-description-zh: |
+      Pod 必须具有所给的标签键值才会被此 ReplicationController 控制。
+      如果 `selector` 为空，则默认为在 `template` 中给出的标签。
+      如果 `selector` 非空，则必须与 `template` 中定义的 `labels` 匹配。
+    type: object
+    x-kubernetes-map-type: atomic
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.UPDATE'
+    description: |
+      The object that describes the Pod to create if insufficient replicas are detected.
+      The only allowed `template.spec.restartPolicy` value is "Always".
+    x-kab-description-zh: |
+      此对象描述检测到副本个数不足时要创建的 Pod。
+      其中 `template.spec.restartPolicy` 的取值只能是 `"Always"`。
+required:
+  - template
+type: object
+

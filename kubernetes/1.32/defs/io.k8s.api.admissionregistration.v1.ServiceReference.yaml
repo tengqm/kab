@@ -1,0 +1,37 @@
+description: Reference to a Service.
+x-kab-description-zh: 对某 Service 对象的引用。
+properties:
+  name:
+    description: The name of the Service.
+    x-kab-description-zh: Service 对象的名称。
+    minLength: 1
+    type: string
+  namespace:
+    description: The namespace of the Service.
+    x-kab-description-zh: Service 对象所在的名字空间。
+    minLength: 1
+    type: string
+  path:
+    description: |
+      An URL path which will be sent in any request to this service.
+      `'/'` and `""` are always valid paths. `"//"` is invalid.
+      The path has start with a `'/'`. The trailing `'/'` will be ignored.
+      Each path segment must be a valid DNS subdomain.
+    x-kab-description-zh: |
+      针对此 Service 的所有请求都会发送的一个 URL 路径。
+      `"/"` 和 `""` 都是合法的路径。`"//"` 是非法路径。路径应以 `"/"` 开头。
+      路径尾部的 `'/'` 会被忽略。路径中的每一段都必须是合法的 DNS 子域名。
+    type: string
+  port:
+    default: 443
+    description: If specified, the port on the Service that hosting webhook.
+    x-kab-description-zh: 托管 Webhook 的 Service 上的端口，可选。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+required:
+  - namespace
+  - name
+type: object
+

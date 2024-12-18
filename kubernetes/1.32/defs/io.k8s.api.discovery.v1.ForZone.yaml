@@ -1,0 +1,19 @@
+description: Information about which zones should consume this Endpoint.
+x-kab-description-zh: 关于哪些可用区可以使用当前端点的信息。
+properties:
+  name:
+    description: |
+      The name of the zone. It must be a valid label value,
+      i.e. it must be an empty string or consist of alphanumeric characters, '-', '_', or '.',
+      and must start and end with an alphanumeric character.
+    x-kab-description-zh: |
+      可用区的名称。此字段值必须是合法的标签名称。
+      换言之，字段值可以是空字符串，或者由字母、数字、`'-'`、`'_'`、或 `'.'` 组成。
+      字符串只能以字母或数字开头和结尾。
+    maxLength: 63
+    minLength: 0
+    type: string
+required:
+  - name
+type: object
+

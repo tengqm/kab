@@ -1,0 +1,77 @@
+description: The names to serve this CustomResourceDefinition.
+x-kab-description-zh: 提供此 CustomResourceDefinition 类资源时要使用的名称。
+properties:
+  categories:
+    description: |
+      A list of grouped resources this custom resource belongs to (e.g. `"all"`).
+      This is published in API discovery documents, and used by clients to support invocations like
+      `kubectl get all`. Each entry must be a valid DNS label.
+    x-kab-description-zh: |
+      此自定义组员所述的资源组（例如，`"all"`）。
+      此信息会被发布在 API 发现文档之中，便于客户端执行 `kubectl get all` 这类操作。
+      此列表字段中的每个元素都必须是一个合法的 DNS 标签。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  kind:
+    description: |
+      A string value representing the REST resource.
+      The string can be mixed case, but should other wise be a valid DNS label.
+      The value must be different from `listKind`.
+    x-kab-description-zh: |
+      代表 REST 资源的字符串值。此字符串可以混用大小写字母。如果全是小写字母，则必须是一个合法的 DNS 标签。
+      字段值必须与 `listKind` 值不同。
+    minLength: 1
+    type: string
+  listKind:
+    description: |
+      The serialized `kind` of the list for this resource.
+      The string can be mixed case, but should otherwise be a valid DNS label.
+      The value must be different from `kind`.
+      Defaults to "`kind`List".
+    x-kab-description-zh: |
+      此资源的列表被序列化时对应的 `kind`。
+      此字符串可以混用大小写字母。如果全是小写字母，则必须是一个合法的 DNS 标签。
+      字段值必须与 `kind` 值不同。默认为 `"<kind>List"`。
+    minLength: 1
+    type: string
+  plural:
+    description: |
+      The plural name of the resource to serve.
+      The custom resources are served under `"/apis/<group>/<version>/.../<plural>"`.
+      It must match the name of the CustomResourceDefinition (in the form `"<names.plural>.<group>"`).
+      Must be all lowercase. The value must be a valid DNS label.
+    x-kab-description-zh: |
+      要提供的资源的复数形式名称。
+      自定义资源会在 `"/apis/<group>/<version>/.../<plural>"` 下提供出来。
+      字段的值必须与 CustomResourceDefinition 的名字匹配（格式为 `"<names.plural>.<group>"`）。.
+      字符串必须全小写，并且是合法的 DNS 标签。
+    minLength: 1
+    type: string
+  shortNames:
+    description: |
+      资源的短名称。所给的名称会通过 API 发现文档公开出来，并且客户端用来支持类似
+      `kubectl get <shortname>` 这种调用。数组中每个元素都必须是全小写字母的字符串，
+      并且都是合法的 DNS 标签。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  singular:
+    description: |
+      The singular name of the resource. It must be all lowercase and valid DNS label.
+      Defaults to lowercased `kind`.
+    x-kab-description-zh: |
+      资源的单数名称。字段值必须是全小写字母，并且是合法的 DNS 标签。
+      默认为 `kind` 取值的小写字母形式。
+    minLength: 1
+    type: string
+required:
+  - kind
+  - listKind
+  - plural
+  - singular
+type: object
+

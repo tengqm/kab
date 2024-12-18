@@ -1,0 +1,33 @@
+description: The specification of a Lease.
+x-kab-description-zh: Lease 的规约。
+properties:
+  acquireTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: The time when the current Lease was acquired.
+    x-kab-description-zh: 当前 Lease 的获得时间。
+  holderIdentity:
+    description: The identity of the current holder of the Lease.
+    x-kab-description-zh: 当前 Lease 的持有者的标识。
+    type: string
+  leaseDurationSeconds:
+    description: |
+      A duration that candidates for a Lease need to wait before it can acquire the Lease
+      by force. This is measured against the last observed `renewTime`.
+    x-kab-description-zh: |
+      字段值是一个时长值。Lease 的候选持有者只有过了指定时长之后才可以强制获得 Lease。
+      时长的度量起点是上次观测到的 `renewTime`。
+    format: int32
+    minimum: 1
+    type: integer
+  leaseTransitions:
+    description: The number of transitions of a Lease between holders.
+    x-kab-description-zh: Lease 在不同的持有者之间流转的次数。
+    format: int32
+    minimum: 0
+    type: integer
+  renewTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: The time when the current holder last updated the Lease.
+    x-kab-description-zh: 当前持有者上次更新 Lease 时间。
+type: object
+

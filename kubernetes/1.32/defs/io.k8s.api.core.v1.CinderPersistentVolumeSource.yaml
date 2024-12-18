@@ -1,0 +1,37 @@
+description: |
+  An existing Cinder volume resource in Openstack.
+  The volume must also be in the same region as the node.
+  Cinder volumes support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  OpenStack 中已有的一个 Cinder 卷资源。此卷必须与节点处于相同的地理区域。
+  Cinder 卷支持属主管理和 SELinux 重打标签。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系统所支持的文件系统类型。
+    type: string
+  readOnly:
+    default: false
+    description: Force the volume to be mounted in read-only mode.
+    x-kab-description-zh: 强制以只读模式挂载卷。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: |
+      Reference to a Secret object containing parameters used to connect to OpenStack.
+      Both `namespace` and `name` must be specified as valid DNS_LABEL strings.
+    x-kab-description-zh: |
+      对一个 Secret 对象的引用。该对象中包含用来连接到 OpenStack 的参数。
+      所给的 `namespace` 和 `name` 都必须是合法的 DNS_LABEL 字符串。
+  volumeID:
+    description: The identifier for the Cinder volume.
+    x-kab-description-zh: Cinder 卷的标识符。
+    minLength: 1
+    type: string
+required:
+  - volumeID
+type: object
+

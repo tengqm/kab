@@ -1,0 +1,75 @@
+description: |
+  PriorityClass defines mapping from a priority class name to the priority integer value.
+  The value can be any valid integer.
+x-kab-description-zh: |
+  PriorityClass 定义优先级类名与优先级整数值之间的映射关系。优先级数值可以是任何整数。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - scheduling.k8s.io/v1
+    type: string
+  description:
+    description: An arbitrary string that usually provides guidelines on using this priority class.
+    x-kab-description-zh: 一个用来指导如何使用此优先级类的字符串。
+    type: string
+  globalDefault:
+    description: |
+      Flag indicating whether this PriorityClass should be considered as the default priority for Pods.
+      Only one PriorityClass can be marked as `globalDefault`.
+      However, if more than one PriorityClasses exists with their `globalDefault` field set to `true`,
+      the smallest value of such global default PriorityClasses will be used as the default one.
+    x-kab-description-zh: |
+      用来标识此 PriorityClass 是否应被视为 Pod 的默认优先级。
+      集群中只能有一个 PriorityClass 被标记为 `globalDefault`。
+      不过，如果存在多个 PriorityClass 的 `globalDefault` 被设置为 `true`，
+      系统会选择其中最小的优先级数值作为默认值。
+    type: boolean
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PriorityClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  preemptionPolicy:
+    default: PreemptLowerPriority
+    description: |
+      The policy for preempting Pods with lower priority.
+
+      - `"Never"`: Pod never preempts other Pods with lower priority.
+      - `"PreemptLowerPriority"`: Pod can preempt other Pods with lower priority.
+    x-kab-description-zh: |
+      关于抢占较低优先级的 Pod 的策略。
+
+      - `"Never"`：Pod 不会抢占其他低优先级 Pod；
+      - `"PreemptLowerPriority"`：Pod 可以抢占其他较低优先级的 Pod。
+    enum:
+      - Never
+      - PreemptLowerPriority
+    type: string
+  value:
+    description: |
+      The value of this priority class.
+      This is the actual priority that Pods receive when they have the name of this class in their Pod spec.
+    x-kab-description-zh: |
+      此优先级类的优先级值。
+      此字段是在规约中引用了此优先级类名称的 Pod 实际会获得的优先级值。
+    format: int32
+    type: integer
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - value
+type: object
+x-kubernetes-group-version-kind:
+  - group: scheduling.k8s.io
+    kind: PriorityClass
+    version: v1
+

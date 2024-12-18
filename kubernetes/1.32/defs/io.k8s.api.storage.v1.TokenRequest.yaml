@@ -1,0 +1,28 @@
+description: TokenRequest contains parameters of a ServiceAccount token.
+x-kab-description-zh: TokenRequest 包含 ServiceAccount 令牌的参数。
+properties:
+  audience:
+    description: |
+      The intended audience of the token in `TokenRequestSpec`.
+      It will default to the audiences of kube apiserver.
+    x-kab-description-zh: |
+      令牌在 `TokenRequestSpec` 中给出的目标受众。
+      此字段的默认值是 API 服务器的受众。
+    minLength: 1
+    type: string
+  expirationSeconds:
+    description: |
+      The duration of validity of the token in `TokenRequestSpec`.
+      It has the same default value of `expirationSeconds` in `TokenRequestSpec`.
+      The minimum is 600 seconds and the maximum is 2^32 seconds.
+    x-kab-description-zh: |
+      令牌在 `TokenRequestSpec` 中给出的有效期长度。
+      其默认值为 `TokenRequestSpec` 中的 `expirationSeconds` 的默认值。
+      此值最小为 600，最大为 2^32 秒。
+    format: int64
+    minimum: 600
+    type: integer
+required:
+  - audience
+type: object
+

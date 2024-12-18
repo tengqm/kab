@@ -1,0 +1,15 @@
+description: IPAddressSpec describe the attributes in an IP Address.
+x-kab-description-zh: IPAddressSpec 定义 IP 地址的属性。
+properties:
+  parentRef:
+    $ref: '#/definitions/io.k8s.api.networking.v1beta1.ParentReference'
+    description: |
+      This references the resource that an IPAddress is attached to.
+      An IPAddress must reference a parent object.
+    x-kab-description-zh: |
+      此字段给出的是 IPAddress 对象所关联的父级对象。
+      每个 IPAddress 对象必须引用某个父级对象。
+required:
+  - parentRef
+type: object
+
