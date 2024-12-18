@@ -4,19 +4,20 @@ description: create a DeviceClass
 x-kab-description-zh: 创建一个 DeviceClass
 operationId: createResourceV1alpha3DeviceClass
 parameters:
-- in: body
-  name: body
-  required: true
-  schema:
-    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.CREATE'
-- $ref: '#/parameters/dryRun'
-- $ref: '#/parameters/fieldManager'
-- $ref: '#/parameters/fieldValidation'
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClass.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
 path: /apis/resource.k8s.io/v1alpha3/deviceclasses
 produces:
-- application/json
-- application/yaml
-- application/vnd.kubernetes.protobuf
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
 responses:
   '200':
     description: OK
@@ -37,9 +38,9 @@ responses:
     description: Unauthorized
     x-kab-description-zh: 操作未授权
 schemes:
-- https
+  - https
 tags:
-- resource_v1alpha3
+  - resource_v1alpha3
 verb: post
 x-kubernetes-action: post
 x-kubernetes-group-version-kind:

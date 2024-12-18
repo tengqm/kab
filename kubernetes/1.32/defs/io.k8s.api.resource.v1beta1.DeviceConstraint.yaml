@@ -1,0 +1,37 @@
+description: DeviceConstraint must have exactly one field set besides Requests.
+x-kab-description-zh: DeviceConstraint 中除了 `requests` 之外必须且只能设置一个字段。
+properties:
+  matchAttribute:
+    description: |
+      `matchAttribute` requires that all devices in question have this attribute and that its type and value are the same across those devices.
+
+      For example, if you specified "dra.example.com/numa" (a hypothetical example!), then only devices in the same NUMA node will be chosen.
+      A device which does not have that attribute will not be chosen.
+      All devices should use a value of the same type for this attribute because that is part of its specification,
+      but if one device doesn't, then it also will not be chosen.
+
+      Must include the domain qualifier.
+    x-kab-description-zh: |
+      `matchAttribute` 要求所有待定设备都要具有该属性，并且其类型和取值对于所有设备而言都是相同的。
+      例如，如果此字段设置为 `"dra.example.com/numa"`（假想情况），则只有位于同一 NUMA 节点上的设备会被选中。
+      不具有该属性的设备不会被选中。
+      所有设备的这一属性都必须具有相同类型的取值，因为这是其规约的一部分。
+      如果某个设备上这一属性的取值类型不同，则该设备不会被选中。
+
+      字段值必须包含域名限定部分。
+    type: string
+  requests:
+    description: |
+      `requests` is a list of the one or more requests in this claim which must co-satisfy this constraint.
+      If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint.
+      If this is not specified, this constraint applies to all requests in this claim.
+    x-kab-description-zh: |
+      `requests` 是由一个或多个请求组成的列表，设备申领中的这些请求都必须满足此约束。
+      如果某设备请求是由多个设备来满足的，则所有设备都必须满足这里所给的约束。
+      如果此字段未设置，则约束适用于所在设备申领中的所有请求。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

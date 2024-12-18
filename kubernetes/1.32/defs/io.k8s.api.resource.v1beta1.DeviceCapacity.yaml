@@ -1,0 +1,13 @@
+description: DeviceCapacity describes a quantity associated with a device.
+x-kab-description-zh: DeviceCapacity 描述与某个设备相关的数量信息。
+properties:
+  value:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |-
+      `value` defines how much of a certain device capacity is available.
+    x-kab-description-zh: |-
+      `value` 定义某个设备上有多少容量可用。
+required:
+  - value
+type: object
+

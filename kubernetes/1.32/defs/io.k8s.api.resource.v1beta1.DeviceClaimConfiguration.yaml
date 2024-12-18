@@ -1,0 +1,22 @@
+description: DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
+x-kab-description-zh: DeviceClaimConfiguration 用在 DeviceClaim 描述配置参数。
+properties:
+  opaque:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.OpaqueDeviceConfiguration'
+    description: |
+      `opaque` provides driver-specific configuration parameters.
+    x-kab-description-zh: |
+      `opaque` 提供特定于驱动的配置参数。
+  requests:
+    description: |
+      `requests` lists the names of requests where the configuration applies.
+      If empty, it applies to all requests.
+    x-kab-description-zh: |
+      `requests` 列举配置所适用的请求的名称。
+      如果此列表为空，则配置适用于所有请求。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

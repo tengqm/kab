@@ -197,6 +197,31 @@ gracePeriodSeconds:
   name: gracePeriodSeconds
   type: integer
   uniqueItems: true
+ignoreStoreReadErrorWithClusterBreakingPotential:
+  description: |
+    If set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails
+    with a corrupt object error.
+    A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of
+    a) its data can not be transformed e.g. decryption failure, or
+    b) it fails to decode into an object.
+    **NOTE** Unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage.
+    **WARNING** This may potentially break the cluster if the workload associated with the resource
+    being unsafe-deleted relies on normal deletion flow.
+    Use only if you REALLY know what you are doing.
+    The default value is false, and the user must opt in to enable it.
+  x-kab-description-zh: |
+    如果此参数设置为 true，则会触发不安全的资源删除动作。主要使用场景是正常的删除工作流失败并导致对象受损的情况。
+    如果因为以下原因导致对象无法从下层存储中成功读出，则认为资源是已经受损的：
+    a) 资源数据无法被转换，例如，解密操作失败；
+    b) 资源无法解码为合法对象。
+    **注意** 不安全的删除操作会忽略 `finalizer` 约束并略过前置条件检查，从存储中删除对象。
+    **警告** 如果采用不安全的方式删除的资源所涉及的负载对正常的删除工作流有依赖，不安全的删除可能破坏集群稳定性。
+    建议只有非常清楚不安全方式删除资源的后果时，才使用此参数。
+    默认值为 false，用户可以选择启用此参数，执行不安全的资源删除操作。
+  in: query
+  name: ignoreStoreReadErrorWithClusterBreakingPotential
+  type: boolean
+  uniqueItems: true
 insecureSkipTLSVerifyBackend:
   description: |
     `insecureSkipTLSVerifyBackend` indicates that the apiserver should not confirm the validity of
