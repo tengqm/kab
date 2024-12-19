@@ -11082,40 +11082,55 @@ definitions:
     properties:
       containerResource:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ContainerResourceMetricSource'
-        description: '`containerResource` refers to a resource metric (such as those
-          specified in `requests` and `limits`) known to Kubernetes describing a single
-          container in each Pod of the current scale target (e.g. CPU or memory).
-          Such metrics are built in to Kubernetes, and have special scaling options
-          on top of those available to normal per-Pod metrics using the `"pods"` source.
-          This is an Alpha feature and can be enabled by the `HPAContainerMetrics`
-          feature gate.'
+        description: |-
+          `containerResource` refers to a resource metric (such as those specified in `requests` and `limits`)
+          known to Kubernetes describing a single container in each Pod of the current scale target (e.g. CPU or memory).
+          Such metrics are built in to Kubernetes, and have special scaling options on top of those available to
+          normal per-Pod metrics using the `"pods"` source.
+          This is an Alpha feature and can be enabled by the `HPAContainerMetrics` feature gate.
+        x-kab-description-zh: |-
+          `containerResource` 引用 Kubernetes 所了解的某资源指标（例如在 `requests` 和 `limits` 中所设置的），
+          该指标描述的是当前扩缩目标中每个 Pod 中的一个容器（例如，CPU 或内存）。
+          这类指标是内建于 Kubernetes 中的，与使用 `"pods"` 指标源时所获得的普通 Pod 指标相比，`containerResource` 指标对应着特殊的扩缩选项。
+          此特性处于 Alpha 阶段，可以通过 `HPAContainerMetrics` 特性门控启用。
       external:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ExternalMetricSource'
-        description: Reference to a global metric that is not associated with any
-          Kubernetes object. It allows autoscaling based on information from outside
-          of cluster (for example length of queue in cloud messaging service, or QPS
-          from loadbalancer running outside of cluster).
+        description: |-
+          Reference to a global metric that is not associated with any Kubernetes object.
+          It allows autoscaling based on information from outside of cluster
+          (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        x-kab-description-zh: |-
+          引用某个与任何 Kubernetes 对象都没有关联的全局性指标。
+          这个字段使得我们可以基于来自集群外部的信息（例如云消息服务中的队列长度，或者集群外某负载均衡器上的 QPS）
+          来执行自动扩缩操作。
       object:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ObjectMetricSource'
         description: Reference to a metric describing a single Kubernetes object (for
           example, `"hits-per-second"` on an Ingress object).
+        x-kab-description-zh: 对描述某个 Kubernetes 对象的指标（例如，Ingress 对象上的 `"hits-per-second"`）的引用。
       pods:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.PodsMetricSource'
-        description: Reference to a metric describing each Pod in the current scale
-          target (for example, `"transactions-processed-per-second"`). The values
-          will be averaged together before being compared to the target value.
+        description: |-
+          Reference to a metric describing each Pod in the current scale target (for example, `"transactions-processed-per-second"`).
+          The values will be averaged together before being compared to the target value.
+        x-kab-description-zh: |-
+          对描述当前扩缩目标中 Pod 的指标（例如，`"transactions-processed-per-second"`）的引用。
+          度量值会被求均值之后再与目标值作比较。
       resource:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ResourceMetricSource'
-        description: Reference to a resource metric (such as those specified in `requests`
-          and `limits`) known to Kubernetes describing each Pod in the current scale
-          target (e.g. CPU or memory). Such metrics are built into Kubernetes, and
-          have special scaling options on top of those available to normal per-Pod
-          metrics using the `"pods"` source.
+        description: |-
+          Reference to a resource metric (such as those specified in `requests` and `limits`)
+          known to Kubernetes describing each Pod in the current scale target (e.g. CPU or memory).
+          Such metrics are built into Kubernetes, and have special scaling options on top of those available to
+          normal per-Pod metrics using the `"pods"` source.
+        x-kab-description-zh: |-
+          对 Kubernetes 所了解的某种资源度量指标（如在 `requests` 和 `limits` 中所设置的）的引用。
+          这些指标所描述的是当前扩缩目标中的 Pod（例如，CPU 或内存）。
+          这类指标是内建于 Kubernetes 中的，与使用 `"pods"` 指标源时所获得的普通 Pod 指标相比，`resource` 指标对应着特殊的扩缩选项。
       type:
-        description: 'The type of metric source. It should be one of `"ContainerResource"`,
-          `"External"`, `"Object"`, `"Pods"` or `"Resource"`, each mapping to a matching
-          field in the object. Note: `"ContainerResource"` type is available only
-          when the feature gate `HPAContainerMetrics` is enabled.'
+        description: |-
+          The type of metric source. Each type maps to a matching field in the object.
+          **Note** `"ContainerResource"` type is available only when the feature gate `HPAContainerMetrics` is enabled.
         enum:
           - ContainerResource
           - External
@@ -11124,46 +11139,69 @@ definitions:
           - Resource
         minLength: 1
         type: string
+        x-kab-description-zh: |-
+          指标来源的类型。每种类型对应此对象中的一个匹配的字段。
+          **Note** `"ContainerResource"` 类型只有当启用了 `HPAContainerMetrics` 特性门控时才可用。
     required:
       - type
     type: object
+    x-kab-description-zh: |-
+      此结构用来设置如何基于某个指标来执行扩缩操作。
+      只能设置 `type` 和与之对应的字段之一。
   io.k8s.api.autoscaling.v2.MetricStatus:
     description: The last-read state of a single metric.
     properties:
       containerResource:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ContainerResourceMetricStatus'
-        description: Container resource refers to a resource metric (such as those
-          specified in `requests` and `limits`) known to Kubernetes describing a single
-          container in each Pod in the current scale target (e.g. CPU or memory).
-          Such metrics are built in to Kubernetes, and have special scaling options
-          on top of those available to normal per-Pod metrics using the `"pods"` source.
+        description: |-
+          This refers to a resource metric (such as those specified in `requests` and `limits`)
+          known to Kubernetes describing a single container in each Pod in the current scale target (e.g. CPU or memory).
+          Such metrics are built in to Kubernetes, and have special scaling options on top of those available
+          to normal per-Pod metrics using the `"pods"` source.
+          This is an Alpha feature and can be enabled by the `HPAContainerMetrics` feature gate.
+        x-kab-description-zh: |-
+          `containerResource` 引用 Kubernetes 所了解的某资源指标（例如在 `requests` 和 `limits` 中所设置的），
+          该指标描述的是当前扩缩目标中每个 Pod 中的一个容器（例如，CPU 或内存）。
+          这类指标是内建于 Kubernetes 中的，与使用 `"pods"` 指标源时所获得的普通 Pod 指标相比，`containerResource` 指标对应着特殊的扩缩选项。
+          此特性处于 Alpha 阶段，可以通过 `HPAContainerMetrics` 特性门控启用。
       external:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ExternalMetricStatus'
-        description: This refers to a global metric that is not associated with any
-          Kubernetes object. It allows autoscaling based on information coming from
-          components running outside of cluster (for example length of queue in cloud
-          messaging service, or QPS from loadbalancer running outside of cluster).
+        description: |-
+          This refers to a global metric that is not associated with any Kubernetes object.
+          It allows autoscaling based on information coming from components running outside of cluster
+          (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+        x-kab-description-zh: |-
+          引用某个与任何 Kubernetes 对象都没有关联的全局性指标。
+          这个字段使得我们可以基于来自集群外部的信息（例如云消息服务中的队列长度，或者集群外某负载均衡器上的 QPS）
+          来执行自动扩缩操作。
       object:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ObjectMetricStatus'
         description: This refers to a metric describing a single kubernetes object
-          (for example, hits-per-second on an Ingress object).
+          (for example, `"hits-per-second"` on an Ingress object).
+        x-kab-description-zh: 对描述某个 Kubernetes 对象的指标（例如，Ingress 对象上的 `"hits-per-second"`）的引用。
       pods:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.PodsMetricStatus'
-        description: This refers to a metric describing each pod in the current scale
-          target (for example, transactions-processed-per-second).  The values will
-          be averaged together before being compared to the target value.
+        description: |-
+          This refers to a metric describing each pod in the current scale target (for example, `"transactions-processed-per-second"`).
+          The values will be averaged together before being compared to the target value.
+        x-kab-description-zh: |-
+          对描述当前扩缩目标中 Pod 的指标（例如，`"transactions-processed-per-second"`）的引用。
+          度量值会被求均值之后再与目标值作比较。
       resource:
         $ref: '#/definitions/io.k8s.api.autoscaling.v2.ResourceMetricStatus'
-        description: This refers to a resource metric (such as those specified in
-          `requests` and `limits`) known to Kubernetes describing each Pod in the
-          current scale target (e.g. CPU or memory). Such metrics are built in to
-          Kubernetes, and have special scaling options on top of those available to
+        description: |-
+          This refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes
+          describing each Pod in the current scale target (e.g. CPU or memory).
+          Such metrics are built in to Kubernetes, and have special scaling options on top of those available to
           normal per-Pod metrics using the `"pods"` source.
+        x-kab-description-zh: |-
+          对 Kubernetes 所了解的某种资源度量指标（如在 `requests` 和 `limits` 中所设置的）的引用。
+          这些指标所描述的是当前扩缩目标中的 Pod（例如，CPU 或内存）。
+          这类指标是内建于 Kubernetes 中的，与使用 `"pods"` 指标源时所获得的普通 Pod 指标相比，`resource` 指标对应着特殊的扩缩选项。
       type:
-        description: 'The type of metric source. It will be one of `"ContainerResource"`,
-          `"External"`, `"Object"`, `"Pods"` or `"Resource"`, each corresponds to
-          a matching field in the object. Note: `"ContainerResource"` type is available
-          on when the feature-gate `HPAContainerMetrics` is enabled.'
+        description: |-
+          The type of metric source. Each corresponds to a matching field in the object.
+          **Note** `"ContainerResource"` type is available on when the feature-gate `HPAContainerMetrics` is enabled.
         enum:
           - ContainerResource
           - External
@@ -11172,9 +11210,13 @@ definitions:
           - Resource
         minLength: 1
         type: string
+        x-kab-description-zh: |-
+          指标来源的类型。每种类型对应此对象中的一个匹配的字段。
+          **Note** `"ContainerResource"` 仅在启用了 `HPAContainerMetrics` 特性门控时才可用。
     required:
       - type
     type: object
+    x-kab-description-zh: 某个指标上次读取时的状态。
   io.k8s.api.autoscaling.v2.MetricTarget:
     description: |-
       The target value, average value, or average utilization of a specific metric.
@@ -14492,178 +14534,16 @@ definitions:
           they should update the `renewTime`.
           Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew.
           The `pingTime` field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        x-kab-description-zh: |-
+          `renewTime` 是 LeaseCandidate 最近一次被更新的时间。
+          在 Lease 需要进行领导者选举的任何时候，`pingTime` 字段都会被更新，进而通知 LeaseCandidate 更新它们的 `renewTime`。
+          如果自从上次续约以来已经过了几个小时，老的 LeaseCandidate 对象会被垃圾回收。
+          `pingTime` 字段会被定期更新以避免仍在活跃的 LeaseCandidate 对象被垃圾回收。
     required:
       - leaseName
       - preferredStrategies
     type: object
     x-kab-description-zh: LeaseCandidateSpec 是 LeaseCandidate 对象的规约。
-  io.k8s.api.coordination.v1beta1.Lease.CREATE:
-    description: Lease defines a lease concept.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - coordination.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - Lease
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
-        description: Standard object metadata. The `name` must be a valid DNS subdomain.
-        x-kab-description-zh: 标准的对象元数据。其中的 `name` 字段值必须是合法的 DNS 子域名。
-      spec:
-        $ref: '#/definitions/io.k8s.api.coordination.v1beta1.LeaseSpec'
-        description: Specification of the Lease
-        x-kab-description-zh: Lease 的规约部分。
-    required:
-      - apiVersion
-      - kind
-      - metadata
-    type: object
-    x-kab-description-zh: Lease 定义的是一个租约（Lease）的概念。
-    x-kubernetes-group-version-kind:
-      - group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-  io.k8s.api.coordination.v1beta1.Lease.GET:
-    description: Lease defines a lease concept.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - coordination.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - Lease
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
-        description: Standard object metadata.
-        x-kab-description-zh: 标准的对象元数据。
-      spec:
-        $ref: '#/definitions/io.k8s.api.coordination.v1beta1.LeaseSpec'
-        description: Specification of the Lease.
-        x-kab-description-zh: Lease 的规约部分。
-    required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-    type: object
-    x-kab-description-zh: Lease 定义的是一个租约（Lease）的概念。
-    x-kubernetes-group-version-kind:
-      - group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-  io.k8s.api.coordination.v1beta1.Lease.UPDATE:
-    description: Lease defines a lease concept.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - coordination.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - Lease
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
-        x-kab-description-zh: 标准的对象元数据。其中的 `name` 字段值必须是合法的 DNS 子域名。
-      spec:
-        $ref: '#/definitions/io.k8s.api.coordination.v1beta1.LeaseSpec'
-        description: Specification of the Lease.
-        x-kab-description-zh: Lease 的规约部分。
-    required:
-      - apiVersion
-      - kind
-    type: object
-    x-kab-description-zh: Lease 定义的是一个租约（Lease）的概念。
-    x-kubernetes-group-version-kind:
-      - group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-  io.k8s.api.coordination.v1beta1.LeaseList:
-    description: A list of Lease objects.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - coordination.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      items:
-        description: A list of Lease objects.
-        items:
-          $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-        type: array
-        x-kab-description-zh: 包含 Lease 对象的一个列表。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - LeaseList
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
-        description: Standard list metadata.
-        x-kab-description-zh: 标准的列表元数据。
-    required:
-      - apiVersion
-      - items
-      - kind
-      - metadata
-    type: object
-    x-kab-description-zh: 包含 Lease 对象的一个列表。
-    x-kubernetes-group-version-kind:
-      - group: coordination.k8s.io
-        kind: LeaseList
-        version: v1beta1
-  io.k8s.api.coordination.v1beta1.LeaseSpec:
-    description: The specification of a Lease.
-    properties:
-      acquireTime:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
-        description: The time when the current Lease was acquired.
-        x-kab-description-zh: 当前 Lease 的获得时间。
-      holderIdentity:
-        description: The identity of the current holder of the Lease.
-        type: string
-        x-kab-description-zh: 当前 Lease 的持有者的标识。
-      leaseDurationSeconds:
-        description: |-
-          A duration that candidates for a Lease need to wait before it can acquire the Lease
-          by force. This is measured against the last observed `renewTime`.
-        format: int32
-        minimum: 1
-        type: integer
-        x-kab-description-zh: |-
-          字段值是一个时长值。Lease 的候选持有者只有过了指定时长之后才可以强制获得 Lease。
-          时长的度量起点是上次观测到的 `renewTime`。
-      leaseTransitions:
-        description: The number of transitions of a Lease between holders.
-        format: int32
-        minimum: 0
-        type: integer
-        x-kab-description-zh: Lease 在不同的持有者之间流转的次数。
-      renewTime:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
-        description: The time when the current holder last updated the Lease.
-        x-kab-description-zh: 当前持有者上次更新 Lease 时间。
-    type: object
-    x-kab-description-zh: Lease 的规约。
   io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource:
     description: |-
       A persistent disk resource in AWS. An AWS EBS disk must exist before being mounted to
@@ -43552,7 +43432,7 @@ definitions:
         type: object
         x-kab-description-zh: |-
           由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
-          键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+          键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
           标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
           限定名称的前缀部分必须是合法的 DNS 子域名。
           标签值不能超过 64 个字符，允许空字符。
@@ -43764,7 +43644,7 @@ definitions:
         type: object
         x-kab-description-zh: |-
           由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
-          键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+          键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
           标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
           限定名称的前缀部分必须是合法的 DNS 子域名。
           标签值不能超过 64 个字符，允许空字符。
@@ -43944,7 +43824,7 @@ definitions:
         type: object
         x-kab-description-zh: |-
           由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
-          键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+          键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
           标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
           限定名称的前缀部分必须是合法的 DNS 子域名。
           标签值不能超过 64 个字符，允许空字符。
@@ -44091,7 +43971,7 @@ definitions:
         type: object
         x-kab-description-zh: |-
           由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
-          键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+          键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
           标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
           限定名称的前缀部分必须是合法的 DNS 子域名。
           标签值不能超过 64 个字符，允许空字符。
@@ -44248,7 +44128,7 @@ definitions:
         type: object
         x-kab-description-zh: |-
           由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
-          键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+          键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
           标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
           限定名称的前缀部分必须是合法的 DNS 子域名。
           标签值不能超过 64 个字符，允许空字符。
@@ -44413,7 +44293,7 @@ definitions:
         type: object
         x-kab-description-zh: |-
           由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
-          键和值字符串都只能由字母、数字、'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+          键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
           标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
           限定名称的前缀部分必须是合法的 DNS 子域名。
           标签值不能超过 64 个字符，允许空字符。
@@ -45937,312 +45817,6 @@ definitions:
       - namespace
     type: object
     x-kab-description-zh: 对某 Service 的引用。
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.CREATE:
-    description: APIService represents a server for a particular GroupVersion.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - apiregistration.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - APIService
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
-        description: Standard object metadata. The `name` must be `<spec.version>.<spec.group>`.
-        x-kab-description-zh: 标准的对象元数据。其中 `name` 必须为 `<spec.version>.<spec.group>`。
-      spec:
-        $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec'
-        description: Information for locating and communicating with a server.
-        x-kab-description-zh: 与定位和联系某服务器相关的信息。
-    required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-    type: object
-    x-kab-description-zh: APIService 代表是特定组版本对应的服务器。
-    x-kubernetes-group-version-kind:
-      - group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET:
-    description: APIService represents a server for a particular GroupVersion.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - apiregistration.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - APIService
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
-        description: Standard object metadata. The `name` must be `<spec.version>.<spec.group>`.
-        x-kab-description-zh: 标准的对象元数据。其中 `name` 必须为 `<spec.version>.<spec.group>`。
-      spec:
-        $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec'
-        description: Information for locating and communicating with a server.
-        x-kab-description-zh: 与定位和联系某服务器相关的信息。
-      status:
-        $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceStatus'
-        description: Derived information about an API server.
-        x-kab-description-zh: 关于某 API 服务的派生信息。
-    required:
-      - apiVersion
-      - kind
-      - metadata
-      - spec
-      - status
-    type: object
-    x-kab-description-zh: APIService 代表是特定组版本对应的服务器。
-    x-kubernetes-group-version-kind:
-      - group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.UPDATE:
-    description: APIService represents a server for a particular GroupVersion.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - apiregistration.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - APIService
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
-        description: Standard object metadata. The `name` must be `<spec.version>.<spec.group>`.
-        x-kab-description-zh: 标准的对象元数据。其中 `name` 必须为 `<spec.version>.<spec.group>`。
-      spec:
-        $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec'
-        description: Information for locating and communicating with a server.
-        x-kab-description-zh: 与定位和联系某服务器相关的信息。
-    required:
-      - apiVersion
-      - kind
-      - spec
-    type: object
-    x-kab-description-zh: APIService 代表是特定组版本对应的服务器。
-    x-kubernetes-group-version-kind:
-      - group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceCondition:
-    description: The state of an APIService at a particular point in time.
-    properties:
-      lastTransitionTime:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
-        description: Last time the condition transitioned from one status to another.
-        x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间。
-      message:
-        description: Human-readable message indicating details about last transition.
-        type: string
-        x-kab-description-zh: 人类可读的消息，给出状况转换的细节。
-      reason:
-        description: Unique, one-word, CamelCase reason for the condition's last transition.
-        type: string
-        x-kab-description-zh: 上次状况转换的原因，字符串通常是唯一的、单个单词的、驼峰书写形式的。
-      status:
-        description: The status of the condition.
-        enum:
-          - 'False'
-          - 'True'
-          - Unknown
-        type: string
-        x-kab-description-zh: 状况的状态。
-      type:
-        description: Type is the type of the condition.
-        enum:
-          - Available
-        minLength: 1
-        type: string
-        x-kab-description-zh: 状况的类型。
-    required:
-      - status
-      - type
-    type: object
-    x-kab-description-zh: APIService 在某个时间点的状态。
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceList:
-    description: A list of APIService objects.
-    properties:
-      apiVersion:
-        description: The version of the schema for the object representation.
-        enum:
-          - apiregistration.k8s.io/v1beta1
-        type: string
-        x-kab-description-zh: 对象表示模式的版本。
-      items:
-        description: A list of APIService objects.
-        items:
-          $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-        type: array
-        x-kab-description-zh: 包含 APIService 对象的列表。
-      kind:
-        description: A string value representing the REST resource.
-        enum:
-          - APIServiceList
-        type: string
-        x-kab-description-zh: 代表 REST 资源的字符串值。
-      metadata:
-        $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
-        description: Standard list metadata.
-        x-kab-description-zh: 标准的列表元数据。
-    required:
-      - apiVersion
-      - items
-      - kind
-      - metadata
-    type: object
-    x-kab-description-zh: 包含 APIService 对象的列表。
-    x-kubernetes-group-version-kind:
-      - group: apiregistration.k8s.io
-        kind: APIServiceList
-        version: v1beta1
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceSpec:
-    description: |-
-      Information for locating and communicating with a server.
-      Only HTTPS is supported, though you can disable certificate verification.
-    properties:
-      caBundle:
-        description: |-
-          A PEM encoded CA bundle for validating an API server's serving certificate.
-          If unspecified, system trust roots on the apiserver are used.
-          This field cannot be specified if `service` is provided because local APIServices
-          cannot have a CA bundle.
-        format: byte
-        type: string
-        x-kab-description-zh: |-
-          PEM 编码的 CA 证书包，用来验证 API 服务器的服务证书。
-          若未设置 `caBundle`，则系统会使用 API 服务器上的信任根。
-          如果设置了 `service` 字段则不能设置此字段，因为本地的 APIService 不可以有 CA 证书包。
-        x-kubernetes-list-type: atomic
-      group:
-        description: |-
-          The API group name this server hosts. If `group` is empty, `version` must be `"v1"`.
-          Value must be a valid DNS subdomain.
-        type: string
-        x-kab-description-zh: |-
-          此服务器所托管的 API 组名称。如果 `group` 为空，则 `version` 必须为 `"v1"`。
-          字段值必须是合法的 DNS 子域名。
-      groupPriorityMinimum:
-        description: |-
-          The priority this group should have at least.
-          Higher priority means that the group is preferred by clients over lower priority ones.
-          Note that other versions of this group might specify even higher `groupPriorityMininum` values
-          such that the whole group gets a higher priority.
-          The primary sort is based on `groupPriorityMinimum`, ordered highest number to lowest (20 before 10).
-          The secondary sort is based on the alphabetical comparison of the name of the object
-          (`"v1.bar"` before `"v1.foo"`). We'd recommend something like:
-          `"*.k8s.io"` (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be
-          in the 2000s.
-        format: int32
-        maximum: 20000
-        minimum: 1
-        type: integer
-        x-kab-description-zh: |-
-          此 API 组所应具有的最低优先级。优先级较高意味着比低优先级者更容易受客户端偏爱。
-          注意本 API 组的其他版本可能会设置更高的 `groupPriorityMinimum` 值，因此整个组获得更高的优先级。
-          排序的第一步是基于 `groupPriorityMinimum`，从数值最高到最低。
-          第二步是基于对象名称的字典序（`"v1.bar"` 先于 `"v1.foo"`）。
-          建议的设置值是：为 `"*.k8s.io"` 设置为 18000，将 PaaS 服务设置在 2000 左右。
-      insecureSkipTLSVerify:
-        description: |-
-          This flag disables TLS certificate verification. This is strongly discouraged.
-          You should use the `caBundle` instead. If `caBundle` is specified, this field cannot be True.
-          If `service` is not specified, this field cannot be specified because local APIServices
-          cannot have TLS certificate verification.
-        type: boolean
-        x-kab-description-zh: |-
-          此标志用于禁止 TLS 证书校验操作。这个设置是非常不鼓励的。建议使用 `caBundle` 配置。
-          如果设置了 `caBundle`，则此字段不可以为 `true`。
-          如果未指定 `service`，则此字段不可设置，因为本地的 APIService 不可以有 TLS 证书校验。
-      service:
-        $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.ServiceReference'
-        description: |-
-          A reference to the service for this API server. It must communicate on port 443.
-          If the `service` is nil, it means the handling for the API groupversion is handled locally on this server.
-          The call will simply delegate to the normal handler chain to be fulfilled.
-          In that case, `caBundle` and `insecureSkipTLSVerify` cannot be specified.
-        x-kab-description-zh: |-
-          此字段为对 API 服务器的服务引用。此服务必须使用端口 443 提供服务。
-          如果未设置 `service`，则意味着 API 组版本的处理是由当前服务器在本地处理的。
-          服务调用可以直接交给常规的处理程序链完成。
-          在这种情况下，`caBundle` 和 `insecureSkipTLSVerify` 都不可以设置。
-      version:
-        description: The API version this server hosts. Value must be a valid DNS
-          label. For example, `"v1"`.
-        type: string
-        x-kab-description-zh: 服务器所托管的 API 版本。取值必须是合法的 DNS 标签。例如：`"v1"`。
-      versionPriority:
-        description: |-
-          This field controls the ordering of this API version inside of its group.
-          The primary sort is based on `versionPriority`, ordered highest to lowest (20 before 10).
-          Since it's inside of a group, the number can be small, probably in the 10s.
-          In case of equal version priorities, the version string will be used to compute the order
-          inside a `group`.
-          If the version string is *kube-like*, it will sort above non *kube-like* version strings,
-          which are ordered lexicographically.
-          *Kube-like* versions start with a `'v'`, then are followed by a number (the major version),
-          then optionally the string `\"alpha\"` or `\"beta\"` and another number (the minor version).
-          These are sorted first by `GA>"beta">"alpha"` (where GA is a version with no suffix such as
-          `"beta"` or `"alpha"`), and then by comparing major version, then minor version.
-          An example sorted list of versions,
-          `"v10"`, `"v2"`, `"v1"`, `"v11beta2"`, `"v10beta3"`, `"v3beta1"`, `"v12alpha1"`, `"v11alpha2"`,
-          `"foo1"`, `"foo10"`.
-        format: int32
-        maximum: 1000
-        minimum: 1
-        type: integer
-        x-kab-description-zh: |-
-          此字段用来控制当前 API 版本在所在的组中的排序顺序。
-          排序首先基于 `versionPriority` 进行，从高到低。由于多个版本都在同一个组内，数字可以比较小（几十之内）。
-          当版本优先级相同时，会使用版本字符串来决定在 `group` 内的排序关系。
-          如果版本字符串是 Kubernetes 风格的，那么该版本会排在非 Kubernetes 风格的版本前面。
-          非 Kubernetes 风格的版本会按字母顺序排序。
-
-          Kubernetes 风格的版本字符串以 `'v'` 开头，后接一个数字（主版本号）。在后面可选地可以是字符串
-          `"alpha"` 或 `"beta"` 接上另一个数字（次版本号）。
-          版本字符串排序时要遵从 `GA>"beta">"alpha"` 规则（其中 `GA` 是不带 `"beta"` 或 `"alpha"` 的版本），
-          之后比较主版本号再比较次版本号。版本号排序的示例：
-          `"v10"`、`"v2"`、`"v1"`、`"v11beta2"`、`"v10beta3"`、`"v3beta1"`、`"v12alpha1"`、`"v11alpha2"`、
-          `"foo1"`、`"foo10"`。
-    required:
-      - groupPriorityMinimum
-      - versionPriority
-    type: object
-    x-kab-description-zh: 用来定位服务器并与之通信的信息。仅支持 HTTPS，不过你可以禁用证书检查。
-  io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceStatus:
-    description: Derived information about an API server.
-    properties:
-      conditions:
-        description: Current service state of APIService.
-        items:
-          $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceCondition'
-        type: array
-        x-kab-description-zh: APIService 当前的服务状态。
-        x-kubernetes-list-map-keys:
-          - type
-        x-kubernetes-list-type: map
-        x-kubernetes-patch-merge-key: type
-        x-kubernetes-patch-strategy: merge
-    type: object
-    x-kab-description-zh: 关于某 API 服务器的派生信息。
   io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.ServiceReference:
     description: A reference to Service.
     properties:
@@ -46271,7 +45845,7 @@ definitions:
     x-kab-description-zh: 对某 Service 的引用。
 info:
   title: Kubernetes
-  version: v1.30.0
+  version: v1.31.0
 parameters:
   allowWatchBookmarks:
     description: |-
@@ -60512,32 +60086,6 @@ paths:
         group: apiregistration.k8s.io
         kind: APIService
         version: v1
-  /apis/apiregistration.k8s.io/v1beta1/:
-    get:
-      consumes:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      description: get available resources
-      operationId: getApiregistrationV1beta1APIResources
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 读取 apiregistration.k8s.io/v1beta1 API 组可用的资源
   /apis/apiregistration.k8s.io/v1beta1/apiservices:
     delete:
       consumes:
@@ -60581,414 +60129,6 @@ paths:
         - apiregistration_v1beta1
       x-kab-description-zh: 批量删除 APIService
       x-kubernetes-action: deletecollection
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    get:
-      consumes:
-        - '*/*'
-      description: list or watch objects of kind APIService
-      operationId: listApiregistrationV1beta1APIService
-      parameters:
-        - $ref: '#/parameters/allowWatchBookmarks'
-        - $ref: '#/parameters/continue'
-        - $ref: '#/parameters/fieldSelector'
-        - $ref: '#/parameters/labelSelector'
-        - $ref: '#/parameters/limit'
-        - $ref: '#/parameters/resourceVersion'
-        - $ref: '#/parameters/resourceVersionMatch'
-        - $ref: '#/parameters/sendInitialEvents'
-        - $ref: '#/parameters/timeoutSeconds'
-        - $ref: '#/parameters/watch'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-        - application/json;stream=watch
-        - application/vnd.kubernetes.protobuf;stream=watch
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIServiceList'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 列举或监视 APIService 类别的对象
-      x-kubernetes-action: list
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    post:
-      consumes:
-        - '*/*'
-      description: create an APIService
-      operationId: createApiregistrationV1beta1APIService
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.CREATE'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldManager'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '201':
-          description: Created
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 创建成功
-        '202':
-          description: Accepted
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 操作已接受
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 创建一个 APIService
-      x-kubernetes-action: post
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-  /apis/apiregistration.k8s.io/v1beta1/apiservices/{name}:
-    delete:
-      consumes:
-        - '*/*'
-      description: delete an APIService
-      operationId: deleteApiregistrationV1beta1APIService
-      parameters:
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/gracePeriodSeconds'
-        - $ref: '#/parameters/orphanDependents'
-        - $ref: '#/parameters/propagationPolicy'
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
-          x-kab-description-zh: 成功
-        '202':
-          description: Accepted
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
-          x-kab-description-zh: 操作已接受
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 删除一个 APIService
-      x-kubernetes-action: delete
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    get:
-      consumes:
-        - '*/*'
-      description: read the specified APIService
-      operationId: readApiregistrationV1beta1APIService
-      parameters:
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 读取指定的 APIService 对象
-      x-kubernetes-action: get
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    patch:
-      consumes:
-        - application/json-patch+json
-        - application/merge-patch+json
-        - application/strategic-merge-patch+json
-        - application/apply-patch+yaml
-      description: partially update the specified APIService
-      operationId: patchApiregistrationV1beta1APIService
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldManagerPatch'
-        - $ref: '#/parameters/force'
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 部分更新指定的 APIService 对象
-      x-kubernetes-action: patch
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    put:
-      consumes:
-        - '*/*'
-      description: replace the specified APIService
-      operationId: replaceApiregistrationV1beta1APIService
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.UPDATE'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldManager'
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '201':
-          description: Created
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 创建成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 替换指定的 APIService 对象
-      x-kubernetes-action: put
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-  /apis/apiregistration.k8s.io/v1beta1/apiservices/{name}/status:
-    get:
-      consumes:
-        - '*/*'
-      description: read status of the specified APIService
-      operationId: readApiregistrationV1beta1APIServiceStatus
-      parameters:
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 读取指定的 APIService 对象的状态（status）
-      x-kubernetes-action: get
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    patch:
-      consumes:
-        - application/json-patch+json
-        - application/merge-patch+json
-        - application/strategic-merge-patch+json
-        - application/apply-patch+yaml
-      description: partially update status of the specified APIService
-      operationId: patchApiregistrationV1beta1APIServiceStatus
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldManagerPatch'
-        - $ref: '#/parameters/force'
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 部分更新指定的 APIService 对象的状态
-      x-kubernetes-action: patch
-      x-kubernetes-group-version-kind:
-        group: apiregistration.k8s.io
-        kind: APIService
-        version: v1beta1
-    put:
-      consumes:
-        - '*/*'
-      description: replace status of the specified APIService
-      operationId: replaceApiregistrationV1beta1APIServiceStatus
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldManager'
-        - description: name of the APIService
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: APIService 的名称
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 成功
-        '201':
-          description: Created
-          schema:
-            $ref: '#/definitions/io.k8s.kube-aggregator.pkg.apis.apiregistration.v1beta1.APIService.GET'
-          x-kab-description-zh: 创建成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - apiregistration_v1beta1
-      x-kab-description-zh: 替换指定的 APIService 对象的状态（status）
-      x-kubernetes-action: put
       x-kubernetes-group-version-kind:
         group: apiregistration.k8s.io
         kind: APIService
@@ -68435,401 +67575,6 @@ paths:
         group: coordination.k8s.io
         kind: LeaseCandidate
         version: v1alpha1
-  /apis/coordination.k8s.io/v1beta1/:
-    get:
-      consumes:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      description: get available resources
-      operationId: getCoordinationV1beta1APIResources
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 读取 coordination.k8s.io/v1beta1 API 组可用的资源
-  /apis/coordination.k8s.io/v1beta1/leases:
-    get:
-      consumes:
-        - '*/*'
-      description: list or watch objects of kind Lease
-      operationId: listCoordinationV1beta1LeaseForAllNamespaces
-      parameters:
-        - $ref: '#/parameters/allowWatchBookmarks'
-        - $ref: '#/parameters/continue'
-        - $ref: '#/parameters/fieldSelector'
-        - $ref: '#/parameters/labelSelector'
-        - $ref: '#/parameters/limit'
-        - $ref: '#/parameters/pretty'
-        - $ref: '#/parameters/resourceVersion'
-        - $ref: '#/parameters/sendInitialEvents'
-        - $ref: '#/parameters/resourceVersionMatch'
-        - $ref: '#/parameters/timeoutSeconds'
-        - $ref: '#/parameters/watch'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-        - application/json;stream=watch
-        - application/vnd.kubernetes.protobuf;stream=watch
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.LeaseList'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 列举或监视所有名字空间下的 Lease 对象
-      x-kubernetes-action: list
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-  /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases:
-    delete:
-      consumes:
-        - '*/*'
-      description: delete collection of Lease
-      operationId: deleteCoordinationV1beta1CollectionNamespacedLease
-      parameters:
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
-        - $ref: '#/parameters/continue'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldSelector'
-        - $ref: '#/parameters/gracePeriodSeconds'
-        - $ref: '#/parameters/labelSelector'
-        - $ref: '#/parameters/limit'
-        - $ref: '#/parameters/orphanDependents'
-        - $ref: '#/parameters/propagationPolicy'
-        - $ref: '#/parameters/resourceVersion'
-        - $ref: '#/parameters/resourceVersionMatch'
-        - $ref: '#/parameters/sendInitialEvents'
-        - $ref: '#/parameters/timeoutSeconds'
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 批量删除 Lease
-      x-kubernetes-action: deletecollection
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-    get:
-      consumes:
-        - '*/*'
-      description: list or watch objects of kind Lease
-      operationId: listCoordinationV1beta1NamespacedLease
-      parameters:
-        - $ref: '#/parameters/allowWatchBookmarks'
-        - $ref: '#/parameters/continue'
-        - $ref: '#/parameters/fieldSelector'
-        - $ref: '#/parameters/labelSelector'
-        - $ref: '#/parameters/limit'
-        - $ref: '#/parameters/resourceVersion'
-        - $ref: '#/parameters/resourceVersionMatch'
-        - $ref: '#/parameters/sendInitialEvents'
-        - $ref: '#/parameters/timeoutSeconds'
-        - $ref: '#/parameters/watch'
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-        - application/json;stream=watch
-        - application/vnd.kubernetes.protobuf;stream=watch
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.LeaseList'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 列举或监视 Lease 对象
-      x-kubernetes-action: list
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-    post:
-      consumes:
-        - '*/*'
-      description: create a Lease
-      operationId: createCoordinationV1beta1NamespacedLease
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.CREATE'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldValidation'
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 成功
-        '201':
-          description: Created
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 创建成功
-        '202':
-          description: Accepted
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 操作已接受
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 创建一个 Lease
-      x-kubernetes-action: post
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-  /apis/coordination.k8s.io/v1beta1/namespaces/{namespace}/leases/{name}:
-    delete:
-      consumes:
-        - '*/*'
-      description: delete a Lease
-      operationId: deleteCoordinationV1beta1NamespacedLease
-      parameters:
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/gracePeriodSeconds'
-        - $ref: '#/parameters/orphanDependents'
-        - $ref: '#/parameters/propagationPolicy'
-        - description: name of the Lease
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: Lease 的名称
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
-          x-kab-description-zh: 成功
-        '202':
-          description: Accepted
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
-          x-kab-description-zh: 操作已接受
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 删除一个 Lease
-      x-kubernetes-action: delete
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-    get:
-      consumes:
-        - '*/*'
-      description: read the specified Lease
-      operationId: readCoordinationV1beta1NamespacedLease
-      parameters:
-        - description: name of the Lease
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: Lease 的名称
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 读取指定的 Lease 对象
-      x-kubernetes-action: get
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-    patch:
-      consumes:
-        - application/json-patch+json
-        - application/merge-patch+json
-        - application/strategic-merge-patch+json
-        - application/apply-patch+yaml
-      description: partially update the specified Lease
-      operationId: patchCoordinationV1beta1NamespacedLease
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch'
-        - $ref: '#/parameters/dryRun'
-        - $ref: '#/parameters/fieldValidation'
-        - description: name of the Lease
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: Lease 的名称
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 部分更新指定的 Lease 对象
-      x-kubernetes-action: patch
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
-    put:
-      consumes:
-        - '*/*'
-      description: replace the specified Lease
-      operationId: replaceCoordinationV1beta1NamespacedLease
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.UPDATE'
-        - $ref: '#/parameters/dryRun'
-        - description: name of the Lease
-          in: path
-          name: name
-          required: true
-          type: string
-          uniqueItems: true
-          x-kab-description-zh: Lease 的名称
-        - $ref: '#/parameters/namespace'
-        - $ref: '#/parameters/pretty'
-      produces:
-        - application/json
-        - application/yaml
-        - application/vnd.kubernetes.protobuf
-      responses:
-        '200':
-          description: OK
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 成功
-        '201':
-          description: Created
-          schema:
-            $ref: '#/definitions/io.k8s.api.coordination.v1beta1.Lease.GET'
-          x-kab-description-zh: 创建成功
-        '401':
-          description: Unauthorized
-          x-kab-description-zh: 未授权操作
-      schemes:
-        - https
-      tags:
-        - coordination_v1beta1
-      x-kab-description-zh: 替换指定的 Lease 对象
-      x-kubernetes-action: put
-      x-kubernetes-group-version-kind:
-        group: coordination.k8s.io
-        kind: Lease
-        version: v1beta1
   /apis/discovery.k8s.io/:
     get:
       consumes:
