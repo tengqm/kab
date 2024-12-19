@@ -48,21 +48,21 @@ COPY kab/dist $KAB_ROOT/dist
 COPY kab/locale $KAB_ROOT/locale
 
 RUN mkdir -p $KAB_ROOT/data && \
-    mkdir -p $KAB_ROOT/data/1.24 && \
-    mkdir -p $KAB_ROOT/data/1.25 && \
     mkdir -p $KAB_ROOT/data/1.26 && \
     mkdir -p $KAB_ROOT/data/1.27 && \
     mkdir -p $KAB_ROOT/data/1.28 && \
     mkdir -p $KAB_ROOT/data/1.29 && \
-    mkdir -p $KAB_ROOT/data/1.30
+    mkdir -p $KAB_ROOT/data/1.30 && \
+    mkdir -p $KAB_ROOT/data/1.31 && \
+    mkdir -p $KAB_ROOT/data/1.32
 
-COPY kubernetes/1.24 $KAB_ROOT/data/1.24
-COPY kubernetes/1.25 $KAB_ROOT/data/1.25
 COPY kubernetes/1.26 $KAB_ROOT/data/1.26
 COPY kubernetes/1.27 $KAB_ROOT/data/1.27
 COPY kubernetes/1.28 $KAB_ROOT/data/1.28
 COPY kubernetes/1.29 $KAB_ROOT/data/1.29
 COPY kubernetes/1.30 $KAB_ROOT/data/1.30
+COPY kubernetes/1.30 $KAB_ROOT/data/1.31
+COPY kubernetes/1.30 $KAB_ROOT/data/1.32
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
