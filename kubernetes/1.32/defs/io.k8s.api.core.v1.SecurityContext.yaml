@@ -7,28 +7,31 @@ x-kab-description-zh: |
   的 `securityContext` 中。如果两个位置设置了相同的选项，则以容器层面的设置为准。
 properties:
   allowPrivilegeEscalation:
-    description: |
+    description: |-
       This controls whether a process can gain more privileges than its parent process.
       This bool directly controls if the `no_new_privs` flag will be set on the container process.
       `allowPrivilegeEscalation` is always `true` when the container:
       1) runs with as `securityContext.privileged` set to `true`,
       2) has `CAP_SYS_ADMIN` in its `securityContext.capabilities.add`.
       If `privileged` is set to `true`, this cannot be `false`.
-    x-kab-description-zh: |
+
+    x-kab-description-zh: |-
       此字段控制一个进程是否可以获得比其父进程更多的特权。
       此布尔值直接控制是否会在容器的进程上设置 `no_new_privs` 标志。
       当容器符合以下条件时，`allowPrivilegeEscalation` 总是为 `true`：
       1) 容器中设置了 `securityContext.privileged` 为 `true`；
       2) 容器在其 `securityContext.capabilities.add` 中包含了 `CAP_SYS_ADMIN`。
       如果 `privileged` 被设置为 `true`，则此字段不可设置为 `false`。
-    appArmorProfile:
-      $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
-      description: |
-        `appArmorProfile` is the AppArmor options to use by this container. If set, this profile overrides the pod's `appArmorProfile`.
-        Note that this field cannot be set when `.spec.os.name` is `"windows"`.
-      x-kab-description-zh: |
-        `appArmorProfile` 是容器要使用的 AppArmor 选项。如果设置了此选项，则所给的配置会覆盖 Pod 的 `appArmorProfile` 设置。
-        注意，此字段在 `.spec.os.name` 值为 `"windows"` 时不可以设置。
+    type: boolean
+
+  appArmorProfile:
+    $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
+    description: |-
+      `appArmorProfile` is the AppArmor options to use by this container. If set, this profile overrides the pod's `appArmorProfile`.
+      Note that this field cannot be set when `.spec.os.name` is `"windows"`.
+    x-kab-description-zh: |
+      `appArmorProfile` 是容器要使用的 AppArmor 选项。如果设置了此选项，则所给的配置会覆盖 Pod 的 `appArmorProfile` 设置。
+      注意，此字段在 `.spec.os.name` 值为 `"windows"` 时不可以设置。
   capabilities:
     $ref: '#/definitions/io.k8s.api.core.v1.Capabilities'
     description: |

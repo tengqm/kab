@@ -166,7 +166,7 @@ properties:
       Pod 中容器要使用的 seccomp 选项。
       注意当 `spec.os.name` 是 `"windows"` 时不能设置此字段。
   supplementalGroups:
-    description: |
+    description: |-
       A list of groups applied to the first process run in each container, in addition to
       the container's primary GID, the `fsGroup` (if specified).
       If the SupplementalGroupsPolicy feature is enabled, the `supplementalGroupsPolicy` field determines
@@ -175,7 +175,7 @@ properties:
       image may still be used, depending on the `supplementalGroupsPolicy` field.
       Each group ID must be between 0 and 1^32 - 1.
       Note that this field cannot be set when `spec.os.name` is `"windows"`.
-    x-kab-description-zh: |
+    x-kab-description-zh: |-
       针对每个容器中运行的第一个进程的用户组列表，此列表是在容器的主 GID、`fsGroup` （若有）之外的。
       如果启用了 SupplementalGroupsPolicy 特性，则 `supplementalGroupsPolicy` 字段用来确定这里所给的额外组身份如何起作用，
       是作为容器中定义的组成员身份的补充还是将其替换掉。
@@ -188,9 +188,10 @@ properties:
       type: integer
     type: array
     x-kubernetes-list-type: atomic
+
   supplementalGroupsPolicy:
     default: Merge
-    description: |
+    description: |-
       Defines how supplemental groups of the first container processes are calculated.
       Valid values are `"Merge"` and `"Strict"`.
 
@@ -202,7 +203,7 @@ properties:
       This is an Alpha field. Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and
       the container runtime must implement support for this feature.
       Note that this field cannot be set when `spec.os.name` is `"windows"`.
-    x-kab-description-zh: |
+    x-kab-description-zh: |-
       此字段定义如何计算容器中第一个进程的附加组身份信息。合法取值包括 `"Merge"` 和 `"Strict"`：
 
       - `"Merge"`：容器所提供的 `supplementalGroups` 和 SecurityContext 中包含的 `fsGroup` 会与容器镜像中定义的
@@ -215,7 +216,7 @@ properties:
     enum:
       - Merge
       - Strict
-    type": "string"
+    type: string
   sysctls:
     description: |
       A list of namespaced sysctls used for the Pod.

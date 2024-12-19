@@ -21,6 +21,7 @@ properties:
       1) 容器中设置了 `securityContext.privileged` 为 `true`；
       2) 容器在其 `securityContext.capabilities.add` 中包含了 `CAP_SYS_ADMIN`。
       如果 `privileged` 被设置为 `true`，则此字段不可设置为 `false`。
+    type: boolean
   capabilities:
     $ref: '#/definitions/io.k8s.api.core.v1.Capabilities'
     description: |
