@@ -10,6 +10,7 @@ parameters:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
   - $ref: '#/parameters/dryRun'
   - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
   - $ref: '#/parameters/orphanDependents'
   - $ref: '#/parameters/propagationPolicy'
   - description: name of the HorizontalPodAutoscaler
@@ -26,6 +27,7 @@ produces:
   - application/json
   - application/yaml
   - application/vnd.kubernetes.protobuf
+  - application/cbor
 responses:
   '200':
     description:  OK

@@ -1,0 +1,47 @@
+consumes:
+  - '*/*'
+description: list or watch objects of kind LeaseCandidate
+x-kab-description-zh: 列举或监视 LeaseCandidate 类别的对象
+operationId: listCoordinationV1alpha2NamespacedLeaseCandidate
+parameters:
+  - $ref: '#/parameters/allowWatchBookmarks'
+  - $ref: '#/parameters/continue'
+  - $ref: '#/parameters/fieldSelector'
+  - $ref: '#/parameters/labelSelector'
+  - $ref: '#/parameters/limit'
+  - $ref: '#/parameters/resourceVersion'
+  - $ref: '#/parameters/resourceVersionMatch'
+  - $ref: '#/parameters/sendInitialEvents'
+  - $ref: '#/parameters/timeoutSeconds'
+  - $ref: '#/parameters/watch'
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /apis/coordination.k8s.io/v1alpha2/namespaces/{namespace}/leasecandidates
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+  - application/json;stream=watch
+  - application/vnd.kubernetes.protobuf;stream=watch
+  - application/cbor-seq
+responses:
+  '200':
+    description: OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.api.coordination.v1alpha2.LeaseCandidateList'
+  '401':
+    description: Unauthorized
+    x-kab-description-zh: 未授权操作
+schemes:
+  - https
+tags:
+  - coordination_v1alpha2
+verb: get
+x-kubernetes-action: list
+x-kubernetes-group-version-kind:
+  group: coordination.k8s.io
+  kind: LeaseCandidate
+  version: v1alpha2
+

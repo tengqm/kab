@@ -1,0 +1,51 @@
+consumes:
+  - '*/*'
+description: delete collection of ResourceClaim
+x-kab-description-zh: 批量删除 ResourceClaim
+operationId: deleteResourceV1beta1CollectionNamespacedResourceClaim
+parameters:
+  - in: body
+    name: body
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+  - $ref: '#/parameters/continue'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldSelector'
+  - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: '#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj'
+  - $ref: '#/parameters/labelSelector'
+  - $ref: '#/parameters/limit'
+  - $ref: '#/parameters/orphanDependents'
+  - $ref: '#/parameters/propagationPolicy'
+  - $ref: '#/parameters/resourceVersion'
+  - $ref: '#/parameters/resourceVersionMatch'
+  - $ref: '#/parameters/sendInitialEvents'
+  - $ref: '#/parameters/timeoutSeconds'
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /apis/resource.k8s.io/v1beta1/namespaces/{namespace}/resourceclaims
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
+  '401':
+    description: Unauthorized
+    x-kab-description-zh: 操作未授权
+schemes:
+  - https
+tags:
+  - resource_v1beta1
+verb: delete
+x-kubernetes-action: deletecollection
+x-kubernetes-group-version-kind:
+  group: resource.k8s.io
+  kind: ResourceClaim
+  version: v1beta1
+

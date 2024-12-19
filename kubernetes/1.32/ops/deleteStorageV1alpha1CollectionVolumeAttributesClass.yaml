@@ -12,6 +12,7 @@ parameters:
   - $ref: '#/parameters/dryRun'
   - $ref: '#/parameters/fieldSelector'
   - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
   - $ref: '#/parameters/labelSelector'
   - $ref: '#/parameters/limit'
   - $ref: '#/parameters/orphanDependents'
@@ -26,6 +27,7 @@ produces:
   - application/json
   - application/yaml
   - application/vnd.kubernetes.protobuf
+  - application/cbor
 responses:
   '200':
     description:  OK

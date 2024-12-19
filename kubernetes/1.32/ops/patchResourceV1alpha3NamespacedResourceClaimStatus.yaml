@@ -3,6 +3,7 @@ consumes:
   - application/merge-patch+json
   - application/strategic-merge-patch+json
   - application/apply-patch+yaml
+  - application/apply-patch+cbor
 description: partially update status of the specified ResourceClaim
 x-kab-description-zh: 部分更新指定的 ResourceClaim 对象的状态（status）
 operationId: patchResourceV1alpha3NamespacedResourceClaimStatus
@@ -28,6 +29,7 @@ parameters:
 path: 
   /apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaims/{name}/status
 produces:
+  - application/cbor
   - application/json
   - application/yaml
   - application/vnd.kubernetes.protobuf

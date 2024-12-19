@@ -3,6 +3,7 @@ consumes:
   - application/merge-patch+json
   - application/strategic-merge-patch+json
   - application/apply-patch+yaml
+  - application/apply-patch+cbor
 description: partially update the specified HorizontalPodAutoscaler
 x-kab-description-zh: 部分更新指定的 HorizontalPodAutoscaler 对象
 operationId: patchAutoscalingV2NamespacedHorizontalPodAutoscaler
@@ -30,6 +31,7 @@ produces:
   - application/json
   - application/yaml
   - application/vnd.kubernetes.protobuf
+  - application/cbor
 responses:
   '200':
     description:  OK

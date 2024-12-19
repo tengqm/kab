@@ -3,6 +3,7 @@ consumes:
   - application/merge-patch+json
   - application/strategic-merge-patch+json
   - application/apply-patch+yaml
+  - application/apply-patch+cbor
 description: partially update the specified ValidatingAdmissionPolicy
 x-kab-description-zh: 部分更新指定的 ValidatingAdmissionPolicy 对象
 operationId: patchAdmissionregistrationV1ValidatingAdmissionPolicy
@@ -29,6 +30,7 @@ produces:
   - application/json
   - application/yaml
   - application/vnd.kubernetes.protobuf
+  - application/cbor
 responses:
   '200':
     description:  OK

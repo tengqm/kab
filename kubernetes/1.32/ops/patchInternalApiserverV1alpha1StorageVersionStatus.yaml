@@ -3,6 +3,7 @@ consumes:
   - application/merge-patch+json
   - application/strategic-merge-patch+json
   - application/apply-patch+yaml
+  - application/apply-patch+cbor
 description: partially update status of the specified StorageVersion
 x-kab-description-zh: 部分更新指定的 StorageVersion 对象的状态（status）
 operationId: patchInternalApiserverV1alpha1StorageVersionStatus
@@ -29,6 +30,7 @@ produces:
   - application/json
   - application/yaml
   - application/vnd.kubernetes.protobuf
+  - application/cbor
 responses:
   '200':
     description:  OK
