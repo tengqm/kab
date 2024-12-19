@@ -68694,7 +68694,7 @@
         "name": "allowWatchBookmarks",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`allowWatchBookmarks` \u8bf7\u6c42\u63a5\u6536\u7c7b\u578b\u4e3a `BOOKMARK` \u7684\u76d1\u89c6\u4e8b\u4ef6\u3002\n\u672a\u5b9e\u73b0\u4e66\u7b7e\u80fd\u529b\u7684\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u5ffd\u7565\u6b64\u6807\u5fd7\uff0c\u5e76\u4e14\uff0c\u662f\u5426\u53d1\u9001\u4e66\u7b7e\u7531\u670d\u52a1\u5668\u51b3\u5b9a\u3002\n\u5ba2\u6237\u7aef\u4e0d\u80fd\u5bf9\u4e66\u7b7e\u8fd4\u56de\u7684\u65f6\u95f4\u95f4\u9694\u4f5c\u4efb\u4f55\u5047\u5b9a\uff0c\u4e5f\u4e0d\u80fd\u5047\u5b9a\u670d\u52a1\u5668\u4e00\u5b9a\u4f1a\u5728\u4e00\u6b21\u4f1a\u8bdd\u4e2d\u53d1\u9001 `BOOKMARK` \u4e8b\u4ef6\u3002\n\u5982\u679c\u8bf7\u6c42\u672c\u8eab\u4e0d\u662f `watch` \u8bf7\u6c42\uff0c\u5219\u6b64\u6807\u5fd7\u4f1a\u88ab\u5ffd\u7565\u3002\n"
+        "x-kab-description-zh": "`allowWatchBookmarks` 请求接收类型为 `BOOKMARK` 的监视事件。\n未实现书签能力的服务器可能会忽略此标志，并且，是否发送书签由服务器决定。\n客户端不能对书签返回的时间间隔作任何假定，也不能假定服务器一定会在一次会话中发送 `BOOKMARK` 事件。\n如果请求本身不是 `watch` 请求，则此标志会被忽略。\n"
       },
       "1.30": {
         "description": "`allowWatchBookmarks` requests watch events with type `BOOKMARK`.\nServers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion.\nClients should not assume bookmarks are returned at any specific interval, nor may they assume\nthe server will send any BOOKMARK event during a session.\nIf this is not a `watch`, this field is ignored.\n",
@@ -68702,7 +68702,7 @@
         "name": "allowWatchBookmarks",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`allowWatchBookmarks` \u8bf7\u6c42\u63a5\u6536\u7c7b\u578b\u4e3a `BOOKMARK` \u7684\u76d1\u89c6\u4e8b\u4ef6\u3002\n\u672a\u5b9e\u73b0\u4e66\u7b7e\u80fd\u529b\u7684\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u5ffd\u7565\u6b64\u6807\u5fd7\uff0c\u5e76\u4e14\uff0c\u662f\u5426\u53d1\u9001\u4e66\u7b7e\u7531\u670d\u52a1\u5668\u51b3\u5b9a\u3002\n\u5ba2\u6237\u7aef\u4e0d\u80fd\u5bf9\u4e66\u7b7e\u8fd4\u56de\u7684\u65f6\u95f4\u95f4\u9694\u4f5c\u4efb\u4f55\u5047\u5b9a\uff0c\u4e5f\u4e0d\u80fd\u5047\u5b9a\u670d\u52a1\u5668\u4e00\u5b9a\u4f1a\u5728\u4e00\u6b21\u4f1a\u8bdd\u4e2d\u53d1\u9001 `BOOKMARK` \u4e8b\u4ef6\u3002\n\u5982\u679c\u8bf7\u6c42\u672c\u8eab\u4e0d\u662f `watch` \u8bf7\u6c42\uff0c\u5219\u6b64\u6807\u5fd7\u4f1a\u88ab\u5ffd\u7565\u3002\n"
+        "x-kab-description-zh": "`allowWatchBookmarks` 请求接收类型为 `BOOKMARK` 的监视事件。\n未实现书签能力的服务器可能会忽略此标志，并且，是否发送书签由服务器决定。\n客户端不能对书签返回的时间间隔作任何假定，也不能假定服务器一定会在一次会话中发送 `BOOKMARK` 事件。\n如果请求本身不是 `watch` 请求，则此标志会被忽略。\n"
       },
       "1.31": {
         "description": "`allowWatchBookmarks` requests watch events with type `BOOKMARK`.\nServers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion.\nClients should not assume bookmarks are returned at any specific interval, nor may they assume\nthe server will send any BOOKMARK event during a session.\nIf this is not a `watch`, this field is ignored.\n",
@@ -68710,7 +68710,7 @@
         "name": "allowWatchBookmarks",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`allowWatchBookmarks` \u8bf7\u6c42\u63a5\u6536\u7c7b\u578b\u4e3a `BOOKMARK` \u7684\u76d1\u89c6\u4e8b\u4ef6\u3002\n\u672a\u5b9e\u73b0\u4e66\u7b7e\u80fd\u529b\u7684\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u5ffd\u7565\u6b64\u6807\u5fd7\uff0c\u5e76\u4e14\uff0c\u662f\u5426\u53d1\u9001\u4e66\u7b7e\u7531\u670d\u52a1\u5668\u51b3\u5b9a\u3002\n\u5ba2\u6237\u7aef\u4e0d\u80fd\u5bf9\u4e66\u7b7e\u8fd4\u56de\u7684\u65f6\u95f4\u95f4\u9694\u4f5c\u4efb\u4f55\u5047\u5b9a\uff0c\u4e5f\u4e0d\u80fd\u5047\u5b9a\u670d\u52a1\u5668\u4e00\u5b9a\u4f1a\u5728\u4e00\u6b21\u4f1a\u8bdd\u4e2d\u53d1\u9001 `BOOKMARK` \u4e8b\u4ef6\u3002\n\u5982\u679c\u8bf7\u6c42\u672c\u8eab\u4e0d\u662f `watch` \u8bf7\u6c42\uff0c\u5219\u6b64\u6807\u5fd7\u4f1a\u88ab\u5ffd\u7565\u3002\n"
+        "x-kab-description-zh": "`allowWatchBookmarks` 请求接收类型为 `BOOKMARK` 的监视事件。\n未实现书签能力的服务器可能会忽略此标志，并且，是否发送书签由服务器决定。\n客户端不能对书签返回的时间间隔作任何假定，也不能假定服务器一定会在一次会话中发送 `BOOKMARK` 事件。\n如果请求本身不是 `watch` 请求，则此标志会被忽略。\n"
       },
       "1.32": {
         "description": "`allowWatchBookmarks` requests watch events with type `BOOKMARK`.\nServers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion.\nClients should not assume bookmarks are returned at any specific interval, nor may they assume\nthe server will send any BOOKMARK event during a session.\nIf this is not a `watch`, this field is ignored.\n",
@@ -68718,7 +68718,7 @@
         "name": "allowWatchBookmarks",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`allowWatchBookmarks` \u8bf7\u6c42\u63a5\u6536\u7c7b\u578b\u4e3a `BOOKMARK` \u7684\u76d1\u89c6\u4e8b\u4ef6\u3002\n\u672a\u5b9e\u73b0\u4e66\u7b7e\u80fd\u529b\u7684\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u5ffd\u7565\u6b64\u6807\u5fd7\uff0c\u5e76\u4e14\uff0c\u662f\u5426\u53d1\u9001\u4e66\u7b7e\u7531\u670d\u52a1\u5668\u51b3\u5b9a\u3002\n\u5ba2\u6237\u7aef\u4e0d\u80fd\u5bf9\u4e66\u7b7e\u8fd4\u56de\u7684\u65f6\u95f4\u95f4\u9694\u4f5c\u4efb\u4f55\u5047\u5b9a\uff0c\u4e5f\u4e0d\u80fd\u5047\u5b9a\u670d\u52a1\u5668\u4e00\u5b9a\u4f1a\u5728\u4e00\u6b21\u4f1a\u8bdd\u4e2d\u53d1\u9001 `BOOKMARK` \u4e8b\u4ef6\u3002\n\u5982\u679c\u8bf7\u6c42\u672c\u8eab\u4e0d\u662f `watch` \u8bf7\u6c42\uff0c\u5219\u6b64\u6807\u5fd7\u4f1a\u88ab\u5ffd\u7565\u3002\n"
+        "x-kab-description-zh": "`allowWatchBookmarks` 请求接收类型为 `BOOKMARK` 的监视事件。\n未实现书签能力的服务器可能会忽略此标志，并且，是否发送书签由服务器决定。\n客户端不能对书签返回的时间间隔作任何假定，也不能假定服务器一定会在一次会话中发送 `BOOKMARK` 事件。\n如果请求本身不是 `watch` 请求，则此标志会被忽略。\n"
       }
     },
     "command": {
@@ -68735,7 +68735,7 @@
         "name": "command",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9700\u8981\u5728\u8fdc\u7a0b\u6267\u884c\u7684\u547d\u4ee4\u3002\u6240\u7ed9\u7684\u5b57\u7b26\u4e32\u4f1a\u88ab\u5f53\u4f5c\u7a7a\u683c\u5206\u5272\u7684\u53c2\u6570\u6570\u7ec4\u6765\u89e3\u91ca\u3002\n\u6240\u7ed9\u547d\u4ee4\u4e0d\u4f1a\u5728\u4e00\u4e2a Shell \u73af\u5883\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "需要在远程执行的命令。所给的字符串会被当作空格分割的参数数组来解释。\n所给命令不会在一个 Shell 环境中执行。\n"
       },
       "1.30": {
         "description": "Command is the remote command to execute. argv array. Not executed within a shell.\n",
@@ -68743,7 +68743,7 @@
         "name": "command",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9700\u8981\u5728\u8fdc\u7a0b\u6267\u884c\u7684\u547d\u4ee4\u3002\u6240\u7ed9\u7684\u5b57\u7b26\u4e32\u4f1a\u88ab\u5f53\u4f5c\u7a7a\u683c\u5206\u5272\u7684\u53c2\u6570\u6570\u7ec4\u6765\u89e3\u91ca\u3002\n\u6240\u7ed9\u547d\u4ee4\u4e0d\u4f1a\u5728\u4e00\u4e2a Shell \u73af\u5883\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "需要在远程执行的命令。所给的字符串会被当作空格分割的参数数组来解释。\n所给命令不会在一个 Shell 环境中执行。\n"
       },
       "1.31": {
         "description": "Command is the remote command to execute. argv array. Not executed within a shell.",
@@ -68751,7 +68751,7 @@
         "name": "command",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9700\u8981\u5728\u8fdc\u7a0b\u6267\u884c\u7684\u547d\u4ee4\u3002\u6240\u7ed9\u7684\u5b57\u7b26\u4e32\u4f1a\u88ab\u5f53\u4f5c\u7a7a\u683c\u5206\u5272\u7684\u53c2\u6570\u6570\u7ec4\u6765\u89e3\u91ca\u3002\n\u6240\u7ed9\u547d\u4ee4\u4e0d\u4f1a\u5728\u4e00\u4e2a Shell \u73af\u5883\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "需要在远程执行的命令。所给的字符串会被当作空格分割的参数数组来解释。\n所给命令不会在一个 Shell 环境中执行。\n"
       },
       "1.32": {
         "description": "Command is the remote command to execute. argv array. Not executed within a shell.",
@@ -68759,7 +68759,7 @@
         "name": "command",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9700\u8981\u5728\u8fdc\u7a0b\u6267\u884c\u7684\u547d\u4ee4\u3002\u6240\u7ed9\u7684\u5b57\u7b26\u4e32\u4f1a\u88ab\u5f53\u4f5c\u7a7a\u683c\u5206\u5272\u7684\u53c2\u6570\u6570\u7ec4\u6765\u89e3\u91ca\u3002\n\u6240\u7ed9\u547d\u4ee4\u4e0d\u4f1a\u5728\u4e00\u4e2a Shell \u73af\u5883\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "需要在远程执行的命令。所给的字符串会被当作空格分割的参数数组来解释。\n所给命令不会在一个 Shell 环境中执行。\n"
       }
     },
     "container": {
@@ -68776,7 +68776,7 @@
         "name": "container",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u7ed9\u51fa\u5728\u54ea\u4e2a\u5bb9\u5668\u4e2d\u6267\u884c\u547d\u4ee4\u3002\n\u5982\u679c Pod \u4e2d\u53ea\u6709\u4e00\u4e2a\u5bb9\u5668\uff0c\u5219\u9ed8\u8ba4\u4e3a\u5728\u8be5\u5bb9\u5668\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "此参数给出在哪个容器中执行命令。\n如果 Pod 中只有一个容器，则默认为在该容器中执行。\n"
       },
       "1.30": {
         "description": "Container in which to execute the command.\nDefaults to only container if there is only one container in the Pod.\n",
@@ -68784,7 +68784,7 @@
         "name": "container",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u7ed9\u51fa\u5728\u54ea\u4e2a\u5bb9\u5668\u4e2d\u6267\u884c\u547d\u4ee4\u3002\n\u5982\u679c Pod \u4e2d\u53ea\u6709\u4e00\u4e2a\u5bb9\u5668\uff0c\u5219\u9ed8\u8ba4\u4e3a\u5728\u8be5\u5bb9\u5668\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "此参数给出在哪个容器中执行命令。\n如果 Pod 中只有一个容器，则默认为在该容器中执行。\n"
       },
       "1.31": {
         "description": "Container in which to execute the command.\nDefaults to only container if there is only one container in the Pod.\n",
@@ -68792,7 +68792,7 @@
         "name": "container",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u7ed9\u51fa\u5728\u54ea\u4e2a\u5bb9\u5668\u4e2d\u6267\u884c\u547d\u4ee4\u3002\n\u5982\u679c Pod \u4e2d\u53ea\u6709\u4e00\u4e2a\u5bb9\u5668\uff0c\u5219\u9ed8\u8ba4\u4e3a\u5728\u8be5\u5bb9\u5668\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "此参数给出在哪个容器中执行命令。\n如果 Pod 中只有一个容器，则默认为在该容器中执行。\n"
       },
       "1.32": {
         "description": "Container in which to execute the command.\nDefaults to only container if there is only one container in the Pod.\n",
@@ -68800,7 +68800,7 @@
         "name": "container",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u7ed9\u51fa\u5728\u54ea\u4e2a\u5bb9\u5668\u4e2d\u6267\u884c\u547d\u4ee4\u3002\n\u5982\u679c Pod \u4e2d\u53ea\u6709\u4e00\u4e2a\u5bb9\u5668\uff0c\u5219\u9ed8\u8ba4\u4e3a\u5728\u8be5\u5bb9\u5668\u4e2d\u6267\u884c\u3002\n"
+        "x-kab-description-zh": "此参数给出在哪个容器中执行命令。\n如果 Pod 中只有一个容器，则默认为在该容器中执行。\n"
       }
     },
     "continue": {
@@ -68833,7 +68833,7 @@
         "name": "continue",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5728\u9700\u8981\u4ece\u670d\u52a1\u5668\u7aef\u53d6\u56de\u66f4\u591a\u7684\u7ed3\u679c\u65f6\uff0c\u5e94\u8be5\u8bbe\u7f6e `continue` \u9009\u9879\u3002\n\u7531\u4e8e\u8fd9\u4e2a\u53c2\u6570\u7684\u5408\u6cd5\u53c2\u6570\u503c\u662f\u670d\u52a1\u5668\u7aef\u51b3\u5b9a\u7684\uff0c\u5ba2\u6237\u7aef\u53ea\u80fd\u4f7f\u7528\u6765\u81ea\u4e8e\u4e4b\u524d\u67e5\u8be2\u7ed3\u679c\u4e2d\u7684 `continue` \u503c\uff0c\n\u5e76\u4e14\u201c\u4e4b\u524d\u67e5\u8be2\u201d\u8981\u4e0e\u5f53\u524d\u67e5\u8be2\u7684\u53c2\u6570\u5b8c\u5168\u76f8\u540c\uff08\u9664\u4e86 `continue` \u9009\u9879\uff09\u3002\n\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u62d2\u7edd\u5b83\u65e0\u6cd5\u8bc6\u522b\u7684 `continue` \u503c\u3002\n\n\u5982\u679c\u7531\u4e8e\u8d85\u65f6\uff08\u901a\u5e38\u662f 15 \u5206\u949f\uff09\u6216\u8005\u670d\u52a1\u5668\u7aef\u914d\u7f6e\u53d8\u5316\u7b49\u539f\u56e0\u5bfc\u81f4\u6240\u6307\u5b9a\u7684 `continue` \u503c\u4e0d\u518d\u6709\u6548\uff0c\n\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a `\"410 ResourceExpired\"` \u9519\u8bef\u4fe1\u606f\uff0c\u5e76\u9644\u5e26\u4e00\u4e2a `continue` \u4ee4\u724c\u3002\n\u5982\u679c\u5ba2\u6237\u7aef\u9700\u8981\u67e5\u770b\u4e00\u81f4\u6027\u7684\u5217\u8868\uff0c\u5219\u5fc5\u987b\u5728\u4e0d\u8bbe\u7f6e `continue` \u5b57\u6bb5\u7684\u524d\u63d0\u4e0b\u91cd\u65b0\u53d1\u8d77 `list` \u64cd\u4f5c\u3002\n\u6216\u8005\uff0c\u5ba2\u6237\u7aef\u4e5f\u53ef\u4ee5\u4f7f\u7528\u4ece 410 \u9519\u8bef\u54cd\u5e94\u4e2d\u6536\u5230\u7684\u4ee4\u724c\u53d1\u9001 `list` \u8bf7\u6c42\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a\u4ece\u4e0b\u4e00\u4e3b\u952e\u5f00\u59cb\u7684\u5217\u8868\uff0c\n\u4f46\u5217\u8868\u672c\u8eab\u6765\u81ea\u4e8e\u6700\u65b0\u7684\u5feb\u7167\uff0c\u4e0e\u4e4b\u524d\u7684\u5217\u8868\u7ed3\u679c\u4e4b\u95f4\u53ef\u80fd\u5b58\u5728\u4e0d\u4e00\u81f4\uff1a\u7b2c\u4e00\u6b21 `list` \u64cd\u4f5c\u4e4b\u540e\u521b\u5efa\u7684\u3001\n\u66f4\u6539\u7684\u3001\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4f1a\u53cd\u6620\u5728\u54cd\u5e94\u4e2d\uff0c\u670d\u52a1\u5668\u53ea\u5173\u5fc3\u5176\u4e3b\u952e\u662f\u5426\u5728 `\"\u4e0b\u4e00\u4e3b\u952e\"` \u4e4b\u540e\u3002\n\n\u5f53\u8bbe\u7f6e\u4e86 `watch` \u4e3a `true` \u65f6\uff0c\u6b64\u5b57\u6bb5\u4e0d\u518d\u6709\u6548\u3002\n\u5ba2\u6237\u7aef\u53ef\u4ee5\u57fa\u4e8e\u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u6700\u540e\u4e00\u4e2a `resourceVersion` \u503c\u542f\u52a8 `watch` \u64cd\u4f5c\uff0c\u800c\u4e0d\u4f1a\u9519\u8fc7\u4efb\u4f55\u66f4\u65b0\u3002\n"
+        "x-kab-description-zh": "在需要从服务器端取回更多的结果时，应该设置 `continue` 选项。\n由于这个参数的合法参数值是服务器端决定的，客户端只能使用来自于之前查询结果中的 `continue` 值，\n并且“之前查询”要与当前查询的参数完全相同（除了 `continue` 选项）。\n服务器可能会拒绝它无法识别的 `continue` 值。\n\n如果由于超时（通常是 15 分钟）或者服务器端配置变化等原因导致所指定的 `continue` 值不再有效，\n服务器会返回一个 `\"410 ResourceExpired\"` 错误信息，并附带一个 `continue` 令牌。\n如果客户端需要查看一致性的列表，则必须在不设置 `continue` 字段的前提下重新发起 `list` 操作。\n或者，客户端也可以使用从 410 错误响应中收到的令牌发送 `list` 请求，服务器会返回一个从下一主键开始的列表，\n但列表本身来自于最新的快照，与之前的列表结果之间可能存在不一致：第一次 `list` 操作之后创建的、\n更改的、删除的对象都会反映在响应中，服务器只关心其主键是否在 `\"下一主键\"` 之后。\n\n当设置了 `watch` 为 `true` 时，此字段不再有效。\n客户端可以基于服务器所返回的最后一个 `resourceVersion` 值启动 `watch` 操作，而不会错过任何更新。\n"
       },
       "1.30": {
         "description": "The `continue` option should be set when retrieving more results from the server.\nSince this value is server defined, clients may only use the `continue` value from a previous query\nresult with identical query parameters (except for the value of `continue`) and the server may reject\na `continue` value it does not recognize.\nIf the specified `continue` value is no longer valid whether due to expiration (generally five to\nfifteen minutes) or a configuration change on the server, the server will respond with a\n`\"410 ResourceExpired\"` error together with a `continue` token.\nIf the client needs a consistent list, it must restart their `list` without the `continue` field.\nOtherwise, the client may send another `list` request with the token received with the 410 error,\nthe server will respond with a list starting from the next key, but from the latest snapshot,\nwhich is inconsistent from the previous list results - objects that are created, modified, or\ndeleted after the first list request will be included in the response, as long as their keys are\nafter the `\"next key\"`.\n\nThis field is not supported when `watch` is `true`.\nClients may start a watch from the last `resourceVersion` value returned by the server and\nnot miss any modifications.\n",
@@ -68841,7 +68841,7 @@
         "name": "continue",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5728\u9700\u8981\u4ece\u670d\u52a1\u5668\u7aef\u53d6\u56de\u66f4\u591a\u7684\u7ed3\u679c\u65f6\uff0c\u5e94\u8be5\u8bbe\u7f6e `continue` \u9009\u9879\u3002\n\u7531\u4e8e\u8fd9\u4e2a\u53c2\u6570\u7684\u5408\u6cd5\u53c2\u6570\u503c\u662f\u670d\u52a1\u5668\u7aef\u51b3\u5b9a\u7684\uff0c\u5ba2\u6237\u7aef\u53ea\u80fd\u4f7f\u7528\u6765\u81ea\u4e8e\u4e4b\u524d\u67e5\u8be2\u7ed3\u679c\u4e2d\u7684 `continue` \u503c\uff0c\n\u5e76\u4e14\u201c\u4e4b\u524d\u67e5\u8be2\u201d\u8981\u4e0e\u5f53\u524d\u67e5\u8be2\u7684\u53c2\u6570\u5b8c\u5168\u76f8\u540c\uff08\u9664\u4e86 `continue` \u9009\u9879\uff09\u3002\n\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u62d2\u7edd\u5b83\u65e0\u6cd5\u8bc6\u522b\u7684 `continue` \u503c\u3002\n\n\u5982\u679c\u7531\u4e8e\u8d85\u65f6\uff08\u901a\u5e38\u662f 15 \u5206\u949f\uff09\u6216\u8005\u670d\u52a1\u5668\u7aef\u914d\u7f6e\u53d8\u5316\u7b49\u539f\u56e0\u5bfc\u81f4\u6240\u6307\u5b9a\u7684 `continue` \u503c\u4e0d\u518d\u6709\u6548\uff0c\n\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a `\"410 ResourceExpired\"` \u9519\u8bef\u4fe1\u606f\uff0c\u5e76\u9644\u5e26\u4e00\u4e2a `continue` \u4ee4\u724c\u3002\n\u5982\u679c\u5ba2\u6237\u7aef\u9700\u8981\u67e5\u770b\u4e00\u81f4\u6027\u7684\u5217\u8868\uff0c\u5219\u5fc5\u987b\u5728\u4e0d\u8bbe\u7f6e `continue` \u5b57\u6bb5\u7684\u524d\u63d0\u4e0b\u91cd\u65b0\u53d1\u8d77 `list` \u64cd\u4f5c\u3002\n\u6216\u8005\uff0c\u5ba2\u6237\u7aef\u4e5f\u53ef\u4ee5\u4f7f\u7528\u4ece 410 \u9519\u8bef\u54cd\u5e94\u4e2d\u6536\u5230\u7684\u4ee4\u724c\u53d1\u9001 `list` \u8bf7\u6c42\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a\u4ece\u4e0b\u4e00\u4e3b\u952e\u5f00\u59cb\u7684\u5217\u8868\uff0c\n\u4f46\u5217\u8868\u672c\u8eab\u6765\u81ea\u4e8e\u6700\u65b0\u7684\u5feb\u7167\uff0c\u4e0e\u4e4b\u524d\u7684\u5217\u8868\u7ed3\u679c\u4e4b\u95f4\u53ef\u80fd\u5b58\u5728\u4e0d\u4e00\u81f4\uff1a\u7b2c\u4e00\u6b21 `list` \u64cd\u4f5c\u4e4b\u540e\u521b\u5efa\u7684\u3001\n\u66f4\u6539\u7684\u3001\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4f1a\u53cd\u6620\u5728\u54cd\u5e94\u4e2d\uff0c\u670d\u52a1\u5668\u53ea\u5173\u5fc3\u5176\u4e3b\u952e\u662f\u5426\u5728 `\"\u4e0b\u4e00\u4e3b\u952e\"` \u4e4b\u540e\u3002\n\n\u5f53\u8bbe\u7f6e\u4e86 `watch` \u4e3a `true` \u65f6\uff0c\u6b64\u5b57\u6bb5\u4e0d\u518d\u6709\u6548\u3002\n\u5ba2\u6237\u7aef\u53ef\u4ee5\u57fa\u4e8e\u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u6700\u540e\u4e00\u4e2a `resourceVersion` \u503c\u542f\u52a8 `watch` \u64cd\u4f5c\uff0c\u800c\u4e0d\u4f1a\u9519\u8fc7\u4efb\u4f55\u66f4\u65b0\u3002\n"
+        "x-kab-description-zh": "在需要从服务器端取回更多的结果时，应该设置 `continue` 选项。\n由于这个参数的合法参数值是服务器端决定的，客户端只能使用来自于之前查询结果中的 `continue` 值，\n并且“之前查询”要与当前查询的参数完全相同（除了 `continue` 选项）。\n服务器可能会拒绝它无法识别的 `continue` 值。\n\n如果由于超时（通常是 15 分钟）或者服务器端配置变化等原因导致所指定的 `continue` 值不再有效，\n服务器会返回一个 `\"410 ResourceExpired\"` 错误信息，并附带一个 `continue` 令牌。\n如果客户端需要查看一致性的列表，则必须在不设置 `continue` 字段的前提下重新发起 `list` 操作。\n或者，客户端也可以使用从 410 错误响应中收到的令牌发送 `list` 请求，服务器会返回一个从下一主键开始的列表，\n但列表本身来自于最新的快照，与之前的列表结果之间可能存在不一致：第一次 `list` 操作之后创建的、\n更改的、删除的对象都会反映在响应中，服务器只关心其主键是否在 `\"下一主键\"` 之后。\n\n当设置了 `watch` 为 `true` 时，此字段不再有效。\n客户端可以基于服务器所返回的最后一个 `resourceVersion` 值启动 `watch` 操作，而不会错过任何更新。\n"
       },
       "1.31": {
         "description": "The `continue` option should be set when retrieving more results from the server.\nSince this value is server defined, clients may only use the `continue` value from a previous query\nresult with identical query parameters (except for the value of `continue`) and the server may reject\na `continue` value it does not recognize.\nIf the specified `continue` value is no longer valid whether due to expiration (generally five to\nfifteen minutes) or a configuration change on the server, the server will respond with a\n`\"410 ResourceExpired\"` error together with a `continue` token.\nIf the client needs a consistent list, it must restart their `list` without the `continue` field.\nOtherwise, the client may send another `list` request with the token received with the 410 error,\nthe server will respond with a list starting from the next key, but from the latest snapshot,\nwhich is inconsistent from the previous list results - objects that are created, modified, or\ndeleted after the first list request will be included in the response, as long as their keys are\nafter the `\"next key\"`.\n\nThis field is not supported when `watch` is `true`.\nClients may start a watch from the last `resourceVersion` value returned by the server and\nnot miss any modifications.\n",
@@ -68849,7 +68849,7 @@
         "name": "continue",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5728\u9700\u8981\u4ece\u670d\u52a1\u5668\u7aef\u53d6\u56de\u66f4\u591a\u7684\u7ed3\u679c\u65f6\uff0c\u5e94\u8be5\u8bbe\u7f6e `continue` \u9009\u9879\u3002\n\u7531\u4e8e\u8fd9\u4e2a\u53c2\u6570\u7684\u5408\u6cd5\u53c2\u6570\u503c\u662f\u670d\u52a1\u5668\u7aef\u51b3\u5b9a\u7684\uff0c\u5ba2\u6237\u7aef\u53ea\u80fd\u4f7f\u7528\u6765\u81ea\u4e8e\u4e4b\u524d\u67e5\u8be2\u7ed3\u679c\u4e2d\u7684 `continue` \u503c\uff0c\n\u5e76\u4e14\u201c\u4e4b\u524d\u67e5\u8be2\u201d\u8981\u4e0e\u5f53\u524d\u67e5\u8be2\u7684\u53c2\u6570\u5b8c\u5168\u76f8\u540c\uff08\u9664\u4e86 `continue` \u9009\u9879\uff09\u3002\n\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u62d2\u7edd\u5b83\u65e0\u6cd5\u8bc6\u522b\u7684 `continue` \u503c\u3002\n\n\u5982\u679c\u7531\u4e8e\u8d85\u65f6\uff08\u901a\u5e38\u662f 15 \u5206\u949f\uff09\u6216\u8005\u670d\u52a1\u5668\u7aef\u914d\u7f6e\u53d8\u5316\u7b49\u539f\u56e0\u5bfc\u81f4\u6240\u6307\u5b9a\u7684 `continue` \u503c\u4e0d\u518d\u6709\u6548\uff0c\n\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a `\"410 ResourceExpired\"` \u9519\u8bef\u4fe1\u606f\uff0c\u5e76\u9644\u5e26\u4e00\u4e2a `continue` \u4ee4\u724c\u3002\n\u5982\u679c\u5ba2\u6237\u7aef\u9700\u8981\u67e5\u770b\u4e00\u81f4\u6027\u7684\u5217\u8868\uff0c\u5219\u5fc5\u987b\u5728\u4e0d\u8bbe\u7f6e `continue` \u5b57\u6bb5\u7684\u524d\u63d0\u4e0b\u91cd\u65b0\u53d1\u8d77 `list` \u64cd\u4f5c\u3002\n\u6216\u8005\uff0c\u5ba2\u6237\u7aef\u4e5f\u53ef\u4ee5\u4f7f\u7528\u4ece 410 \u9519\u8bef\u54cd\u5e94\u4e2d\u6536\u5230\u7684\u4ee4\u724c\u53d1\u9001 `list` \u8bf7\u6c42\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a\u4ece\u4e0b\u4e00\u4e3b\u952e\u5f00\u59cb\u7684\u5217\u8868\uff0c\n\u4f46\u5217\u8868\u672c\u8eab\u6765\u81ea\u4e8e\u6700\u65b0\u7684\u5feb\u7167\uff0c\u4e0e\u4e4b\u524d\u7684\u5217\u8868\u7ed3\u679c\u4e4b\u95f4\u53ef\u80fd\u5b58\u5728\u4e0d\u4e00\u81f4\uff1a\u7b2c\u4e00\u6b21 `list` \u64cd\u4f5c\u4e4b\u540e\u521b\u5efa\u7684\u3001\n\u66f4\u6539\u7684\u3001\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4f1a\u53cd\u6620\u5728\u54cd\u5e94\u4e2d\uff0c\u670d\u52a1\u5668\u53ea\u5173\u5fc3\u5176\u4e3b\u952e\u662f\u5426\u5728 `\"\u4e0b\u4e00\u4e3b\u952e\"` \u4e4b\u540e\u3002\n\n\u5f53\u8bbe\u7f6e\u4e86 `watch` \u4e3a `true` \u65f6\uff0c\u6b64\u5b57\u6bb5\u4e0d\u518d\u6709\u6548\u3002\n\u5ba2\u6237\u7aef\u53ef\u4ee5\u57fa\u4e8e\u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u6700\u540e\u4e00\u4e2a `resourceVersion` \u503c\u542f\u52a8 `watch` \u64cd\u4f5c\uff0c\u800c\u4e0d\u4f1a\u9519\u8fc7\u4efb\u4f55\u66f4\u65b0\u3002\n"
+        "x-kab-description-zh": "在需要从服务器端取回更多的结果时，应该设置 `continue` 选项。\n由于这个参数的合法参数值是服务器端决定的，客户端只能使用来自于之前查询结果中的 `continue` 值，\n并且“之前查询”要与当前查询的参数完全相同（除了 `continue` 选项）。\n服务器可能会拒绝它无法识别的 `continue` 值。\n\n如果由于超时（通常是 15 分钟）或者服务器端配置变化等原因导致所指定的 `continue` 值不再有效，\n服务器会返回一个 `\"410 ResourceExpired\"` 错误信息，并附带一个 `continue` 令牌。\n如果客户端需要查看一致性的列表，则必须在不设置 `continue` 字段的前提下重新发起 `list` 操作。\n或者，客户端也可以使用从 410 错误响应中收到的令牌发送 `list` 请求，服务器会返回一个从下一主键开始的列表，\n但列表本身来自于最新的快照，与之前的列表结果之间可能存在不一致：第一次 `list` 操作之后创建的、\n更改的、删除的对象都会反映在响应中，服务器只关心其主键是否在 `\"下一主键\"` 之后。\n\n当设置了 `watch` 为 `true` 时，此字段不再有效。\n客户端可以基于服务器所返回的最后一个 `resourceVersion` 值启动 `watch` 操作，而不会错过任何更新。\n"
       },
       "1.32": {
         "description": "The `continue` option should be set when retrieving more results from the server.\nSince this value is server defined, clients may only use the `continue` value from a previous query\nresult with identical query parameters (except for the value of `continue`) and the server may reject\na `continue` value it does not recognize.\nIf the specified `continue` value is no longer valid whether due to expiration (generally five to\nfifteen minutes) or a configuration change on the server, the server will respond with a\n`\"410 ResourceExpired\"` error together with a `continue` token.\nIf the client needs a consistent list, it must restart their `list` without the `continue` field.\nOtherwise, the client may send another `list` request with the token received with the 410 error,\nthe server will respond with a list starting from the next key, but from the latest snapshot,\nwhich is inconsistent from the previous list results - objects that are created, modified, or\ndeleted after the first list request will be included in the response, as long as their keys are\nafter the `\"next key\"`.\n\nThis field is not supported when `watch` is `true`.\nClients may start a watch from the last `resourceVersion` value returned by the server and\nnot miss any modifications.\n",
@@ -68857,7 +68857,7 @@
         "name": "continue",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5728\u9700\u8981\u4ece\u670d\u52a1\u5668\u7aef\u53d6\u56de\u66f4\u591a\u7684\u7ed3\u679c\u65f6\uff0c\u5e94\u8be5\u8bbe\u7f6e `continue` \u9009\u9879\u3002\n\u7531\u4e8e\u8fd9\u4e2a\u53c2\u6570\u7684\u5408\u6cd5\u53c2\u6570\u503c\u662f\u670d\u52a1\u5668\u7aef\u51b3\u5b9a\u7684\uff0c\u5ba2\u6237\u7aef\u53ea\u80fd\u4f7f\u7528\u6765\u81ea\u4e8e\u4e4b\u524d\u67e5\u8be2\u7ed3\u679c\u4e2d\u7684 `continue` \u503c\uff0c\n\u5e76\u4e14\u201c\u4e4b\u524d\u67e5\u8be2\u201d\u8981\u4e0e\u5f53\u524d\u67e5\u8be2\u7684\u53c2\u6570\u5b8c\u5168\u76f8\u540c\uff08\u9664\u4e86 `continue` \u9009\u9879\uff09\u3002\n\u670d\u52a1\u5668\u53ef\u80fd\u4f1a\u62d2\u7edd\u5b83\u65e0\u6cd5\u8bc6\u522b\u7684 `continue` \u503c\u3002\n\n\u5982\u679c\u7531\u4e8e\u8d85\u65f6\uff08\u901a\u5e38\u662f 15 \u5206\u949f\uff09\u6216\u8005\u670d\u52a1\u5668\u7aef\u914d\u7f6e\u53d8\u5316\u7b49\u539f\u56e0\u5bfc\u81f4\u6240\u6307\u5b9a\u7684 `continue` \u503c\u4e0d\u518d\u6709\u6548\uff0c\n\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a `\"410 ResourceExpired\"` \u9519\u8bef\u4fe1\u606f\uff0c\u5e76\u9644\u5e26\u4e00\u4e2a `continue` \u4ee4\u724c\u3002\n\u5982\u679c\u5ba2\u6237\u7aef\u9700\u8981\u67e5\u770b\u4e00\u81f4\u6027\u7684\u5217\u8868\uff0c\u5219\u5fc5\u987b\u5728\u4e0d\u8bbe\u7f6e `continue` \u5b57\u6bb5\u7684\u524d\u63d0\u4e0b\u91cd\u65b0\u53d1\u8d77 `list` \u64cd\u4f5c\u3002\n\u6216\u8005\uff0c\u5ba2\u6237\u7aef\u4e5f\u53ef\u4ee5\u4f7f\u7528\u4ece 410 \u9519\u8bef\u54cd\u5e94\u4e2d\u6536\u5230\u7684\u4ee4\u724c\u53d1\u9001 `list` \u8bf7\u6c42\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u4e00\u4e2a\u4ece\u4e0b\u4e00\u4e3b\u952e\u5f00\u59cb\u7684\u5217\u8868\uff0c\n\u4f46\u5217\u8868\u672c\u8eab\u6765\u81ea\u4e8e\u6700\u65b0\u7684\u5feb\u7167\uff0c\u4e0e\u4e4b\u524d\u7684\u5217\u8868\u7ed3\u679c\u4e4b\u95f4\u53ef\u80fd\u5b58\u5728\u4e0d\u4e00\u81f4\uff1a\u7b2c\u4e00\u6b21 `list` \u64cd\u4f5c\u4e4b\u540e\u521b\u5efa\u7684\u3001\n\u66f4\u6539\u7684\u3001\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4f1a\u53cd\u6620\u5728\u54cd\u5e94\u4e2d\uff0c\u670d\u52a1\u5668\u53ea\u5173\u5fc3\u5176\u4e3b\u952e\u662f\u5426\u5728 `\"\u4e0b\u4e00\u4e3b\u952e\"` \u4e4b\u540e\u3002\n\n\u5f53\u8bbe\u7f6e\u4e86 `watch` \u4e3a `true` \u65f6\uff0c\u6b64\u5b57\u6bb5\u4e0d\u518d\u6709\u6548\u3002\n\u5ba2\u6237\u7aef\u53ef\u4ee5\u57fa\u4e8e\u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u6700\u540e\u4e00\u4e2a `resourceVersion` \u503c\u542f\u52a8 `watch` \u64cd\u4f5c\uff0c\u800c\u4e0d\u4f1a\u9519\u8fc7\u4efb\u4f55\u66f4\u65b0\u3002\n"
+        "x-kab-description-zh": "在需要从服务器端取回更多的结果时，应该设置 `continue` 选项。\n由于这个参数的合法参数值是服务器端决定的，客户端只能使用来自于之前查询结果中的 `continue` 值，\n并且“之前查询”要与当前查询的参数完全相同（除了 `continue` 选项）。\n服务器可能会拒绝它无法识别的 `continue` 值。\n\n如果由于超时（通常是 15 分钟）或者服务器端配置变化等原因导致所指定的 `continue` 值不再有效，\n服务器会返回一个 `\"410 ResourceExpired\"` 错误信息，并附带一个 `continue` 令牌。\n如果客户端需要查看一致性的列表，则必须在不设置 `continue` 字段的前提下重新发起 `list` 操作。\n或者，客户端也可以使用从 410 错误响应中收到的令牌发送 `list` 请求，服务器会返回一个从下一主键开始的列表，\n但列表本身来自于最新的快照，与之前的列表结果之间可能存在不一致：第一次 `list` 操作之后创建的、\n更改的、删除的对象都会反映在响应中，服务器只关心其主键是否在 `\"下一主键\"` 之后。\n\n当设置了 `watch` 为 `true` 时，此字段不再有效。\n客户端可以基于服务器所返回的最后一个 `resourceVersion` 值启动 `watch` 操作，而不会错过任何更新。\n"
       }
     },
     "dryRun": {
@@ -68895,7 +68895,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8bf7\u6c42\u4e2d\u8bbe\u7f6e\u6b64\u53c2\u6570\u65f6\u8868\u660e\u8bf7\u6c42\u6240\u4f5c\u7684\u53d8\u66f4\u4e0d\u53ef\u4ee5\u88ab\u6301\u4e45\u5316\u5b58\u50a8\u3002\n\u5982\u679c `dryRun` \u6240\u7ed9\u7684\u53c2\u6570\u503c\u975e\u6cd5\u6216\u8005\u4e0d\u53ef\u8bc6\u522b\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u9519\u8bef\u54cd\u5e94\u5e76\u4e14\u505c\u6b62\u5904\u7406\u8bf7\u6c42\u3002\n\u5408\u6cd5\u7684\u53d6\u503c\u4e3a\uff1a\n\n- `\"All\"`\uff1a\u5904\u7406\u201c\u8bd5\u8fd0\u884c\u201d\u7684\u6240\u6709\u9636\u6bb5\u3002\n"
+        "x-kab-description-zh": "请求中设置此参数时表明请求所作的变更不可以被持久化存储。\n如果 `dryRun` 所给的参数值非法或者不可识别，服务器会返回错误响应并且停止处理请求。\n合法的取值为：\n\n- `\"All\"`：处理“试运行”的所有阶段。\n"
       },
       "1.30": {
         "description": "When present, indicates that modifications should not be persisted.\nAn invalid or unrecognized `dryRun` directive will result in an error response and no further processing\nof the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed\n",
@@ -68904,7 +68904,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8bf7\u6c42\u4e2d\u8bbe\u7f6e\u6b64\u53c2\u6570\u65f6\u8868\u660e\u8bf7\u6c42\u6240\u4f5c\u7684\u53d8\u66f4\u4e0d\u53ef\u4ee5\u88ab\u6301\u4e45\u5316\u5b58\u50a8\u3002\n\u5982\u679c `dryRun` \u6240\u7ed9\u7684\u53c2\u6570\u503c\u975e\u6cd5\u6216\u8005\u4e0d\u53ef\u8bc6\u522b\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u9519\u8bef\u54cd\u5e94\u5e76\u4e14\u505c\u6b62\u5904\u7406\u8bf7\u6c42\u3002\n\u5408\u6cd5\u7684\u53d6\u503c\u4e3a\uff1a\n\n- `\"All\"`\uff1a\u5904\u7406\u201c\u8bd5\u8fd0\u884c\u201d\u7684\u6240\u6709\u9636\u6bb5\u3002\n"
+        "x-kab-description-zh": "请求中设置此参数时表明请求所作的变更不可以被持久化存储。\n如果 `dryRun` 所给的参数值非法或者不可识别，服务器会返回错误响应并且停止处理请求。\n合法的取值为：\n\n- `\"All\"`：处理“试运行”的所有阶段。\n"
       },
       "1.31": {
         "description": "When present, indicates that modifications should not be persisted.\nAn invalid or unrecognized `dryRun` directive will result in an error response and no further processing\nof the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed\n",
@@ -68913,7 +68913,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8bf7\u6c42\u4e2d\u8bbe\u7f6e\u6b64\u53c2\u6570\u65f6\u8868\u660e\u8bf7\u6c42\u6240\u4f5c\u7684\u53d8\u66f4\u4e0d\u53ef\u4ee5\u88ab\u6301\u4e45\u5316\u5b58\u50a8\u3002\n\u5982\u679c `dryRun` \u6240\u7ed9\u7684\u53c2\u6570\u503c\u975e\u6cd5\u6216\u8005\u4e0d\u53ef\u8bc6\u522b\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u9519\u8bef\u54cd\u5e94\u5e76\u4e14\u505c\u6b62\u5904\u7406\u8bf7\u6c42\u3002\n\u5408\u6cd5\u7684\u53d6\u503c\u4e3a\uff1a\n\n- `\"All\"`\uff1a\u5904\u7406\u201c\u8bd5\u8fd0\u884c\u201d\u7684\u6240\u6709\u9636\u6bb5\u3002\n"
+        "x-kab-description-zh": "请求中设置此参数时表明请求所作的变更不可以被持久化存储。\n如果 `dryRun` 所给的参数值非法或者不可识别，服务器会返回错误响应并且停止处理请求。\n合法的取值为：\n\n- `\"All\"`：处理“试运行”的所有阶段。\n"
       },
       "1.32": {
         "description": "When present, indicates that modifications should not be persisted.\nAn invalid or unrecognized `dryRun` directive will result in an error response and no further processing\nof the request. Valid values are:\n\n- `\"All\"`: all dry run stages will be processed\n",
@@ -68922,7 +68922,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8bf7\u6c42\u4e2d\u8bbe\u7f6e\u6b64\u53c2\u6570\u65f6\u8868\u660e\u8bf7\u6c42\u6240\u4f5c\u7684\u53d8\u66f4\u4e0d\u53ef\u4ee5\u88ab\u6301\u4e45\u5316\u5b58\u50a8\u3002\n\u5982\u679c `dryRun` \u6240\u7ed9\u7684\u53c2\u6570\u503c\u975e\u6cd5\u6216\u8005\u4e0d\u53ef\u8bc6\u522b\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de\u9519\u8bef\u54cd\u5e94\u5e76\u4e14\u505c\u6b62\u5904\u7406\u8bf7\u6c42\u3002\n\u5408\u6cd5\u7684\u53d6\u503c\u4e3a\uff1a\n\n- `\"All\"`\uff1a\u5904\u7406\u201c\u8bd5\u8fd0\u884c\u201d\u7684\u6240\u6709\u9636\u6bb5\u3002\n"
+        "x-kab-description-zh": "请求中设置此参数时表明请求所作的变更不可以被持久化存储。\n如果 `dryRun` 所给的参数值非法或者不可识别，服务器会返回错误响应并且停止处理请求。\n合法的取值为：\n\n- `\"All\"`：处理“试运行”的所有阶段。\n"
       }
     },
     "fieldManager": {
@@ -68957,7 +68957,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       },
       "1.30": {
         "description": "`fieldManager` is a name associated with the actor or entity that is making these changes.\nThe value must be less than or 128 characters long, and only contain printable characters,\nas defined by https://golang.org/pkg/unicode/#IsPrint.\nThis field is required for apply requests (application/apply-patch) but optional for\nnon-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).\n",
@@ -68966,7 +68966,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       },
       "1.31": {
         "description": "`fieldManager` is a name associated with the actor or entity that is making these changes.\nThe value must be less than or 128 characters long, and only contain printable characters,\nas defined by https://golang.org/pkg/unicode/#IsPrint.\nThis field is required for apply requests (application/apply-patch) but optional for\nnon-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).\n",
@@ -68975,7 +68975,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       },
       "1.32": {
         "description": "`fieldManager` is a name associated with the actor or entity that is making these changes.\nThe value must be less than or 128 characters long, and only contain printable characters,\nas defined by https://golang.org/pkg/unicode/#IsPrint.\nThis field is required for apply requests (application/apply-patch) but optional for\nnon-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).\n",
@@ -68984,7 +68984,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       }
     },
     "fieldManagerPatch": {
@@ -69019,7 +69019,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       },
       "1.30": {
         "description": "`fieldManager` is a name associated with the actor or entity that is making these changes.\nThe value must be less than or 128 characters long, and only contain printable characters,\nas defined by https://golang.org/pkg/unicode/#IsPrint.\nThis field is required for apply requests (application/apply-patch) but optional for\nnon-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).\n",
@@ -69028,7 +69028,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       },
       "1.31": {
         "description": "`fieldManager` is a name associated with the actor or entity that is making these changes.\nThe value must be less than or 128 characters long, and only contain printable characters,\nas defined by https://golang.org/pkg/unicode/#IsPrint.\nThis field is required for apply requests (application/apply-patch) but optional for\nnon-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).\n",
@@ -69037,7 +69037,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       },
       "1.32": {
         "description": "`fieldManager` is a name associated with the actor or entity that is making these changes.\nThe value must be less than or 128 characters long, and only contain printable characters,\nas defined by https://golang.org/pkg/unicode/#IsPrint.\nThis field is required for apply requests (application/apply-patch) but optional for\nnon-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).\n",
@@ -69046,7 +69046,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldManager` \u662f\u4e00\u4e2a\u5b57\u7b26\u4e32\u540d\u79f0\uff0c\u4e0e\u6267\u884c\u5f53\u524d\u4fee\u6539\u7684\u4e3b\u4f53\u6216\u8005\u5b9e\u4f53\u76f8\u5173\u8054\u3002\n\u53c2\u6570\u5b57\u7b26\u4e32\u503c\u957f\u5ea6\u4e0d\u80fd\u8d85\u8fc7 128 \u5b57\u7b26\uff0c\u53ea\u80fd\u5305\u542b\u53ef\u6253\u5370\u5b57\u7b26\u3002\n\u5bf9\u4e8e `apply` \uff08`application/apply-patch`\uff09\u8bf7\u6c42\u800c\u8a00\uff0c\u6b64\u5b57\u6bb5\u662f\u5fc5\u9700\u7684\uff0c\u5bf9\u4e8e\u5176\u4ed6\u7684\u8865\u4e01\u64cd\u4f5c\u7c7b\u578b\n\uff08JsonPatch\u3001MergePatch\u3001StrategicMergePatch \u7b49\uff09\u662f\u53ef\u9009\u7684\u3002\n"
+        "x-kab-description-zh": "`fieldManager` 是一个字符串名称，与执行当前修改的主体或者实体相关联。\n参数字符串值长度不能超过 128 字符，只能包含可打印字符。\n对于 `apply` （`application/apply-patch`）请求而言，此字段是必需的，对于其他的补丁操作类型\n（JsonPatch、MergePatch、StrategicMergePatch 等）是可选的。\n"
       }
     },
     "fieldSelector": {
@@ -69079,7 +69079,7 @@
         "name": "fieldSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u7528\u6765\u6839\u636e\u5b57\u6bb5\u6765\u9650\u5236\u6240\u8fd4\u56de\u5bf9\u8c61\u7684\u9009\u62e9\u7b97\u7b26\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "用来根据字段来限制所返回对象的选择算符。默认行为是返回所有字段。\n"
       },
       "1.30": {
         "description": "A selector to restrict the list of returned objects by their fields.  Defaults to everything.\n",
@@ -69087,7 +69087,7 @@
         "name": "fieldSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u7528\u6765\u6839\u636e\u5b57\u6bb5\u6765\u9650\u5236\u6240\u8fd4\u56de\u5bf9\u8c61\u7684\u9009\u62e9\u7b97\u7b26\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "用来根据字段来限制所返回对象的选择算符。默认行为是返回所有字段。\n"
       },
       "1.31": {
         "description": "A selector to restrict the list of returned objects by their fields.  Defaults to everything.\n",
@@ -69095,7 +69095,7 @@
         "name": "fieldSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u7528\u6765\u6839\u636e\u5b57\u6bb5\u6765\u9650\u5236\u6240\u8fd4\u56de\u5bf9\u8c61\u7684\u9009\u62e9\u7b97\u7b26\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "用来根据字段来限制所返回对象的选择算符。默认行为是返回所有字段。\n"
       },
       "1.32": {
         "description": "A selector to restrict the list of returned objects by their fields.  Defaults to everything.\n",
@@ -69103,7 +69103,7 @@
         "name": "fieldSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u7528\u6765\u6839\u636e\u5b57\u6bb5\u6765\u9650\u5236\u6240\u8fd4\u56de\u5bf9\u8c61\u7684\u9009\u62e9\u7b97\u7b26\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "用来根据字段来限制所返回对象的选择算符。默认行为是返回所有字段。\n"
       }
     },
     "fieldValidation": {
@@ -69150,7 +69150,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldValidation` \u901a\u77e5\u670d\u52a1\u5668\u5982\u4f55\u5904\u7406\u8bf7\u6c42\uff08POST\u3001PUT\u3001PATCH\uff09\u4e2d\u5bf9\u8c61\u5185\u7684\u672a\u77e5\u6216\u91cd\u590d\u5b57\u6bb5\u3002\u5408\u6cd5\u503c\u6709\uff1a\n\n- `\"Ignore\"`\uff1a\u670d\u52a1\u5668\u5ffd\u7565\u6240\u6709\u672a\u77e5\u5b57\u6bb5\uff0c\u4ee5\u9759\u9ed8\u65b9\u5f0f\u4e22\u5f03\u8fd9\u4e9b\u5b57\u6bb5\uff1b\u5bf9\u4e8e\u91cd\u590d\u5b57\u6bb5\uff0c\u89e3\u7801\u7ec4\u4ef6\u53ea\u4fdd\u7559\u6700\u540e\u4e00\u6b21\u7684\u8bbe\u7f6e\uff0c\n  \u4e22\u5f03\u6240\u6709\u5176\u4ed6\u91cd\u590d\u5b57\u6bb5\u8bbe\u7f6e\u3002\u8fd9\u662f v1.23 \u4e4b\u524d\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Warn\"`\uff1a\u9488\u5bf9\u65e0\u6cd5\u8bc6\u522b\u7684\u6bcf\u4e2a\u5b57\u6bb5\u4ee5\u53ca\u9047\u5230\u7684\u6bcf\u4e2a\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u901a\u8fc7 `warning` \u54cd\u5e94\u5934\u8fd4\u56de\u8b66\u544a\u4fe1\u606f\u3002\n  \u5982\u679c\u8bf7\u6c42\u4e2d\u6ca1\u6709\u5176\u5b83\u9519\u8bef\uff0c\u5219\u4ecd\u7136\u6709\u53ef\u80fd\u6210\u529f\uff0c\u4f46\u53ea\u4f1a\u4fdd\u5b58\u91cd\u590d\u5b57\u6bb5\u7684\u6700\u540e\u4e00\u4efd\u8bbe\u7f6e\u503c\u3002\n  \u8fd9\u662f v1.23 \u4e4b\u540e\u7248\u672c\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Strict\"`\uff1a\u5982\u679c\u5728\u5bf9\u8c61\u4e2d\u53d1\u73b0\u4efb\u4f55\u672a\u77e5\u5b57\u6bb5\u6216\u8005\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de `BadRequest` \u9519\u8bef\u54cd\u5e94\u3002\n  \u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u9519\u8bef\u54cd\u5e94\u4e2d\u4f1a\u5305\u542b\u6240\u6709\u672a\u77e5\u5b57\u6bb5\u3001\u91cd\u590d\u5b57\u6bb5\u7684\u4fe1\u606f\u3002\n"
+        "x-kab-description-zh": "`fieldValidation` 通知服务器如何处理请求（POST、PUT、PATCH）中对象内的未知或重复字段。合法值有：\n\n- `\"Ignore\"`：服务器忽略所有未知字段，以静默方式丢弃这些字段；对于重复字段，解码组件只保留最后一次的设置，\n  丢弃所有其他重复字段设置。这是 v1.23 之前的默认行为。\n- `\"Warn\"`：针对无法识别的每个字段以及遇到的每个重复字段，服务器通过 `warning` 响应头返回警告信息。\n  如果请求中没有其它错误，则仍然有可能成功，但只会保存重复字段的最后一份设置值。\n  这是 v1.23 之后版本的默认行为。\n- `\"Strict\"`：如果在对象中发现任何未知字段或者重复字段，服务器会返回 `BadRequest` 错误响应。\n  服务器所返回的错误响应中会包含所有未知字段、重复字段的信息。\n"
       },
       "1.30": {
         "description": "`fieldValidation` instructs the server on how to handle objects in the request (POST/PUT/PATCH)\ncontaining unknown or duplicate fields. Valid values are:\n- `\"Ignore\"`: This will ignore any unknown fields that are silently dropped from the object,\n  and will ignore all but the last duplicate field that the decoder encounters.\n  This is the default behavior prior to v1.23.\n- `\"Warn\"`: This will send a warning via the standard warning response header for each unknown\n  field that is dropped from the object, and for each duplicate field that is encountered.\n  The request will still succeed if there are no other errors, and will only persist the last of\n  any duplicate fields. This is the default in v1.23+\n- `\"Strict\"`: This will fail the request with a BadRequest error if any unknown fields would be\n  dropped from the object, or if any duplicate fields are present.\n  The error returned from the server will contain all unknown and duplicate fields encountered.\n",
@@ -69159,7 +69159,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldValidation` \u901a\u77e5\u670d\u52a1\u5668\u5982\u4f55\u5904\u7406\u8bf7\u6c42\uff08POST\u3001PUT\u3001PATCH\uff09\u4e2d\u5bf9\u8c61\u5185\u7684\u672a\u77e5\u6216\u91cd\u590d\u5b57\u6bb5\u3002\u5408\u6cd5\u503c\u6709\uff1a\n\n- `\"Ignore\"`\uff1a\u670d\u52a1\u5668\u5ffd\u7565\u6240\u6709\u672a\u77e5\u5b57\u6bb5\uff0c\u4ee5\u9759\u9ed8\u65b9\u5f0f\u4e22\u5f03\u8fd9\u4e9b\u5b57\u6bb5\uff1b\u5bf9\u4e8e\u91cd\u590d\u5b57\u6bb5\uff0c\u89e3\u7801\u7ec4\u4ef6\u53ea\u4fdd\u7559\u6700\u540e\u4e00\u6b21\u7684\u8bbe\u7f6e\uff0c\n  \u4e22\u5f03\u6240\u6709\u5176\u4ed6\u91cd\u590d\u5b57\u6bb5\u8bbe\u7f6e\u3002\u8fd9\u662f v1.23 \u4e4b\u524d\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Warn\"`\uff1a\u9488\u5bf9\u65e0\u6cd5\u8bc6\u522b\u7684\u6bcf\u4e2a\u5b57\u6bb5\u4ee5\u53ca\u9047\u5230\u7684\u6bcf\u4e2a\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u901a\u8fc7 `warning` \u54cd\u5e94\u5934\u8fd4\u56de\u8b66\u544a\u4fe1\u606f\u3002\n  \u5982\u679c\u8bf7\u6c42\u4e2d\u6ca1\u6709\u5176\u5b83\u9519\u8bef\uff0c\u5219\u4ecd\u7136\u6709\u53ef\u80fd\u6210\u529f\uff0c\u4f46\u53ea\u4f1a\u4fdd\u5b58\u91cd\u590d\u5b57\u6bb5\u7684\u6700\u540e\u4e00\u4efd\u8bbe\u7f6e\u503c\u3002\n  \u8fd9\u662f v1.23 \u4e4b\u540e\u7248\u672c\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Strict\"`\uff1a\u5982\u679c\u5728\u5bf9\u8c61\u4e2d\u53d1\u73b0\u4efb\u4f55\u672a\u77e5\u5b57\u6bb5\u6216\u8005\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de `BadRequest` \u9519\u8bef\u54cd\u5e94\u3002\n  \u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u9519\u8bef\u54cd\u5e94\u4e2d\u4f1a\u5305\u542b\u6240\u6709\u672a\u77e5\u5b57\u6bb5\u3001\u91cd\u590d\u5b57\u6bb5\u7684\u4fe1\u606f\u3002\n"
+        "x-kab-description-zh": "`fieldValidation` 通知服务器如何处理请求（POST、PUT、PATCH）中对象内的未知或重复字段。合法值有：\n\n- `\"Ignore\"`：服务器忽略所有未知字段，以静默方式丢弃这些字段；对于重复字段，解码组件只保留最后一次的设置，\n  丢弃所有其他重复字段设置。这是 v1.23 之前的默认行为。\n- `\"Warn\"`：针对无法识别的每个字段以及遇到的每个重复字段，服务器通过 `warning` 响应头返回警告信息。\n  如果请求中没有其它错误，则仍然有可能成功，但只会保存重复字段的最后一份设置值。\n  这是 v1.23 之后版本的默认行为。\n- `\"Strict\"`：如果在对象中发现任何未知字段或者重复字段，服务器会返回 `BadRequest` 错误响应。\n  服务器所返回的错误响应中会包含所有未知字段、重复字段的信息。\n"
       },
       "1.31": {
         "description": "`fieldValidation` instructs the server on how to handle objects in the request (POST/PUT/PATCH)\ncontaining unknown or duplicate fields. Valid values are:\n- `\"Ignore\"`: This will ignore any unknown fields that are silently dropped from the object,\n  and will ignore all but the last duplicate field that the decoder encounters.\n  This is the default behavior prior to v1.23.\n- `\"Warn\"`: This will send a warning via the standard warning response header for each unknown\n  field that is dropped from the object, and for each duplicate field that is encountered.\n  The request will still succeed if there are no other errors, and will only persist the last of\n  any duplicate fields. This is the default in v1.23+\n- `\"Strict\"`: This will fail the request with a BadRequest error if any unknown fields would be\n  dropped from the object, or if any duplicate fields are present.\n  The error returned from the server will contain all unknown and duplicate fields encountered.\n",
@@ -69168,7 +69168,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldValidation` \u901a\u77e5\u670d\u52a1\u5668\u5982\u4f55\u5904\u7406\u8bf7\u6c42\uff08POST\u3001PUT\u3001PATCH\uff09\u4e2d\u5bf9\u8c61\u5185\u7684\u672a\u77e5\u6216\u91cd\u590d\u5b57\u6bb5\u3002\u5408\u6cd5\u503c\u6709\uff1a\n\n- `\"Ignore\"`\uff1a\u670d\u52a1\u5668\u5ffd\u7565\u6240\u6709\u672a\u77e5\u5b57\u6bb5\uff0c\u4ee5\u9759\u9ed8\u65b9\u5f0f\u4e22\u5f03\u8fd9\u4e9b\u5b57\u6bb5\uff1b\u5bf9\u4e8e\u91cd\u590d\u5b57\u6bb5\uff0c\u89e3\u7801\u7ec4\u4ef6\u53ea\u4fdd\u7559\u6700\u540e\u4e00\u6b21\u7684\u8bbe\u7f6e\uff0c\n  \u4e22\u5f03\u6240\u6709\u5176\u4ed6\u91cd\u590d\u5b57\u6bb5\u8bbe\u7f6e\u3002\u8fd9\u662f v1.23 \u4e4b\u524d\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Warn\"`\uff1a\u9488\u5bf9\u65e0\u6cd5\u8bc6\u522b\u7684\u6bcf\u4e2a\u5b57\u6bb5\u4ee5\u53ca\u9047\u5230\u7684\u6bcf\u4e2a\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u901a\u8fc7 `warning` \u54cd\u5e94\u5934\u8fd4\u56de\u8b66\u544a\u4fe1\u606f\u3002\n  \u5982\u679c\u8bf7\u6c42\u4e2d\u6ca1\u6709\u5176\u5b83\u9519\u8bef\uff0c\u5219\u4ecd\u7136\u6709\u53ef\u80fd\u6210\u529f\uff0c\u4f46\u53ea\u4f1a\u4fdd\u5b58\u91cd\u590d\u5b57\u6bb5\u7684\u6700\u540e\u4e00\u4efd\u8bbe\u7f6e\u503c\u3002\n  \u8fd9\u662f v1.23 \u4e4b\u540e\u7248\u672c\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Strict\"`\uff1a\u5982\u679c\u5728\u5bf9\u8c61\u4e2d\u53d1\u73b0\u4efb\u4f55\u672a\u77e5\u5b57\u6bb5\u6216\u8005\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de `BadRequest` \u9519\u8bef\u54cd\u5e94\u3002\n  \u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u9519\u8bef\u54cd\u5e94\u4e2d\u4f1a\u5305\u542b\u6240\u6709\u672a\u77e5\u5b57\u6bb5\u3001\u91cd\u590d\u5b57\u6bb5\u7684\u4fe1\u606f\u3002\n"
+        "x-kab-description-zh": "`fieldValidation` 通知服务器如何处理请求（POST、PUT、PATCH）中对象内的未知或重复字段。合法值有：\n\n- `\"Ignore\"`：服务器忽略所有未知字段，以静默方式丢弃这些字段；对于重复字段，解码组件只保留最后一次的设置，\n  丢弃所有其他重复字段设置。这是 v1.23 之前的默认行为。\n- `\"Warn\"`：针对无法识别的每个字段以及遇到的每个重复字段，服务器通过 `warning` 响应头返回警告信息。\n  如果请求中没有其它错误，则仍然有可能成功，但只会保存重复字段的最后一份设置值。\n  这是 v1.23 之后版本的默认行为。\n- `\"Strict\"`：如果在对象中发现任何未知字段或者重复字段，服务器会返回 `BadRequest` 错误响应。\n  服务器所返回的错误响应中会包含所有未知字段、重复字段的信息。\n"
       },
       "1.32": {
         "description": "`fieldValidation` instructs the server on how to handle objects in the request (POST/PUT/PATCH)\ncontaining unknown or duplicate fields. Valid values are:\n- `\"Ignore\"`: This will ignore any unknown fields that are silently dropped from the object,\n  and will ignore all but the last duplicate field that the decoder encounters.\n  This is the default behavior prior to v1.23.\n- `\"Warn\"`: This will send a warning via the standard warning response header for each unknown\n  field that is dropped from the object, and for each duplicate field that is encountered.\n  The request will still succeed if there are no other errors, and will only persist the last of\n  any duplicate fields. This is the default in v1.23+\n- `\"Strict\"`: This will fail the request with a BadRequest error if any unknown fields would be\n  dropped from the object, or if any duplicate fields are present.\n  The error returned from the server will contain all unknown and duplicate fields encountered.\n",
@@ -69177,7 +69177,7 @@
         "required": false,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`fieldValidation` \u901a\u77e5\u670d\u52a1\u5668\u5982\u4f55\u5904\u7406\u8bf7\u6c42\uff08POST\u3001PUT\u3001PATCH\uff09\u4e2d\u5bf9\u8c61\u5185\u7684\u672a\u77e5\u6216\u91cd\u590d\u5b57\u6bb5\u3002\u5408\u6cd5\u503c\u6709\uff1a\n\n- `\"Ignore\"`\uff1a\u670d\u52a1\u5668\u5ffd\u7565\u6240\u6709\u672a\u77e5\u5b57\u6bb5\uff0c\u4ee5\u9759\u9ed8\u65b9\u5f0f\u4e22\u5f03\u8fd9\u4e9b\u5b57\u6bb5\uff1b\u5bf9\u4e8e\u91cd\u590d\u5b57\u6bb5\uff0c\u89e3\u7801\u7ec4\u4ef6\u53ea\u4fdd\u7559\u6700\u540e\u4e00\u6b21\u7684\u8bbe\u7f6e\uff0c\n  \u4e22\u5f03\u6240\u6709\u5176\u4ed6\u91cd\u590d\u5b57\u6bb5\u8bbe\u7f6e\u3002\u8fd9\u662f v1.23 \u4e4b\u524d\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Warn\"`\uff1a\u9488\u5bf9\u65e0\u6cd5\u8bc6\u522b\u7684\u6bcf\u4e2a\u5b57\u6bb5\u4ee5\u53ca\u9047\u5230\u7684\u6bcf\u4e2a\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u901a\u8fc7 `warning` \u54cd\u5e94\u5934\u8fd4\u56de\u8b66\u544a\u4fe1\u606f\u3002\n  \u5982\u679c\u8bf7\u6c42\u4e2d\u6ca1\u6709\u5176\u5b83\u9519\u8bef\uff0c\u5219\u4ecd\u7136\u6709\u53ef\u80fd\u6210\u529f\uff0c\u4f46\u53ea\u4f1a\u4fdd\u5b58\u91cd\u590d\u5b57\u6bb5\u7684\u6700\u540e\u4e00\u4efd\u8bbe\u7f6e\u503c\u3002\n  \u8fd9\u662f v1.23 \u4e4b\u540e\u7248\u672c\u7684\u9ed8\u8ba4\u884c\u4e3a\u3002\n- `\"Strict\"`\uff1a\u5982\u679c\u5728\u5bf9\u8c61\u4e2d\u53d1\u73b0\u4efb\u4f55\u672a\u77e5\u5b57\u6bb5\u6216\u8005\u91cd\u590d\u5b57\u6bb5\uff0c\u670d\u52a1\u5668\u4f1a\u8fd4\u56de `BadRequest` \u9519\u8bef\u54cd\u5e94\u3002\n  \u670d\u52a1\u5668\u6240\u8fd4\u56de\u7684\u9519\u8bef\u54cd\u5e94\u4e2d\u4f1a\u5305\u542b\u6240\u6709\u672a\u77e5\u5b57\u6bb5\u3001\u91cd\u590d\u5b57\u6bb5\u7684\u4fe1\u606f\u3002\n"
+        "x-kab-description-zh": "`fieldValidation` 通知服务器如何处理请求（POST、PUT、PATCH）中对象内的未知或重复字段。合法值有：\n\n- `\"Ignore\"`：服务器忽略所有未知字段，以静默方式丢弃这些字段；对于重复字段，解码组件只保留最后一次的设置，\n  丢弃所有其他重复字段设置。这是 v1.23 之前的默认行为。\n- `\"Warn\"`：针对无法识别的每个字段以及遇到的每个重复字段，服务器通过 `warning` 响应头返回警告信息。\n  如果请求中没有其它错误，则仍然有可能成功，但只会保存重复字段的最后一份设置值。\n  这是 v1.23 之后版本的默认行为。\n- `\"Strict\"`：如果在对象中发现任何未知字段或者重复字段，服务器会返回 `BadRequest` 错误响应。\n  服务器所返回的错误响应中会包含所有未知字段、重复字段的信息。\n"
       }
     },
     "follow": {
@@ -69194,7 +69194,7 @@
         "name": "follow",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8ffd\u8e2a Pod \u7684\u65e5\u5fd7\u6570\u636e\u6d41\u3002\u9ed8\u8ba4\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "追踪 Pod 的日志数据流。默认为 `false`。\n"
       },
       "1.30": {
         "description": "Follow the log stream of the pod. Defaults to `false`.\n",
@@ -69202,7 +69202,7 @@
         "name": "follow",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8ffd\u8e2a Pod \u7684\u65e5\u5fd7\u6570\u636e\u6d41\u3002\u9ed8\u8ba4\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "追踪 Pod 的日志数据流。默认为 `false`。\n"
       },
       "1.31": {
         "description": "Follow the log stream of the pod. Defaults to `false`.\n",
@@ -69210,7 +69210,7 @@
         "name": "follow",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8ffd\u8e2a Pod \u7684\u65e5\u5fd7\u6570\u636e\u6d41\u3002\u9ed8\u8ba4\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "追踪 Pod 的日志数据流。默认为 `false`。\n"
       },
       "1.32": {
         "description": "Follow the log stream of the pod. Defaults to `false`.\n",
@@ -69218,7 +69218,7 @@
         "name": "follow",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8ffd\u8e2a Pod \u7684\u65e5\u5fd7\u6570\u636e\u6d41\u3002\u9ed8\u8ba4\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "追踪 Pod 的日志数据流。默认为 `false`。\n"
       }
     },
     "force": {
@@ -69251,7 +69251,7 @@
         "name": "force",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`force` \u53c2\u6570\u4f1a**\u5f3a\u5236**\u5e94\u7528\u8bf7\u6c42\u3002\u5bf9\u4e8e `apply` \u64cd\u4f5c\u800c\u8a00\uff0c\u610f\u5473\u7740\u7528\u6237\u4f1a\u5f3a\u5236\u91cd\u65b0\u53d6\u5f97\u88ab\u5176\u4ed6\u4eba\u8d1f\u8d23\u7684\u51b2\u7a81\u5b57\u6bb5\u7684\u7ba1\u7406\u6743\u3002\n\u5bf9\u4e8e\u975e `apply` \u7c7b\u578b\u7684\u8865\u4e01\u8bf7\u6c42\uff0c\u4e0d\u53ef\u4ee5\u8bbe\u7f6e `force` \u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "`force` 参数会**强制**应用请求。对于 `apply` 操作而言，意味着用户会强制重新取得被其他人负责的冲突字段的管理权。\n对于非 `apply` 类型的补丁请求，不可以设置 `force` 字段。\n"
       },
       "1.30": {
         "description": "`force` is going to **force** Apply requests. It means user will re-acquire conflicting fields\nowned by other people. Force flag must be unset for non-apply patch requests.\n",
@@ -69259,7 +69259,7 @@
         "name": "force",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`force` \u53c2\u6570\u4f1a**\u5f3a\u5236**\u5e94\u7528\u8bf7\u6c42\u3002\u5bf9\u4e8e `apply` \u64cd\u4f5c\u800c\u8a00\uff0c\u610f\u5473\u7740\u7528\u6237\u4f1a\u5f3a\u5236\u91cd\u65b0\u53d6\u5f97\u88ab\u5176\u4ed6\u4eba\u8d1f\u8d23\u7684\u51b2\u7a81\u5b57\u6bb5\u7684\u7ba1\u7406\u6743\u3002\n\u5bf9\u4e8e\u975e `apply` \u7c7b\u578b\u7684\u8865\u4e01\u8bf7\u6c42\uff0c\u4e0d\u53ef\u4ee5\u8bbe\u7f6e `force` \u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "`force` 参数会**强制**应用请求。对于 `apply` 操作而言，意味着用户会强制重新取得被其他人负责的冲突字段的管理权。\n对于非 `apply` 类型的补丁请求，不可以设置 `force` 字段。\n"
       },
       "1.31": {
         "description": "`force` is going to **force** Apply requests. It means user will re-acquire conflicting fields\nowned by other people. Force flag must be unset for non-apply patch requests.\n",
@@ -69267,7 +69267,7 @@
         "name": "force",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`force` \u53c2\u6570\u4f1a**\u5f3a\u5236**\u5e94\u7528\u8bf7\u6c42\u3002\u5bf9\u4e8e `apply` \u64cd\u4f5c\u800c\u8a00\uff0c\u610f\u5473\u7740\u7528\u6237\u4f1a\u5f3a\u5236\u91cd\u65b0\u53d6\u5f97\u88ab\u5176\u4ed6\u4eba\u8d1f\u8d23\u7684\u51b2\u7a81\u5b57\u6bb5\u7684\u7ba1\u7406\u6743\u3002\n\u5bf9\u4e8e\u975e `apply` \u7c7b\u578b\u7684\u8865\u4e01\u8bf7\u6c42\uff0c\u4e0d\u53ef\u4ee5\u8bbe\u7f6e `force` \u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "`force` 参数会**强制**应用请求。对于 `apply` 操作而言，意味着用户会强制重新取得被其他人负责的冲突字段的管理权。\n对于非 `apply` 类型的补丁请求，不可以设置 `force` 字段。\n"
       },
       "1.32": {
         "description": "`force` is going to **force** Apply requests. It means user will re-acquire conflicting fields\nowned by other people. Force flag must be unset for non-apply patch requests.\n",
@@ -69275,7 +69275,7 @@
         "name": "force",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`force` \u53c2\u6570\u4f1a**\u5f3a\u5236**\u5e94\u7528\u8bf7\u6c42\u3002\u5bf9\u4e8e `apply` \u64cd\u4f5c\u800c\u8a00\uff0c\u610f\u5473\u7740\u7528\u6237\u4f1a\u5f3a\u5236\u91cd\u65b0\u53d6\u5f97\u88ab\u5176\u4ed6\u4eba\u8d1f\u8d23\u7684\u51b2\u7a81\u5b57\u6bb5\u7684\u7ba1\u7406\u6743\u3002\n\u5bf9\u4e8e\u975e `apply` \u7c7b\u578b\u7684\u8865\u4e01\u8bf7\u6c42\uff0c\u4e0d\u53ef\u4ee5\u8bbe\u7f6e `force` \u5b57\u6bb5\u3002\n"
+        "x-kab-description-zh": "`force` 参数会**强制**应用请求。对于 `apply` 操作而言，意味着用户会强制重新取得被其他人负责的冲突字段的管理权。\n对于非 `apply` 类型的补丁请求，不可以设置 `force` 字段。\n"
       }
     },
     "gracePeriodSeconds": {
@@ -69308,7 +69308,7 @@
         "name": "gracePeriodSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u88ab\u5220\u9664\u4e4b\u524d\u53ef\u4ee5\u5b58\u6d3b\u7684\u65f6\u957f\u79d2\u6570\u3002\u53c2\u6570\u503c\u4e0d\u80fd\u4e3a\u8d1f\u6570\u3002\u53d6\u503c\u96f6\u610f\u5473\u7740\u7acb\u5373\u5220\u9664\u5bf9\u8c61\u3002\n\u5982\u679c\u6b64\u503c\u672a\u8bbe\u7f6e\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u68c0\u67e5\u7279\u5b9a\u8d44\u6e90\u7c7b\u578b\u7684\u9ed8\u8ba4\u5bbd\u9650\u671f\u957f\u5ea6\u3002\n\u5982\u679c\u672a\u5728\u8bf7\u6c42\u4e2d\u6307\u5b9a\uff0c\u5219\u9ed8\u8ba4\u503c\u53d6\u51b3\u4e8e\u5bf9\u8c61\u672c\u8eab\u7684\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "对象被删除之前可以存活的时长秒数。参数值不能为负数。取值零意味着立即删除对象。\n如果此值未设置，则服务器会检查特定资源类型的默认宽限期长度。\n如果未在请求中指定，则默认值取决于对象本身的设置。\n"
       },
       "1.30": {
         "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer.\nThe value zero indicates delete immediately.\nIf this value is nil, the default grace period for the specified type will be used.\nDefaults to a per object value if not specified. zero means delete immediately.\n",
@@ -69316,7 +69316,7 @@
         "name": "gracePeriodSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u88ab\u5220\u9664\u4e4b\u524d\u53ef\u4ee5\u5b58\u6d3b\u7684\u65f6\u957f\u79d2\u6570\u3002\u53c2\u6570\u503c\u4e0d\u80fd\u4e3a\u8d1f\u6570\u3002\u53d6\u503c\u96f6\u610f\u5473\u7740\u7acb\u5373\u5220\u9664\u5bf9\u8c61\u3002\n\u5982\u679c\u6b64\u503c\u672a\u8bbe\u7f6e\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u68c0\u67e5\u7279\u5b9a\u8d44\u6e90\u7c7b\u578b\u7684\u9ed8\u8ba4\u5bbd\u9650\u671f\u957f\u5ea6\u3002\n\u5982\u679c\u672a\u5728\u8bf7\u6c42\u4e2d\u6307\u5b9a\uff0c\u5219\u9ed8\u8ba4\u503c\u53d6\u51b3\u4e8e\u5bf9\u8c61\u672c\u8eab\u7684\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "对象被删除之前可以存活的时长秒数。参数值不能为负数。取值零意味着立即删除对象。\n如果此值未设置，则服务器会检查特定资源类型的默认宽限期长度。\n如果未在请求中指定，则默认值取决于对象本身的设置。\n"
       },
       "1.31": {
         "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer.\nThe value zero indicates delete immediately.\nIf this value is nil, the default grace period for the specified type will be used.\nDefaults to a per object value if not specified. zero means delete immediately.\n",
@@ -69324,7 +69324,7 @@
         "name": "gracePeriodSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u88ab\u5220\u9664\u4e4b\u524d\u53ef\u4ee5\u5b58\u6d3b\u7684\u65f6\u957f\u79d2\u6570\u3002\u53c2\u6570\u503c\u4e0d\u80fd\u4e3a\u8d1f\u6570\u3002\u53d6\u503c\u96f6\u610f\u5473\u7740\u7acb\u5373\u5220\u9664\u5bf9\u8c61\u3002\n\u5982\u679c\u6b64\u503c\u672a\u8bbe\u7f6e\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u68c0\u67e5\u7279\u5b9a\u8d44\u6e90\u7c7b\u578b\u7684\u9ed8\u8ba4\u5bbd\u9650\u671f\u957f\u5ea6\u3002\n\u5982\u679c\u672a\u5728\u8bf7\u6c42\u4e2d\u6307\u5b9a\uff0c\u5219\u9ed8\u8ba4\u503c\u53d6\u51b3\u4e8e\u5bf9\u8c61\u672c\u8eab\u7684\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "对象被删除之前可以存活的时长秒数。参数值不能为负数。取值零意味着立即删除对象。\n如果此值未设置，则服务器会检查特定资源类型的默认宽限期长度。\n如果未在请求中指定，则默认值取决于对象本身的设置。\n"
       },
       "1.32": {
         "description": "The duration in seconds before the object should be deleted. Value must be non-negative integer.\nThe value zero indicates delete immediately.\nIf this value is nil, the default grace period for the specified type will be used.\nDefaults to a per object value if not specified. zero means delete immediately.\n",
@@ -69332,7 +69332,7 @@
         "name": "gracePeriodSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u88ab\u5220\u9664\u4e4b\u524d\u53ef\u4ee5\u5b58\u6d3b\u7684\u65f6\u957f\u79d2\u6570\u3002\u53c2\u6570\u503c\u4e0d\u80fd\u4e3a\u8d1f\u6570\u3002\u53d6\u503c\u96f6\u610f\u5473\u7740\u7acb\u5373\u5220\u9664\u5bf9\u8c61\u3002\n\u5982\u679c\u6b64\u503c\u672a\u8bbe\u7f6e\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u68c0\u67e5\u7279\u5b9a\u8d44\u6e90\u7c7b\u578b\u7684\u9ed8\u8ba4\u5bbd\u9650\u671f\u957f\u5ea6\u3002\n\u5982\u679c\u672a\u5728\u8bf7\u6c42\u4e2d\u6307\u5b9a\uff0c\u5219\u9ed8\u8ba4\u503c\u53d6\u51b3\u4e8e\u5bf9\u8c61\u672c\u8eab\u7684\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "对象被删除之前可以存活的时长秒数。参数值不能为负数。取值零意味着立即删除对象。\n如果此值未设置，则服务器会检查特定资源类型的默认宽限期长度。\n如果未在请求中指定，则默认值取决于对象本身的设置。\n"
       }
     },
     "ignoreStoreReadErrorWithClusterBreakingPotential": {
@@ -69342,7 +69342,7 @@
         "name": "ignoreStoreReadErrorWithClusterBreakingPotential",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a true\uff0c\u5219\u4f1a\u89e6\u53d1\u4e0d\u5b89\u5168\u7684\u8d44\u6e90\u5220\u9664\u52a8\u4f5c\u3002\u4e3b\u8981\u4f7f\u7528\u573a\u666f\u662f\u6b63\u5e38\u7684\u5220\u9664\u5de5\u4f5c\u6d41\u5931\u8d25\u5e76\u5bfc\u81f4\u5bf9\u8c61\u53d7\u635f\u7684\u60c5\u51b5\u3002\n\u5982\u679c\u56e0\u4e3a\u4ee5\u4e0b\u539f\u56e0\u5bfc\u81f4\u5bf9\u8c61\u65e0\u6cd5\u4ece\u4e0b\u5c42\u5b58\u50a8\u4e2d\u6210\u529f\u8bfb\u51fa\uff0c\u5219\u8ba4\u4e3a\u8d44\u6e90\u662f\u5df2\u7ecf\u53d7\u635f\u7684\uff1a\na) \u8d44\u6e90\u6570\u636e\u65e0\u6cd5\u88ab\u8f6c\u6362\uff0c\u4f8b\u5982\uff0c\u89e3\u5bc6\u64cd\u4f5c\u5931\u8d25\uff1b\nb) \u8d44\u6e90\u65e0\u6cd5\u89e3\u7801\u4e3a\u5408\u6cd5\u5bf9\u8c61\u3002\n**\u6ce8\u610f** \u4e0d\u5b89\u5168\u7684\u5220\u9664\u64cd\u4f5c\u4f1a\u5ffd\u7565 `finalizer` \u7ea6\u675f\u5e76\u7565\u8fc7\u524d\u7f6e\u6761\u4ef6\u68c0\u67e5\uff0c\u4ece\u5b58\u50a8\u4e2d\u5220\u9664\u5bf9\u8c61\u3002\n**\u8b66\u544a** \u5982\u679c\u91c7\u7528\u4e0d\u5b89\u5168\u7684\u65b9\u5f0f\u5220\u9664\u7684\u8d44\u6e90\u6240\u6d89\u53ca\u7684\u8d1f\u8f7d\u5bf9\u6b63\u5e38\u7684\u5220\u9664\u5de5\u4f5c\u6d41\u6709\u4f9d\u8d56\uff0c\u4e0d\u5b89\u5168\u7684\u5220\u9664\u53ef\u80fd\u7834\u574f\u96c6\u7fa4\u7a33\u5b9a\u6027\u3002\n\u5efa\u8bae\u53ea\u6709\u975e\u5e38\u6e05\u695a\u4e0d\u5b89\u5168\u65b9\u5f0f\u5220\u9664\u8d44\u6e90\u7684\u540e\u679c\u65f6\uff0c\u624d\u4f7f\u7528\u6b64\u53c2\u6570\u3002\n\u9ed8\u8ba4\u503c\u4e3a false\uff0c\u7528\u6237\u53ef\u4ee5\u9009\u62e9\u542f\u7528\u6b64\u53c2\u6570\uff0c\u6267\u884c\u4e0d\u5b89\u5168\u7684\u8d44\u6e90\u5220\u9664\u64cd\u4f5c\u3002\n"
+        "x-kab-description-zh": "如果此参数设置为 true，则会触发不安全的资源删除动作。主要使用场景是正常的删除工作流失败并导致对象受损的情况。\n如果因为以下原因导致对象无法从下层存储中成功读出，则认为资源是已经受损的：\na) 资源数据无法被转换，例如，解密操作失败；\nb) 资源无法解码为合法对象。\n**注意** 不安全的删除操作会忽略 `finalizer` 约束并略过前置条件检查，从存储中删除对象。\n**警告** 如果采用不安全的方式删除的资源所涉及的负载对正常的删除工作流有依赖，不安全的删除可能破坏集群稳定性。\n建议只有非常清楚不安全方式删除资源的后果时，才使用此参数。\n默认值为 false，用户可以选择启用此参数，执行不安全的资源删除操作。\n"
       }
     },
     "includeObject": {
@@ -69375,7 +69375,7 @@
         "name": "insecureSkipTLSVerifyBackend",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` \u8868\u660e API \u670d\u52a1\u5668\u4e0d\u5e94\u53bb\u786e\u8ba4\u5b83\u6240\u8fde\u63a5\u5230\u7684\u540e\u7aef\u7684\u670d\u52a1\u8bc1\u4e66\u7684\u5408\u6cd5\u6027\u3002\n\u8fd9\u4e00\u8bbe\u7f6e\u4f1a\u5bfc\u81f4 API \u670d\u52a1\u5668\u4e0e\u540e\u7aef\u4e4b\u95f4\u7684 HTTPS \u8fde\u63a5\u4e0d\u591f\u5b89\u5168\u3002\nAPI \u670d\u52a1\u5668\u65e0\u6cd5\u786e\u8ba4\u5b83\u6240\u6536\u5230\u7684\u65e5\u5fd7\u6570\u636e\u6765\u81ea\u771f\u5b9e\u7684 kubelet\u3002\n\u5982\u679c kubelet \u914d\u7f6e\u4e3a\u8981\u53bb\u68c0\u67e5 API \u670d\u52a1\u5668\u7684 TLS \u8bc1\u4e66\uff0c\u5219\u5373\u4fbf\u8bbe\u7f6e\u4e86 `insecureSkipTLSVerifyBackend`\n\u4e5f\u4e0d\u610f\u5473\u7740\u4e0e kubelet \u4e4b\u95f4\u7684\u8fde\u63a5\u5bb9\u6613\u53d7\u5230\u4e2d\u95f4\u4eba\u653b\u51fb\u7684\u5a01\u80c1\uff08\u6bd4\u5982\uff0c\u653b\u51fb\u8005\u65e0\u6cd5\u62e6\u622a\u6765\u81ea kubelet \u7684\u5b9e\u9645\u65e5\u5fd7\u6570\u636e\uff09\u3002\n"
+        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` 表明 API 服务器不应去确认它所连接到的后端的服务证书的合法性。\n这一设置会导致 API 服务器与后端之间的 HTTPS 连接不够安全。\nAPI 服务器无法确认它所收到的日志数据来自真实的 kubelet。\n如果 kubelet 配置为要去检查 API 服务器的 TLS 证书，则即便设置了 `insecureSkipTLSVerifyBackend`\n也不意味着与 kubelet 之间的连接容易受到中间人攻击的威胁（比如，攻击者无法拦截来自 kubelet 的实际日志数据）。\n"
       },
       "1.30": {
         "description": "`insecureSkipTLSVerifyBackend` indicates that the apiserver should not confirm the validity of\nthe serving certificate of the backend it is connecting to.\nThis will make the HTTPS connection between the apiserver and the backend insecure.\nThis means the apiserver cannot verify the log data it is receiving came from the real kubelet.\nIf the kubelet is configured to verify the apiserver's TLS credentials, it does not mean\nthe connection to the real kubelet is vulnerable to a man in the middle attack\n(e.g. an attacker could not intercept the actual log data coming from the real kubelet).\n",
@@ -69383,7 +69383,7 @@
         "name": "insecureSkipTLSVerifyBackend",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` \u8868\u660e API \u670d\u52a1\u5668\u4e0d\u5e94\u53bb\u786e\u8ba4\u5b83\u6240\u8fde\u63a5\u5230\u7684\u540e\u7aef\u7684\u670d\u52a1\u8bc1\u4e66\u7684\u5408\u6cd5\u6027\u3002\n\u8fd9\u4e00\u8bbe\u7f6e\u4f1a\u5bfc\u81f4 API \u670d\u52a1\u5668\u4e0e\u540e\u7aef\u4e4b\u95f4\u7684 HTTPS \u8fde\u63a5\u4e0d\u591f\u5b89\u5168\u3002\nAPI \u670d\u52a1\u5668\u65e0\u6cd5\u786e\u8ba4\u5b83\u6240\u6536\u5230\u7684\u65e5\u5fd7\u6570\u636e\u6765\u81ea\u771f\u5b9e\u7684 kubelet\u3002\n\u5982\u679c kubelet \u914d\u7f6e\u4e3a\u8981\u53bb\u68c0\u67e5 API \u670d\u52a1\u5668\u7684 TLS \u8bc1\u4e66\uff0c\u5219\u5373\u4fbf\u8bbe\u7f6e\u4e86 `insecureSkipTLSVerifyBackend`\n\u4e5f\u4e0d\u610f\u5473\u7740\u4e0e kubelet \u4e4b\u95f4\u7684\u8fde\u63a5\u5bb9\u6613\u53d7\u5230\u4e2d\u95f4\u4eba\u653b\u51fb\u7684\u5a01\u80c1\uff08\u6bd4\u5982\uff0c\u653b\u51fb\u8005\u65e0\u6cd5\u62e6\u622a\u6765\u81ea kubelet \u7684\u5b9e\u9645\u65e5\u5fd7\u6570\u636e\uff09\u3002\n"
+        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` 表明 API 服务器不应去确认它所连接到的后端的服务证书的合法性。\n这一设置会导致 API 服务器与后端之间的 HTTPS 连接不够安全。\nAPI 服务器无法确认它所收到的日志数据来自真实的 kubelet。\n如果 kubelet 配置为要去检查 API 服务器的 TLS 证书，则即便设置了 `insecureSkipTLSVerifyBackend`\n也不意味着与 kubelet 之间的连接容易受到中间人攻击的威胁（比如，攻击者无法拦截来自 kubelet 的实际日志数据）。\n"
       },
       "1.31": {
         "description": "`insecureSkipTLSVerifyBackend` indicates that the apiserver should not confirm the validity of\nthe serving certificate of the backend it is connecting to.\nThis will make the HTTPS connection between the apiserver and the backend insecure.\nThis means the apiserver cannot verify the log data it is receiving came from the real kubelet.\nIf the kubelet is configured to verify the apiserver's TLS credentials, it does not mean\nthe connection to the real kubelet is vulnerable to a man in the middle attack\n(e.g. an attacker could not intercept the actual log data coming from the real kubelet).\n",
@@ -69391,7 +69391,7 @@
         "name": "insecureSkipTLSVerifyBackend",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` \u8868\u660e API \u670d\u52a1\u5668\u4e0d\u5e94\u53bb\u786e\u8ba4\u5b83\u6240\u8fde\u63a5\u5230\u7684\u540e\u7aef\u7684\u670d\u52a1\u8bc1\u4e66\u7684\u5408\u6cd5\u6027\u3002\n\u8fd9\u4e00\u8bbe\u7f6e\u4f1a\u5bfc\u81f4 API \u670d\u52a1\u5668\u4e0e\u540e\u7aef\u4e4b\u95f4\u7684 HTTPS \u8fde\u63a5\u4e0d\u591f\u5b89\u5168\u3002\nAPI \u670d\u52a1\u5668\u65e0\u6cd5\u786e\u8ba4\u5b83\u6240\u6536\u5230\u7684\u65e5\u5fd7\u6570\u636e\u6765\u81ea\u771f\u5b9e\u7684 kubelet\u3002\n\u5982\u679c kubelet \u914d\u7f6e\u4e3a\u8981\u53bb\u68c0\u67e5 API \u670d\u52a1\u5668\u7684 TLS \u8bc1\u4e66\uff0c\u5219\u5373\u4fbf\u8bbe\u7f6e\u4e86 `insecureSkipTLSVerifyBackend`\n\u4e5f\u4e0d\u610f\u5473\u7740\u4e0e kubelet \u4e4b\u95f4\u7684\u8fde\u63a5\u5bb9\u6613\u53d7\u5230\u4e2d\u95f4\u4eba\u653b\u51fb\u7684\u5a01\u80c1\uff08\u6bd4\u5982\uff0c\u653b\u51fb\u8005\u65e0\u6cd5\u62e6\u622a\u6765\u81ea kubelet \u7684\u5b9e\u9645\u65e5\u5fd7\u6570\u636e\uff09\u3002\n"
+        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` 表明 API 服务器不应去确认它所连接到的后端的服务证书的合法性。\n这一设置会导致 API 服务器与后端之间的 HTTPS 连接不够安全。\nAPI 服务器无法确认它所收到的日志数据来自真实的 kubelet。\n如果 kubelet 配置为要去检查 API 服务器的 TLS 证书，则即便设置了 `insecureSkipTLSVerifyBackend`\n也不意味着与 kubelet 之间的连接容易受到中间人攻击的威胁（比如，攻击者无法拦截来自 kubelet 的实际日志数据）。\n"
       },
       "1.32": {
         "description": "`insecureSkipTLSVerifyBackend` indicates that the apiserver should not confirm the validity of\nthe serving certificate of the backend it is connecting to.\nThis will make the HTTPS connection between the apiserver and the backend insecure.\nThis means the apiserver cannot verify the log data it is receiving came from the real kubelet.\nIf the kubelet is configured to verify the apiserver's TLS credentials, it does not mean\nthe connection to the real kubelet is vulnerable to a man in the middle attack\n(e.g. an attacker could not intercept the actual log data coming from the real kubelet).\n",
@@ -69399,7 +69399,7 @@
         "name": "insecureSkipTLSVerifyBackend",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` \u8868\u660e API \u670d\u52a1\u5668\u4e0d\u5e94\u53bb\u786e\u8ba4\u5b83\u6240\u8fde\u63a5\u5230\u7684\u540e\u7aef\u7684\u670d\u52a1\u8bc1\u4e66\u7684\u5408\u6cd5\u6027\u3002\n\u8fd9\u4e00\u8bbe\u7f6e\u4f1a\u5bfc\u81f4 API \u670d\u52a1\u5668\u4e0e\u540e\u7aef\u4e4b\u95f4\u7684 HTTPS \u8fde\u63a5\u4e0d\u591f\u5b89\u5168\u3002\nAPI \u670d\u52a1\u5668\u65e0\u6cd5\u786e\u8ba4\u5b83\u6240\u6536\u5230\u7684\u65e5\u5fd7\u6570\u636e\u6765\u81ea\u771f\u5b9e\u7684 kubelet\u3002\n\u5982\u679c kubelet \u914d\u7f6e\u4e3a\u8981\u53bb\u68c0\u67e5 API \u670d\u52a1\u5668\u7684 TLS \u8bc1\u4e66\uff0c\u5219\u5373\u4fbf\u8bbe\u7f6e\u4e86 `insecureSkipTLSVerifyBackend`\n\u4e5f\u4e0d\u610f\u5473\u7740\u4e0e kubelet \u4e4b\u95f4\u7684\u8fde\u63a5\u5bb9\u6613\u53d7\u5230\u4e2d\u95f4\u4eba\u653b\u51fb\u7684\u5a01\u80c1\uff08\u6bd4\u5982\uff0c\u653b\u51fb\u8005\u65e0\u6cd5\u62e6\u622a\u6765\u81ea kubelet \u7684\u5b9e\u9645\u65e5\u5fd7\u6570\u636e\uff09\u3002\n"
+        "x-kab-description-zh": "`insecureSkipTLSVerifyBackend` 表明 API 服务器不应去确认它所连接到的后端的服务证书的合法性。\n这一设置会导致 API 服务器与后端之间的 HTTPS 连接不够安全。\nAPI 服务器无法确认它所收到的日志数据来自真实的 kubelet。\n如果 kubelet 配置为要去检查 API 服务器的 TLS 证书，则即便设置了 `insecureSkipTLSVerifyBackend`\n也不意味着与 kubelet 之间的连接容易受到中间人攻击的威胁（比如，攻击者无法拦截来自 kubelet 的实际日志数据）。\n"
       }
     },
     "labelSelector": {
@@ -69432,7 +69432,7 @@
         "name": "labelSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9009\u62e9\u7b97\u7b26\uff0c\u7528\u6765\u6839\u636e\u6807\u7b7e\u6765\u9650\u5236\u8fd4\u56de\u7684\u5bf9\u8c61\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5bf9\u8c61\u3002\n"
+        "x-kab-description-zh": "选择算符，用来根据标签来限制返回的对象。默认行为是返回所有对象。\n"
       },
       "1.30": {
         "description": "A selector to restrict the list of returned objects by their labels.\nDefaults to everything.\n",
@@ -69440,7 +69440,7 @@
         "name": "labelSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9009\u62e9\u7b97\u7b26\uff0c\u7528\u6765\u6839\u636e\u6807\u7b7e\u6765\u9650\u5236\u8fd4\u56de\u7684\u5bf9\u8c61\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5bf9\u8c61\u3002\n"
+        "x-kab-description-zh": "选择算符，用来根据标签来限制返回的对象。默认行为是返回所有对象。\n"
       },
       "1.31": {
         "description": "A selector to restrict the list of returned objects by their labels.\nDefaults to everything.\n",
@@ -69448,7 +69448,7 @@
         "name": "labelSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9009\u62e9\u7b97\u7b26\uff0c\u7528\u6765\u6839\u636e\u6807\u7b7e\u6765\u9650\u5236\u8fd4\u56de\u7684\u5bf9\u8c61\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5bf9\u8c61\u3002\n"
+        "x-kab-description-zh": "选择算符，用来根据标签来限制返回的对象。默认行为是返回所有对象。\n"
       },
       "1.32": {
         "description": "A selector to restrict the list of returned objects by their labels.\nDefaults to everything.\n",
@@ -69456,7 +69456,7 @@
         "name": "labelSelector",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u9009\u62e9\u7b97\u7b26\uff0c\u7528\u6765\u6839\u636e\u6807\u7b7e\u6765\u9650\u5236\u8fd4\u56de\u7684\u5bf9\u8c61\u3002\u9ed8\u8ba4\u884c\u4e3a\u662f\u8fd4\u56de\u6240\u6709\u5bf9\u8c61\u3002\n"
+        "x-kab-description-zh": "选择算符，用来根据标签来限制返回的对象。默认行为是返回所有对象。\n"
       }
     },
     "limit": {
@@ -69489,7 +69489,7 @@
         "name": "limit",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`limit` \u9650\u5236 `list` \u8bf7\u6c42\u8fd4\u56de\u7684\u5bf9\u8c61\u4e2a\u6570\u3002\u5982\u679c\u5b58\u5728\u66f4\u591a\u7684\u6761\u76ee\uff0c\u670d\u52a1\u5668\u4f1a\u8bbe\u7f6e\u5217\u8868\u5143\u6570\u636e\u4e2d\u7684 `continue`\n\u5b57\u6bb5\uff0c\u4f7f\u7528\u6240\u8fd4\u56de\u7684\u8fd9\u4e00\u5b57\u6bb5\u503c\u91cd\u65b0\u6267\u884c\u521d\u59cb\u67e5\u8be2\u65f6\uff0c\u5c06\u4f1a\u8fd4\u56de\u4e0b\u4e00\u7ec4\u7ed3\u679c\u3002\n\u8bbe\u7f6e\u4e86\u9650\u5236\u65f6\uff0c\u8fd4\u56de\u7684\u7ed3\u679c\u4e2a\u6570\u53ef\u80fd\u5c11\u4e8e\u6240\u8bf7\u6c42\u7684\u5143\u7d20\u4e2a\u6570\uff08\u6781\u7aef\u60c5\u51b5\u4e0b\u662f\u96f6\u4e2a\u5143\u7d20\uff09\uff0c \n\u4f8b\u5982\u6240\u8bf7\u6c42\u7684\u5bf9\u8c61\u88ab\u8fc7\u6ee4\u6389\u7684\u60c5\u51b5\u3002\u5ba2\u6237\u7aef\u53ea\u80fd\u901a\u8fc7 `continue` \u5b57\u6bb5\u5b58\u5728\u4e0e\u5426\u6765\u5224\u65ad\u662f\u5426\u8fd8\u6709\u66f4\u591a\u7684\u7ed3\u679c\u5f85\u53d6\u56de\u3002\n\u670d\u52a1\u5668\u7aef\u53ef\u80fd\u4e0d\u652f\u6301 `limit` \u53c2\u6570\uff0c\u56e0\u800c\u8fd4\u56de\u6240\u6709\u7ed3\u679c\u3002\n\u5982\u679c\u8bbe\u7f6e\u4e86 `limit`\uff0c\u4f46\u54cd\u5e94\u4e2d\u7684 `continue` \u5b57\u6bb5\u4e3a\u7a7a\uff0c\u5ba2\u6237\u7aef\u53ef\u4ee5\u5047\u5b9a\u6ca1\u6709\u66f4\u591a\u7684\u7ed3\u679c\u3002\n\u5f53 `watch` \u88ab\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u4e0d\u652f\u6301\u8bbe\u7f6e\u6b64\u5b57\u6bb5\u3002\n\n\u670d\u52a1\u5668\u7aef\u4f1a\u786e\u4fdd\u8bbe\u7f6e\u4e86 `continue` \u65f6\u6240\u8fd4\u56de\u7684\u5bf9\u8c61\u96c6\u5408\u4e0e\u4e0d\u5e26 `limit` \u7684 `list` \u8bf7\u6c42\u6240\u8fd4\u56de\u7684\u7ed3\u679c\u5b8c\u5168\u76f8\u540c\uff0c\n\u4e5f\u5c31\u662f\u8bf4\uff0c\u5728\u7b2c\u4e00\u4e2a\u8bf7\u6c42\u53d1\u51fa\u4e4b\u540e\u521b\u5efa\u7684\u3001\u66f4\u6539\u7684\u6216\u8005\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4e0d\u4f1a\u5f71\u54cd\u540e\u7eed\u7684 `continue` \u8bf7\u6c42\u7684\u7ed3\u679c\u3002\n\u8fd9\u79cd\u80fd\u529b\u6709\u65f6\u88ab\u79f0\u4f5c\u4e00\u81f4\u6027\u5feb\u7167\uff08Consistent Snapshot\uff09\uff0c\u80fd\u591f\u786e\u4fdd\u4f7f\u7528 `limit` \u53c2\u6570\u6765\u5206\u6279\u8bfb\u53d6\u8f83\u5927\u96c6\u5408\u7684\u5ba2\u6237\u7aef\u53ef\u4ee5\u770b\u5230\u6240\u6709\u5bf9\u8c61\u3002\n\u5982\u679c\u67d0\u5bf9\u8c61\u5728\u5206\u6279\u5217\u8868\u6267\u884c\u671f\u95f4\u88ab\u53d8\u66f4\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u8ba1\u7b97\u5f00\u59cb\u6267\u884c `list` \u64cd\u4f5c\u65f6\u5bf9\u8c61\u7684\u7248\u672c\uff0c\u5e76\u8fd4\u56de\u8be5\u7248\u672c\u3002\n"
+        "x-kab-description-zh": "`limit` 限制 `list` 请求返回的对象个数。如果存在更多的条目，服务器会设置列表元数据中的 `continue`\n字段，使用所返回的这一字段值重新执行初始查询时，将会返回下一组结果。\n设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素）， \n例如所请求的对象被过滤掉的情况。客户端只能通过 `continue` 字段存在与否来判断是否还有更多的结果待取回。\n服务器端可能不支持 `limit` 参数，因而返回所有结果。\n如果设置了 `limit`，但响应中的 `continue` 字段为空，客户端可以假定没有更多的结果。\n当 `watch` 被设置为 `true` 时，不支持设置此字段。\n\n服务器端会确保设置了 `continue` 时所返回的对象集合与不带 `limit` 的 `list` 请求所返回的结果完全相同，\n也就是说，在第一个请求发出之后创建的、更改的或者删除的对象都不会影响后续的 `continue` 请求的结果。\n这种能力有时被称作一致性快照（Consistent Snapshot），能够确保使用 `limit` 参数来分批读取较大集合的客户端可以看到所有对象。\n如果某对象在分批列表执行期间被变更，则服务器会计算开始执行 `list` 操作时对象的版本，并返回该版本。\n"
       },
       "1.30": {
         "description": "`limit` is the maximum number of objects to return for a `list` call.\nIf more items exist, the server will set the `continue` field on the list metadata to a value\nthat can be used with the same initial query to retrieve the next set of results.\nSetting a limit may return fewer than the requested amount of items (up to zero items)\nin the event all requested objects are filtered out and clients should only use the presence of\nthe `continue` field to determine whether more results are available.\nServers may choose not to support the `limit` argument and will return all of the available results.\nIf `limit` is specified and the `continue` field is empty, clients may assume that no more results\nare available. This field is not supported if `watch` is `true`.\n\nThe server guarantees that the objects returned when using `continue` will be identical to\nissuing a single `list` call without a `limit` - that is, no objects created, modified, or deleted\nafter the first request is issued will be included in any subsequent `continue` requests.\nThis is sometimes referred to as a _consistent snapshot_, and ensures that a client that is using\nlimit to receive smaller chunks of a very large result can ensure they see all possible objects.\nIf objects are updated during a chunked `list` the version of the object that was present at the time\nthe first `list` result was calculated is returned.\n",
@@ -69497,7 +69497,7 @@
         "name": "limit",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`limit` \u9650\u5236 `list` \u8bf7\u6c42\u8fd4\u56de\u7684\u5bf9\u8c61\u4e2a\u6570\u3002\u5982\u679c\u5b58\u5728\u66f4\u591a\u7684\u6761\u76ee\uff0c\u670d\u52a1\u5668\u4f1a\u8bbe\u7f6e\u5217\u8868\u5143\u6570\u636e\u4e2d\u7684 `continue`\n\u5b57\u6bb5\uff0c\u4f7f\u7528\u6240\u8fd4\u56de\u7684\u8fd9\u4e00\u5b57\u6bb5\u503c\u91cd\u65b0\u6267\u884c\u521d\u59cb\u67e5\u8be2\u65f6\uff0c\u5c06\u4f1a\u8fd4\u56de\u4e0b\u4e00\u7ec4\u7ed3\u679c\u3002\n\u8bbe\u7f6e\u4e86\u9650\u5236\u65f6\uff0c\u8fd4\u56de\u7684\u7ed3\u679c\u4e2a\u6570\u53ef\u80fd\u5c11\u4e8e\u6240\u8bf7\u6c42\u7684\u5143\u7d20\u4e2a\u6570\uff08\u6781\u7aef\u60c5\u51b5\u4e0b\u662f\u96f6\u4e2a\u5143\u7d20\uff09\uff0c \n\u4f8b\u5982\u6240\u8bf7\u6c42\u7684\u5bf9\u8c61\u88ab\u8fc7\u6ee4\u6389\u7684\u60c5\u51b5\u3002\u5ba2\u6237\u7aef\u53ea\u80fd\u901a\u8fc7 `continue` \u5b57\u6bb5\u5b58\u5728\u4e0e\u5426\u6765\u5224\u65ad\u662f\u5426\u8fd8\u6709\u66f4\u591a\u7684\u7ed3\u679c\u5f85\u53d6\u56de\u3002\n\u670d\u52a1\u5668\u7aef\u53ef\u80fd\u4e0d\u652f\u6301 `limit` \u53c2\u6570\uff0c\u56e0\u800c\u8fd4\u56de\u6240\u6709\u7ed3\u679c\u3002\n\u5982\u679c\u8bbe\u7f6e\u4e86 `limit`\uff0c\u4f46\u54cd\u5e94\u4e2d\u7684 `continue` \u5b57\u6bb5\u4e3a\u7a7a\uff0c\u5ba2\u6237\u7aef\u53ef\u4ee5\u5047\u5b9a\u6ca1\u6709\u66f4\u591a\u7684\u7ed3\u679c\u3002\n\u5f53 `watch` \u88ab\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u4e0d\u652f\u6301\u8bbe\u7f6e\u6b64\u5b57\u6bb5\u3002\n\n\u670d\u52a1\u5668\u7aef\u4f1a\u786e\u4fdd\u8bbe\u7f6e\u4e86 `continue` \u65f6\u6240\u8fd4\u56de\u7684\u5bf9\u8c61\u96c6\u5408\u4e0e\u4e0d\u5e26 `limit` \u7684 `list` \u8bf7\u6c42\u6240\u8fd4\u56de\u7684\u7ed3\u679c\u5b8c\u5168\u76f8\u540c\uff0c\n\u4e5f\u5c31\u662f\u8bf4\uff0c\u5728\u7b2c\u4e00\u4e2a\u8bf7\u6c42\u53d1\u51fa\u4e4b\u540e\u521b\u5efa\u7684\u3001\u66f4\u6539\u7684\u6216\u8005\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4e0d\u4f1a\u5f71\u54cd\u540e\u7eed\u7684 `continue` \u8bf7\u6c42\u7684\u7ed3\u679c\u3002\n\u8fd9\u79cd\u80fd\u529b\u6709\u65f6\u88ab\u79f0\u4f5c\u4e00\u81f4\u6027\u5feb\u7167\uff08Consistent Snapshot\uff09\uff0c\u80fd\u591f\u786e\u4fdd\u4f7f\u7528 `limit` \u53c2\u6570\u6765\u5206\u6279\u8bfb\u53d6\u8f83\u5927\u96c6\u5408\u7684\u5ba2\u6237\u7aef\u53ef\u4ee5\u770b\u5230\u6240\u6709\u5bf9\u8c61\u3002\n\u5982\u679c\u67d0\u5bf9\u8c61\u5728\u5206\u6279\u5217\u8868\u6267\u884c\u671f\u95f4\u88ab\u53d8\u66f4\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u8ba1\u7b97\u5f00\u59cb\u6267\u884c `list` \u64cd\u4f5c\u65f6\u5bf9\u8c61\u7684\u7248\u672c\uff0c\u5e76\u8fd4\u56de\u8be5\u7248\u672c\u3002\n"
+        "x-kab-description-zh": "`limit` 限制 `list` 请求返回的对象个数。如果存在更多的条目，服务器会设置列表元数据中的 `continue`\n字段，使用所返回的这一字段值重新执行初始查询时，将会返回下一组结果。\n设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素）， \n例如所请求的对象被过滤掉的情况。客户端只能通过 `continue` 字段存在与否来判断是否还有更多的结果待取回。\n服务器端可能不支持 `limit` 参数，因而返回所有结果。\n如果设置了 `limit`，但响应中的 `continue` 字段为空，客户端可以假定没有更多的结果。\n当 `watch` 被设置为 `true` 时，不支持设置此字段。\n\n服务器端会确保设置了 `continue` 时所返回的对象集合与不带 `limit` 的 `list` 请求所返回的结果完全相同，\n也就是说，在第一个请求发出之后创建的、更改的或者删除的对象都不会影响后续的 `continue` 请求的结果。\n这种能力有时被称作一致性快照（Consistent Snapshot），能够确保使用 `limit` 参数来分批读取较大集合的客户端可以看到所有对象。\n如果某对象在分批列表执行期间被变更，则服务器会计算开始执行 `list` 操作时对象的版本，并返回该版本。\n"
       },
       "1.31": {
         "description": "`limit` is the maximum number of objects to return for a `list` call.\nIf more items exist, the server will set the `continue` field on the list metadata to a value\nthat can be used with the same initial query to retrieve the next set of results.\nSetting a limit may return fewer than the requested amount of items (up to zero items)\nin the event all requested objects are filtered out and clients should only use the presence of\nthe `continue` field to determine whether more results are available.\nServers may choose not to support the `limit` argument and will return all of the available results.\nIf `limit` is specified and the `continue` field is empty, clients may assume that no more results\nare available. This field is not supported if `watch` is `true`.\n\nThe server guarantees that the objects returned when using `continue` will be identical to\nissuing a single `list` call without a `limit` - that is, no objects created, modified, or deleted\nafter the first request is issued will be included in any subsequent `continue` requests.\nThis is sometimes referred to as a _consistent snapshot_, and ensures that a client that is using\nlimit to receive smaller chunks of a very large result can ensure they see all possible objects.\nIf objects are updated during a chunked `list` the version of the object that was present at the time\nthe first `list` result was calculated is returned.\n",
@@ -69505,7 +69505,7 @@
         "name": "limit",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`limit` \u9650\u5236 `list` \u8bf7\u6c42\u8fd4\u56de\u7684\u5bf9\u8c61\u4e2a\u6570\u3002\u5982\u679c\u5b58\u5728\u66f4\u591a\u7684\u6761\u76ee\uff0c\u670d\u52a1\u5668\u4f1a\u8bbe\u7f6e\u5217\u8868\u5143\u6570\u636e\u4e2d\u7684 `continue`\n\u5b57\u6bb5\uff0c\u4f7f\u7528\u6240\u8fd4\u56de\u7684\u8fd9\u4e00\u5b57\u6bb5\u503c\u91cd\u65b0\u6267\u884c\u521d\u59cb\u67e5\u8be2\u65f6\uff0c\u5c06\u4f1a\u8fd4\u56de\u4e0b\u4e00\u7ec4\u7ed3\u679c\u3002\n\u8bbe\u7f6e\u4e86\u9650\u5236\u65f6\uff0c\u8fd4\u56de\u7684\u7ed3\u679c\u4e2a\u6570\u53ef\u80fd\u5c11\u4e8e\u6240\u8bf7\u6c42\u7684\u5143\u7d20\u4e2a\u6570\uff08\u6781\u7aef\u60c5\u51b5\u4e0b\u662f\u96f6\u4e2a\u5143\u7d20\uff09\uff0c\n\u4f8b\u5982\u6240\u8bf7\u6c42\u7684\u5bf9\u8c61\u88ab\u8fc7\u6ee4\u6389\u7684\u60c5\u51b5\u3002\u5ba2\u6237\u7aef\u53ea\u80fd\u901a\u8fc7 `continue` \u5b57\u6bb5\u5b58\u5728\u4e0e\u5426\u6765\u5224\u65ad\u662f\u5426\u8fd8\u6709\u66f4\u591a\u7684\u7ed3\u679c\u5f85\u53d6\u56de\u3002\n\u670d\u52a1\u5668\u7aef\u53ef\u80fd\u4e0d\u652f\u6301 `limit` \u53c2\u6570\uff0c\u56e0\u800c\u8fd4\u56de\u6240\u6709\u7ed3\u679c\u3002\n\u5982\u679c\u8bbe\u7f6e\u4e86 `limit`\uff0c\u4f46\u54cd\u5e94\u4e2d\u7684 `continue` \u5b57\u6bb5\u4e3a\u7a7a\uff0c\u5ba2\u6237\u7aef\u53ef\u4ee5\u5047\u5b9a\u6ca1\u6709\u66f4\u591a\u7684\u7ed3\u679c\u3002\n\u5f53 `watch` \u88ab\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u4e0d\u652f\u6301\u8bbe\u7f6e\u6b64\u5b57\u6bb5\u3002\n\n\u670d\u52a1\u5668\u7aef\u4f1a\u786e\u4fdd\u8bbe\u7f6e\u4e86 `continue` \u65f6\u6240\u8fd4\u56de\u7684\u5bf9\u8c61\u96c6\u5408\u4e0e\u4e0d\u5e26 `limit` \u7684 `list` \u8bf7\u6c42\u6240\u8fd4\u56de\u7684\u7ed3\u679c\u5b8c\u5168\u76f8\u540c\uff0c\n\u4e5f\u5c31\u662f\u8bf4\uff0c\u5728\u7b2c\u4e00\u4e2a\u8bf7\u6c42\u53d1\u51fa\u4e4b\u540e\u521b\u5efa\u7684\u3001\u66f4\u6539\u7684\u6216\u8005\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4e0d\u4f1a\u5f71\u54cd\u540e\u7eed\u7684 `continue` \u8bf7\u6c42\u7684\u7ed3\u679c\u3002\n\u8fd9\u79cd\u80fd\u529b\u6709\u65f6\u88ab\u79f0\u4f5c\u4e00\u81f4\u6027\u5feb\u7167\uff08Consistent Snapshot\uff09\uff0c\u80fd\u591f\u786e\u4fdd\u4f7f\u7528 `limit` \u53c2\u6570\u6765\u5206\u6279\u8bfb\u53d6\u8f83\u5927\u96c6\u5408\u7684\u5ba2\u6237\u7aef\u53ef\u4ee5\u770b\u5230\u6240\u6709\u5bf9\u8c61\u3002\n\u5982\u679c\u67d0\u5bf9\u8c61\u5728\u5206\u6279\u5217\u8868\u6267\u884c\u671f\u95f4\u88ab\u53d8\u66f4\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u8ba1\u7b97\u5f00\u59cb\u6267\u884c `list` \u64cd\u4f5c\u65f6\u5bf9\u8c61\u7684\u7248\u672c\uff0c\u5e76\u8fd4\u56de\u8be5\u7248\u672c\u3002\n"
+        "x-kab-description-zh": "`limit` 限制 `list` 请求返回的对象个数。如果存在更多的条目，服务器会设置列表元数据中的 `continue`\n字段，使用所返回的这一字段值重新执行初始查询时，将会返回下一组结果。\n设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素），\n例如所请求的对象被过滤掉的情况。客户端只能通过 `continue` 字段存在与否来判断是否还有更多的结果待取回。\n服务器端可能不支持 `limit` 参数，因而返回所有结果。\n如果设置了 `limit`，但响应中的 `continue` 字段为空，客户端可以假定没有更多的结果。\n当 `watch` 被设置为 `true` 时，不支持设置此字段。\n\n服务器端会确保设置了 `continue` 时所返回的对象集合与不带 `limit` 的 `list` 请求所返回的结果完全相同，\n也就是说，在第一个请求发出之后创建的、更改的或者删除的对象都不会影响后续的 `continue` 请求的结果。\n这种能力有时被称作一致性快照（Consistent Snapshot），能够确保使用 `limit` 参数来分批读取较大集合的客户端可以看到所有对象。\n如果某对象在分批列表执行期间被变更，则服务器会计算开始执行 `list` 操作时对象的版本，并返回该版本。\n"
       },
       "1.32": {
         "description": "`limit` is the maximum number of objects to return for a `list` call.\nIf more items exist, the server will set the `continue` field on the list metadata to a value\nthat can be used with the same initial query to retrieve the next set of results.\nSetting a limit may return fewer than the requested amount of items (up to zero items)\nin the event all requested objects are filtered out and clients should only use the presence of\nthe `continue` field to determine whether more results are available.\nServers may choose not to support the `limit` argument and will return all of the available results.\nIf `limit` is specified and the `continue` field is empty, clients may assume that no more results\nare available. This field is not supported if `watch` is `true`.\n\nThe server guarantees that the objects returned when using `continue` will be identical to\nissuing a single `list` call without a `limit` - that is, no objects created, modified, or deleted\nafter the first request is issued will be included in any subsequent `continue` requests.\nThis is sometimes referred to as a _consistent snapshot_, and ensures that a client that is using\nlimit to receive smaller chunks of a very large result can ensure they see all possible objects.\nIf objects are updated during a chunked `list` the version of the object that was present at the time\nthe first `list` result was calculated is returned.\n",
@@ -69513,7 +69513,7 @@
         "name": "limit",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`limit` \u9650\u5236 `list` \u8bf7\u6c42\u8fd4\u56de\u7684\u5bf9\u8c61\u4e2a\u6570\u3002\u5982\u679c\u5b58\u5728\u66f4\u591a\u7684\u6761\u76ee\uff0c\u670d\u52a1\u5668\u4f1a\u8bbe\u7f6e\u5217\u8868\u5143\u6570\u636e\u4e2d\u7684 `continue`\n\u5b57\u6bb5\uff0c\u4f7f\u7528\u6240\u8fd4\u56de\u7684\u8fd9\u4e00\u5b57\u6bb5\u503c\u91cd\u65b0\u6267\u884c\u521d\u59cb\u67e5\u8be2\u65f6\uff0c\u5c06\u4f1a\u8fd4\u56de\u4e0b\u4e00\u7ec4\u7ed3\u679c\u3002\n\u8bbe\u7f6e\u4e86\u9650\u5236\u65f6\uff0c\u8fd4\u56de\u7684\u7ed3\u679c\u4e2a\u6570\u53ef\u80fd\u5c11\u4e8e\u6240\u8bf7\u6c42\u7684\u5143\u7d20\u4e2a\u6570\uff08\u6781\u7aef\u60c5\u51b5\u4e0b\u662f\u96f6\u4e2a\u5143\u7d20\uff09\uff0c\n\u4f8b\u5982\u6240\u8bf7\u6c42\u7684\u5bf9\u8c61\u88ab\u8fc7\u6ee4\u6389\u7684\u60c5\u51b5\u3002\u5ba2\u6237\u7aef\u53ea\u80fd\u901a\u8fc7 `continue` \u5b57\u6bb5\u5b58\u5728\u4e0e\u5426\u6765\u5224\u65ad\u662f\u5426\u8fd8\u6709\u66f4\u591a\u7684\u7ed3\u679c\u5f85\u53d6\u56de\u3002\n\u670d\u52a1\u5668\u7aef\u53ef\u80fd\u4e0d\u652f\u6301 `limit` \u53c2\u6570\uff0c\u56e0\u800c\u8fd4\u56de\u6240\u6709\u7ed3\u679c\u3002\n\u5982\u679c\u8bbe\u7f6e\u4e86 `limit`\uff0c\u4f46\u54cd\u5e94\u4e2d\u7684 `continue` \u5b57\u6bb5\u4e3a\u7a7a\uff0c\u5ba2\u6237\u7aef\u53ef\u4ee5\u5047\u5b9a\u6ca1\u6709\u66f4\u591a\u7684\u7ed3\u679c\u3002\n\u5f53 `watch` \u88ab\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u4e0d\u652f\u6301\u8bbe\u7f6e\u6b64\u5b57\u6bb5\u3002\n\n\u670d\u52a1\u5668\u7aef\u4f1a\u786e\u4fdd\u8bbe\u7f6e\u4e86 `continue` \u65f6\u6240\u8fd4\u56de\u7684\u5bf9\u8c61\u96c6\u5408\u4e0e\u4e0d\u5e26 `limit` \u7684 `list` \u8bf7\u6c42\u6240\u8fd4\u56de\u7684\u7ed3\u679c\u5b8c\u5168\u76f8\u540c\uff0c\n\u4e5f\u5c31\u662f\u8bf4\uff0c\u5728\u7b2c\u4e00\u4e2a\u8bf7\u6c42\u53d1\u51fa\u4e4b\u540e\u521b\u5efa\u7684\u3001\u66f4\u6539\u7684\u6216\u8005\u5220\u9664\u7684\u5bf9\u8c61\u90fd\u4e0d\u4f1a\u5f71\u54cd\u540e\u7eed\u7684 `continue` \u8bf7\u6c42\u7684\u7ed3\u679c\u3002\n\u8fd9\u79cd\u80fd\u529b\u6709\u65f6\u88ab\u79f0\u4f5c\u4e00\u81f4\u6027\u5feb\u7167\uff08Consistent Snapshot\uff09\uff0c\u80fd\u591f\u786e\u4fdd\u4f7f\u7528 `limit` \u53c2\u6570\u6765\u5206\u6279\u8bfb\u53d6\u8f83\u5927\u96c6\u5408\u7684\u5ba2\u6237\u7aef\u53ef\u4ee5\u770b\u5230\u6240\u6709\u5bf9\u8c61\u3002\n\u5982\u679c\u67d0\u5bf9\u8c61\u5728\u5206\u6279\u5217\u8868\u6267\u884c\u671f\u95f4\u88ab\u53d8\u66f4\uff0c\u5219\u670d\u52a1\u5668\u4f1a\u8ba1\u7b97\u5f00\u59cb\u6267\u884c `list` \u64cd\u4f5c\u65f6\u5bf9\u8c61\u7684\u7248\u672c\uff0c\u5e76\u8fd4\u56de\u8be5\u7248\u672c\u3002\n"
+        "x-kab-description-zh": "`limit` 限制 `list` 请求返回的对象个数。如果存在更多的条目，服务器会设置列表元数据中的 `continue`\n字段，使用所返回的这一字段值重新执行初始查询时，将会返回下一组结果。\n设置了限制时，返回的结果个数可能少于所请求的元素个数（极端情况下是零个元素），\n例如所请求的对象被过滤掉的情况。客户端只能通过 `continue` 字段存在与否来判断是否还有更多的结果待取回。\n服务器端可能不支持 `limit` 参数，因而返回所有结果。\n如果设置了 `limit`，但响应中的 `continue` 字段为空，客户端可以假定没有更多的结果。\n当 `watch` 被设置为 `true` 时，不支持设置此字段。\n\n服务器端会确保设置了 `continue` 时所返回的对象集合与不带 `limit` 的 `list` 请求所返回的结果完全相同，\n也就是说，在第一个请求发出之后创建的、更改的或者删除的对象都不会影响后续的 `continue` 请求的结果。\n这种能力有时被称作一致性快照（Consistent Snapshot），能够确保使用 `limit` 参数来分批读取较大集合的客户端可以看到所有对象。\n如果某对象在分批列表执行期间被变更，则服务器会计算开始执行 `list` 操作时对象的版本，并返回该版本。\n"
       }
     },
     "limitBytes": {
@@ -69530,7 +69530,7 @@
         "name": "limitBytes",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u53ef\u4ee5\u9650\u5236\u7ec8\u6b62\u65e5\u5fd7\u8f93\u51fa\u4e4b\u524d\u53ef\u4ee5\u4ece\u670d\u52a1\u5668\u4e0a\u8bfb\u56de\u7684\u5b57\u8282\u6570\u3002\n\u8bbe\u7f6e\u6b64\u53c2\u6570\u53ef\u80fd\u4f1a\u5bfc\u81f4\u6240\u8fd4\u56de\u7684\u65e5\u5fd7\u4e2d\u6700\u540e\u4e00\u884c\u4e0d\u5b8c\u6574\uff0c\u5e76\u4e14\u670d\u52a1\u5668\u5b9e\u9645\u8fd4\u56de\u7684\u5b57\u8282\u6570\u53ef\u80fd\u4e0e\u6240\u8bbe\u7f6e\u7684\u9650\u5236\u6709\u5c11\u8bb8\u7684\u51fa\u5165\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，可以限制终止日志输出之前可以从服务器上读回的字节数。\n设置此参数可能会导致所返回的日志中最后一行不完整，并且服务器实际返回的字节数可能与所设置的限制有少许的出入。\n"
       },
       "1.30": {
         "description": "If set, the number of bytes to read from the server before terminating the log output.\nThis may not display a complete final line of logging, and may return slightly more or\nslightly less than the specified limit.\n",
@@ -69538,7 +69538,7 @@
         "name": "limitBytes",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u53ef\u4ee5\u9650\u5236\u7ec8\u6b62\u65e5\u5fd7\u8f93\u51fa\u4e4b\u524d\u53ef\u4ee5\u4ece\u670d\u52a1\u5668\u4e0a\u8bfb\u56de\u7684\u5b57\u8282\u6570\u3002\n\u8bbe\u7f6e\u6b64\u53c2\u6570\u53ef\u80fd\u4f1a\u5bfc\u81f4\u6240\u8fd4\u56de\u7684\u65e5\u5fd7\u4e2d\u6700\u540e\u4e00\u884c\u4e0d\u5b8c\u6574\uff0c\u5e76\u4e14\u670d\u52a1\u5668\u5b9e\u9645\u8fd4\u56de\u7684\u5b57\u8282\u6570\u53ef\u80fd\u4e0e\u6240\u8bbe\u7f6e\u7684\u9650\u5236\u6709\u5c11\u8bb8\u7684\u51fa\u5165\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，可以限制终止日志输出之前可以从服务器上读回的字节数。\n设置此参数可能会导致所返回的日志中最后一行不完整，并且服务器实际返回的字节数可能与所设置的限制有少许的出入。\n"
       },
       "1.31": {
         "description": "If set, the number of bytes to read from the server before terminating the log output.\nThis may not display a complete final line of logging, and may return slightly more or\nslightly less than the specified limit.\n",
@@ -69546,7 +69546,7 @@
         "name": "limitBytes",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u53ef\u4ee5\u9650\u5236\u7ec8\u6b62\u65e5\u5fd7\u8f93\u51fa\u4e4b\u524d\u53ef\u4ee5\u4ece\u670d\u52a1\u5668\u4e0a\u8bfb\u56de\u7684\u5b57\u8282\u6570\u3002\n\u8bbe\u7f6e\u6b64\u53c2\u6570\u53ef\u80fd\u4f1a\u5bfc\u81f4\u6240\u8fd4\u56de\u7684\u65e5\u5fd7\u4e2d\u6700\u540e\u4e00\u884c\u4e0d\u5b8c\u6574\uff0c\u5e76\u4e14\u670d\u52a1\u5668\u5b9e\u9645\u8fd4\u56de\u7684\u5b57\u8282\u6570\u53ef\u80fd\u4e0e\u6240\u8bbe\u7f6e\u7684\u9650\u5236\u6709\u5c11\u8bb8\u7684\u51fa\u5165\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，可以限制终止日志输出之前可以从服务器上读回的字节数。\n设置此参数可能会导致所返回的日志中最后一行不完整，并且服务器实际返回的字节数可能与所设置的限制有少许的出入。\n"
       },
       "1.32": {
         "description": "If set, the number of bytes to read from the server before terminating the log output.\nThis may not display a complete final line of logging, and may return slightly more or\nslightly less than the specified limit.\n",
@@ -69554,7 +69554,7 @@
         "name": "limitBytes",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u53ef\u4ee5\u9650\u5236\u7ec8\u6b62\u65e5\u5fd7\u8f93\u51fa\u4e4b\u524d\u53ef\u4ee5\u4ece\u670d\u52a1\u5668\u4e0a\u8bfb\u56de\u7684\u5b57\u8282\u6570\u3002\n\u8bbe\u7f6e\u6b64\u53c2\u6570\u53ef\u80fd\u4f1a\u5bfc\u81f4\u6240\u8fd4\u56de\u7684\u65e5\u5fd7\u4e2d\u6700\u540e\u4e00\u884c\u4e0d\u5b8c\u6574\uff0c\u5e76\u4e14\u670d\u52a1\u5668\u5b9e\u9645\u8fd4\u56de\u7684\u5b57\u8282\u6570\u53ef\u80fd\u4e0e\u6240\u8bbe\u7f6e\u7684\u9650\u5236\u6709\u5c11\u8bb8\u7684\u51fa\u5165\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，可以限制终止日志输出之前可以从服务器上读回的字节数。\n设置此参数可能会导致所返回的日志中最后一行不完整，并且服务器实际返回的字节数可能与所设置的限制有少许的出入。\n"
       }
     },
     "logpath": {
@@ -69574,7 +69574,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u65e5\u5fd7\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向日志的路径。"
       },
       "1.30": {
         "description": "The path to the log.",
@@ -69584,7 +69584,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u65e5\u5fd7\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向日志的路径。"
       },
       "1.31": {
         "description": "The path to the log.",
@@ -69594,7 +69594,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u65e5\u5fd7\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向日志的路径。"
       },
       "1.32": {
         "description": "The path to the log.",
@@ -69604,7 +69604,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u65e5\u5fd7\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向日志的路径。"
       }
     },
     "namespace": {
@@ -69640,7 +69640,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u547d\u540d\u4ee5\u53ca\u64cd\u4f5c\u9274\u6743\u7684\u4f5c\u7528\u57df\uff0c\u7528\u6765\u652f\u6301\u591a\u4e2a\u56e2\u961f\u548c\u9879\u76ee\u3002"
+        "x-kab-description-zh": "对象命名以及操作鉴权的作用域，用来支持多个团队和项目。"
       },
       "1.30": {
         "description": "The object name and auth scope, such as for teams and projects.",
@@ -69650,7 +69650,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u547d\u540d\u4ee5\u53ca\u64cd\u4f5c\u9274\u6743\u7684\u4f5c\u7528\u57df\uff0c\u7528\u6765\u652f\u6301\u591a\u4e2a\u56e2\u961f\u548c\u9879\u76ee\u3002"
+        "x-kab-description-zh": "对象命名以及操作鉴权的作用域，用来支持多个团队和项目。"
       },
       "1.31": {
         "description": "The object name and auth scope, such as for teams and projects.",
@@ -69660,7 +69660,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u547d\u540d\u4ee5\u53ca\u64cd\u4f5c\u9274\u6743\u7684\u4f5c\u7528\u57df\uff0c\u7528\u6765\u652f\u6301\u591a\u4e2a\u56e2\u961f\u548c\u9879\u76ee\u3002"
+        "x-kab-description-zh": "对象命名以及操作鉴权的作用域，用来支持多个团队和项目。"
       },
       "1.32": {
         "description": "The object name and auth scope, such as for teams and projects.",
@@ -69670,7 +69670,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u8c61\u547d\u540d\u4ee5\u53ca\u64cd\u4f5c\u9274\u6743\u7684\u4f5c\u7528\u57df\uff0c\u7528\u6765\u652f\u6301\u591a\u4e2a\u56e2\u961f\u548c\u9879\u76ee\u3002"
+        "x-kab-description-zh": "对象命名以及操作鉴权的作用域，用来支持多个团队和项目。"
       }
     },
     "orphanDependents": {
@@ -69703,7 +69703,7 @@
         "name": "orphanDependents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u5141\u8bb8\u4f9d\u8d56\u5bf9\u8c61\u53d8\u6210\u5b64\u513f\uff08Orphaned\uff09\u5bf9\u8c61\u3002 \n\u5982\u679c\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u4f1a\u5411\u5bf9\u8c61\u7684 `finalizers` \u5217\u8868\u4e2d\u6dfb\u52a0 `\"orphan\"` \u7ec8\u6b62\u5668\uff0c\u5426\u5219\u4f1a\u4ece `finalizers`\n\u5217\u8868\u4e2d\u79fb\u9664 `\"orphan\"` \u7ec8\u6b62\u5668\u3002\u5ba2\u6237\u7aef\u53ef\u4ee5\u4f7f\u7528\u6b64\u5b57\u6bb5\u6216\u8005 `propagationPolicy` \u5b57\u6bb5\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u4e8c\u8005\u3002\n**\u5df2\u5f03\u7528**\uff1a\u8bf7\u4f7f\u7528 `ropagationPolicy` \u53c2\u6570\u3002`orphanDependents` \u8fd9\u4e00\u53c2\u6570\u4ece 1.7 \u7248\u672c\u5df2\u88ab\u5f03\u7528\u3002\n"
+        "x-kab-description-zh": "是否允许依赖对象变成孤儿（Orphaned）对象。 \n如果设置为 `true`，则会向对象的 `finalizers` 列表中添加 `\"orphan\"` 终止器，否则会从 `finalizers`\n列表中移除 `\"orphan\"` 终止器。客户端可以使用此字段或者 `propagationPolicy` 字段，但不能同时使用二者。\n**已弃用**：请使用 `ropagationPolicy` 参数。`orphanDependents` 这一参数从 1.7 版本已被弃用。\n"
       },
       "1.30": {
         "description": "Should the dependent objects be orphaned.\nIf true/false, the `\"orphan\"` finalizer will be added to/removed from the object's\n`finalizers` list. Either this field or `propagationPolicy` may be set, but not both.\n\n**DEPRECATED**: please use the `ropagationPolicy`, this field is deprecated in 1.7.\n",
@@ -69711,7 +69711,7 @@
         "name": "orphanDependents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u5141\u8bb8\u4f9d\u8d56\u5bf9\u8c61\u53d8\u6210\u5b64\u513f\uff08Orphaned\uff09\u5bf9\u8c61\u3002 \n\u5982\u679c\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u4f1a\u5411\u5bf9\u8c61\u7684 `finalizers` \u5217\u8868\u4e2d\u6dfb\u52a0 `\"orphan\"` \u7ec8\u6b62\u5668\uff0c\u5426\u5219\u4f1a\u4ece `finalizers`\n\u5217\u8868\u4e2d\u79fb\u9664 `\"orphan\"` \u7ec8\u6b62\u5668\u3002\u5ba2\u6237\u7aef\u53ef\u4ee5\u4f7f\u7528\u6b64\u5b57\u6bb5\u6216\u8005 `propagationPolicy` \u5b57\u6bb5\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u4e8c\u8005\u3002\n**\u5df2\u5f03\u7528**\uff1a\u8bf7\u4f7f\u7528 `ropagationPolicy` \u53c2\u6570\u3002`orphanDependents` \u8fd9\u4e00\u53c2\u6570\u4ece 1.7 \u7248\u672c\u5df2\u88ab\u5f03\u7528\u3002\n"
+        "x-kab-description-zh": "是否允许依赖对象变成孤儿（Orphaned）对象。 \n如果设置为 `true`，则会向对象的 `finalizers` 列表中添加 `\"orphan\"` 终止器，否则会从 `finalizers`\n列表中移除 `\"orphan\"` 终止器。客户端可以使用此字段或者 `propagationPolicy` 字段，但不能同时使用二者。\n**已弃用**：请使用 `ropagationPolicy` 参数。`orphanDependents` 这一参数从 1.7 版本已被弃用。\n"
       },
       "1.31": {
         "description": "Should the dependent objects be orphaned.\nIf true/false, the `\"orphan\"` finalizer will be added to/removed from the object's\n`finalizers` list. Either this field or `propagationPolicy` may be set, but not both.\n\n**DEPRECATED**: please use the `ropagationPolicy`, this field is deprecated in 1.7.\n",
@@ -69719,7 +69719,7 @@
         "name": "orphanDependents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u5141\u8bb8\u4f9d\u8d56\u5bf9\u8c61\u53d8\u6210\u5b64\u513f\uff08Orphaned\uff09\u5bf9\u8c61\u3002 \n\u5982\u679c\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u4f1a\u5411\u5bf9\u8c61\u7684 `finalizers` \u5217\u8868\u4e2d\u6dfb\u52a0 `\"orphan\"` \u7ec8\u6b62\u5668\uff0c\u5426\u5219\u4f1a\u4ece `finalizers`\n\u5217\u8868\u4e2d\u79fb\u9664 `\"orphan\"` \u7ec8\u6b62\u5668\u3002\u5ba2\u6237\u7aef\u53ef\u4ee5\u4f7f\u7528\u6b64\u5b57\u6bb5\u6216\u8005 `propagationPolicy` \u5b57\u6bb5\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u4e8c\u8005\u3002\n**\u5df2\u5f03\u7528**\uff1a\u8bf7\u4f7f\u7528 `ropagationPolicy` \u53c2\u6570\u3002`orphanDependents` \u8fd9\u4e00\u53c2\u6570\u4ece 1.7 \u7248\u672c\u5df2\u88ab\u5f03\u7528\u3002\n"
+        "x-kab-description-zh": "是否允许依赖对象变成孤儿（Orphaned）对象。 \n如果设置为 `true`，则会向对象的 `finalizers` 列表中添加 `\"orphan\"` 终止器，否则会从 `finalizers`\n列表中移除 `\"orphan\"` 终止器。客户端可以使用此字段或者 `propagationPolicy` 字段，但不能同时使用二者。\n**已弃用**：请使用 `ropagationPolicy` 参数。`orphanDependents` 这一参数从 1.7 版本已被弃用。\n"
       },
       "1.32": {
         "description": "Should the dependent objects be orphaned.\nIf true/false, the `\"orphan\"` finalizer will be added to/removed from the object's\n`finalizers` list. Either this field or `propagationPolicy` may be set, but not both.\n\n**DEPRECATED**: please use the `ropagationPolicy`, this field is deprecated in 1.7.\n",
@@ -69727,7 +69727,7 @@
         "name": "orphanDependents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u5141\u8bb8\u4f9d\u8d56\u5bf9\u8c61\u53d8\u6210\u5b64\u513f\uff08Orphaned\uff09\u5bf9\u8c61\u3002 \n\u5982\u679c\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u4f1a\u5411\u5bf9\u8c61\u7684 `finalizers` \u5217\u8868\u4e2d\u6dfb\u52a0 `\"orphan\"` \u7ec8\u6b62\u5668\uff0c\u5426\u5219\u4f1a\u4ece `finalizers`\n\u5217\u8868\u4e2d\u79fb\u9664 `\"orphan\"` \u7ec8\u6b62\u5668\u3002\u5ba2\u6237\u7aef\u53ef\u4ee5\u4f7f\u7528\u6b64\u5b57\u6bb5\u6216\u8005 `propagationPolicy` \u5b57\u6bb5\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u4e8c\u8005\u3002\n**\u5df2\u5f03\u7528**\uff1a\u8bf7\u4f7f\u7528 `ropagationPolicy` \u53c2\u6570\u3002`orphanDependents` \u8fd9\u4e00\u53c2\u6570\u4ece 1.7 \u7248\u672c\u5df2\u88ab\u5f03\u7528\u3002\n"
+        "x-kab-description-zh": "是否允许依赖对象变成孤儿（Orphaned）对象。 \n如果设置为 `true`，则会向对象的 `finalizers` 列表中添加 `\"orphan\"` 终止器，否则会从 `finalizers`\n列表中移除 `\"orphan\"` 终止器。客户端可以使用此字段或者 `propagationPolicy` 字段，但不能同时使用二者。\n**已弃用**：请使用 `ropagationPolicy` 参数。`orphanDependents` 这一参数从 1.7 版本已被弃用。\n"
       }
     },
     "path": {
@@ -69747,7 +69747,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u8d44\u6e90\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向资源的路径。"
       },
       "1.30": {
         "description": "The path to the resource.",
@@ -69757,7 +69757,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u8d44\u6e90\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向资源的路径。"
       },
       "1.31": {
         "description": "The path to the resource.",
@@ -69767,7 +69767,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u8d44\u6e90\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向资源的路径。"
       },
       "1.32": {
         "description": "The path to the resource.",
@@ -69777,7 +69777,7 @@
         "required": true,
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6307\u5411\u8d44\u6e90\u7684\u8def\u5f84\u3002"
+        "x-kab-description-zh": "指向资源的路径。"
       }
     },
     "ports": {
@@ -69794,7 +69794,7 @@
         "name": "ports",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8981\u8f6c\u53d1\u7684\u7aef\u53e3\u5217\u8868\u3002\u4f7f\u7528 WebSockets \u65f6\u5fc5\u987b\u8bbe\u7f6e\u3002"
+        "x-kab-description-zh": "要转发的端口列表。使用 WebSockets 时必须设置。"
       },
       "1.30": {
         "description": "List of ports to forward Required when using WebSockets.",
@@ -69802,7 +69802,7 @@
         "name": "ports",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8981\u8f6c\u53d1\u7684\u7aef\u53e3\u5217\u8868\u3002\u4f7f\u7528 WebSockets \u65f6\u5fc5\u987b\u8bbe\u7f6e\u3002"
+        "x-kab-description-zh": "要转发的端口列表。使用 WebSockets 时必须设置。"
       },
       "1.31": {
         "description": "List of ports to forward Required when using WebSockets.",
@@ -69810,7 +69810,7 @@
         "name": "ports",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8981\u8f6c\u53d1\u7684\u7aef\u53e3\u5217\u8868\u3002\u4f7f\u7528 WebSockets \u65f6\u5fc5\u987b\u8bbe\u7f6e\u3002"
+        "x-kab-description-zh": "要转发的端口列表。使用 WebSockets 时必须设置。"
       },
       "1.32": {
         "description": "List of ports to forward Required when using WebSockets.",
@@ -69818,7 +69818,7 @@
         "name": "ports",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8981\u8f6c\u53d1\u7684\u7aef\u53e3\u5217\u8868\u3002\u4f7f\u7528 WebSockets \u65f6\u5fc5\u987b\u8bbe\u7f6e\u3002"
+        "x-kab-description-zh": "要转发的端口列表。使用 WebSockets 时必须设置。"
       }
     },
     "pretty": {
@@ -69851,7 +69851,7 @@
         "name": "pretty",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u4e3a `true`\uff0c\u5219\u5bf9\u8f93\u51fa\u7ed3\u679c\u4f5c\u7f8e\u5316\u5904\u7406\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\uff0c\u9664\u975e user-agent \u8868\u660e\u4f7f\u7528\u7684\u662f\u6d4f\u89c8\u5668\u6216\u8005\u547d\u4ee4\u884c HTTP \u5de5\u5177\uff08`curl` \u548c `wget`\uff09\u3002\n"
+        "x-kab-description-zh": "若此字段为 `true`，则对输出结果作美化处理。\n默认值为 `false`，除非 user-agent 表明使用的是浏览器或者命令行 HTTP 工具（`curl` 和 `wget`）。\n"
       },
       "1.30": {
         "description": "If `true`, then the output is pretty printed.\nDefaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (`curl` and `wget`).\n",
@@ -69859,7 +69859,7 @@
         "name": "pretty",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u4e3a `true`\uff0c\u5219\u5bf9\u8f93\u51fa\u7ed3\u679c\u4f5c\u7f8e\u5316\u5904\u7406\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\uff0c\u9664\u975e user-agent \u8868\u660e\u4f7f\u7528\u7684\u662f\u6d4f\u89c8\u5668\u6216\u8005\u547d\u4ee4\u884c HTTP \u5de5\u5177\uff08`curl` \u548c `wget`\uff09\u3002\n"
+        "x-kab-description-zh": "若此字段为 `true`，则对输出结果作美化处理。\n默认值为 `false`，除非 user-agent 表明使用的是浏览器或者命令行 HTTP 工具（`curl` 和 `wget`）。\n"
       },
       "1.31": {
         "description": "If `true`, then the output is pretty printed.\nDefaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (`curl` and `wget`).\n",
@@ -69867,7 +69867,7 @@
         "name": "pretty",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u4e3a `true`\uff0c\u5219\u5bf9\u8f93\u51fa\u7ed3\u679c\u4f5c\u7f8e\u5316\u5904\u7406\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\uff0c\u9664\u975e user-agent \u8868\u660e\u4f7f\u7528\u7684\u662f\u6d4f\u89c8\u5668\u6216\u8005\u547d\u4ee4\u884c HTTP \u5de5\u5177\uff08`curl` \u548c `wget`\uff09\u3002\n"
+        "x-kab-description-zh": "若此字段为 `true`，则对输出结果作美化处理。\n默认值为 `false`，除非 user-agent 表明使用的是浏览器或者命令行 HTTP 工具（`curl` 和 `wget`）。\n"
       },
       "1.32": {
         "description": "If `true`, then the output is pretty printed.\nDefaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (`curl` and `wget`).\n",
@@ -69875,7 +69875,7 @@
         "name": "pretty",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u4e3a `true`\uff0c\u5219\u5bf9\u8f93\u51fa\u7ed3\u679c\u4f5c\u7f8e\u5316\u5904\u7406\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\uff0c\u9664\u975e user-agent \u8868\u660e\u4f7f\u7528\u7684\u662f\u6d4f\u89c8\u5668\u6216\u8005\u547d\u4ee4\u884c HTTP \u5de5\u5177\uff08`curl` \u548c `wget`\uff09\u3002\n"
+        "x-kab-description-zh": "若此字段为 `true`，则对输出结果作美化处理。\n默认值为 `false`，除非 user-agent 表明使用的是浏览器或者命令行 HTTP 工具（`curl` 和 `wget`）。\n"
       }
     },
     "previous": {
@@ -69892,7 +69892,7 @@
         "name": "previous",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8fd4\u56de\u5148\u524d\u7ec8\u6b62\u7684\u5bb9\u5668\u7684\u65e5\u5fd7\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002"
+        "x-kab-description-zh": "返回先前终止的容器的日志。默认值为 `false`。"
       },
       "1.30": {
         "description": "Return previous terminated container logs. Defaults to false.",
@@ -69900,7 +69900,7 @@
         "name": "previous",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8fd4\u56de\u5148\u524d\u7ec8\u6b62\u7684\u5bb9\u5668\u7684\u65e5\u5fd7\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002"
+        "x-kab-description-zh": "返回先前终止的容器的日志。默认值为 `false`。"
       },
       "1.31": {
         "description": "Return previous terminated container logs. Defaults to false.",
@@ -69908,7 +69908,7 @@
         "name": "previous",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8fd4\u56de\u5148\u524d\u7ec8\u6b62\u7684\u5bb9\u5668\u7684\u65e5\u5fd7\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002"
+        "x-kab-description-zh": "返回先前终止的容器的日志。默认值为 `false`。"
       },
       "1.32": {
         "description": "Return previous terminated container logs. Defaults to false.",
@@ -69916,7 +69916,7 @@
         "name": "previous",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u8fd4\u56de\u5148\u524d\u7ec8\u6b62\u7684\u5bb9\u5668\u7684\u65e5\u5fd7\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002"
+        "x-kab-description-zh": "返回先前终止的容器的日志。默认值为 `false`。"
       }
     },
     "propagationPolicy": {
@@ -69954,7 +69954,7 @@
         "name": "propagationPolicy",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u6267\u884c\u5783\u573e\u624b\u673a\u4ee5\u53ca\u5982\u4f55\u6267\u884c\u5783\u573e\u6536\u96c6\u3002\u6b64\u5b57\u6bb5\u6216\u8005 `orphanDependents` \u4e8c\u8005\u53ef\u4ee5\u8bbe\u7f6e\u5176\u4e00\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u3002\n\u9ed8\u8ba4\u7b56\u7565\u53d6\u51b3\u4e8e `metadata.finalizers` \u4e2d\u7684\u73b0\u6709 `finalizers` \u96c6\u5408\uff0c\u4ee5\u53ca\u7279\u5b9a\u4e8e\u8d44\u6e90\u7c7b\u578b\u7684\u7b56\u7565\u3002\n\u53ef\u63a5\u53d7\u7684\u53d6\u503c\u6709\uff1a\n\n- `\"Orphan\"`\uff1a\u4ee4\u4f9d\u8d56\u5bf9\u8c61\u6210\u4e3a\u5b64\u513f\u5bf9\u8c61\uff1b\n- `\"Background\"`\uff1a\u5141\u8bb8\u5783\u573e\u6536\u96c6\u5668\u5728\u540e\u53f0\u5220\u9664\u4f9d\u8d56\u5bf9\u8c61\uff1b\n- `\"Foreground\"`\uff1a\u5728\u524d\u53f0\u5220\u9664\u6240\u6709\u4f9d\u8d56\u5bf9\u8c61\u7684\u4e00\u79cd\u7ea7\u8054\u7b56\u7565\u3002\n"
+        "x-kab-description-zh": "是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。\n默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。\n可接受的取值有：\n\n- `\"Orphan\"`：令依赖对象成为孤儿对象；\n- `\"Background\"`：允许垃圾收集器在后台删除依赖对象；\n- `\"Foreground\"`：在前台删除所有依赖对象的一种级联策略。\n"
       },
       "1.30": {
         "description": "Whether and how garbage collection will be performed.\nEither this field or `orphanDependents` may be set, but not both.\nThe default policy is decided by the existing `finalizers` set in the `metadata.finalizers`\nand the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"` - orphan the dependents;\n- `\"Background\"` - allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"` - a cascading policy that deletes all dependents in the foreground.\n",
@@ -69962,7 +69962,7 @@
         "name": "propagationPolicy",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u6267\u884c\u5783\u573e\u624b\u673a\u4ee5\u53ca\u5982\u4f55\u6267\u884c\u5783\u573e\u6536\u96c6\u3002\u6b64\u5b57\u6bb5\u6216\u8005 `orphanDependents` \u4e8c\u8005\u53ef\u4ee5\u8bbe\u7f6e\u5176\u4e00\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u3002\n\u9ed8\u8ba4\u7b56\u7565\u53d6\u51b3\u4e8e `metadata.finalizers` \u4e2d\u7684\u73b0\u6709 `finalizers` \u96c6\u5408\uff0c\u4ee5\u53ca\u7279\u5b9a\u4e8e\u8d44\u6e90\u7c7b\u578b\u7684\u7b56\u7565\u3002\n\u53ef\u63a5\u53d7\u7684\u53d6\u503c\u6709\uff1a\n\n- `\"Orphan\"`\uff1a\u4ee4\u4f9d\u8d56\u5bf9\u8c61\u6210\u4e3a\u5b64\u513f\u5bf9\u8c61\uff1b\n- `\"Background\"`\uff1a\u5141\u8bb8\u5783\u573e\u6536\u96c6\u5668\u5728\u540e\u53f0\u5220\u9664\u4f9d\u8d56\u5bf9\u8c61\uff1b\n- `\"Foreground\"`\uff1a\u5728\u524d\u53f0\u5220\u9664\u6240\u6709\u4f9d\u8d56\u5bf9\u8c61\u7684\u4e00\u79cd\u7ea7\u8054\u7b56\u7565\u3002\n"
+        "x-kab-description-zh": "是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。\n默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。\n可接受的取值有：\n\n- `\"Orphan\"`：令依赖对象成为孤儿对象；\n- `\"Background\"`：允许垃圾收集器在后台删除依赖对象；\n- `\"Foreground\"`：在前台删除所有依赖对象的一种级联策略。\n"
       },
       "1.31": {
         "description": "Whether and how garbage collection will be performed.\nEither this field or `orphanDependents` may be set, but not both.\nThe default policy is decided by the existing `finalizers` set in the `metadata.finalizers`\nand the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"` - orphan the dependents;\n- `\"Background\"` - allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"` - a cascading policy that deletes all dependents in the foreground.\n",
@@ -69970,7 +69970,7 @@
         "name": "propagationPolicy",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u6267\u884c\u5783\u573e\u624b\u673a\u4ee5\u53ca\u5982\u4f55\u6267\u884c\u5783\u573e\u6536\u96c6\u3002\u6b64\u5b57\u6bb5\u6216\u8005 `orphanDependents` \u4e8c\u8005\u53ef\u4ee5\u8bbe\u7f6e\u5176\u4e00\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u3002\n\u9ed8\u8ba4\u7b56\u7565\u53d6\u51b3\u4e8e `metadata.finalizers` \u4e2d\u7684\u73b0\u6709 `finalizers` \u96c6\u5408\uff0c\u4ee5\u53ca\u7279\u5b9a\u4e8e\u8d44\u6e90\u7c7b\u578b\u7684\u7b56\u7565\u3002\n\u53ef\u63a5\u53d7\u7684\u53d6\u503c\u6709\uff1a\n\n- `\"Orphan\"`\uff1a\u4ee4\u4f9d\u8d56\u5bf9\u8c61\u6210\u4e3a\u5b64\u513f\u5bf9\u8c61\uff1b\n- `\"Background\"`\uff1a\u5141\u8bb8\u5783\u573e\u6536\u96c6\u5668\u5728\u540e\u53f0\u5220\u9664\u4f9d\u8d56\u5bf9\u8c61\uff1b\n- `\"Foreground\"`\uff1a\u5728\u524d\u53f0\u5220\u9664\u6240\u6709\u4f9d\u8d56\u5bf9\u8c61\u7684\u4e00\u79cd\u7ea7\u8054\u7b56\u7565\u3002\n"
+        "x-kab-description-zh": "是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。\n默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。\n可接受的取值有：\n\n- `\"Orphan\"`：令依赖对象成为孤儿对象；\n- `\"Background\"`：允许垃圾收集器在后台删除依赖对象；\n- `\"Foreground\"`：在前台删除所有依赖对象的一种级联策略。\n"
       },
       "1.32": {
         "description": "Whether and how garbage collection will be performed.\nEither this field or `orphanDependents` may be set, but not both.\nThe default policy is decided by the existing `finalizers` set in the `metadata.finalizers`\nand the resource-specific default policy. Acceptable values are:\n\n- `\"Orphan\"` - orphan the dependents;\n- `\"Background\"` - allow the garbage collector to delete the dependents in the background;\n- `\"Foreground\"` - a cascading policy that deletes all dependents in the foreground.\n",
@@ -69978,7 +69978,7 @@
         "name": "propagationPolicy",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u662f\u5426\u6267\u884c\u5783\u573e\u624b\u673a\u4ee5\u53ca\u5982\u4f55\u6267\u884c\u5783\u573e\u6536\u96c6\u3002\u6b64\u5b57\u6bb5\u6216\u8005 `orphanDependents` \u4e8c\u8005\u53ef\u4ee5\u8bbe\u7f6e\u5176\u4e00\uff0c\u4f46\u4e0d\u80fd\u540c\u65f6\u4f7f\u7528\u3002\n\u9ed8\u8ba4\u7b56\u7565\u53d6\u51b3\u4e8e `metadata.finalizers` \u4e2d\u7684\u73b0\u6709 `finalizers` \u96c6\u5408\uff0c\u4ee5\u53ca\u7279\u5b9a\u4e8e\u8d44\u6e90\u7c7b\u578b\u7684\u7b56\u7565\u3002\n\u53ef\u63a5\u53d7\u7684\u53d6\u503c\u6709\uff1a\n\n- `\"Orphan\"`\uff1a\u4ee4\u4f9d\u8d56\u5bf9\u8c61\u6210\u4e3a\u5b64\u513f\u5bf9\u8c61\uff1b\n- `\"Background\"`\uff1a\u5141\u8bb8\u5783\u573e\u6536\u96c6\u5668\u5728\u540e\u53f0\u5220\u9664\u4f9d\u8d56\u5bf9\u8c61\uff1b\n- `\"Foreground\"`\uff1a\u5728\u524d\u53f0\u5220\u9664\u6240\u6709\u4f9d\u8d56\u5bf9\u8c61\u7684\u4e00\u79cd\u7ea7\u8054\u7b56\u7565\u3002\n"
+        "x-kab-description-zh": "是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。\n默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。\n可接受的取值有：\n\n- `\"Orphan\"`：令依赖对象成为孤儿对象；\n- `\"Background\"`：允许垃圾收集器在后台删除依赖对象；\n- `\"Foreground\"`：在前台删除所有依赖对象的一种级联策略。\n"
       }
     },
     "resourceVersion": {
@@ -70011,7 +70011,7 @@
         "name": "resourceVersion",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersion` \u8bbe\u7f6e\u8bf7\u6c42\u6240\u9488\u5bf9\u7684\u8d44\u6e90\u7248\u672c\u7ea6\u675f\u3002\n\u9ed8\u8ba4\u60c5\u51b5\u4e0b\u4e0d\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "`resourceVersion` 设置请求所针对的资源版本约束。\n默认情况下不设置。\n"
       },
       "1.30": {
         "description": "`resourceVersion` sets a constraint on what resource versions a request may be served from.\nSee https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions\nfor details.\n\nDefaults to unset.\n",
@@ -70019,7 +70019,7 @@
         "name": "resourceVersion",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersion` \u8bbe\u7f6e\u8bf7\u6c42\u6240\u9488\u5bf9\u7684\u8d44\u6e90\u7248\u672c\u7ea6\u675f\u3002\n\u9ed8\u8ba4\u60c5\u51b5\u4e0b\u4e0d\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "`resourceVersion` 设置请求所针对的资源版本约束。\n默认情况下不设置。\n"
       },
       "1.31": {
         "description": "`resourceVersion` sets a constraint on what resource versions a request may be served from.\nSee https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions\nfor details.\n\nDefaults to unset.\n",
@@ -70027,7 +70027,7 @@
         "name": "resourceVersion",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersion` \u8bbe\u7f6e\u8bf7\u6c42\u6240\u9488\u5bf9\u7684\u8d44\u6e90\u7248\u672c\u7ea6\u675f\u3002\n\u9ed8\u8ba4\u60c5\u51b5\u4e0b\u4e0d\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "`resourceVersion` 设置请求所针对的资源版本约束。\n默认情况下不设置。\n"
       },
       "1.32": {
         "description": "`resourceVersion` sets a constraint on what resource versions a request may be served from.\nSee https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions\nfor details.\n\nDefaults to unset.\n",
@@ -70035,7 +70035,7 @@
         "name": "resourceVersion",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersion` \u8bbe\u7f6e\u8bf7\u6c42\u6240\u9488\u5bf9\u7684\u8d44\u6e90\u7248\u672c\u7ea6\u675f\u3002\n\u9ed8\u8ba4\u60c5\u51b5\u4e0b\u4e0d\u8bbe\u7f6e\u3002\n"
+        "x-kab-description-zh": "`resourceVersion` 设置请求所针对的资源版本约束。\n默认情况下不设置。\n"
       }
     },
     "resourceVersionMatch": {
@@ -70072,7 +70072,7 @@
         "name": "resourceVersionMatch",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersionMatch` \u786e\u5b9a `list` \u8bf7\u6c42\u5982\u4f55\u4f7f\u7528 `resourceVersion` \u4fe1\u606f\u3002\n\u5f3a\u70c8\u5efa\u8bae\u4e3a `list` \u8bf7\u6c42\u8bbe\u7f6e\u4e86 `resourceVersion` \u65f6\u4e5f\u8bbe\u7f6e `resourceVersionMatch`\u3002\n"
+        "x-kab-description-zh": "`resourceVersionMatch` 确定 `list` 请求如何使用 `resourceVersion` 信息。\n强烈建议为 `list` 请求设置了 `resourceVersion` 时也设置 `resourceVersionMatch`。\n"
       },
       "1.30": {
         "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to `list` calls.\nIt is highly recommended that `resourceVersionMatch` be set for `list` calls where `resourceVersion`\nis set.\n",
@@ -70084,7 +70084,7 @@
         "name": "resourceVersionMatch",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersionMatch` \u786e\u5b9a `list` \u8bf7\u6c42\u5982\u4f55\u4f7f\u7528 `resourceVersion` \u4fe1\u606f\u3002\n\u5f3a\u70c8\u5efa\u8bae\u4e3a `list` \u8bf7\u6c42\u8bbe\u7f6e\u4e86 `resourceVersion` \u65f6\u4e5f\u8bbe\u7f6e `resourceVersionMatch`\u3002\n"
+        "x-kab-description-zh": "`resourceVersionMatch` 确定 `list` 请求如何使用 `resourceVersion` 信息。\n强烈建议为 `list` 请求设置了 `resourceVersion` 时也设置 `resourceVersionMatch`。\n"
       },
       "1.31": {
         "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to `list` calls.\nIt is highly recommended that `resourceVersionMatch` be set for `list` calls where `resourceVersion`\nis set.\n",
@@ -70096,7 +70096,7 @@
         "name": "resourceVersionMatch",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersionMatch` \u786e\u5b9a `list` \u8bf7\u6c42\u5982\u4f55\u4f7f\u7528 `resourceVersion` \u4fe1\u606f\u3002\n\u5f3a\u70c8\u5efa\u8bae\u4e3a `list` \u8bf7\u6c42\u8bbe\u7f6e\u4e86 `resourceVersion` \u65f6\u4e5f\u8bbe\u7f6e `resourceVersionMatch`\u3002\n"
+        "x-kab-description-zh": "`resourceVersionMatch` 确定 `list` 请求如何使用 `resourceVersion` 信息。\n强烈建议为 `list` 请求设置了 `resourceVersion` 时也设置 `resourceVersionMatch`。\n"
       },
       "1.32": {
         "description": "`resourceVersionMatch` determines how `resourceVersion` is applied to `list` calls.\nIt is highly recommended that `resourceVersionMatch` be set for `list` calls where `resourceVersion`\nis set.\n",
@@ -70108,7 +70108,7 @@
         "name": "resourceVersionMatch",
         "type": "string",
         "uniqueItems": true,
-        "x-kab-description-zh": "`resourceVersionMatch` \u786e\u5b9a `list` \u8bf7\u6c42\u5982\u4f55\u4f7f\u7528 `resourceVersion` \u4fe1\u606f\u3002\n\u5f3a\u70c8\u5efa\u8bae\u4e3a `list` \u8bf7\u6c42\u8bbe\u7f6e\u4e86 `resourceVersion` \u65f6\u4e5f\u8bbe\u7f6e `resourceVersionMatch`\u3002\n"
+        "x-kab-description-zh": "`resourceVersionMatch` 确定 `list` 请求如何使用 `resourceVersion` 信息。\n强烈建议为 `list` 请求设置了 `resourceVersion` 时也设置 `resourceVersionMatch`。\n"
       }
     },
     "sendInitialEvents": {
@@ -70133,7 +70133,7 @@
         "name": "sendInitialEvents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u4e8e watch\uff08\u76d1\u542c\uff09\u8bf7\u6c42\uff0c`watch=true` \u65f6\u53ef\u4ee5\u8bbe\u7f6e `sendInitialEvents=true`\u3002\n\u8fd9\u6837\u8bbe\u7f6e\u4e4b\u540e\uff0c\u76d1\u542c\u5230\u7684\u6570\u636e\u6d41\u7684\u8d77\u59cb\u90e8\u5206\u4f1a\u5305\u542b\u4e00\u4e9b\u5408\u6210\u7684\u6570\u636e\uff0c\u7528\u6765\u8868\u793a\u96c6\u5408\u4e2d\u5bf9\u8c61\u7684\u5f53\u524d\u72b6\u6001\u3002\n\u670d\u52a1\u5668\u53d1\u9001\u5b8c\u6240\u6709\u8fd9\u7c7b\u5408\u6210\u4e8b\u4ef6\u4e4b\u540e\u4f1a\u53d1\u9001\u4e00\u4e2a\u5408\u6210\u7684 `BOOKMARK` \u4e8b\u4ef6\u3002\n`BOOKMARK` \u4e8b\u4ef6\u4f1a\u62a5\u544a\u4e0e\u5bf9\u8c61\u96c6\u5408\u76f8\u5bf9\u5e94\u7684\u8d44\u6e90\u7248\u672c\uff08ResourceVersion\uff0cRV\uff09\uff0c\u5e76\u4e14\u4e8b\u4ef6\u4f1a\u5305\u542b\n`\"k8s.io/initial-events-end\": \"true\"` \u6ce8\u89e3\u3002\n\u4ece\u8fd9\u4e00\u4e8b\u4ef6\u4e4b\u540e\uff0c\u76d1\u89c6\u6570\u636e\u6d41\u4f1a\u548c\u4ee5\u5f80\u4e00\u6837\u5de5\u4f5c\uff0c\u5728\u6240\u76d1\u89c6\u7684\u5bf9\u8c61\uff08RV \u7248\u672c\u4e4b\u540e\uff09\u53d1\u751f\u53d8\u66f4\u65f6\u53d1\u9001\u76d1\u542c\u4e8b\u4ef6\u3002\n\n\u8bbe\u7f6e `sendInitialEvents` \u9009\u9879\u65f6\uff0c\u8981\u6c42\u540c\u65f6\u8bbe\u7f6e `resourceVersionMatch` \u53c2\u6570\u3002\n`watch` \u8bf7\u6c42\u7684\u8bed\u4e49\u5982\u4e0b\uff1a\n\n- `resourceVersionMatch=NotOlderThan`\uff1a\u89e3\u91ca\u4e3a\u6570\u636e\u81f3\u5c11\u8981\u4e0e\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\uff0c\n  \u5f53\u72b6\u6001\u540c\u6b65\u5230\u4e0e\u8bf7\u6c42\u4e2d\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\u7684\u8d44\u6e90\u7248\u672c\u65f6\uff0c\u518d\u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n  \u82e5\u672a\u8bbe\u7f6e `resourceVersion`\uff0c\u5219\u8bf7\u6c42\u88ab\u89c6\u4e3a\u201c\u4e00\u81f4\u6027\u8bfb\u64cd\u4f5c\u201d\uff0c\u5f53\u72b6\u6001\u88ab\u540c\u6b65\u5230\u8bf7\u6c42\u5f00\u59cb\u88ab\u5904\u7406\u65f6\u523b\u7684\u72b6\u6001\u65f6\uff0c\n  \u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n- `resourceVersionMatch` \u8bbe\u7f6e\u4e3a\u5176\u4ed6\u503c\uff0c\u6216\u8005\u672a\u8bbe\u7f6e\uff0c\u8fd4\u56de\u975e\u6cd5\u9519\u8bef\u3002\n\n\u5982\u679c `resourceVersion=\"\"` \u6216\u8005 `resourceVersion=\"0\"`\uff0c\u4e3a\u9ed8\u8ba4\u4e3a `true`\uff0c\u4ee5\u5b9e\u73b0\u4e0e\u8001\u7248\u672c\u517c\u5bb9\u3002\n\u5176\u4ed6\u60c5\u51b5\u4e0b\u9ed8\u8ba4\u4e3a `false`\u3002\n\n\u4f7f\u7528\u6b64\u53c2\u6570\u65f6\u8981\u6c42\u542f\u7528 `WatchList` \u7279\u6027\u95e8\u63a7\u3002\n"
+        "x-kab-description-zh": "对于 watch（监听）请求，`watch=true` 时可以设置 `sendInitialEvents=true`。\n这样设置之后，监听到的数据流的起始部分会包含一些合成的数据，用来表示集合中对象的当前状态。\n服务器发送完所有这类合成事件之后会发送一个合成的 `BOOKMARK` 事件。\n`BOOKMARK` 事件会报告与对象集合相对应的资源版本（ResourceVersion，RV），并且事件会包含\n`\"k8s.io/initial-events-end\": \"true\"` 注解。\n从这一事件之后，监视数据流会和以往一样工作，在所监视的对象（RV 版本之后）发生变更时发送监听事件。\n\n设置 `sendInitialEvents` 选项时，要求同时设置 `resourceVersionMatch` 参数。\n`watch` 请求的语义如下：\n\n- `resourceVersionMatch=NotOlderThan`：解释为数据至少要与所给的 `resourceVersion` 一样新，\n  当状态同步到与请求中所给的 `resourceVersion` 一样新的资源版本时，再发送 BOOKMARK 事件。\n  若未设置 `resourceVersion`，则请求被视为“一致性读操作”，当状态被同步到请求开始被处理时刻的状态时，\n  发送 BOOKMARK 事件。\n- `resourceVersionMatch` 设置为其他值，或者未设置，返回非法错误。\n\n如果 `resourceVersion=\"\"` 或者 `resourceVersion=\"0\"`，为默认为 `true`，以实现与老版本兼容。\n其他情况下默认为 `false`。\n\n使用此参数时要求启用 `WatchList` 特性门控。\n"
       },
       "1.30": {
         "description": "`sendInitialEvents=true` may be set together with `watch=true`.\nIn that case, the watch stream will begin with synthetic events to produce the current state of objects\nin the collection. Once all such events have been sent, a synthetic `BOOKMARK` event  will be sent.\nThe BOOKMARK will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with\n`\"k8s.io/initial-events-end\": \"true\"` annotation.\nAfterwards, the watch stream will proceed as usual, sending watch events corresponding to changes\n(subsequent to the RV) to objects watched.\n\nWhen `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set.\nThe semantic of the `watch` request is as following:\n\n- `resourceVersionMatch` = NotOlderThan is interpreted as _data at least as new as the provided `resourceVersion`_\n  and the bookmark event is send when the state is synced to a `resourceVersion` at least as fresh as\n  the one provided by the ListOptions.\n  If `resourceVersion` is unset, this is interpreted as _consistent read_ and the bookmark event\n  is send when the state is synced at least to the moment when request started being processed.\n- `resourceVersionMatch` set to any other value or unset. Invalid error is returned.\n\nDefaults to `true` if `resourceVersion=\"\"` or `resourceVersion=\"0\"`\n(for backward compatibility reasons) and to `false` otherwise.\nThis flag requires the `WatchList` feature gate to be enabled.\n",
@@ -70141,7 +70141,7 @@
         "name": "sendInitialEvents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u4e8e watch\uff08\u76d1\u542c\uff09\u8bf7\u6c42\uff0c`watch=true` \u65f6\u53ef\u4ee5\u8bbe\u7f6e `sendInitialEvents=true`\u3002\n\u8fd9\u6837\u8bbe\u7f6e\u4e4b\u540e\uff0c\u76d1\u542c\u5230\u7684\u6570\u636e\u6d41\u7684\u8d77\u59cb\u90e8\u5206\u4f1a\u5305\u542b\u4e00\u4e9b\u5408\u6210\u7684\u6570\u636e\uff0c\u7528\u6765\u8868\u793a\u96c6\u5408\u4e2d\u5bf9\u8c61\u7684\u5f53\u524d\u72b6\u6001\u3002\n\u670d\u52a1\u5668\u53d1\u9001\u5b8c\u6240\u6709\u8fd9\u7c7b\u5408\u6210\u4e8b\u4ef6\u4e4b\u540e\u4f1a\u53d1\u9001\u4e00\u4e2a\u5408\u6210\u7684 `BOOKMARK` \u4e8b\u4ef6\u3002\n`BOOKMARK` \u4e8b\u4ef6\u4f1a\u62a5\u544a\u4e0e\u5bf9\u8c61\u96c6\u5408\u76f8\u5bf9\u5e94\u7684\u8d44\u6e90\u7248\u672c\uff08ResourceVersion\uff0cRV\uff09\uff0c\u5e76\u4e14\u4e8b\u4ef6\u4f1a\u5305\u542b\n`\"k8s.io/initial-events-end\": \"true\"` \u6ce8\u89e3\u3002\n\u4ece\u8fd9\u4e00\u4e8b\u4ef6\u4e4b\u540e\uff0c\u76d1\u89c6\u6570\u636e\u6d41\u4f1a\u548c\u4ee5\u5f80\u4e00\u6837\u5de5\u4f5c\uff0c\u5728\u6240\u76d1\u89c6\u7684\u5bf9\u8c61\uff08RV \u7248\u672c\u4e4b\u540e\uff09\u53d1\u751f\u53d8\u66f4\u65f6\u53d1\u9001\u76d1\u542c\u4e8b\u4ef6\u3002\n\n\u8bbe\u7f6e `sendInitialEvents` \u9009\u9879\u65f6\uff0c\u8981\u6c42\u540c\u65f6\u8bbe\u7f6e `resourceVersionMatch` \u53c2\u6570\u3002\n`watch` \u8bf7\u6c42\u7684\u8bed\u4e49\u5982\u4e0b\uff1a\n\n- `resourceVersionMatch=NotOlderThan`\uff1a\u89e3\u91ca\u4e3a\u6570\u636e\u81f3\u5c11\u8981\u4e0e\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\uff0c\n  \u5f53\u72b6\u6001\u540c\u6b65\u5230\u4e0e\u8bf7\u6c42\u4e2d\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\u7684\u8d44\u6e90\u7248\u672c\u65f6\uff0c\u518d\u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n  \u82e5\u672a\u8bbe\u7f6e `resourceVersion`\uff0c\u5219\u8bf7\u6c42\u88ab\u89c6\u4e3a\u201c\u4e00\u81f4\u6027\u8bfb\u64cd\u4f5c\u201d\uff0c\u5f53\u72b6\u6001\u88ab\u540c\u6b65\u5230\u8bf7\u6c42\u5f00\u59cb\u88ab\u5904\u7406\u65f6\u523b\u7684\u72b6\u6001\u65f6\uff0c\n  \u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n- `resourceVersionMatch` \u8bbe\u7f6e\u4e3a\u5176\u4ed6\u503c\uff0c\u6216\u8005\u672a\u8bbe\u7f6e\uff0c\u8fd4\u56de\u975e\u6cd5\u9519\u8bef\u3002\n\n\u5982\u679c `resourceVersion=\"\"` \u6216\u8005 `resourceVersion=\"0\"`\uff0c\u4e3a\u9ed8\u8ba4\u4e3a `true`\uff0c\u4ee5\u5b9e\u73b0\u4e0e\u8001\u7248\u672c\u517c\u5bb9\u3002\n\u5176\u4ed6\u60c5\u51b5\u4e0b\u9ed8\u8ba4\u4e3a `false`\u3002\n\n\u4f7f\u7528\u6b64\u53c2\u6570\u65f6\u8981\u6c42\u542f\u7528 `WatchList` \u7279\u6027\u95e8\u63a7\u3002\n"
+        "x-kab-description-zh": "对于 watch（监听）请求，`watch=true` 时可以设置 `sendInitialEvents=true`。\n这样设置之后，监听到的数据流的起始部分会包含一些合成的数据，用来表示集合中对象的当前状态。\n服务器发送完所有这类合成事件之后会发送一个合成的 `BOOKMARK` 事件。\n`BOOKMARK` 事件会报告与对象集合相对应的资源版本（ResourceVersion，RV），并且事件会包含\n`\"k8s.io/initial-events-end\": \"true\"` 注解。\n从这一事件之后，监视数据流会和以往一样工作，在所监视的对象（RV 版本之后）发生变更时发送监听事件。\n\n设置 `sendInitialEvents` 选项时，要求同时设置 `resourceVersionMatch` 参数。\n`watch` 请求的语义如下：\n\n- `resourceVersionMatch=NotOlderThan`：解释为数据至少要与所给的 `resourceVersion` 一样新，\n  当状态同步到与请求中所给的 `resourceVersion` 一样新的资源版本时，再发送 BOOKMARK 事件。\n  若未设置 `resourceVersion`，则请求被视为“一致性读操作”，当状态被同步到请求开始被处理时刻的状态时，\n  发送 BOOKMARK 事件。\n- `resourceVersionMatch` 设置为其他值，或者未设置，返回非法错误。\n\n如果 `resourceVersion=\"\"` 或者 `resourceVersion=\"0\"`，为默认为 `true`，以实现与老版本兼容。\n其他情况下默认为 `false`。\n\n使用此参数时要求启用 `WatchList` 特性门控。\n"
       },
       "1.31": {
         "description": "`sendInitialEvents=true` may be set together with `watch=true`.\nIn that case, the watch stream will begin with synthetic events to produce the current state of objects\nin the collection. Once all such events have been sent, a synthetic `BOOKMARK` event  will be sent.\nThe BOOKMARK will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with\n`\"k8s.io/initial-events-end\": \"true\"` annotation.\nAfterwards, the watch stream will proceed as usual, sending watch events corresponding to changes\n(subsequent to the RV) to objects watched.\n\nWhen `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set.\nThe semantic of the `watch` request is as following:\n\n- `resourceVersionMatch` = NotOlderThan is interpreted as _data at least as new as the provided `resourceVersion`_\n  and the bookmark event is send when the state is synced to a `resourceVersion` at least as fresh as\n  the one provided by the ListOptions.\n  If `resourceVersion` is unset, this is interpreted as _consistent read_ and the bookmark event\n  is send when the state is synced at least to the moment when request started being processed.\n- `resourceVersionMatch` set to any other value or unset. Invalid error is returned.\n\nDefaults to `true` if `resourceVersion=\"\"` or `resourceVersion=\"0\"`\n(for backward compatibility reasons) and to `false` otherwise.\nThis flag requires the `WatchList` feature gate to be enabled.\n",
@@ -70149,7 +70149,7 @@
         "name": "sendInitialEvents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u4e8e watch\uff08\u76d1\u542c\uff09\u8bf7\u6c42\uff0c`watch=true` \u65f6\u53ef\u4ee5\u8bbe\u7f6e `sendInitialEvents=true`\u3002\n\u8fd9\u6837\u8bbe\u7f6e\u4e4b\u540e\uff0c\u76d1\u542c\u5230\u7684\u6570\u636e\u6d41\u7684\u8d77\u59cb\u90e8\u5206\u4f1a\u5305\u542b\u4e00\u4e9b\u5408\u6210\u7684\u6570\u636e\uff0c\u7528\u6765\u8868\u793a\u96c6\u5408\u4e2d\u5bf9\u8c61\u7684\u5f53\u524d\u72b6\u6001\u3002\n\u670d\u52a1\u5668\u53d1\u9001\u5b8c\u6240\u6709\u8fd9\u7c7b\u5408\u6210\u4e8b\u4ef6\u4e4b\u540e\u4f1a\u53d1\u9001\u4e00\u4e2a\u5408\u6210\u7684 `BOOKMARK` \u4e8b\u4ef6\u3002\n`BOOKMARK` \u4e8b\u4ef6\u4f1a\u62a5\u544a\u4e0e\u5bf9\u8c61\u96c6\u5408\u76f8\u5bf9\u5e94\u7684\u8d44\u6e90\u7248\u672c\uff08ResourceVersion\uff0cRV\uff09\uff0c\u5e76\u4e14\u4e8b\u4ef6\u4f1a\u5305\u542b\n`\"k8s.io/initial-events-end\": \"true\"` \u6ce8\u89e3\u3002\n\u4ece\u8fd9\u4e00\u4e8b\u4ef6\u4e4b\u540e\uff0c\u76d1\u89c6\u6570\u636e\u6d41\u4f1a\u548c\u4ee5\u5f80\u4e00\u6837\u5de5\u4f5c\uff0c\u5728\u6240\u76d1\u89c6\u7684\u5bf9\u8c61\uff08RV \u7248\u672c\u4e4b\u540e\uff09\u53d1\u751f\u53d8\u66f4\u65f6\u53d1\u9001\u76d1\u542c\u4e8b\u4ef6\u3002\n\n\u8bbe\u7f6e `sendInitialEvents` \u9009\u9879\u65f6\uff0c\u8981\u6c42\u540c\u65f6\u8bbe\u7f6e `resourceVersionMatch` \u53c2\u6570\u3002\n`watch` \u8bf7\u6c42\u7684\u8bed\u4e49\u5982\u4e0b\uff1a\n\n- `resourceVersionMatch=NotOlderThan`\uff1a\u89e3\u91ca\u4e3a\u6570\u636e\u81f3\u5c11\u8981\u4e0e\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\uff0c\n  \u5f53\u72b6\u6001\u540c\u6b65\u5230\u4e0e\u8bf7\u6c42\u4e2d\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\u7684\u8d44\u6e90\u7248\u672c\u65f6\uff0c\u518d\u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n  \u82e5\u672a\u8bbe\u7f6e `resourceVersion`\uff0c\u5219\u8bf7\u6c42\u88ab\u89c6\u4e3a\u201c\u4e00\u81f4\u6027\u8bfb\u64cd\u4f5c\u201d\uff0c\u5f53\u72b6\u6001\u88ab\u540c\u6b65\u5230\u8bf7\u6c42\u5f00\u59cb\u88ab\u5904\u7406\u65f6\u523b\u7684\u72b6\u6001\u65f6\uff0c\n  \u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n- `resourceVersionMatch` \u8bbe\u7f6e\u4e3a\u5176\u4ed6\u503c\uff0c\u6216\u8005\u672a\u8bbe\u7f6e\uff0c\u8fd4\u56de\u975e\u6cd5\u9519\u8bef\u3002\n\n\u5982\u679c `resourceVersion=\"\"` \u6216\u8005 `resourceVersion=\"0\"`\uff0c\u4e3a\u9ed8\u8ba4\u4e3a `true`\uff0c\u4ee5\u5b9e\u73b0\u4e0e\u8001\u7248\u672c\u517c\u5bb9\u3002\n\u5176\u4ed6\u60c5\u51b5\u4e0b\u9ed8\u8ba4\u4e3a `false`\u3002\n\n\u4f7f\u7528\u6b64\u53c2\u6570\u65f6\u8981\u6c42\u542f\u7528 `WatchList` \u7279\u6027\u95e8\u63a7\u3002\n"
+        "x-kab-description-zh": "对于 watch（监听）请求，`watch=true` 时可以设置 `sendInitialEvents=true`。\n这样设置之后，监听到的数据流的起始部分会包含一些合成的数据，用来表示集合中对象的当前状态。\n服务器发送完所有这类合成事件之后会发送一个合成的 `BOOKMARK` 事件。\n`BOOKMARK` 事件会报告与对象集合相对应的资源版本（ResourceVersion，RV），并且事件会包含\n`\"k8s.io/initial-events-end\": \"true\"` 注解。\n从这一事件之后，监视数据流会和以往一样工作，在所监视的对象（RV 版本之后）发生变更时发送监听事件。\n\n设置 `sendInitialEvents` 选项时，要求同时设置 `resourceVersionMatch` 参数。\n`watch` 请求的语义如下：\n\n- `resourceVersionMatch=NotOlderThan`：解释为数据至少要与所给的 `resourceVersion` 一样新，\n  当状态同步到与请求中所给的 `resourceVersion` 一样新的资源版本时，再发送 BOOKMARK 事件。\n  若未设置 `resourceVersion`，则请求被视为“一致性读操作”，当状态被同步到请求开始被处理时刻的状态时，\n  发送 BOOKMARK 事件。\n- `resourceVersionMatch` 设置为其他值，或者未设置，返回非法错误。\n\n如果 `resourceVersion=\"\"` 或者 `resourceVersion=\"0\"`，为默认为 `true`，以实现与老版本兼容。\n其他情况下默认为 `false`。\n\n使用此参数时要求启用 `WatchList` 特性门控。\n"
       },
       "1.32": {
         "description": "`sendInitialEvents=true` may be set together with `watch=true`.\nIn that case, the watch stream will begin with synthetic events to produce the current state of objects\nin the collection. Once all such events have been sent, a synthetic `BOOKMARK` event  will be sent.\nThe BOOKMARK will report the ResourceVersion (RV) corresponding to the set of objects, and be marked with\n`\"k8s.io/initial-events-end\": \"true\"` annotation.\nAfterwards, the watch stream will proceed as usual, sending watch events corresponding to changes\n(subsequent to the RV) to objects watched.\n\nWhen `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set.\nThe semantic of the `watch` request is as following:\n\n- `resourceVersionMatch` = NotOlderThan is interpreted as _data at least as new as the provided `resourceVersion`_\n  and the bookmark event is send when the state is synced to a `resourceVersion` at least as fresh as\n  the one provided by the ListOptions.\n  If `resourceVersion` is unset, this is interpreted as _consistent read_ and the bookmark event\n  is send when the state is synced at least to the moment when request started being processed.\n- `resourceVersionMatch` set to any other value or unset. Invalid error is returned.\n\nDefaults to `true` if `resourceVersion=\"\"` or `resourceVersion=\"0\"`\n(for backward compatibility reasons) and to `false` otherwise.\nThis flag requires the `WatchList` feature gate to be enabled.\n",
@@ -70157,7 +70157,7 @@
         "name": "sendInitialEvents",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u4e8e watch\uff08\u76d1\u542c\uff09\u8bf7\u6c42\uff0c`watch=true` \u65f6\u53ef\u4ee5\u8bbe\u7f6e `sendInitialEvents=true`\u3002\n\u8fd9\u6837\u8bbe\u7f6e\u4e4b\u540e\uff0c\u76d1\u542c\u5230\u7684\u6570\u636e\u6d41\u7684\u8d77\u59cb\u90e8\u5206\u4f1a\u5305\u542b\u4e00\u4e9b\u5408\u6210\u7684\u6570\u636e\uff0c\u7528\u6765\u8868\u793a\u96c6\u5408\u4e2d\u5bf9\u8c61\u7684\u5f53\u524d\u72b6\u6001\u3002\n\u670d\u52a1\u5668\u53d1\u9001\u5b8c\u6240\u6709\u8fd9\u7c7b\u5408\u6210\u4e8b\u4ef6\u4e4b\u540e\u4f1a\u53d1\u9001\u4e00\u4e2a\u5408\u6210\u7684 `BOOKMARK` \u4e8b\u4ef6\u3002\n`BOOKMARK` \u4e8b\u4ef6\u4f1a\u62a5\u544a\u4e0e\u5bf9\u8c61\u96c6\u5408\u76f8\u5bf9\u5e94\u7684\u8d44\u6e90\u7248\u672c\uff08ResourceVersion\uff0cRV\uff09\uff0c\u5e76\u4e14\u4e8b\u4ef6\u4f1a\u5305\u542b\n`\"k8s.io/initial-events-end\": \"true\"` \u6ce8\u89e3\u3002\n\u4ece\u8fd9\u4e00\u4e8b\u4ef6\u4e4b\u540e\uff0c\u76d1\u89c6\u6570\u636e\u6d41\u4f1a\u548c\u4ee5\u5f80\u4e00\u6837\u5de5\u4f5c\uff0c\u5728\u6240\u76d1\u89c6\u7684\u5bf9\u8c61\uff08RV \u7248\u672c\u4e4b\u540e\uff09\u53d1\u751f\u53d8\u66f4\u65f6\u53d1\u9001\u76d1\u542c\u4e8b\u4ef6\u3002\n\n\u8bbe\u7f6e `sendInitialEvents` \u9009\u9879\u65f6\uff0c\u8981\u6c42\u540c\u65f6\u8bbe\u7f6e `resourceVersionMatch` \u53c2\u6570\u3002\n`watch` \u8bf7\u6c42\u7684\u8bed\u4e49\u5982\u4e0b\uff1a\n\n- `resourceVersionMatch=NotOlderThan`\uff1a\u89e3\u91ca\u4e3a\u6570\u636e\u81f3\u5c11\u8981\u4e0e\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\uff0c\n  \u5f53\u72b6\u6001\u540c\u6b65\u5230\u4e0e\u8bf7\u6c42\u4e2d\u6240\u7ed9\u7684 `resourceVersion` \u4e00\u6837\u65b0\u7684\u8d44\u6e90\u7248\u672c\u65f6\uff0c\u518d\u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n  \u82e5\u672a\u8bbe\u7f6e `resourceVersion`\uff0c\u5219\u8bf7\u6c42\u88ab\u89c6\u4e3a\u201c\u4e00\u81f4\u6027\u8bfb\u64cd\u4f5c\u201d\uff0c\u5f53\u72b6\u6001\u88ab\u540c\u6b65\u5230\u8bf7\u6c42\u5f00\u59cb\u88ab\u5904\u7406\u65f6\u523b\u7684\u72b6\u6001\u65f6\uff0c\n  \u53d1\u9001 BOOKMARK \u4e8b\u4ef6\u3002\n- `resourceVersionMatch` \u8bbe\u7f6e\u4e3a\u5176\u4ed6\u503c\uff0c\u6216\u8005\u672a\u8bbe\u7f6e\uff0c\u8fd4\u56de\u975e\u6cd5\u9519\u8bef\u3002\n\n\u5982\u679c `resourceVersion=\"\"` \u6216\u8005 `resourceVersion=\"0\"`\uff0c\u4e3a\u9ed8\u8ba4\u4e3a `true`\uff0c\u4ee5\u5b9e\u73b0\u4e0e\u8001\u7248\u672c\u517c\u5bb9\u3002\n\u5176\u4ed6\u60c5\u51b5\u4e0b\u9ed8\u8ba4\u4e3a `false`\u3002\n\n\u4f7f\u7528\u6b64\u53c2\u6570\u65f6\u8981\u6c42\u542f\u7528 `WatchList` \u7279\u6027\u95e8\u63a7\u3002\n"
+        "x-kab-description-zh": "对于 watch（监听）请求，`watch=true` 时可以设置 `sendInitialEvents=true`。\n这样设置之后，监听到的数据流的起始部分会包含一些合成的数据，用来表示集合中对象的当前状态。\n服务器发送完所有这类合成事件之后会发送一个合成的 `BOOKMARK` 事件。\n`BOOKMARK` 事件会报告与对象集合相对应的资源版本（ResourceVersion，RV），并且事件会包含\n`\"k8s.io/initial-events-end\": \"true\"` 注解。\n从这一事件之后，监视数据流会和以往一样工作，在所监视的对象（RV 版本之后）发生变更时发送监听事件。\n\n设置 `sendInitialEvents` 选项时，要求同时设置 `resourceVersionMatch` 参数。\n`watch` 请求的语义如下：\n\n- `resourceVersionMatch=NotOlderThan`：解释为数据至少要与所给的 `resourceVersion` 一样新，\n  当状态同步到与请求中所给的 `resourceVersion` 一样新的资源版本时，再发送 BOOKMARK 事件。\n  若未设置 `resourceVersion`，则请求被视为“一致性读操作”，当状态被同步到请求开始被处理时刻的状态时，\n  发送 BOOKMARK 事件。\n- `resourceVersionMatch` 设置为其他值，或者未设置，返回非法错误。\n\n如果 `resourceVersion=\"\"` 或者 `resourceVersion=\"0\"`，为默认为 `true`，以实现与老版本兼容。\n其他情况下默认为 `false`。\n\n使用此参数时要求启用 `WatchList` 特性门控。\n"
       }
     },
     "sinceSeconds": {
@@ -70174,7 +70174,7 @@
         "name": "sinceSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u53c2\u6570\u503c\u4e3a\u76f8\u5bf9\u5f53\u524d\u65f6\u95f4\u70b9\u7684\u65f6\u957f\u79d2\u6570\uff0c\u6307\u793a\u670d\u52a1\u5668\u7aef\u8fd4\u56de\u65e5\u5fd7\u7684\u65f6\u95f4\u6bb5\u3002\n\u5982\u679c\u53c2\u6570\u503c\u65e9\u4e8e Pod \u7684\u542f\u52a8\u65f6\u95f4\uff0c\u5219\u53ea\u8fd4\u56de Pod \u542f\u52a8\u4e4b\u540e\u7684\u65e5\u5fd7\u6570\u636e\u3002\n\u5982\u679c\u53c2\u6570\u503c\u662f\u672a\u6765\u7684\u65f6\u95f4\u70b9\uff0c\u5219\u4e0d\u4f1a\u8fd4\u56de\u4efb\u4f55\u65e5\u5fd7\u6570\u636e\u3002\n`sinceSeconds` \u548c `sinceTime` \u53ea\u80fd\u9009\u62e9\u5176\u4e00\u3002\n"
+        "x-kab-description-zh": "参数值为相对当前时间点的时长秒数，指示服务器端返回日志的时间段。\n如果参数值早于 Pod 的启动时间，则只返回 Pod 启动之后的日志数据。\n如果参数值是未来的时间点，则不会返回任何日志数据。\n`sinceSeconds` 和 `sinceTime` 只能选择其一。\n"
       },
       "1.30": {
         "description": "A relative time in seconds before the current time from which to show logs.\nIf this value precedes the time a Pod was started, only logs since the Pod start will be returned.\nIf this value is in the future, no logs will be returned.\nOnly one of `sinceSeconds` or `sinceTime` may be specified.\n",
@@ -70182,7 +70182,7 @@
         "name": "sinceSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u53c2\u6570\u503c\u4e3a\u76f8\u5bf9\u5f53\u524d\u65f6\u95f4\u70b9\u7684\u65f6\u957f\u79d2\u6570\uff0c\u6307\u793a\u670d\u52a1\u5668\u7aef\u8fd4\u56de\u65e5\u5fd7\u7684\u65f6\u95f4\u6bb5\u3002\n\u5982\u679c\u53c2\u6570\u503c\u65e9\u4e8e Pod \u7684\u542f\u52a8\u65f6\u95f4\uff0c\u5219\u53ea\u8fd4\u56de Pod \u542f\u52a8\u4e4b\u540e\u7684\u65e5\u5fd7\u6570\u636e\u3002\n\u5982\u679c\u53c2\u6570\u503c\u662f\u672a\u6765\u7684\u65f6\u95f4\u70b9\uff0c\u5219\u4e0d\u4f1a\u8fd4\u56de\u4efb\u4f55\u65e5\u5fd7\u6570\u636e\u3002\n`sinceSeconds` \u548c `sinceTime` \u53ea\u80fd\u9009\u62e9\u5176\u4e00\u3002\n"
+        "x-kab-description-zh": "参数值为相对当前时间点的时长秒数，指示服务器端返回日志的时间段。\n如果参数值早于 Pod 的启动时间，则只返回 Pod 启动之后的日志数据。\n如果参数值是未来的时间点，则不会返回任何日志数据。\n`sinceSeconds` 和 `sinceTime` 只能选择其一。\n"
       },
       "1.31": {
         "description": "A relative time in seconds before the current time from which to show logs.\nIf this value precedes the time a Pod was started, only logs since the Pod start will be returned.\nIf this value is in the future, no logs will be returned.\nOnly one of `sinceSeconds` or `sinceTime` may be specified.\n",
@@ -70190,7 +70190,7 @@
         "name": "sinceSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u53c2\u6570\u503c\u4e3a\u76f8\u5bf9\u5f53\u524d\u65f6\u95f4\u70b9\u7684\u65f6\u957f\u79d2\u6570\uff0c\u6307\u793a\u670d\u52a1\u5668\u7aef\u8fd4\u56de\u65e5\u5fd7\u7684\u65f6\u95f4\u6bb5\u3002\n\u5982\u679c\u53c2\u6570\u503c\u65e9\u4e8e Pod \u7684\u542f\u52a8\u65f6\u95f4\uff0c\u5219\u53ea\u8fd4\u56de Pod \u542f\u52a8\u4e4b\u540e\u7684\u65e5\u5fd7\u6570\u636e\u3002\n\u5982\u679c\u53c2\u6570\u503c\u662f\u672a\u6765\u7684\u65f6\u95f4\u70b9\uff0c\u5219\u4e0d\u4f1a\u8fd4\u56de\u4efb\u4f55\u65e5\u5fd7\u6570\u636e\u3002\n`sinceSeconds` \u548c `sinceTime` \u53ea\u80fd\u9009\u62e9\u5176\u4e00\u3002\n"
+        "x-kab-description-zh": "参数值为相对当前时间点的时长秒数，指示服务器端返回日志的时间段。\n如果参数值早于 Pod 的启动时间，则只返回 Pod 启动之后的日志数据。\n如果参数值是未来的时间点，则不会返回任何日志数据。\n`sinceSeconds` 和 `sinceTime` 只能选择其一。\n"
       },
       "1.32": {
         "description": "A relative time in seconds before the current time from which to show logs.\nIf this value precedes the time a Pod was started, only logs since the Pod start will be returned.\nIf this value is in the future, no logs will be returned.\nOnly one of `sinceSeconds` or `sinceTime` may be specified.\n",
@@ -70198,7 +70198,7 @@
         "name": "sinceSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u53c2\u6570\u503c\u4e3a\u76f8\u5bf9\u5f53\u524d\u65f6\u95f4\u70b9\u7684\u65f6\u957f\u79d2\u6570\uff0c\u6307\u793a\u670d\u52a1\u5668\u7aef\u8fd4\u56de\u65e5\u5fd7\u7684\u65f6\u95f4\u6bb5\u3002\n\u5982\u679c\u53c2\u6570\u503c\u65e9\u4e8e Pod \u7684\u542f\u52a8\u65f6\u95f4\uff0c\u5219\u53ea\u8fd4\u56de Pod \u542f\u52a8\u4e4b\u540e\u7684\u65e5\u5fd7\u6570\u636e\u3002\n\u5982\u679c\u53c2\u6570\u503c\u662f\u672a\u6765\u7684\u65f6\u95f4\u70b9\uff0c\u5219\u4e0d\u4f1a\u8fd4\u56de\u4efb\u4f55\u65e5\u5fd7\u6570\u636e\u3002\n`sinceSeconds` \u548c `sinceTime` \u53ea\u80fd\u9009\u62e9\u5176\u4e00\u3002\n"
+        "x-kab-description-zh": "参数值为相对当前时间点的时长秒数，指示服务器端返回日志的时间段。\n如果参数值早于 Pod 的启动时间，则只返回 Pod 启动之后的日志数据。\n如果参数值是未来的时间点，则不会返回任何日志数据。\n`sinceSeconds` 和 `sinceTime` 只能选择其一。\n"
       }
     },
     "stderr": {
@@ -70215,7 +70215,7 @@
         "name": "stderr",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u9519\u8bef\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002"
+        "x-kab-description-zh": "对当前请求的 Pod 标准错误数据流进行重定向。"
       },
       "1.30": {
         "description": "Redirect the standard error stream of the Pod for this call.",
@@ -70223,7 +70223,7 @@
         "name": "stderr",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u9519\u8bef\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002"
+        "x-kab-description-zh": "对当前请求的 Pod 标准错误数据流进行重定向。"
       },
       "1.31": {
         "description": "Redirect the standard error stream of the Pod for this call.",
@@ -70231,7 +70231,7 @@
         "name": "stderr",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u9519\u8bef\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002"
+        "x-kab-description-zh": "对当前请求的 Pod 标准错误数据流进行重定向。"
       },
       "1.32": {
         "description": "Redirect the standard error stream of the Pod for this call.",
@@ -70239,7 +70239,7 @@
         "name": "stderr",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u9519\u8bef\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002"
+        "x-kab-description-zh": "对当前请求的 Pod 标准错误数据流进行重定向。"
       }
     },
     "stdin": {
@@ -70256,7 +70256,7 @@
         "name": "stdin",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u5165\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输入数据流进行重定向。默认值为 `false`。\n"
       },
       "1.30": {
         "description": "Stdin if `true`, redirects the standard input stream of the pod for this call. Defaults to `false`.\n",
@@ -70264,7 +70264,7 @@
         "name": "stdin",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u5165\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输入数据流进行重定向。默认值为 `false`。\n"
       },
       "1.31": {
         "description": "Stdin if `true`, redirects the standard input stream of the pod for this call. Defaults to `false`.\n",
@@ -70272,7 +70272,7 @@
         "name": "stdin",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u5165\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输入数据流进行重定向。默认值为 `false`。\n"
       },
       "1.32": {
         "description": "Stdin if `true`, redirects the standard input stream of the pod for this call. Defaults to `false`.\n",
@@ -70280,7 +70280,7 @@
         "name": "stdin",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u5165\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输入数据流进行重定向。默认值为 `false`。\n"
       }
     },
     "stdout": {
@@ -70297,7 +70297,7 @@
         "name": "stdout",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u51fa\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输出数据流进行重定向。默认值为 `false`。\n"
       },
       "1.30": {
         "description": "Stdout if true indicates that stdout is to be redirected for the attach call. Defaults to true.\n",
@@ -70305,7 +70305,7 @@
         "name": "stdout",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u51fa\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输出数据流进行重定向。默认值为 `false`。\n"
       },
       "1.31": {
         "description": "Stdout if true indicates that stdout is to be redirected for the attach call. Defaults to true.\n",
@@ -70313,7 +70313,7 @@
         "name": "stdout",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u51fa\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输出数据流进行重定向。默认值为 `false`。\n"
       },
       "1.32": {
         "description": "Stdout if true indicates that stdout is to be redirected for the attach call. Defaults to true.\n",
@@ -70321,7 +70321,7 @@
         "name": "stdout",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true` \u65f6\uff0c\u5bf9\u5f53\u524d\u8bf7\u6c42\u7684 Pod \u6807\u51c6\u8f93\u51fa\u6570\u636e\u6d41\u8fdb\u884c\u91cd\u5b9a\u5411\u3002\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "此参数设置为 `true` 时，对当前请求的 Pod 标准输出数据流进行重定向。默认值为 `false`。\n"
       }
     },
     "tailLines": {
@@ -70338,7 +70338,7 @@
         "name": "tailLines",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u6240\u8868\u8fbe\u7684\u662f\u4ece\u65e5\u5fd7\u672b\u5c3e\u8981\u663e\u793a\u7684\u884c\u6570\u3002\n\u5982\u679c\u6ca1\u6709\u8bbe\u7f6e\uff0c\u5219\u65e5\u5fd7\u4f1a\u4ece\u5bb9\u5668\u521b\u5efa\u5f00\u59cb\uff0c\u6216\u8005\u6839\u636e `sinceSeconds` \u6216 `sinceTime` \u5f00\u59cb\u663e\u793a\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，所表达的是从日志末尾要显示的行数。\n如果没有设置，则日志会从容器创建开始，或者根据 `sinceSeconds` 或 `sinceTime` 开始显示。\n"
       },
       "1.30": {
         "description": "If set, the number of lines from the end of the logs to show.\nIf not specified, logs are shown from the creation of the container or `sinceSeconds` or `sinceTime`.\n",
@@ -70346,7 +70346,7 @@
         "name": "tailLines",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u6240\u8868\u8fbe\u7684\u662f\u4ece\u65e5\u5fd7\u672b\u5c3e\u8981\u663e\u793a\u7684\u884c\u6570\u3002\n\u5982\u679c\u6ca1\u6709\u8bbe\u7f6e\uff0c\u5219\u65e5\u5fd7\u4f1a\u4ece\u5bb9\u5668\u521b\u5efa\u5f00\u59cb\uff0c\u6216\u8005\u6839\u636e `sinceSeconds` \u6216 `sinceTime` \u5f00\u59cb\u663e\u793a\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，所表达的是从日志末尾要显示的行数。\n如果没有设置，则日志会从容器创建开始，或者根据 `sinceSeconds` 或 `sinceTime` 开始显示。\n"
       },
       "1.31": {
         "description": "If set, the number of lines from the end of the logs to show.\nIf not specified, logs are shown from the creation of the container or `sinceSeconds` or `sinceTime`.\n",
@@ -70354,7 +70354,7 @@
         "name": "tailLines",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u6240\u8868\u8fbe\u7684\u662f\u4ece\u65e5\u5fd7\u672b\u5c3e\u8981\u663e\u793a\u7684\u884c\u6570\u3002\n\u5982\u679c\u6ca1\u6709\u8bbe\u7f6e\uff0c\u5219\u65e5\u5fd7\u4f1a\u4ece\u5bb9\u5668\u521b\u5efa\u5f00\u59cb\uff0c\u6216\u8005\u6839\u636e `sinceSeconds` \u6216 `sinceTime` \u5f00\u59cb\u663e\u793a\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，所表达的是从日志末尾要显示的行数。\n如果没有设置，则日志会从容器创建开始，或者根据 `sinceSeconds` 或 `sinceTime` 开始显示。\n"
       },
       "1.32": {
         "description": "If set, the number of lines from the end of the logs to show.\nIf not specified, logs are shown from the creation of the container or `sinceSeconds` or `sinceTime`.\n",
@@ -70362,7 +70362,7 @@
         "name": "tailLines",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u8bbe\u7f6e\u4e86\u6b64\u53c2\u6570\uff0c\u6240\u8868\u8fbe\u7684\u662f\u4ece\u65e5\u5fd7\u672b\u5c3e\u8981\u663e\u793a\u7684\u884c\u6570\u3002\n\u5982\u679c\u6ca1\u6709\u8bbe\u7f6e\uff0c\u5219\u65e5\u5fd7\u4f1a\u4ece\u5bb9\u5668\u521b\u5efa\u5f00\u59cb\uff0c\u6216\u8005\u6839\u636e `sinceSeconds` \u6216 `sinceTime` \u5f00\u59cb\u663e\u793a\u3002\n"
+        "x-kab-description-zh": "如果设置了此参数，所表达的是从日志末尾要显示的行数。\n如果没有设置，则日志会从容器创建开始，或者根据 `sinceSeconds` 或 `sinceTime` 开始显示。\n"
       }
     },
     "timeoutSeconds": {
@@ -70395,7 +70395,7 @@
         "name": "timeoutSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`list` \u6216\u8005 `watch` \u8bf7\u6c42\u7684\u8d85\u65f6\u65f6\u957f\u79d2\u6570\u3002\u6b64\u53c2\u6570\u53ef\u8bbe\u7f6e\u8c03\u7528\u7684\u65f6\u957f\uff0c\u65e0\u8bba\u662f\u5426\u6709\u6d3b\u52a8\u5904\u4e8e\u8fdb\u884c\u72b6\u6001\u4e2d\u3002\n"
+        "x-kab-description-zh": "`list` 或者 `watch` 请求的超时时长秒数。此参数可设置调用的时长，无论是否有活动处于进行状态中。\n"
       },
       "1.30": {
         "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.\n",
@@ -70403,7 +70403,7 @@
         "name": "timeoutSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`list` \u6216\u8005 `watch` \u8bf7\u6c42\u7684\u8d85\u65f6\u65f6\u957f\u79d2\u6570\u3002\u6b64\u53c2\u6570\u53ef\u8bbe\u7f6e\u8c03\u7528\u7684\u65f6\u957f\uff0c\u65e0\u8bba\u662f\u5426\u6709\u6d3b\u52a8\u5904\u4e8e\u8fdb\u884c\u72b6\u6001\u4e2d\u3002\n"
+        "x-kab-description-zh": "`list` 或者 `watch` 请求的超时时长秒数。此参数可设置调用的时长，无论是否有活动处于进行状态中。\n"
       },
       "1.31": {
         "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.\n",
@@ -70411,7 +70411,7 @@
         "name": "timeoutSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`list` \u6216\u8005 `watch` \u8bf7\u6c42\u7684\u8d85\u65f6\u65f6\u957f\u79d2\u6570\u3002\u6b64\u53c2\u6570\u53ef\u8bbe\u7f6e\u8c03\u7528\u7684\u65f6\u957f\uff0c\u65e0\u8bba\u662f\u5426\u6709\u6d3b\u52a8\u5904\u4e8e\u8fdb\u884c\u72b6\u6001\u4e2d\u3002\n"
+        "x-kab-description-zh": "`list` 或者 `watch` 请求的超时时长秒数。此参数可设置调用的时长，无论是否有活动处于进行状态中。\n"
       },
       "1.32": {
         "description": "Timeout for the `list`/`watch` call. This limits the duration of the call, regardless of any activity or inactivity.\n",
@@ -70419,7 +70419,7 @@
         "name": "timeoutSeconds",
         "type": "integer",
         "uniqueItems": true,
-        "x-kab-description-zh": "`list` \u6216\u8005 `watch` \u8bf7\u6c42\u7684\u8d85\u65f6\u65f6\u957f\u79d2\u6570\u3002\u6b64\u53c2\u6570\u53ef\u8bbe\u7f6e\u8c03\u7528\u7684\u65f6\u957f\uff0c\u65e0\u8bba\u662f\u5426\u6709\u6d3b\u52a8\u5904\u4e8e\u8fdb\u884c\u72b6\u6001\u4e2d\u3002\n"
+        "x-kab-description-zh": "`list` 或者 `watch` 请求的超时时长秒数。此参数可设置调用的时长，无论是否有活动处于进行状态中。\n"
       }
     },
     "timestamps": {
@@ -70436,7 +70436,7 @@
         "name": "timestamps",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u5728\u65e5\u5fd7\u8f93\u51fa\u7684\u6bcf\u4e00\u884c\u4e4b\u524d\u6dfb\u52a0\u4e00\u4e2a RFC3339 \u6216 RFC3339Nano \u683c\u5f0f\u7684\u65f6\u95f4\u6233\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "若此字段设置为 `true`，则在日志输出的每一行之前添加一个 RFC3339 或 RFC3339Nano 格式的时间戳。\n默认值为 `false`。\n"
       },
       "1.30": {
         "description": "If `true`, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to `false`.\n",
@@ -70444,7 +70444,7 @@
         "name": "timestamps",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u5728\u65e5\u5fd7\u8f93\u51fa\u7684\u6bcf\u4e00\u884c\u4e4b\u524d\u6dfb\u52a0\u4e00\u4e2a RFC3339 \u6216 RFC3339Nano \u683c\u5f0f\u7684\u65f6\u95f4\u6233\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "若此字段设置为 `true`，则在日志输出的每一行之前添加一个 RFC3339 或 RFC3339Nano 格式的时间戳。\n默认值为 `false`。\n"
       },
       "1.31": {
         "description": "If `true`, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to `false`.\n",
@@ -70452,7 +70452,7 @@
         "name": "timestamps",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u5728\u65e5\u5fd7\u8f93\u51fa\u7684\u6bcf\u4e00\u884c\u4e4b\u524d\u6dfb\u52a0\u4e00\u4e2a RFC3339 \u6216 RFC3339Nano \u683c\u5f0f\u7684\u65f6\u95f4\u6233\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "若此字段设置为 `true`，则在日志输出的每一行之前添加一个 RFC3339 或 RFC3339Nano 格式的时间戳。\n默认值为 `false`。\n"
       },
       "1.32": {
         "description": "If `true`, add an RFC3339 or RFC3339Nano timestamp at the beginning of every line of log output. Defaults to `false`.\n",
@@ -70460,7 +70460,7 @@
         "name": "timestamps",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u82e5\u6b64\u5b57\u6bb5\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u5728\u65e5\u5fd7\u8f93\u51fa\u7684\u6bcf\u4e00\u884c\u4e4b\u524d\u6dfb\u52a0\u4e00\u4e2a RFC3339 \u6216 RFC3339Nano \u683c\u5f0f\u7684\u65f6\u95f4\u6233\u3002\n\u9ed8\u8ba4\u503c\u4e3a `false`\u3002\n"
+        "x-kab-description-zh": "若此字段设置为 `true`，则在日志输出的每一行之前添加一个 RFC3339 或 RFC3339Nano 格式的时间戳。\n默认值为 `false`。\n"
       }
     },
     "tty": {
@@ -70477,7 +70477,7 @@
         "name": "tty",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u9700\u8981\u4e3a `exec` \u8bf7\u6c42\u5206\u914d TTY \u7ec8\u7aef\u3002\u9ed8\u8ba4\u4e3a `false`\u3002"
+        "x-kab-description-zh": "如果此参数设置为 `true`，则需要为 `exec` 请求分配 TTY 终端。默认为 `false`。"
       },
       "1.30": {
         "description": "If `true` indicates that a TTY will be allocated for the `exec` call. Defaults to `false`.",
@@ -70485,7 +70485,7 @@
         "name": "tty",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u9700\u8981\u4e3a `exec` \u8bf7\u6c42\u5206\u914d TTY \u7ec8\u7aef\u3002\u9ed8\u8ba4\u4e3a `false`\u3002"
+        "x-kab-description-zh": "如果此参数设置为 `true`，则需要为 `exec` 请求分配 TTY 终端。默认为 `false`。"
       },
       "1.31": {
         "description": "If `true` indicates that a TTY will be allocated for the `exec` call. Defaults to `false`.",
@@ -70493,7 +70493,7 @@
         "name": "tty",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u9700\u8981\u4e3a `exec` \u8bf7\u6c42\u5206\u914d TTY \u7ec8\u7aef\u3002\u9ed8\u8ba4\u4e3a `false`\u3002"
+        "x-kab-description-zh": "如果此参数设置为 `true`，则需要为 `exec` 请求分配 TTY 终端。默认为 `false`。"
       },
       "1.32": {
         "description": "If `true` indicates that a TTY will be allocated for the `exec` call. Defaults to `false`.",
@@ -70501,7 +70501,7 @@
         "name": "tty",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u5982\u679c\u6b64\u53c2\u6570\u8bbe\u7f6e\u4e3a `true`\uff0c\u5219\u9700\u8981\u4e3a `exec` \u8bf7\u6c42\u5206\u914d TTY \u7ec8\u7aef\u3002\u9ed8\u8ba4\u4e3a `false`\u3002"
+        "x-kab-description-zh": "如果此参数设置为 `true`，则需要为 `exec` 请求分配 TTY 终端。默认为 `false`。"
       }
     },
     "watch": {
@@ -70534,7 +70534,7 @@
         "name": "watch",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u76d1\u89c6\u6240\u7ed9\u8d44\u6e90\u7684\u53d8\u5316\uff0c\u5e76\u5c06\u6240\u53d1\u751f\u7684\u53d8\u5316\u7528 ADD\u3001UPDATE\u3001REMOVE \u8fd9\u7c7b\u901a\u77e5\u4e8b\u4ef6\u8fd4\u56de\u7ed9\u5ba2\u6237\u7aef\u3002\n\u9700\u8981\u8bbe\u7f6e `resourceVersion`\u3002\n"
+        "x-kab-description-zh": "监视所给资源的变化，并将所发生的变化用 ADD、UPDATE、REMOVE 这类通知事件返回给客户端。\n需要设置 `resourceVersion`。\n"
       },
       "1.30": {
         "description": "Watch for changes to the described resources and return them as a stream of add, update, and\nremove notifications. Specify `resourceVersion`.\n",
@@ -70542,7 +70542,7 @@
         "name": "watch",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u76d1\u89c6\u6240\u7ed9\u8d44\u6e90\u7684\u53d8\u5316\uff0c\u5e76\u5c06\u6240\u53d1\u751f\u7684\u53d8\u5316\u7528 ADD\u3001UPDATE\u3001REMOVE \u8fd9\u7c7b\u901a\u77e5\u4e8b\u4ef6\u8fd4\u56de\u7ed9\u5ba2\u6237\u7aef\u3002\n\u9700\u8981\u8bbe\u7f6e `resourceVersion`\u3002\n"
+        "x-kab-description-zh": "监视所给资源的变化，并将所发生的变化用 ADD、UPDATE、REMOVE 这类通知事件返回给客户端。\n需要设置 `resourceVersion`。\n"
       },
       "1.31": {
         "description": "Watch for changes to the described resources and return them as a stream of add, update, and\nremove notifications. Specify `resourceVersion`.\n",
@@ -70550,7 +70550,7 @@
         "name": "watch",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u76d1\u89c6\u6240\u7ed9\u8d44\u6e90\u7684\u53d8\u5316\uff0c\u5e76\u5c06\u6240\u53d1\u751f\u7684\u53d8\u5316\u7528 ADD\u3001UPDATE\u3001REMOVE \u8fd9\u7c7b\u901a\u77e5\u4e8b\u4ef6\u8fd4\u56de\u7ed9\u5ba2\u6237\u7aef\u3002\n\u9700\u8981\u8bbe\u7f6e `resourceVersion`\u3002\n"
+        "x-kab-description-zh": "监视所给资源的变化，并将所发生的变化用 ADD、UPDATE、REMOVE 这类通知事件返回给客户端。\n需要设置 `resourceVersion`。\n"
       },
       "1.32": {
         "description": "Watch for changes to the described resources and return them as a stream of add, update, and\nremove notifications. Specify `resourceVersion`.\n",
@@ -70558,7 +70558,7 @@
         "name": "watch",
         "type": "boolean",
         "uniqueItems": true,
-        "x-kab-description-zh": "\u76d1\u89c6\u6240\u7ed9\u8d44\u6e90\u7684\u53d8\u5316\uff0c\u5e76\u5c06\u6240\u53d1\u751f\u7684\u53d8\u5316\u7528 ADD\u3001UPDATE\u3001REMOVE \u8fd9\u7c7b\u901a\u77e5\u4e8b\u4ef6\u8fd4\u56de\u7ed9\u5ba2\u6237\u7aef\u3002\n\u9700\u8981\u8bbe\u7f6e `resourceVersion`\u3002\n"
+        "x-kab-description-zh": "监视所给资源的变化，并将所发生的变化用 ADD、UPDATE、REMOVE 这类通知事件返回给客户端。\n需要设置 `resourceVersion`。\n"
       }
     }
   },
@@ -73736,37 +73736,6 @@
           "update": "replaceCoreV1NamespacedEndpoints"
         }
       },
-      "versions": {
-        "1.26": [
-          "v1"
-        ],
-        "1.27": [
-          "v1"
-        ],
-        "1.28": [
-          "v1"
-        ],
-        "1.29": [
-          "v1"
-        ],
-        "1.30": [
-          "v1"
-        ],
-        "1.31": [
-          "v1"
-        ],
-        "1.32": [
-          "v1"
-        ]
-      }
-    },
-    {
-      "definitions": {
-        "*": "TokenRequest"
-      },
-      "group": "storage",
-      "name": "TokenRequest",
-      "operations": {},
       "versions": {
         "1.26": [
           "v1"
