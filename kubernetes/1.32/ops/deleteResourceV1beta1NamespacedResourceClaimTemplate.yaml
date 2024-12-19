@@ -10,7 +10,7 @@ parameters:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
   - $ref: '#/parameters/dryRun'
   - $ref: '#/parameters/gracePeriodSeconds'
-  - $ref: '#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj'
+  - $ref: '#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential'
   - $ref: '#/parameters/orphanDependents'
   - $ref: '#/parameters/propagationPolicy'
   - description: ResourceClaimTemplate 的名称
@@ -32,12 +32,12 @@ responses:
     description: OK
     x-kab-description-zh: 成功
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourceClaimTemplate'
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourceClaimTemplate.GET'
   '202':
     description: Accepted
     x-kab-description-zh: 请求已接受
     schema:
-      $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourceClaimTemplate'
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourceClaimTemplate.GET'
   '401':
     description: Unauthorized
     x-kab-description-zh: 请求未授权

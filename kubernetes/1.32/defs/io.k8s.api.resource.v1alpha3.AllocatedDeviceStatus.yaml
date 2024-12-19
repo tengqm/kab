@@ -1,0 +1,72 @@
+description: |-
+  AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it.
+  This may include driver-specific information.
+x-kab-description-zh: |-
+  AllocatedDeviceStatus 包含某个已分配设备的状态，前提是对应的驱动报告了这类信息。
+  此结构中可能包含具体于驱动的信息。
+properties:
+  conditions:
+    description: |-
+      `conditions` contains the latest observation of the device's state.
+      If the device has been configured according to the class and claim config references,
+      the `Ready` condition should be `"True"`.
+    x-kab-description-zh: |-
+      `conditions` 包含设备状态的最近一次观测结果。
+      如果设备是基于设备类和申领配置引用所配置的，则其 `Ready` 状况应该为 `"True"`。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition'
+    maxItems: 8
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+  data:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: |-
+      `data` contains arbitrary driver-specific data.
+      The length of the raw data must be smaller or equal to 10 Ki.
+    x-kab-description-zh: |-
+      `data` 中包含任意的、特定于驱动的数据。
+      此原始数据的最大长度不可超过 10 KiB。
+  device:
+    description: |-
+      `device` references one device instance via its name in the driver's resource pool.
+      It must be a valid DNS label.
+    x-kab-description-zh: |-
+      `device` 通过名字引用驱动所管理德资源池中的某个设备实例。字段值必须是一个合法的 DNS 标签。
+    minLength: 1
+    type: string
+  driver:
+    description: |-
+      `driver` specifies the name of the DRA driver whose kubelet plugin should be invoked to
+      process the allocation once the claim is needed on a node.
+      Must be a valid DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+    x-kab-description-zh: |-
+      `driver` 所给出的是一个 DRA 驱动的名称。当节点上需要申领时，kubelet 会调用该驱动的插件来处理设备分配请求。
+      字段值必须是一个合法的 DNS 子域名，并且应该以驱动的供应商所拥有的 DNS 域名结尾。
+    minLength: 1
+    type: string
+  networkData:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.NetworkDeviceData'
+    description: |-
+      `networkData` contains network-related information specific to the device.
+    x-kab-description-zh: |-
+      `networkData` 包含特定于设备的、与网络相关的信息。
+  pool:
+    description: |-
+      This name together with the driver name and the device name field identify which device was allocated
+      (`<driver name>/<pool name>/<device name>`).
+      May contain one or more DNS sub-domains separated by slashes.
+    x-kab-description-zh: |-
+      此字段名为资源池的名称，与驱动名称和设备名称一起，可以唯一性地标识所分配的设备，即
+      `<驱动名称>/<资源池名称>/<设备名称>`。
+      此字段值可以包含一个或多个用斜线分开的 DNS 子域名。
+    maxLength: 253
+    minLength: 1
+    type: string
+required:
+  - device
+  - driver
+  - pool
+type: object
+

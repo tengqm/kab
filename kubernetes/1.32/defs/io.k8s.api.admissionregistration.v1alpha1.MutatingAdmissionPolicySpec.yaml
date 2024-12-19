@@ -107,19 +107,19 @@ properties:
       `reinvocationPolicy` indicates whether `mutations` may be called multiple times per MutatingAdmissionPolicyBinding
       as part of a single admission evaluation.
 
-     - `"Never"`: These `mutations` will not be called more than once per binding in a single admission evaluation.
-     - `"IfNeeded"`: These `mutations` may be invoked more than once per binding for a single admission request and
-       there is no guarantee of order with respect to other admission plugins, admission webhooks,
-       bindings of this policy and admission policies.
-       Mutations are only reinvoked when mutations change the object after this mutation is invoked.
+      - `"Never"`: These `mutations` will not be called more than once per binding in a single admission evaluation.
+      - `"IfNeeded"`: These `mutations` may be invoked more than once per binding for a single admission request and
+        there is no guarantee of order with respect to other admission plugins, admission webhooks,
+        bindings of this policy and admission policies.
+        Mutations are only reinvoked when mutations change the object after this mutation is invoked.
     x-kab-description-zh: |-
       `reinvocationPolicy` 表明在一次准入处理过程中是否可以针对每个 MutatingAdmissionPolicyBinding 多次调用策略中的 `mutations`。
 
-     - `"Never"`：在一次准入处理过程中，针对每个绑定，不会多次调用 `mutations`；
-     - `"IfNeeded"`：在一次准入处理过程中，针对每个绑定，可以多次调用策略中的 `mutations`。
-       在此准入策略、其他准入插件、准入 Webhook、此策略的各个绑定以及其他准入策略之间，
-       系统不提供与调用顺序有关的保证。
-       只有此策略处理完请求对象后其他组件或机制再次改变请求对象时，此策略的 `mutations` 才有可能被再次调用。
+      - `"Never"`：在一次准入处理过程中，针对每个绑定，不会多次调用 `mutations`；
+      - `"IfNeeded"`：在一次准入处理过程中，针对每个绑定，可以多次调用策略中的 `mutations`。
+      在此准入策略、其他准入插件、准入 Webhook、此策略的各个绑定以及其他准入策略之间，
+      系统不提供与调用顺序有关的保证。
+      只有此策略处理完请求对象后其他组件或机制再次改变请求对象时，此策略的 `mutations` 才有可能被再次调用。
     type: string
   variables:
     description: |-
