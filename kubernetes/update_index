@@ -348,6 +348,10 @@ def load_resources(version):
         if res_name not in KINDS:
             continue
 
+        # We have "TokenRequest" defined in two places
+        if res_name == "TokenRequest" and g_name == "storage":
+            continue
+
         # update the resources list
         record = {}
         for r in RESOURCES:
@@ -681,7 +685,7 @@ def main():
     }
 
     with open("index.json", "w") as f:
-        json.dump(data, f, indent=2, sort_keys=True)
+        json.dump(data, f, indent=2, sort_keys=True, ensure_ascii=False)
 
 
 if __name__ == "__main__":
