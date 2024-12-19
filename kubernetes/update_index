@@ -78,6 +78,10 @@ RESOURCE_PATTERNS = {
     # specific to Pod
     "create{g}{v}Namespaced{r}Binding": "bind",
     "read{g}{v}Namespaced{r}Log": "readlog",
+    "read{g}{v}Namespaced{r}Resize": "readresize",
+    "patch{g}{v}Namespaced{r}Resize": "patchresize",
+    "replace{g}{v}Namespaced{r}Resize": "updateresize",
+
     # "getCoreV1NamespacedPodEphemeralContainers": "get-ephemeralcontainers",
     "patch{g}{v}Namespaced{r}Ephemeralcontainers": "patch-ephemeralcontainers",
     "read{g}{v}Namespaced{r}Ephemeralcontainers": "read-ephemeralcontainers",
@@ -94,6 +98,7 @@ RESOURCE_PATTERNS = {
     "connect{g}{v}GetNamespaced{r}Attach": "get-attach",
 
     # specific to CertificateSigningRequest
+    "read{g}{v}{r}Approval": "readapproval",
     "replace{g}{v}{r}Approval": "updateapproval",
     "patch{g}{v}{r}Approval": "patchapproval",
 
