@@ -224,6 +224,22 @@ properties:
       只有所有的 `schedulingGates` 都被清除之后，才可以设置此字段。
       此字段值必须是一个合法的 DNS 子域名。
     type: string
+  nodeSelector:
+    additionalProperties:
+      type: string
+    description: |
+      A selector which must match a node's labels for the Pod to be scheduled on that node.
+      Each key in the map must be a qualified name.
+      Each value in the map must be no more than 63 characters.
+      It is either an empty string or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`,
+      and must start and end with an alphanumeric character.
+    x-kab-description-zh: |
+      字段为选择算符，只有节点的标签与此算符匹配时，Pod 才会被调度到该节点。
+      此映射中的每个主键都必须是一个限定名称；映射中的所有值都必须不超过 63 个字符。
+      映射中的取值可以是空字符串，或者由字母、数字、`'-'`、`'_'` 或 `'.'` 字符组成，
+      并且必须以字母或者数字字符开头并结尾。
+    type: object
+    x-kubernetes-map-type: atomic
   os:
     $ref: '#/definitions/io.k8s.api.core.v1.PodOS'
     description: |
