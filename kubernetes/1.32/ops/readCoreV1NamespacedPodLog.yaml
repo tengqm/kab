@@ -42,6 +42,21 @@ parameters:
     name: sinceTime
     type: string
     uniqueItems: true
+  - description: |
+      Specify which container log stream to return to the client.
+      \"All\" is the default.
+      When `tailLines` is specified, this can only be set to \"All\".
+    x-kab-description-zh: |
+      指定要向客户端返回容器的哪个日志数据流。默认值为“All”。
+      当查询同时指定了“tailLines”时，此参数只能设置为“All”。
+    enum:
+      - All
+      - Stderr
+      - Stdout
+    in: query
+    name: stream
+    type: string
+    uniqueItems: true
   - $ref: '#/parameters/tailLines'
   - $ref: '#/parameters/timestamps'
 path: /api/v1/namespaces/{namespace}/pods/{name}/log
