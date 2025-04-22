@@ -63,6 +63,8 @@ properties:
       Clients making eviction decisions should disallow eviction of unhealthy Pods if they encounter
       an unrecognized policy in this field.
 
+      This field is Beta-level. The eviction API uses this field when the feature gate
+      `PDBUnhealthyPodEvictionPolicy` is enabled (enabled by default).
     x-kab-description-zh: |
       此字段定义选择不健康的 Pod 来驱逐时的判定条件。
       当前的实现中，对健康 Pod 的判定标准是指 `status.conditions` 中包含 `type="Ready",status="True"`
@@ -81,6 +83,9 @@ properties:
 
       将来的版本中可能会添加新的策略。负责驱逐决策的客户端如果在此字段中看到无法识别的策略设置，
       应该禁止驱逐不健康的 Pod。
+
+      此字段处于 Beta 级别。`eviction` API 在启用了 `PDBUnhealthyPodEvictionPolicy` 特性门控
+      （默认启用）之后会使用此字段。
     enum:
       - AlwaysAllow
       - IfHealthyBudget

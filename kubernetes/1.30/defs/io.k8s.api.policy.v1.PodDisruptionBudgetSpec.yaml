@@ -48,24 +48,23 @@ properties:
       Valid policies are `"IfHealthyBudget"` and `"AlwaysAllow"`.
       If no policy is specified, the default behavior will be used, which corresponds to the
       `"IfHealthyBudget"` policy.
-      `"IfHealthyBudget"` policy means that running Pods (`status.phase="Running"`),
-      but not yet healthy can be evicted only if the guarded application is not disrupted
-      (`status.currentHealthy` is at least equal to `status.desiredHealthy`).
-      Healthy Pods will be subject to the PDB for eviction.
 
-      `"AlwaysAllow"` policy means that all running Pods (`status.phase="Running"`), but not yet healthy
-      are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met.
-      This means perspective running Pods of a disrupted application might not get a chance to become healthy.
-      Healthy Pods will be subject to the PDB for eviction.
+      - `"IfHealthyBudget"`: Running Pods (`status.phase="Running"`),
+        but not yet healthy can be evicted only if the guarded application is not disrupted
+        (`status.currentHealthy` is at least equal to `status.desiredHealthy`).
+        Healthy Pods will be subject to the PDB for eviction.
+
+      - `"AlwaysAllow"`: All running Pods (`status.phase="Running"`), but not yet healthy
+        are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met.
+        This means perspective running Pods of a disrupted application might not get a chance to become healthy.
+        Healthy Pods will be subject to the PDB for eviction.
 
       Additional policies may be added in the future.
       Clients making eviction decisions should disallow eviction of unhealthy Pods if they encounter
       an unrecognized policy in this field.
 
-      This field is Beta-level.
-      The eviction API uses this field when the feature gate `PDBUnhealthyPodEvictionPolicy`
-      is enabled (enabled by default).
-
+      This field is Beta-level. The eviction API uses this field when the feature gate
+      `PDBUnhealthyPodEvictionPolicy` is enabled (enabled by default).
     x-kab-description-zh: |
       此字段定义选择不健康的 Pod 来驱逐时的判定条件。
       当前的实现中，对健康 Pod 的判定标准是指 `status.conditions` 中包含 `type="Ready",status="True"`
@@ -77,7 +76,7 @@ properties:
         大于等于 `status.desiredHealthy`）时，运行中的（`status.phase="Running"`）不健康的 Pod
         才可以被驱逐。是否要驱逐健康的 Pod，取决于 PDB 的约束条件。
 
-      - `"AlwaysAllow"`：运行中的（`status.phase="Running"`）不健康的 Pod 会被视为已经收到干扰了，
+      - `"AlwaysAllow"`：运行中的（`status.phase="Running"`）不健康的 Pod 会被视为已经受到干扰了，
         因此无论是否满足 PDB 中的约束，都可以被驱逐。
         这种策略可能会导致已经被干扰的应用很难有机会回到健康状态。
         PDB 的约束条件可以决定是有要驱逐健康的 Pod。
@@ -85,8 +84,8 @@ properties:
       将来的版本中可能会添加新的策略。负责驱逐决策的客户端如果在此字段中看到无法识别的策略设置，
       应该禁止驱逐不健康的 Pod。
 
-      此字段处于 Beta 阶段。当启用了 `PDBUnhealthyPodEvictionPolicy` 特性门控之后，Eviction API
-      会检查此字段的设置。
+      此字段处于 Beta 级别。`eviction` API 在启用了 `PDBUnhealthyPodEvictionPolicy` 特性门控
+      （默认启用）之后会使用此字段。
     enum:
       - AlwaysAllow
       - IfHealthyBudget
