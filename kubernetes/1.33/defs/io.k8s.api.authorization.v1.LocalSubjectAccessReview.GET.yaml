@@ -1,0 +1,54 @@
+description: |
+  LocalSubjectAccessReview checks whether or not a user or group can perform
+  an action in a given namespace. Having a namespace scoped resource makes it much
+  easier to grant namespace scoped policy that includes permissions checking.
+x-kab-description-zh: |
+  LocalSubjectAccessReview 检查是否用户或组可以在给定的名字空间中执行某操作。
+  提供一个名字空间作用域的资源能够简化名字空间层面的策略，方便执行权限检查。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - authorization.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - LocalSubjectAccessReview
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.SubjectAccessReviewSpec'
+    description: |
+      Information about the request being evaluated.
+      The `namespace` of the `spec.resourceAttributes` must be equal to
+      the namespace you made the request against, i.e. the `metadata.namespace`.
+      If empty, it is defaulted.
+    x-kab-description-zh: |
+      关于要被评估的请求的信息。
+      `spec.resourceAttributes` 的 `namespace` 必须与请求所针对的名字空间
+      （即 `metadata.namespace`）相同。
+      如果字段为空，则全部采用默认值填充。
+  status:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.SubjectAccessReviewStatus'
+    description: |
+      Status is filled in by the server and indicates whether the request
+      is allowed or not.
+    x-kab-description-zh: |
+      状态信息由服务器填充，表明请求是否被允许。
+required:
+  - apiVersion
+  - kind
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: authorization.k8s.io
+    kind: LocalSubjectAccessReview
+    version: v1
+

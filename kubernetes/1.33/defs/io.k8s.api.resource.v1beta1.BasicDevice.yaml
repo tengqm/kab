@@ -1,0 +1,25 @@
+description: BasicDevice defines one device instance.
+x-kab-description-zh: BasicDevice 定义一个设备实例。
+properties:
+  attributes:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceAttribute'
+    description: |-
+      `attributes` defines the set of attributes for this device. The name of each attribute must be unique in that set.
+      The maximum number of attributes and capacities combined is 32.
+    x-kab-description-zh: |-
+      `attributes` 定义此设备的一组属性。属性的名称在集合中必须唯一。
+      属性与容量信息的个数总数不能超过 32 个。
+    type: object
+  capacity:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceCapacity'
+    description: |-
+      `capacity` defines the set of capacities for this device. The name of each capacity must be unique in that set.
+      The maximum number of attributes and capacities combined is 32.
+    x-kab-description-zh: |-
+      `capacity` 定义设备的一组容量信息。每个容量条目的名称在集合中必须唯一。
+      属性与容量信息的个数总数不能超过 32 个。
+    type: object
+type: object
+

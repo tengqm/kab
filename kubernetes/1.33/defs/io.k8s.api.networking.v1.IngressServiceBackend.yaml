@@ -1,0 +1,21 @@
+description: A reference to a Kubernetes Service as an Ingress backend.
+x-kab-description-zh: 引用某个 Kubernetes Service 作为 Ingress 的后端。
+properties:
+  name:
+    description: |
+      Name of the referenced Service. The Service must exist in the same namespace as the Ingress object.
+      The string must be a valid DNS label.
+    x-kab-description-zh: |
+      被引用的 Service 的名字。Service 必须与 Ingress 对象位于相同的名字空间。
+      此字符串必须是一个合法的 DNS 标签。
+    minLength: 1
+    type: string
+  port:
+    $ref: '#/definitions/io.k8s.api.networking.v1.ServiceBackendPort'
+    description: Port of the referenced Service. A port name or port number is required.
+    x-kab-description-zh: 被引用的 Service 的端口。需要指定端口名或者端口号码。
+required:
+  - name
+  - port
+type: object
+

@@ -1,0 +1,13 @@
+description: NodeRuntimeHandlerFeatures is a set of runtime features implemented by the runtime handler.
+x-kab-description-zh: NodeRuntimeHandlerFeatures 包含运行时处理程序所实现的的一组特性。
+properties:
+  recursiveReadOnlyMounts:
+    description: This field is set to true if the runtime handler supports RecursiveReadOnlyMounts.
+    x-kab-description-zh: 如果运行时处理程序支持 RecursiveReadOnlyMounts，则此字段为 True。
+    type: boolean
+  userNamespaces:
+    description: This is set to true if the runtime handler supports UserNamespaces, including for volumes.
+    x-kab-description-zh: 如果运行时处理程序能够支持 UserNamespaces（包括对存储卷），则此字段设置为 true。
+    type: boolean
+type: object
+

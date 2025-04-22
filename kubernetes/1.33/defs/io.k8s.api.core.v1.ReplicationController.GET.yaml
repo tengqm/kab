@@ -1,0 +1,42 @@
+description: The configuration of a ReplicationController.
+x-kab-description-zh: ReplicationController 的配置。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ReplicationController
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.ReplicationControllerSpec.GET'
+    description: The specification of the desired behavior of the ReplicationController.
+    x-kab-description-zh: ReplicationController 预期行为的规约。
+  status:
+    $ref: '#/definitions/io.k8s.api.core.v1.ReplicationControllerStatus'
+    description: |
+      The most recently observed status of the ReplicationController.
+      This data may be out of date by some window of time.
+    x-kab-description-zh: |
+      ReplicationController 的最新观测状态。此数据可能与真实情况之间存在一定的滞后。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: ReplicationController
+    version: v1
+

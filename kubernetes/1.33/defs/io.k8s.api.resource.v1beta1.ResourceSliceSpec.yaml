@@ -1,0 +1,76 @@
+description: ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
+x-kab-description-zh: ResourceSliceSpec 包含驱动在某个 ResourceSlice 中发布的信息。
+properties:
+  allNodes:
+    description: |-
+      `allNodes` indicates that all nodes have access to the resources in the pool.
+
+      Exactly one of NodeName, NodeSelector and AllNodes must be set.
+    x-kab-description-zh: |-
+      `allNodes` 表明所有节点都能访问资源池中的资源。
+
+      `nodeName`、`nodeSelector` 和 `allNodes` 能且只能指定其一。
+    type: boolean
+  devices:
+    description: |-
+      `devices` lists some or all of the devices in this pool.
+    x-kab-description-zh: |-
+      `devices` 列举资源池中的部分或全部设备。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.Device'
+      maxItems: 128
+    type: array
+    x-kubernetes-list-type: atomic
+  driver:
+    description: |-
+      `driver` identifies the DRA driver providing the capacity information.
+      A field selector can be used to list only ResourceSlice objects with a certain driver name.
+
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver. This field is immutable.
+    x-kab-description-zh: |-
+      `driver` 用来标识提供容量信息的 DRA 驱动。
+      可以使用字段选择算符来限制列举给定驱动名称的 ResourceSlice。
+
+      字段值必须是一个合法的 DNS 子域名，并且以驱动厂商所拥有的 DNS 域名结尾。
+      此字段不可变更。
+    minLength: 1
+    type: string
+  nodeName:
+    description: |-
+      `nodeName` identifies the node which provides the resources in this pool.
+      A field selector can be used to list only ResourceSlice objects belonging to a certain node.
+
+      This field can be used to limit access from nodes to ResourceSlices with the same node name.
+      It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.
+    x-kab-description-zh: |-
+      `nodeName` 标识能够提供池中资源的节点。
+      可以使用字段选择算符来限制列举给定节点相关的 ResourceSlice。
+
+      此字段可以用来限制节点访问具有相同节点名的 ResourceSlice。
+      这也意味着，对于能够自动添加与某些旧节点类型相同的新节点的集群规模扩缩服务，是可以将新资源提供给用户访问的。
+
+      `nodeName`、`nodeSelector` 和 `allNodes` 能且只能指定其一。
+    type: string
+  nodeSelector:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |-
+      `nodeSelector` defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
+
+      Must use exactly one term.
+    x-kab-description-zh: |-
+      `nodeSelector` 用在资源池跨越多个节点时，定义哪些节点能够访问池中的资源。
+
+      此选择算符只能包含一个条件子句。
+
+      `nodeName`、`nodeSelector` 和 `allNodes` 能且只能指定其一。
+  pool:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourcePool'
+    description: |-
+      `pool` describes the pool that this ResourceSlice belongs to.
+    x-kab-description-zh: |-
+      `pool' 描述此 ResourceSlice 所属的资源池。
+required:
+  - driver
+  - pool
+type: object
+

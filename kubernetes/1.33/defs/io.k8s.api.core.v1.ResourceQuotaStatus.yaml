@@ -1,0 +1,51 @@
+description: The enforced hard limits and observed use.
+x-kab-description-zh: 实际应用的硬性限制及观测到的用量。
+properties:
+  hard:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The set of desired hard limits for each named resource.
+      The resource name must be a standard quota resources or fully qualified name.
+      All quantity values must be non-negative.
+      For integer resources, the value cannot contain milli-value.
+      The standard quota resources are `"cpu"`, `"memory"`, `"ephemeral-storage"`, `"requests.cpu"`,
+      `"requests.memory"`, `"requests.storage"`, `"requests.ephemeral-storage"`, `"limits.cpu"`,
+      `"limits.memory"`, `"limits.ephemeral-storage"`, `"pods"`, `"resourcequotas"`,
+      `"services"`, `"replicationcontrollers"`, `"secrets"`, `"persistentvolumeclaims"`,
+      `"configmaps"`, `"services.nodeports"`, `"services.loadbalancers"`.
+    x-kab-description-zh: |
+      所列的每种资源的预期硬性限制。资源名称必须是标准的配额资源或者全限定名称。
+      所有量纲值都必须是非负数。对于整数值，不能使用 `"m"` 形式。
+      标准的配额资源包括 `"cpu"`、`"memory"`、`"ephemeral-storage"`、`"requests.cpu"`、
+      `"requests.memory"`、`"requests.storage"`、`"requests.ephemeral-storage"`、`"limits.cpu"`、
+      `"limits.memory"`、`"limits.ephemeral-storage"`、`"pods"`、`"resourcequotas"`、
+      `"services"`、`"replicationcontrollers"`、`"secrets"`、`"persistentvolumeclaims"`、
+      `"configmaps"`、`"services.nodeports"`、`"services.loadbalancers"`。
+    type: object
+  used:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The current observed total usage of the resource in the namespace.
+      The resource name must be a standard quota resources or fully qualified name.
+      All quantity values must be non-negative. For integer resources, the value cannot contain
+      milli-value. The standard quota resources are `"cpu"`, `"memory"`, `"ephemeral-storage"`,
+      `"requests.cpu"`, `"requests.memory"`, `"requests.storage"`, `"requests.ephemeral-storage"`,
+      `"limits.cpu"`, `"limits.memory"`, `"limits.ephemeral-storage"`, `"pods"`, `"resourcequotas"`,
+      `"services"`, `"replicationcontrollers"`, `"secrets"`, `"persistentvolumeclaims"`,
+      `"configmaps"`, `"services.nodeports"`, `"services.loadbalancers"`.
+    x-kab-description-zh: |
+      名字空间中各类资源当前观测到的总的用量。资源名称必须是标准的配额资源或者全限定名称。
+      所有量纲值都必须是非负数。对于整数值，不能使用 `"m"` 形式。
+      标准的配额资源包括 `"cpu"`、`"memory"`、`"ephemeral-storage"`、`"requests.cpu"`、
+      `"requests.memory"`、`"requests.storage"`、`"requests.ephemeral-storage"`、`"limits.cpu"`、
+      `"limits.memory"`、`"limits.ephemeral-storage"`、`"pods"`、`"resourcequotas"`、
+      `"services"`、`"replicationcontrollers"`、`"secrets"`、`"persistentvolumeclaims"`、
+      `"configmaps"`、`"services.nodeports"`、`"services.loadbalancers"`。
+    type: object
+required:
+  - hard
+  - used
+type: object
+

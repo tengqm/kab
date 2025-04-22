@@ -1,0 +1,24 @@
+description: A list of validation methods for CustomResources.
+x-kab-description-zh: 对自定义资源进行合法性检查的方法。
+properties:
+  openAPIV3Schema:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps'
+    description: |
+      The OpenAPI v3 schema to use for validation and pruning.
+      If the `status` subresource is enabled, the root of the schema must be a `"object"` and it can
+      only contain fields like `"description"`, `"type"`, `"format"`, `"title"`, `"maximum"`,
+      `"exclusiveMaximum"`, `"minimum"`, `"exclusiveMinimum"`, `"maxLength"`, `"minLength"`,
+      `"pattern"`, `"maxItems"`, `"minItems"`, `"uniqueItems"`, `"multipleOf"`, `"required"`,
+      `"items"`, `"properties"`, `"externalDocs"`, `"example"`, `"x-preserve-unknown-fields"`.
+
+      The root element cannot be nullable.
+    x-kab-description-zh: |
+      用来执行合法性检查和属性裁剪的 OpenAPI v3 模式定义。
+      如果启用了 `status` 子资源，模式定义的跟必须是一个 `"object"`，并且其中只能包含
+      `"description"`、`"type"`、`"format"`、`"title"`、`"maximum"`、`"exclusiveMaximum"`、
+      `"minimum"`、`"exclusiveMinimum"`、`"maxLength"`、`"minLength"`、`"pattern"`、
+      `"maxItems"`、`"minItems"`、`"uniqueItems"`、`"multipleOf"`、`"required"`、
+      `"items"`、`"properties"`、`"externalDocs"`、`"example"`、`"x-preserve-unknown-fields"`
+      这类字段。
+type: object
+

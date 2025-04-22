@@ -1,0 +1,48 @@
+description: The status of a VolumeAttachment request.
+x-kab-description-zh: VolumeAttachment 请求的状态。
+properties:
+  attachError:
+    $ref: '#/definitions/io.k8s.api.storage.v1.VolumeError'
+    description: |
+      The last error encountered during attach operation, if any.
+      This field must only be set by the entity completing the attach operation, i.e.
+      the external-attacher.
+    x-kab-description-zh: |
+      在执行挂接操作时遇到的最后一个错误，如果有的话。
+      此字段必须只能由扶着完成挂接操作的实体来设置，也就是 `external-attacher` 组件。
+  attached:
+    description: |
+      Indicates the volume is successfully attached.
+      This field must only be set by the entity completing the attach operation, i.e.
+      the external-attacher.
+    x-kab-description-zh: |
+      表明卷已被成功挂接。
+      此字段必须只能由扶着完成挂接操作的实体来设置，也就是 `external-attacher` 组件。
+    type: boolean
+  attachmentMetadata:
+    additionalProperties:
+      type: string
+    description: |
+      Upon successful attach operation, this field is populated with information returned by the
+      `attach` operation that must be passed into subsequent `WaitForAttach` or `Mount` calls.
+      This field must only be set by the entity completing the attach operation, i.e.
+      the external-attacher. The maximum size of the map is 256 KB.
+    x-kab-description-zh: |
+      在成功完成挂接操作之后，此字段中会被填充 `attach` 操作所返回的信息。
+      这些信息必须被传递给后续的 `WaitForAttach()` 或者 `Mount()` 调用。
+      此字段必须只能由扶着完成挂接操作的实体来设置，也就是 `external-attacher` 组件。
+      此映射的最大长度是 256 KB。
+    type: object
+  detachError:
+    $ref: '#/definitions/io.k8s.api.storage.v1.VolumeError'
+    description: |
+      The last error encountered during detach operation, if any.
+      This field must only be set by the entity completing the detach operation, i.e.
+      the external-attacher.
+    x-kab-description-zh: |
+      在执行解除挂接操作时遇到的最后一个错误，如果有的话。
+      此字段必须只能由扶着完成挂接操作的实体来设置，也就是 `external-attacher` 组件。
+required:
+  - attached
+type: object
+

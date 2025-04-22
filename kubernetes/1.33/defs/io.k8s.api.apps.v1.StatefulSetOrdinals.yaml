@@ -1,0 +1,35 @@
+description: |
+  StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+x-kab-description-zh:
+  StatefulSetOrdinals 描述的是一种策略，用来为 StatefulSet 中的副本设置序号。
+properties:
+  start:
+    description: |
+      `start` is the number representing the first replica's index.
+      It may be used to number replicas from an alternate index (eg: 1-indexed)
+      over the default 0-indexed names, or to orchestrate progressive movement of replicas
+      from one StatefulSet to another. If set, replica indices will be in the range:
+        
+      `[.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)`
+
+      If unset, defaults to 0.
+      Replica indices will be in the range:
+
+      `[0, .spec.replicas)`
+
+    x-kab-description-zh: |
+      `start` 是代表第一个副本的索引的数字。
+      使用这个字段可以让副本从一个不同的下标数字开始编号（例如：从 1 开始计数），
+      而不是使用默认的从 0 计数和命名。字段的另一用处是编排一个流程，
+      以渐进的方式将副本从一个 StatefulSet 移动到另一个 StatefulSet。
+      设置了此字段时，StatefulSet 中的副本的下标为：
+        
+      `[.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)`
+
+      如果没有设置此字段，则其默认值为 0。副本的下标为 `[0, .spec.replicas)`。
+
+    format: int32
+    minimum: 0
+    type: integer
+type: object
+

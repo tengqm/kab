@@ -1,0 +1,11 @@
+description: The constraints that limit which nodes this volume can be accessed from.
+x-kab-description-zh: 表明可以从哪些节点访问此卷。
+properties:
+  required:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: This specifies the hard constraints that nodes must meet.
+    x-kab-description-zh: 此字段给出节点必须满足的硬性约束条件。
+required:
+  - required
+type: object
+

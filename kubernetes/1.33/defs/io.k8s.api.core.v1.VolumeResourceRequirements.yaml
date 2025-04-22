@@ -1,0 +1,26 @@
+description: VolumeResourceRequirements describes the storage resource requirements for a volume.
+x-kab-description-zh: VolumeResourceRequirements 描述某个存储卷的存储资源需求。
+properties:
+  limits:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      `limits` describes the maximum amount of compute resources allowed.
+    x-kab-description-zh: |
+      `limits` 设置所允许的计算资源上限。
+    type: object
+  requests:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      `requests` describes the minimum amount of compute resources required.
+      If `requests` is omitted for a container, it defaults to `limits` if that is explicitly specified,
+      otherwise to an implementation-defined value. `requests` cannot exceed `limits`.
+    x-kab-description-zh: |
+      `requests` 描述所需要的计算资源下限。
+      如果某个容器的 `requests` 值未设置，但 `limits` 设置了，则其 `requests` 默认与 `limits` 值相同。
+      若 `limits` 也未设置，则 `requests` 的最终取值取决于具体实现。
+      `requests` 值不可以超过 `limits` 值。
+    type: object
+type: object
+

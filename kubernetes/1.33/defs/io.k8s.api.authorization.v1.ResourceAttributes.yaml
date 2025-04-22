@@ -1,0 +1,77 @@
+description: The authorization attributes available for resource requests
+x-kab-description-zh: 供鉴权使用的资源请求属性。
+properties:
+  fieldSelector:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.FieldSelectorAttributes'
+    description: |
+      `fieldSelector` describes the limitation on access based on field.  It can only limit access, not broaden it.
+
+      This field is Alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+    x-kab-description-zh: |
+      `fieldSelector` 描述基于字段的访问限制。此字段只能限制访问，不能增加提升访问能力。
+
+      此字段处于 Alpha 阶段，需要启用 `AuthorizeWithSelectors` 特性门控（默认被禁用）。
+  group:
+    description: |
+      The API group of the `resource`. `"*"` means all.
+    x-kab-description-zh: |
+      `resource` 指定的资源所属的 API 组。`"*"` 意为所有 API 组。
+    type: string
+
+  labelSelector:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.LabelSelectorAttributes'
+    description: |
+      `labelSelector` describes the limitation on access based on labels.  It can only limit access, not broaden it.
+
+      This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+    x-kab-description-zh: |
+      `labelSelector` 描述基于标签的访问限制。此字段只能限制访问，不能增加提升访问能力。
+
+      此字段处于 Alpha 阶段，需要启用 `AuthorizeWithSelectors` 特性门控（默认被禁用）。
+  name:
+    description: |
+      The name of the resource being requested for a `"get"` request or deleted
+      for a `"delete"` request. `""` (empty) means all.
+    x-kab-description-zh: |
+      `"get"` 请求所要访问的，或者 `"delete"` 请求所要删除的资源的名称。
+      `""` （空字符串）意为所有资源。
+    type: string
+  namespace:
+    description: |
+      The namespace of the action being requested.
+      Currently, there is no distinction between no namespace and all namespaces.
+      Empty string (`""`) is defaulted for `LocalSubjectAccessReviews`.
+      Value should be empty string (`""`) for cluster-scoped resources.
+      Empty string (`""`) means *all* for namespace scoped resources from a
+      `SubjectAccessReview` or `SelfSubjectAccessReview`.
+    x-kab-description-zh: |
+      请求的操作所针对的名字空间。
+      目前尚无法区别未指定名字空间与所有名字空间这两种情形。
+      对于 `LocalSubjectAccessReview` 而言，默认值为空字符串（`""`）。
+      对于集群作用域的资源，此字符串的值应该是空字符串（`""`）。
+      对于 `SubjectAccessReview` 或者 `SelfSubjectAccessReview` 而言，
+      空字符串（`""`）意味着**所有**名字空间作用域的资源。
+    type: string
+  resource:
+    description: One of the existing resource types. `"*"` means all.
+    k-kab-description-zh: 现有资源类别之一。`"*"` 意为所有资源类别。
+    type: string
+  subresource:
+    description: One of the existing resource types. `""` means none.
+    k-kab-description-zh: 现有资源类别之一。`""` 意为排除所有资源类别。
+    type: string
+  verb:
+    description: |
+      A kubernetes resource API verb, like: `"get"`, `"list"`, `"watch"`,
+      `"create"`, `"update"`, `"delete"`, `"proxy"`. `"*"` means all.
+    k-kab-description-zh: |
+      一个 Kubernetes 资源 API 动词。例如：`"get"`、`"list"`、`"watch"`、
+      `"create"`、`"update"`、`"delete"`、`"proxy"`。`"*"` 意为所有动词。
+    type: string
+  version:
+    description: The API version of the `resource`. `"*"` means all.
+    x-kab-description-zh: |
+      `resource` 中资源所对应的 API 版本。`"*"` 意为所有 API 版本。
+    type: string
+type: object
+

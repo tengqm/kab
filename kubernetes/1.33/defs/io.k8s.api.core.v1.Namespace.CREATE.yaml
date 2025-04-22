@@ -1,0 +1,37 @@
+description: Namespace provides a scope for names. Use of multiple namespaces is optional.
+x-kab-description-zh: Namespace 为名字提供作用域。使用多个名字空间不是必须的。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Namespace
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      Standard object metadata.
+      The name must be a valid DNS label no matter it is generated for explicitly provided.
+    x-kab-description-zh: |
+      标准的对象元数据。
+      无论名字是自动生成的还是显式提供的，字符串必须是合法的 DNS 标签。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.NamespaceSpec'
+    description: Spec defines the behavior of the Namespace.
+    x-kab-description-zh: Namespace 的行为规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Namespace
+    version: v1
+

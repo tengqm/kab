@@ -1,0 +1,24 @@
+description: |
+  PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace.
+  This volume finds the bound PV and mounts that volume for the Pod.
+  A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type
+  of volume that is owned by someone else (the system).
+x-kab-description-zh: |
+  PersistentVolumeClaimVolumeSource 引用在同一个名字空间中用户的 PVC 对象。
+  此卷会找到所绑定的 PV 卷，并将该卷挂载到 Pod 中。
+  PersistentVolumeClaimVolumeSource 本质上是对另一种卷类型的一种封装，
+  被封装的卷可能是属于其他人（或者整个系统）的。
+properties:
+  claimName:
+    description: The name of a PersistentVolumeClaim in the same namespace as the Pod.
+    x-kab-description-zh: Pod 所在名字空间中某个 PersistentVolumeClaim 的名字。
+    minLength: 1
+    type: string
+  readOnly:
+    default: false
+    description: 是否强制在 `volumeMounts` 中强制设置 `readOnly` 选项。
+    type: boolean
+required:
+  - claimName
+type: object
+

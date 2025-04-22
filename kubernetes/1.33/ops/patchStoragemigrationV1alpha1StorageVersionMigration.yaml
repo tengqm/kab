@@ -1,0 +1,55 @@
+consumes:
+  - application/json-patch+json
+  - application/merge-patch+json
+  - application/strategic-merge-patch+json
+  - application/apply-patch+yaml
+  - application/apply-patch+cbor
+description: partially update the specified StorageVersionMigration
+x-kab-description-zh: 部分变更指定的 StorageVersionMigration 对象
+operationId: patchStoragemigrationV1alpha1StorageVersionMigration
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Patch'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManagerPatch'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/force'
+  - description: name of the StorageVersionMigration
+    x-kab-description-zh: StorageVersionMigration 对象的名称
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.GET'
+  '201':
+    description: Updated
+    schema:
+      $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration.GET'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - storagemigration_v1alpha1
+verb: patch
+x-kubernetes-action: patch
+x-kubernetes-group-version-kind:
+  group: storagemigration.k8s.io
+  kind: StorageVersionMigration
+  version: v1alpha1
+

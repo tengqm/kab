@@ -1,0 +1,13 @@
+description: NodeRuntimeHandler is a set of runtime handler information.
+x-kab-description-zh: NodeRuntimeHandler 是关于运行时处理程序的一些信息。
+properties:
+  features:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeRuntimeHandlerFeatures'
+    description: Supported features.
+    x-kab-description-zh: 运行时所支持的特性。
+  name:
+    description: Runtime handler name. Empty for the default runtime handler.
+    x-kab-description-zh: 运行时处理程序的名称。空字符串表示默认的运行时处理程序。
+    type: string
+type: object
+

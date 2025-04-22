@@ -1,0 +1,54 @@
+consumes:
+  - '*/*'
+description: replace the specified ValidatingAdmissionPolicyBinding
+x-kab-description-zh: 替换指定的 ValidatingAdmissionPolicyBinding 对象
+operationId: replaceAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding.UPDATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+  - description: name of the ValidatingAdmissionPolicyBinding
+    x-kab-description-zh: ValidatingAdmissionPolicyBinding 的名称
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: 
+  /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicybindings/{name}
+produces:
+  - application/cbor
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+responses:
+  '200':
+    description:  OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding.GET'
+  '201':
+    description:  Updated
+    x-kab-description-zh: 已更新
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding.GET'
+  '401':
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
+schemes:
+  - https
+tags:
+  - admissionregistration_v1beta1
+verb: put
+x-kubernetes-action: put
+x-kubernetes-group-version-kind:
+  group: admissionregistration.k8s.io
+  kind: ValidatingAdmissionPolicyBinding
+  version: v1beta1
+

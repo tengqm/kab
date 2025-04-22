@@ -1,0 +1,26 @@
+description: A reference to Service.
+x-kab-description-zh: 对某 Service 的引用。
+properties:
+  name:
+    description: The name of the Service.
+    x-kab-description-zh: Service 的名称。
+    minLength: 1
+    type: string
+  namespace:
+    description: The namespace of the Service.
+    x-kab-description-zh: Service 所在的名字空间。
+    minLength: 1
+    type: string
+  port:
+    default: 443
+    description: If specified, the port on the server that hosting Service.
+    x-kab-description-zh: 如果设置了，表示托管 Service 的服务器上的一个端口号。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+required:
+  - name
+  - namespace
+type: object
+

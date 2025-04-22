@@ -1,0 +1,41 @@
+description: |
+  StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy
+  used for PVCs created from the StatefulSet `volumeClaimTemplates`.
+x-kab-description-zh: |
+  StatefulSetPersistentVolumeClaimRetentionPolicy 为基于 StatefulSet 的
+  `volumeClaimTemplates` 所创建的 PVC 设置策略。
+
+properties:
+  whenDeleted:
+    default: Retain
+    description: |
+      This specifies what happens to PVCs created from StatefulSet `volumeClaimTemplates`
+      when the StatefulSet is deleted.
+      The default policy of `"Retain"` causes PVCs to not be affected by StatefulSet deletion.
+      The `Delete` policy causes those PVCs to be deleted.
+    x-kab-description-zh: |
+      此字段设置当 StatefulSet 被删除时，基于其 `volumeClaimTemplates` 所创建的 PVC
+      要如何处理。默认策略 `"Retain"` 会令 PVC 不被 StatefulSet 的删除所影响。
+      策略 `"Delete"` 则会导致这些 PVC 也随之被删除。
+    enum:
+      - Delete
+      - Retain
+    type: string
+  whenScaled:
+    default: Retain
+    description: |
+      This specifies what happens to PVCs created from StatefulSet `volumeClaimTemplates`
+      when the StatefulSet is scaled down.
+      The default policy of `Retain` causes PVCs to not be affected by a scale down.
+      The `Delete` policy causes the associated PVCs for any excess Pods above
+      the replica count to be deleted.
+    x-kab-description-zh: |
+      此字段设置当 StatefulSet 被缩容时，基于其 `volumeClaimTemplates` 所创建的 PVC
+      要如何处理。默认策略 `"Retain"` 会令 PVC 不被 StatefulSet 的缩容所影响。
+      策略 `"Delete"` 则会导致超出副本个数的 Pod 对应的 PVC 也随之被删除。
+    enum:
+      - Delete
+      - Retain
+    type: string
+type: object
+

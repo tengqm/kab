@@ -1,0 +1,150 @@
+description: |
+  CSIStorageCapacity stores the result of one CSI `GetCapacity()` call.
+  For a given StorageClass, this describes the available capacity in a particular topology segment.
+  This can be used when considering where to instantiate new PersistentVolumes.
+
+  For example this can express things like:
+
+  - StorageClass `"standard"` has `"1234 GiB"` available in `"topology.kubernetes.io/zone=us-east1"`
+  - StorageClass `"localssd"` has `"10 GiB"` available in `"kubernetes.io/hostname=knode-abc123"`
+
+  The following three cases all imply that no capacity is available for a certain combination:
+
+  - no object exists with suitable topology and storage class name
+  - such an object exists, but the capacity is unset
+  - such an object exists, but the capacity is zero
+
+  The producer of these objects can decide which approach is more suitable.
+
+  They are consumed by the kube-scheduler if the `CSIStorageCapacity` beta feature gate is enabled
+  there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+  The scheduler compares the `maximumVolumeSize` against the requested size of pending volumes to
+  filter out unsuitable nodes.
+  If `maximumVolumeSize` is unset, it falls back to a comparison against the less precise `capacity`.
+  If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
+x-kab-description-zh: |
+  CSIStorageCapacity 中保存的是某次 CSI `GetCapacity()` 调用的返回结果。
+  对于一个给定的 StorageClass，此结构描述的是特定拓扑区段内可用的存储容量。
+  这一信息可以用来帮助决定在哪里实例化新的 PersistentVolume 对象。
+  例如，此结构可以表达以下内容：
+
+  - StorageClass `"standard"` 在 `"topology.kubernetes.io/zone=us-east1"` 有 `"1234 GiB"` 可用；
+  - StorageClass `"localssd"` 在 `"kubernetes.io/hostname=knode-abc123"` 有 `"10 GiB"` 可用；
+
+  以下三种情况都意味着在某种组合下没有存储可用：
+
+  - 不存在带有合适的拓扑信息和存储类名的对象；
+  - 存在这类对象，但是其容量信息未设置；
+  - 存在这类对象，但其容量信息为零。
+
+  生成 CSIStorageCapacity 对象的组件可以决定使用那种方式更合适。
+
+  如果启用了 `CSIStorageCapacity` 特性门控并且 CSI 驱动支持基于 `CSIDriver.storageCapacity`
+  来执行容量感知的调度，`kube-scheduler` 就能够使用这些信息。
+  调度器会检查这里的 `maximumVolumeSize` 信息，查看是否满足待定存储卷所请求的存储空间需求，
+  进而过滤掉不合适的节点。
+  如果没有设置 `maximumVolumeSize`，调度器会退回到使用不那么精确的 `capacity` 字段值。
+  如果 `capacity` 也没有设置，则调度器会认为此节点容量不足，转而尝试其他节点。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  capacity:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The value reported by the CSI driver in its `GetCapacityResponse` for a `GetCapacityRequest`
+      with topology and parameters that match the previous fields.
+
+      The semantic is currently (CSI spec 1.2) defined as:
+      The available capacity, in bytes, of the storage that can be used to provision volumes.
+      If not set, that information is currently unavailable.
+    x-kab-description-zh: |
+      此字段是 CSI 驱动在 `GetCapacityRequest` 调用所返回的 `GetCapacityResponse` 中报告的值,
+      所报告的值是针对请求中所给的拓扑区段等参数的。
+
+      按照 CSI Spec v1.2 的规定，这一信息的语义是：
+      可用的存储容量按字节计，是存储上可用来制备存储卷的容量。
+      如果没有设置此字段，则这一信息是未知的。
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CSIStorageCapacity
+    type: string
+  maximumVolumeSize:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      This is the value reported by the CSI driver in its `GetCapacityResponse` for a
+      `GetCapacityRequest` with topology and parameters that match the previous fields.
+
+      This is defined since CSI spec 1.4.0 as the largest size that may be used in a
+      `CreateVolumeRequest.capacity_range.required_bytes` field to create a volume with
+      the same parameters as those in `GetCapacityRequest`.
+      The corresponding value in the Kubernetes API is `resources.requests` in a volume claim.
+    x-kab-description-zh: |
+      此字段是 CSI 驱动在 `GetCapacityRequest` 调用所返回的 `GetCapacityResponse` 中报告的值,
+      所报告的值是针对请求中所给的拓扑区段等参数的。
+
+      在 CSI Spec v1.4.0 中，这一信息的定义是使用 `GetCapacityRequest` 中所给的各个参数来创建存储卷时，
+      可以在 `CreateVolumeRequest.capacity_range.required_bytes` 字段中设置的最大数值。
+      Kubernetes API 中与此对应的值是 PVC 中的 `resources.requests`。
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: |
+      Standard object metadata. The `name` has no particular meaning.
+      It must be be a DNS subdomain (dots allowed, 253 characters).
+      To ensure that there are no conflicts with other CSI drivers on the cluster,
+      the recommendation is to use `"csisc-<uuid>"`, a generated name, or a reverse-domain name
+      which ends with the unique CSI driver name.
+      Objects are namespaced.
+    x-kab-description-zh: |
+      标准的对象元数据。`name` 字段没有特别的含义，但形式上必须是合法的 DNS 子域名
+      （可以包含句点 `'.'`，最长 253 字符）。
+      为了确保与集群中的其他 CSI 驱动之间不存在冲突，建议使用 `"csisc-<uuid>"` 这种生成式的名称，
+      或者逆序的、以唯一的 CSI 驱动名称结尾的域名。
+
+      此对象是名字空间作用域的。
+  nodeTopology:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description:
+      This defines which nodes have access to the storage for which capacity was reported.
+      If not set, the storage is not accessible from any node in the cluster.
+      If empty, the storage is accessible from all nodes.
+      This field is immutable.
+    x-kab-description-zh:
+      此字段定义哪些节点能够访问这些报告了容量信息的存储。
+      如果未设置此字段，集群中任何节点都无法访问此存储。
+      如果此字段为空选择算符，则意味着集群中所有节点都可以访问此存储。
+
+      此字段不可变更。
+  storageClassName:
+    description:
+      The name of the StorageClass that the reported capacity applies to.
+      It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain).
+      If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed
+      by its creator.
+      This field is immutable.
+    x-kab-description-zh:
+      所报告的容量信息适用的 StorageClass 名称。
+      字段名必须满足 StorageClass 对象的名称要求（非空、合法的 DNS 子域名）。
+      如果所指定的 StorageClass 对象不再存在，则此 CSIStorageCapacity 对象也过时，应该由其创建者删除。
+      此字段不可变更。
+    minLength: 1
+    type: string
+required:
+  - apiVersion
+  - capacity
+  - kind
+  - metadata
+  - nodeTopology
+  - storageClassName
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: CSIStorageCapacity
+    version: v1
+

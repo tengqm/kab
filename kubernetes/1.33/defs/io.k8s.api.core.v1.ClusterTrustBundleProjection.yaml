@@ -1,0 +1,56 @@
+description: |
+  ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle
+  objects and project their contents into the pod filesystem.
+x-kab-description-zh: |
+  ClusterTrustBundleProjection 用来描述如何选择一组 ClusterTrustBundle 对象并将其内容投射到 Pod 的文件系统中。
+properties:
+  labelSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      Select all ClusterTrustBundles that match this label selector. Only has effect if `signerName` is set.
+      Mutually-exclusive with `name`. If unset, interpreted as **match nothing**.
+      If set but empty, interpreted as **match everything**.
+    x-kab-description-zh: |
+      选择所有与此标签选择算符相匹配的 ClusterTrustBundle 对象。只有设置了 `signerName` 时才有效。
+      此字段与 `name` 属性互斥。如果未设置，意为不匹配任何对象，如果设置为空算符，则意味着匹配所有对象。
+  name:
+    description: |
+      Select a single ClusterTrustBundle by object name. Mutually-exclusive with `signerName` and `labelSelector`.
+      The name can be prefixed using signer name, up to the last `':'` in the `name` field.
+      The other `':'` characters are replaced with `'/'` to form the signer name.
+      The signer name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      根据对象名称选择唯一的 ClusterTrustBundle 对象。此字段与  `signerName` 和 `labelSelector` 的组合互斥。
+      字段值可以包含签名者的名称作为前缀，解析方式是取 `name` 字段中最后一个 `':'` 字符之前的所有字符，
+      并将其中其余的 `':'` 替换为 `'/'` 字符。
+      签名者的名称必须是一个合法的 DNS 子域名。
+    minLength: 1
+    type: string
+  optional:
+    description: |
+      If true, don't block Pod startup if the referenced ClusterTrustBundle(s) aren't available.
+      If using `name`, then the named ClusterTrustBundle is allowed not to exist.
+      If using `signerName`, then the combination of `signerName` and `labelSelector` is allowed to match zero ClusterTrustBundles.
+    x-kab-description-zh: |
+      如果此字段为 `true`，如果所引用的 ClusterTrustBundle 对象不存在，也不要阻止 Pod 启动。
+      如果使用 `name` 来选择 ClusterTrustBundle，则所指的 ClusterTrustBundle 可以不存在。
+      如果使用 `signerName` 来选择 ClusterTrustBundle，则允许 `signerName` 和 `labelSelector` 的组合所匹配到的对象集合为空。
+    type: boolean
+  path:
+    description: Relative path from the volume root to write the bundle.
+    x-kab-description-zh: 写入 ClusterTrustBundle 内容时使用的路径，相对于投射卷的根目录而言。
+    type: string
+  signerName:
+    description: |
+      Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with `name`.
+      The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+      The field value must b a valid DNS subdomain name.
+    x-kab-description-zh: |
+      选择与此签名者名称匹配的所有 ClusterTrustBundle 对象。此字段与 `name` 互斥。
+      被选中的所有 ClusterTrustBundle 的内容都会被组合起来，去重之后写入到 `path` 所给的路径下。
+      签名者的名称必须是一个合法的 DNS 子域名。
+    type: string
+required:
+  - path
+type: object
+

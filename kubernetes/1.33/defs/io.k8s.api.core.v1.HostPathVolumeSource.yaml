@@ -1,0 +1,58 @@
+description: |
+  A hostPath volume mapped into a Pod.
+  HostPath volumes do not support ownership management or SELinux relabeling.
+x-kab-description-zh: |
+  映射到 Pod 中的一个 HostPath 卷。
+  HostPath 卷不支持属主管理或者 SELinux 重新打标签操作。
+properties:
+  path:
+    description: |
+      Path of the directory on the host.
+      If the `path` is a symlink, it will follow the link to the real path.
+      It cannot contain any backsteps (`".."`).
+    x-kab-description-zh: |
+      目录在主机上的路径。如果 `path` 是一个符号链接，系统会追随链接找到实际路径。
+      字段值不能包含后退步骤（`".."`）。
+    minLength: 1
+    type: string
+  type:
+    default: ""
+    description: |
+      Type for HostPath Volume.
+      - `""`: for backward compatibility, leave it empty if unset.
+      - `"DirectoryOrCreate"`: If nothing exists at the given `path`, an empty directory
+        will be created there as needed with file mode `0755`, having the same group and
+        ownership with kubelet.
+      - `"Directory"`: A directory must exist at the given `path`.
+      - `"FileOrCreate"`: If nothing exists at the given `path`, an empty file will be created
+        there as needed with file mode `0644`, having the same group and ownership with kubelet.
+      - `"File"`: A file must exist at the given `path`.
+      - `"Socket"`: A UNIX socket must exist at the given `path`.
+      - `"CharDevice"`: A character device must exist at the given `path`.
+      - `"BlockDevice"`: A block device must exist at the given `path`.
+    x-kab-description-zh: |
+      HostPath 卷的类型。
+      - `""`：用于向后兼容。如果未设置，则相当于空字符串。
+      - `"DirectoryOrCreate"`：如果在 `path` 所给的位置没有文件或者目录存在，则会在 `path`
+        处创建一个空的目录，访问模式为 `0755`，具有与 kubelet 相同的组和用户属主设置。
+      - `"Directory"`：在给定的 `path` 位置必须存在一个目录。
+      - `"FileOrCreate"`：如果在 `path` 所给的位置没有文件或者目录存在，则会在 `path`
+        位置创建一个空文件，访问模式为 `0644`，具有与 kubelet 相同的组和用户属主设置。
+      - `"File"`：在 `path` 所给的位置必须存在一个文件。
+      - `"Socket"`：在 `path` 所给的位置必须存在一个 UNIX 域套接字。
+      - `"CharDevice"`：在 `path` 所给的位置必须存在一个字符设备。
+      - `"BlockDevice"`：在 `path` 所给的位置必须存在一个块设备。
+    enum:
+      - ""
+      - BlockDevice
+      - CharDevice
+      - Directory
+      - DirectoryOrCreate
+      - File
+      - FileOrCreate
+      - Socket
+    type: string
+required:
+  - path
+type: object
+

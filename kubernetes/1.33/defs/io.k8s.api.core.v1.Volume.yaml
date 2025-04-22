@@ -1,0 +1,281 @@
+description: |
+  Volume represents a named volume in a Pod that may be accessed by any container in the Pod.
+x-kab-description-zh: |
+  Volume 代表的是 Pod 中的一个有名字的卷，此卷可供 Pod 内任何容器访问。
+properties:
+  awsElasticBlockStore:
+    $ref: '#/definitions/io.k8s.api.core.v1.AWSElasticBlockStoreVolumeSource'
+    description: |-
+      An AWS Disk resource that is attached to a kubelet's host machine and then exposed to the Pod.
+      **DEPRECATED**: `awsElasticBlockStore` is deprecated.
+      All operations for the in-tree `awsElasticBlockStore` type are redirected to the `ebs.csi.aws.com` CSI driver.
+    x-kab-description-zh: |-
+      挂接到 kubelet 所在的主机之后提供给 Pod 使用的 AWS Disk 资源。
+      **已弃用** `awsElasticBlockStore` 卷类型已被弃用。
+      针对内置 `awsElasticBlockStore` 卷类型的所有操作都被重定向到 `ebs.csi.aws.com` CSI 驱动。
+  azureDisk:
+    $ref: '#/definitions/io.k8s.api.core.v1.AzureDiskVolumeSource'
+    description: |-
+      An Azure Data Disk mount on the host and bind mount to the Pod.
+      **DEPRECATED**: `azureDisk` is deprecated.
+      All operations for the in-tree `azureDisk` type are redirected to the `disk.csi.azure.com` CSI driver.
+    x-kab-description-zh: |-
+      挂载到主机之后绑定挂载给 Pod 使用的 AWS Data Disk。
+      **已弃用** `azureDisk` 卷类型已被弃用。
+      针对内置 `azureDisk` 卷类型的所有操作都被重定向到 `disk.csi.azure.com` CSI 驱动。
+  azureFile:
+    $ref: '#/definitions/io.k8s.api.core.v1.AzureFileVolumeSource'
+    description: |-
+      An Azure File Service mount on the host and bind mount to the Pod.
+      **DEPRECATED**: `azureFile` is deprecated.
+      All operations for the in-tree `azureFile` type are redirected to the `file.csi.azure.com` CSI driver.
+    x-kab-description-zh: |-
+      挂载到主机之后绑定挂载给 Pod 使用的 AWS File Service。
+      **已弃用** `azureFile` 卷类型已被弃用。
+      针对内置 `azureFile` 卷类型的所有操作都被重定向到 `file.csi.azure.com` CSI 驱动。
+  cephfs:
+    $ref: '#/definitions/io.k8s.api.core.v1.CephFSVolumeSource'
+    description: |-
+      A Ceph FS mount on the host that shares a Pod's lifetime.
+      **DEPRECATED**: `cephfs` is deprecated and the in-tree `cephfs` type is no longer supported.
+    x-kab-description-zh: |-
+      挂载到主机并与 Pod 生命周期相同的 Ceph FS。
+      **已弃用** `cephfs` 卷类型已被弃用，内置的 `cephfs` 不再被支持。
+  cinder:
+    $ref: '#/definitions/io.k8s.api.core.v1.CinderVolumeSource'
+    description: |-
+      A Cinder volume attached and mounted on kubelets host machine.
+        **DEPRECATED**: `cinder` is deprecated.
+       All operations for the in-tree `cinder` type are redirected to the `cinder.csi.openstack.org` CSI driver.
+    x-kab-description-zh: |-
+      挂接并挂载到 kubelet 所在主机的 Cinder 卷。
+      **已弃用** `cinder` 卷类型已被弃用。
+      针对内置 `cinder` 卷类型的所有操作都被重定向到 `cinder.csi.openstack.org` CSI 驱动。
+  configMap:
+    $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapVolumeSource'
+    description: A ConfigMap that should populate this volume.
+    x-kab-description-zh: 负责填充此卷内容的一个 ConfigMap。
+  csi:
+    $ref: '#/definitions/io.k8s.api.core.v1.CSIVolumeSource'
+    description: An ephemeral storage that is handled by certain external CSI drivers.
+    x-kab-description-zh: 由某外部 CSI 驱动来处理的临时存储。
+  downwardAPI:
+    $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIVolumeSource'
+    description: Downward API about the Pod that should populate this volume.
+    x-kab-description-zh: 要负责填充此卷的、关于此 Pod 的 Downward API。
+  emptyDir:
+    $ref: '#/definitions/io.k8s.api.core.v1.EmptyDirVolumeSource'
+    description: A temporary directory that shares a Pod's lifetime.
+    x-kab-description-zh: 与 Pod 生命周期完全相同的一个临时目录。
+  ephemeral:
+    $ref: '#/definitions/io.k8s.api.core.v1.EphemeralVolumeSource'
+    description: |
+      此字段代表一种由某集群存储驱动来处理的卷。卷的生命周期与定义该卷的 Pod 完全相同 ——
+      卷会在 Pod 启动之前被创建，并在 Pod 被移除时删除。符合下面的情况时，可以使用这种类型的卷：
+
+      - 只有当 Pod 运行的时候才需要此卷；
+      - 需要基于快照来恢复数据或者执行容量跟踪这类正常卷所具有的功能特性；
+      - 通过存储类来指定存储驱动；
+      - 存储驱动支持通过 `PersistentVolumeClaim` 来动态制备存储卷
+        （关于此卷类型与 PersistentVolumeClaim 之间的联系，参阅 `EphemeralVolumeSource`）。
+
+      如果期望卷的生命期长于单个 Pod，应该使用 `PersistentVolumeClaim` 或者某种特定于厂商的 API。 
+      如果某 CSI 驱动被设计用来提供轻量级的本地临时卷，可以考虑使用该 CSI。
+
+      同一个 Pod 可以既使用临时卷又使用持久卷。
+  fc:
+    $ref: '#/definitions/io.k8s.api.core.v1.FCVolumeSource'
+    description: |
+      A Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the Pod.
+    x-kab-description-zh: 挂载到主机之后绑定挂载给 Pod 使用的光纤通道资源。
+  flexVolume:
+    $ref: '#/definitions/io.k8s.api.core.v1.FlexVolumeSource'
+    description: |-
+      A generic volume resource that is provisioned/attached using an exec based plugin.
+      **DEPRECATED**: `flexVolume` is deprecated. Consider using a CSI Driver instead.
+    x-kab-description-zh: |-
+      通过基于 exec 的插件来制备并挂接的一种通用卷资源。
+      **已弃用** `flexVolume` 卷类型已被弃用。可以考虑使用一个 CSI 驱动来替换。
+  flocker:
+    $ref: '#/definitions/io.k8s.api.core.v1.FlockerVolumeSource'
+    description: |-
+      A Flocker volume attached to a kubelet's host machine.
+      This depends on the Flocker control service being running.
+      **DEPRECATED**: `flocker` is deprecated and the in-tree `flocker` type is no longer supported.
+    x-kab-description-zh: |-
+      挂接到 kubelet 所在主机上的一个 Flocker 卷。此特性要求 Flocker 控制服务在运行。
+      **已弃用** `flocker` 卷类型已被弃用。内置的 `flocker` 类型不再被支持。
+  gcePersistentDisk:
+    $ref: '#/definitions/io.k8s.api.core.v1.GCEPersistentDiskVolumeSource'
+    description: |-
+      A GCE Disk resource that is attached to a kubelet's host machine and then exposed to the Pod.
+      **DEPRECATED**: `gcePersistentDisk` is deprecated.
+      All operations for the in-tree `gcePersistentDisk` type are redirected to the `pd.csi.storage.gke.io` CSI driver.
+    x-kab-description-zh: |-
+      挂载到主机之后绑定挂载给 Pod 使用的 GCE Disk 资源。
+      **已弃用** `gcePersistentDisk` 卷类型已被弃用。
+      针对内置 `gcePersistentDisk` 卷类型的所有操作都被重定向到 `pd.csi.storage.gke.io` CSI 驱动。
+  gitRepo:
+    $ref: '#/definitions/io.k8s.api.core.v1.GitRepoVolumeSource'
+    description: |
+      A git repository at a particular revision.
+      **DEPRECATED**: To provision a container with a git repo, mount an `emptyDir` into an
+      `initContainer` that clones the repo using `git`, then mount the `emptyDir` into the
+      Pod's container."
+    x-kab-description-zh: |
+      给定修订版本的一个 GIT 仓库。
+      **已弃用** 要为容器提供一个 GIT 仓库，可以向某个 `initContainer` 中挂载一个 `emptyDir` 卷，
+      并在该容器中使用 `git` 克隆仓库内容，最后将 `emptyDir` 卷挂载到 Pod 的应用容器中。
+  glusterfs:
+    $ref: '#/definitions/io.k8s.api.core.v1.GlusterfsVolumeSource'
+    description: |-
+      A Glusterfs mount on the host that shares a Pod's lifetime.
+      **DEPRECATED**: `glusterfs` is deprecated and the in-tree `glusterfs` type is no longer supported.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 Glusterfs。
+      **已弃用** `glusterfs` 卷类型已被弃用。内置的 `glusterfs` 类型不再被支持。
+  hostPath:
+    $ref: '#/definitions/io.k8s.api.core.v1.HostPathVolumeSource'
+    description: |
+      A pre-existing file or directory on the host machine that is directly exposed to the container.
+      This is generally used for system agents or other privileged things that are allowed to
+      see the host machine. Most containers will NOT need this.
+    x-kab-description-zh: |
+      此字段引用宿主机器上之前存在的一个文件或目录，将其直接公开给容器使用。
+      这种数据卷通常用于系统代理或者其他被允许查看主机的特权事务。大多数容器不需要这种数据卷。
+  image:
+    $ref: '#/definitions/io.k8s.api.core.v1.ImageVolumeSource'
+    description: |
+      `image` represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
+      The volume is resolved at Pod startup depending on which `pullPolicy` value is provided.
+
+      - `"Always"`: the kubelet always attempts to pull the reference. Container creation will fail if the pull fails.
+      - `"Never"`: the kubelet never pulls the reference and only uses a local image or artifact.
+        Container creation will fail if the reference isn't present.
+      - `"IfNotPresent"`: the kubelet pulls if the reference isn't already present on disk.
+        Container creation will fail if the reference isn't present and the pull fails.
+
+      The volume gets re-resolved if the Pod gets deleted and recreated, which means that new remote content will become available on Pod recreation.
+      A failure to resolve or pull the image during Pod startup will block containers from starting and may add significant latency.
+      Failures will be retried using normal volume backoff and will be reported on the Pod reason and message.
+      The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine
+      and at minimum must include all valid types supported by the container `image` field.
+      The OCI object gets mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`)
+      by merging the manifest layers in the same way as for container images.
+      The volume will be mounted read-only (`ro`) and non-executable files (`noexec`).
+      Sub-path mounts for containers are not supported (`spec.containers[*].volumeMounts.subpath`).
+      The field `spec.securityContext.fsGroupChangePolicy` has no effect on this volume type.
+
+      This field is an Alpha field. Using it requires the `ImageVolume` feature gate to be enabled.
+    x-kab-description-zh: |
+      `image` 代表 kubelet 所在主机上拉取、挂载的 OCI 对象（容器镜像或者工件）。
+      卷信息在 Pod 启动期间根据 `pullPolicy` 的设置来解析。
+
+      - `"Always"`：kubelet 总会尝试拉取所引用对象。如果拉取操作不成功，则容器创建会失败。
+      - `"Never"`：kubelet 从不会尝试拉取所引用对象，总是使用本地的镜像或工件。
+        如果所引用的对象不存在，则容器创建会失败。
+      - `"IfNotPresent"`：如果所引用的对象在磁盘上不存在，则 kubelet 会尝试执行拉取操作。
+        如果所引用对象不存在且拉取操作不成功，则容器创建会失败。
+
+      如果 Pod 被删除并重建，则此卷的信息会被重新解析，这也意味着 Pod 重建之后能够访问到远程的新内容。
+      如果 Pod 启动期间解析操作或镜像拉取操作失败，会妨碍容器启动，且会带来显著的延迟。
+      失败的操作会被采用一般的卷挂载回退机制来重试，且出错信息会在 Pod 的 `reason` 和 `message` 中报告出来。
+      可通过此卷来挂载的对象类型取决于宿主机器上的容器运行时实现，最低限度下，要包含容器 `image` 字段所支持多所有类型。
+
+      被引用的 OCI 对象会被挂载到某个目录（`spec.containers[*].volumeMounts.mountPath`）下，
+      和容器镜像一样，其各个清单层也会被合并。
+      卷的挂载方式是只读（`ro`）且不可执行的文件（`noexec`）。
+      不支持针对容器的子路径挂载（Sub-path Mount，`spec.containers[*].volumeMounts.subpath`）。
+      字段 `spec.securityContext.fsGroupChangePolicy` 的内容对此卷类型没有影响。
+
+      此字段处于 Alpha 阶段，使用此字段需要启用 `ImageVolume` 特性门控。
+  iscsi:
+    $ref: '#/definitions/io.k8s.api.core.v1.ISCSIVolumeSource'
+    description: |
+      An ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the Pod.
+    x-kab-description-zh: 挂接到 kubelet 所在主机之后挂载给 Pod 使用的 iSCSI Disk 资源。
+  name:
+    description: Volume's name. Must be a DNS_LABEL and unique within the Pod.
+    x-kab-description-zh: 卷的名称。必须是合法的 DNS_LABEL，并且在 Pod 内唯一。
+    minLength: 1
+    type: string
+  nfs:
+    $ref: '#/definitions/io.k8s.api.core.v1.NFSVolumeSource'
+    description: A NFS mount on the host that shares a Pod's lifetime.
+    x-kab-description-zh: 挂载到主机并与 Pod 生命周期相同的 NFS 存储。
+  persistentVolumeClaim:
+    $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource'
+    description: A reference to a existing PersistentVolumeClaim in the same namespace.
+    x-kab-description-zh: 对同一名字空间内某 PersistentVolumeClaim 的引用。
+  photonPersistentDisk:
+    $ref: '#/definitions/io.k8s.api.core.v1.PhotonPersistentDiskVolumeSource'
+    description: |-
+      A PhotonController persistent disk attached and mounted on the host machine.
+      **DEPRECATED**: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
+    x-kab-description-zh: |
+      挂接并挂载到主机的 PhotonController 持久盘。
+      **已弃用** `photonPersistentDisk` 卷类型已被弃用。内置的 `photonPersistentDisk` 类型不再被支持。
+  portworxVolume:
+    $ref: '#/definitions/io.k8s.api.core.v1.PortworxVolumeSource'
+    description: |-
+      A Portworx volume attached and mounted on the host machine.
+      **DEPRECATED**: `portworxVolume` is deprecated.
+      All operations for the in-tree `portworxVolume` type are redirected to the `pxd.portworx.com` CSI driver
+      when the CSIMigrationPortworx feature-gate is on.
+    x-kab-description-zh: |-
+      挂接并挂载到主机的 Portworx 卷。
+      **已弃用** `portworxVolume` 卷类型已被弃用。
+      针对内置 `portworxVolume` 卷类型的所有操作都被重定向到 `pxd.portworx.com` CSI 驱动。
+  projected:
+    $ref: '#/definitions/io.k8s.api.core.v1.ProjectedVolumeSource'
+    description: Items for all in one resources Secrets, ConfigMaps, and Downward APIs.
+    x-kab-description-zh: 可以包含来自 Secret、ConfigMap 和 Downward API 的内容的综合卷。
+  quobyte:
+    $ref: '#/definitions/io.k8s.api.core.v1.QuobyteVolumeSource'
+    description: |-
+      A Quobyte mount on the host that shares a Pod's lifetime.
+      **DEPRECATED**: `quobyte` is deprecated and the in-tree `quobyte` type is no longer supported.
+    x-kab-description-zh: |-
+      挂载到主机并与 Pod 生命周期相同的 Quobyte 卷。
+      **已弃用** `quobyte` 卷类型已被弃用。内置的 `quobyte` 类型不再被支持。
+  rbd:
+    $ref: '#/definitions/io.k8s.api.core.v1.RBDVolumeSource'
+    description: |-
+      A Rados Block Device (RBD) mount on the host that shares a Pod's lifetime.
+      **DEPRECATED**: `rbd` is deprecated and the in-tree `rbd` type is no longer supported.
+    x-kab-description-zh: |-
+      挂载到主机并与 Pod 生命周期相同的 Rados 块设备（RBD）。
+      **已弃用** `rbd` 卷类型已被弃用。内置的 `rbd` 类型不再被支持。
+  scaleIO:
+    $ref: '#/definitions/io.k8s.api.core.v1.ScaleIOVolumeSource'
+    description: |-
+      A ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+      **DEPRECATED**: `scaleIO` is deprecated and the in-tree `scaleIO` type is no longer supported.
+    x-kab-description-zh: |-
+      挂接并挂载到节点上的 ScaleIO 持久卷。
+      **已弃用** `scaleIO` 卷类型已被弃用。内置的 `scaleIO` 类型不再被支持。
+  secret:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretVolumeSource'
+    description: A Secret that should populate this volume.
+    x-kab-description-zh: 负责填充此卷内容的一个 Secret。
+  storageos:
+    $ref: '#/definitions/io.k8s.api.core.v1.StorageOSVolumeSource'
+    description: |-
+      A StorageOS volume attached and mounted on the node.
+      **DEPRECATED**: `storageos` is deprecated and the in-tree `storageos` type is no longer supported.
+    x-kab-description-zh: |-
+      挂接并挂载到节点上的 StorageOS 卷。
+      **已弃用** `storageos` 卷类型已被弃用。内置的 `storageos` 类型不再被支持。
+  vsphereVolume:
+    $ref: '#/definitions/io.k8s.api.core.v1.VsphereVirtualDiskVolumeSource'
+    description: |-
+      A vSphere volume attached and mounted on the host machine.
+      **DEPRECATED**: `vsphereVolume` is deprecated.
+      All operations for the in-tree `vsphereVolume` type are redirected to the `csi.vsphere.vmware.com` CSI driver.
+    x-kab-description-zh: |-
+      挂接并挂载到宿主机器上的 vSphere 卷。
+      **已弃用** `vsphereVolume` 卷类型已被弃用。
+      针对内置 `vsphereVolume` 卷类型的所有操作都被重定向到 `csi.vsphere.vmware.com` CSI 驱动。
+required:
+  - name
+type: object
+

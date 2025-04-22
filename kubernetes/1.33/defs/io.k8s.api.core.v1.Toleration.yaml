@@ -1,0 +1,89 @@
+description: |
+  The Pod this toleration attached to can tolerate any Taint that matches the triple
+  (`key`,`value`,`effect`) using the matching `operator`.
+x-kab-description-zh: |
+  关联了此容忍度的 Pod 可以容忍用 `operator` 结合 (`key`,`value`,`effect`) 三元组匹配到的  
+  所有 Taint。
+properties:
+  effect:
+    description: |
+      The taint effect to match.
+
+      - `""`: Empty string means matching all taint effects.
+      - `"NoExecute"`: Evict any already-running Pods that do not tolerate the taint.
+        Currently enforced by the node controller.
+      - `"NoSchedule"`: Do not allow new Pods to schedule onto the Node unlesss they tolerate the
+        taint, but allow Pods submitted to kubelet without going through the scheduler
+        to start, and allow all already-running Pods to continue running.
+        Enforced by the scheduler.
+      - `"PreferNoSchedule"`: The scheduler tries not to schedule new Pods onto the node,
+        rather than prohibiting new Pods from being scheduled to the node entirely.
+        This is enforced by the scheduler.
+    x-kab-description-zh: |
+      要匹配的污点效果：
+
+      - `""`：空字符串可以匹配所有的污点效果。
+      - `"NoExecute"`： 驱逐已经被运行的、无法忍受该污点的 Pod。目前由节点控制器保证这一点。
+      - `"NoSchedule"`：不允许新的 Pod 被调度到该节点，除非 Pod 能够忍受该污点，但允许通过 kubelet
+        提交的 Pod 不经过调度器的调度而启动，并且允许已经运行的 Pod 继续运行。由调度器保证。
+      - `"PreferNoSchedule"`：调度器会尽量不向节点调度新的 Pod，而不是完全杜绝向节点调度新 Pod。
+        此效果由调度器保证。
+    enum:
+      - ''
+      - NoExecute
+      - NoSchedule
+      - PreferNoSchedule
+    type: string
+  key:
+    description: |
+      The taint key that the toleration applies to.
+      If the `key` is empty, `operator` must be `"Exists"`;
+      this combination means to match all values and all keys.
+      If it is not empty, it must be a valid label name.
+    x-kab-description-zh:
+      容忍度适用的污点主键。如果 `key` 为空字符串，则 `operator` 必须是 `"Exists"`。
+      这种组合意味着匹配所有的值和主键。
+      如果 `key` 不是空字符串，则字段值需要是合法的标签名。
+    type: string
+  operator:
+    default: Equal
+    description: |
+      A key's relationship to the value. The value can be
+
+      - `"Equal"` (default), the `value` property must be a valid label value.
+      - `"Exists"`: equivalent to wildcard for `value`, it means a Pod can tolerate all taints of
+        a particular category, so the `value` field must be empty.
+      - `""`: An empty `operator` is equivalent to `"Equal"`.
+    x-kab-description-zh: |
+      主键与值之间的关系。此字段可以是：
+
+      - `"Equal"`（默认值）：`value` 属性必须是一个合法的标签值；
+      - `"Exists"`：等价于为 `value` 提供的通配符，意味着 Pod 可以容忍特定类别的所有污点，
+        因此 `value` 字段必须为空。
+      - `""`：`operator` 为空字符串时等价于 `"Equal"`。
+    enum:
+      - Equal
+      - Exists
+    type: string
+  tolerationSeconds:
+    description: |
+      A period of time the toleration tolerates the taint.
+      When this field is set, the `effect` must be `"NoExecute"`.
+      By default, it is not set, which means tolerating the taint forever (do not evict).
+      Zero and negative values will be treated as 0 (evict immediately) by the system.
+    x-kab-description-zh: |
+      容忍度能够容忍污点的时长。如果设置了此字段，则 `effect` 必须是 `"NoExecute"`。
+      默认情况下，这个字段是不设置的，也就意味着会一直容忍污点（不会被驱逐）。
+      字段值为 0 或者负数时，按 0 处理（立即驱逐 Pod）。
+    format: int64
+    type: integer
+  value:
+    description: |
+      The taint value the toleration matches to.
+      If the operator is `"Exists"`, the value should be empty (`""`), otherwise just a regular string.
+    x-kab-description-zh: |
+      容忍度所匹配的污点值。
+      如果 `operator` 是 `"Exists"`，则此值应该是空字符串（`""`），否则是一个正常的字符串。
+    type: string
+type: object
+

@@ -1,0 +1,34 @@
+description: Information about the condition of a component.
+k-kab-description-zh: 关于某个组件的状况的信息。
+properties:
+  error:
+    description:
+      Condition error code for a component. For example, a health check error code.
+    x-kab-description-zh: 某个组件的错误码状况。例如，健康检查错误码。
+    type: string
+  message:
+    description: |
+      Message about the condition for a component. For example, information about a health check.
+    x-kab-description-zh: 某个组件的状况的消息。例如，关于某健康检查的信息。
+    type: string
+  status:
+    description: Status of the condition for a component.
+    x-kab-description-zh: 组件的状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    type: string
+  type:
+    default: Healthy
+    description: Type of condition for a component.
+    x-kab-description-zh: 组件的状况的类型。
+    enum:
+      - Healthy
+    minLength: 1
+    type: string
+required:
+  - status
+  - type
+type: object
+

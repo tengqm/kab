@@ -1,0 +1,139 @@
+description: |
+  Metadata that all persisted resources must have, which includes all objects users create.
+x-kab-description-zh: |
+  所有要被持久化存储的资源都必须关联的元数据部分。这些资源包括用户创建的资源。
+  此结构是官方 ObjectMeta 的变种，主要关注创建对象时要指定的字段。
+properties:
+  annotations:
+    additionalProperties:
+      type: string
+    description: |
+      An unstructured key value map stored with a resource that may be set by external tools to store
+      and retrieve arbitrary metadata.
+      They are not queryable and should be preserved when modifying objects.
+      The key must consist of alphanumeric characters, '`-`', '`_`' or '`.`', and must start and end with
+      an alphanumeric character. The key must be less than 63 characters.
+      The total size of the keys and values cannot exceed 256 KB.
+    x-kab-description-zh: |
+      一个非结构化的键值映射，和资源一起被保存到持久性存储。
+      此字段可以被外部工具来设置，保存或者检索任意的元数据。
+      `annotations` 字段是不可查询的，在更改对象时要予以保留。
+      映射中的键必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，必须以字母或数字字符开头并结尾。
+      映射中的键长度不能超过 63 个字符。
+      整个键、值集合的总体尺寸不能超过 256 KB。
+    type: object
+  finalizers:
+    description: |
+      Must be empty before the object is deleted from the registry.
+      Each entry is an identifier for the responsible component that will remove the entry from the list.
+      If the `deletionTimestamp` of the object is non-nil, entries in this list can only be removed.
+      Finalizers may be processed and removed in any order. Order is NOT enforced because
+      it introduces significant risk of stuck finalizers.
+      `finalizers` is a shared field, any actor with permission can reorder it.
+    x-kab-description-zh: |
+      在从后端存储中删除对象之前，此列表字段必须被清空。
+      列表中的每一项是一个标识符，对应的是一个要负责将该表项从列表中删除的组件。
+      如果对象的 `deletionTimestamp` 字段非空，此列表中的项目只可以被删除，不能再添加。
+      列表中的元素可以按任意顺序添加和删除。没有引入排序约束是因为可能造成管理组件之间的互锁。
+      `finalizers` 是一个共享的字段，所有具备相应权限的主体都可以对其进行重排序。
+    items:
+      description: |
+        The name of the finalizer must is either a standard finalizer name
+        (e.g. `"kubernetes"`, `"orphan"`, `"foregroundDeletion"`), or it contains at least one slash (`'/'`).
+      x-kab-description-zh: |
+        某个终结器（Finalizer）的名称。字符串可以是标准的终结器名称
+        （如，`"kubernetes"`、`"orphan"`、`"foregroundDeletion"`），
+        也可以包含最多一个斜线（`'/'`），即带域名的限定名称。
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+    x-kubernetes-patch-strategy: merge
+  generateName:
+    description: |
+      An optional prefix, used by the server, to generate a unique name **only if** the `name` field
+      has not been provided.
+      If this field is used, the `name` returned to the client will be different than the `name` passed.
+      This value will also be combined with a unique suffix.
+      The provided value has the same validation rules as the `name` field, and may be truncated by
+      the length of the suffix required to make the value unique on the server.
+      If this field is specified and the generated name exists, the server will return a `409`.
+
+      Applied only if `name` is not specified.
+    x-kab-description-zh: |
+      此字段给出的是一个供服务器使用的前缀，服务器在对象没有设置 `name` 
+      字段时会使用此前缀生成一个唯一的对象名称。
+      如果使用了此字段，则返回给客户端的 `name` 值会与请求中包含的 `name` 值不同。
+      所给的前缀字符串最终会被加上唯一的后缀字符串。
+      对所给的前缀字符串，其合法性检查规则与 `name` 字段相同，可能会因为后缀长度（要保证名字在服务器上唯一）
+      的原因而被截断。
+      如果使用了此字段的时候，遇到所生成的名字已经存在的情况，服务器会返回 `409`。
+
+      此字段只有在没有设置 `name` 属性的时候才起作用。
+    type: string
+  labels:
+    additionalProperties:
+      type: string
+    description: |
+      Map of string keys and values that can be used to organize and categorize (scope and select) objects.
+      Both the key and the value must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`, and
+      must start and end with an alphanumeric character.
+      The key must be between 1 and 63 characters.
+      The key can have `'/'` in it thus referred to as **qualified name**.
+      The prefix part of a qualified name must be a valid DNS subdomain name.
+      The value must be less than 64 characters with empty string allowed.
+    x-kab-description-zh: |
+      由字符格式的键和值组成的映射，可以用来对对象进行组织和分类（设定范围、执行过滤选择等）。
+      键和值字符串都只能由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，并且以字母或数字字符开头并结尾。
+      标签键必须介于 1 到 63 字符之间，其中可以包含 `'/'` 进而形成**限定名称（Qualified Name）**。
+      限定名称的前缀部分必须是合法的 DNS 子域名。
+      标签值不能超过 64 个字符，允许空字符。
+    type: object
+  managedFields:
+    description: |
+      This maps workflow-id and version to the set of fields that are managed by that workflow.
+      This is mostly for internal housekeeping, and users typically shouldn't need to set or
+      understand this field.
+      A workflow can be the user's name, a controller's name, or the name of a specific apply path
+      like 'ci-cd'.
+      The set of fields is always in the version that the workflow used when modifying the object.
+    x-kab-description-zh: |
+      此字段是将工作流 ID 及版本映射到由该工作流所管理的字段集合。
+      这一机制主要用来服务于内部状态维护，用户通常不需要设置或者理解这一字段的内容。
+      所谓的工作流，可以是用户的名称、控制器的名称或者像 `"ci-cd"` 这样的某个特定的 apply 路径。
+      字段的集合总是对应于工作流在更改对象时使用的版本。 
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry'
+    type: array
+    x-kubernetes-list-type: atomic
+  name:
+    description: |
+      Name must be unique within a namespace.
+      Is required when creating resources, although some resources may allow a client to request
+      the generation of an appropriate name automatically.
+      Name is primarily intended for creation idempotence and configuration definition.
+      Cannot be updated.
+    x-kab-description-zh: |
+      对象的名称在名字空间内必须唯一。
+      在创建资源时，通常需要为其指定名称，尽管某些资源允许客户端请求服务器端自动为其生成合适的名称。
+      名称的用途主要是确保创建操作的幂等性，以及配置的定义。
+      字段值不可变更。
+    type: string
+  namespace:
+    default: default
+    description: |
+      The space within which each `name` must be unique.
+      An empty `namespace` is equivalent to the `"default"` namespace.
+      Not all objects are required to be scoped to a namespace - the value of this field for those
+      objects will be empty.
+      Must be a DNS_LABEL.
+      Cannot be updated.
+    x-kab-description-zh: |
+      某个名字空间的名称，`name` 属性值在其中必须唯一。
+      如果 `namespace` 为空，则等价于指定的是 `"default"` 名字空间。
+      并非所有对象都只能在名字空间范围内其定义，对于集群作用域的对象而言，此字段应该为空。
+      字段值必须是合法的 DNS_LABEL。一经设置不可变更。
+    type: string
+required:
+  - name
+type: object
+

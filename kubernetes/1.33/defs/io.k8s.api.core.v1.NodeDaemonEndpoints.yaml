@@ -1,0 +1,11 @@
+description: Ports opened by daemons running on the Node.
+x-kab-description-zh: 节点上后台服务所打开的端口。
+properties:
+  kubeletEndpoint:
+    $ref: '#/definitions/io.k8s.api.core.v1.DaemonEndpoint'
+    description: Endpoint on which kubelet is listening.
+    x-kab-description-zh: kubelet 监听所使用的端点。
+required:
+  - kubeletEndpoint
+type: object
+

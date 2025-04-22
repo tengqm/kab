@@ -1,0 +1,16 @@
+description: retrieve a log file at the specified log path
+x-kab-description-zh: 读取位于指定日志路径的日志文件
+operationId: logFileHandler
+parameters:
+  - $ref: '#/parameters/logpath'
+path: /logs/{logpath}
+responses:
+  '401':
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
+schemes:
+  - https
+tags:
+  - logs
+verb: get
+

@@ -1,0 +1,42 @@
+description: Storage version of a specific resource.
+x-kab-description-zh: 特定资源的存储版本。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - internal.apiserver.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - StorageVersion
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      The name is `<group>.<resource>` where `<group>` must be a valid
+      DNS subdomain name and `<resource>` must be a valid DNS_LABEL.
+    x-kab-description-zh: |
+      标准的对象元数据。`name` 是 `<group>.<resource>` 格式的。
+      其中 `<group>` 必须是合法的 DNS 子域名，而 `<resource>` 必须是合法的 DNS_LABEL。
+
+  spec:
+    $ref: '#/definitions/io.k8s.api.apiserverinternal.v1alpha1.StorageVersionSpec'
+    description: |
+      This field is an empty spec. It is here to comply with Kubernetes API style.
+    x-kab-description-zh: |
+      此字段是一个空的规约。包含此字段的目的是为了与 Kubernetes API 风格相符。
+
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: internal.apiserver.k8s.io
+    kind: StorageVersion
+    version: v1alpha1
+

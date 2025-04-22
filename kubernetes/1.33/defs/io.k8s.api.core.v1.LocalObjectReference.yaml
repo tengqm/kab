@@ -1,0 +1,13 @@
+description: Information for locating an object in the same namespace.
+x-kab-description-zh: 关于在同一名字空间中定位某个对象的信息。
+properties:
+  name:
+    description: Name of the referent.
+    x-kab-description-zh: 被引用者的名称。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+x-kubernetes-map-type: atomic
+

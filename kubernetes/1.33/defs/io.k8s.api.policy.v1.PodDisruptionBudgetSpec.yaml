@@ -1,0 +1,89 @@
+description: Specification for a PodDisruptionBudget.
+x-kab-description-zh: PodDisruptionBudget 的规约。
+properties:
+  maxUnavailable:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      An eviction is allowed if at most `maxUnavailable` Pods selected by `selector` are unavailable
+      after the eviction, i.e. even in absence of the evicted Pod.
+      The valid value is an integer or a percentage string. A percentage value can be no more than `"100%"`.
+      One can prevent all voluntary evictions by specifying `0`.
+      This is a mutually exclusive setting with `minAvailable`.
+    x-kab-description-zh: |
+      如果驱逐 Pod 之后，`selector` 所选择的 Pod 中即使不再包含被驱逐的 Pod，最多会有 `maxUnavailable`
+      个 Pod 不可用，则驱逐操作是被允许的。
+      字段的合法取值是一个整数或者一个百分比值。所给的百分比值不可以超过 `"100%"`。
+      通过将此字段设置为 `0`，可以完全禁止非自愿性质的 Pod 驱逐。
+      此字段与 `minAvailable` 字段是互斥的。
+  minAvailable:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      An eviction is allowed if at least `minAvailable` Pods selected by `selector` will still be available
+      after the eviction, i.e. even in the absence of the evicted Pod.
+      The valid value is an integer or a percentage string. A percentage can be no more than `"100%"`.
+      You can prevent all voluntary evictions by specifying `"100%"`.
+    x-kab-description-zh: |
+      如果驱逐 Pod 之后，`selector` 所选择的 Pod 中即使不再包含被驱逐的 Pod，至少会有 `minAvailable`
+      个 Pod 可用，则驱逐操作是被允许的。
+      字段的合法取值是一个整数或者一个百分比值。所给的百分比值不可以超过 `"100%"`。
+      通过将此字段设置为 `"100%"`，可以完全禁止非自愿性质的 Pod 驱逐。
+      此字段与 `maxUnavailable` 字段是互斥的。
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      Label query over Pods whose evictions are managed by the disruption budget.
+      A null selector selects no Pods, while an empty (`{}`) selector will select all Pods
+      within the namespace.
+    x-kab-description-zh: |
+      字段为对 Pod 的标签查询，所选中的 Pod 的驱逐行为受此 PDB 对象管理。
+      如果字段未设置，则意味着不会选择任何 Pod；如果设置为空的选择算符，则意味着选择所在名字空间中所有 Pod。
+    x-kubernetes-patch-strategy: replace
+  unhealthyPodEvictionPolicy:
+    default: IfHealthyBudget
+    description: |
+      This defines the criteria for when unhealthy Pods should be considered for eviction.
+      Current implementation considers healthy Pods, as Pods that have `status.conditions` item
+      with `type="Ready",status="True"`.
+
+      Valid policies are `"IfHealthyBudget"` and `"AlwaysAllow"`.
+      If no policy is specified, the default behavior will be used, which corresponds to the
+      `"IfHealthyBudget"` policy.
+
+      - `"IfHealthyBudget"`: Running Pods (`status.phase="Running"`),
+        but not yet healthy can be evicted only if the guarded application is not disrupted
+        (`status.currentHealthy` is at least equal to `status.desiredHealthy`).
+        Healthy Pods will be subject to the PDB for eviction.
+
+      - `"AlwaysAllow"`: All running Pods (`status.phase="Running"`), but not yet healthy
+        are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met.
+        This means perspective running Pods of a disrupted application might not get a chance to become healthy.
+        Healthy Pods will be subject to the PDB for eviction.
+
+      Additional policies may be added in the future.
+      Clients making eviction decisions should disallow eviction of unhealthy Pods if they encounter
+      an unrecognized policy in this field.
+
+    x-kab-description-zh: |
+      此字段定义选择不健康的 Pod 来驱逐时的判定条件。
+      当前的实现中，对健康 Pod 的判定标准是指 `status.conditions` 中包含 `type="Ready",status="True"`
+      状况的 Pod。
+
+      此字段的合法设置值为：
+
+      - `"IfHealthyBudget"`（默认值）：意味着只有对应的应用没有被干扰（`status.currentHealthy`
+        大于等于 `status.desiredHealthy`）时，运行中的（`status.phase="Running"`）不健康的 Pod
+        才可以被驱逐。是否要驱逐健康的 Pod，取决于 PDB 的约束条件。
+
+      - `"AlwaysAllow"`：运行中的（`status.phase="Running"`）不健康的 Pod 会被视为已经受到干扰了，
+        因此无论是否满足 PDB 中的约束，都可以被驱逐。
+        这种策略可能会导致已经被干扰的应用很难有机会回到健康状态。
+        PDB 的约束条件可以决定是有要驱逐健康的 Pod。
+
+      将来的版本中可能会添加新的策略。负责驱逐决策的客户端如果在此字段中看到无法识别的策略设置，
+      应该禁止驱逐不健康的 Pod。
+    enum:
+      - AlwaysAllow
+      - IfHealthyBudget
+    type: string
+type: object
+

@@ -1,0 +1,42 @@
+description: ImageVolumeSource represents a image volume resource.
+x-kab-description: ImageVolumeSource 用来表示一个镜像卷（Image Volume）资源。
+properties:
+  pullPolicy:
+    description: |
+      Policy for pulling OCI objects. Possible values are:
+      - `"Always"`: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails.
+      - `"Never"`: the kubelet never pulls the reference and only uses a local image or artifact.
+        Container creation will fail if the reference isn't present.
+      - `"IfNotPresent"`: the kubelet pulls if the reference isn't already present on disk.
+        Container creation will fail if the reference isn't present and the pull fails.
+      Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.'
+    enum:
+      - Always
+      - IfNotPresent
+      - Never
+    x-kab-description-zh: |
+      用来拉取 OCI 对象的策略。可以选择的值有：
+
+      - `"Always"`：kubelet 总是尝试拉取所引用的对象。如果拉取失败，则容器创建亦会失败。
+      - `"Never"`：kubelet 从不尝试拉取所引用的对象，总是尝试使用本地的镜像或者工件。
+        如果所引用的对象不存在，则容器创建会失败。
+      - `"IfNotPresent"`：kubelet 会在所引用的对象在磁盘上不存在时尝试拉取操作。
+        如果所引用的对象不存在并且拉取操作也失败，则容器创建操作会失败。
+
+      如果镜像的标记（Tag）中包含 `":latest"`，则此字段默认为 `"Always"`，否则默认为 `"IfNotPresent"`。
+    type: string
+  reference:
+    description: |
+      Image or artifact reference to be used. Behaves in the same way as pod.spec.containers[*].image.
+      Pull secrets will be assembled in the same way as for the container image by looking up node credentials,
+      SA image pull secrets, and pod spec image pull secrets.
+      This field is optional to allow higher level config management to default or override container images in workload controllers
+      like Deployments and StatefulSets.
+    x-kab-description-zh: |
+      要使用的镜像或工件的引用。与 Pod 规约中的 `containers[*].image` 行为相同。
+      镜像（工件）拉取操作所使用的凭据数据可以通过组装来构造，就像拉取容器镜像时，可以通过查找节点登录凭据、
+      服务账号镜像拉取 Secret 以及 Pod 规约中显式给出的镜像拉取 Secret 来得到凭据信息。
+      此字段是可选的。这样设计的目的是允许更高层面的配置管理组件能够为 Deployment 或 StatefulSet 这类工作负载设置（或重载）其默认值。
+    type: string
+type: object
+

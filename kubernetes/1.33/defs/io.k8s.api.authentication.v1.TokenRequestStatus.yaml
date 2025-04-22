@@ -1,0 +1,17 @@
+description: The result of a token request.
+x-kab-description-zh: 令牌请求的结果。
+properties:
+  expirationTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: The time of expiration of the returned token.
+    x-kab-description-zh: 所返回的令牌的到期时间点。
+  token:
+    description: The opaque bearer token.
+    x-kab-description-zh: 不透明的持有者令牌本身。 
+    minLength: 1
+    type: string
+required:
+  - expirationTimestamp
+  - token
+type: object
+

@@ -1,0 +1,39 @@
+description: |
+  ResourceHealth represents the health of a resource. It has the latest device health information.
+properties:
+  health:
+    description: |
+      Health of the resource.
+
+      - `"Healthy"`: operates as normal
+      - `"Unhealthy"`: reported unhealthy. We consider this a temporary health issue since
+        we do not have a mechanism today to distinguish temporary and permanent issues.
+      - `"Unknown"`: The status cannot be determined.
+        For example, Device Plugin got unregistered and hasn't been re-registered since.
+    x-kab-description-zh: |
+      资源的健康状态。
+
+      - `"Healthy"`：资源正常工作。
+      - `"Unhealthy"`：资源报告了不健康的状态。我们将这种状态视为临时的健康问题，
+        因为目前没有机制来区分临时性的和永久性的问题。
+      - `"Unknown"`：无法判定资源的健康状态。
+        例如，设备插件已经被注销，但自那之后再未重新注册过。
+    type: string
+  resourceID:
+    description: |
+      The unique identifier of the resource. The value is calculated based on the source of the resource health information.
+      For device plugin, the format is `deviceplugin:DeviceID`, where the `DeviceID` is reported by the device plugin when
+      responding to a device list call.
+      For a DRA device, the format is `dra:<driver name>/<pool name>/<device name>`.
+      Such a device can be looked up in the information published by the DRA driver.
+      It is designed to be globally unique in a cluster.
+    x-kab-description-zh: |
+      资源的唯一 ID。字段值是基于资源健康信息来源来确定的。
+      对于设备插件（Device Plugin），字符串格式为 `deviceplugin:DeviceID`。其中 `DeviceID` 是设备插件响应设备列表调用时报告的。
+      对于 DRA 设备，字段值格式为 `dra:<驱动名称>/<池名称>/<设备名称>`。
+      这一格式的设计是为了确保其取值在集群内全局唯一。
+    type: string
+required:
+- resourceID
+type: object
+

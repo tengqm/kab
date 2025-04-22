@@ -1,0 +1,57 @@
+description: |
+  Information to create the file containing the Pod field.
+  One and only one of `fieldRef` and `resourceFieldRef` must be specified.
+x-kab-description-zh: |
+  关于创建包含 Pod 字段的文件的信息。
+  `fieldRef` 和 `resourceFieldRef` 必须且只能指定其一。
+properties:
+  fieldRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectFieldSelector'
+    description: |
+      Selects a field of the Pod. Only `"metadata.annotations"`, `"metadata.labels"`,
+      `"name"`, `"namespace"` and `"uid"` are supported.
+    x-kab-description-zh: |
+      选择 Pod 的字段。目前仅支持 `"metadata.annotations"`、`"metadata.labels"`、
+      `"name"`、`"namespace"` 和 `"uid"`。
+  mode:
+    description: |
+      Mode bits used to set permissions on created files, must be an octal value between
+      `0` and `0777` or a decimal value between `0` and `511`.
+      YAML accepts both octal and decimal values, JSON requires decimal values for mode bits.
+      If not specified, the volume `defaultMode` will be used.
+      This might be in conflict with other options that affect the file mode, like `fsGroup`,
+      and the result can be other mode bits set.
+    x-kab-description-zh: |
+      要设置在所创建的文件上的访问权限模式位，必须是介于 `0` 和 `0777` 之间的八进制数，
+      或者介于 `0` 和 `511` 之间的十进制数。
+      YAML 既能接受八进制数，也能接受十进制数，JSON 要求模式位要用十进制数来表达。
+      如果没有设置此字段，则使用卷的 `defaultMode` 设置。
+      这里的设置可能与其他影响文件模式的选项（如 `fsGroup`）有冲突，
+      所以最终结果可能出现其他模式位被设置的情况。
+    format: int32
+    maximum: 511
+    minimum: 0
+    type: integer
+  path:
+    description: |
+      The relative path name of the file to be created.
+      Must not be absolute or contain the `".."` path.
+      Must be UTF-8 encoded. The first item of the relative path must not start with `".."`.
+    x-kab-description-zh: |
+      要创建的文件的相对路径名。
+      字段值不可以是绝对路径，也不可以包含 `".."`。
+      路径字符串必须采用 UTF-8 编码。相对路径中的第一段不可以以 `".."` 开头。
+    type: string
+  resourceFieldRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.ResourceFieldSelector'
+    description: |
+      Selects a resource of the container. Only resources `limits` and `requests`
+      (`limits.cpu`, `limits.memory`, `requests.cpu` and `requests.memory`)
+      are currently supported.'
+    x-kab-description-zh: |
+      选择容器的某种资源。当前仅支持资源的 `limits` 和 `requests`
+      （`limits.cpu`、`limits.memory`、`requests.cpu` 和 `requests.memory`）。
+required:
+  - path
+type: object
+

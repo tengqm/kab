@@ -1,0 +1,50 @@
+description: |
+  SelfSubjectRulesReview enumerates the set of actions the current user can perform
+  within a namespace. The returned list of actions may be incomplete depending on
+  the server's authorization mode, and any errors experienced during the evaluation.
+  SelfSubjectRulesReview should be used by UIs to show/hide actions,
+  or to quickly let an end user reason about their permissions.
+  It should **NOT** Be used by external systems to drive authorization decisions
+  as this raises confused deputy, cache lifetime/revocation, and correctness concerns.
+  `SubjectAccessReview` and `LocalAccessReview` are the correct way to
+  defer authorization decisions to the API server.
+x-kab-description-zh: |
+  SelfSubjectRulesReview 列举当前用户可以在给定名字空间中执行的动作。
+  返回的动作列表可能是不完整的，取决于服务器上的鉴权模式以及权限评估过程中的出错情况。
+  SelfSubjectRulesReview 应该供用户界面来显示或者隐藏动作，
+  或者用于最终用户快速查看访问权限。
+  外部系统**不要**使用这个 API 来执行鉴权决策，因为这样做会带来责任上的混乱、
+  权限缓存生命周期、权限回收甚至正确性上的问题。
+  如要判断 API 服务器上的鉴权决策，应该使用 `SubjectAccessReview` 和 `LocalAccessReview`
+  这两种资源。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - authorization.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - SelfSubjectRulesReview
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.SelfSubjectRulesReviewSpec'
+    description: Information about the request being evaluated.
+    x-kab-description-zh: 关于要判断的请求的信息。
+required:
+  - apiVersion
+  - kind
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: authorization.k8s.io
+    kind: SelfSubjectRulesReview
+    version: v1
+

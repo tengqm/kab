@@ -1,0 +1,51 @@
+description: |
+  CSIDriver captures information about a Container Storage Interface (CSI) volume driver.
+  CSI drivers do not need to create the CSIDriver object directly.
+  Instead they may use the "cluster-driver-registrar" sidecar container.
+  When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver.
+  Kubernetes attach/detach controller uses this object to determine whether attach is required.
+  Kubelet uses this object to determine whether Pod information needs to be passed on mount.
+  CSIDriver objects are non-namespaced.
+x-kab-description-zh: |
+  CSIDriver 中包含关于某个容器存储接口（CSI）卷驱动相关的信息。
+  CSI 驱动不需要直接创建 CSIDriver 对象，它们可能会使用 `"cluster-driver-registrar"` 这类边车容器。
+  和 CSI 驱动一起部署这类边车容器时，该容器会自动创建一个代表驱动的 CSIDriver 对象。
+  Kubernetes 的 attach/detach 控制器会使用此 CSIDriver 对象来确定是否需要执行挂接（attach）操作。
+  Kubelet 使用此对象来决定是否需要在挂载存储卷时需要向其传递 Pod 信息。
+  CSIDriver 对象的作用域是整个集群。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CSIDriver
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: |
+      Standard object metadata.
+      The `name` indicates the name of the CSI driver that this object refers to.
+    x-kab-description-zh: |
+      标准的对象元数据。`name` 给出此对象所引用的 CSI 驱动的名称。
+  spec:
+    $ref: '#/definitions/io.k8s.api.storage.v1.CSIDriverSpec'
+    description: Specification of the CSI Driver.
+    x-kab-description-zh: CSI 驱动的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: CSIDriver
+    version: v1
+

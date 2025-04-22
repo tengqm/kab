@@ -1,0 +1,55 @@
+description: |
+  DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors.
+  It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
+
+  This is an Alpha type and requires enabling the DynamicResourceAllocation feature gate.
+x-kab-description-zh: |
+  DeviceClass 是厂商或者管理员提供的一种资源，其中包含设备配置和选择算符信息。
+  DeviceClass 是集群作用域的资源，可以在 DeviceClaim 的 `requests` 中引用，以便作为一类设备应用预设值。
+
+  此资源处于 Alpha 阶段，需要启用 DynamicResourceAllocation 特性门控。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+    - resource.k8s.io/v1alpha3
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+    - DeviceClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceClassSpec'
+    description: |
+      `spec` defines what can be allocated and how to configure it.
+
+      This is mutable. Consumers have to be prepared for classes changing at any time,
+      either because they get updated or replaced. Claim allocations are done once
+      based on whatever was set in classes at the time of allocation.
+
+      Changing the spec automatically increments the `metadata.generation` number.
+    x-kab-description-zh: |
+      `spec` 定义可分配的资源有哪些以及如何配置这些资源。
+
+      字段是可变更的。用户必须针对设备类在任何时候都可能发生变化而做一定的预案。 设备类变化可能因为被更新或被替换。
+      针对设备申领的分配仅执行一次，使用分配的那一刻设备类中所设置的内容。
+
+      变更此规约会自动增加 `metadata.generation` 字段中记录的值。
+required:
+- apiVersion
+- kind
+- metadata
+- spec
+type: object
+x-kubernetes-group-version-kind:
+- group: resource.k8s.io
+  kind: DeviceClass
+  version: v1alpha3
+

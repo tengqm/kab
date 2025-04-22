@@ -1,0 +1,51 @@
+consumes:
+  - '*/*'
+description: create a PersistentVolumeClaim
+x-kab-description-zh: 创建一个 PersistentVolumeClaim
+operationId: createCoreV1NamespacedPersistentVolumeClaim
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /api/v1/namespaces/{namespace}/persistentvolumeclaims
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description:  OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET'
+  '201':
+    description:  Created
+    x-kab-description-zh: 创建成功
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET'
+  '202':
+    description:  Accepted
+    x-kab-description-zh: 操作已接受
+    schema:
+      $ref: '#/definitions/io.k8s.api.core.v1.PersistentVolumeClaim.GET'
+  '401':
+    description:  Unauthorized
+    x-kab-description-zh: 未授权操作
+schemes:
+  - https
+tags:
+  - core_v1
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: ''
+  kind: PersistentVolumeClaim
+  version: v1
+

@@ -1,0 +1,40 @@
+description: |
+  A label selector requirement is a selector that contains `values`, a `key`,
+  and an `operator` that relates the `key` and `values`.
+x-kab-description-zh: |
+  每个标签选择算符条件自身是一个选择算符，包含 `values`、`key` 和将 `values` 与 `key` 关联在一起的 `operator`。
+properties:
+  key:
+    description: The label key that the selector applies to.
+    x-kab-description-zh: 选择算符所适用的标签主键。
+    type: string
+  operator:
+    description: This represents the key's relationship to a set of values.
+    x-kab-description-zh: 此字段表示主键 `key` 与值集 `values` 之间的关系。
+    enum:
+      - DoesNotExist
+      - Exists
+      - In
+      - NotIn
+    minLength: 1
+    type: string
+  values:
+    description: |
+      An array of string values.
+      If the `operator` is `"In"` or `"NotIn"`, the `values` array must be non-empty.
+      If the `operator` is `"Exists"` or `"DoesNotExist"`, the `values` array must be empty.
+      This array is replaced during a strategic merge patch.
+    x-kab-description-zh: |
+      字符串值所构成的一个数组。
+      如果 `operator` 是 `"In"` 或者 `"NotIn"`，则 `values` 数组不能为空。
+      如果 `operator` 是 `"Exists"` 或 `"DoesNotExist"`， `values` 数组必须为空。
+      在执行策略性合并补丁操作时，此字段会被整体替换掉。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - key
+  - operator
+type: object
+

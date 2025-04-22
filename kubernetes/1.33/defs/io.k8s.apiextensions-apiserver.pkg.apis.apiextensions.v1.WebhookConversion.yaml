@@ -1,0 +1,37 @@
+description: This describes how to call a conversion webhook.
+x-kab-description-zh: 此结构描述如何调用一个转换 Webhook。
+properties:
+  clientConfig:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.WebhookClientConfig'
+    description: |
+      The instructions for calling the webhook if strategy is `"Webhook"`.
+      This cannot be set if the conversion strategy is not `"Webhook"`.
+    x-kab-description-zh: |
+      当转换策略是 `"Webhook"` 时调用 Webhook 相关的参数配置。
+      当转换策略不是 `"Webhook"` 时不能设置。
+  conversionReviewVersions:
+    description: |
+      An ordered list of preferred `ConversionReview` versions the Webhook expects.
+      The API server will use the first version in the list which it supports.
+      If none of the versions specified in this list are supported by API server,
+      conversion will fail for the custom resource.
+      If a persisted webhook configuration specifies allowed versions and does not include any versions
+      known to the API Server, calls to the webhook will fail.
+      The acceptable versions are [`"v1"`, `"v1beta1"`].
+    x-kab-description-zh: |
+      此字段是一个有序的列表，包含 Webhook 可接受的 `ConversionReview` 对象版本。
+      API 服务器会使用列表中自己所支持的第一个版本。
+      如果列表岁的所有版本都是 API 服务器所不支持的，对自定义资源的转换会失败。
+      如果某个已经写入持久存储的 Webhook 配置中设置了所允许的版本，但其中不包含 API 服务器所能理解的版本，
+      则对 Webhook 的调用会失败。
+      可以接受的版本目前为 [`"v1"`, `"v1beta1"`]。
+    items:
+      minLength: 1
+      type: string
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - conversionReviewVersions
+type: object
+

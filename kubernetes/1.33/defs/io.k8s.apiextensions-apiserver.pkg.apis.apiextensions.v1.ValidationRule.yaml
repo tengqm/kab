@@ -1,0 +1,305 @@
+description: |
+  ValidationRule describes a validation rule written in the CEL expression language.
+x-kab-description-zh: |
+  ValidationRule 描述采用 CEL 表达式语言编写的一条合法性检查规则。
+
+properties:
+  fieldPath:
+    description: |
+      `fieldPath` represents the field path returned when the validation fails.
+      It must be a relative JSON path (i.e. with array notation) scoped to the location of
+      this `x-kubernetes-validations` extension in the schema and refer to an existing field.
+      e.g. when validation checks if a specific attribute `foo` under a map `testMap`,
+      the `fieldPath` could be set to `.testMap.foo`.
+      If the validation checks two lists must have unique attributes, the `fieldPath` could be set to
+      either of the list: e.g. `.testList`. It does not support list numeric index.
+      It supports child operation to refer to an existing field currently.
+      Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/)
+      for more info. Numeric index of array is not supported.
+      For field name which contains special characters, use `['specialName']` to refer the field name.
+      e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to
+      `.testList['foo.34$']`.
+    x-kab-description-zh: |
+      `fieldPath` 代表检查失败时返回的字段路径。
+      字段值必须是相对的 JSON 路径（支持数组表示），作用域是此 `x-kubernetes-validation`
+      在模式定义中的位置，并且要求路径指向一个现有字段。
+      例如，如果合法性验证要检查某个映射 `testMap` 下的属性 `foo`，则 `fieldPath` 应该为 `.testMap.foo`。
+      如果合法性验证要检查的是两个列表必须拥有互不相同的属性，则 `fieldPath` 可以设置为两个列表之一，
+      例如，`.testList`。路径不支持列表的数字型下标。
+      `fieldPath` 目前支持子结构操作，以便引用现有的字段。
+      参阅 [Kubernetes 中的 JSONPath 支持](https://kubernetes.io/zh-cn/docs/reference/kubectl/jsonpath/)。
+      对于字段名中包含特殊字符的情形，可以使用 `['specialName']` 来引用字段名。
+      例如，对于在列表 `testList` 中出现的属性 `foo.34$`，`fieldPath` 可以设置为 `.testList['foo.34$']`。
+    type: string
+  message:
+    description: |
+      `message` represents the message displayed when validation fails.
+      The message is required if the `rule` contains line breaks.
+      The message must not contain line breaks.
+      If unset, the message is `"failed rule: {Rule}"`.
+      e.g. `"must be a URL with the host matching spec.host"`.
+    x-kab-description-zh: |
+      `message` 代表的是合法性验证失败时要显示的消息。如果 `rule` 中包含换行符时，需要设置此消息字段。
+      此消息字符串中不可包含换行符。
+      此字段未设置时，默认的消息为 `"failed rule: {Rule}"`。
+      例如，`"must be a URL with the host matching spec.host"`。
+    type: string
+  messageExpression:
+    description: |
+      This declares a CEL expression that evaluates to the validation failure message that is returned
+      when this rule fails.
+      Since `messageExpression` is used as a failure message, it must evaluate to a string.
+      If both `message` and `messageExpression` are present on a rule, then `messageExpression` will
+      be used if validation fails.
+      If `messageExpression` results in a runtime error, the runtime error is logged, and the validation
+      failure message is produced as if the `messageExpression` field were unset.
+      If `messageExpression` evaluates to an empty string, a string with only spaces, or a string that
+      contains line breaks, then the validation failure message will also be produced as if the
+      `messageExpression` field were unset, and the fact that `messageExpression` produced an empty
+      string/string with only spaces/string with line breaks will be logged.
+      `messageExpression` has access to all the same variables as the rule;
+      the only difference is the return type.
+      Example, `"x must be less than max ("+string(self.max)+")"`。
+    x-kab-description-zh: |
+      此字段声明一个 CEL 表达式，经过处理可以得到规则失败后返回的验证失败消息。
+      由于 `messageExpression` 的内容要用作失败消息，其处理结果必须是一个字符串。
+      如果规则中同时设置了 `message` 和 `messageExpression`，则在验证失败时会使用 `messageExpression`。
+      如果处理 `messageExpression` 的过程中发生运行时错误，运行时错误会被记录到日志中，
+      而生成验证失败消息时会像 `messageExpression` 字段没有设置一样。
+      如果 `messageExpression` 的处理结构是一个空字符串、只包含空格的字符串或者包含换行符的字符串，
+      则生成验证失败消息时也会像 `messageExpression` 字段没有设置一样，只是 `messageExpression`
+      的处理结果是空字符串、只包含空格或者包含换行符的事实会被记录到日志中。
+      `messageExpression` 能访问当前规则可访问的所有变量，唯一的不同在于返回的类型。
+      例如，`"x must be less than max ("+string(self.max)+")"`。
+    type: string
+  optionalOldSelf:
+    description: |
+      `optionalOldSelf` is used to opt a transition rule into evaluation even when the object is first created,
+      or if the old object is missing the value.
+
+      When enabled, `oldSelf` will be a CEL optional whose value will be `"None"` if there is no old value,
+      or when the object is initially created.
+
+      You may check for presence of `oldSelf` using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`.
+      Check the [CEL documentation](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes)
+      for Optional types for more information.
+
+      May not be set unless `oldSelf` is used in `rule`.
+    x-kab-description-zh: |
+      `optionalOldSelf` 用来支持对转换规则进行处理，即便对象是第一次创建或者老的对象中不包含所需的字段值。
+
+      如果此字段为 `true`，`oldSelf` 会是一个 CEL 可选值，当不存在老值或者对象第一次创建时取 `"None"`，
+
+      你可以使用 `oldSelf.hasValue()` 的方式来检查是否 `oldSelf` 是存在的，并且在检查之后可以使用`oldSelf.value()` 取出其中的值。
+      参阅 [CEL 文档（英文）](https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes)
+      了解关于 Optional 值的更多信息。
+
+      除非在 `rule` 中使用了 `oldSelf`，否则不应设置。
+    type: boolean
+  reason:
+    default: FieldValueInvalid
+    description: |
+      This provides a machine-readable validation failure reason that is returned to the caller
+      when a request fails this validation rule.
+      The HTTP status code returned to the caller will match the reason of the reason of the first
+      failed validation rule.
+      All future added reasons must be accepted by clients when reading this value and unknown reasons
+      should be treated as `"FieldValueInvalid"`.
+    x-kab-description-zh: |
+      此字段提供一个机器可读的验证失败原因描述，当请求无法通过合法性检查时返回给调用者。
+      返回给调用者的 HTTP 状态码会与未通过的第一条验证规则的原因对应。
+      将来有可能添加新的原因字符串，客户端在读取此值时要保证能够接受无法识别的原因字符串，
+      并将其视为 `"FieldValueInvalid"` 处理。
+    enum:
+      - FieldValueDuplicate
+      - FieldValueForbidden
+      - FieldValueInvalid
+      - FieldValueRequired
+    type: string
+  rule:
+    description: |
+      `rule` represents the expression which will be evaluated by
+      [CEL](https://github.com/google/cel-spec).
+      The `rule` is scoped to the location of the `x-kubernetes-validations` extension in the schema.
+      The `self` variable in the CEL expression is bound to the scoped value.
+      Example:
+      - Rule scoped to the root of a resource with a status subresource:
+
+        ```
+        {"rule": "self.status.actual <= self.spec.maxDesired"}
+        ```
+
+      If the `rule` is scoped to an object with properties, the accessible properties of the object
+      are field selectable via `self.field` and field presence can be checked via `has(self.field)`.
+      Null valued fields are treated as absent fields in CEL expressions.
+      If the `rule` is scoped to an object with `additionalProperties` (i.e. a map), the value of
+      the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self`
+      and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`.
+
+      If the `rule` is scoped to an array, the elements of the array are accessible via `self[i]`
+      and also by macros and functions.
+
+      If the `rule` is scoped to a scalar, `self` is bound to the scalar value. Examples:
+      - Rule scoped to a map of objects:
+        ```
+        {"rule": "self.components['Widget'].priority < 10"}
+        ```
+      - Rule scoped to a list of integers:
+        ```
+        {"rule": "self.values.all(value, value >= 0 && value < 100)"}
+        ```
+      - Rule scoped to a string value:
+        ```
+        {"rule": "self.startsWith('kube')"}
+        ```
+      The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible
+      from the root of the object and from any `x-kubernetes-embedded-resource` annotated objects.
+      No other metadata properties are accessible.
+
+      Unknown data preserved in custom resources via `x-kubernetes-preserve-unknown-fields`
+      is not accessible in CEL expressions.  This includes:
+
+      - Unknown field values that are preserved by object schemas with
+        `x-kubernetes-preserve-unknown-fields`.
+      - Object properties where the property schema is of an _unknown type_.
+        An _unknown type_ is recursively defined as:
+
+        - A schema with no type and `x-kubernetes-preserve-unknown-fields` set to true
+        - An array where the items schema is of an _unknown type_
+        - An object where the `additionalProperties` schema is of an _unknown type_
+
+      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+      Accessible property names are escaped according to the following rules when accessed in the
+      expression:
+
+      - `"__"` escapes to `"__underscores__"`
+      - `"."` escapes to `"__dot__"`
+      - `"-"` escapes to `"__dash__"`
+      - `"/"` escapes to `"__slash__"`
+      - Property names that exactly match a CEL RESERVED keyword escape to `"__{keyword}__"`.
+
+      The keywords are:
+
+      ```
+      true, false, null, in, as, break, const, continue, else,
+      for, function, if, import, let, loop, package, namespace, return
+      ```
+
+      Examples:
+      - Rule accessing a property named `"namespace"`:
+        `{"rule": "self.__namespace__ > 0"}`
+      - Rule accessing a property named `"x-prop"`:
+        `{"rule": "self.x__dash__prop > 0"}`
+      - Rule accessing a property named "redact__d":
+        `{"rule": "self.redact__underscores__d > 0"}`
+
+      Equality on arrays with `x-kubernetes-list-type` of 'set' or 'map' ignores element order,
+      i.e. `[1, 2] == [2, 1]`.
+      Concatenation on arrays with `x-kubernetes-list-type` use the semantics of the list type:
+
+      - `set`: `X + Y` performs a union where the array positions of all elements in `X` are preserved
+        and non-intersecting elements in `Y` are appended, retaining their partial order.
+      - `map`: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but
+        the values are overwritten by values in `Y` when the key sets of `X` and `Y` intersect.
+        Elements in `Y` with non-intersecting keys are appended, retaining their partial order.
+
+      If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+      By default, the `oldSelf` variable is the same type as `self`.
+      When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional variable whose value() is the same type as `self`.
+      See the documentation for the `optionalOldSelf` field for details.
+      Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found.
+      You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+    x-kab-description-zh: |
+      `rule` 代表的是将采用 [CEL](https://github.com/google/cel-spec) 来处理的一个表达式。
+      `rule` 的作用域是模式定义中此 `x-kubernetes-validations` 所在的位置。
+      CEL 表达式中的 `self` 变量会绑定为这个作用域被限定的值。
+      例如，下面是一条合法性检查规则，其作用域为带有 `status` 子资源的某资源的根：
+
+      ```
+      {"rule": "self.status.actual <= self.spec.maxDesired"}
+      ```
+
+      如果 `rule` 的作用域是一个带有属性的对象，可访问的对象属性可以通过 `self.field` 来选择，
+      字段存在与否可以通过 `has(self.field)` 来测试。
+      在 CEL 表达式中，Null 值的字段会被当作缺失字段处理。
+      如果 `rule` 的作用域是一个带有 `additionalProperties` 属性的对象（即一个映射），可以使用
+      `self[mapKey]` 来访问映射的值域，也可以使用 `mapKey in self` 来检查主键是否存在，
+      还可以使用类似于 `self.all(...)` 这种 CEL 宏或者函数来访问映射的所有条目。
+      如果 `rule` 的作用域是一个数组，数组中的元素可以用 `self[i]` 的形式来访问，也可以用宏或者函数访问。
+      如果 `rule` 的作用域是一个标量，则 `self` 自身会被赋予标量的值。
+
+      例如：
+
+      - 作用域为一个对象映射的规则：
+        ```
+        {"rule": "self.components['Widget'].priority < 10"}
+        ```
+      - 作用域为一个整数列表的规则：
+        ```
+        {"rule": "self.values.all(value, value >= 0 && value < 100)"}
+        ```
+      - 作用域为一个字符串的规则：
+        ```
+        {"rule": "self.startsWith('kube')"}
+        ```
+
+      属性 `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 总是可以在对象的根上访问，
+      也可以在任何带有 `x-kubernetes-embedded-resource` 注解的对象上访问。
+      除此以外的其他元数据属性都是无法访问的。
+
+      CEL 表达式中无法访问自定义资源中通过 `x-kubernetes-preserve-unknown-fields` 扩展保留下来的数据。
+      具体包括：
+
+      - 标注了 `x-kubernetes-preserve-unknown-fields` 的对象模式定义所保留下来的未知字段值；
+      - 对象的属性模式定义是一种_未知类型_时，对象的属性无法访问。
+
+      这里的_未知类型_包含以下情况（可递归）：
+
+      - 未给出 `type` 但 `x-kubernetes-preserve-unknown-fields` 被设置为 true 的模式定义；
+      - 数组类型的字段，其元素的模式定义是_未知类型_；
+      - 对象类型的字段，其 `additionalProperties` 模式定义是_未知类型_。
+
+      只有形式为 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性是可访问的。
+      在表达式中访问可访问的属性名称时，可能存在以下字符转义规则：
+
+      - `"__"` 被转义为 `"__underscores__"`
+      - `"."` 被转义为 `"__dot__"`
+      - `"-"` 被转义为 `"__dash__"`
+      - `"/"` 被转义为 `"__slash__"`
+      - 与某 CEL 保留字完全相同的属性名被转义为 `"__{keyword}__"`
+
+      CEL 保留字包括：
+
+      ```
+      true, false, null, in, as, break, const, continue, else, for,
+      function, if, import, let, loop, package, namespace, return
+      ```
+
+      示例：
+
+      - 访问名为 `"namespace"` 的属性的规则：`{"rule": "self.__namespace__ > 0"}`
+      - 访问名为 `"x-prop"` 的属性的规则：`{"rule": "self.x__dash__prop > 0"}`
+      - 访问名为 `"redact__d"` 的属性的规则：`{"rule": "self.redact__underscores__d > 0"}`
+
+      如果数组带有 `x-kubernetes-list-type` 扩展属性且属性值为 `"set"` 或者 `"map"`，
+      对这类数组做等值判断时会忽略元素的顺序，即 `[1, 2] == [2, 1]`。
+      对带有 `x-kubernetes-list-type` 扩展属性的数组进行串接时，处理方式根据列表类型有所不同：
+
+      - `"set"`：`X + Y` 操作会对两个数组取并集，`X` 中数组元素的初始顺序会被保留，`Y`
+        中的非重复元素会被追加到后面，且保留其原来的顺序。
+      - `"map"`：`X + Y` 执行的是两个数组的合并操作，`X` 中所有主键的顺序会被保留，但当 `X`
+        与 `Y` 中存在主键集合重叠的情况时，`X` 中主键对应的取值会被 `Y` 中的取值覆盖。
+        `Y` 中原来不在 `X` 内的元素会被追加到末尾，并且保留其原来的顺序。
+
+      如果 `rule` 中使用了  `oldSelf` 变量，则此规则被视为转换规则（Transition Rule）。
+      默认情况下，`oldSelf` 变量与 `self` 的类型相同。
+      当 `optionalOldSelf` 被设置为 `true` 时，`oldSelf` 变量是一个 CEL 可选变量，其 `value()` 返回的值与 `self` 类型相同。
+      参阅 `optionalOldSelf` 字段的文档了解详细信息。
+
+      转换规则默认仅适用于 UPDATE 请求，并且在无法获得老值时会被忽略掉。
+      你可以通过将 `optionalOldSelf` 设置为 `true` 来选择无条件地处理转换规则。
+    type: string
+required:
+  - rule
+type: object
+

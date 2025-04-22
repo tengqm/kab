@@ -1,0 +1,107 @@
+description: |
+  ParamRef describes how to locate the params to be used as input to expressions
+  of rules applied by a policy binding. One of `name` and `selector` must be specified.
+x-kab-description-zh: |
+  ParamRef 描述如何定位作为表达式输入的参数，
+  这里的表达式是某策略绑定用来构造规则时使用的。
+  `name` 和 `selector` 是互斥的，二者必须设置其一，但不能同时设置。
+properties:
+  name:
+    description: |
+      `name` is the name of the resource being referenced.
+      The string must be a valid path segment, which means the path cannot be `".."` or `"."` ,
+      and it cannot contain `'/'` or `'%'`.
+      `name` and `selector` are mutually exclusive properties.
+      If one is set, the other must be unset.
+
+      A single parameter used for all admission requests can be configured by setting
+      the `name` field, leaving `selector` blank, and setting namespace if `paramKind`
+      is namespace-scoped.
+
+    x-kab-description-zh: |
+      此字段为所引用的资源的名称。字符串必须是一个合法的路径段。
+      也就是说，字符串值不可以是 `".."` 或者 `"."`，并且其中不能包含
+      `'/'` 或者 `'%'`。
+      `name` 和 `selector` 是互斥的，二者必须设置其一，但不能同时设置。
+
+      通过设置 `name` 字段并将 `selector` 留空，可以为所有准入请求配置同一个参数。
+      如果 `paramKind` 所引用的是名字空间作用域的类别，还可以设置 `namespace`。
+
+    type: string
+  namespace:
+    description: |
+      `namespace` is the namespace of the referenced resource.
+      Allows limiting the search for params to a specific namespace.
+      Applies to both `name` and `selector` fields.
+
+      A per-namespace parameter may be used by specifying a namespace-scoped `paramKind`
+      in the policy and leaving this field empty.i
+
+      - If `paramKind` is cluster-scoped, this field MUST be unset.
+        Setting this field results in a configuration error.
+      - If `paramKind` is namespace-scoped, the namespace of the object being evaluated
+        for admission will be used when this field is left unset.
+
+      Take care that if this is left empty the binding must not match any
+      cluster-scoped resources, which will result in an error.
+
+    x-kab-description-zh: |
+      所引用资源的名字空间。使用此参数可以将参数搜索限定到某个特定的名字空间范围内。
+      名字空间限制对于 `name` 和 `selector` 字段均有效。
+      
+      通过在策略中设置名字空间作用域的 `paramKind` 同样可以使用名字空间层次的参数，
+      因此不必设置此字段。
+
+      - 如果 `paramKind` 是集群作用域的，此字段**不可**设置。
+        设置了此字段会造成配置错误。
+      - 如果 `paramKind` 是名字空间作用域的，未设置此字段时，
+        执行准入判定时将会使用被评估的对象的名字空间。
+
+      需要保证的是，当此字段未设置时，策略绑定不能与集群作用域的资源匹配，
+      否则会导致出错。
+
+    type: string
+
+  parameterNotFoundAction:
+    default: Deny
+    description: |
+      `parameterNotFoundAction` controls the behavior of the binding when the resource exists,
+      and name or selector is valid, but there are no parameters matched by the binding.
+
+      - `"Allow"`: no matched parameters will be treated as successful validation by the binding.
+      - `"Deny"`: no matched parameters will be subject to the `failurePolicy` of the policy.
+
+    x-kab-description-zh: |
+      此字段用来控制当资源存在、`name` 或 `selector` 也合法，
+      但策略绑定找不到匹配的参数时的行为。
+
+      - `"Allow"`：绑定将找不到参数视为成功地通过合法性检查；
+      - `"Deny"`：绑定会根据策略的 `failurePolicy` 设置来进行出错处理。
+
+    enum:
+      - Allow
+      - Deny
+    type: string
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      `selector` can be used to match multiple param objects based on their labels.
+      Supply selector `{}` to match all resources of the `paramKind`.
+
+      If multiple params are found, they are all evaluated with the policy expressions
+      and the results are ANDed together.
+
+      One of `name` or `selector` must be set, but `name` and `selector` are mutually
+      exclusive properties. If one is set, the other must be unset."
+
+    x-kab-description-zh: |
+      此字段可用来基于对象上的标签来匹配多个参数对象。
+      如果此选择算符被设置为 `{}`，则会匹配 `paramKind` 所对应的所有资源。
+      
+      如果匹配的参数不止一个，所有参数都会被用来参与策略表达式求值，
+      求值的结果会用逻辑与操作组合。
+
+      `name` 和 `selector` 是互斥的，二者必须设置其一，但不能同时设置。
+type: object
+x-kubernetes-map-type: atomic
+

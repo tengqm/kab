@@ -1,0 +1,86 @@
+description: |
+  Endpoints is a collection of endpoints that implement the actual service.
+  Example:
+
+  ```json
+  "Name": "mysvc",
+  "Subsets": [
+    {
+      "Addresses": [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+      "Ports": [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    },
+    {
+      "Addresses": [{"ip": "10.10.3.3"}],
+      "Ports": [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+    },
+  ]
+  ```
+x-kab-description-zh: |
+  Endpoints 是实际实现某服务的一组端点。例如：
+
+  ```json
+  "Name": "mysvc",
+  "Subsets": [
+    {
+      "Addresses": [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+      "Ports": [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    },
+    {
+      "Addresses": [{"ip": "10.10.3.3"}],
+      "Ports": [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+    },
+  ]
+  ```
+
+
+  Example:\n\n```\n  \"Name\": \"mysvc\",\n  \"Subsets\": [\n    {\n      \"Addresses\"\
+  : [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n      \"Ports\": [{\"name\"\
+  : \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n    },\n    {\n   \
+  \   \"Addresses\": [{\"ip\": \"10.10.3.3\"}],\n      \"Ports\": [{\"name\": \"a\"\
+  , \"port\": 93}, {\"name\": \"b\", \"port\": 76}]\n    },\n ]\n```\n"
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Endpoints
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: |
+      Standard object metadata. The name must be a valid DNS subdomain if specified.
+    x-kab-description-zh: 标准的对象元数据。对象的名字必须是合法的 DNS 子域名。
+  subsets:
+    description: |
+      The set of all endpoints is the union of all `subsets` items.
+      Addresses are placed into `subsets` according to the IPs they share.
+      A single address with multiple ports, some of which are ready and some of which are not
+      (because they come from different containers) will result in the address being displayed
+      in different subsets for the different ports.
+      No address will appear in both `addresses` and `notReadyAddresses` in the same subset.
+    x-kab-description-zh: |
+      通过对所有 `subnets` 条目取并集所得到的所有端点。
+      不同的地址会根据它们所共用的 IP 放置到不同的 `subnets` 中。
+      如果某个地址对应多个端口，其中一部分已经就绪，另一部分尚未就绪（因为它们来自别的容器），
+      那么这个地址就会因为端口的差别而被显示在不同的子网中。
+      不会有同一个地址同时出现在同一个子网的 `addresses` 和 `notReadyAddresses` 中的情况。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.EndpointSubset'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Endpoints
+    version: v1
+

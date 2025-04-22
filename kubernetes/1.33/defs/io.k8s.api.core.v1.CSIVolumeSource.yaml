@@ -1,0 +1,56 @@
+description: The source location of a volume to mount, managed by an external CSI driver.
+x-kab-description-zh: 要挂载的卷的来源位置，由外部 CSI 驱动来管理。
+properties:
+  driver:
+    description: |
+      The name of the CSI driver that handles this volume.
+      Consult with your admin for the correct name as registered in the cluster.
+      The name must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      负责处理此卷的 CSI 驱动的名称。
+      你需要咨询管理员以了解集群中注册的 CSI 驱动的正确名称。
+      此字符串必须是合法的 DNS 子域名。
+    maxLength: 63
+    minLength: 1
+    type: string
+  fsType:
+    description: |
+      Filesystem type to mount. Ex. `"ext4"`, `"xfs"`, `"ntfs"`.
+      If not provided, the empty value is passed to the associated CSI driver which will
+      determine the default filesystem to apply.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。例如：`"ext4"`、`"xfs"`、`"ntfs"` 等。
+      如果未设置此字段，则系统会将空字符串传递给相关的 CSI 驱动，
+      由 CSI 驱动来决定默认使用的文件系统。
+    type: string
+  nodePublishSecretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
+    description: |
+      A reference to the Secret containing sensitive information to be passed to the CSI
+      driver to complete the CSI `NodePublishVolume()` and `NodeUnpublishVolume()` calls.
+      If the Secret object contains more than one Secret, all Secret references are passed.
+      When specified, the `name` field must be specified as a valid DNS subdomain name.
+    x-kab-description-zh: |
+      此字段为一个对 Secret 对象的引用，该对象中包含一些敏感信息，需要传递给 CSI
+      驱动以完成 `NodePublishVolume()` 调用和 `NodeUnpublishVolume()` 调用。
+      如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
+      设置此字段时，`name` 字段都必须是合法的 DNS 子域名。
+  readOnly:
+    default: false
+    description: This indicates a read-only configuration for the volume.
+    x-kab-description-zh: 此字段表明需要将卷配置为只读访问。
+    type: boolean
+  volumeAttributes:
+    additionalProperties:
+      type: string
+    description: |
+      Driver-specific properties that are passed to the CSI driver.
+      Consult your driver's documentation for supported values.
+    x-kab-description-zh: |
+      特定于驱动的属性设置，将被传递给 CSI 驱动。
+      你需要查阅你的驱动的文档来了解支持哪些值。
+    type: object
+required:
+  - driver
+type: object
+

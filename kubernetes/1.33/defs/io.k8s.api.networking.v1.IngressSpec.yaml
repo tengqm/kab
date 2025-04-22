@@ -1,0 +1,64 @@
+description: |
+  The desired state of the Ingress. At least one of `defaultBackend` and `rules` must be specified.
+x-kab-description-zh`: |
+  Ingress 的期望状态。`defaultBackend` 和 `rules` 二者至少要设置其一。
+properties:
+  defaultBackend:
+    $ref: '#/definitions/io.k8s.api.networking.v1.IngressBackend'
+    description: |
+      A default backend that should handle requests that don't match any rule.
+      If `defaultBackend` is not set, the handling of requests that do not match
+      any of the `rules` will be up to the Ingress controller.
+    x-kab-description-zh: |
+      此字段给出一个默认的后端，用来处理未能与任何规则匹配的请求。
+      如果没有设置 `defaultBackend`，对于未能与 `rules` 中任何规则匹配的请求要如何处理，
+      要取决于 Ingress 控制器的实现。
+  ingressClassName:
+    description: |
+      This is the name of an IngressClass cluster resource.
+      Ingress controller implementations use this field to know whether they should be serving this
+      Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource).
+      Although the `"kubernetes.io/ingress.class"` annotation (simple constant name) was never formally
+      defined, it was widely supported by Ingress controllers to create a direct binding between
+      Ingress controller and Ingress resources.
+      Newly created Ingress resources should prefer using the field.
+      However, even though the annotation is officially deprecated, for backwards compatibility reasons,
+      ingress controllers should still honor that annotation if present.
+    x-kab-description-zh: |
+      字段值是一个 IngressClass 集群资源的名称。
+      Ingress 控制器实现使用这个字段来判断是否自己需要为此 Ingress 资源提供服务。这种关联关系是以
+      IngressClass 为媒介的，即 '控制器 -> IngressClass -> Ingress 资源'。
+      
+      尽管 `"kubernetes.io/ingress.class"` 这个注解（简单的名字常数）一直没有正式的定义，
+      很多 Ingress 控制器都支持它，以便构建 Ingress 控制器与 Ingress 资源之间的绑定关系。
+      新创建的 Ingress 资源应该使用 `ingressClassName` 这个字段而不是之间的注解。
+      不过，尽管这个注解已经被正式弃用了，出于向后兼容的原因，Ingress 控制器如果检测到此注解，
+      仍然应该做正确处理。
+    type: string
+  rules:
+    description: |
+      A list of host rules used to configure the Ingress.
+      If unspecified, or no rule matches, all traffic is sent to the default backend.
+    x-kab-description-zh: |
+      一组用来配置 Ingress 的主机规则。
+      如果未指定此字段，或者没有规则匹配服务请求，那么请求会被转发到默认的后端。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.IngressRule'
+    type: array
+    x-kubernetes-list-type: atomic
+  tls:
+    description: |
+      TLS configuration. Currently the Ingress only supports a single TLS port, 443.
+      If multiple members of this list specify different hosts, they will be multiplexed
+      on the same port according to the hostname specified through the SNI TLS extension,
+      if the ingress controller fulfilling the ingress supports SNI.
+    x-kab-description-zh: |
+      TLS 配置。目前 Ingress 仅支持唯一的 TLS 端口 443。
+      如果此列表中存在多个条目使用不同的主机段，它们会在同一端口上多路复用，通过 SNI TLS
+      扩展所指定的主机名来分解流量。前提是 Ingress 控制器支持 SNI。
+    items:
+      $ref: '#/definitions/io.k8s.api.networking.v1.IngressTLS'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

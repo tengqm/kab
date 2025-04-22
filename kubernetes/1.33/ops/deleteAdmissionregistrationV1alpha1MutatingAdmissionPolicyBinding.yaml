@@ -1,0 +1,54 @@
+consumes:
+  - '*/*'
+description: delete a MutatingAdmissionPolicyBinding
+x-kab-description-zh: 删除一个 MutatingAdmissionPolicyBinding
+operationId: deleteAdmissionregistrationV1alpha1MutatingAdmissionPolicyBinding
+parameters:
+  - in: body
+    name: body
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: '#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential'
+  - $ref: '#/parameters/orphanDependents'
+  - $ref: '#/parameters/propagationPolicy'
+  - description: name of the MutatingAdmissionPolicyBinding
+    x-kab-description-zh: MutatingAdmissionPolicyBinding 的名称
+    in: path
+    name: name
+    required: true
+    type: string
+    uniqueItems: true
+  - $ref: '#/parameters/pretty'
+path: /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicybindings/{name}
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
+  '202':
+    description: Accepted
+    x-kab-description-zh: 请求已接受
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
+  '401':
+    description: Unauthorized
+    x-kab-description-zh: 请求未授权
+schemes:
+  - https
+tags:
+  - admissionregistration_v1alpha1
+verb: delete
+x-kubernetes-action: delete
+x-kubernetes-group-version-kind:
+  group: admissionregistration.k8s.io
+  kind: MutatingAdmissionPolicyBinding
+  version: v1alpha1
+

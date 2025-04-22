@@ -1,0 +1,47 @@
+description: |
+  Node is a worker node in Kubernetes.
+  Each Node will have a unique identifier in the cache (i.e. in etcd).
+x-kab-description-zh: |
+  Node 是 Kubernetes 中的一个工作节点。每个 Node 都在缓存（即 etcd）中有一个唯一的标识符。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Node
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: |
+      Standard object metadata. The name of a Node must be a valid DNS subdomain name.
+      A Node can have taints specified using the `"scheduler.alpha.kubernetes.io/taints"` annotation key,
+      where the value is a serialized JSON of a valid Taint object.
+      The server validates the deserialized Taint object as if it is specified on the Node's `spec.taints`.
+      A Node can also have the `"scheduler.alpha.kubernetes.io/preferAvoidPods"` annotation key
+      specified as a serialized JSON list of `PreferAvoidPods` struct.
+    x-kab-description-zh: |
+      标准的对象元数据。Node 的名称必须是合法的 DNS 子域名。
+      Node 对象可以使用 `"scheduler.alpha.kubernetes.io/taints"` 注解主键来设置污点，
+      污点取值是一个合法的 Taint 对象的 JSON 序列化字符串。
+      服务器会检查反序列化的 Taint 对象，就好像 Taint 是通过 `spec.taints` 设置的一样。
+      Node 对象也可以通过 `"scheduler.alpha.kubernetes.io/preferAvoidPods"`  注解主键来设置排斥的 Pod，
+      注解的取值是一个 `PerferAvoidPods 结构的 JSON 序列化字符串。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSpec'
+    description: Spec defines the behavior of a Node.
+    x-kab-description-zh: Node 行为的规约。
+required:
+  - apiVersion
+  - kind
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Node
+    version: v1
+

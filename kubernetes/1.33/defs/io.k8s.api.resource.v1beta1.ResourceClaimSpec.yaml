@@ -1,0 +1,11 @@
+description: ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
+x-kab-description-zh: ResourceClaimSpec 定义 ResourceClaim 中的资源请求以及配置方式。
+properties:
+  devices:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceClaim'
+    description: |
+      `devices` defines how to request devices.
+    x-kab-description-zh: |
+      `devices` 定义如何请求设备。
+type: object
+

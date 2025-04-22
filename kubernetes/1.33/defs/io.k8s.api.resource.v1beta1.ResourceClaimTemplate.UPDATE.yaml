@@ -1,0 +1,44 @@
+description: |
+  ResourceClaimTemplate is used to produce ResourceClaim objects.
+
+  This is a Alpha type and requires enabling the `DynamicResourceAllocation` feature gate.
+x-kab-description-zh: |
+  ResourceClaimTemplate 用来构造 ResourceClaim 对象。
+  此资源类别处于 Alpha 阶段，需要启用 `DynamicResourceAllocation` 特性门控。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1beta1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceClaimTemplate
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourceClaimTemplateSpec'
+    description: |
+      This describes the ResourceClaim that is to be generated.
+      This field is immutable. A ResourceClaim will get created by the control plane for
+      a Pod when needed and then not get updated anymore.
+    x-kab-description-zh: |
+      此字段描述要被生成的 ResourceClaim 对象。字段是不可变更的。
+      控制面会在需要的时候为某个 Pod 生成 ResourceClaim，但该 ResourceClaim 之后不可被变更。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: ResourceClaimTemplate
+    version: v1beta1
+
