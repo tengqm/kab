@@ -1,0 +1,1514 @@
+diff 1.32orig/defs/io.k8s.api.admissionregistration.v1alpha1.MatchResources.json 1.33orig/defs/io.k8s.api.admissionregistration.v1alpha1.MatchResources.json
+5c5
+<       "description": "ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)",
+---
+>       "description": "ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)",
+13c13
+<       "description": "matchPolicy defines how the \"MatchResources\" list is used to match incoming requests. Allowed values are \"Exact\" or \"Equivalent\".\n\n- Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but \"rules\" only included `apiGroups:[\"apps\"], apiVersions:[\"v1\"], resources: [\"deployments\"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.\n\n- Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and \"rules\" only included `apiGroups:[\"apps\"], apiVersions:[\"v1\"], resources: [\"deployments\"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.\n\nDefaults to \"Equivalent\"",
+---
+>       "description": "matchPolicy defines how the \"MatchResources\" list is used to match incoming requests. Allowed values are \"Exact\" or \"Equivalent\".\n\n- Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but \"rules\" only included `apiGroups:[\"apps\"], apiVersions:[\"v1\"], resources: [\"deployments\"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.\n\n- Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and \"rules\" only included `apiGroups:[\"apps\"], apiVersions:[\"v1\"], resources: [\"deployments\"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.\n\nDefaults to \"Equivalent\"",
+22c22
+<       "description": "ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything."
+---
+>       "description": "ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything."
+25c25
+<       "description": "ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.",
+---
+>       "description": "ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.",
+diff 1.32orig/defs/io.k8s.api.apps.v1.DeploymentStatus.json 1.33orig/defs/io.k8s.api.apps.v1.DeploymentStatus.json
+5c5
+<       "description": "Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.",
+---
+>       "description": "Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.",
+33c33
+<       "description": "readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.",
+---
+>       "description": "Total number of non-terminating pods targeted by this Deployment with a Ready Condition.",
+38c38,43
+<       "description": "Total number of non-terminated pods targeted by this deployment (their labels match the selector).",
+---
+>       "description": "Total number of non-terminating pods targeted by this deployment (their labels match the selector).",
+>       "format": "int32",
+>       "type": "integer"
+>     },
+>     "terminatingReplicas": {
+>       "description": "Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.\n\nThis is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.",
+48c53
+<       "description": "Total number of non-terminated pods targeted by this deployment that have the desired template spec.",
+---
+>       "description": "Total number of non-terminating pods targeted by this deployment that have the desired template spec.",
+diff 1.32orig/defs/io.k8s.api.apps.v1.ReplicaSetList.json 1.33orig/defs/io.k8s.api.apps.v1.ReplicaSetList.json
+12c12
+<       "description": "List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller",
+---
+>       "description": "List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset",
+diff 1.32orig/defs/io.k8s.api.apps.v1.ReplicaSetSpec.json 1.33orig/defs/io.k8s.api.apps.v1.ReplicaSetSpec.json
+10c10
+<       "description": "Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller",
+---
+>       "description": "Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset",
+20c20
+<       "description": "Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template"
+---
+>       "description": "Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template"
+diff 1.32orig/defs/io.k8s.api.apps.v1.ReplicaSetStatus.json 1.33orig/defs/io.k8s.api.apps.v1.ReplicaSetStatus.json
+5c5
+<       "description": "The number of available replicas (ready for at least minReadySeconds) for this replica set.",
+---
+>       "description": "The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.",
+23c23
+<       "description": "The number of pods that have labels matching the labels of the pod template of the replicaset.",
+---
+>       "description": "The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.",
+33c33
+<       "description": "readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.",
+---
+>       "description": "The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.",
+38c38,43
+<       "description": "Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller",
+---
+>       "description": "Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset",
+>       "format": "int32",
+>       "type": "integer"
+>     },
+>     "terminatingReplicas": {
+>       "description": "The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.\n\nThis is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.",
+diff 1.32orig/defs/io.k8s.api.apps.v1.StatefulSetSpec.json 1.33orig/defs/io.k8s.api.apps.v1.StatefulSetSpec.json
+58,59c58
+<     "template",
+<     "serviceName"
+---
+>     "template"
+Only in 1.32orig/defs: io.k8s.api.authentication.v1beta1.SelfSubjectReview.json
+Only in 1.32orig/defs: io.k8s.api.authentication.v1beta1.SelfSubjectReviewStatus.json
+diff 1.32orig/defs/io.k8s.api.autoscaling.v2.HPAScalingRules.json 1.33orig/defs/io.k8s.api.autoscaling.v2.HPAScalingRules.json
+2c2
+<   "description": "HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.",
+---
+>   "description": "HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.\n\nScaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.\n\nThe tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)",
+5c5
+<       "description": "policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid",
+---
+>       "description": "policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.",
+19a20,23
+>     },
+>     "tolerance": {
+>       "$ref": "#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity",
+>       "description": "tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).\n\nFor example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.\n\nThis is an alpha field and requires enabling the HPAConfigurableTolerance feature gate."
+diff 1.32orig/defs/io.k8s.api.batch.v1.JobSpec.json 1.33orig/defs/io.k8s.api.batch.v1.JobSpec.json
+15c15
+<       "description": "Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).",
+---
+>       "description": "Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.",
+37c37
+<       "description": "Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).",
+---
+>       "description": "Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.",
+60c60
+<       "description": "successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.\n\nThis field is beta-level. To use this field, you must enable the `JobSuccessPolicy` feature gate (enabled by default)."
+---
+>       "description": "successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated."
+diff 1.32orig/defs/io.k8s.api.batch.v1.JobStatus.json 1.33orig/defs/io.k8s.api.batch.v1.JobStatus.json
+33c33
+<       "description": "FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as \"1,3-5,7\". The set of failed indexes cannot overlap with the set of completed indexes.\n\nThis field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).",
+---
+>       "description": "FailedIndexes holds the failed indexes when spec.backoffLimitPerIndex is set. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as \"1,3-5,7\". The set of failed indexes cannot overlap with the set of completed indexes.",
+diff 1.32orig/defs/io.k8s.api.batch.v1.PodFailurePolicyRule.json 1.33orig/defs/io.k8s.api.batch.v1.PodFailurePolicyRule.json
+5c5
+<       "description": "Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:\n\n- FailJob: indicates that the pod's job is marked as Failed and all\n  running pods are terminated.\n- FailIndex: indicates that the pod's index is marked as Failed and will\n  not be restarted.\n  This value is beta-level. It can be used when the\n  `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).\n- Ignore: indicates that the counter towards the .backoffLimit is not\n  incremented and a replacement pod is created.\n- Count: indicates that the pod is handled in the default way - the\n  counter towards the .backoffLimit is incremented.\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+---
+>       "description": "Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:\n\n- FailJob: indicates that the pod's job is marked as Failed and all\n  running pods are terminated.\n- FailIndex: indicates that the pod's index is marked as Failed and will\n  not be restarted.\n- Ignore: indicates that the counter towards the .backoffLimit is not\n  incremented and a replacement pod is created.\n- Count: indicates that the pod is handled in the default way - the\n  counter towards the .backoffLimit is incremented.\nAdditional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.",
+Only in 1.33orig/defs: io.k8s.api.certificates.v1beta1.ClusterTrustBundle.json
+Only in 1.33orig/defs: io.k8s.api.certificates.v1beta1.ClusterTrustBundleList.json
+Only in 1.33orig/defs: io.k8s.api.certificates.v1beta1.ClusterTrustBundleSpec.json
+diff 1.32orig/defs/io.k8s.api.coordination.v1alpha2.LeaseCandidateSpec.json 1.33orig/defs/io.k8s.api.coordination.v1alpha2.LeaseCandidateSpec.json
+25c25
+<       "description": "Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.",
+---
+>       "description": "Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.",
+Only in 1.33orig/defs: io.k8s.api.coordination.v1beta1.LeaseCandidate.json
+Only in 1.33orig/defs: io.k8s.api.coordination.v1beta1.LeaseCandidateList.json
+Only in 1.33orig/defs: io.k8s.api.coordination.v1beta1.LeaseCandidateSpec.json
+diff 1.32orig/defs/io.k8s.api.core.v1.ContainerStatus.json 1.33orig/defs/io.k8s.api.core.v1.ContainerStatus.json
+64a65,68
+>     "stopSignal": {
+>       "description": "StopSignal reports the effective stop signal for this container",
+>       "type": "string"
+>     },
+diff 1.32orig/defs/io.k8s.api.core.v1.EndpointAddress.json 1.33orig/defs/io.k8s.api.core.v1.EndpointAddress.json
+2c2
+<   "description": "EndpointAddress is a tuple that describes single IP address.",
+---
+>   "description": "EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.",
+diff 1.32orig/defs/io.k8s.api.core.v1.EndpointPort.json 1.33orig/defs/io.k8s.api.core.v1.EndpointPort.json
+2c2
+<   "description": "EndpointPort is a tuple that describes a single port.",
+---
+>   "description": "EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.",
+diff 1.32orig/defs/io.k8s.api.core.v1.EndpointSubset.json 1.33orig/defs/io.k8s.api.core.v1.EndpointSubset.json
+2c2
+<   "description": "EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:\n\n\t{\n\t  Addresses: [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n\t  Ports:     [{\"name\": \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n\t}\n\nThe resulting set of endpoints can be viewed as:\n\n\ta: [ 10.10.1.1:8675, 10.10.2.2:8675 ],\n\tb: [ 10.10.1.1:309, 10.10.2.2:309 ]",
+---
+>   "description": "EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:\n\n\t{\n\t  Addresses: [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n\t  Ports:     [{\"name\": \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n\t}\n\nThe resulting set of endpoints can be viewed as:\n\n\ta: [ 10.10.1.1:8675, 10.10.2.2:8675 ],\n\tb: [ 10.10.1.1:309, 10.10.2.2:309 ]\n\nDeprecated: This API is deprecated in v1.33+.",
+diff 1.32orig/defs/io.k8s.api.core.v1.Endpoints.json 1.33orig/defs/io.k8s.api.core.v1.Endpoints.json
+2c2
+<   "description": "Endpoints is a collection of endpoints that implement the actual service. Example:\n\n\t Name: \"mysvc\",\n\t Subsets: [\n\t   {\n\t     Addresses: [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n\t     Ports: [{\"name\": \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n\t   },\n\t   {\n\t     Addresses: [{\"ip\": \"10.10.3.3\"}],\n\t     Ports: [{\"name\": \"a\", \"port\": 93}, {\"name\": \"b\", \"port\": 76}]\n\t   },\n\t]",
+---
+>   "description": "Endpoints is a collection of endpoints that implement the actual service. Example:\n\n\t Name: \"mysvc\",\n\t Subsets: [\n\t   {\n\t     Addresses: [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n\t     Ports: [{\"name\": \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n\t   },\n\t   {\n\t     Addresses: [{\"ip\": \"10.10.3.3\"}],\n\t     Ports: [{\"name\": \"a\", \"port\": 93}, {\"name\": \"b\", \"port\": 76}]\n\t   },\n\t]\n\nEndpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.\n\nDeprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.",
+diff 1.32orig/defs/io.k8s.api.core.v1.EndpointsList.json 1.33orig/defs/io.k8s.api.core.v1.EndpointsList.json
+2c2
+<   "description": "EndpointsList is a list of endpoints.",
+---
+>   "description": "EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.",
+diff 1.32orig/defs/io.k8s.api.core.v1.EnvFromSource.json 1.33orig/defs/io.k8s.api.core.v1.EnvFromSource.json
+2c2
+<   "description": "EnvFromSource represents the source of a set of ConfigMaps",
+---
+>   "description": "EnvFromSource represents the source of a set of ConfigMaps or Secrets",
+9c9
+<       "description": "An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.",
+---
+>       "description": "Optional text to prepend to the name of each environment variable. Must be a C_IDENTIFIER.",
+diff 1.32orig/defs/io.k8s.api.core.v1.Lifecycle.json 1.33orig/defs/io.k8s.api.core.v1.Lifecycle.json
+10a11,14
+>     },
+>     "stopSignal": {
+>       "description": "StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name",
+>       "type": "string"
+Only in 1.33orig/defs: io.k8s.api.core.v1.NodeSwapStatus.json
+diff 1.32orig/defs/io.k8s.api.core.v1.NodeSystemInfo.json 1.33orig/defs/io.k8s.api.core.v1.NodeSystemInfo.json
+39a40,43
+>     "swap": {
+>       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSwapStatus",
+>       "description": "Swap Info reported by the node."
+>     },
+diff 1.32orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json 1.33orig/defs/io.k8s.api.core.v1.PodAffinityTerm.json
+9c9
+<       "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).",
+---
+>       "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.",
+17c17
+<       "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).",
+---
+>       "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.",
+diff 1.32orig/defs/io.k8s.api.core.v1.PodCondition.json 1.33orig/defs/io.k8s.api.core.v1.PodCondition.json
+15a16,20
+>     "observedGeneration": {
+>       "description": "If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.",
+>       "format": "int64",
+>       "type": "integer"
+>     },
+diff 1.32orig/defs/io.k8s.api.core.v1.PodSpec.json 1.33orig/defs/io.k8s.api.core.v1.PodSpec.json
+102c102
+<       "description": "List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/",
+---
+>       "description": "List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/",
+diff 1.32orig/defs/io.k8s.api.core.v1.PodStatus.json 1.33orig/defs/io.k8s.api.core.v1.PodStatus.json
+62a63,67
+>     "observedGeneration": {
+>       "description": "If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.",
+>       "format": "int64",
+>       "type": "integer"
+>     },
+93c98
+<       "description": "Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to \"Proposed\"",
+---
+>       "description": "Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to \"Proposed\" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.",
+diff 1.32orig/defs/io.k8s.api.core.v1.ServiceSpec.json 1.33orig/defs/io.k8s.api.core.v1.ServiceSpec.json
+108c108
+<       "description": "TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to \"PreferClose\", implementations should prioritize endpoints that are topologically close (e.g., same zone). This is a beta field and requires enabling ServiceTrafficDistribution feature.",
+---
+>       "description": "TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to \"PreferClose\", implementations should prioritize endpoints that are in the same zone.",
+diff 1.32orig/defs/io.k8s.api.core.v1.TopologySpreadConstraint.json 1.33orig/defs/io.k8s.api.core.v1.TopologySpreadConstraint.json
+27c27
+<       "description": "NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.",
+---
+>       "description": "NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.\n\nIf this value is nil, the behavior is equivalent to the Honor policy.",
+31c31
+<       "description": "NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.",
+---
+>       "description": "NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.\n\nIf this value is nil, the behavior is equivalent to the Ignore policy.",
+diff 1.32orig/defs/io.k8s.api.core.v1.Volume.json 1.33orig/defs/io.k8s.api.core.v1.Volume.json
+74c74
+<       "description": "image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:\n\n- Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.\n\nThe volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath). The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type."
+---
+>       "description": "image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:\n\n- Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.\n\nThe volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type."
+diff 1.32orig/defs/io.k8s.api.discovery.v1.Endpoint.json 1.33orig/defs/io.k8s.api.discovery.v1.Endpoint.json
+5c5
+<       "description": "addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267",
+---
+>       "description": "addresses of this endpoint. For EndpointSlices of addressType \"IPv4\" or \"IPv6\", the values are IP addresses in canonical form. The syntax and semantics of other addressType values are not defined. This must contain at least one address but no more than 100. EndpointSlices generated by the EndpointSlice controller will always have exactly 1 address. No semantics are defined for additional addresses beyond the first, and kube-proxy does not look at them.",
+diff 1.32orig/defs/io.k8s.api.discovery.v1.EndpointConditions.json 1.33orig/defs/io.k8s.api.discovery.v1.EndpointConditions.json
+5c5
+<       "description": "ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be \"true\" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.",
+---
+>       "description": "ready indicates that this endpoint is ready to receive traffic, according to whatever system is managing the endpoint. A nil value should be interpreted as \"true\". In general, an endpoint should be marked ready if it is serving and not terminating, though this can be overridden in some cases, such as when the associated Service has set the publishNotReadyAddresses flag.",
+9c9
+<       "description": "serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.",
+---
+>       "description": "serving indicates that this endpoint is able to receive traffic, according to whatever system is managing the endpoint. For endpoints backed by pods, the EndpointSlice controller will mark the endpoint as serving if the pod's Ready condition is True. A nil value should be interpreted as \"true\".",
+13c13
+<       "description": "terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.",
+---
+>       "description": "terminating indicates that this endpoint is terminating. A nil value should be interpreted as \"false\".",
+diff 1.32orig/defs/io.k8s.api.discovery.v1.EndpointHints.json 1.33orig/defs/io.k8s.api.discovery.v1.EndpointHints.json
+3a4,11
+>     "forNodes": {
+>       "description": "forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.discovery.v1.ForNode"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+5c13
+<       "description": "forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.",
+---
+>       "description": "forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.",
+diff 1.32orig/defs/io.k8s.api.discovery.v1.EndpointPort.json 1.33orig/defs/io.k8s.api.discovery.v1.EndpointPort.json
+13c13
+<       "description": "port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.",
+---
+>       "description": "port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.",
+diff 1.32orig/defs/io.k8s.api.discovery.v1.EndpointSlice.json 1.33orig/defs/io.k8s.api.discovery.v1.EndpointSlice.json
+2c2
+<   "description": "EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.",
+---
+>   "description": "EndpointSlice represents a set of service endpoints. Most EndpointSlices are created by the EndpointSlice controller to represent the Pods selected by Service objects. For a given service there may be multiple EndpointSlice objects which must be joined to produce the full set of endpoints; you can find all of the slices for a given service by listing EndpointSlices in the service's namespace whose `kubernetes.io/service-name` label contains the service's name.",
+5c5
+<       "description": "addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.",
+---
+>       "description": "addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name. (Deprecated) The EndpointSlice controller only generates, and kube-proxy only processes, slices of addressType \"IPv4\" and \"IPv6\". No semantics are defined for the \"FQDN\" type.",
+35c35
+<       "description": "ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates \"all ports\". Each slice may include a maximum of 100 ports.",
+---
+>       "description": "ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. Each slice may include a maximum of 100 ports. Services always have at least 1 port, so EndpointSlices generated by the EndpointSlice controller will likewise always have at least 1 port. EndpointSlices used for other purposes may have an empty ports list.",
+Only in 1.33orig/defs: io.k8s.api.discovery.v1.ForNode.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.IPAddress.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.IPAddressList.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.IPAddressSpec.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.ParentReference.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.ServiceCIDR.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.ServiceCIDRList.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.ServiceCIDRSpec.json
+Only in 1.33orig/defs: io.k8s.api.networking.v1.ServiceCIDRStatus.json
+diff 1.32orig/defs/io.k8s.api.policy.v1.PodDisruptionBudgetSpec.json 1.33orig/defs/io.k8s.api.policy.v1.PodDisruptionBudgetSpec.json
+18c18
+<       "description": "UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=\"Ready\",status=\"True\".\n\nValid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.\n\nIfHealthyBudget policy means that running pods (status.phase=\"Running\"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.\n\nAlwaysAllow policy means that all running pods (status.phase=\"Running\"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.\n\nAdditional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.\n\nThis field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).",
+---
+>       "description": "UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=\"Ready\",status=\"True\".\n\nValid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.\n\nIfHealthyBudget policy means that running pods (status.phase=\"Running\"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.\n\nAlwaysAllow policy means that all running pods (status.phase=\"Running\"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.\n\nAdditional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.",
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.AllocatedDeviceStatus.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.AllocatedDeviceStatus.json
+5c5
+<       "description": "Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.",
+---
+>       "description": "Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.\n\nMust not contain more than 8 entries.",
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.BasicDevice.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.BasicDevice.json
+3a4,7
+>     "allNodes": {
+>       "description": "AllNodes indicates that all nodes have access to the device.\n\nMust only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.",
+>       "type": "boolean"
+>     },
+16a21,44
+>     },
+>     "consumesCounters": {
+>       "description": "ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.\n\nThere can only be a single entry per counterSet.\n\nThe total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.DeviceCounterConsumption"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+>     "nodeName": {
+>       "description": "NodeName identifies the node where the device is available.\n\nMust only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.",
+>       "type": "string"
+>     },
+>     "nodeSelector": {
+>       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector",
+>       "description": "NodeSelector defines the nodes where the device is available.\n\nMust only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set."
+>     },
+>     "taints": {
+>       "description": "If specified, these are the driver-defined taints.\n\nThe maximum number of taints is 4.\n\nThis is an alpha field and requires enabling the DRADeviceTaints feature gate.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.DeviceTaint"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.Counter.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.CounterSet.json
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.DeviceAllocationConfiguration.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.DeviceAllocationConfiguration.json
+9c9
+<       "description": "Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.",
+---
+>       "description": "Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.\n\nReferences to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.",
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.DeviceClaimConfiguration.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.DeviceClaimConfiguration.json
+9c9
+<       "description": "Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.",
+---
+>       "description": "Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.\n\nReferences to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.",
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.DeviceConstraint.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.DeviceConstraint.json
+9c9
+<       "description": "Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.",
+---
+>       "description": "Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.\n\nReferences to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.",
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceCounterConsumption.json
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.DeviceRequest.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.DeviceRequest.json
+2c2
+<   "description": "DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.\n\nA DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.",
+---
+>   "description": "DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.",
+5c5
+<       "description": "AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.\n\nThis is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.",
+---
+>       "description": "AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.\n\nThis is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.",
+9c9
+<       "description": "AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:\n\n- ExactCount: This request is for a specific number of devices.\n  This is the default. The exact number is provided in the\n  count field.\n\n- All: This request is for all of the matching devices in a pool.\n  Allocation will fail if some devices are already allocated,\n  unless adminAccess is requested.\n\nIf AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.\n\nMore modes may get added in the future. Clients must refuse to handle requests with unknown modes.",
+---
+>       "description": "AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:\n\n- ExactCount: This request is for a specific number of devices.\n  This is the default. The exact number is provided in the\n  count field.\n\n- All: This request is for all of the matching devices in a pool.\n  At least one device must exist on the node for the allocation to succeed.\n  Allocation will fail if some devices are already allocated,\n  unless adminAccess is requested.\n\nIf AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.\n\nMore modes may get added in the future. Clients must refuse to handle requests with unknown modes.",
+13c13
+<       "description": "Count is used only when the count mode is \"ExactCount\". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.",
+---
+>       "description": "Count is used only when the count mode is \"ExactCount\". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.",
+18c18
+<       "description": "DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.\n\nA class is required. Which classes are available depends on the cluster.\n\nAdministrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.",
+---
+>       "description": "DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.\n\nA class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.\n\nAdministrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.",
+20a21,28
+>     "firstAvailable": {
+>       "description": "FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.\n\nThis field may only be set in the entries of DeviceClaim.Requests.\n\nDRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.DeviceSubRequest"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+26c34
+<       "description": "Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.",
+---
+>       "description": "Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.",
+31a40,47
+>     },
+>     "tolerations": {
+>       "description": "If specified, the request's tolerations.\n\nTolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.\n\nIn addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.\n\nThe maximum number of tolerations is 16.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.\n\nThis is an alpha field and requires enabling the DRADeviceTaints feature gate.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.DeviceToleration"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+35,36c51
+<     "name",
+<     "deviceClassName"
+---
+>     "name"
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.DeviceRequestAllocationResult.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.DeviceRequestAllocationResult.json
+21c21
+<       "description": "Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.",
+---
+>       "description": "Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.\n\nMultiple devices may have been allocated per request.",
+22a23,30
+>     },
+>     "tolerations": {
+>       "description": "A copy of all tolerations specified in the request at the time when the device got allocated.\n\nThe maximum number of tolerations is 16.\n\nThis is an alpha field and requires enabling the DRADeviceTaints feature gate.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.DeviceToleration"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceSubRequest.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceTaint.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceTaintRule.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceTaintRuleList.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceTaintRuleSpec.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceTaintSelector.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1alpha3.DeviceToleration.json
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.NetworkDeviceData.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.NetworkDeviceData.json
+13c13
+<       "description": "IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: \"192.0.2.5/24\" for IPv4 and \"2001:db8::5/64\" for IPv6.",
+---
+>       "description": "IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: \"192.0.2.5/24\" for IPv4 and \"2001:db8::5/64\" for IPv6.\n\nMust not contain more than 16 entries.",
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.ResourceClaimStatus.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.ResourceClaimStatus.json
+22c22
+<       "description": "ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.\n\nIn a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.\n\nBoth schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.\n\nThere can be at most 32 such reservations. This may get increased in the future, but not reduced.",
+---
+>       "description": "ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.\n\nIn a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.\n\nBoth schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.\n\nThere can be at most 256 such reservations. This may get increased in the future, but not reduced.",
+diff 1.32orig/defs/io.k8s.api.resource.v1alpha3.ResourceSliceSpec.json 1.33orig/defs/io.k8s.api.resource.v1alpha3.ResourceSliceSpec.json
+5c5
+<       "description": "AllNodes indicates that all nodes have access to the resources in the pool.\n\nExactly one of NodeName, NodeSelector and AllNodes must be set.",
+---
+>       "description": "AllNodes indicates that all nodes have access to the resources in the pool.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.",
+21c21
+<       "description": "NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.\n\nThis field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.\n\nExactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.",
+---
+>       "description": "NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.\n\nThis field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.",
+26c26,30
+<       "description": "NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.\n\nMust use exactly one term.\n\nExactly one of NodeName, NodeSelector and AllNodes must be set."
+---
+>       "description": "NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.\n\nMust use exactly one term.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set."
+>     },
+>     "perDeviceNodeSelection": {
+>       "description": "PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.",
+>       "type": "boolean"
+30a35,42
+>     },
+>     "sharedCounters": {
+>       "description": "SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.\n\nThe names of the SharedCounters must be unique in the ResourceSlice.\n\nThe maximum number of SharedCounters is 32.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.CounterSet"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.AllocatedDeviceStatus.json 1.33orig/defs/io.k8s.api.resource.v1beta1.AllocatedDeviceStatus.json
+5c5
+<       "description": "Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.",
+---
+>       "description": "Conditions contains the latest observation of the device's state. If the device has been configured according to the class and claim config references, the `Ready` condition should be True.\n\nMust not contain more than 8 entries.",
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.BasicDevice.json 1.33orig/defs/io.k8s.api.resource.v1beta1.BasicDevice.json
+3a4,7
+>     "allNodes": {
+>       "description": "AllNodes indicates that all nodes have access to the device.\n\nMust only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.",
+>       "type": "boolean"
+>     },
+16a21,44
+>     },
+>     "consumesCounters": {
+>       "description": "ConsumesCounters defines a list of references to sharedCounters and the set of counters that the device will consume from those counter sets.\n\nThere can only be a single entry per counterSet.\n\nThe total number of device counter consumption entries must be <= 32. In addition, the total number in the entire ResourceSlice must be <= 1024 (for example, 64 devices with 16 counters each).",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1beta1.DeviceCounterConsumption"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+>     "nodeName": {
+>       "description": "NodeName identifies the node where the device is available.\n\nMust only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.",
+>       "type": "string"
+>     },
+>     "nodeSelector": {
+>       "$ref": "#/definitions/io.k8s.api.core.v1.NodeSelector",
+>       "description": "NodeSelector defines the nodes where the device is available.\n\nMust use exactly one term.\n\nMust only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set."
+>     },
+>     "taints": {
+>       "description": "If specified, these are the driver-defined taints.\n\nThe maximum number of taints is 4.\n\nThis is an alpha field and requires enabling the DRADeviceTaints feature gate.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1beta1.DeviceTaint"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta1.Counter.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta1.CounterSet.json
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.DeviceAllocationConfiguration.json 1.33orig/defs/io.k8s.api.resource.v1beta1.DeviceAllocationConfiguration.json
+9c9
+<       "description": "Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.",
+---
+>       "description": "Requests lists the names of requests where the configuration applies. If empty, its applies to all requests.\n\nReferences to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.",
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.DeviceClaimConfiguration.json 1.33orig/defs/io.k8s.api.resource.v1beta1.DeviceClaimConfiguration.json
+9c9
+<       "description": "Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.",
+---
+>       "description": "Requests lists the names of requests where the configuration applies. If empty, it applies to all requests.\n\nReferences to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the configuration applies to all subrequests.",
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.DeviceConstraint.json 1.33orig/defs/io.k8s.api.resource.v1beta1.DeviceConstraint.json
+9c9
+<       "description": "Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.",
+---
+>       "description": "Requests is a list of the one or more requests in this claim which must co-satisfy this constraint. If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint. If this is not specified, this constraint applies to all requests in this claim.\n\nReferences to subrequests must include the name of the main request and may include the subrequest using the format <main request>[/<subrequest>]. If just the main request is given, the constraint applies to all subrequests.",
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta1.DeviceCounterConsumption.json
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.DeviceRequest.json 1.33orig/defs/io.k8s.api.resource.v1beta1.DeviceRequest.json
+2c2
+<   "description": "DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.\n\nA DeviceClassName is currently required. Clients must check that it is indeed set. It's absence indicates that something changed in a way that is not supported by the client yet, in which case it must refuse to handle the request.",
+---
+>   "description": "DeviceRequest is a request for devices required for a claim. This is typically a request for a single resource like a device, but can also ask for several identical devices.",
+5c5
+<       "description": "AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.\n\nThis is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.",
+---
+>       "description": "AdminAccess indicates that this is a claim for administrative access to the device(s). Claims with AdminAccess are expected to be used for monitoring or other management services for a device.  They ignore all ordinary claims to the device with respect to access modes and any resource allocations.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.\n\nThis is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.",
+9c9
+<       "description": "AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:\n\n- ExactCount: This request is for a specific number of devices.\n  This is the default. The exact number is provided in the\n  count field.\n\n- All: This request is for all of the matching devices in a pool.\n  Allocation will fail if some devices are already allocated,\n  unless adminAccess is requested.\n\nIf AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.\n\nMore modes may get added in the future. Clients must refuse to handle requests with unknown modes.",
+---
+>       "description": "AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:\n\n- ExactCount: This request is for a specific number of devices.\n  This is the default. The exact number is provided in the\n  count field.\n\n- All: This request is for all of the matching devices in a pool.\n  At least one device must exist on the node for the allocation to succeed.\n  Allocation will fail if some devices are already allocated,\n  unless adminAccess is requested.\n\nIf AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.\n\nMore modes may get added in the future. Clients must refuse to handle requests with unknown modes.",
+13c13
+<       "description": "Count is used only when the count mode is \"ExactCount\". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.",
+---
+>       "description": "Count is used only when the count mode is \"ExactCount\". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.",
+18c18
+<       "description": "DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.\n\nA class is required. Which classes are available depends on the cluster.\n\nAdministrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.",
+---
+>       "description": "DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.\n\nA class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.\n\nAdministrators may use this to restrict which devices may get requested by only installing classes with selectors for permitted devices. If users are free to request anything without restrictions, then administrators can create an empty DeviceClass for users to reference.",
+20a21,28
+>     "firstAvailable": {
+>       "description": "FirstAvailable contains subrequests, of which exactly one will be satisfied by the scheduler to satisfy this request. It tries to satisfy them in the order in which they are listed here. So if there are two entries in the list, the scheduler will only check the second one if it determines that the first one cannot be used.\n\nThis field may only be set in the entries of DeviceClaim.Requests.\n\nDRA does not yet implement scoring, so the scheduler will select the first set of devices that satisfies all the requests in the claim. And if the requirements can be satisfied on more than one node, other scheduling features will determine which node is chosen. This means that the set of devices allocated to a claim might not be the optimal set available to the cluster. Scoring will be implemented later.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1beta1.DeviceSubRequest"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+>     },
+22c30
+<       "description": "Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.\n\nMust be a DNS label.",
+---
+>       "description": "Name can be used to reference this request in a pod.spec.containers[].resources.claims entry and in a constraint of the claim.\n\nMust be a DNS label and unique among all DeviceRequests in a ResourceClaim.",
+26c34
+<       "description": "Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.",
+---
+>       "description": "Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.",
+31a40,47
+>     },
+>     "tolerations": {
+>       "description": "If specified, the request's tolerations.\n\nTolerations for NoSchedule are required to allocate a device which has a taint with that effect. The same applies to NoExecute.\n\nIn addition, should any of the allocated devices get tainted with NoExecute after allocation and that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them. The scheduler will not let new pods reserve the claim while it has these tainted devices. Once all pods are evicted, the claim will get deallocated.\n\nThe maximum number of tolerations is 16.\n\nThis field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.\n\nThis is an alpha field and requires enabling the DRADeviceTaints feature gate.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1beta1.DeviceToleration"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+35,36c51
+<     "name",
+<     "deviceClassName"
+---
+>     "name"
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.DeviceRequestAllocationResult.json 1.33orig/defs/io.k8s.api.resource.v1beta1.DeviceRequestAllocationResult.json
+21c21
+<       "description": "Request is the name of the request in the claim which caused this device to be allocated. Multiple devices may have been allocated per request.",
+---
+>       "description": "Request is the name of the request in the claim which caused this device to be allocated. If it references a subrequest in the firstAvailable list on a DeviceRequest, this field must include both the name of the main request and the subrequest using the format <main request>/<subrequest>.\n\nMultiple devices may have been allocated per request.",
+22a23,30
+>     },
+>     "tolerations": {
+>       "description": "A copy of all tolerations specified in the request at the time when the device got allocated.\n\nThe maximum number of tolerations is 16.\n\nThis is an alpha field and requires enabling the DRADeviceTaints feature gate.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1beta1.DeviceToleration"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta1.DeviceSubRequest.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta1.DeviceTaint.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta1.DeviceToleration.json
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.NetworkDeviceData.json 1.33orig/defs/io.k8s.api.resource.v1beta1.NetworkDeviceData.json
+13c13
+<       "description": "IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: \"192.0.2.5/24\" for IPv4 and \"2001:db8::5/64\" for IPv6.",
+---
+>       "description": "IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: \"192.0.2.5/24\" for IPv4 and \"2001:db8::5/64\" for IPv6.\n\nMust not contain more than 16 entries.",
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.ResourceClaimStatus.json 1.33orig/defs/io.k8s.api.resource.v1beta1.ResourceClaimStatus.json
+22c22
+<       "description": "ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.\n\nIn a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.\n\nBoth schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.\n\nThere can be at most 32 such reservations. This may get increased in the future, but not reduced.",
+---
+>       "description": "ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.\n\nIn a cluster with multiple scheduler instances, two pods might get scheduled concurrently by different schedulers. When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one pod can be scheduled.\n\nBoth schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.\n\nThere can be at most 256 such reservations. This may get increased in the future, but not reduced.",
+diff 1.32orig/defs/io.k8s.api.resource.v1beta1.ResourceSliceSpec.json 1.33orig/defs/io.k8s.api.resource.v1beta1.ResourceSliceSpec.json
+5c5
+<       "description": "AllNodes indicates that all nodes have access to the resources in the pool.\n\nExactly one of NodeName, NodeSelector and AllNodes must be set.",
+---
+>       "description": "AllNodes indicates that all nodes have access to the resources in the pool.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.",
+21c21
+<       "description": "NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.\n\nThis field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.\n\nExactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.",
+---
+>       "description": "NodeName identifies the node which provides the resources in this pool. A field selector can be used to list only ResourceSlice objects belonging to a certain node.\n\nThis field can be used to limit access from nodes to ResourceSlices with the same node name. It also indicates to autoscalers that adding new nodes of the same type as some old node might also make new resources available.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set. This field is immutable.",
+26c26,30
+<       "description": "NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.\n\nMust use exactly one term.\n\nExactly one of NodeName, NodeSelector and AllNodes must be set."
+---
+>       "description": "NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.\n\nMust use exactly one term.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set."
+>     },
+>     "perDeviceNodeSelection": {
+>       "description": "PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.\n\nExactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.",
+>       "type": "boolean"
+30a35,42
+>     },
+>     "sharedCounters": {
+>       "description": "SharedCounters defines a list of counter sets, each of which has a name and a list of counters available.\n\nThe names of the SharedCounters must be unique in the ResourceSlice.\n\nThe maximum number of SharedCounters is 32.",
+>       "items": {
+>         "$ref": "#/definitions/io.k8s.api.resource.v1beta1.CounterSet"
+>       },
+>       "type": "array",
+>       "x-kubernetes-list-type": "atomic"
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.AllocatedDeviceStatus.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.AllocationResult.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.CELDeviceSelector.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.Counter.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.CounterSet.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.Device.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceAllocationConfiguration.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceAllocationResult.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceAttribute.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceCapacity.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceClaim.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceClaimConfiguration.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceClass.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceClassConfiguration.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceClassList.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceClassSpec.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceConstraint.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceCounterConsumption.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceRequest.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceRequestAllocationResult.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceSelector.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceSubRequest.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceTaint.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.DeviceToleration.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ExactDeviceRequest.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.NetworkDeviceData.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.OpaqueDeviceConfiguration.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaim.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimConsumerReference.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimList.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimSpec.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimStatus.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimTemplate.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimTemplateList.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceClaimTemplateSpec.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourcePool.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceSlice.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceSliceList.json
+Only in 1.33orig/defs: io.k8s.api.resource.v1beta2.ResourceSliceSpec.json
+diff 1.32orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json 1.33orig/defs/io.k8s.api.storage.v1.CSIDriverSpec.json
+11a12,16
+>     "nodeAllocatableUpdatePeriodSeconds": {
+>       "description": "nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.\n\nThis is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.\n\nThis field is mutable.",
+>       "format": "int64",
+>       "type": "integer"
+>     },
+diff 1.32orig/defs/io.k8s.api.storage.v1.VolumeError.json 1.33orig/defs/io.k8s.api.storage.v1.VolumeError.json
+3a4,8
+>     "errorCode": {
+>       "description": "errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.\n\nThis is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.",
+>       "format": "int32",
+>       "type": "integer"
+>     },
+diff 1.32orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json 1.33orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions.json
+314a315,319
+>       "group": "resource.k8s.io",
+>       "kind": "DeleteOptions",
+>       "version": "v1beta2"
+>     },
+>     {
+diff 1.32orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json 1.33orig/defs/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent.json
+288a289,293
+>       "group": "resource.k8s.io",
+>       "kind": "WatchEvent",
+>       "version": "v1beta2"
+>     },
+>     {
+diff 1.32orig/defs/io.k8s.apimachinery.pkg.version.Info.json 1.33orig/defs/io.k8s.apimachinery.pkg.version.Info.json
+9a10,17
+>     "emulationMajor": {
+>       "description": "EmulationMajor is the major version of the emulation version",
+>       "type": "string"
+>     },
+>     "emulationMinor": {
+>       "description": "EmulationMinor is the minor version of the emulation version",
+>       "type": "string"
+>     },
+22a31,39
+>       "description": "Major is the major version of the binary version",
+>       "type": "string"
+>     },
+>     "minCompatibilityMajor": {
+>       "description": "MinCompatibilityMajor is the major version of the minimum compatibility version",
+>       "type": "string"
+>     },
+>     "minCompatibilityMinor": {
+>       "description": "MinCompatibilityMinor is the minor version of the minimum compatibility version",
+25a43
+>       "description": "Minor is the minor version of the binary version",
+Only in 1.32orig/ops: createAuthenticationV1beta1SelfSubjectReview.json
+Only in 1.33orig/ops: createCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: createCoordinationV1beta1NamespacedLeaseCandidate.json
+Only in 1.33orig/ops: createNetworkingV1IPAddress.json
+Only in 1.33orig/ops: createNetworkingV1ServiceCIDR.json
+Only in 1.33orig/ops: createResourceV1alpha3DeviceTaintRule.json
+Only in 1.33orig/ops: createResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: createResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: createResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: createResourceV1beta2ResourceSlice.json
+diff 1.32orig/ops/deleteAdmissionregistrationV1CollectionMutatingWebhookConfiguration.json 1.33orig/ops/deleteAdmissionregistrationV1CollectionMutatingWebhookConfiguration.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1CollectionValidatingAdmissionPolicy.json 1.33orig/ops/deleteAdmissionregistrationV1CollectionValidatingAdmissionPolicy.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1CollectionValidatingAdmissionPolicyBinding.json 1.33orig/ops/deleteAdmissionregistrationV1CollectionValidatingAdmissionPolicyBinding.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1CollectionValidatingWebhookConfiguration.json 1.33orig/ops/deleteAdmissionregistrationV1CollectionValidatingWebhookConfiguration.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1MutatingWebhookConfiguration.json 1.33orig/ops/deleteAdmissionregistrationV1MutatingWebhookConfiguration.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1ValidatingAdmissionPolicy.json 1.33orig/ops/deleteAdmissionregistrationV1ValidatingAdmissionPolicy.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1ValidatingAdmissionPolicyBinding.json 1.33orig/ops/deleteAdmissionregistrationV1ValidatingAdmissionPolicyBinding.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1ValidatingWebhookConfiguration.json 1.33orig/ops/deleteAdmissionregistrationV1ValidatingWebhookConfiguration.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1alpha1CollectionMutatingAdmissionPolicy.json 1.33orig/ops/deleteAdmissionregistrationV1alpha1CollectionMutatingAdmissionPolicy.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1alpha1CollectionMutatingAdmissionPolicyBinding.json 1.33orig/ops/deleteAdmissionregistrationV1alpha1CollectionMutatingAdmissionPolicyBinding.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1alpha1MutatingAdmissionPolicy.json 1.33orig/ops/deleteAdmissionregistrationV1alpha1MutatingAdmissionPolicy.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1alpha1MutatingAdmissionPolicyBinding.json 1.33orig/ops/deleteAdmissionregistrationV1alpha1MutatingAdmissionPolicyBinding.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1beta1CollectionValidatingAdmissionPolicy.json 1.33orig/ops/deleteAdmissionregistrationV1beta1CollectionValidatingAdmissionPolicy.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1beta1CollectionValidatingAdmissionPolicyBinding.json 1.33orig/ops/deleteAdmissionregistrationV1beta1CollectionValidatingAdmissionPolicyBinding.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json 1.33orig/ops/deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicy.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json 1.33orig/ops/deleteAdmissionregistrationV1beta1ValidatingAdmissionPolicyBinding.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteApiextensionsV1CollectionCustomResourceDefinition.json 1.33orig/ops/deleteApiextensionsV1CollectionCustomResourceDefinition.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteApiextensionsV1CustomResourceDefinition.json 1.33orig/ops/deleteApiextensionsV1CustomResourceDefinition.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteApiregistrationV1APIService.json 1.33orig/ops/deleteApiregistrationV1APIService.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteApiregistrationV1CollectionAPIService.json 1.33orig/ops/deleteApiregistrationV1CollectionAPIService.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1CollectionNamespacedControllerRevision.json 1.33orig/ops/deleteAppsV1CollectionNamespacedControllerRevision.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1CollectionNamespacedDaemonSet.json 1.33orig/ops/deleteAppsV1CollectionNamespacedDaemonSet.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1CollectionNamespacedDeployment.json 1.33orig/ops/deleteAppsV1CollectionNamespacedDeployment.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1CollectionNamespacedReplicaSet.json 1.33orig/ops/deleteAppsV1CollectionNamespacedReplicaSet.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1CollectionNamespacedStatefulSet.json 1.33orig/ops/deleteAppsV1CollectionNamespacedStatefulSet.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1NamespacedControllerRevision.json 1.33orig/ops/deleteAppsV1NamespacedControllerRevision.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1NamespacedDaemonSet.json 1.33orig/ops/deleteAppsV1NamespacedDaemonSet.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1NamespacedDeployment.json 1.33orig/ops/deleteAppsV1NamespacedDeployment.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1NamespacedReplicaSet.json 1.33orig/ops/deleteAppsV1NamespacedReplicaSet.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAppsV1NamespacedStatefulSet.json 1.33orig/ops/deleteAppsV1NamespacedStatefulSet.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAutoscalingV1CollectionNamespacedHorizontalPodAutoscaler.json 1.33orig/ops/deleteAutoscalingV1CollectionNamespacedHorizontalPodAutoscaler.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAutoscalingV1NamespacedHorizontalPodAutoscaler.json 1.33orig/ops/deleteAutoscalingV1NamespacedHorizontalPodAutoscaler.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAutoscalingV2CollectionNamespacedHorizontalPodAutoscaler.json 1.33orig/ops/deleteAutoscalingV2CollectionNamespacedHorizontalPodAutoscaler.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteAutoscalingV2NamespacedHorizontalPodAutoscaler.json 1.33orig/ops/deleteAutoscalingV2NamespacedHorizontalPodAutoscaler.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteBatchV1CollectionNamespacedCronJob.json 1.33orig/ops/deleteBatchV1CollectionNamespacedCronJob.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteBatchV1CollectionNamespacedJob.json 1.33orig/ops/deleteBatchV1CollectionNamespacedJob.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteBatchV1NamespacedCronJob.json 1.33orig/ops/deleteBatchV1NamespacedCronJob.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteBatchV1NamespacedJob.json 1.33orig/ops/deleteBatchV1NamespacedJob.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCertificatesV1CertificateSigningRequest.json 1.33orig/ops/deleteCertificatesV1CertificateSigningRequest.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCertificatesV1CollectionCertificateSigningRequest.json 1.33orig/ops/deleteCertificatesV1CollectionCertificateSigningRequest.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCertificatesV1alpha1ClusterTrustBundle.json 1.33orig/ops/deleteCertificatesV1alpha1ClusterTrustBundle.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCertificatesV1alpha1CollectionClusterTrustBundle.json 1.33orig/ops/deleteCertificatesV1alpha1CollectionClusterTrustBundle.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: deleteCertificatesV1beta1CollectionClusterTrustBundle.json
+diff 1.32orig/ops/deleteCoordinationV1CollectionNamespacedLease.json 1.33orig/ops/deleteCoordinationV1CollectionNamespacedLease.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoordinationV1NamespacedLease.json 1.33orig/ops/deleteCoordinationV1NamespacedLease.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoordinationV1alpha2CollectionNamespacedLeaseCandidate.json 1.33orig/ops/deleteCoordinationV1alpha2CollectionNamespacedLeaseCandidate.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoordinationV1alpha2NamespacedLeaseCandidate.json 1.33orig/ops/deleteCoordinationV1alpha2NamespacedLeaseCandidate.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteCoordinationV1beta1CollectionNamespacedLeaseCandidate.json
+Only in 1.33orig/ops: deleteCoordinationV1beta1NamespacedLeaseCandidate.json
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedConfigMap.json 1.33orig/ops/deleteCoreV1CollectionNamespacedConfigMap.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedEndpoints.json 1.33orig/ops/deleteCoreV1CollectionNamespacedEndpoints.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedEvent.json 1.33orig/ops/deleteCoreV1CollectionNamespacedEvent.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedLimitRange.json 1.33orig/ops/deleteCoreV1CollectionNamespacedLimitRange.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedPersistentVolumeClaim.json 1.33orig/ops/deleteCoreV1CollectionNamespacedPersistentVolumeClaim.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedPod.json 1.33orig/ops/deleteCoreV1CollectionNamespacedPod.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedPodTemplate.json 1.33orig/ops/deleteCoreV1CollectionNamespacedPodTemplate.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedReplicationController.json 1.33orig/ops/deleteCoreV1CollectionNamespacedReplicationController.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedResourceQuota.json 1.33orig/ops/deleteCoreV1CollectionNamespacedResourceQuota.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedSecret.json 1.33orig/ops/deleteCoreV1CollectionNamespacedSecret.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedService.json 1.33orig/ops/deleteCoreV1CollectionNamespacedService.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNamespacedServiceAccount.json 1.33orig/ops/deleteCoreV1CollectionNamespacedServiceAccount.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionNode.json 1.33orig/ops/deleteCoreV1CollectionNode.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1CollectionPersistentVolume.json 1.33orig/ops/deleteCoreV1CollectionPersistentVolume.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1Namespace.json 1.33orig/ops/deleteCoreV1Namespace.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedConfigMap.json 1.33orig/ops/deleteCoreV1NamespacedConfigMap.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedEndpoints.json 1.33orig/ops/deleteCoreV1NamespacedEndpoints.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedEvent.json 1.33orig/ops/deleteCoreV1NamespacedEvent.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedLimitRange.json 1.33orig/ops/deleteCoreV1NamespacedLimitRange.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedPersistentVolumeClaim.json 1.33orig/ops/deleteCoreV1NamespacedPersistentVolumeClaim.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedPod.json 1.33orig/ops/deleteCoreV1NamespacedPod.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedPodTemplate.json 1.33orig/ops/deleteCoreV1NamespacedPodTemplate.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedReplicationController.json 1.33orig/ops/deleteCoreV1NamespacedReplicationController.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedResourceQuota.json 1.33orig/ops/deleteCoreV1NamespacedResourceQuota.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedSecret.json 1.33orig/ops/deleteCoreV1NamespacedSecret.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedService.json 1.33orig/ops/deleteCoreV1NamespacedService.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1NamespacedServiceAccount.json 1.33orig/ops/deleteCoreV1NamespacedServiceAccount.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1Node.json 1.33orig/ops/deleteCoreV1Node.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteCoreV1PersistentVolume.json 1.33orig/ops/deleteCoreV1PersistentVolume.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteDiscoveryV1CollectionNamespacedEndpointSlice.json 1.33orig/ops/deleteDiscoveryV1CollectionNamespacedEndpointSlice.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteDiscoveryV1NamespacedEndpointSlice.json 1.33orig/ops/deleteDiscoveryV1NamespacedEndpointSlice.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteEventsV1CollectionNamespacedEvent.json 1.33orig/ops/deleteEventsV1CollectionNamespacedEvent.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteEventsV1NamespacedEvent.json 1.33orig/ops/deleteEventsV1NamespacedEvent.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteFlowcontrolApiserverV1CollectionFlowSchema.json 1.33orig/ops/deleteFlowcontrolApiserverV1CollectionFlowSchema.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteFlowcontrolApiserverV1CollectionPriorityLevelConfiguration.json 1.33orig/ops/deleteFlowcontrolApiserverV1CollectionPriorityLevelConfiguration.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteFlowcontrolApiserverV1FlowSchema.json 1.33orig/ops/deleteFlowcontrolApiserverV1FlowSchema.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteFlowcontrolApiserverV1PriorityLevelConfiguration.json 1.33orig/ops/deleteFlowcontrolApiserverV1PriorityLevelConfiguration.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteInternalApiserverV1alpha1CollectionStorageVersion.json 1.33orig/ops/deleteInternalApiserverV1alpha1CollectionStorageVersion.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteInternalApiserverV1alpha1StorageVersion.json 1.33orig/ops/deleteInternalApiserverV1alpha1StorageVersion.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteNetworkingV1CollectionIPAddress.json
+diff 1.32orig/ops/deleteNetworkingV1CollectionIngressClass.json 1.33orig/ops/deleteNetworkingV1CollectionIngressClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1CollectionNamespacedIngress.json 1.33orig/ops/deleteNetworkingV1CollectionNamespacedIngress.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1CollectionNamespacedNetworkPolicy.json 1.33orig/ops/deleteNetworkingV1CollectionNamespacedNetworkPolicy.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteNetworkingV1CollectionServiceCIDR.json
+Only in 1.33orig/ops: deleteNetworkingV1IPAddress.json
+diff 1.32orig/ops/deleteNetworkingV1IngressClass.json 1.33orig/ops/deleteNetworkingV1IngressClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1NamespacedIngress.json 1.33orig/ops/deleteNetworkingV1NamespacedIngress.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1NamespacedNetworkPolicy.json 1.33orig/ops/deleteNetworkingV1NamespacedNetworkPolicy.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteNetworkingV1ServiceCIDR.json
+diff 1.32orig/ops/deleteNetworkingV1beta1CollectionIPAddress.json 1.33orig/ops/deleteNetworkingV1beta1CollectionIPAddress.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1beta1CollectionServiceCIDR.json 1.33orig/ops/deleteNetworkingV1beta1CollectionServiceCIDR.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1beta1IPAddress.json 1.33orig/ops/deleteNetworkingV1beta1IPAddress.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNetworkingV1beta1ServiceCIDR.json 1.33orig/ops/deleteNetworkingV1beta1ServiceCIDR.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNodeV1CollectionRuntimeClass.json 1.33orig/ops/deleteNodeV1CollectionRuntimeClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteNodeV1RuntimeClass.json 1.33orig/ops/deleteNodeV1RuntimeClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deletePolicyV1CollectionNamespacedPodDisruptionBudget.json 1.33orig/ops/deletePolicyV1CollectionNamespacedPodDisruptionBudget.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deletePolicyV1NamespacedPodDisruptionBudget.json 1.33orig/ops/deletePolicyV1NamespacedPodDisruptionBudget.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1ClusterRole.json 1.33orig/ops/deleteRbacAuthorizationV1ClusterRole.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1ClusterRoleBinding.json 1.33orig/ops/deleteRbacAuthorizationV1ClusterRoleBinding.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1CollectionClusterRole.json 1.33orig/ops/deleteRbacAuthorizationV1CollectionClusterRole.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1CollectionClusterRoleBinding.json 1.33orig/ops/deleteRbacAuthorizationV1CollectionClusterRoleBinding.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1CollectionNamespacedRole.json 1.33orig/ops/deleteRbacAuthorizationV1CollectionNamespacedRole.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1CollectionNamespacedRoleBinding.json 1.33orig/ops/deleteRbacAuthorizationV1CollectionNamespacedRoleBinding.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1NamespacedRole.json 1.33orig/ops/deleteRbacAuthorizationV1NamespacedRole.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteRbacAuthorizationV1NamespacedRoleBinding.json 1.33orig/ops/deleteRbacAuthorizationV1NamespacedRoleBinding.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1alpha3CollectionDeviceClass.json 1.33orig/ops/deleteResourceV1alpha3CollectionDeviceClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteResourceV1alpha3CollectionDeviceTaintRule.json
+diff 1.32orig/ops/deleteResourceV1alpha3CollectionNamespacedResourceClaim.json 1.33orig/ops/deleteResourceV1alpha3CollectionNamespacedResourceClaim.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1alpha3CollectionNamespacedResourceClaimTemplate.json 1.33orig/ops/deleteResourceV1alpha3CollectionNamespacedResourceClaimTemplate.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1alpha3CollectionResourceSlice.json 1.33orig/ops/deleteResourceV1alpha3CollectionResourceSlice.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1alpha3DeviceClass.json 1.33orig/ops/deleteResourceV1alpha3DeviceClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteResourceV1alpha3DeviceTaintRule.json
+diff 1.32orig/ops/deleteResourceV1alpha3NamespacedResourceClaim.json 1.33orig/ops/deleteResourceV1alpha3NamespacedResourceClaim.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1alpha3NamespacedResourceClaimTemplate.json 1.33orig/ops/deleteResourceV1alpha3NamespacedResourceClaimTemplate.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1alpha3ResourceSlice.json 1.33orig/ops/deleteResourceV1alpha3ResourceSlice.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1CollectionDeviceClass.json 1.33orig/ops/deleteResourceV1beta1CollectionDeviceClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1CollectionNamespacedResourceClaim.json 1.33orig/ops/deleteResourceV1beta1CollectionNamespacedResourceClaim.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1CollectionNamespacedResourceClaimTemplate.json 1.33orig/ops/deleteResourceV1beta1CollectionNamespacedResourceClaimTemplate.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1CollectionResourceSlice.json 1.33orig/ops/deleteResourceV1beta1CollectionResourceSlice.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1DeviceClass.json 1.33orig/ops/deleteResourceV1beta1DeviceClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1NamespacedResourceClaim.json 1.33orig/ops/deleteResourceV1beta1NamespacedResourceClaim.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1NamespacedResourceClaimTemplate.json 1.33orig/ops/deleteResourceV1beta1NamespacedResourceClaimTemplate.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteResourceV1beta1ResourceSlice.json 1.33orig/ops/deleteResourceV1beta1ResourceSlice.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.33orig/ops: deleteResourceV1beta2CollectionDeviceClass.json
+Only in 1.33orig/ops: deleteResourceV1beta2CollectionNamespacedResourceClaim.json
+Only in 1.33orig/ops: deleteResourceV1beta2CollectionNamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: deleteResourceV1beta2CollectionResourceSlice.json
+Only in 1.33orig/ops: deleteResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: deleteResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: deleteResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: deleteResourceV1beta2ResourceSlice.json
+diff 1.32orig/ops/deleteSchedulingV1CollectionPriorityClass.json 1.33orig/ops/deleteSchedulingV1CollectionPriorityClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteSchedulingV1PriorityClass.json 1.33orig/ops/deleteSchedulingV1PriorityClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CSIDriver.json 1.33orig/ops/deleteStorageV1CSIDriver.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CSINode.json 1.33orig/ops/deleteStorageV1CSINode.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CollectionCSIDriver.json 1.33orig/ops/deleteStorageV1CollectionCSIDriver.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CollectionCSINode.json 1.33orig/ops/deleteStorageV1CollectionCSINode.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CollectionNamespacedCSIStorageCapacity.json 1.33orig/ops/deleteStorageV1CollectionNamespacedCSIStorageCapacity.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CollectionStorageClass.json 1.33orig/ops/deleteStorageV1CollectionStorageClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1CollectionVolumeAttachment.json 1.33orig/ops/deleteStorageV1CollectionVolumeAttachment.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1NamespacedCSIStorageCapacity.json 1.33orig/ops/deleteStorageV1NamespacedCSIStorageCapacity.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1StorageClass.json 1.33orig/ops/deleteStorageV1StorageClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1VolumeAttachment.json 1.33orig/ops/deleteStorageV1VolumeAttachment.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1alpha1CollectionVolumeAttributesClass.json 1.33orig/ops/deleteStorageV1alpha1CollectionVolumeAttributesClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1alpha1VolumeAttributesClass.json 1.33orig/ops/deleteStorageV1alpha1VolumeAttributesClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1beta1CollectionVolumeAttributesClass.json 1.33orig/ops/deleteStorageV1beta1CollectionVolumeAttributesClass.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStorageV1beta1VolumeAttributesClass.json 1.33orig/ops/deleteStorageV1beta1VolumeAttributesClass.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStoragemigrationV1alpha1CollectionStorageVersionMigration.json 1.33orig/ops/deleteStoragemigrationV1alpha1CollectionStorageVersionMigration.json
+28c28
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+diff 1.32orig/ops/deleteStoragemigrationV1alpha1StorageVersionMigration.json 1.33orig/ops/deleteStoragemigrationV1alpha1StorageVersionMigration.json
+22c22
+<       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential-QbNkfIqj"
+---
+>       "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+Only in 1.32orig/ops: getAuthenticationV1beta1APIResources.json
+Only in 1.33orig/ops: getCertificatesV1beta1APIResources.json
+diff 1.32orig/ops/getCodeVersion.json 1.33orig/ops/getCodeVersion.json
+5c5
+<   "description": "get the code version",
+---
+>   "description": "get the version information for this server",
+Only in 1.33orig/ops: getCoordinationV1beta1APIResources.json
+Only in 1.33orig/ops: getResourceV1beta2APIResources.json
+Only in 1.33orig/ops: listCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: listCoordinationV1beta1LeaseCandidateForAllNamespaces.json
+Only in 1.33orig/ops: listCoordinationV1beta1NamespacedLeaseCandidate.json
+Only in 1.33orig/ops: listNetworkingV1IPAddress.json
+Only in 1.33orig/ops: listNetworkingV1ServiceCIDR.json
+Only in 1.33orig/ops: listResourceV1alpha3DeviceTaintRule.json
+Only in 1.33orig/ops: listResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: listResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: listResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: listResourceV1beta2ResourceClaimForAllNamespaces.json
+Only in 1.33orig/ops: listResourceV1beta2ResourceClaimTemplateForAllNamespaces.json
+Only in 1.33orig/ops: listResourceV1beta2ResourceSlice.json
+Only in 1.33orig/ops: patchCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: patchCoordinationV1beta1NamespacedLeaseCandidate.json
+Only in 1.33orig/ops: patchNetworkingV1IPAddress.json
+Only in 1.33orig/ops: patchNetworkingV1ServiceCIDR.json
+Only in 1.33orig/ops: patchNetworkingV1ServiceCIDRStatus.json
+Only in 1.33orig/ops: patchResourceV1alpha3DeviceTaintRule.json
+Only in 1.33orig/ops: patchResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: patchResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: patchResourceV1beta2NamespacedResourceClaimStatus.json
+Only in 1.33orig/ops: patchResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: patchResourceV1beta2ResourceSlice.json
+Only in 1.33orig/ops: readCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: readCoordinationV1beta1NamespacedLeaseCandidate.json
+Only in 1.33orig/ops: readNetworkingV1IPAddress.json
+Only in 1.33orig/ops: readNetworkingV1ServiceCIDR.json
+Only in 1.33orig/ops: readNetworkingV1ServiceCIDRStatus.json
+Only in 1.33orig/ops: readResourceV1alpha3DeviceTaintRule.json
+Only in 1.33orig/ops: readResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: readResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: readResourceV1beta2NamespacedResourceClaimStatus.json
+Only in 1.33orig/ops: readResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: readResourceV1beta2ResourceSlice.json
+Only in 1.33orig/ops: replaceCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: replaceCoordinationV1beta1NamespacedLeaseCandidate.json
+Only in 1.33orig/ops: replaceNetworkingV1IPAddress.json
+Only in 1.33orig/ops: replaceNetworkingV1ServiceCIDR.json
+Only in 1.33orig/ops: replaceNetworkingV1ServiceCIDRStatus.json
+Only in 1.33orig/ops: replaceResourceV1alpha3DeviceTaintRule.json
+Only in 1.33orig/ops: replaceResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: replaceResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: replaceResourceV1beta2NamespacedResourceClaimStatus.json
+Only in 1.33orig/ops: replaceResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: replaceResourceV1beta2ResourceSlice.json
+Only in 1.33orig/ops: watchCertificatesV1beta1ClusterTrustBundle.json
+Only in 1.33orig/ops: watchCertificatesV1beta1ClusterTrustBundleList.json
+Only in 1.33orig/ops: watchCoordinationV1beta1LeaseCandidateListForAllNamespaces.json
+Only in 1.33orig/ops: watchCoordinationV1beta1NamespacedLeaseCandidate.json
+Only in 1.33orig/ops: watchCoordinationV1beta1NamespacedLeaseCandidateList.json
+Only in 1.33orig/ops: watchNetworkingV1IPAddress.json
+Only in 1.33orig/ops: watchNetworkingV1IPAddressList.json
+Only in 1.33orig/ops: watchNetworkingV1ServiceCIDR.json
+Only in 1.33orig/ops: watchNetworkingV1ServiceCIDRList.json
+Only in 1.33orig/ops: watchResourceV1alpha3DeviceTaintRule.json
+Only in 1.33orig/ops: watchResourceV1alpha3DeviceTaintRuleList.json
+Only in 1.33orig/ops: watchResourceV1beta2DeviceClass.json
+Only in 1.33orig/ops: watchResourceV1beta2DeviceClassList.json
+Only in 1.33orig/ops: watchResourceV1beta2NamespacedResourceClaim.json
+Only in 1.33orig/ops: watchResourceV1beta2NamespacedResourceClaimList.json
+Only in 1.33orig/ops: watchResourceV1beta2NamespacedResourceClaimTemplate.json
+Only in 1.33orig/ops: watchResourceV1beta2NamespacedResourceClaimTemplateList.json
+Only in 1.33orig/ops: watchResourceV1beta2ResourceClaimListForAllNamespaces.json
+Only in 1.33orig/ops: watchResourceV1beta2ResourceClaimTemplateListForAllNamespaces.json
+Only in 1.33orig/ops: watchResourceV1beta2ResourceSlice.json
+Only in 1.33orig/ops: watchResourceV1beta2ResourceSliceList.json
