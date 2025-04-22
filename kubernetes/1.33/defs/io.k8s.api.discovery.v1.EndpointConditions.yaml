@@ -3,36 +3,37 @@ x-kab-description-zh: Endpoint 的当前状况。
 properties:
   ready:
     description: |
-      This indicates that this endpoint is prepared to receive traffic,
-      according to whatever system is managing the endpoint.  A `nil` value indicates an unknown state.
-      In most cases consumers should interpret this unknown state as *ready*.
-      For compatibility reasons, `ready` should never be `true` for terminating endpoints,
-      except when the normal readiness behavior is being explicitly overridden,
-      for example when the associated Service has set the `publishNotReadyAddresses` flag.
+      This indicates that this endpoint is ready to receive traffic,
+      according to whatever system is managing the endpoint.
+      A `nil` value should be interpreted as \"true\".
+      In general, an endpoint should be marked ready if it is serving and not terminating,
+      though this can be overridden in some cases, such as
+      when the associated Service has set the `publishNotReadyAddresses` flag.
     x-kab-description-zh: |
-      此字段用来表明根据管理端点的系统反映，端点已经为接受请求流量做好准备。
-      未设置时表示状态未知。大多数情况下，用户可以将这种未知的状态理解为**就绪（Ready）**。
-      出于兼容性考虑，对于正在被终止的端点，其 `ready` 字段不应该设置为 `true`，
-      除非正常的就绪态行为已经被显式地重载。
-      例如，对应的 Service 已经设置了 `publishNotReadyAddresses` 标志的时候。
+      此字段用来表明根据管理端点的系统反映，端点已经为接受请求流量就绪。
+      未设置时表示取值为 `true`。
+      一般而言，当端点在提供服务且未处于终止过程中时，应该被标记为就绪（ready）；
+      不过在某些情况下，这种行为可以被覆盖。
+      例如，当对应的 Service 已经设置了 `publishNotReadyAddresses` 标志的时候。
     type: boolean
   serving:
     description: |
-      This is identical to `ready` except that it is set regardless of the terminating state of endpoints.
-      This condition should be set to `true` for a ready endpoint that is terminating.
-      If `nil`, consumers should defer to the `ready` condition.
+      `serving` indicates that this endpoint is able to receive traffic,
+      according to whatever system is managing the endpoint.
+      For endpoints backed by Pods, the EndpointSlice controller will mark the endpoint as serving
+      if the pod's `Ready` condition is `"True"`.
+      A nil value should be interpreted as `true`.
     x-kab-description-zh: |
-      此字段作用与 `ready` 字段完全相同，只是字段设置不会考虑端点是否正在被终止。
-      对于一个就绪的端点，当其正在被终止时，此状况要设置为 `true`。
-      如果没有设置此字段，用户应该转而查看 `ready` 状况。
+      此字段用来表明根据管理端点的系统反映，端点可以接受请求流量。
+      对于后端为 Pod 的端点，EndpointSlice 控制器会在 Pod 的 `Ready` 状况为 `"True"`
+      时设置对应的端点为 `serving: True`。
+      如果没有设置此字段，应被当做 `true` 来解释、处理。
     type: boolean
   terminating:
     description: |
-      This indicates that this endpoint is terminating. A `nil` value indicates an unknown state.
-      Consumers should interpret this unknown state to mean that the endpoint is not terminating.
+      This indicates that this endpoint is terminating. A `nil` value should be interpreted as `false`.
     x-kab-description-zh: |
-      此字段用来表明端点正在被终止。如果此字段未设置，则无法判断端点是否正在被终止。
-      用户应该假定如果此字段未设置，端点就没有处于被终止的状态。
+      此字段用来表明端点正在被终止。如果此字段未设置，应被视同 `false` 来解释处理。
     type: boolean
 type: object
 

@@ -67,10 +67,13 @@ properties:
     type: string
   port:
     description: |
-      The port number of the endpoint. If this is not specified, ports are not restricted and
-      must be interpreted in the context of the specific consumer.
+      The port number of the endpoint.
+      If the EndpointSlice is derived from a Kubernetes Service, this must be set to the service's target port.
+      EndpointSlices used for other purposes may have a nil port.
     x-kab-description-zh: |
-      端点的端口号。如果未设置此字段，则端口号没有限制，需要结合特定用户的上下文来解释。
+      端点的端口号。
+      如果对应的 EndpointSlice 是基于某个 Kubernetes Service 生成，则此字段的值应该设置为 Service 的目标端口。
+      用于其他目的的 EndpointSlice 可以忽略设置 `port` 字段。
     format: int32
     type: integer
   protocol:
