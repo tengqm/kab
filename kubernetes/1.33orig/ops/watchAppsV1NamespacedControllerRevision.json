@@ -1,0 +1,87 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "watch changes to an object of kind ControllerRevision. deprecated: use the 'watch' parameter with a list operation instead, filtered to a single item with the 'fieldSelector' parameter.",
+  "operationId": "watchAppsV1NamespacedControllerRevision",
+  "parameters": [
+    {
+      "$ref": "#/parameters/allowWatchBookmarks"
+    },
+    {
+      "$ref": "#/parameters/continue"
+    },
+    {
+      "$ref": "#/parameters/fieldSelector"
+    },
+    {
+      "$ref": "#/parameters/labelSelector"
+    },
+    {
+      "$ref": "#/parameters/limit"
+    },
+    {
+      "description": "name of the ControllerRevision",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    },
+    {
+      "$ref": "#/parameters/resourceVersion"
+    },
+    {
+      "$ref": "#/parameters/resourceVersionMatch"
+    },
+    {
+      "$ref": "#/parameters/sendInitialEvents"
+    },
+    {
+      "$ref": "#/parameters/timeoutSeconds"
+    },
+    {
+      "$ref": "#/parameters/watch"
+    }
+  ],
+  "path": "/apis/apps/v1/watch/namespaces/{namespace}/controllerrevisions/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor",
+    "application/json;stream=watch",
+    "application/vnd.kubernetes.protobuf;stream=watch",
+    "application/cbor-seq"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.WatchEvent"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "apps_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "watch",
+  "x-kubernetes-group-version-kind": {
+    "group": "apps",
+    "kind": "ControllerRevision",
+    "version": "v1"
+  }
+}

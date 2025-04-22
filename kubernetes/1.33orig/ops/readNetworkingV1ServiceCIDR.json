@@ -1,0 +1,51 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified ServiceCIDR",
+  "operationId": "readNetworkingV1ServiceCIDR",
+  "parameters": [
+    {
+      "description": "name of the ServiceCIDR",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/networking.k8s.io/v1/servicecidrs/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.networking.v1.ServiceCIDR"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "networking_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "networking.k8s.io",
+    "kind": "ServiceCIDR",
+    "version": "v1"
+  }
+}

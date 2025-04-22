@@ -1,0 +1,35 @@
+{
+  "consumes": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "description": "get available resources",
+  "operationId": "getStorageV1beta1APIResources",
+  "path": "/apis/storage.k8s.io/v1beta1/",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1beta1"
+  ],
+  "verb": "get"
+}

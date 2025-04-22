@@ -1,0 +1,51 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified ClusterTrustBundle",
+  "operationId": "readCertificatesV1alpha1ClusterTrustBundle",
+  "parameters": [
+    {
+      "description": "name of the ClusterTrustBundle",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/certificates.k8s.io/v1alpha1/clustertrustbundles/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.certificates.v1alpha1.ClusterTrustBundle"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "certificates_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "certificates.k8s.io",
+    "kind": "ClusterTrustBundle",
+    "version": "v1alpha1"
+  }
+}

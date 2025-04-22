@@ -1,0 +1,74 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "replace the specified DeviceClass",
+  "operationId": "replaceResourceV1beta2DeviceClass",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1beta2.DeviceClass"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    },
+    {
+      "description": "name of the DeviceClass",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/resource.k8s.io/v1beta2/deviceclasses/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1beta2.DeviceClass"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1beta2.DeviceClass"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "resource_v1beta2"
+  ],
+  "verb": "put",
+  "x-kubernetes-action": "put",
+  "x-kubernetes-group-version-kind": {
+    "group": "resource.k8s.io",
+    "kind": "DeviceClass",
+    "version": "v1beta2"
+  }
+}

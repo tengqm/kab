@@ -1,0 +1,63 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a Binding",
+  "operationId": "createCoreV1NamespacedBinding",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+      }
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/api/v1/namespaces/{namespace}/bindings",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.Binding"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "core_v1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "",
+    "kind": "Binding",
+    "version": "v1"
+  }
+}

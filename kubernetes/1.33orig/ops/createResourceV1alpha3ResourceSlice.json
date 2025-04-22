@@ -1,0 +1,69 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a ResourceSlice",
+  "operationId": "createResourceV1alpha3ResourceSlice",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceSlice"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    }
+  ],
+  "path": "/apis/resource.k8s.io/v1alpha3/resourceslices",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceSlice"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceSlice"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceSlice"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "resource_v1alpha3"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "resource.k8s.io",
+    "kind": "ResourceSlice",
+    "version": "v1alpha3"
+  }
+}

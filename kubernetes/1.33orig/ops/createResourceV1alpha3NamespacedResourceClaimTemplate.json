@@ -1,0 +1,72 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a ResourceClaimTemplate",
+  "operationId": "createResourceV1alpha3NamespacedResourceClaimTemplate",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceClaimTemplate"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    },
+    {
+      "$ref": "#/parameters/namespace"
+    }
+  ],
+  "path": "/apis/resource.k8s.io/v1alpha3/namespaces/{namespace}/resourceclaimtemplates",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceClaimTemplate"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceClaimTemplate"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.resource.v1alpha3.ResourceClaimTemplate"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "resource_v1alpha3"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "resource.k8s.io",
+    "kind": "ResourceClaimTemplate",
+    "version": "v1alpha3"
+  }
+}

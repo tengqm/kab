@@ -1,0 +1,69 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a StorageVersionMigration",
+  "operationId": "createStoragemigrationV1alpha1StorageVersionMigration",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    }
+  ],
+  "path": "/apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storagemigration_v1alpha1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "storagemigration.k8s.io",
+    "kind": "StorageVersionMigration",
+    "version": "v1alpha1"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "delete a StorageClass",
+  "operationId": "deleteStorageV1StorageClass",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/gracePeriodSeconds"
+    },
+    {
+      "$ref": "#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential"
+    },
+    {
+      "$ref": "#/parameters/orphanDependents"
+    },
+    {
+      "$ref": "#/parameters/propagationPolicy"
+    },
+    {
+      "description": "name of the StorageClass",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/storage.k8s.io/v1/storageclasses/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1.StorageClass"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storage.v1.StorageClass"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storage_v1"
+  ],
+  "verb": "delete",
+  "x-kubernetes-action": "delete",
+  "x-kubernetes-group-version-kind": {
+    "group": "storage.k8s.io",
+    "kind": "StorageClass",
+    "version": "v1"
+  }
+}

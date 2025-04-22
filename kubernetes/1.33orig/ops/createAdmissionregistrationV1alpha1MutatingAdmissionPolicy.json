@@ -1,0 +1,69 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a MutatingAdmissionPolicy",
+  "operationId": "createAdmissionregistrationV1alpha1MutatingAdmissionPolicy",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.MutatingAdmissionPolicy"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    }
+  ],
+  "path": "/apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.MutatingAdmissionPolicy"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.MutatingAdmissionPolicy"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1alpha1.MutatingAdmissionPolicy"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1alpha1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "admissionregistration.k8s.io",
+    "kind": "MutatingAdmissionPolicy",
+    "version": "v1alpha1"
+  }
+}
