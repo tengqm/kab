@@ -55,8 +55,8 @@ properties:
     type: integer
   tcpSocket:
     $ref: '#/definitions/io.k8s.api.core.v1.TCPSocketAction'
-    description: This specifies a connection to a TCP port.
-    x-kab-description-zh: 此字段设置与某个 TCP 端口的连接。
+    description: This specifies a connection to a TCP port. This field has been deprecated.
+    x-kab-description-zh: 此字段设置与某个 TCP 端口的连接。此字段已经被弃用。
   terminationGracePeriodSeconds:
     description: |
       Optional duration in seconds the Pod needs to terminate gracefully upon probe failure.
