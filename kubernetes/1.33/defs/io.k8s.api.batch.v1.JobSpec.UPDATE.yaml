@@ -26,18 +26,14 @@ properties:
       as failed. When enabled the number of failures per index is kept in the Pod's
       `batch.kubernetes.io/job-index-failure-count` annotation.
       It can only be set when Job's `completionMode=Indexed`, and the Pod's `restartPolicy`
-      is `"Never"`. The field is immutable. This field is Beta-level.
-      It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled
-      (enabled by default). This field is required when `maxFailedIndexes` is specified.
+      is `"Never"`. The field is immutable.
     x-kab-description-zh: |
       在将某个索引标记为失败之前，对该索引可以进行的重试次数上限。
       启用此特性之后，每个索引的失败次数会被保存在 Pod 的注解
       `batch.kubernetes.io/job-index-failure-count` 中。
       只有当 Job 的 `completionMode` 设置为 `"Indexed"`，并且 Pod 的 `restartPolicy`
       为 `"Never"` 时才可以设置这个字段。
-      此字段是不可变更的。目前是一个 Beta 阶段的特性。
-      需要启用 `JobBackoffLimitPerIndex` 特性门控（默认被启用）。
-      当设置了 `maxFailedIndexes` 属性时，此字段是必须设置的。
+      此字段是不可变更的。
     format: int32
     minimum: 0
     type: integer
@@ -124,8 +120,7 @@ properties:
       When left as null the Job continues execution of all of its indexes and is marked with the `Complete` Job condition.
       It can only be specified when `backoffLimitPerIndex` is set.
       It can be null or up to `completions`.
-      It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is Beta-level.
-      It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+      It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
     x-kab-description-zh: |
       对于设置了 `backoffLimitPerIndex` 的 Job 而言，此字段设置在标记 Job
       失败之前可以失败的索引个数上限。
@@ -135,8 +130,6 @@ properties:
       只有设置了 `backoffLimitPerIndex` 的时候，才可以设置此字段。
       字段的取值可以是 null，或者至多为 `completions`。
       当 `completions` 大于 10^5 时，此字段必须设置，并且其取值必须小于等于 10^4。 
-      此字段的设置是一个 Beta 阶段特性。
-      只有启用了 `JobBackoffLimitPerIndex` 特性门控时（默认启用）才可以设置。
     format: int32
     type: integer
   parallelism:
