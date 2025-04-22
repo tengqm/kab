@@ -23,8 +23,6 @@ properties:
 
       The default value is empty. The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`.
       Also, `matchLabelKeys` cannot be set when `labelSelector` isn't set.
-
-      This is an Beta field and requires enabling `MatchLabelKeysInPodAffinity` feature gate.
     x-kab-description-zh: |
       `matchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
       这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key in (value)` 算符，
@@ -33,8 +31,6 @@ properties:
 
       此字段的默认值是空表。同一个主键不可以同时出现在 `matchLabelKeys` 和 `labelSelector` 中。
       未设置 `labelSelector` 时，也不可以设置 `matchLabelKeys`。
-
-      此字段处于 Beta 阶段，需要启用 `MatchLabelKeysInPodAffinity` 特性门控。
     items:
       minLength: 1
       type: string
@@ -48,8 +44,6 @@ properties:
       for the incoming Pod's Pod (anti) affinity. Keys that don't exist in the incoming Pod labels will be ignored.
       The default value is empty. The same key is forbidden to exist in both `mismatchLabelKeys` and `labelSelector`.
       Also, `mismatchLabelKeys` cannot be set when `labelSelector` isn't set.
-
-      This is an Beta field and requires enabling the `MatchLabelKeysInPodAffinity` feature gate.
     x-kab-description-zh: |
       `mismatchLabelKeys` 是一组 Pod 标签主键名称，用来选择要被考察的 Pod 集合。
       这些主键被用来检视新建 Pod 的标签值，所得到的键值对与 `labelSelector` 合并，形成 `key notin (value)` 算符，
@@ -58,8 +52,6 @@ properties:
 
       此字段的默认值是空表。同一个主键不可以同时出现在 `mismatchLabelKeys` 和 `labelSelector` 中。
       未设置 `labelSelector` 时，也不可以设置 `mismatchLabelKeys`。
-
-      此字段处于 Beta 阶段，需要启用 `MatchLabelKeysInPodAffinity` 特性门控。
     items:
       minLength: 1
       type: string

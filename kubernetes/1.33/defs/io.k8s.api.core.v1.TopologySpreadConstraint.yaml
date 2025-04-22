@@ -158,9 +158,6 @@ properties:
       - `"Ignore"`: `nodeAffinity.nodeSelector` are ignored. All nodes are included in the calculations.
       
       If this value is nil, the behavior is equivalent to the `Honor` policy.
-
-      This is a Beta-level feature default enabled by the `NodeInclusionPolicyInPodTopologySpread`
-      feature flag.
     x-kab-description-zh: |
       此字段表明在计算 Pod 分布偏差时，如何对待 Pod 的节点亲和性（`nodeAffinity.nodeSelector`）。
       可以选择的选项包括：
@@ -169,8 +166,6 @@ properties:
       - `"Ignore"`：忽略 `nodeAffinity.nodeSelector` 设置，所有节点都被纳入计算中。
 
       如果此字段未设置，默认行为是按照 `"Honor"` 策略处理。
-
-      此特性处于 Beta 阶段，受 `NodeInclusionPolicyInPodTopologySpread` 特性门控控制。
     type: string
   nodeTaintsPolicy:
     description: |
@@ -181,7 +176,6 @@ properties:
       - `"Ignore"`: node taints are ignored. All nodes are included.
 
       If this value is nil, the behavior is equivalent to the `"Ignore"` policy.
-      This is a Beta feature default enabled by the `NodeInclusionPolicyInPodTopologySpread` feature.
     x-kab-description-zh: |
       此字段表明在计算 Pod 拓扑分布偏差时，如何处理节点污点。可选项有：
 
@@ -189,8 +183,6 @@ properties:
       - `"Ignore"`：忽略节点污点，将所有节点纳入计算。
 
       此字段未设置时，行为相当于 `"Ignore"` 策略。
-
-      此特性处于 Beta 阶段，受 `NodeInclusionPolicyInPodTopologySpread` 特性门控控制。
     type: string
   topologyKey:
     description: |

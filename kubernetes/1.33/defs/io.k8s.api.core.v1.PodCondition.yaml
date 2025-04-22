@@ -21,6 +21,17 @@ properties:
       上次状况转换的原因，通常是唯一性的、一个词表达的、驼峰编码的字符串。
       例如：`"Unschedulable"`、`"SchedulingGated"`。
     type: string
+  observedGeneration:
+    description: |
+      If set, this represents the `.metadata.generation` that the Pod condition was set based upon.
+
+      This is an Alpha field. Enable `PodObservedGenerationTracking` to be able to use this field.
+    x-kab-description-zh: |
+      如果此字段被设置，所表示的是 Pod 的状况被设置时，对应的 `.metadata.generation` 值。
+
+      此字段为 Alpha 状态，需要启用 `PodObservedGenerationTracking` 特性门控。
+    format: int64
+    type: integer
   status:
     description: The status of the condition.
     x-kab-description-zh: 状况的状态。

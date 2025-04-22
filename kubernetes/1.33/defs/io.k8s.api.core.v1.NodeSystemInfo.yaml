@@ -54,6 +54,10 @@ properties:
       节点根据 `/etc/os-release` 所报告的 OS 信息（例如：`"Debian GNU/Linux 7 (wheezy)"`）。
     minLength: 1
     type: string
+  swap:
+    $ref: "#/definitions/io.k8s.api.core.v1.NodeSwapStatus"
+    description: Swap information as reported by the node.
+    x-kab-description-zh: 节点报告的交换内存信息。
   systemUUID:
     description: |
       System UUID reported by the node. For unique machine identification, `machineID` is preferred.

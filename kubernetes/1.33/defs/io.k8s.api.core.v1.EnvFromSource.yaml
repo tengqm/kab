@@ -8,15 +8,15 @@ properties:
   configMapRef:
     $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapEnvSource'
     description: The ConfigMap to source environment variable from.
-    x-kab-description-zh: 要从中获得环境变量的 ConfigMap。
+    x-kab-description-zh: 要从中获得环境变量的 ConfigMap. 
   prefix:
     description: |
-      An optional identifier to prepend to each key in the ConfigMap or the Secret.
+      Optional text to prepend to the name of each environment valirable.
       The string must consist of alphabetic characters, digits, `'_'`, `'-'`, or `'.'`,
       and it must not start with a digit.
       The string cannot be `"."`, `".."` and it cannot start with `".."`.
     x-kab-description-zh: |
-      一个可选的标识符，将被添加到来自 ConfigMap 或 Secret 的各个键名上作为其前缀。
+      一个可选的标识符，将被添加到各个环境变量名上作为其前缀。
       此字符串只能包含字母、数字、`'_'`、`'-'` 或 `'.'`，且不能以数字开头。
       字符串不可以是 `"."` 或者 `".."`，也不能以 `".."` 开头。
     type: string

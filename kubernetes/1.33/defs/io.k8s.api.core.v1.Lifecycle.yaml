@@ -35,6 +35,154 @@ properties:
       在 `preStop` 处理程序开始执行之前，Pod 的终止宽限期倒计时开始。
       无论处理程序的最终结果如何，容器最终都会在 Pod 的终止宽限期之内终止（除非被 finalizers 延误）。 
       容器的其他管理组件会被阻塞，直到回调完成或者直到达到终止宽限期。 
+  stopSignal:
+    description: |
+      This field defines which signal will be sent to a container when it is being stopped.
+      If not specified, the default is defined by the container runtime in use.
+      `stopSignal` can only be set for Pods with a non-empty `.spec.os.name`.
+      For Linux, the supported signals are
+
+      - SIGABRT
+      - SIGALRM
+      - SIGBUS
+      - SIGCHLD
+      - SIGCLD
+      - SIGCONT
+      - SIGFPE
+      - SIGHUP
+      - SIGILL
+      - SIGINT
+      - SIGIO
+      - SIGIOT
+      - SIGKILL
+      - SIGPIPE
+      - SIGPOLL
+      - SIGPROF
+      - SIGPWR
+      - SIGQUIT
+      - SIGSEGV
+      - SIGSTKFLT
+      - SIGSTOP
+      - SIGSYS
+      - SIGTERM
+      - SIGTRAP
+      - SIGTSTP
+      - SIGTTIN
+      - SIGTTOU
+      - SIGURG
+      - SIGUSR1
+      - SIGUSR2
+      - SIGVTALRM
+      - SIGWINCH
+      - SIGXCPU
+      - SIGXFSZ
+      - SIGRTMIN
+      - SIGRTMINPLUS1
+      - SIGRTMINPLUS2
+      - SIGRTMINPLUS3
+      - SIGRTMINPLUS4
+      - SIGRTMINPLUS5
+      - SIGRTMINPLUS6
+      - SIGRTMINPLUS7
+      - SIGRTMINPLUS8
+      - SIGRTMINPLUS9
+      - SIGRTMINPLUS10
+      - SIGRTMINPLUS11
+      - SIGRTMINPLUS12
+      - SIGRTMINPLUS13
+      - SIGRTMINPLUS14
+      - SIGRTMINPLUS15
+      - SIGRTMAXMINUS14
+      - SIGRTMAXMINUS13
+      - SIGRTMAXMINUS12
+      - SIGRTMAXMINUS11
+      - SIGRTMAXMINUS10
+      - SIGRTMAXMINUS9
+      - SIGRTMAXMINUS8
+      - SIGRTMAXMINUS7
+      - SIGRTMAXMINUS6
+      - SIGRTMAXMINUS5
+      - SIGRTMAXMINUS4
+      - SIGRTMAXMINUS3
+      - SIGRTMAXMINUS2
+      - SIGRTMAXMINUS1
+      - SIGRTMAX
+
+      For Windows containers, the supported signals are SIGKILL and SIGTERM.
+
+    x-kab-description-zh: |
+      此字段定义在停止容器时向容器发送的信号。如果未指定，则使用容器运行时所定义的默认信号。
+      `stopSignal` 字段只能在 `.spec.os.name` 不为空时设置。
+      对于 Linux 容器，合法的信号可以是：
+
+      - SIGABRT
+      - SIGALRM
+      - SIGBUS
+      - SIGCHLD
+      - SIGCLD
+      - SIGCONT
+      - SIGFPE
+      - SIGHUP
+      - SIGILL
+      - SIGINT
+      - SIGIO
+      - SIGIOT
+      - SIGKILL
+      - SIGPIPE
+      - SIGPOLL
+      - SIGPROF
+      - SIGPWR
+      - SIGQUIT
+      - SIGSEGV
+      - SIGSTKFLT
+      - SIGSTOP
+      - SIGSYS
+      - SIGTERM
+      - SIGTRAP
+      - SIGTSTP
+      - SIGTTIN
+      - SIGTTOU
+      - SIGURG
+      - SIGUSR1
+      - SIGUSR2
+      - SIGVTALRM
+      - SIGWINCH
+      - SIGXCPU
+      - SIGXFSZ
+      - SIGRTMIN
+      - SIGRTMINPLUS1
+      - SIGRTMINPLUS2
+      - SIGRTMINPLUS3
+      - SIGRTMINPLUS4
+      - SIGRTMINPLUS5
+      - SIGRTMINPLUS6
+      - SIGRTMINPLUS7
+      - SIGRTMINPLUS8
+      - SIGRTMINPLUS9
+      - SIGRTMINPLUS10
+      - SIGRTMINPLUS11
+      - SIGRTMINPLUS12
+      - SIGRTMINPLUS13
+      - SIGRTMINPLUS14
+      - SIGRTMINPLUS15
+      - SIGRTMAXMINUS14
+      - SIGRTMAXMINUS13
+      - SIGRTMAXMINUS12
+      - SIGRTMAXMINUS11
+      - SIGRTMAXMINUS10
+      - SIGRTMAXMINUS9
+      - SIGRTMAXMINUS8
+      - SIGRTMAXMINUS7
+      - SIGRTMAXMINUS6
+      - SIGRTMAXMINUS5
+      - SIGRTMAXMINUS4
+      - SIGRTMAXMINUS3
+      - SIGRTMAXMINUS2
+      - SIGRTMAXMINUS1
+      - SIGRTMAX
+
+      对于 Windows 容器，合法的信号只能是 SIGKILL 和 SIGTERM。
+    type: string
 type: object
 
 

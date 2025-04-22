@@ -113,6 +113,9 @@ properties:
     $ref: '#/definitions/io.k8s.api.core.v1.ContainerState'
     description: Details about the container's current condition.
     x-kab-description-zh: 容器当前状况的详细信息。
+  stopSignal:
+    description: The effective stop signal for this container.
+    type: string
   user:
     $ref: '#/definitions/io.k8s.api.core.v1.ContainerUser'
     description: The user identity information initially attached to the first process of the container.

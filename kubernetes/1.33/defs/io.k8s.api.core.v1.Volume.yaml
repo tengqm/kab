@@ -162,7 +162,7 @@ properties:
       The OCI object gets mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`)
       by merging the manifest layers in the same way as for container images.
       The volume will be mounted read-only (`ro`) and non-executable files (`noexec`).
-      Sub-path mounts for containers are not supported (`spec.containers[*].volumeMounts.subpath`).
+      Sub-path mounts for containers are not supported (`spec.containers[*].volumeMounts.subpath`) before v1.33.
       The field `spec.securityContext.fsGroupChangePolicy` has no effect on this volume type.
 
       This field is an Alpha field. Using it requires the `ImageVolume` feature gate to be enabled.
@@ -184,7 +184,7 @@ properties:
       被引用的 OCI 对象会被挂载到某个目录（`spec.containers[*].volumeMounts.mountPath`）下，
       和容器镜像一样，其各个清单层也会被合并。
       卷的挂载方式是只读（`ro`）且不可执行的文件（`noexec`）。
-      不支持针对容器的子路径挂载（Sub-path Mount，`spec.containers[*].volumeMounts.subpath`）。
+      v1.33 之前不支持针对容器的子路径挂载（Sub-path Mount，`spec.containers[*].volumeMounts.subpath`）。
       字段 `spec.securityContext.fsGroupChangePolicy` 的内容对此卷类型没有影响。
 
       此字段处于 Alpha 阶段，使用此字段需要启用 `ImageVolume` 特性门控。

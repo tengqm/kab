@@ -119,6 +119,17 @@ properties:
       调度器也有可能会决定将节点上的资源分配给后来者。
       因此，这个字段可能与 Pod 真正被调度后 `spec.nodeName` 中呈现的值不同。
     type: string
+  observedGeneration:
+    description: |
+      If set, this represents the `.metadata.generation` that the Pod status was set based upon.
+
+      This is an Alpha field. Enable `PodObservedGenerationTracking` to be able to use this field.
+    x-kab-description-zh: |
+      如果此字段被设置，所表示的是 Pod 的状态被设置时，对应的 `.metadata.generation` 值。
+
+      此字段为 Alpha 状态，需要启用 `PodObservedGenerationTracking` 特性门控。
+    format: int64
+    type: integer
   phase:
     description: |
       The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle.
@@ -222,10 +233,23 @@ properties:
       Status of resources resize desired for Pod's containers.
       It is empty if no resources resize is pending.
       Any changes to container resources will automatically set this to "Proposed".
+
+      **DEPRECATED**
+      Resize status is moved to two Pod conditions `PodResizePending` and `PodResizeInProgress`.
+      `PodResizePending` will track states where the spec has been resized,
+      but the kubelet has not yet allocated the resources.
+      `PodResizeInProgress` will track in-progress resizes, and should be present
+      whenever allocated resources does not equal to the acknowledged resources.
     x-kab-description-zh: |
       对 Pod 中容器做资源规格变更时，变更所处的状态。
       如果没有待定的变更操作，此字段为空。
       只要发生对容器资源的变更，就会自动将此字段设置为 `"Proposed"`。
+
+      **DEPRECATED**
+      Pod 重设大小的状态信息已经被被移动到 `PodResizePending` `PodResizeInProgress` 这两个状况中。
+      `PodResizePending` 将被用来跟踪 Pod 规约的尺寸发生变更但 kubelet 尚未分配资源的状态；
+      `PodResizeInProgress` 用来跟踪 Pod 尺寸变化过程，并且当所分配的资源量与确认的量不同时，
+      此状况会一直存在。
     type: string
   resourceClaimStatuses:
     description: Status of resource claims.
