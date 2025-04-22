@@ -1,22 +1,20 @@
 description: |
   MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria.
   The exclude rules take precedence over include rules (if a resource matches both, it is excluded).
-
 x-kab-description-zh: |
   MatchResources 基于对象是否满足匹配条件来决定是否对其运行准入控制策略。
   其中的排除（Exclude）规则比包含（Include）规则优先级高。
   换言之，当某资源与这两个规则都匹配时，该资源会被排除掉。
-
 properties:
   excludeResourceRules:
     description: |
       `excludeResourceRules` describes what operations on what resources/subresources
-      the ValidatingAdmissionPolicy should not care about.
+      the policy should not care about.
       The exclude rules take precedence over include rules
       (if a resource matches both, it is excluded).
 
     x-kab-description-zh: |
-      此字段描述哪些资源或子资源上的哪些操作是 ValidatingAdmissionPolicy 所要忽略的。
+      此字段描述哪些资源或子资源上的哪些操作是此策略所要忽略的。
       排除规则比包含规则的优先级高。
       换言之，当某资源与这两个规则都匹配时，该资源会被排除掉。
 
@@ -34,13 +32,13 @@ properties:
         For example, if `deployments` can be modified via `"apps/v1"`, `"apps/v1beta1"`,
         but `"rules"` only included
         `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`,
-        a request to `"apps/v1beta1"` would not be sent to the ValidatingAdmissionPolicy.
+        the admission policy does not consider requests to `"apps/v1beta1"` or `"extensions/v1beta1"` groups.
       - `"Equivalent"`: match a request if modifies a resource listed in rules, even
         via another API group or version. For example, if `deployments` can be modified
         via `"apps/v1"` and `"apps/v1beta1"`, and `"rules"` only included
         `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`,
-        a request to `"apps/v1beta1"` would be converted to `"apps/v1"` and
-        sent to the ValidatingAdmissionPolicy.
+        the admission policy **does** consider requests made to `"apps/v1beta1"` or `"extensions/v1beta1"`
+        API groups. The API server translates the request to a matched resource API if necessary.
 
     x-kab-description-zh: |
       `matchPolicy` 定义此 MatchResources 列表如何用于匹配所接收到的请求。
@@ -50,14 +48,14 @@ properties:
         例如，资源 `deployments` 可以通过 `"apps/v1"` 和 `"apps/v1beta1"` 来修改，
         但 `resourceRules` 中仅包含了
         `"apiGroups":["apps"], "apiVersions": ["v1"], "resources": ["deployments"]`，
-        这时针对 `"apps/v1beta1"` 的请求不会被发送到 ValidatingAdmissionPolicy。
+        准入策略不会考虑发送到 `"apps/v1beta1"` 或 `"extensions/v1beta1"` 的请求。
       - `"Equivalent"` 意味着如果某个请求所修改的资源位于 `resourceRules` 列表中，
         即便请求使用的是不同的 API 组或版本，也视为匹配。
         例如，如果资源 `deployments` 可以通过 `"apps/v1"`、`"apps/v1beta1"` 来修改，
         而 `resourceRules` 中仅包含了
         `"apiGroups":["apps"], "apiVersions":["v1"], "resources": ["deployments"]`，
-        这时针对 `"apps/v1beta1"` 的请求会被转换为 `"apps/v1"`，并被发送给
-        ValidatingAdmissionPolicy。
+        准入策略**会**检查发送到 `"apps/v1beta1"` 或 `"extensions/v1beta1"` 的请求。
+        API 服务器会根据需要将请求转换为一个匹配的资源 API 形式。
 
     enum:
       - Equivalent
@@ -140,10 +138,10 @@ properties:
   objectSelector:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
     description: |
-      `objectSelector` decides whether to run the validation based on if the object
+      `objectSelector` decides whether to run the policy based on if the object
       has matching labels.
       `objectSelector` is evaluated against both the `oldObject` and `newObject`
-      that would be sent to the CEL validation, and is considered to match if
+      that would be sent to the policy's expression (CEL), and is considered to match if
       either object matches the selector.
       A null object (`oldObject` in the case of create, or `newObject` in the case of delete)
       or an object that cannot have labels (like a `DeploymentRollback` or a `PodProxyOptions`
@@ -153,8 +151,8 @@ properties:
       Default to the empty label selector, which matches everything.'
 
     x-kab-description-zh: |
-      此字段用来根据对象上是否存在匹配的标签来决定是否执行检查。
-      `objectSelector` 会针对要发送给 CEL 检查器的 `oldObject` 和 `newObject` 来处理。
+      此字段用来根据对象上是否存在匹配的标签来决定是否执行策略。
+      `objectSelector` 会针对要发送给策略表达式（CEL）的 `oldObject` 和 `newObject` 来处理。
       如果这两个对象之一与此选择算符匹配，则视请求为匹配。
       空（Null）对象（CREATE 请求中的 `oldObject` 或 DELETE 请求中的 `newObject`），
       或者不存在标签的对象（例如一个 `DeploymentRollback` 或 `PodProxyOptions` 对象）
@@ -166,11 +164,11 @@ properties:
   resourceRules:
     description: |
       `resourceRules` describes what operations on what resources/subresources
-      the ValidatingAdmissionPolicy matches. The policy cares about an operation if
+      the admission policy matches. The policy cares about an operation if
       it matches _any_ rule.
 
     x-kab-description-zh: |
-      用来设置 ValidatingAdmissionPolicy 关心哪些对象、子对象上的哪些操作。
+      用来设置准入策略关心哪些对象、子对象上的哪些操作。
       如果某项操作与 `resourceRules` 列表中定义的任一表项匹配，
       则可认为它是准入策略所关心的。
 

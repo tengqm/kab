@@ -3,9 +3,9 @@ x-kab-description-zh: ReplicaSet 的当前状态。
 properties:
   availableReplicas:
     description: |
-      The number of available replicas (ready for at least `minReadySeconds`) for this ReplicaSet.
+      The number of available non-terminating replicas (ready for at least `minReadySeconds`) for this ReplicaSet.
     x-kab-description-zh: |
-      此 ReplicaSet 的处于可用状态下（持续 `minReadySeconds` 秒保持就绪）的副本个数。
+      此 ReplicaSet 的处于非终止且可用状态下（持续 `minReadySeconds` 秒保持就绪）的副本个数。
     format: int32
     type: integer
   conditions:
@@ -21,9 +21,9 @@ properties:
     x-kubernetes-patch-strategy: merge
   fullyLabeledReplicas:
     description: |
-      The number of Pods that have labels matching the `labels` of the Pod template of the ReplicaSet.
+      The number of non-terminating Pods that have labels matching the `labels` of the Pod template of the ReplicaSet.
     x-kab-description-zh: |
-      标签与此 ReplicaSet 的 Pod 模板上的 `labels` 完全匹配的 Pod 的个数。
+      标签与此 ReplicaSet 的 Pod 模板上的 `labels` 完全匹配的、非终止过程中的 Pod 的个数。
     format: int32
     type: integer
   observedGeneration:
@@ -32,14 +32,30 @@ properties:
     format: int64
     type: integer
   readyReplicas:
-    description: The number of ready replicas for this ReplicaSet with a Ready condition.
+    description: The number of non-terminating replicas for this ReplicaSet with a Ready condition.
     x-kab-description-zh: |
-      此 ReplicaSet 的处于就绪状态（带有 `Ready` 状况）的 Pod 个数。
+      此 ReplicaSet 的处于非终止状态（带有 `Ready` 状况）的 Pod 个数。
     format: int32
     type: integer
   replicas:
-    description: The most recently observed number of replicas.
-    x-kab-description-zh: 最近观测到的副本数。
+    description: The most recently observed number of non-terminating Pods.
+    x-kab-description-zh: 最近观测到的非终止状态的副本数。
+    format: int32
+    type: integer
+  terminatingReplicas:
+    description: |
+      The number of terminating pods for this ReplicaSet.
+      Terminating pods have a non-null `.metadata.deletionTimestamp` and
+      have not yet reached the `"Failed"` or `"Succeeded"` `.status.phase`.
+
+      This is an Alpha field.
+      Enable `DeploymentReplicaSetTerminatingReplicas` to be able to use this field.
+    x-kab-description-zh: |
+      此 ReplicaSet 中处于终止进程中的 Pod 的个数。
+      终止进程中的 Pod 的 `.metadata.deletionTimestamp` 字段为非 Null 值，
+      并且还没到达 `state.phase` 所表明的 `"Failed"` 或者 `"Succeeded"` 阶段。
+
+      此字段为 Alpha 状态。需要启用 `DeploymentReplicaSetTerminatingReplicas` 特性门控才可使用。
     format: int32
     type: integer
 required:

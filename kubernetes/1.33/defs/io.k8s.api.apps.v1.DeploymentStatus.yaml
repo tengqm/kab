@@ -3,10 +3,10 @@ x-kab-description-zh: Deployment 的最近观测状态。
 properties:
   availableReplicas:
     description: |
-      Total number of available Pods (ready for at least `minReadySeconds`) targeted by this Deployment.
+      Total number of available non-terminating Pods (ready for at least `minReadySeconds`) targeted by this Deployment.
       It cannot be greater than the desired replicas or the ready replicas.
     x-kab-description-zh: |
-      此 Deployment 所关联到的、处于可用状态下的 Pod（持续 `minReadySeconds` 秒保持就绪）个数。
+      此 Deployment 所关联到的、处于可用状态下未终止的 Pod（持续 `minReadySeconds` 秒保持就绪）个数。
       此值不会超出期望副本个数或者就绪副本个数。
     format: int32
     minimum: 0
@@ -44,21 +44,38 @@ properties:
     type: integer
   readyReplicas:
     description: |
-      Total number of ready Pods targeted by this Deployment with a `Ready` condition.
+      Total number of non-terminating Pods targeted by this Deployment with a `Ready` condition.
       This cannot be greater than the desired `replicas`.
     x-kab-description-zh: |
-      此 Deployment 所关联的、处于就绪状态（带有 `Ready` 状况）的 Pod 个数。
+      此 Deployment 所关联的、处于非终止状态（带有 `Ready` 状况）的 Pod 个数。
       此值不能大于期望的副本个数。
     format: int32
     minimum: 0
     type: integer
   replicas:
     description: |
-      Total number of non-terminated Pods targeted by this Deployment (their labels match the `selector`).
+      Total number of non-terminating Pods targeted by this Deployment (their labels match the `selector`).
     x-kab-description-zh: |
-      此 Deployment 所关联的、未被终止的 Pod 个数。
+      此 Deployment 所关联的、非终止状态的 Pod 个数。
     format: int32
     minimum: 0
+    type: integer
+  terminatingReplicas:
+    description: |
+      Total number of terminating Pods targeted by this deployment.
+      Terminating pods have a non-null `.metadata.deletionTimestamp` and
+      have not yet reached the `"Failed"` or `"Succeeded"` `.status.phase.`.
+
+      This is an Alpha field.
+      Enable the `DeploymentReplicaSetTerminatingReplicas` to be able to use this field.
+    x-kab-description-zh: |
+      此 Deployment 所针对的处于终止状态的 Pod 个数。
+      每个处于终止状态的 Pod 的 `.metadata.deletionTimestamp` 都是非 Null 值，
+      并且其 `.status.phase` 所反应的阶段没有到达 `"Failed"` 或者 `"Succeeded"`。
+
+      此字段处于 Alpha 状态。需要启用 `DeploymentReplicaSetTerminatingReplicas` 特性门控才能使用。
+    format: int32
+    minimum:  0
     type: integer
   unavailableReplicas:
     description: |
@@ -75,10 +92,10 @@ properties:
     type: integer
   updatedReplicas:
     description: |
-      Total number of non-terminated Pods targeted by this Deployment that have the desired template spec.
+      Total number of non-terminating Pods targeted by this Deployment that have the desired template spec.
       Must be less than the desired `replicas`.
     x-kab-description-zh: |
-      此 Deployment 所关联的、未终止的且模板规约为预期版本的 Pod。
+      此 Deployment 所关联的、非终止状态的且模板规约为预期版本的 Pod。
       此字段值要小于期望的副本个数。
     format: int32
     minimum: 0
