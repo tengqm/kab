@@ -19,9 +19,14 @@ properties:
     type: string
   leaseName:
     description: |
-      `leaseName` is the name of the lease for which this candidate is contending. This field is immutable.
+      `leaseName` is the name of the lease for which this candidate is contending.
+      The limits on this field are the same as on Lease's name.
+      Multiple lease candidates may reference the same Lease.
+      This field is immutable.
     x-kab-description-zh: |
-      `leaseName` 是当前候选者要参与竞争的 Lease 的名称。此字段是不可变更的。
+      `leaseName` 是当前候选者要参与竞争的 Lease 的名称。
+      此字段的取值约束与 Lease 对象的 `name` 相同。多个 Lease 候选者可以引用同一个 Lease。
+      此字段是不可变更的。
     type: string
   pingTime:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
