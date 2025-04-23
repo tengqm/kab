@@ -7,7 +7,7 @@ description: |
   The ResourceSlice in which a device gets published may change over time.
   The unique identifier for a device is the tuple `<driver name>, <pool name>, <device name>`.
 
-  Whenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices
+  Whenever a driver needs to update a pool, it increments the `Pool.spec.pool.generation` number and updates all ResourceSlices
   with that new number and new resource definitions.
   A consumer must only use ResourceSlices with the highest generation number and ignore all others.
 

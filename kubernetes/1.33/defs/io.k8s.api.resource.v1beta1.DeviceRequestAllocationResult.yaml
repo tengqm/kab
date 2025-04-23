@@ -49,12 +49,37 @@ properties:
   request:
     description: |
       `request` is the name of the request in the claim which caused this device to be allocated.
+      If it references a subrequest in the `firstAvailable` list on a DeviceRequest,
+      this field must include both the name of the main request and the subrequest
+      using the format `<main request>/<subrequest>`.
+
       Multiple devices may have been allocated per request.
     x-kab-description-zh: |
       `request` 是设备申领中的请求名称，设备分配的触发者即这里所引用的请求。
+      如果此请求引用了 DeviceRequest 中 `firstAvailable` 列表中的某个子请求，
+      则此字段的取值必须以 `<主请求>/<子请求>` 的方式来给出主请求和子请求的名称。
+
       每个请求可以分配多个设备。
     minLength: 1
     type: string
+  tolerations:
+    description: |-
+      A copy of all tolerations specified in the request at the time when the device got allocated.
+
+      The maximum number of tolerations is 16.
+
+      This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    x-kab-description-zh: |-
+      此字段为设备分配时请求中所指定的容忍度的一个副本。
+
+      容忍度个数的上限为 16 个。
+
+      此字段为 Alpha 状态，需要启用 `DRADeviceTaints` 特性门控才能使用。
+    items:
+      $ref: "#/definitions/io.k8s.api.resource.v1beta1.DeviceToleration"
+    maxItems: 16
+    type: array
+    x-kubernetes-list-type: atomic
 required:
 - device
 - driver

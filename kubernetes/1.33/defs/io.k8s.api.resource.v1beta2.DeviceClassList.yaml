@@ -1,0 +1,36 @@
+description: DeviceClassList is a collection of classes.
+x-kab-description-zh: DeviceClassList 是 DeviceClass 对象的列表。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1beta2
+    type: string
+  items:
+    description: A list of DeviceClass objects.
+    x-kab-description-zh: DeviceClass 对象的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceClass'
+    type: array
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - DeviceClassList
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata.
+    x-kab-description-zh: 标准的列表元数据。
+required:
+- apiVersion
+- items
+- kind
+- metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: DeviceClassList
+    version: v1beta2
+

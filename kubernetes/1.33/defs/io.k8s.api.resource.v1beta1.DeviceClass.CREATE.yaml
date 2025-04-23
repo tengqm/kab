@@ -1,7 +1,14 @@
 description: |-
-  DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
+  DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors.
+  It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
 
-  This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+  This is an Alpha type and requires enabling the DynamicResourceAllocation feature gate.
+x-kab-description-zh: |-
+  DeviceClass 是一个由供应商或者管理员提供的资源，其中包含设备配置和选择算符信息。
+  DeviceClass 可以在设备申领（Claim）的设备请求中引用，用于请求这些预设设备。
+  DeviceClass 是集群作用域的资源。
+
+  此类别是 Alpha 级别的，需要启用  DynamicResourceAllocation 特性门控。
 properties:
   apiVersion:
     description: The version of the schema for the object representation.

@@ -1,0 +1,11 @@
+description: Counter describes a quantity associated with a device.
+x-kab-description-zh: Counter 描述与某个设备相关联的量纲值。
+properties:
+  value:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: This defines how much of a certain device counter is available.
+    x-kab-description-zh: 此字段定义给定设备计数器有多少可用。
+required:
+  - value
+type: object
+

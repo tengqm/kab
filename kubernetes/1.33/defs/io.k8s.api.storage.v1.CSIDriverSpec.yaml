@@ -71,6 +71,31 @@ properties:
       - None
       - ReadWriteOnceWithFSType
     type: string
+  nodeAllocatableUpdatePeriodSeconds:
+    description: |-
+      `nodeAllocatableUpdatePeriodSeconds` specifies the interval between periodic updates of
+      the CSINode allocatable capacity for this driver.
+      When set, both periodic updates and updates triggered by capacity-related failures are enabled.
+      If not set, no updates occur (neither periodic nor upon detecting capacity-related failures),
+      and the `allocatable.count` remains static.
+      The minimum allowed value for this field is 10 seconds.
+
+      This is an Alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+      This field is mutable.
+    x-kab-description-zh: |-
+      `nodeAllocatableUpdatePeriodSeconds` 用来为此驱动设置 CSINode 可分配容量信息的更新周期。
+      如果设置了此字段，则一方面会启用对可分配容量信息的周期性更新，另一方面也会启用与容量相关的失效。
+      如果不设置此字段，则不会发生更新操作（定期更新和与容量相关的失效都不会发生），
+      字段 `allocatable.count` 的值因此会变成静态值。
+      此字段的最小值是 10 秒钟。
+
+      此字段处于 Alpha 阶段，需要启用 MutableCSINodeAllocatableCount 特性门控才能使用。
+
+      此字段是不可变更的。
+    format: int64
+    minimum: 10
+    type: integer
   podInfoOnMount:
     default: false
     description: |

@@ -1,0 +1,53 @@
+description: |-
+  DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors.
+  It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
+
+  This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+x-kab-description-zh: |-
+  DeviceClass 是一个由供应商或者管理员提供的资源，其中包含设备配置和选择算符信息。
+  DeviceClass 可以在设备申领（Claim）的设备请求中引用，用于请求这些预设设备。
+  DeviceClass 是集群作用域的资源。
+
+  此类别是 Alpha 级别的，需要启用  DynamicResourceAllocation 特性门控。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - resource.k8s.io/v1beta2
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - DeviceClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceClassSpec'
+    description: |-
+      `spec` defines what can be allocated and how to configure it.
+      This is mutable. Consumers have to be prepared for classes changing at any time,
+      either because they get updated or replaced.
+      Claim allocations are done once based on whatever was set in classes at the time of allocation.
+      Changing the spec automatically increments the `metadata.generation` number.
+    x-kab-description-zh: |-
+      `spec` 定义可以分配的设备类型以及设备的配置方式。
+      此字段是可变更的。设备类可能在任何时候发生变更，用户必须为此做好准备。
+      设备类发生变化可能是因为设备类被更新或替换。
+      申领的分配是一次性完成的，基于分配时刻设备类中的设置进行。
+      更改设备类的规约会自动增加 `metadata.generation` 数值。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: resource.k8s.io
+    kind: DeviceClass
+    version: v1beta2
+

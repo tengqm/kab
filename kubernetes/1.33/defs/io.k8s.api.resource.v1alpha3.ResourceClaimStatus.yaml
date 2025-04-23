@@ -35,7 +35,7 @@ properties:
       The other one fails with an error and the scheduler which issued it knows that it must put the Pod back into the queue,
       waiting for the ResourceClaim to become usable again.
 
-      There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+      There can be at most 256 such reservations. This may get increased in the future, but not reduced.
     x-kab-description-zh: |
       `reservedFor` 表明哪些实体目前可以使用此申领。引用了没有预留给自身的 ResourceClaim 的 Pod 不会被启动。
       正被使用的申领或者因为被预留而可能被使用的申领不可以被释放。
@@ -47,10 +47,10 @@ properties:
       另一个调度请求会失败并返回出错信息，发出请求的调度器会知道自己必须将 Pod 放回到队列中，
       等待 ResourceClaim 再次变为可用。
 
-      预留表项最多 32 个。在将来这个限制可能会放宽，但不会收紧。
+      预留表项最多 256 个。在将来这个限制可能会放宽，但不会收紧。
     items:
       $ref: '#/definitions/io.k8s.api.resource.v1alpha3.ResourceClaimConsumerReference'
-    maxItems: 32
+    maxItems: 256
     type: array
     x-kubernetes-list-map-keys:
       - uid

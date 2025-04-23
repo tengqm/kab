@@ -1,0 +1,122 @@
+description: |
+  Device represents one individual hardware instance that can be selected based on its attributes.
+x-kab-description-zh: |
+  Device 表示某个特定的硬件设备实例，该设备可基于其属性被用户选用。
+properties:
+  allNodes:
+    description: |-
+      `allNodes` indicates that all nodes have access to the device.
+
+      Must only be set if `spec.perDeviceNodeSelection` is set to true.
+      At most one of `nodeName`, `nodeSelector` and `allNodes` can be set.
+    x-kab-description-zh: |-
+      `allNodes` 表示所有节点都能访问此设备。
+
+      只有当 `spec.perDeviceNodeSelection` 被设置为 `true` 的时候才能使用。
+      `nodeName`、`nodeSelector` 和 `allNodes` 三者只能设置其一。
+    type: boolean
+  attributes:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceAttribute'
+    description: |-
+      `attributes` defines the set of attributes for this device.
+      The name of each attribute must be unique in that set.
+
+      The maximum number of `attributes` and `capacities` combined is 32.
+    x-kab-description-zh: |-
+      `attributes` 定义设备的属性集合。
+      每个属性的名字在此集合中必须唯一。
+
+      `attributes` 和 `capacity` 两个字段的总条目数不能超过 32 个。
+    type: object
+  capacity:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceCapacity'
+    description: |-
+      `capacity` defines the set of capacities for this device.
+      The name of each capacity must be unique in that set.
+
+      The maximum number of attributes and capacities combined is 32.
+    x-kab-description-zh: |-
+      `capacity` 定义设备的容量信息集合。
+      每个容量属性的名字在此集合中必须唯一。
+
+      `attributes` 和 `capacity` 两个字段的总条目数不能超过 32 个。
+    type: object
+  consumesCounters:
+    description: |-
+      `consumesCounters` defines a list of references to `sharedCounters` and
+      the set of counters that the device will consume from those counter sets.
+
+      There can only be a single entry per counterSet.
+
+      The total number of device counter consumption entries must be <= 32.
+      In addition, the total number in the entire ResourceSlice must be <= 1024
+      (for example, 64 devices with 16 counters each).
+    x-kab-description-zh: |-
+      `consumesCounters` 定义一个列表，其中包含对 `sharedCounters` 的引用，
+      所给出的是供设备消耗的计数器集合。
+
+      每个 `counterSet` 中只能有一个元素。
+
+      设备计数器消耗条目的总数不能超过 32。
+      此外，ResourceSlice 中各个条目的总的计数器个数不能超过 1024。
+      （例如，允许存在 64 个设备，每个设备带有 16 个计数器。）
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceCounterConsumption'
+    maxItems: 32
+    type: array
+    x-kubernetes-list-type: atomic
+  name:
+    description: |-
+      `name` is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
+    x-kab-description-zh: |
+      `name` 是一个标识符，在设备池中由驱动所管理的所有设备中唯一。字段值必须是一个合法的 DNS 标签值。
+    minLength: 1
+    type: string
+  nodeName:
+    description: |-
+      `nodeName` identifies the node where the device is available.
+
+      Must only be set if Spec.PerDeviceNodeSelection is set to true.
+      At most one of NodeName, NodeSelector and AllNodes can be set.
+    x-kab-description-zh: |-
+      `nodeName` 给出能访问此设备的节点。
+
+      只有当 `spec.perDeviceNodeSelection` 被设置为 `true` 的时候才能使用。
+      `nodeName`、`nodeSelector` 和 `allNodes` 三者只能设置其一。
+    minLength: 1
+    type: string
+  nodeSelector:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |-
+      `nodeSelector` defines the nodes where the device is available.
+      Must use exactly one term.
+
+      Must only be set if Spec.PerDeviceNodeSelection is set to true.
+      At most one of NodeName, NodeSelector and AllNodes can be set.
+    x-kab-description-zh: |-
+      `nodeSelector` 定义能够访问此设备的节点。选择算符中只允许包含一个条件。
+
+      只有当 `spec.perDeviceNodeSelection` 被设置为 `true` 的时候才能使用。
+      `nodeName`、`nodeSelector` 和 `allNodes` 三者只能设置其一。
+    type: boolean
+
+  taints:
+    description: |-
+      If specified, these are the driver-defined taints.
+
+      This is an Alpha field and requires enabling the DRADeviceTaints feature gate.
+    x-kab-description-zh: |-
+      此字段设置了的时候，给出的是驱动所定义的污点。
+
+      此字段为 Alpha 状态，需要启用 `DRADeviceTaints` 特性门控。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceTaint'
+    maxItems: 4
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - name
+type: object
+

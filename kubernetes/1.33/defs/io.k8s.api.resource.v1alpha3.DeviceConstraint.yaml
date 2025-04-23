@@ -25,10 +25,17 @@ properties:
       `requests` is a list of the one or more requests in this claim which must co-satisfy this constraint.
       If a request is fulfilled by multiple devices, then all of the devices must satisfy the constraint.
       If this is not specified, this constraint applies to all requests in this claim.
+
+      References to subrequests must include the name of the main request and
+      may include the subrequest using the format `<main request>[/<subrequest>]`.
+      If just the main request is given, the constraint applies to all subrequests.
     x-kab-description-zh: |
       `requests` 是由一个或多个请求组成的列表，设备申领中的这些请求都必须满足此约束。
       如果某设备请求是由多个设备来满足的，则所有设备都必须满足这里所给的约束。
       如果此字段未设置，则约束适用于所在设备申领中的所有请求。
+
+      对子请求的引用必须将主请求的名称包含在内，也可以使用 `<主请求>[/<子请求>]` 的形式包含子请求。
+      如果只给了主请求部分，则对应的约束适用于所有子请求。
     items:
       type: string
     type: array

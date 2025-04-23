@@ -1,0 +1,125 @@
+description: ExactDeviceRequest is a request for one or more identical devices.
+x-kab-description-zh: ExactDeviceRequest 是关于对一个或多个相同设备的请求。
+properties:
+  adminAccess:
+    description: |-
+      `adminAccess` indicates that this is a claim for administrative access to the device(s).
+      Claims with `adminAccess` are expected to be used for monitoring or other management services for a device.
+      They ignore all ordinary claims to the device with respect to access modes and any resource allocations.
+
+      This is an Alpha field and requires enabling the DRAAdminAccess feature gate.
+      Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+    x-kab-description-zh: |-
+      `adminAccess 表明当前设备申领的意图是获得对设备的管理性访问。
+      设置了 `adminAccess` 的申领预期是要对设备执行监控或者其他管理服务的。
+      就设备的访问模式以及资源分配而言，它们会忽略所有普通的设备申领。
+
+      此字段处于 Alpha 阶段，需要启用 `DRAAdminAccess` 特性门控。
+      如果此字段未设置或者设置为 false，则禁用管理性访问，否则视为启用管理性访问。
+    type: boolean
+  allocationMode:
+    description: |
+      `allocationMode` and its related fields define how devices are allocated to satisfy this request.
+      Supported values are:
+
+      - `"ExactCount"`: This request is for a specific number of devices.
+        This is the default. The exact number is provided in the `count` field.
+      - `"All"`: This request is for all of the matching devices in a pool.
+        At least one device must exist on the node for the allocation to succeed.
+        Allocation will fail if some devices are already allocated, unless `adminAccess` is requested.
+
+      If the mode is `"ExactCount"` and `count` is not specified, the default count is 1.
+      Any other requests must specify this field.
+
+      More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
+    x-kab-description-zh: |
+      `allocationMode` 及其相关的字段用来定义如何分配设备以满足此请求。合法的取值有：
+
+      - `"ExactCount"`：请求的目标是获得指定数目的设备。确切的设备数目通过 `count` 字段来表达。
+      - `"All"`：请求的目标是获得池中所有匹配的设备。
+        分配成功的前提是节点上至少存在一个设备。
+        如果某些设备已经被分配，除非设置了 `adminAccess`，否则设备分配会失败。
+
+      如果分配模式是 `"ExactCount"` 而 `count` 字段没有设置，则默认的设备个数为 1。
+      所有其他请求都必须指定此字段。
+
+      将来可能会添加新的模式值。客户必须拒绝处理模式无法识别的请求。
+    type: string
+  count:
+    description: |
+      `count` is used only when the count mode is `"ExactCount"`. Must be greater than zero.
+      If `allocationMode` is `"ExactCount"` and this field is not specified, the default is 1.
+    x-kab-description-zh: |
+      只有分配模式为 `"ExactCount"` 时才会使用 `count` 字段。
+      如果 `allocationMode` 为 `"ExactCount"` 而此字段未设置，则默认值为 1。
+    format: int64
+    minimum: 1
+    type: integer
+  deviceClassName:
+    description: |-
+      `deviceClassName` references a specific DeviceClass,
+      which can define additional configuration and selectors to be inherited by this request.
+
+      A `deviceClassName` is required.
+
+      Administrators may use this to restrict which devices may get requested by
+      only installing classes with selectors for permitted devices.
+      If users are free to request anything without restrictions,
+      then administrators can create an empty DeviceClass for users to reference.
+    x-kab-description-zh: |
+      `deviceClassName` 引用某个特定的 DeviceClass 对象，
+      被引用的设备类对象可以定义一些附加的配置参数以及选择算符，供此请求继承使用。
+
+      `deviceClassName` 是需要的。
+
+      管理员可能使用此字段来限制哪些设备可被请求，方法是仅为通过选择算符选定的可访问设备安装设备类。
+      如果用户可以随意申请任何设备，不加限制，则管理员可以创建一个空的 DeviceClass 供用户来引用。
+    type: string
+  selectors:
+    description: |
+      `selectors` define criteria which must be satisfied by a specific device
+      in order for that device to be considered for this request.
+      All selectors must be satisfied for a device to be considered.
+    x-kab-description-zh: |
+      `selectors` 定义一些判定条件。只有特定设备满足这些条件时，该设备才会被考虑为此请求的候选。
+      注意，设备要满足这里的所有选择算符条件。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceSelector'
+    type: array
+    x-kubernetes-list-type: atomic
+  tolerations:
+    description: |-
+      If specified, the request's tolerations.
+
+      Tolerations for `NoSchedule` are required to allocate a device which has a taint with that effect.
+      The same applies to NoExecute.
+
+      In addition, should any of the allocated devices get tainted with NoExecute after allocation and
+      that effect is not tolerated, then all pods consuming the ResourceClaim get deleted to evict them.
+      The scheduler will not let new pods reserve the claim while it has these tainted devices.
+      Once all pods are evicted, the claim will get deallocated.
+
+      The maximum number of tolerations is 16.
+
+      This is an Alpha field and requires enabling the `DRADeviceTaints` feature gate.
+    x-kab-description-zh: |-
+      如果设置了此字段，所给出的是设备请求的容忍度。
+      如果某个设备上标注了效果为 `NoSchedule` 的污点，则请求必须容忍这一效果的污点才有可能被分配设备。
+      对于效果为 `NoExecute` 的污点，处理方式相同。
+
+      此外，如果在设备分配之后，所分配的设备中有任何设备上标注了 `NoExecute` 污点，
+      并且设备请求中不包含对应的容忍度设置，则所有使用该 ResourceClaim 的 Pod 都会以驱逐的名义被删除。
+      如果设备申领中包含这类有污点的设备，调度器不会允许任何新的 Pod 预留这些申领。
+      当所有 Pod 都被驱逐之后，设备申领会被去配（释放）。
+
+      容忍度条目的上限为 16 个。
+
+      此字段处于 Alpha 阶段，需要启用 `DRADeviceTaints` 特性门控才能使用。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceToleration'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - deviceClassName
+type: object
+
