@@ -1,0 +1,32 @@
+description: DeviceAttribute must have exactly one field set.
+x-kab-description-zh: DeviceAttribute 封装设备属性。其中必须且只能设置一个字段。
+properties:
+  bool:
+    description: |
+      `bool` is a true/false value.
+    x-kab-description: 此字段用来给出 true/false 值。
+    type: boolean
+  int:
+    description: |
+      `int` is a number.
+    x-kab-description-zh: 此字段给出一个数字值。
+    format: int64
+    type: integer
+  string:
+    description: |
+      `string` is a string. Must not be longer than 64 characters.
+    x-kab-description-zh: |
+      `string` 是一个字符串值。字符串长度不能超过 64 字符。
+    maxLength: 64
+    type: string
+  version:
+    description: |
+      `version` is a semantic version according to semver.org spec 2.0.0.
+      Must not be longer than 64 characters.
+    x-kab-description-zh: |
+      `version` 是一个基于 semver.org 规范 2.0.0 的语义版本字符串。
+      字符串长度不能超过 64 字符。
+    maxLength: 64
+    type: string
+type: object
+
