@@ -11,6 +11,16 @@ properties:
     x-kab-description-zh: 使用的编译器。数值来源是 GoLang `runtime.Compiler`。
     minLength: 1
     type: string
+  emulationMajor:
+    description: The major version of the emulation version.
+    x-kab-description-zh: 模拟版本的主版本。
+    minLength: 1
+    type: string
+  emulationMinor:
+    description: The minor version of the emulation version.
+    x-kab-description-zh: 模拟版本的次版本。
+    minLength: 1
+    type: string
   gitCommit:
     description: Set when building the binary by scripts. The content is the git HEAD hash code when build.
     x-kab-description-zh: 使用脚本来构造可执行文件时设置。数据内容是构造时使用的 GIT HEAD 哈希编码。
@@ -32,13 +42,23 @@ properties:
     minLength: 1
     type: string
   major:
-    description: Major version. Always numeric.
-    x-kab-description-zh: 主版本号。此字段一定是数值。
+    description: The majore version of the binary version.
+    x-kab-description-zh: 可执行文件版本的主版本号。
+    minLength: 1
+    type: string
+  minCompatibilityMajor:
+    description: The major version of the minimum compatibility version.
+    x-kab-description-zh: 最低兼容版本的主版本号。
+    minLength: 1
+    type: string
+  minCompatibilityMinor:
+    description: The minor version of the minimum compatibility version.
+    x-kab-description-zh: 最低兼容版本的次版本号。
     minLength: 1
     type: string
   minor:
-    description: Minor version. Always numeric.
-    x-kab-description-zh: 次版本号。此字段一定是数值。
+    description: The minor version of the binary version.
+    x-kab-description-zh: 可执行文件版本的次版本号。
     minLength: 1
     type: string
   platform:

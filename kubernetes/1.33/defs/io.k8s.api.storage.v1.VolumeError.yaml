@@ -1,6 +1,16 @@
 description: An error encountered during a volume operation.
 x-kab-description-zh: 在执行卷操作时遇到的错误。
 properties:
+  errorCode:
+    description: |-
+      `errorCode` is a numeric gRPC code representing the error encountered during `attach` or `detach` operations.
+      This is an optional, Alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+    x-kab-description-zh: |-
+      `errorCode` 是一个 gRPC 方法返回值数字，代表 `attach` 或 `detach` 操作时遇到的错误。
+      此字段是可选的。
+      字段处于 Alpha 阶段，需要启用 MutableCSINodeAllocatableCount 特性门控才会被设置。
+    format: int32
+    type: integer
   message:
     description: |
       String detailing the error encountered during `attach` or `detach` operation.
