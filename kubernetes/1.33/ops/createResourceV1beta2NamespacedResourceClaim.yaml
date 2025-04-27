@@ -1,0 +1,51 @@
+consumes:
+  - '*/*'
+description: create a ResourceClaim
+x-kab-description-zh: 创建一个 ResourceClaim
+operationId: createResourceV1beta2NamespacedResourceClaim
+parameters:
+  - in: body
+    name: body
+    required: true
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.ResourceClaim.CREATE'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldManager'
+  - $ref: '#/parameters/fieldValidation'
+  - $ref: '#/parameters/namespace'
+path: /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.ResourceClaim.GET'
+  '201':
+    description: Created
+    x-kab-description-zh: 已创建
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.ResourceClaim.GET'
+  '202':
+    description: Accepted
+    x-kab-description-zh: 请求已接受
+    schema:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.ResourceClaim.GET'
+  '401':
+    description: Unauthorized
+    x-kab-description-zh: 请求未授权
+schemes:
+  - https
+tags:
+  - resource_v1beta2
+verb: post
+x-kubernetes-action: post
+x-kubernetes-group-version-kind:
+  group: resource.k8s.io
+  kind: ResourceClaim
+  version: v1beta2
+
