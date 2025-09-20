@@ -14,9 +14,14 @@ properties:
     minimum: 1
     type: integer
   backoffLimit:
-    default: 6
-    description: The number of retries before marking this Job as failed.
-    x-kab-description-zh: 在标记 Job 为失败状态之前 Job 可以进行的重试次数。
+    description: |
+      The number of retries before marking this Job as failed.
+      The default number is 6, unless `backoffLimitPerIndex` (only Indexed Job) is specified.
+      When `backoffLimitPerIndex` is specified, `backoffLimit` defaults to 2147483647.
+    x-kab-description-zh: |
+      在标记 Job 为失败状态之前 Job 可以进行的重试次数。
+      默认值为 6，除非指定了 `backoffLimitPerIndex` （仅针对带索引的 Job）。
+      如果指定了 `backoffLimitPerIndex`，则 `backoffLimit` 的默认值为 2147483647。
     format: int32
     minimum: 0
     type: integer
@@ -194,8 +199,7 @@ properties:
 
       When using `podFailurePolicy`, `"Failed"` is the the only allowed value.
       `"TerminatingOrFailed"` and `"Failed"` are allowed values when `podFailurePolicy`
-      is not in use. This is an Beta field.
-      Enable the `JobPodReplacementPolicy` feature gate to be able to use this field.
+      is not in use.
     x-kab-description-zh: |
       此字段设置何时创建替代 Pod。可选值包括：
       - `"TerminatingOrFailed"`：当现有 Pod 被终止（`metadata.deletionTimestamp` 非空）
@@ -205,8 +209,6 @@ properties:
 
       设置了 `podFailurePolicy` 字段时，此字段只能设置为 `"Failed"`。
       未设置 `podFailurePolicy` 时，可以选择 `"TerminatingOrFailed"` 和 `"Failed"` 之一。
-
-      此字段处于 Beta 阶段，需要启用 `JobPodReplacementPolicy` 特性门控（默认启用）。
     enum:
       - Failed
       - TerminatingOrFailed

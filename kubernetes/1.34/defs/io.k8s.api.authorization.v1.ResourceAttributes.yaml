@@ -5,12 +5,8 @@ properties:
     $ref: '#/definitions/io.k8s.api.authorization.v1.FieldSelectorAttributes'
     description: |
       `fieldSelector` describes the limitation on access based on field.  It can only limit access, not broaden it.
-
-      This field is Alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
     x-kab-description-zh: |
       `fieldSelector` 描述基于字段的访问限制。此字段只能限制访问，不能增加提升访问能力。
-
-      此字段处于 Alpha 阶段，需要启用 `AuthorizeWithSelectors` 特性门控（默认被禁用）。
   group:
     description: |
       The API group of the `resource`. `"*"` means all.
@@ -22,8 +18,6 @@ properties:
     $ref: '#/definitions/io.k8s.api.authorization.v1.LabelSelectorAttributes'
     description: |
       `labelSelector` describes the limitation on access based on labels.  It can only limit access, not broaden it.
-
-      This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
     x-kab-description-zh: |
       `labelSelector` 描述基于标签的访问限制。此字段只能限制访问，不能增加提升访问能力。
 

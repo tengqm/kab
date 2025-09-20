@@ -20,7 +20,7 @@ properties:
       Once an updated Pod is available (`"Ready"` for at least `minReadySeconds`),
       the old DaemonSet Pod on that node is marked deleted.
       If the old Pod becomes unavailable for any reason (`"Ready"` transitions to `"False"`,
-      is evicted, or is drained) an updated Pod is immediatedly created on that node
+      is evicted, or is drained) an updated Pod is immediately created on that node
       without considering surge limits.
       Allowing surge implies the possibility that the resources consumed by the DaemonSet
       on any given node can double if the readiness check fails, and so
