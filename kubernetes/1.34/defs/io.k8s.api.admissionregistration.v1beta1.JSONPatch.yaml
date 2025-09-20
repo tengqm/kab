@@ -1,0 +1,147 @@
+description: JSONPatch defines a JSON Patch.
+x-kab-description-zh: JSONPatch 定义一个 JSON 补丁（JSON Patch）。
+properties:
+  expression:
+    description: |
+      `expression` will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). 参考 https://github.com/google/cel-spec
+      `expression` must return an array of JSONPatch values.
+
+      For example, this CEL expression returns a JSON patch to conditionally modify a value.
+
+      ```
+      [
+        JSONPatch{op: \"test\", path: \"/spec/example\", value: \"Red\"},
+        JSONPatch{op: \"replace\", path: \"/spec/example\", value: \"Green\"}
+      ]
+      ```
+
+      To define an object for the patch value, use `Object` types. For example:
+
+      ```
+      [
+        JSONPatch{
+          op: \"add\",
+          path: \"/spec/selector\",
+          value: Object.spec.selector{matchLabels: {\"environment\": \"test\"}}
+        }
+      ]
+      ```
+
+      To use strings containing `'/'` and `'~'` as JSONPatch path keys, use \"jsonpatch.escapeKey\". For example:
+
+      ```
+      [
+        JSONPatch{
+          op: \"add\",
+          path: \"/metadata/labels/\" + jsonpatch.escapeKey(\"example.com/environment\"),
+          value: \"test\"
+        },
+      ]
+      ```
+
+      CEL expressions have access to the types needed to create JSON patches and objects.
+
+      - `JSONPatch` - CEL type of JSON Patch operations. JSONPatch has the fields `op`, `from`, `path` and `value`.
+        See [JSON patch](https://jsonpatch.com/) for more details.
+        The `value` field may be set to any of: string, integer, array, map or object.
+        If set, the `path` and `from` fields must be set to a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901/) string,
+        where the `jsonpatch.escapeKey()` CEL function may be used to escape path keys containing `'/'` and `'~'`.
+      - `Object` - CEL type of the resource object.
+      - `Object.<fieldName>` - CEL type of object field (such as `Object.spec`)
+      - `Object.<fieldName1>.<fieldName2>...<fieldNameN>`
+      - CEL type of nested field (such as `Object.spec.containers`)
+
+      CEL expressions have access to the contents of the API request, organized into CEL variables as well as some other useful variables.
+
+      - `object` - The object fromthe incoming request. The value is null for DELETE requests.
+      - `oldObject` - The existing object. The value is null for CREATE requests.
+      - `request` - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)).
+      - `params` - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a `paramKind`.
+      - `namespaceObject` - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources.
+      - `variables` - Map of composited variables, from its name to its lazily evaluated value.
+        For example, a variable named 'foo' can be accessed as 'variables.foo'.
+      - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+        See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      - `authorizer.requestResource` - A CEL ResourceCheck constructed from the 'authorizer' and configured with the request resource.
+
+      CEL expressions have access to [Kubernetes CEL function libraries](https://kubernetes.io/docs/reference/using-api/cel/#cel-options-language-features-and-libraries)
+      as well as,
+
+      - `jsonpatch.escapeKey` - Performs JSONPatch key escaping. `'~'` and  `'/'` are escaped as `'~0'` and `'~1'` respectively.
+
+      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+
+    x-kab-description-zh: |
+      `expression` 将被 CEL 求值，结果是一个 [JSON 补丁](https://jsonpatch.com/)对象。参考 https://github.com/google/cel-spec。
+      `expression` 必须返回由 JSONPatch 值组成的数组。
+
+      例如，下面的 CEL 表达式返回一个 JSON 补丁，能够有条件地更改字段值：
+
+      ```
+      [
+        JSONPatch{op: \"test\", path: \"/spec/example\", value: \"Red\"},
+        JSONPatch{op: \"replace\", path: \"/spec/example\", value: \"Green\"}
+      ]
+      ```
+
+      使用 `Object` 类型可以为补丁值定义一个对象。例如：
+
+      ```
+      [
+        JSONPatch{
+          op: \"add\",
+          path: \"/spec/selector\",
+          value: Object.spec.selector{matchLabels: {\"environment\": \"test\"}}
+        }
+      ]
+      ```
+
+      要使用包含 `'/'` 和 `'~'` 的字符串作为 JSONPatch 路径主键，需要使用 `jsonpatch.escapeKey`. 例如：
+
+      ```
+      [
+        JSONPatch{
+          op: \"add\",
+          path: \"/metadata/labels/\" + jsonpatch.escapeKey(\"example.com/environment\"),
+          value: \"test\"
+        },
+      ]
+      ```
+
+      CEL 表达式可以访问创建 JSON 补丁和对象所需要的对象类型。
+
+      - `JSONPatch` - 用来表示 JSON 补丁操作的 CEL 类型。`JSONPatch` 包含字段 `op`、`from`、`path` 和 `value`。
+        进一步的细节可以参考 [JSON 补丁官方文档](https://jsonpatch.com/)。
+        字段 `value` 可以设置为字符串、整数、数组、映射或者对象之一。
+        如果设置了 `path` 和 `from` 字段，则所设置的值必须是 [JSON 指针](https://datatracker.ietf.org/doc/html/rfc6901/) 字符串。
+        可以使用 `jsonpatch.escapeKey()` CEL 函数来为包含 `'/'` 和 `'~'` 的路径提供转义。
+      - `Object` - 用来表示资源对象的 CEL 类型。
+      - `Object.<fieldName>` - 用来表示对象字段的 CEL 类型（例如 `Object.spec`）。
+      - `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - 用来表示嵌套字段的 CEL 类型（例如 `Object.spec.containers`）。
+
+
+      CEL 表达式能够访问 API 请求的内容，这些内容被组织成 CEL 变量以及一些其他有用的变量。
+
+      - `object` - 取自请求的对象。对于 DELETE 请求，此变量值为 null。
+      - `oldObject` - 现有对象。对于 CREATE 请求而言，此变量值为 null。
+      - `request` - API 请求的属性（参考 /pkg/apis/admission/types.go#AdmissionRequest 定义）。
+      - `params` - 所评估的策略绑定引用的参数资源。仅当策略包含 `paramKind` 的时候有值。
+      - `namespaceObject` - 请求对象所属的名字空间对象。对于集群作用域的资源，此变量值为 null。
+      - `variables` - 由复合变量构成的映射，包含从变量名到懒惰求值得到的取值的对应关系。
+        例如，某个名为 `foo` 的变量可以通过 `variables.foo` 的形式来访问。
+      - `authorizer` - 某个 CEL 鉴权组件。此变量可用来执行针对请求主体（用户或服务账号）的鉴权检查。
+        参见 https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      - `authorizer.requestResource` - 由 `authorizer` 基于请求资源构造的 CEL ResourceCheck 对象。
+
+      CEL 表达式能够访问 [Kubernetes CEL 函数库](https://kubernetes.io/zh-cn/docs/reference/using-api/cel/#cel-options-language-features-and-libraries)
+      中列举的函数，还可以访问
+
+      - `jsonpatch.escapeKey` - 执行 JSONPatch 键转义。`'~'` 和 `'/'` 会分别被转义为 `'~0'` 和 `'~1'`。
+
+      所有符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 格式的属性名都是可访问的。
+    minLength: 1
+    type: string
+required:
+  - expression
+type: object
+

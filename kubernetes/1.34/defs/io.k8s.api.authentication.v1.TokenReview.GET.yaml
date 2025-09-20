@@ -1,0 +1,46 @@
+description: |
+  TokenReview attempts to authenticate a token to a known user.
+  **Note**: TokenReview requests may be cached by the webhook token authenticator
+  plugin in the API server.
+x-kab-description-zh: |
+  TokenReview API 会尝试基于令牌来为某个已知用户提供身份认证。
+  **注意**：TokenReview 请求可能会被 API 服务器中的令牌身份校验
+  Webhook 组件缓存。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - authentication.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - TokenReview
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.TokenReviewSpec'
+    description: Information about the request being evaluated
+    x-kab-description-zh: 关于所评估的请求的信息。
+  status:
+    $ref: '#/definitions/io.k8s.api.authentication.v1.TokenReviewStatus'
+    description: |
+      Indicates whether the request can be authenticated; filled in by the server.
+    x-kab-description-zh: |
+      标明请求是否可通过身份认证的信息，由服务器填充。
+required:
+  - apiVersion
+  - kind
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: authentication.k8s.io
+    kind: TokenReview
+    version: v1
+

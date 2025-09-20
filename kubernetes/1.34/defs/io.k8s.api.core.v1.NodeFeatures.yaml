@@ -1,0 +1,13 @@
+description: |
+  NodeFeatures describes the set of features implemented by the CRI implementation.
+  The features contained in the NodeFeatures should depend only on the CRI implementation
+  independent of runtime handlers.
+x-kab-description-zh: |
+  NodeFeatures 描述对应 CRI 实现所能够提供的特性。此结构中包含的特性应该仅与 CRI 实现相关，而与运行时处理程序无关。
+properties:
+  supplementalGroupsPolicy:
+    description: This is set to true if the runtime supports SupplementalGroupsPolicy and ContainerUser.
+    x-kab-description-zh: 当运行时支持 SupplementalGroupsPolicy 和 ContainerUser 时，此字段会被设置为 true。
+    type: boolean
+type: object
+

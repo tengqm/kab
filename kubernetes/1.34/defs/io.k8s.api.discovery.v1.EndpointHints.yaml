@@ -1,0 +1,31 @@
+description: Hints describing how an Endpoint should be consumed.
+x-kab-description-zh: 关于 Endpoint 用法的提示信息。
+properties:
+  forNodes:
+    description: |
+      `forNodes` indicates the node(s) this endpoint should be consumed by when using topology aware routing.
+
+      This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
+    x-kab-description-zh: |
+      `forNodes` 表明使用拓扑感知的路由时，应该使用此端点的哪些节点。
+
+      此字段为 Alpha 阶段，需要启用 `PreferSameTrafficDistribution` 特性门控才能使用。
+    items:
+      $ref: "#/definitions/io.k8s.api.discovery.v1.ForNode"
+    maxItems: 8
+    type: array
+    x-kubernetes-list-type: atomic
+  forZones:
+    description: |
+      This indicates the zone(s) this Endpoint should be consumed by to enable topology-aware routing.
+      Zone names must be unique among all items.
+    x-kab-description-zh: |
+      此字段给出为了启用拓扑感知的路由，哪些可用区可以访问此 Endpoint。
+      可用区的名称应该在列表中唯一。
+    items:
+      $ref: '#/definitions/io.k8s.api.discovery.v1.ForZone'
+    maxItems: 8
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

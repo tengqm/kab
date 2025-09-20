@@ -1,0 +1,39 @@
+description: IngressPortStatus represents the error condition of a service port.
+x-kab-description-zh: IngressPortStatus 代表的是某个服务端口的出错状况。
+properties:
+  error:
+    description: |
+      This field records the problem with the service port.
+      The format of the `error` shall comply with the following rules:
+
+      - built-in error values shall be specified in this file and those shall use CamelCase names
+      - cloud provider specific error values must have names that comply with the format
+        `"foo.example.com/CamelCase"`.
+
+    x-kab-description-zh: |
+      此字段记录服务端口相关的问题。`error` 字段的格式要遵从以下规则：
+
+      - 内置的错误值应该使用驼峰编码的名字；
+      - 特定于云平台的错误值必须使用符合 `"foo.example.com/CamelCase"` 格式的名字。
+
+    type: string
+  port:
+    description: The port number of the ingress port.
+    x-kab-description-zh: Ingress 端口的端口号。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+  protocol:
+    description: The protocol of the ingress port.
+    x-kab-description-zh: Ingress 端口的协议。
+    enum:
+      - SCTP
+      - TCP
+      - UDP
+    type: string
+required:
+  - port
+  - protocol
+type: object
+

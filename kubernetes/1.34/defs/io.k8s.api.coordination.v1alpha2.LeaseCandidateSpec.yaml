@@ -1,0 +1,65 @@
+description: LeaseCandidateSpec is a specification of a Lease.
+x-kab-description-zh: LeaseCandidateSpec 是 LeaseCandidate 对象的规约。
+properties:
+  binaryVersion:
+    description: |
+      `binaryVersion` is the binary version. It must be in a semver format without leading `v`.
+    x-kab-description-zh: |
+      `binaryVersion` 是二进制的版本。字段值必须是 semver 格式，但不能有前导的 `v` 字符。
+    type: string
+  emulationVersion:
+    description: |
+      `emulationVersion` is the emulation version. It must be in a semver format without leading `v`.
+      `emulationVersion` must be less than or equal to `binaryVersion`.
+      This field is required when strategy is `"OldestEmulationVersion"`.
+    x-kab-description-zh: |
+      `emulationVersion` 是模拟的版本。字段值必须是 semver 格式，但不能有前导的 `v` 字符。
+      `emulationVersion` 必须小于或者等于 `binaryVersion`。
+      当 `strategy` 被设置为 `"OldestEmulationVersion"` 时，此字段必须设置。
+    type: string
+  leaseName:
+    description: |
+      `leaseName` is the name of the lease for which this candidate is contending. This field is immutable.
+    x-kab-description-zh: |
+      `leaseName` 是当前候选者要参与竞争的 Lease 的名称。此字段是不可变更的。
+    type: string
+  pingTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: |
+      `pingTime` is the last time that the server has requested the LeaseCandidate to renew.
+      It is only done during leader election to check if any LeaseCandidates have become ineligible.
+      When `pingTime` is updated, the LeaseCandidate will respond by updating `renewTime`.
+    x-kab-description-zh: | 
+      `pingTime` 是服务器上次请求 LeaseCandidate 续约的时间。
+      续约操作在领导者选举期间发生，目的是检查是否存在某个（些）LeaseCandidate 对象已不符合条件。
+      当 `pingTime` 被更新时，此 LeaseCandidate 会通过更新 `renewTime` 字段值作出响应。
+  renewTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: |
+      `renewTime` is the time that the LeaseCandidate was last updated.
+      Any time a Lease needs to do leader election, the `pingTime` field is updated to signal to the LeaseCandidate that
+      they should update the `renewTime`.
+      Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew.
+      The `pingTime` field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+    x-kab-description-zh: |-
+      `renewTime` 是 LeaseCandidate 最近一次被更新的时间。
+      在 Lease 需要进行领导者选举的任何时候，`pingTime` 字段都会被更新，进而通知 LeaseCandidate 更新它们的 `renewTime`。
+      如果自从上次续约以来已经过了几个小时，老的 LeaseCandidate 对象会被垃圾回收。
+      `pingTime` 字段会被定期更新以避免仍在活跃的 LeaseCandidate 对象被垃圾回收。
+  strategy:
+    description: |-
+      `strategy` is the strategy that coordinated leader election will use for picking the leader.
+      If multiple candidates for the same Lease return different strategies, the strategy provided by
+      the candidate with the latest `binaryVersion` will be used.
+      If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+    x-kab-description-zh: |-
+      `strategy` 是选择领导者时要使用的协同式领导者选举策略。
+      如果竞争同一个 Lease 对象的多个候选者返回不同的策略，则使用 `binaryVersion` 属性为最新的候选者所提供的策略。
+      如果仍然有冲突，则意味着出现用户错误，协同式领导者选举要到冲突被解决之后才能继续操作此 Lease。
+    type: string
+required:
+  - binaryVersion
+  - leaseName
+  - strategy
+type: object
+

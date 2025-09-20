@@ -1,0 +1,156 @@
+description: |
+  Event is a report of an event somewhere in the cluster.
+  It generally denotes some state change in the system.
+  Events have a limited retention time and triggers and messages may evolve with time.
+  Event consumers should not rely on the timing of an event with a given `reason`
+  reflecting a consistent underlying trigger, or the continued existence of events with that `reason`.
+  Events should be treated as informative, best-effort, supplemental data.
+x-kab-description-zh: |
+  Event 是对集群中某处发生的事件的报告。通常用来表达系统中的某种状态变化。
+  Event 的保存时间很有限。随着时间推进，其触发源以及所携带的消息都可能发生变化。
+  Event 的用户不应该对某个给定 `reason` 的事件的出现时间、是否反映的是下层同一个触发源，
+  以及这一 `reason` 的事件是否会持续存在等等作任何假定。
+  Event 应该被看做一种纯粹告知性质的、尽力而为的、补充性质的数据。
+properties:
+  action:
+    description: |
+      What action was taken/failed regarding to the `regarding` object. It is machine-readable.
+      This field cannot be empty for new Events and it can have at most 128 characters.
+    x-kab-description-zh: |
+      就 `regarding` 所引用的对象而言，采取了的（或者失败了的）操作是什么。字段值是机器可读的。
+      对于新的 Event，此字段不可以为空，最大长度是 128 字符。
+    maxLength: 128
+    type: string
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - events.k8s.io/v1
+    type: string
+  deprecatedCount:
+    description: |
+      **DEPRECATED**: field assuring backward compatibility with `"core.v1"` Event type.
+    x-kab-description-zh: |
+      **已弃用**：用来确保与 `"core.v1"` 中 Event 类型兼容的字段，表示事件的发生次数。
+    format: int32
+    type: integer
+  deprecatedFirstTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      **DEPRECATED**: field assuring backward compatibility with `"core.v1"` Event type.
+    x-kab-description-zh: |
+      **已弃用**：用来确保与 `"core.v1"` 中 Event 类型兼容的字段，表示事件第一次记录的时间。
+  deprecatedLastTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      **DEPRECATED**: field assuring backward compatibility with `"core.v1"` Event type.
+    x-kab-description-zh: |
+      **已弃用**：用来确保与 `"core.v1"` 中 Event 类型兼容的字段，表示事件最近一次出现并被记录的时间。
+  deprecatedSource:
+    $ref: '#/definitions/io.k8s.api.core.v1.EventSource'
+    description: |
+      **DEPRECATED**: field assuring backward compatibility with `"core.v1"` Event type.
+    x-kab-description-zh: |
+      **已弃用**：用来确保与 `"core.v1"` 中 Event 类型兼容的字段，表示报告此 Event 的组件。
+  eventTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: The time when this Event was first observed.
+    x-kab-description-zh: 事件第一次被观测到的时间。
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Event
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object's metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  note:
+    description: |
+      A human-readable description of the status of this operation.
+      Maximum length of the note is 1 kB, but libraries should be prepared to handle values up to 64kB.
+    x-kab-description-zh: |
+      关于此操作状态的描述，人类可读字符串。
+      此说明的最大长度为 1 KB，不过用户应该为 64 KB 大小的说明做好准备。
+    type: string
+  reason:
+    description: |
+      Why the action was taken. It is human-readable.
+      This field cannot be empty for new Events and it can have at most 128 characters.
+    x-kab-description-zh: |
+      人类可读字符串，表示采取当前动作的原因。
+      对于新的 Event 对象而言，此字段不可为空，最多 128 个字符。
+    maxLength: 128
+    type: string
+  regarding:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: |
+      The object this Event is about.
+      In most cases it's an object reporting controller implements,
+      e.g. ReplicaSetController implements ReplicaSets and this event is emitted because
+      it acts on some changes in a ReplicaSet object.
+    x-kab-description-zh: |
+      此事件所关联的对象。大多数时候，所引用的是负责报告的控制器所实现的一个对象。
+      例如，ReplicaSetController 实现了 ReplicaSets，而此事件之所以被报告是因为控制器在某个
+      ReplicaSet 对象上作出了某种变更。
+  related:
+    $ref: '#/definitions/io.k8s.api.core.v1.ObjectReference'
+    description: |
+      The optional secondary object for more complex actions.
+      E.g. when the `regarding` object triggers a creation or deletion of the `related` object.
+    x-kab-description-zh: |
+      较复杂的动作所牵涉的另一个对象。
+      例如，某 `regarding` 对象触发了 `related` 对象的创建或删除。
+  reportingController:
+    description: |
+      The name of the controller that emitted this Event, e.g. `"kubernetes.io/kubelet"`.
+      This field cannot be empty for new Events.
+    x-kab-description-zh: |
+      生成此 Event 的控制器的名称。例如，`"kubernetes.io/kubelet"`。
+      对于新的 Event，此字段不可为空。
+    type: string
+  reportingInstance:
+    description: |
+      The ID of the controller instance, e.g. `"kubelet-xyzf"`.
+      This field cannot be empty for new Events and it can have at most 128 characters.
+    x-kab-description-zh: |
+      控制器实例的 ID。例如，`"kubelet-xyzf"`。
+      对于新的 Event，此字段不可为空且最大长度为 128 字符。
+    maxLength: 128
+    type: string
+  series:
+    $ref: '#/definitions/io.k8s.api.events.v1.EventSeries'
+    description: |
+      Data about the Event series this Event represents or nil if it's a singleton Event.
+    x-kab-description-zh: |
+      关于此 Event 所代表的 Event 序列的数据。
+      对于单实例的 Event 而言，此字段为 null。
+  type:
+    description: |
+      The type of this event (`"Normal"`, `"Warning"`), new types could be added in the future.
+      It is machine-readable. This field cannot be empty for new Events.
+    x-kab-description-zh: |
+      事件的类型（`"Normal"` 或 `"Warning"`）。未来可能会添加新的类型。
+      此字段的值是及其可读的。新的 Event 必须设置此字段（不可为空）。
+    enum:
+      - Normal
+      - Warning
+    type: string
+required:
+  - action
+  - apiVersion
+  - eventTime
+  - kind
+  - metadata
+  - reason
+  - regarding
+  - reportingController
+  - reportingInstance
+  - type
+type: object
+x-kubernetes-group-version-kind:
+  - group: events.k8s.io
+    kind: Event
+    version: v1
+

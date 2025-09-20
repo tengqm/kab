@@ -1,0 +1,98 @@
+description: |
+  An ISCSI disk. ISCSI volumes can only be mounted as `"ReadWriteOnce"`.
+  ISCSI volumes support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  此结构描述一个 iSCSI 磁盘。iSCSI 卷只能以 `"ReadWriteOnce"` 模式挂载。
+  iSCSI 卷支持属主管理和 SELinux 重新打标签操作。
+properties:
+  chapAuthDiscovery:
+    description: This indicates whether the volume supports iSCSI Discovery CHAP authentication.
+    x-kab-description-zh: 此字段表明卷是否支持 iSCSI Discovery CHAP 身份认证。
+    type: boolean
+  chapAuthSession:
+    description: This indicates whether the volume supports iSCSI Session CHAP authentication.
+    x-kab-description-zh: 此字段表明卷是否支持 iSCSI Session CHAP 身份认证。
+    type: boolean
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type of the volume that you want to mount.
+      The filesystem type must be supported by the host operating system.
+      For example, `"ext4"`, `"xfs"`, `"ntfs"`.
+      Implicitly inferred to be `"ext4"` if unspecified.
+    x-kab-description-zh: |
+      希望挂载的的文件系统类型。此文件系统类型必须是宿主操作系统所支持的。
+      例如，`"ext4"`, `"xfs"`, `"ntfs"`。
+      如果未设置，则隐式推断为 `"ext4"`。
+    type: string
+  initiatorName:
+    description:
+      Custom iSCSI Initiator Name.
+      If `initiatorName` is specified with `iscsiInterface` simultaneously, new iSCSI interface
+      `"<volume name>:<target portal>"` will be created for the connection.
+      The length of the interface string cannot exceed 64 characters.
+    x-kab-description-zh: |
+      定制的 iSCSI 发起者名称。
+      如果 `initiatorName` 设置的同时，`iscsiInterface` 也被设置，创建链接时会生成一个新的
+      iSCSI 接口 `"<卷名>:<目标门户>"`。接口字符串的长度不能超过 64 个字符。
+    type: string
+  iqn:
+    description: |
+      Target iSCSI Qualified Name (IQN). The name must have prefix `"iqn"` or `"eui"` or `"naa"`.
+    x-kab-description-zh: |
+      目标 iSCSI 的限定名（IQN）。此名字必须以 `"iqn"`、`"eui"` 或 `"naa"` 之一为前缀。
+    minLength: 1
+    type: string
+  iscsiInterface:
+    default: default
+    description: |
+      The iSCSI Interface that uses an iSCSI transport. Default value `"default"` means TCP.
+    x-kab-description-zh:
+      使用 iSCSI 传输的 iSCSI 接口。默认值 `"default"` 意味着采用 TCP。
+    type: string
+  lun:
+    description: The target LUN number.
+    x-kab-description-zh: 目标的 LUN 号。
+    format: int32
+    type: integer
+  portals:
+    description: |
+      The target portal List.
+      The portal is either an IP or `"<ip_addr>:<port>"` if the port is other than default
+      (typically TCP ports 860 and 3260).
+    x-kab-description-zh: |
+      目标的门户列表。
+      门户地址可以是一个 IP 地址，当端口不是默认值（通常是 TCP 端口 860 和 3260）的情况下，
+      也可以是 `"<IP 地址>:<端口>"` 形式。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  readOnly:
+    default: false
+    description: Force the `readOnly` setting in the `volumeMounts`.
+    x-kab-description-zh: 强制以只读模式挂载此卷。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
+    description: |
+      CHAP Secret for iSCSI target and initiator authentication.
+      If `chapAuthSession` or `chapAuthDiscovery` is specified, this field cannot be empty.
+    x-kab-description-zh: |
+      用于 iSCSI 目标和发起者的身份认证的 CHAP Secret。
+      如果设置了 `chapAuthSession` 或 `chapAuthDiscovery`，此字段不可以为空。
+  targetPortal:
+    description: |
+      iSCSI target portal. The portal is either an IP or `"<ip_addr>:<port>"`
+      if the port is other than default (typically TCP ports 860 and 3260).
+    x-kab-description-zh: |
+      iSCSI 的目标门户。门户地址可以是一个 IP 地址。
+      当端口不是默认值（通常是 TCP 端口 860 和 3260）的情况下，也可以是 `"<IP 地址>:<端口>"` 形式。
+    minLength: 1
+    type: string
+required:
+  - iqn
+  - lun
+  - targetPortal
+type: object
+

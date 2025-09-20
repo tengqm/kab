@@ -1,0 +1,38 @@
+description: StorageVersionMigration represents a migration of stored data to the latest storage version.
+x-kab-description-zh: StorageVersionMigration 代表的是已存储的数据向最新存储版本的一次迁移。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storagemigration.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - StorageVersionMigration
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigrationSpec'
+    description: Specification of the migration.
+    x-kab-description-zh: 迁移的规约部分。
+  status:
+    $ref: '#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigrationStatus'
+    description: Status of the migration.
+    x-kab-description-zh: 迁移的状态部分。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: storagemigration.k8s.io
+    kind: StorageVersionMigration
+    version: v1alpha1
+

@@ -1,0 +1,61 @@
+description: ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
+x-kab-description-zh: ResourceClaimStatus 跟踪资源是否已经被分配，以及分配的结果情况。
+properties:
+  allocation:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.AllocationResult'
+    description: |
+      `allocation` is set once the claim has been allocated successfully.
+    x-kab-description-zh: |
+      `allocation` 在设备申领被成功分配时设置。
+  devices:
+    description: |
+      `devices` contains the status of each device allocated for this claim, as reported by the driver.
+      This can include driver-specific information. Entries are owned by their respective drivers.
+    x-kab-description-zh: |
+      `devices` 包含为此申领所分配的设备的状态。此信息由驱动报告。
+      所包含的信息包含特定于驱动的数据。对应的驱动负责管理其中的各个条目。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.AllocatedDeviceStatus'
+    type: array
+    x-kubernetes-list-map-keys:
+      - driver
+      - device
+      - pool
+    x-kubernetes-list-type: map
+  reservedFor:
+    description: |
+      `reservedFor` indicates which entities are currently allowed to use the claim.
+      A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+      A claim that is in use or might be in use because it has been reserved must not get deallocated.
+
+      In a cluster with multiple scheduler instances, two Pods might get scheduled concurrently by different schedulers.
+      When they reference the same ResourceClaim which already has reached its maximum number of consumers, only one Pod can be scheduled.
+
+      Both schedulers try to add their Pod to the `reservedFor` field, but only the update that reaches the API server first gets stored.
+      The other one fails with an error and the scheduler which issued it knows that it must put the Pod back into the queue,
+      waiting for the ResourceClaim to become usable again.
+
+      There can be at most 256 such reservations. This may get increased in the future, but not reduced.
+    x-kab-description-zh: |
+      `reservedFor` 表明哪些实体目前可以使用此申领。引用了没有预留给自身的 ResourceClaim 的 Pod 不会被启动。
+      正被使用的申领或者因为被预留而可能被使用的申领不可以被释放。
+
+      在一个包含多个调度器实例的集群中，不同的调度器可能并发地调度两个 Pod 执行。
+      如果这样的两个 Pod 引用了同一个 ResourceClaim，而该 ResourceClaim 已经达到其用户个数上限，其中只有一个 Pod 会被调度执行。
+
+      两个调度器都会尝试将自己的 Pod 添加到 `reservedFor` 字段中，但只有先到达 API 服务器的那个更新请求会被保存起来。
+      另一个调度请求会失败并返回出错信息，发出请求的调度器会知道自己必须将 Pod 放回到队列中，
+      等待 ResourceClaim 再次变为可用。
+
+      预留表项最多 256 个。在将来这个限制可能会放宽，但不会收紧。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.ResourceClaimConsumerReference'
+    maxItems: 32
+    type: array
+    x-kubernetes-list-map-keys:
+      - uid
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: uid
+    x-kubernetes-patch-strategy: merge
+type: object
+

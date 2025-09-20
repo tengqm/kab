@@ -1,0 +1,13 @@
+description: ContainerUser represents user identity information.
+x-kab-description-zh: ContainerUser 包含用户标识信息。
+properties:
+  linux:
+    $ref: '#/definitions/io.k8s.api.core.v1.LinuxContainerUser'
+    description: |
+      `linux` holds user identity information initially attached to the first process of the containers in Linux.
+      Note that the actual running identity can be changed if the process has enough privilege to do so.
+    x-kab-description: |
+      `linux` 中包含 Linux 系统上挂接到容器中第一个进程的用户的标识信息。
+      注意，如果进程具有足够的特权来变更标识，则实际运行时的标识可能会发生变化。
+type: object
+

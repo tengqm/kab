@@ -1,0 +1,123 @@
+description: A storage that is managed by an external CSI volume driver.
+x-kab-description-zh: 由外部 CSI 卷驱动所管理的一个存储。
+properties:
+  controllerExpandSecretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: |
+      A reference to the Secret object containing sensitive information to pass to
+      the CSI driver to complete the CSI `ControllerExpandVolume()` call.
+      This field may be empty if no Secret is required.
+      If the Secret object contains more than one Secret, all Secrets are passed.
+      When specified, both `name` and `namespace` field should be specified as
+      valid DNS_LABEL strings.
+    x-kab-description-zh: |
+      此字段为一个对 Secret 对象的引用，该对象中包含一些敏感信息，需要传递给 CSI
+      驱动才能完成 `ControllerExpandVolume()` 调用。
+      如果不需要 Secret，此字段可以为空。
+      如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
+      设置此字段时，`name` 和 `namespace` 字段都必须是合法的 DNS_LABEL 字符串。
+  controllerPublishSecretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: |
+      A reference to the Secret object containing sensitive information to pass to
+      the CSI driver to complete the CSI `ControllerPublishVolume()` and
+      `ControllerUnpublishVolume()` calls.
+      This field may be empty if no Secret is required.
+      If the Secret object contains more than one secret, all secrets are passed.
+      When specified, both `name` and `namespace` field should be specified
+      as valid DNS_LABEL strings. The field can be updated if current value is nil.
+    x-kab-description-zh: |
+      此字段为一个对 Secret 对象的引用，该对象中包含一些敏感信息，需要传递给 CSI
+      驱动以完成 `ControllerPublishVolume()` 调用和 `ControllerUnpublishVolume()` 调用。
+      如果不需要 Secret，此字段可以为空。
+      如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
+      设置此字段时，`name` 和 `namespace` 字段都必须是合法的 DNS_LABEL 字符串。
+      如果当前取值为空，此字段可以被更新。
+  driver:
+    description: |
+      The name of the driver to use for this volume.
+      The name can be at most 63 characters and it must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      此卷要使用的驱动的名称。
+      名称字符串的值至多为 63 字符，并且其取值必须是合法的 DNS 子域名。
+    maxLength: 63
+    minLength: 1
+    type: string
+  fsType:
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+      For example: `"ext4"`, `"xfs"`, `"ntfs"`.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是宿主操作系统所支持的文件系统类型之一。
+      例如：`"ext4"`, `"xfs"`, `"ntfs"`。
+    type: string
+  nodeExpandSecretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description: |
+      `nodeExpandSecretRef` is a reference to the Secret object containing sensitive information
+      to pass to the CSI driver to complete the CSI `NodeExpandVolume` call.
+      This field is optional, may be omitted if no Secret is required.
+      If the Secret object contains more than one Secret, all Secrets are passed.
+    x-kab-description-zh: |
+      `nodeExpandSecretRef` 是一个对 Secret 对象的引用，该对象中包含一些敏感信息，
+      需要传递给 CSI 驱动以完成 `NodeExpandVolume()` 调用。
+      此字段是可选的，如果不需要 Secret 可以忽略。
+      如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
+  nodePublishSecretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description:
+      A reference to the Secret object containing sensitive information to pass to the CSI
+      driver to complete the CSI `NodePublishVolume()` and `NodeUnpublishVolume()` calls.
+      This field may be empty if no Secret is required.
+      If the Secret object contains more than one secret, all secrets are passed.
+      When specified, both `name` and `namespace` fields should be specified as valid
+      DNS_LABEL strings.
+    x-kab-description-zh: |
+      此字段为一个对 Secret 对象的引用，该对象中包含一些敏感信息，需要传递给 CSI
+      驱动以完成 `NodePublishVolume()` 调用和 `NodeUnpublishVolume()` 调用。
+      如果不需要 Secret，此字段可以为空。
+      如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
+      设置此字段时，`name` 和 `namespace` 字段都必须是合法的 DNS_LABEL 字符串。
+  nodeStageSecretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.SecretReference'
+    description:
+      A reference to the Secret object containing sensitive information to pass to
+      the CSI driver to complete the CSI `NodeStageVolume()` and `NodeUnstageVolume()` calls.
+      This field may be empty if no Secret is required.
+      If the Secret object contains more than one secret, all secrets are passed.
+      When specified, both `name` and `namespace` fields have to be specified as valid
+      DNS_LABEL strings.
+    x-kab-description-zh: |
+      此字段为一个对 Secret 对象的引用，该对象中包含一些敏感信息，需要传递给 CSI
+      驱动以完成 `NodeStageVolume()` 调用和 `NodeUnstateVolume()` 调用。
+      如果不需要 Secret，此字段可以为空。
+      如果 Secret 对象中包含多条信息，则所有信息都会传递给 CSI 驱动。
+      设置此字段时，`name` 和 `namespace` 字段都必须是合法的 DNS_LABEL 字符串。
+  readOnly:
+    default: false
+    description: |
+      The value to pass to `ControllerPublishVolumeRequest()`, for deciding whether
+      to pubsh volume as read-only.
+    x-kab-description-zh: |
+      要传递给 `ControllerPublishVolumeRequest()` 的值，决定是否以只读模式公布卷。
+    type: boolean
+  volumeAttributes:
+    additionalProperties:
+      type: string
+    description: Attributes of the volume to publish.
+    x-kab-description-zh: 要公布的卷的一些属性。
+    type: object
+  volumeHandle:
+    description: |
+      The unique volume name returned by the CSI volume plugin's `CreateVolume()`.
+      Used as reference to the volume on all subsequent calls.
+    x-kab-description-zh: |
+      CSI 卷插件的 `CreateVolume()` 调用所返回的唯一的卷名。
+      在后续调用中，都使用这个字段值来引用该卷。
+    minLength: 1
+    type: string
+required:
+  - driver
+  - volumeHandle
+type: object
+

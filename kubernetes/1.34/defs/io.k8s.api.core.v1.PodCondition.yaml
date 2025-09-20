@@ -1,0 +1,77 @@
+description: The details for the current condition of this pod.
+x-kab-description-zh: 关于 Pod 当前状况的细节。
+properties:
+  lastProbeTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time we probed the condition.
+    x-kab-description-zh: 上次探测 Pod 状况的时间。
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition transitioned from one status to another.
+    x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间戳。
+  message:
+    description: Human-readable message indicating details about last transition.
+    x-kab-description-zh: 人类可读的消息，给出状况转换的细节。
+    type: string
+  reason:
+    description: |
+      Unique, one-word, CamelCase reason for the condition's last transition.
+      For example, `"Unschedulable"`, `"SchedulingGated"`.
+    x-kab-description-zh: |
+      上次状况转换的原因，通常是唯一性的、一个词表达的、驼峰编码的字符串。
+      例如：`"Unschedulable"`、`"SchedulingGated"`。
+    type: string
+  observedGeneration:
+    description: |
+      If set, this represents the `.metadata.generation` that the Pod condition was set based upon.
+
+      This is an Alpha field. Enable `PodObservedGenerationTracking` to be able to use this field.
+    x-kab-description-zh: |
+      如果此字段被设置，所表示的是 Pod 的状况被设置时，对应的 `.metadata.generation` 值。
+
+      此字段为 Alpha 状态，需要启用 `PodObservedGenerationTracking` 特性门控。
+    format: int64
+    type: integer
+  status:
+    description: The status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    minLength: 1
+    type: string
+  type:
+    description: |
+      The type of the condition. Possible enum values:
+      - `"ContainersReady"` indicates whether all containers in the Pod are ready.
+      - `"DisruptionTarget"` indicates that the Pod is about to be terminated due to a
+        disruption (such as preemption, eviction API or garbage-collection).
+      - `"Initialized"` means that all init containers in the Pod have started successfully.
+      - `"PodReadyToStartContainers"` means that the Pod sandbox is successfully configured and
+        the Pod is ready to launch containers.
+      - `"PodScheduled"` represents status of the scheduling process for this Pod.
+      - `"Ready"` means the Pod is able to service requests and should be added to the load balancing
+        pools of all matching Services."
+    x-kab-description-zh: |
+      状况的类型。可能取值包括：
+      - `"ContainersReady"` 表明 Pod 中的容器是否已经就绪。
+      - `"DisruptionTarget"` 表明因为干扰（例如抢占、驱逐 API 或垃圾收集）的原因，Pod 即将被终止。
+      - `"Initialized"` 意味着 Pod 中的所有初始容器都已经成功启动。
+      - `"PodReadyToStartContainers"` 意味着 Pod 沙箱被成功配置，Pod 已经为启动容器准备就绪。
+      - `"PodScheduled"` 代表 Pod 的调度状态。
+      - `"Ready"` 意味着 Pod 能够接收服务请求，进而应该被添加到匹配的 Service 的负载均衡池中。
+    enum:
+      - ContainersReady
+      - DisruptionTarget
+      - Initialized
+      - PodReadyToStartContainers
+      - PodScheduled
+      - Ready
+    minLength: 1
+    type: string
+required:
+  - status
+  - type
+type: object
+

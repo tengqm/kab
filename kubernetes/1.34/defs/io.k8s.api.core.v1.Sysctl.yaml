@@ -1,0 +1,24 @@
+description: A kernel parameter to set.
+x-kab-description-zh: 一个要设置的内核参数。
+properties:
+  name:
+    description: |
+      Name of a property to set. The name contains several segments separated with dots where
+      each segment can contain alphanumeric characters, `'-'` and `'_'`.
+      `'-'` and `'_'` cannot appear at the start or end, though.
+    x-kab-description-zh: |
+      要设置的属性的名称。名称可以包含多个用句点（`'.'`）隔开的部分，每个部分都可以包含字母、数字、
+      `'-'` 和 `'_'`。 `'-'` 和 `'_'` 不能作为首尾字母。
+    maxLength: 253
+    minLength: 1
+    type: string
+  value:
+    description: Value of a property to set.
+    x-kab-description-zh: 要设置的属性值。
+    minLength: 1
+    type: string
+required:
+  - name
+  - value
+type: object
+

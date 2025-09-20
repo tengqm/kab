@@ -1,0 +1,31 @@
+description: Mutation specifies the CEL expression which is used to apply the Mutation.
+x-kab-description-zh: Mutation 封装用来应用变更的 CEL 表达式。
+properties:
+  applyConfiguration:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.ApplyConfiguration'
+    description: |-
+      `applyConfiguration` defines the desired configuration values of an object.
+      The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff).
+      A CEL expression is used to create apply configuration.
+    x-kab-description-zh: |-
+      `applyConfiguration` 定义一个对象的期望配置值。
+      此配置会使用[结构化的合并差异（structured merge diff）](https://github.com/kubernetes-sigs/structured-merge-diff)
+      应用到准入的对象上。系统使用 CEL 表达式来创建要应用的配置。
+  jsonPatch:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.JSONPatch'
+    description: |-
+      `jsonPatch` 定义一个要对对象执行变更的 [JSON 补丁](https://jsonpatch.com/)操作。
+      系统使用 CEL 表达式来创建要应用的配置。
+  patchType:
+    description: |-
+      `patchType` indicates the patch strategy used.
+    x-kab-description-zh: |-
+      `patchType` 用来给出要使用的补丁策略。
+    enum:
+      - ApplyConfiguration
+      - JSONPatch
+    type: string
+required:
+  - patchType
+type: object
+

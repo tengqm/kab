@@ -1,0 +1,28 @@
+description: DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
+x-kab-description-zh: DeviceCounterConsumption 定义一组计数器供设备从某 CounterSet 中使用。
+properties:
+  counterSet:
+    description: This defines the set from which the counters defined will be consumed.
+    x-kab-description-zh: 此字段定义要耗用的计数器集合的名称。
+    type: string
+  counters:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta2.Counter'
+    description: |-
+      `counters` defines the Counter that will be consumed by the device.
+
+      The maximum number counters in a device is 32.
+      In addition, the maximum number of all counters in all devices is 1024
+      (for example, 64 devices with 16 counters each).
+    x-kab-description-zh: |-
+      `counters` 定义将被设备好用的计数器。
+
+      计数器个数的上限为 32 个。
+      此外，所有设备的所有计数器的总数上限为 1024
+      （例如，总计有 64 个设备，每个设备有 16 个计数器）。
+    type: object
+required:
+  - counterSet
+  - counters
+type: object
+

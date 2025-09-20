@@ -1,0 +1,39 @@
+description: The configuration of a CronJob.
+x-kab-description-zh: CronJob 的配置。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - batch/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CronJob
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: |
+      Standard object metadata. The `name` can be at most 52 characters long because
+      the CronJob controller will append a 11-character suffix to the name.
+    x-kab-description-zh: |
+      标准的对象元数据。`name` 的最大长度是 52 字符，因为 CronJob
+      控制器会在名字后面追加 11 个字符的后缀。
+  spec:
+    $ref: '#/definitions/io.k8s.api.batch.v1.CronJobSpec'
+    description: |
+      Specification of the desired behavior of a CronJob, including the schedule.
+    x-kab-description-zh: |
+      CronJob 的期望行为的规约，包括其排期表（Schedule）。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: batch
+    kind: CronJob
+    version: v1
+

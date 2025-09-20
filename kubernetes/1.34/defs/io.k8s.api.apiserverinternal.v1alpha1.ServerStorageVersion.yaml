@@ -1,0 +1,76 @@
+description: |
+  An API server instance reports the version it can decode and the version
+  it encodes objects to when persisting objects in the backend.
+x-kab-description-zh: |
+  API 服务器报告它所能够解码的版本，以及它将对象写入后台持久存储时使用的编码版本。
+
+properties:
+  apiServerID:
+    description: |
+      The ID of the reporting API server. The ID must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      发出报告的 API 服务器的 ID。此 ID 值必须是合法的 DNS 子域名。
+    type: string
+
+  decodableVersions:
+    description: |
+      The API server can decode objects encoded in these versions.
+      The `encodingVersion` must be included in the `decodableVersions`.
+
+    x-kab-description-zh: |
+      API 服务器能够对以这里的版本编码的对象进行解码。
+      `encodingVersion` 必须包含在 `decodableVersions` 中。
+
+    items:
+      description: |
+        Each value must be a string that matches DNS_LABEL format, with an optional
+        `<group>/` prefix where the `<group>` string is a valid DNS subdomain name.
+
+      x-kab-description-zh: |
+        列表中的每个条目都必须是符合 DNS_LABEL 格式要求的字符串，可以带 `<group>/` 前缀。
+        `<group>` 字符串必须是合法的 DNS 子域名。
+
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+  encodingVersion:
+    description: |
+      The API server encodes the object to this version when persisting it in the backend
+      (e.g., etcd). The value must be a string that matches DNS_LABEL format,
+      with an optional `<group>/` prefix where the `<group>` string is a valid DNS subdomain name.
+
+    x-kab-description-zh: |
+      API 服务器在后台将对象写入持久存储（例如 etcd）时会使用这里给定的版本。
+      此字段的取值必须是一个符合 DNS_LABEL 格式要求的字符串，可以带 `<group>/` 前缀。
+      `<group>` 字符串必须是合法的 DNS 子域名。
+
+    minLength: 1
+    type: string
+
+  servedVersions:
+    description: |
+      The API server can serve these versions.
+      `decodableVersions` must include all `servedVersions`.
+
+    x-kab-description-zh: |
+      API 服务器可以提供这里列举的版本。
+      `decodableVersions` 必须包含所有的 `servedVersions`。
+
+    items:
+      description: |
+        One of the served versions.
+        The value must be a string that matches DNS_LABEL format, with an optional
+        `<group>/` prefix where the `<group>` string is a valid DNS subdomain name.
+
+      x-kab-description-zh: |
+        API 服务器所提供的版本之一。
+        字符串值必须是一个符合 DNS_LABEL 格式要求的字符串，可以带 `<group>/` 前缀。
+        `<group>` 字符串必须是合法的 DNS 子域名。
+
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: set
+type: object
+

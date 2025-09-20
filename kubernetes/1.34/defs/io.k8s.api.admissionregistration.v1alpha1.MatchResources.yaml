@@ -1,0 +1,185 @@
+description: |
+  MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria.
+  The exclude rules take precedence over include rules (if a resource matches both, it is excluded).
+x-kab-description-zh: |
+  MatchResources 基于对象是否满足匹配条件来决定是否对其运行准入控制策略。
+  其中的排除（Exclude）规则比包含（Include）规则优先级高。
+  换言之，当某资源与这两个规则都匹配时，该资源会被排除掉。
+properties:
+  excludeResourceRules:
+    description: |
+      `excludeResourceRules` describes what operations on what resources/subresources
+      the policy should not care about.
+      The exclude rules take precedence over include rules
+      (if a resource matches both, it is excluded).
+
+    x-kab-description-zh: |
+      此字段描述哪些资源或子资源上的哪些操作是此策略所要忽略的。
+      排除规则比包含规则的优先级高。
+      换言之，当某资源与这两个规则都匹配时，该资源会被排除掉。
+
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.NamedRuleWithOperations'
+    type: array
+    x-kubernetes-list-type: atomic
+  matchPolicy:
+    default: Equivalent
+    description: |
+      `matchPolicy` defines how the MatchResources list is used to match
+      incoming requests. Allowed values are `"Exact"` or `"Equivalent"`.
+
+      - `"Exact"`: match a request only if it exactly matches a specified rule.
+        For example, if `deployments` can be modified via `"apps/v1"`, `"apps/v1beta1"`,
+        but `"rules"` only included
+        `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`,
+        the admission policy does not consider requests to `"apps/v1beta1"` or `"extensions/v1beta1"` groups.
+      - `"Equivalent"`: match a request if modifies a resource listed in rules, even
+        via another API group or version. For example, if `deployments` can be modified
+        via `"apps/v1"` and `"apps/v1beta1"`, and `"rules"` only included
+        `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`,
+        the admission policy **does** consider requests made to `"apps/v1beta1"` or `"extensions/v1beta1"`
+        API groups. The API server translates the request to a matched resource API if necessary.
+
+    x-kab-description-zh: |
+      `matchPolicy` 定义此 MatchResources 列表如何用于匹配所接收到的请求。
+      可选的值为 `"Exact"` 或 `"Equivalent"`：
+
+      - `"Exact"` 意味着只有请求与某个指定规则精确匹配时才视为匹配。
+        例如，资源 `deployments` 可以通过 `"apps/v1"` 和 `"apps/v1beta1"` 来修改，
+        但 `resourceRules` 中仅包含了
+        `"apiGroups":["apps"], "apiVersions": ["v1"], "resources": ["deployments"]`，
+        准入策略不会考虑发送到 `"apps/v1beta1"` 或 `"extensions/v1beta1"` 的请求。
+      - `"Equivalent"` 意味着如果某个请求所修改的资源位于 `resourceRules` 列表中，
+        即便请求使用的是不同的 API 组或版本，也视为匹配。
+        例如，如果资源 `deployments` 可以通过 `"apps/v1"`、`"apps/v1beta1"` 来修改，
+        而 `resourceRules` 中仅包含了
+        `"apiGroups":["apps"], "apiVersions":["v1"], "resources": ["deployments"]`，
+        准入策略**会**检查发送到 `"apps/v1beta1"` 或 `"extensions/v1beta1"` 的请求。
+        API 服务器会根据需要将请求转换为一个匹配的资源 API 形式。
+
+    enum:
+      - Equivalent
+      - Exact
+    type: string
+  namespaceSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+
+    description: |
+      `namespaceSelector` decides whether to run the admission control policy on
+      an object based on whether the namespace for that object matches the selector.
+      If the object itself is a namespace, the matching is performed on `object.metadata.labels`.
+      If the object is another cluster scoped resource, it never skips the policy.
+
+      For example, to run the webhook on any objects whose namespace is not associated
+      with `"runlevel"` of `"0"` or `"1"`, you will set the selector as follows:
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [
+          {
+            "key": "runlevel",
+            "operator": "NotIn",
+            "values": ["0", "1"]
+          }
+        ]
+      }
+      ```
+      
+      If instead you want to only run the policy on any objects whose namespace
+      is associated with the `"environment"` of `"prod"` or `"staging"`, you will
+      set the selector as follows:
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "environment",
+          "operator": "In",
+          "values": ["prod", "staging"]
+        }]
+      }
+      ```
+      See [official docs](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+      for more examples of label selectors.
+
+      Default to the empty label selector, which matches everything.
+
+    x-kab-description-zh: |
+      此字段设置在判定是否要针对某对象来执行此准入控制策略时，要考虑对象名字空间是否符合预期。
+      如果对象自身就是一个 Namespace，则匹配是针对 `object.metadata.labels` 来进行的。
+      如果对象是一个集群作用域的对象，则 Webhook 不会被略过（总会被调用）。
+      例如，如果希望针对没有设置 `"runlevel"` 为 `"0"` 或 `"1"`
+      的名字空间中的所有对象运行此策略，你可以像这样设置选择算符：
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "runlevel",
+          "operator"\: "NotIn",
+          "values": ["0", "1"]
+        }]
+      }
+      ```
+
+      如果你希望仅针对 `"environment"` 为 `"prod"` 或 `"staging"`
+      的名字空间中的对象运行 Webhook，你可以像这样设置选择算符：
+
+      ```
+      "namespaceSelector": {
+        "matchExpressions": [{
+          "key": "environment",
+          "operator": "In",
+          "values": ["prod", "staging"]
+        }]
+      }
+      ```
+
+      此字段默认为空的标签选择算符，其效果是与所有对象匹配。
+
+  objectSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      `objectSelector` decides whether to run the policy based on if the object
+      has matching labels.
+      `objectSelector` is evaluated against both the `oldObject` and `newObject`
+      that would be sent to the policy's expression (CEL), and is considered to match if
+      either object matches the selector.
+      A null object (`oldObject` in the case of create, or `newObject` in the case of delete)
+      or an object that cannot have labels (like a `DeploymentRollback` or a `PodProxyOptions`
+      object) is not considered to match.
+      Use the object selector only if the webhook is opt-in, because end users may skip
+      the admission webhook by setting the labels.
+      Default to the empty label selector, which matches everything.'
+
+    x-kab-description-zh: |
+      此字段用来根据对象上是否存在匹配的标签来决定是否执行策略。
+      `objectSelector` 会针对要发送给策略表达式（CEL）的 `oldObject` 和 `newObject` 来处理。
+      如果这两个对象之一与此选择算符匹配，则视请求为匹配。
+      空（Null）对象（CREATE 请求中的 `oldObject` 或 DELETE 请求中的 `newObject`），
+      或者不存在标签的对象（例如一个 `DeploymentRollback` 或 `PodProxyOptions` 对象）
+      不会被视为匹配。只有当 Webhook 是可选的时候才建议使用此对象选择算符，
+      因为最终用户可能会通过操控标签来略过准入 Webhook 的检查。
+
+      此字段的默认值为空的标签选择算符，其效果是能够匹配所有对象。
+
+  resourceRules:
+    description: |
+      `resourceRules` describes what operations on what resources/subresources
+      the admission policy matches. The policy cares about an operation if
+      it matches _any_ rule.
+
+    x-kab-description-zh: |
+      用来设置准入策略关心哪些对象、子对象上的哪些操作。
+      如果某项操作与 `resourceRules` 列表中定义的任一表项匹配，
+      则可认为它是准入策略所关心的。
+
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.NamedRuleWithOperations'
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - matchPolicy
+  - namespaceSelector
+  - objectSelector
+type: object
+x-kubernetes-map-type: atomic
+

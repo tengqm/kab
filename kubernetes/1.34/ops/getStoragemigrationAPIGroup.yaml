@@ -1,0 +1,27 @@
+consumes:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+description: get information of a group
+x-kab-description-zh: 读取 API 组的信息
+operationId: getStoragemigrationAPIGroup
+path: /apis/storagemigration.k8s.io/
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIGroup'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - storagemigration
+verb: get
+

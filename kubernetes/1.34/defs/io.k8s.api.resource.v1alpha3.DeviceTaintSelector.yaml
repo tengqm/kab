@@ -1,0 +1,80 @@
+description: |-
+  DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to.
+  The empty selector matches all devices. Without a selector, no devices are matched.
+x-kab-description-zh: |-
+  DeviceTaintSelector 定义 DeviceTaintRule 所适用的设备（集合）。
+  选择算符为空时，可以匹配所有设备；选择算符不设置时，不会匹配任何设备。
+properties:
+  device:
+    description: |-
+      If `device` is set, only devices with that name are selected.
+      This field corresponds to `slice.spec.devices[].name`.
+
+      Setting also `driver` and `pool` may be required to avoid ambiguity, but is not required.
+
+      The value must be a valid DNS1123 label.
+    x-kab-description-zh: |-
+      如果设置了 `device`，只有名字与之匹配的设备会被选中。
+      此字段对应设备切片（ResourceSlice）的 `spec.devices[].name` 字段。
+
+      可以同时设置 `driver` 和 `pool` 属性以避免二义性，不过这样做不是必需的。
+
+      字段值必须是合法的 DNS1123 标签名。
+    type: string
+  deviceClassName:
+    description: |-
+      If `deviceClassName` is set, the selectors defined there must be satisfied by a device to be selected.
+      This field corresponds to `metadata.name` of a DeviceClass.
+      The value must be a valid DNS1123 subdomain name.
+    x-kab-description-zh: |-
+      如果设置了 `deviceClassName`，则需要被选中的设备的类名与之匹配。
+      此字段对应 DeviceClass 的 `metadata.name` 属性。
+      字段值必须是合法的 DNS1123 子域名。
+    minLength: 1
+    type: string
+  driver:
+    description: |-
+      If `driver` is set, only devices from that driver are selected.
+      This fields corresponds to `spec.driver` of a ResourceSlice.
+      The value must be a valid DNS1123 subdomain name when converted to lower-case string.
+    x-kab-description-zh: |-
+      如果设置了 `driver` 字段，则只有驱动名称与之匹配的设备会被选中。
+      此字段对应 ResourceSlice 的 `spec.driver` 属性。
+      字段值转换为小写字母字符串之后必须是合法的 DNS1123 子域名。
+    maxLength: 63
+    minLength: 1
+    type: string
+  pool:
+    description: |-
+      If `pool` is set, only devices in that pool are selected.
+
+      Also setting the driver name may be useful to avoid ambiguity
+      when different drivers use the same pool name,
+      but this is not required because selecting pools from different drivers may also be useful,
+      for example when drivers with node-local devices use the node name as their pool name.
+
+      The field value must be a valid DNS1123 subdomain name.
+    x-kab-description-zh: |-
+      如果设置了 `pool`，则只有给定设备池中的设备会匹配。
+
+      同时设置 `driver` 字段（驱动名称）可能是有用的，因为可以在多个驱动使用相同的设备池名称时可以避免二义性。
+      不过这样做不是必需的，因为有可能需要跨多个不同的驱动选择名称相同的设备池中的设备。
+      例如，当多个提供节点本地设备的驱动都使用节点名称作为其设备池名称的情况。
+
+      字段值必须是合法的 DNS1123 子域名。
+    maxLength: 253
+    minLength: 1
+    type: string
+  selectors:
+    description: |-
+      `selectors` contains the same selection criteria as a ResourceClaim.
+      Currently, CEL expressions are supported. All of these selectors must be satisfied.
+    x-kab-description-zh: |-
+      `selectors` 中包含与 ResourceClaim 中类似的选择条件。
+      目前支持 CEL 表达式。这里的选择算符都被满足时，设备才会被选中。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceSelector'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

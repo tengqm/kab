@@ -1,0 +1,50 @@
+description: The specification of a ReplicaSet.
+x-kab-description-zh: ReplicaSet 的规约。
+properties:
+  minReadySeconds:
+    default: 0
+    description: |
+      Minimum number of seconds for which a newly created Pod should be ready without
+      any of its container crashing, for it to be considered available.
+      Defaults to 0 which means a Pod will be considered available as soon as it is ready.
+    x-kab-description-zh: |
+      新创建的 Pod 需要进入就绪状态、没有容器崩溃，并持续给定的秒数之后，才会被认为可用。
+      默认值 0 意味着 Pod 一旦进入就绪状态之后立即被视为可用。
+    format: int32
+    minimum: 0
+    type: integer
+  replicas:
+    default: 1
+    description: |
+      The number of desired Pods.
+      This is a pointer to distinguish between explicit zero and unspecified.
+    x-kab-description-zh: |
+      预期的 Pod 副本个数。实现上，此字段是一个指针，用来显式区分设置与否和设置值是否为零的状况。
+    format: int32
+    minimum: 0
+    type: integer
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      A label query over Pods that should match the replica count.
+      Label keys and values that must match in order to be controlled by this ReplicaSet.
+      It must match the Pod template's `labels`. Empty `selector` is invalid.
+    x-kab-description-zh: |
+      此字段为一个针对 Pod 的标签查询算符，匹配的 Pod 个数应该与副本个数相同。
+      标签主键和键值与算符匹配的 Pod 才会受此 ReplicaSet 控制。
+      这里设置的选择算符必须与 Pod 模板中的 `labels` 一致。
+      空的 `selector` 是非法的。
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET'
+    description: |
+      The object that describes the Pod that will be created if insufficient replicas are detected.
+    x-kab-description-zh: |
+      一个用来描述要被创建的 Pod 的对象。
+      当检测到副本个数不足时，会基于此对象来创建 Pod。
+required:
+  - minReadySeconds
+  - replicas
+  - selector
+  - template
+type: object
+

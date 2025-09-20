@@ -1,0 +1,52 @@
+description: |
+  The intent to attach or detach the specified volume to/from the specified Node.
+  VolumeAttachment objects are non-namespaced.
+x-kab-description-zh: |
+  此资源用来表达要将指定卷挂接（Attach）到指定节点或者将其与指定节点解除挂接（Detach）的意图。
+  VolumeAttachment 是集群作用域的对象。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - VolumeAttachment
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.storage.v1.VolumeAttachmentSpec'
+    description: |
+      Specification of the desired attach/detach volume behavior.
+      Populated by the Kubernetes system. This field cannot be updated.
+    x-kab-description-zh: |
+      与挂接和解除挂接存储卷的预期行为有关的规约。
+      此字段由 Kubernetes 系统来填充。
+      字段不支持变更操作。
+  status:
+    $ref: '#/definitions/io.k8s.api.storage.v1.VolumeAttachmentStatus'
+    description: |
+      Status of the VolumeAttachment request.
+      Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+    x-kab-description-zh: |
+      VolumeAttachment 请求的状态。由完成挂接/解除挂接操作的实体（如 `external-attacher`）来填充。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: VolumeAttachment
+    version: v1
+

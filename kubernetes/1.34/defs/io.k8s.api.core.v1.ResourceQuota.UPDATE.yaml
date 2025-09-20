@@ -1,0 +1,33 @@
+description: ResourceQuota sets aggregate quota restrictions enforced per namespace
+x-kab-description-zh: ResourceQuota 设置在整个名字空间内的配额限制。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ResourceQuota
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.ResourceQuotaSpec'
+    description: Spec defines the desired quota.
+    x-kab-description-zh: 预期的配额设置。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: ResourceQuota
+    version: v1
+

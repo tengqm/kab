@@ -1,0 +1,20 @@
+description: The mapping between an IP and some hostnames.
+x-kab-description-zh: IP 地址与主机名（可能不止一个）之间的映射。
+properties:
+  hostnames:
+    description: Hostnames for the IP address. Each value must be a valid DNS subdomain.
+    x-kab-description-zh: IP 地址对应的主机名。每个字符串值都必须是一个合法的 DNS 子域名。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  ip:
+    description: IP address of the host file entry. This value must be a valid IP address.
+    x-kab-description-zh: host 文件中某一条目对应的 IP 地址。此值必须是一个合法的 IP 地址。
+    type: string
+required:
+  - hostnames
+  - ip
+type: object
+

@@ -1,0 +1,37 @@
+description: ResourceStatus is the status of a single resource allocated for a Pod.
+x-kab-description-zh: ResourceStatus 是分配给某 Pod 的某资源的状态信息。
+properties:
+  name:
+    description: |
+      Name of the resource. Must be unique within the Pod and in the case of non-DRA resource,
+      match one of the resources from the Pod spec.
+      For DRA resources, the value must be `\"claim:<claim_name>/<request>\"`.
+      When this status is reported about a container, the `\"claim_name\"` and `\"request\"` must
+      match one of the claims of this container.
+    x-kab-description-zh: |
+      资源的名称。必须在 Pod 内唯一。对于非 DRA 资源，必须与 Pod 规约中的某个资源名称相同。
+      对于 DRA 资源，字段值的格式必须为 `\"claim:<claim_name>/<request>\"` 形式。
+      当针对某个容器报告此资源状态时，`\"claim_name\"` 和 `\"request\"` 必须与此容器的某个资源申领相匹配。
+    minLength: 1
+    type: string
+  resources:
+    description: |
+      List of unique resources health. Each element in the list contains an unique resource ID and its health.
+      At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node.
+      If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share.
+      See ResourceID type definition for a specific format it has in various use cases.
+    x-kab-description-zh: |
+      关于各个资源的健康状态的列表。列表中每个元素包含一个唯一的资源 ID 和该资源的健康状态。
+      最低要求是，资源 ID 要能够唯一性地标识节点上分配给 Pod 的资源，并在 Pod 的整个生命周期内有效。
+      如果同一节点上的另一个 Pod 报告了同一资源 ID 的状态，该资源必须是两个 Pod 之间共享的资源。
+      参见 ResourceID 类型的定义，以了解在多种不同场景下资源 ID 的特定格式。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ResourceHealth'
+    type: array
+    x-kubernetes-list-map-keys:
+    - resourceID
+    x-kubernetes-list-type: map
+required:
+- name
+type: object
+

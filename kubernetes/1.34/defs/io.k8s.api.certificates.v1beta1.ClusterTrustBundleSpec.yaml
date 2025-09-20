@@ -1,0 +1,99 @@
+description: ClusterTrustBundleSpec contains the signer and trust anchors.
+x-kab-description-zh: ClusterTrustBundleSpec 包含签名者信息（可选）以及信任锚点数据。
+properties:
+  signerName:
+    description: |
+      `signerName` indicates the associated signer, if any.
+      In order to create or update a ClusterTrustBundle that sets `signerName`, you must have
+      the following cluster-scoped permission:
+
+      ```
+      group=certificates.k8s.io
+      resource=signers
+      resourceName=<the signer name>
+      verb=attest
+      ```
+
+      If `signerName` is not empty, then the ClusterTrustBundle object must be named with
+      the signer name as a prefix (translating slashes to colons).
+
+      The `signerName` has a format of `<fqdn>/<namespace>.<name>`, where:
+      - `<fqdn>` is the FQDN domain name. Its max length is 253 characters
+        (DNS1123 subdomain limit).
+      - `<namesapce>` is the namespace name for the resource.
+        Its max length is 63 characters (as per limited by DNS1123 labels).
+      - `<name>` is the resource name, which has a limit of 253 characters
+        (DNS1123 subdomain limit).
+
+      Additional two characters are added to account for the one `'.'` and the one `'/'`.
+
+      For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names
+      include `example.com:foo:abc` and `example.com:foo:v1`.
+
+      If `signerName` is empty, then the ClusterTrustBundle object's name must not have
+      such a prefix.
+
+      List/watch requests for ClusterTrustBundles can filter on this field using
+      a `spec.signerName=NAME` field selector.
+    x-kab-description-zh: |
+      `signerName` 表明此信任包所关联的签名者，如果有的话。
+      要创建或者更新一个设置了 `signerName` 的 ClusterTrustBundle 对象，
+      你需要具有以下集群范围的访问权限：
+
+      ```
+      group=certificates.k8s.io
+      resource=signers
+      resourceName=<签名者的名字>
+      verb=attest
+      ```
+
+      如果 `signerName` 不为空，则此 ClusterTrustBundle 对象必须以签名者的名字作为前缀来命名，
+      （如果有斜线，要替换成分号）。
+
+      `signerName` 字段的格式为 `<fqdn>/<namespace>.<name>`，其中：
+
+      - `<fqdn>` 是域名的 FQDN 表示。最大长度 253 字符（DNS1123 子域名限制）；
+      - `<namesapce>` 是资源的名字空间名称。最大长度 63 字符（DNS1123 标签限制）；
+      - `<name>` 是资源名称，最多 253 字符（DNS1123 子域名限制）。
+
+      名字中额外还可以有两个字符，即用来分隔的 `'.'` 和 `'/'`。
+
+      例如，对于签名者名称为 `"example.com/foo"` 的情况，合法的 ClusterTrustBundle 对象名称包括
+      `"example.com:foo:abc"` 和 `"example.com:foo:v1"`。
+
+      如果 `signerName` 字段为空，ClusterTrustBundle 对象的名称一定不能带有这样的前缀。
+      针对 ClusterTrustBundle 资源的 `list`/`watch` 请求可以基于此字段来进行过滤：
+      `spec.signerName=NAME`。
+    maxLength: 571
+    minLength: 0
+    type: string
+  trustBundle:
+    description: |
+      `trustBundle` contains the individual X.509 trust anchors for this bundle,
+      as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+      The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.
+      Each certificate must include a basic constraints extension with the CA bit set.
+      The API server will reject objects that contain duplicate certificates,
+      or that use PEM block headers.
+
+      Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate
+      certificate blocks in this file according to their own logic, as well as to
+      drop PEM block headers and inter-block data.
+    x-kab-description-zh: |
+      `trustBundle` 包含此信任包中的各个 X.509 信任锚点。
+      每个锚点都是一个 PEM 证书包，包含用 PEM 封装的 DER 格式的 X.509 证书。
+
+      数据中只能包含可被解析为合法的 X.509 证书的 PEM 证书块。
+      每个证书必须包含基本的、设置了 CA 位的约束扩展。
+      API 服务器会拒绝包含重复证书或者使用了 PEM 块头部的对象。
+
+      ClusterTrustBundles 的用户（包括 kubelet）可以根据自身逻辑来对文件中的证书块进行重排序、
+      去重等操作，也可以去掉 PEM 块的头部信息以及块之间的数据。
+
+    minLength: 1
+    type: string
+required:
+  - trustBundle
+type: object
+

@@ -1,0 +1,55 @@
+description: |
+  A reference to a subject or user identity.
+  This can either hold a direct API object reference, or a value for non-objects
+  such as user and group names.
+x-kab-description-zh: |
+  对某主体或用户标识的引用。此结构可以包含一个直接的 API 对象引用，
+  也可以是用户名或者组名这种没有对应 API 对象的主体。
+properties:
+  apiGroup:
+    description: |
+      The API group of the referenced subject.
+      When `kind` is `"ServiceAccount"`, this field must be empty string (`""`) or nil.
+      When `kind` is `"User"` or `"Group"`, this field must be `"rbac.authorization.k8s.io"`.
+    x-kab-description-zh: |
+      被引用对象的 API 组。
+      如果 `kind` 是 `"ServiceAccount"`，此字段必须是空字符串或者不设置。
+      如果 `kind` 是 `"User"` 或 `"Group"`，此字段必须是 `"rbac.authorization.k8s.io"`。
+    type: string
+  kind:
+    description: |
+      Kind of object being referenced.
+      If the authorizer does not recognize the `kind` value, it should report an error.
+    x-kab-description-zh: |
+      被引用对象的类别。
+      如果鉴权组件无法识别 `kind` 字段的值，应该报告错误。
+    enum:
+      - Group
+      - ServiceAccount
+      - User
+    minLength: 1
+    type: string
+  name:
+    description: |
+      Name of the referenced object.
+      If `kind` is `"ServiceAccount"`, the `name` must be a valid ServiceAccount name.
+    x-kab-description-zh: |
+      被引用对象的的名称。
+      如果 `kind` 是 `"ServiceAccount"`，则 `name` 必须是一个合法的 ServiceAccount 名称。
+    minLength: 1
+    type: string
+  namespace:
+    description: |
+      Namespace of the referenced object.
+      If the object kind is `"User"` or `"Group"` which are not namespaced,
+      this value must be empty.
+    x-kab-description-zh: |
+      被引用对象所在的名字空间。
+      如果对象的 `kind` 是 `"User"` 或 `"Group"`，即不受名字空间限制，则此值必须为空。
+    type: string
+required:
+  - kind
+  - name
+type: object
+x-kubernetes-map-type: atomic
+

@@ -1,0 +1,16 @@
+description: ForNode provides information about which nodes should consume this endpoint.
+x-kab-description-zh: ForNode provides 提供哪些节点应该使用此端点的信息。
+properties:
+  name:
+    description: |
+      `name` represents the name of the Node.
+      This value must be a valid DNS label.
+    x-kab-description-zh: |
+      `name` 代表节点的名称。
+      此字段的取值必须是一个合法的 DNS 标签。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+

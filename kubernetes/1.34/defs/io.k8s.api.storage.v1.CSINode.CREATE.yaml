@@ -1,0 +1,47 @@
+description: |
+  CSINode holds information about all CSI drivers installed on a Node.
+  CSI drivers do not need to create the CSINode object directly.
+  As long as they use the `"node-driver-registrar"` sidecar container, the kubelet will automatically
+  populate the CSINode object for the CSI driver as part of kubelet plugin registration.
+  CSINode has the same name as a Node. If the object is missing, it means either there are no CSI
+  Drivers available on the Node, or the kubelet version is too low to create this object.
+  CSINode has an `ownerReference` pointing to the corresponding Node object.
+x-kab-description-zh: |
+  CSINode 用来保存节点上保存的所有 CSI 驱动的信息。CSI 驱动不需要直接创建 CSINode 对象。
+  只要 CSI 驱动使用 `"node-driver-registrar"` 边车容器，kubelet 会在注册 kubelet
+  插件的时候自动为 CSI 驱动填充 CSINode 对象。CSINode 的名称与对应 Node 的名称相同。
+  如果节点上没有 CSINode 对象，则要么节点上没有安装 CSI 驱动，要么 kubelet 的版本太低，
+  不支持创建 CSINode 对象。
+  CSINode 对象中包含一个 `ownerReference` 字段，指向对应的 Node 对象。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - CSINode
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The `name` must be the Kubernetes Node name.
+    x-kab-description-zh: 标准的对象元数据。对象名称必须是 Kubernetes Node 名称。
+  spec:
+    $ref: '#/definitions/io.k8s.api.storage.v1.CSINodeSpec'
+    description: The specification of CSINode.
+    x-kab-description-zh: CSINode 的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: CSINode
+    version: v1
+

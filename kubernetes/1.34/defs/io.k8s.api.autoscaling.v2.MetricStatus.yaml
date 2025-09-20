@@ -1,0 +1,66 @@
+description: The last-read state of a single metric.
+x-kab-description-zh: 某个指标上次读取时的状态。
+properties:
+  containerResource:
+    $ref: '#/definitions/io.k8s.api.autoscaling.v2.ContainerResourceMetricStatus'
+    description: |
+      This refers to a resource metric (such as those specified in `requests` and `limits`)
+      known to Kubernetes describing a single container in each Pod in the current scale target (e.g. CPU or memory).
+      Such metrics are built in to Kubernetes, and have special scaling options on top of those available
+      to normal per-Pod metrics using the `"pods"` source.
+    x-kab-description-zh: |
+      `containerResource` 引用 Kubernetes 所了解的某资源指标（例如在 `requests` 和 `limits` 中所设置的），
+      该指标描述的是当前扩缩目标中每个 Pod 中的一个容器（例如，CPU 或内存）。
+      这类指标是内建于 Kubernetes 中的，与使用 `"pods"` 指标源时所获得的普通 Pod 指标相比，`containerResource` 指标对应着特殊的扩缩选项。
+  external:
+    $ref: '#/definitions/io.k8s.api.autoscaling.v2.ExternalMetricStatus'
+    description: |-
+      This refers to a global metric that is not associated with any Kubernetes object.
+      It allows autoscaling based on information coming from components running outside of cluster
+      (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
+    x-kab-description-zh: |
+      引用某个与任何 Kubernetes 对象都没有关联的全局性指标。
+      这个字段使得我们可以基于来自集群外部的信息（例如云消息服务中的队列长度，或者集群外某负载均衡器上的 QPS）
+      来执行自动扩缩操作。
+  object:
+    $ref: '#/definitions/io.k8s.api.autoscaling.v2.ObjectMetricStatus'
+    description: |-
+      This refers to a metric describing a single kubernetes object (for example, `"hits-per-second"` on an Ingress object).
+    x-kab-description-zh: |-
+      对描述某个 Kubernetes 对象的指标（例如，Ingress 对象上的 `"hits-per-second"`）的引用。
+  pods:
+    $ref: '#/definitions/io.k8s.api.autoscaling.v2.PodsMetricStatus'
+    description: |-
+      This refers to a metric describing each pod in the current scale target (for example, `"transactions-processed-per-second"`).
+      The values will be averaged together before being compared to the target value.
+    x-kab-description-zh: |-
+      对描述当前扩缩目标中 Pod 的指标（例如，`"transactions-processed-per-second"`）的引用。
+      度量值会被求均值之后再与目标值作比较。
+  resource:
+    $ref: '#/definitions/io.k8s.api.autoscaling.v2.ResourceMetricStatus'
+    description: |
+      This refers to a resource metric (such as those specified in `requests` and `limits`) known to Kubernetes
+      describing each Pod in the current scale target (e.g. CPU or memory).
+      Such metrics are built in to Kubernetes, and have special scaling options on top of those available to
+      normal per-Pod metrics using the `"pods"` source.
+    x-kab-description-zh: |
+      对 Kubernetes 所了解的某种资源度量指标（如在 `requests` 和 `limits` 中所设置的）的引用。
+      这些指标所描述的是当前扩缩目标中的 Pod（例如，CPU 或内存）。
+      这类指标是内建于 Kubernetes 中的，与使用 `"pods"` 指标源时所获得的普通 Pod 指标相比，`resource` 指标对应着特殊的扩缩选项。
+  type:
+    description: |
+      The type of metric source. Each corresponds to a matching field in the object.
+    x-kab-description-zh: |
+      指标来源的类型。每种类型对应此对象中的一个匹配的字段。
+    enum:
+      - ContainerResource
+      - External
+      - Object
+      - Pods
+      - Resource
+    minLength: 1
+    type: string
+required:
+  - type
+type: object
+

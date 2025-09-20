@@ -1,0 +1,18 @@
+description: ServiceCIDRStatus describes the current state of the ServiceCIDR.
+x-kab-description-zh: ServiceCIDRStatus 描述 ServiceCIDR 的当前状态。
+properties:
+  conditions:
+    description: |
+      An array of Condition that describe the state of the ServiceCIDR.
+    x-kab-description-zh: |
+      用来描述当前 ServiceCIDR 状态的 Condition 对象数组。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+type: object
+

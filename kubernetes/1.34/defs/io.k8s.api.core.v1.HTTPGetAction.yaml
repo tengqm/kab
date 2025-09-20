@@ -1,0 +1,42 @@
+description: This describes an action based on HTTP GET requests.
+x-kab-description-zh: 此结构描述一个基于 HTTP GET 请求的动作。
+properties:
+  host:
+    description: |
+      Host name to connect to, defaults to the Pod IP.
+      You probably want to set `"Host"` in `httpHeaders` instead.
+    x-kab-description-zh: |
+      要连接的主机名，默认为 Pod 的 IP 地址。另一种方式是在 `httpHeaders` 中设置 `"Host"`。
+    type: string
+  httpHeaders:
+    description: Custom headers to set in the request. HTTP allows repeated headers.
+    x-kab-description-zh: 要在请求中设置的定制头部。HTTP 允许头部字段重复。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.HTTPHeader'
+    type: array
+  path:
+    description: Path to access on the HTTP server.
+    x-kab-description-zh: 要访问的 HTTP 服务器上的路径。
+    minLength: 1
+    type: string
+    x-kubernetes-list-type: atomic
+  port:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.util.intstr.IntOrString'
+    description: |
+      Name or number of the port to access on the container.
+      Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+    x-kab-description-zh: |
+      要访问的容器上的端口名称或数字。数字必须介于 1 和 65535 之间。名称则必须是 IANA_SVC_NAME。
+  scheme:
+    default: HTTP
+    description: Scheme to use for connecting to the host.
+    x-kab-description-zh: 连接到主机时所使用的 HTTP 模式。
+    enum:
+      - HTTP
+      - HTTPS
+    type: string
+required:
+  - path
+  - port
+type: object
+

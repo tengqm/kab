@@ -1,0 +1,264 @@
+description: How to spread matching Pods among the given topology.
+x-kab-description-zh: 根据给定的拓扑来分布匹配到的 Pod 集合。
+properties:
+  labelSelector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      Label selector used to find matching Pods.
+      Pods that match this label selector are counted to determine the number of Pods in
+      their corresponding topology domain.
+    x-kab-description-zh: |
+      用来过滤 Pod 集合的标签选择算符。
+      在确定各个对应的拓扑域（Topology Domain）中 Pod 个数时，仅统计与此标签选择算符匹配的 Pod。
+  matchLabelKeys:
+    description: |
+      This is a set of Pod label keys to select the Pods over which spreading will be calculated.
+      The keys are used to lookup values from the incoming Pod labels, those key-value labels are
+      AND'ed with `labelSelector` to select the group of existing Pods over which spreading will be
+      calculated for the incoming Pod.
+      The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`.
+      `matchLabelKeys` cannot be set when `labelSelector` isn't set. Keys that don't exist
+      in the incoming Pod `labels` will be ignored.
+      A null or empty list means only match against `labelSelector`.
+
+      This is a Beta field and requires the `MatchLabelKeysInPodTopologySpread` feature gate
+      to be enabled (enabled by default).
+
+    x-kab-description-zh: |
+      此字段为一组 Pod 标签主键。这些主键被用来选择用来计算分布状态的 Pod。
+      所使用的主键被用来查询新 Pod 上的标签取值。
+      为新 Pod 计算拓扑分布状况时，需要选择一组现有的 Pod。
+      选择这组 Pod 的条件是要求它们满足这里的标签键值，**同时**要满足 `labelSelector` 所给条件。
+
+      同一个标签主键不可以同时用于 `matchLabelKeys` 和 `labelSelector`。
+      如果没有设置 `labelSelector`，则不允许设置 `matchLabelKeys`。
+      在新 Pod 的 `labels` 中不存的的标签主键会被忽略。
+      如果此字段值为 null （未设置）或者为空列表，则意味着仅使用 `labelSelector` 来过滤 Pod。
+
+      此字段处于 Beta 阶段，需要启用 `MatchLabelKeysInPodTopologySpread` 特性门控。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  maxSkew:
+    default: 1
+    description: |
+      The degree to which Pods may be unevenly distributed. When `whenUnsatisfiable="DoNotSchedule"`,
+      it is the maximum permitted difference between the number of matching Pods in the target topology
+      and the global minimum.
+      The global minimum is the minimum number of matching Pods in an eligible domain or zero if the
+      number of eligible domains is less than `minDomains`. For example, in a 3-zone cluster,
+      `maxSkew` is set to 1, and Pods with the same `labelSelector` spread as '2/2/1'.
+      In this case, the global minimum is 1.
+
+      ```
+      +-------+--------+--------+
+      | zone1 | zone2  | zone3  |
+      +-------+--------+--------+
+      |   PP  |  PP    |    P   |
+      +-------+--------+--------+
+      ``
+
+      - If `maxSkew` is 1, incoming Pod can only be scheduled to zone3 to become 2/2/2;
+        scheduling it onto zone1(zone2) would make the actual skew (3-1) on zone1(zone2)
+        violate `maxSkew(1)`.
+      - If `maxSkew` is 2, incoming Pod can be scheduled onto any zone.
+
+      When `whenUnsatisfiable="ScheduleAnyway"`, it is used to give higher precedence to
+      topologies that satisfy it.
+
+    x-kab-description-zh: |
+      可接受的 Pod 分布不均衡程度。
+
+      当 `whenUnsatisfiable` 为 `"DoNotSchedule"` 时，此字段表示的是目标拓扑中匹配的 Pod
+      个数与**全局最小值（Global Minimum）**之间可接受的最大偏差。
+      所谓全局最小值是指某个候选拓扑域中匹配的 Pod 个数的最小值。如果候选域的个数少于 `minDomains`
+      时，全局最小值为 0。
+
+      例如，对于一个分布在 3 个可用区的集群，`maxSkew` 为 1，具有相同的 `labelSelector` 的
+      Pod 的分布状况是 '2/2/1'。这时，全局最小值为 1。
+
+      ```
+      +-------+--------+--------+
+      | zone1 | zone2  | zone3  |
+      +-------+--------+--------+
+      |   PP  |  PP    |    P   |
+      +-------+--------+--------+
+      ``
+
+      - 如果 `maxSkew` 为 1，则新的 Pod 只能被调度到 zone3，形成 '2/2/2' 的分布；
+        将它调度到 zone1（或 zone2），会使 zone1（或 zone2）上实际的偏差（skew）值变为 3-1，
+        因此违反了 `maxSkow` 为 1 的要求。
+      - 如果 `maxSkew` 为 2，则新的 Pod 可以被调度到任何一个可用区中。
+
+      当 `whenUnsatisfiable` 被设置为 `"ScheduleAnyway"` 时，
+      调度器用此阈值来优选能够满足偏差约束的调度方案。
+    format: int32
+    minimum: 1
+    type: integer
+
+  minDomains:
+    description: |
+      This indicates a minimum number of eligible domains.
+      When the number of eligible domains with matching topology keys is less than `minDomains`,
+      Pod topology ppread treats `"global minimum"` as 0, and then the calculation of `skew` is performed.
+      And when the number of eligible domains with matching topology keys equals or greater than
+      `minDomains`, this value has no effect on scheduling.
+      As a result, when the number of eligible domains is less than `minDomains`, scheduler won't
+      schedule more than `maxSkew` Pods to those domains.
+      If value is nil, the constraint behaves as if `minDomains` is equal to 1.
+      Valid values are integers greater than 0. When value is not nil, `whenUnsatisfiable` must be
+      `"DoNotSchedule"`.
+
+      For example, in a 3-zone cluster, `maxSkew` is set to 2, `minDomains` is set to 5 and Pods with
+      the same labelSelector spread as 2/2/2:
+
+      ```
+      +---------+---------+---------+
+      |  zone1  |  zone2  |  zone3  |
+      |   P P   |   P P   |   P P   |
+      +---------+---------+---------+
+      ```
+
+      The number of domains is less than 5 (`minDomains`), so **global minimum** is treated as 0.
+      In this situation, new Pod with the same `labelSelector` cannot be scheduled,
+      because computed skew will be 3 (3 - 0) if a new Pod is scheduled to any of the three zones,
+      it will violate `maxSkew`.
+
+    x-kab-description-zh: |
+      此字段用来给出候选拓扑域的最小数目。
+      当带有匹配拓扑主键的候选域个数小于 `minDomains` 阈值时，Pod 拓扑分布机制将其视为**全局最小值**为
+      0 的情况来处理，继续计算偏差（skew）情况。
+      当带有匹配拓扑主键的候选域个数等于或者大于 `minDomains` 阈值时，此字段值对调度没有影响。
+      因此，当候选拓扑域的个数小于 `minDomains` 时，调度器向某个拓扑域调度的 Pod 个数不会超过 `maxSkew`。
+
+      如果 `minDomains` 没有设置，则拓扑分布机制的行为好像 `minDomains` 被设置为 1 一样。
+      此字段的合法值是一个大于 0 的整数。如果设置了此字段，`whenUnsatisfiable` 只能是 `"DoNotSchedule"`。
+
+      例如，在一个跨 3 个可用区的集群中，`maxSkew` 被设置为 2，`minDomains` 被设置为 5，
+      具有 `labelSelector` 的 Pod 的当前分布状况是 '2/2/2'。
+
+      ```
+      +---------+---------+---------+
+      |  zone1  |  zone2  |  zone3  |
+      |   P P   |   P P   |   P P   |
+      +---------+---------+---------+
+      ```
+
+      候选拓扑域的个数小于 5（`minDomains`），所以**全局最小值**被视为 0。
+      在这种情况下，新的匹配 `labelSelector` 的 Pod 无法被调度，因为 Pod 被调度到这三个可用区中任何一个，
+      都会导致计算得到的偏差值为 3（3 - 0），因而违反了 `maxSkew` 所设置的约束。
+    format: int32
+    type: integer
+  nodeAffinityPolicy:
+    description: |
+      This indicates how we will treat Pod's `nodeAffinity.nodeSelector` when calculating Pod topology
+      spread skew. Options are:
+      - `"Honor"`: only nodes matching `nodeAffinity.nodeSelector` are included in the calculations.
+      - `"Ignore"`: `nodeAffinity.nodeSelector` are ignored. All nodes are included in the calculations.
+      
+      If this value is nil, the behavior is equivalent to the `Honor` policy.
+    x-kab-description-zh: |
+      此字段表明在计算 Pod 分布偏差时，如何对待 Pod 的节点亲和性（`nodeAffinity.nodeSelector`）。
+      可以选择的选项包括：
+
+      - `"Honor"`：只有符合 `nodeAffinity.nodeSelector` 的节点会被纳入计算中；
+      - `"Ignore"`：忽略 `nodeAffinity.nodeSelector` 设置，所有节点都被纳入计算中。
+
+      如果此字段未设置，默认行为是按照 `"Honor"` 策略处理。
+    type: string
+  nodeTaintsPolicy:
+    description: |
+      This indicates how we will treat node taints when calculating pod topology spread skew.
+
+      - `"Honor"`: nodes without taints, along with tainted nodes for which the incoming Pod
+        has a toleration, are included.
+      - `"Ignore"`: node taints are ignored. All nodes are included.
+
+      If this value is nil, the behavior is equivalent to the `"Ignore"` policy.
+    x-kab-description-zh: |
+      此字段表明在计算 Pod 拓扑分布偏差时，如何处理节点污点。可选项有：
+
+      - `"Honor"`：没有污点的节点以及所标污点可被 Pod 容忍的节点会被纳入计算；
+      - `"Ignore"`：忽略节点污点，将所有节点纳入计算。
+
+      此字段未设置时，行为相当于 `"Ignore"` 策略。
+    type: string
+  topologyKey:
+    description: |
+      The key of node labels.
+      Nodes that have a label with this key and identical values are considered to be in the same
+      topology. We consider each `<key, value>` as a bucket, and try to put balanced number of Pods
+      into each bucket. We define a domain as a particular instance of a topology. Also, we
+      define an eligible domain as a domain whose nodes meet the requirements of `nodeAffinityPolicy`
+      and `nodeTaintsPolicy`. e.g. If `topologyKey` is `"kubernetes.io/hostname"`, each Node
+      is a domain of that topology. And, if `topologyKey` is `"topology.kubernetes.io/zone"`,
+      each zone is a domain of that topology. This is a required field.
+    x-kab-description-zh: |
+      此字段值为节点的标签主键之一。
+      具有此标签主键，且对应标签值相同的节点被视为处于同一个拓扑（Topology）。
+      如果将 `<键,值>` 视为一个容器，则 Pod 拓扑分布的目标是让分布到不同容器中的 Pod 个数基本均衡。
+      域（Domain）是拓扑的一个特定实例。候选域（Eligible Domain）是一个其中节点满足
+      `nodeAffinityPolicy` 和 `nodeTaintsPolicy` 要求的域。
+      例如，如果 `topologyKey` 为 `"kubernetes.io/hostname"`，每个节点都是该拓扑的一个域。
+      如果 `topologyKey` 为 `"topology.kubernetes.io/zone"`，每个可用区是该拓扑的一个域。
+
+      此字段是必需字段。
+    type: string
+  whenUnsatisfiable:
+    default: DoNotSchedule
+    description: |
+      This indicates how to deal with a Pod if it doesn't satisfy the spread constraint.
+
+      - `"DoNotSchedule"` (default) tells the scheduler not to schedule it.
+      - `"ScheduleAnyway"` tells the scheduler to schedule the Pod in any location,
+        but giving higher precedence to topologies that would help reduce the skew.
+
+      A constraint is considered `"Unsatisfiable"` for an incoming Pod if and only if
+      every possible node assigment for that Pod would violate `maxSkew` on some topology.
+
+      For example, in a 3-zone cluster, `maxSkew` is set to 1, and Pods with the same `labelSelector`
+      spread as 3/1/1:
+
+      ```
+      +-------+--------+--------+
+      | zone1 | zone2  | zone3  |
+      | P P P |    P   |   P    |
+      +-------+--------+--------+
+      ```
+
+      If `whenUnsatisfiable` is set to `"DoNotSchedule"`, incoming Pod can only be scheduled to
+      zone2(zone3) to become 3/2/1(3/1/2) as actual skew (2-1) on zone2(zone3) satisfies `maxSkew` (1).
+      In other words, the cluster can still be imbalanced, but scheduler won't make it **more**
+      imbalanced.
+    x-kab-description-zh: |
+      此字段表明如何处理不能满足拓扑分布约束的 Pod。
+
+      - `"DoNotSchedule"`（默认值）：通知调度器不要调度该 Pod；
+      - `"ScheduleAnyway"`：通知调度器继续调度 Pod，优选能够减少偏差的拓扑域。
+
+      如果 Pod 被调度到任何节点都会违反某个拓扑所设置的 `maxSkew`，那么这个约束就被视为
+      `"Unsatisfiable"`（无法被满足）。
+      例如，在一个跨 3 个可用区的集群中，`maxSkew` 取值 1，满足同一 `labelSelector` 的 Pod
+      的当前分布为 '3/1/1'：
+
+      ```
+      +-------+--------+--------+
+      | zone1 | zone2  | zone3  |
+      | P P P |    P   |   P    |
+      +-------+--------+--------+
+      ```
+
+      如果 `whenUnsatisfiable` 被设置为 `"DoNotSchedule"`，则新的 Pod 只能被调度到 zone2（或 zone3），
+      形成 '3/2/1'（或 '3/1/2'）的分布，因为 zone2（或 zone3）上的实际偏差为 2 - 1，能够满足
+      `maxSkew` 约束。换言之，集群仍然是不均衡的，但调度器不会让集群变得更加不均衡。
+    enum:
+      - DoNotSchedule
+      - ScheduleAnyway
+    type: string
+required:
+  - maxSkew
+  - topologyKey
+  - whenUnsatisfiable
+type: object
+

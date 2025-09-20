@@ -1,0 +1,42 @@
+description: The configuration of a DaemonSet.
+x-kab-description-zh: DaemonSet 的配置信息。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - apps/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - DaemonSet
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.apps.v1.DaemonSetSpec.GET'
+    description: The desired behavior of this DaemonSet.
+    x-kab-description-zh: 此 DaemonSet 的预期行为。
+  status:
+    $ref: '#/definitions/io.k8s.api.apps.v1.DaemonSetStatus'
+    description: |
+      The current status of this DaemonSet. This data may be out of date
+      by some window of time.
+    x-kab-description-zh: |
+      此 DaemonSet 的当前状态。这里的状态数据可能比实际情况滞后一定的时间。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: apps
+    kind: DaemonSet
+    version: v1
+

@@ -1,0 +1,53 @@
+description: |
+  OwnerReference contains enough information to let you identify an owning object.
+  An owning object must be in the same namespace as the dependent, or be cluster-scoped,
+  so there is no `namespace` field.
+x-kab-description-zh: |
+  OwnerReference 包含足够的信息便于用户识别属主对象。
+  属主对象必须与依赖对象处于相同的名字空间，或者是集群作用域的，因而没有 `namespace` 字段。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    minLength: 1
+    type: string
+  blockOwnerDeletion:
+    default: false
+    description: |
+      If `true`, AND if the owner has the `"foregroundDeletion"` finalizer, then the owner cannot
+      be deleted from the key-value store until this reference is removed.
+      To set this field, a user needs *delete* permission of the owner,
+      otherwise `"422 Unprocessable Entity"` will be returned.
+    x-kab-description-zh: |
+      字段为 `true` 并且此属主上设置了 `"foregroundDeletion"` 终结器时，属主对象不可从后端存储中删除，
+      要等到此引用被去除之后才能删除。
+      要设置此字段，用户需要对属主对象具有 **delete** 操作的权限，
+      否则服务器会返回 `"422 Unprocessable Entity"`。
+    type: boolean
+  controller:
+    description: If `true`, this reference points to the managing controller.
+    x-kab-description-zh: 如果为 `true`，则此引用指向管理控制器。
+    type: boolean
+  kind:
+    description: Kind of the referenced resource.
+    x-kab-description-zh: 被引用资源的类别。
+    minLength: 1
+    type: string
+  name:
+    description: Name of the referenced resource.
+    x-kab-description-zh: 被引用资源的名称。
+    minLength: 1
+    type: string
+  uid:
+    description: UID of the referenced resource.
+    x-kab-description-zh: 被引用资源的 UID。
+    minLength: 1
+    type: string
+required:
+  - apiVersion
+  - kind
+  - name
+  - uid
+type: object
+x-kubernetes-map-type: atomic
+

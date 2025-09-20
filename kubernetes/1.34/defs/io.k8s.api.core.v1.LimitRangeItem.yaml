@@ -1,0 +1,100 @@
+description: |
+  An item that specifies a min/max usage limit for any resource that matches a kind.
+
+  For each item, the resource name has to follow some rules. For each resource type:
+
+  - the `max` value must be no smaller than the `min` value, if both are specified;
+  - the `defaultRequest` value must be greater than the `min` value, if both are specified;
+  - the `defaultRequest` value must be smaller than the `max` value, if both are specified.
+  - the `defaultRequest` must be smaller than the `default` value, if both are specified.
+  - the `default` value must be must be greater than the `min` value, if both are specified.
+  - the `default` value must be smaller than the `max` value, if both are specified.
+
+  For GPU, hugepages and other resources that are not allowed to overcommit, the `default` value
+  and the `defaultRequest` value must match, if both are specified.
+x-kab-description-zh: |
+  LimitRange 的一个条目，用来为匹配某类别的所有资源设置最小、最大用量限制。
+
+  针对每个条目，资源名称必须遵从一些规则。对于每种资源类别：
+
+  - 如果 `max` 和 `min` 都设置了，`max` 值必须大于等于 `min` 值；
+  - 如果 `defaultRequest` 和 `min` 值都设置了，则 `defaultRequest` 值必须大于 `min` 值；
+  - 如果 `defaultRequest` 和 `max` 值都设置了，则 `defaultRequest` 值必须小于 `max` 值； 
+  - 如果 `defaultRequest` 和 `default` 值都设置了，则 `defaultRequest` 值必须小于 `default` 值；
+  - 如果 `default` 和 `min` 值都设置了，则 `default` 值必须大于 `min` 值；
+  - 如果 `default` 和 `max` 值都设置了，则 `default` 值必须小于 `max` 值。
+
+  对于 GPU、大页面以及其他不可过量分配的资源而言，`default` 值和 `defaultRequest` 值如果都设置了，
+  则二者必须匹配。
+properties:
+  default:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      Default resource requirement limit value by resource name if resource limits is omitted.
+      This field cannot be specified when `type` is `"Pod"`.
+    x-kab-description-zh: |
+      按资源名称来设置的默认资源限制值，在未给出资源限制时使用。
+      当 `type` 为 `"Pod"` 时，此字段不可以设置。
+    type: object
+  defaultRequest:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The default resource requirement request value by resource name if resource requests is omitted.
+      This field cannot be specified when `type` is `"Pod"`.
+    x-kab-description-zh: |
+      按资源名称来设置的默认资源请求值，在未给出资源请求时使用。
+      当 `type` 为 `"Pod"` 时，此字段不可以设置。
+    type: object
+  max:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: Max usage constraints on this kind by resource name.
+    x-kab-description-zh: 按资源名称给出的某类别最大用量约束。
+    type: object
+  maxLimitRequestRatio:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      If specified, the named resource must have requests and limits that are both non-zero where
+      `limits` divided by `requests` is less than or equal to the enumerated value;
+      this represents the max burst for the named resource.
+      The value must be no less than 1.
+    x-kab-description-zh: |
+      如果设置了此字段，所指定的资源必须既设置请求也设置限制，并且 `limits` 值除以 `requests`
+      值的结果要小于等于这里列举的值。
+      此字段表达的是指定资源的最大突发速率。所设置的值的并不可以小于 1。
+    type: object
+  min:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: Min usage constraints on this kind by resource name.
+    x-kab-description-zh: 按资源名称给出的某类别最小用量约束。
+    type: object
+  type:
+    description: |
+      Type of resource that this limit applies to.
+      This has to be a qualified resource name (containing at least one `'/'`) or a standard limit type,
+      i.e. one of `"Pod"`, `"Container"` and `"PersistentVolumeClaim"`.
+      The `type` value must be unique in the `limits` list.
+
+      Possible enum values:
+      - `"Container"` limit that applies to all containers in a namespace.
+      - `"PersistentVolumeClaim"` limit that applies to all persistent volume claims in a namespace
+      - `"Pod"` limit that applies to all Pods in a namespace.
+    x-kab-description-zh: |
+      此 LimitRange 所适用的资源类别。
+      这里给出的类别必须是限定名（Qualified Name），即至少包含一个 `'/'`，
+      或者可以是一个标准的限制类型，也就是 `"Pod"`、`"Container"` 和 `"PersistentVolumeClaim"` 之一。
+      ·`type` 值必须在 `limits` 列表中是唯一的。
+
+      可以使用的标准限制类型有：
+      - `"Container"`：限制适用于名字空间中的所有容器；
+      - `"PersistentVolumeClaim"`：限制适用于名字空间中的所有 PVC 对象；
+      - `"Pod"`：限制适用于名字空间中的所有 Pod。
+    type: string
+required:
+  - type
+type: object
+

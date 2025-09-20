@@ -1,0 +1,70 @@
+description: |
+  RuntimeClass defines a class of container runtime supported in the cluster.
+  The RuntimeClass is used to determine which container runtime is used to run all containers in a Pod.
+  RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the Pod spec.
+  The Kubelet is responsible for resolving the `name` reference before running the Pod.
+x-kab-description-zh: |
+  RuntimeClass 定义的是集群内所支持的一类容器运行时。
+  RuntimeClass 用来确定用哪个容器运行时来运行给定 Pod 中的所有容器。
+  RuntimeClasses 要由用户或集群提供者来手动定义，并在 Pod 中引用。
+  kubelet 要负责在运行 Pod 之前解析对 RuntimeClass 的引用。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - node.k8s.io/v1
+    type: string
+  handler:
+    description: |
+      The underlying runtime and configuration that the CRI implementation will use to handle Pods of
+      this class. The possible values are specific to the node & CRI configuration.
+      It is assumed that all handlers are available on every node, and handlers of the same name are
+      equivalent on every node.
+      For example, a handler called `"runc"` might specify that the `runc` OCI runtime (using native
+      Linux containers) will be used to run the containers in a Pod. The `handler` must be lowercase,
+      conform to the DNS Label (RFC 1123) requirements, and is immutable.
+    x-kab-description-zh: |
+      CRI 实现处理此类 Pod 时要使用的下层运行时及其配置。可能的值是特定于节点和 CRI 配置的。
+      一般而言，在所有节点上都部署了所有的处理程序，不同节点上同名的处理程序也是等价的。
+      例如，一个名为 `"runc"` 的处理程序可能指定要使用 `runc` OCI 运行时（原生的 Linux 容器）
+      来运行 Pod 中的容器。
+      这里的 `handler` 字符串必须是小写字母，遵从 DNS 标签（RFC 1123）格式。
+      此字段不可变更。
+    minLength: 1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - RuntimeClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. The name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。对象的名称必须是合法的 DNS 子域名。
+  overhead:
+    $ref: '#/definitions/io.k8s.api.node.v1.Overhead'
+    description: The resource overhead associated with running a Pod for a given RuntimeClass.
+    x-kab-description-zh: 使用给定 RuntimeClass 运行 Pod 时会牵涉到的额外的资源消耗。
+  scheduling:
+    $ref: '#/definitions/io.k8s.api.node.v1.Scheduling'
+    description: |
+      The scheduling constraints to ensure that Pods running with this RuntimeClass are scheduled to
+      nodes that support it.
+      If `scheduling` is nil, this RuntimeClass is assumed to be supported by all nodes.
+    x-kab-description-zh: |
+      此字段为调度约束，目的是确保采用此 RuntimeClass 运行的 Pod 会被调度到支持该 RuntimeClass 的节点。
+      如果 `scheduling` 未设置，则假定所有节点都支持此 RuntimeClass。
+required:
+  - apiVersion
+  - handler
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: node.k8s.io
+    kind: RuntimeClass
+    version: v1
+

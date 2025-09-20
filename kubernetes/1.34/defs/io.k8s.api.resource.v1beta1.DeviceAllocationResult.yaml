@@ -1,0 +1,31 @@
+description: DeviceAllocationResult is the result of allocating devices.
+x-kab-description-zh: DeviceAllocationResult 封装设备分配的结果。
+properties:
+  config:
+    description: |-
+      This field is a combination of all the claim and class configuration parameters.
+      Drivers can distinguish between those based on a flag.
+
+      This includes configuration parameters for drivers which have no allocated devices
+      in the result because it is up to the drivers which configuration parameters they support.
+      They can silently ignore unknown configuration parameters.
+    x-kab-description-zh: |-
+      此字段是设备申领与设备类配置参数的组合。参数可以通过一个标志来区分不同的参数来源。
+
+      字段值包含了在结果中不存在已分配设备的驱动的配置参数，因为最终要由驱动来确定他们所支持的配置参数。
+      驱动可以以静默的方式来忽略未知的配置参数。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceAllocationConfiguration'
+    type: array
+    x-kubernetes-list-type: atomic
+  results:
+    description: |
+      `results` lists all allocated devices.
+    x-kab-description-zh: |
+      `results` 是一个列表，其中包含所有已分配的设备。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceRequestAllocationResult'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

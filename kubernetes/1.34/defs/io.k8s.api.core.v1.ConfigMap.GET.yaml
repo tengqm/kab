@@ -1,0 +1,78 @@
+description: |
+  ConfigMap holds configuration data for Pods to consume.
+  The total size of `data` and `binaryData` must be less than 1 MB.
+x-kab-description-zh: |
+  ConfigMap 包含可供 Pod 使用的配置数据。
+  `data` 和 `binaryData` 的总大小不能超过 1 MB。
+
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  binaryData:
+    additionalProperties:
+      format: byte
+      type: string
+    description: |
+      The `binaryData` field contains the binary data.
+      Each key must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`.
+      Each key can have at most 253 characters and it cannot be `"."`, `".."` and
+      it cannot start with `".."`.
+      This field can contain byte sequences that are not in the UTF-8 range.
+      The keys stored in `binaryData` must not overlap with the ones in the `data` field.
+    x-kab-description-zh: |
+      `binaryData` 保存二进制数据。
+      每个主键必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，最大长度为 253 字符，
+      并且主键本身不可以是 `"."`、`".."`，也不可以以 `".."` 开头。
+      此字段可以包含不在 UTF-8 范围的字节序列。
+      `binaryData` 中包含的主键不可以与 `data` 字段中包含的主键重叠。
+    type: object
+  data:
+    additionalProperties:
+      type: string
+    description: |
+      The `data` field contains the configuration data.
+      Each key must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`.
+      Each key can have at most 253 characters and it cannot be `"."`, `".."` and
+      it cannot start with `".."`.
+      Values with non-UTF-8 byte sequences must use the `binaryData` field.
+      The keys stored in `data` must not overlap with the keys in the `binaryData` field.
+    x-kab-description-zh: |
+      `data` 保存配置数据。每个主键必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成，
+      最大长度为 253 字符，并且主键本身不可以是 `"."`、`".."`，也不可以以 `".."` 开头。
+      不在 UTF-8 范围的字节序列必须使用 `binaryData` 来保存。
+      `data` 中包含的主键不可以与 `binaryData` 字段中包含的主键重叠。
+    type: object
+  immutable:
+    description: |
+      If set to `true`, ensures that data stored in the ConfigMap cannot be updated
+      (only the object metadata can be modified).
+      If not set to `true`, the field can be modified at any time. Defaulted to `null`.
+    x-kab-description-zh: |
+      如果设置为 `true`，则可以确保 ConfigMap 中保存的数据无法被更新（只有元数据可被修改）。
+      如果不设置为 `true`，则 ConfigMap 的字段可以在任何时候被修改。默认值为 `null`。
+    type: boolean
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - ConfigMap
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: |
+      Standard object metadata. The name of a ConfigMap must be a valid DNS subdomain.
+    x-kab-description-zh: 标准的对象元数据。ConfigMap 的名字必须是合法的 DNS 子域名。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: ConfigMap
+    version: v1
+

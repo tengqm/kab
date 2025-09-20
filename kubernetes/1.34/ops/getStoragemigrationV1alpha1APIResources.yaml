@@ -1,0 +1,27 @@
+consumes:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+description: get available resources
+x-kab-description-zh: 读取 storagemigration.k8s.io/v1alpha1 API 组下可用的资源类别
+operationId: getStoragemigrationV1alpha1APIResources
+path: /apis/storagemigration.k8s.io/v1alpha1/
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.APIResourceList'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - storagemigration_v1alpha1
+verb: get
+

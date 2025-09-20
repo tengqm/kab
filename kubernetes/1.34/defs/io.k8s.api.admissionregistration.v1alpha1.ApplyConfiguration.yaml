@@ -1,0 +1,89 @@
+description: ApplyConfiguration defines the desired configuration values of an object.
+x-kab-description-zh: ApplyConfiguration 定义某个对象的预期配置值。
+properties:
+  expression:
+    description: |
+      `expression` will be evaluated by CEL to create an apply configuration. refer to https://github.com/google/cel-spec
+      Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an
+      apply configuration to set a single field.
+
+      ```
+      Object{
+        spec: Object.spec{
+          serviceAccountName: \"example\"
+        }
+      }
+      ```
+
+      Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion
+      of values not included in the apply configuration.
+
+      CEL expressions have access to the object types needed to create apply configurations.
+
+      - `Object` - CEL type of the resource object.
+      - `Object.<fieldName>` - CEL type of object field (such as `Object.spec`)
+      - `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field (such as `Object.spec.containers`)
+      
+      CEL expressions have access to the contents of the API request, organized into CEL variables as well as
+      some other useful variables.
+
+      - `object` - The object from the incoming request. The value is null for DELETE requests.
+      - `oldObject` - The existing object. The value is null for CREATE requests.
+      - `request` - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)).
+      - `params` - Parameter resource referred to by the policy binding being evaluated.
+        Only populated if the policy has a ParamKind.
+      - `namespaceObject` - The namespace object that the incoming object belongs to.
+        The value is null for cluster-scoped resources.
+      - `variables` - Map of composited variables, from its name to its lazily evaluated value.
+        For example, a variable named `foo` can be accessed as `variables.foo`.
+      - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+        (user or service account) of the request.
+        See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer` and configured with the
+        request resource.
+
+      The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
+      the root of the object. No other metadata properties are accessible.
+      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+
+    x-kab-description-zh: |-
+      CEL 将对 `expression` 字段所给的表达式求值，以生成一个应用配置。可以参考 https://github.com/google/cel-spec。
+      应用配置是使用对象初始化来声明的，采用 CEL 语法。例如，此 CEL 表达式可以返回一个用来设置某个特定字段的应用配置。
+
+      ```
+      Object{
+        spec: Object.spec{
+          serviceAccountName: \"example\"
+        }
+      }
+      ```
+
+      应用配置不可以更改原子性的结构体、映射或者数组，原因是可能导致意外删除未包含在应用配置中的值的风险。
+
+      CEL 表达式可以访问创建应用配置所需要的对象类型。
+
+      - `Object` - 用来表示资源对象的 CEL 类型。
+      - `Object.<fieldName>` - 用来表示对象字段的 CEL 类型（例如 `Object.spec`）。
+      - `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - 用来表示嵌套字段的 CEL 类型（例如 `Object.spec.containers`）。
+
+      CEL 表达式能够访问 API 请求的内容，这些内容被组织成 CEL 变量以及一些其他有用的变量。
+
+      - `object` - 取自请求的对象。对于 DELETE 请求，此变量值为 null。
+      - `oldObject` - 现有对象。对于 CREATE 请求而言，此变量值为 null。
+      - `request` - API 请求的属性（参考 /pkg/apis/admission/types.go#AdmissionRequest 定义）。
+      - `params` - 所评估的策略绑定引用的参数资源。仅当策略包含 `paramKind` 的时候有值。
+      - `namespaceObject` - 请求对象所属的名字空间对象。对于集群作用域的资源，此变量值为 null。
+      - `variables` - 由复合变量构成的映射，包含从变量名到懒惰求值得到的取值的对应关系。
+        例如，某个名为 `foo` 的变量可以通过 `variables.foo` 的形式来访问。
+      - `authorizer` - 某个 CEL 鉴权组件。此变量可用来执行针对请求主体（用户或服务账号）的鉴权检查。
+        参见 https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      - `authorizer.requestResource` - 由 `authorizer` 基于请求资源构造的 CEL ResourceCheck 对象。
+
+      `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 这些字段总是可以从对象属性根访问。
+      其他元数据属性都无法访问。所有符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 格式的属性名都是可访问的。
+    minLength: 1
+    type: string
+required:
+  - expression
+type: object
+

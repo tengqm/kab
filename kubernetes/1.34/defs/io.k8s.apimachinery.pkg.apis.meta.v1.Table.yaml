@@ -1,0 +1,49 @@
+description: |
+  Table is a tabular representation of a set of API resources.
+  The server transforms the object into a set of preferred columns for quickly reviewing the objects.
+x-kab-description-zh: |
+  Table 是一组 API 资源的表格化表示形式。
+  服务器将对象转换为一组优选的列集合，便于快速检阅这些对象。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - meta.k8s.io
+    type: string
+  columnDefinitions:
+    description: |
+      This list describes each column in the returned `rows` array.
+      The number of cells per row will always match the number of column definitions.
+    x-kab-description-zh: |
+      此列表描述的是所返回的 `rows` 数组中的各个列。
+      每一行的单元格个数需要与列定义的数目一致。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.TableColumnDefinition'
+    minItems: 1
+    type: array
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Table
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata.
+    x-kab-description-zh: 标准的列表元数据。
+  rows:
+    description: The list items in the table.
+    x-kab-description-zh: 表格中的列表条目。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.TableRow'
+    minItems: 1
+    type: array
+required:
+  - apiVersion
+  - columnDefinitions
+  - kind
+  - metadata
+  - rows
+type: object
+

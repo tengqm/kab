@@ -1,0 +1,161 @@
+description: ApplyConfiguration defines the desired configuration values of an object.
+x-kab-description-zh: ApplyConfiguration 定义的是一个对象的预期配置值。
+properties:
+  expression:
+    description: |
+      `expression` will be evaluated by [CEL](https://github.com/google/cel-spec)
+      to create an apply configuration.
+      
+      Apply configurations are declared in CEL using object initialization.
+      For example, this CEL expression returns an apply configuration to set a single field:
+
+      ```
+      Object {
+        spec: Object.spec {
+          serviceAccountName: "example"
+        }
+      }
+      ```
+      
+      Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion
+      of values not included in the apply configuration.
+
+      CEL expressions have access to the object types needed to create apply configurations:
+
+      - `Object` - CEL type of the resource object.
+      - `Object.<fieldName>` - CEL type of object field (such as `Object.spec`)
+      - `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - CEL type of nested field
+        (such as 'Object.spec.containers')
+
+      CEL expressions have access to the contents of the API request, organized into CEL variables as well as
+      some other useful variables:
+
+      - `object` - The object from the incoming request. The value is null for DELETE requests.
+      - `oldObject` - The existing object. The value is null for CREATE requests.
+      - `request` - Attributes of the API request, including:
+        - `uid` - An identifier for the request. It is used for tracking the round trip between the API server
+          and a Webhook, not the user request.
+        - `kind` - The fully-qualified type of the object being submitted (for example, `v1.Pod`).
+        - `resource` - The fully-qualified resource being requested (for example, `v1.pods`).
+        - `subResource` - The subresource being requested, if any (for example, `status`).
+        - `requestKind` - The fully-qualified type of the original API request (for example, `v1.Pod`).
+          If this is specified and differs from the value in `kind`, an equivalent match and conversion
+          is performed. It is designed to handle the conversion between different versions of an API group.
+        - `requestResource` - The fully-qualified resource of the original API request (for example, `v1.pods`).
+          If this is specified and differs from the value in `resource`, an equivalent match and conversion
+          is performed. It is designed to handle the conversion between different versions of an API group.
+        - `requestSubResource` - The fully-qualified resource of the original API request (for example, `status`).
+          If this is specified and differs from the value in `subResource`, an equivalent match and conversion
+          is performed. It is designed to handle the conversion between different versions of an API group.
+        - `name` - The name of the object as presented in the reqeust.
+          On a CREATE operation, the client may omit the name and rely on the server to generate the name.
+          In that case, this field will contain an empty string.
+        - `namespace` - The namespace associated with the request, if any.
+        - `operation` - The operation being performed. This may differ from the operation requested.
+          For example, a patch can result in either a CREATE or UPDATE operation.
+        - `userInfo` - The information about the requesting user. This field may contain the following fields:
+          - `username` - The name that uniquely identifies this user among all active users.
+          - `uid` - A unique value that identifies this user across time. A different user with the same name
+            will have a different `uid`.
+          - `groups` - A list of group names this user is part of.
+          - `extra` - A map containing additional information provided by the authenticator.
+        - `object` - The object from the incoming request, if any.
+        - `oldObject` - The existing object, if any.
+        - `dryRun` - A boolean indicating whether the modifications will be persisted. Default to false.
+        - `options` - The operation option structure of the operation being performed.
+          For example, the content can be `meta.k8s.io/v1.DeleteOptions` or `meta.k8s.io/v1.CreateOptions`.
+          The content may be different from the options the caller provided.
+          For example, for a patch request, the performed operation might be a CREATE.
+      - `params` - Parameter resource referred to by the policy binding being evaluated.
+        Only populated if the policy has a `paramKind`.
+      - `namespaceObject` - The namespace object that the incoming object belongs to.
+        The value is null for cluster-scoped resources.
+      - `variables` - Map of composited variables, from its name to its lazily evaluated value.
+        For example, a variable named `foo` can be accessed as `variables.foo`.
+      - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+        (user or ServiceAccount) of the request.
+        See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer` and
+        configured with the request resource.
+
+      The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible
+      from the root of the object. No other metadata properties are accessible.
+
+      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
+
+    x-kab-description-zh: |
+      系统会针对 `expression` 使用 [CEL](https://github.com/google/cel-spec) 来求值，得到一个可以用于
+      apply 操作的配置。
+      
+      应用配置（Apply Configuration）是使用 CEL 来定义的一种对对象进行初始化的配置。
+      例如，下面的 CEL 表达式会返回一个 ApplyConfiguration，效果是对某个字段进行设置：
+
+      ```
+      Object {
+        spec: Object.spec {
+          serviceAccountName: "example"
+        }
+      }
+      ```
+      
+      ApplyConfiguration 不可以变更原子性的结构、映射或者数组，因为这样做可能有风险，会不小心删除
+      ApplyConfiguration 中并不包含的值。
+
+      为了创建 ApplyConfiguration，CEL 表达式可以访问对象类别：
+
+      - `Object` - 资源对象的 CEL 类别；
+      - `Object.<fieldName>` - 对象字段的 CEL 类别（例如 `Object.spec`）；
+      - `Object.<fieldName1>.<fieldName2>...<fieldNameN>` - 嵌套字段的 CEL 类别（如 `Object.spec.containers`）；
+
+      CEL 表达式能够访问 API 请求的内容；这些内容和其他有用的变量一样，会被组织成 CEL 变量（variables）：
+
+      - `object` - 来自请求的对象。对于 DELETE 请求而言此值为 null。
+      - `oldObject` - 现有的对象。对于 CREATE 请求而言，此值为 null。
+      - `request` - API 请求的属性。具体如下：
+        - `uid` - 请求的一个标识。用来对 API 服务器与 Webhook 之间的请求（响应）对话进行跟踪。
+          此字段对于用户请求无意义。
+        - `kind` - 请求所提交的对象的全限定类别（例如：`v1.Pod`）。
+        - `resource` - 所请求的全限定资源（例如：`v1.pods`）。
+        - `subResource` - 所请求的子资源，如果有的话（例如：`status`）。
+        - `requestKind` - 原始 API 请求的全限定类别（例如：`v1.Pod`）。
+          如果设定了此字段，并且其取值与 `kind` 字段值不同，则系统会执行匹配和转换操作。
+          此字段的目的是支持对同一 API 组的不同版本之间的转换。
+        - `requestResource` - 原始 API 请求的全限定资源（例如：`v1.pods`）。
+          如果设定了此字段，并且其取值与 `resource` 字段值不同，则系统会执行匹配和转换操作。
+          此字段的目的是支持对同一 API 组的不同版本之间的转换。
+        - `requestSubResource` - 原始 API 请求的全限定子资源（例如：`status`）。
+          如果设定了此字段，并且其取值与 `subResource` 字段值不同，则系统会执行匹配和转换操作。
+          此字段的目的是支持对同一 API 组的不同版本之间的转换。
+        - `name` - 请求中所给的对象的名称。对于一个 CREATE 操作而言，客户端可能会选择忽略 `name` 字段，
+          让服务器端为对象生成名字。在这种情况下，此字段会包含一个空字符串。
+        - `namespace` - 与此对象相关联的名字空间（如果有的话）。
+        - `operation` - 要执行的操作。此字段的取值可能与客户端所请求的操作不同。
+          例如，一个 patch 请求可能会生成一个 CREATE 操作或者一个 UPDATE 操作。
+        - `userInfo` - 与发起请求的用户相关的信息。其中可以包含以下字段：
+          - `username` - 用户的唯一性名称，可供区分所有活跃用户。
+          - `uid` - 能够唯一标识某个用户的一个值，一直不变。同名的另一个用户会有不同的 `uid` 值。
+          - `groups` - 此用户所属的用户组列表。
+          - `extra` - 身份认证组件所提供的关于用户的一些额外信息。
+        - `object` - 请求中所给出的对象（如果有的话）。
+        - `oldObject` - 现有的对象（如果有的话）。
+        - `dryRun` - 布尔值字段，用来表明所作的变更是否要持久化到数据库中。默认值为 false。
+        - `options` - 所执行的操作所对应的 options 结构。
+          例如，此字段可能是 `meta.k8s.io/v1.DeleteOptions` 或者 `meta.k8s.io/v1.CreateOptions`。
+          不过字段的内容可能与 API 调用者所提供的内容不同。
+          例如，对于一个 patch 请求，所执行的操作可能会是 CREATE。
+      - `params` - 所评估的策略绑定所引用的参数资源。只有策略具有 `paramKind` 时才会填充。
+      - `namespaceObject` - 新对象所述的名字空间对象。对于集群作用域的资源而言，此值为 null。
+      - `variables` - 包含复合变量的映射。键名为变量名，值为懒惰求值的内容。
+        例如，名为 `foo` 的变量可以通过 `variables.foo` 来访问。
+      - `authorizer` - CEL 鉴权组件。可以用来针对请求的主体（用户或者 ServiceAccount）执行鉴权检查。
+      - `authorizer.requestResource` - CEL ResourceCheck 结构，由鉴权组件负责构建，内容来自于请求资源。
+
+      `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 总是可以从对象的根节点访问。
+      其他元数据属性都是不可访问的。
+
+      只有格式符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性名是可访问的。
+    type: string
+  required:
+    - expression
+type: object
+

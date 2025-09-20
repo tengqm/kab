@@ -1,0 +1,16 @@
+description: A waiting state of a Container.
+x-kab-description-zh: 容器的等待状态。
+properties:
+  message:
+    description: Message regarding why the Container is not yet running.
+    x-kab-description-zh: 解释为什么容器尚未进入运行状态的消息文字。
+    type: string
+  reason:
+    description: A (brief) reason the Container is not yet running.
+    x-kab-description-zh: 关于容器尚未进入运行状态的简短原因描述。
+    type: string
+required:
+  - message
+  - reason
+type: object
+

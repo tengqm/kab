@@ -1,0 +1,18 @@
+description: A volume attached to the node.
+x-kab-description-zh: 挂接到节点上的一个卷。
+properties:
+  devicePath:
+    description: The device path where the volume is available.
+    x-kab-description-zh: 访问数据卷所使用的设备路径。
+    minLength: 1
+    type: string
+  name:
+    description: Name of the attached volume.
+    x-kab-descriiption-zh: 所挂接的数据卷的名称。
+    minLength: 1
+    type: string
+required:
+  - devicePath
+  - name
+type: object
+

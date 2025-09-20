@@ -1,0 +1,36 @@
+description: MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
+x-kab-description-zh: MutatingAdmissionPolicyList 是由 MutatingAdmissionPolicy 对象组成的列表。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - admissionregistration.k8s.io/v1beta1
+    type: string
+  items:
+    description: List of ValidatingAdmissionPolicy.
+    x-kab-description-zh: ValidatingAdmissionPolicy 对象的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingAdmissionPolicy.GET'
+    type: array
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - MutatingAdmissionPolicyList
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ListMeta'
+    description: Standard list metadata.
+    x-kab-description-zh: 标准的列表元数据。
+required:
+  - apiVersion
+  - items
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: admissionregistration.k8s.io
+    kind: MutatingAdmissionPolicyList
+    version: v1beta1
+

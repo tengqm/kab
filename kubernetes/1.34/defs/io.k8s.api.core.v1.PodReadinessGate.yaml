@@ -1,0 +1,32 @@
+description: This contains the reference to a Pod condition.
+x-kab-description-zh: 此结构包含对 Pod 状况的引用。
+properties:
+  conditionType:
+    description: |
+      This refers to a condition in the Pod's condition list with matching type.
+      Possible enum values:
+
+      - `"ContainersReady"` indicates whether all containers in the Pod are ready.
+      - `"DisruptionTarget"` indicates that the Pod is about to be terminated due to a
+        disruption (such as preemption, eviction API or garbage-collection).
+      - `"Initialized"` means that all init containers in the Pod have started successfully.
+      - `"PodReadyToStartContainers"` means that the Pod sandbox is successfully configured and
+        the Pod is ready to launch containers.
+      - `"PodScheduled"` represents status of the scheduling process for this Pod.
+      - `"Ready"` means the Pod is able to service requests and should be added to
+        the load balancing pools of all matching services.
+    x-kab-description-zh: |
+      此字段引用 Pod 状况列表中对应类型的状况。可能的取值包括：
+
+      - `"ContainersReady"` 表明 Pod 中是否所有容器都已就绪。
+      - `"DisruptionTarget"` 表明因为干扰（例如抢占、驱逐 API 或垃圾收集）的原因，Pod 即将被终止。
+      - `"Initialized"` 意味着 Pod 中的所有初始容器都已经成功启动。
+      - `"PodReadyToStartContainers"` 意味着 Pod 沙箱被成功配置，Pod 已经为启动容器准备就绪。
+      - `"PodScheduled"` 代表 Pod 的调度状态。
+      - `"Ready"` 意味着 Pod 能够接收服务请求，进而应该被添加到匹配的 Service 的负载均衡池中。
+    minLength: 1
+    type: string
+required:
+  - conditionType
+type: object
+

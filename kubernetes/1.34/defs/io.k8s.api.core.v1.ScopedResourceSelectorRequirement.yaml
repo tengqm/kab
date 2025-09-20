@@ -1,0 +1,73 @@
+description: |
+  A selector that contains `values`, a `scopeName`, and an `operator` that
+  relates the `scopeName` and `values`.
+x-kab-description-zh: |
+  一个包含 `values`、`scopeName` 以及将二者关联起来的 `operator` 的选择算符。
+properties:
+  operator:
+    description: |
+      Represents a scope's relationship to a set of values. Valid operators are
+      `"In"`, `"NotIn"`, `"Exists"`, `"DoesNotExist"`.
+      When scope is one of `"Terminating"`, `"NotTerminating"`, `"BestEffort"`, `"NotBestEffort"`,
+      the operator can only be `"Exists"`.
+    x-kab-description-zh: |
+      此字段给出范围（scope）与一组值之间的关系。合法的 `operator` 值有：
+      `"In"`、`"NotIn"`、`"Exists"`、`"DoesNotExist"`。
+      当范围是 `"Terminating"`、`"NotTerminating"`、`"BestEffort"`、`"NotBestEffort"` 之一时，
+      `perator` 只能是 `"Exists"`。
+    enum:
+      - DoesNotExist
+      - Exists
+      - In
+      - NotIn
+    type: string
+  scopeName:
+    description: |
+      The name of the scope that the selector applies to. Possible enum values:
+      - `"BestEffort"` matches all Pod objects that have best effort quality of service.
+      - `"CrossNamespacePodAffinity"` matches all Pod objects that have cross-namespace Pod
+        (anti)affinity mentioned. This is a Beta feature enabled by the `PodAffinityNamespaceSelector`
+        feature gate.
+      - `"NotBestEffort"` matches all Pod objects that do not have best effort quality of service.
+      - `"NotTerminating"` matches all Pod objects where `spec.activeDeadlineSeconds` is null.
+      - `"PriorityClass"` matches all Pod objects that have priority class mentioned.
+      - `"Terminating"` matches all Pod objects where `spec.activeDeadlineSeconds >=0`.
+    x-kab-description-zh: |
+      选择算符所使用的范围的名称。可选的取值包括：
+
+      - `"BestEffort"`：匹配所有服务质量类为 `BestEffort` 的 Pod 对象。
+      - `"CrossNamespacePodAffinity"`：匹配所有提及跨名字空间（反）亲和性的 Pod 对象。
+        此范围值处于 Beta 阶段，需要启用`PodAffinityNamespaceSelector` 特性门控。
+      - `"NotBestEffort"`：匹配服务质量类不是 `BestEffort` 的所有 Pod 对象。
+      - `"NotTerminating"`：匹配所有 `spec.activeDeadlineSeconds` 为空的 Pod 对象。
+      - `"PriorityClass"`：匹配所有与某优先级类关联的 Pod 对象。
+      - `"Terminating"`：匹配所有 `spec.activeDeadlineSeconds >=0` 的 Pod 对象。
+    enum:
+      - BestEffort
+      - CrossNamespacePodAffinity
+      - NotBestEffort
+      - NotTerminating
+      - PriorityClass
+      - Terminating
+    minLength: 1
+    type: string
+  values:
+    description: |
+      An array of string values.
+      If the operator is `"In"` or `"NotIn"`, the values array must be non-empty.
+      If the operator is `"Exists"` or `"DoesNotExist"`, the values array must be empty.
+      This array is replaced during a strategic merge patch.
+    x-kab-description-zh: |
+      取值为一个字符串列表。
+      如果 `operator` 是 `"In"` 或 `"NotIn"` 之一，则此数组不能为空。
+      如果 `operator` 是 `"Exists"` 或 `"DoesNotExist"`，则此数组必须为空。
+      在执行策略性合并补丁操作时，此字段的数组会被替换。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - operator
+  - scopeName
+type: object
+

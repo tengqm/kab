@@ -1,0 +1,39 @@
+description: The current condition of an Endpoint.
+x-kab-description-zh: Endpoint 的当前状况。
+properties:
+  ready:
+    description: |
+      This indicates that this endpoint is ready to receive traffic,
+      according to whatever system is managing the endpoint.
+      A `nil` value should be interpreted as \"true\".
+      In general, an endpoint should be marked ready if it is serving and not terminating,
+      though this can be overridden in some cases, such as
+      when the associated Service has set the `publishNotReadyAddresses` flag.
+    x-kab-description-zh: |
+      此字段用来表明根据管理端点的系统反映，端点已经为接受请求流量就绪。
+      未设置时表示取值为 `true`。
+      一般而言，当端点在提供服务且未处于终止过程中时，应该被标记为就绪（ready）；
+      不过在某些情况下，这种行为可以被覆盖。
+      例如，当对应的 Service 已经设置了 `publishNotReadyAddresses` 标志的时候。
+    type: boolean
+  serving:
+    description: |
+      `serving` indicates that this endpoint is able to receive traffic,
+      according to whatever system is managing the endpoint.
+      For endpoints backed by Pods, the EndpointSlice controller will mark the endpoint as serving
+      if the pod's `Ready` condition is `"True"`.
+      A nil value should be interpreted as `true`.
+    x-kab-description-zh: |
+      此字段用来表明根据管理端点的系统反映，端点可以接受请求流量。
+      对于后端为 Pod 的端点，EndpointSlice 控制器会在 Pod 的 `Ready` 状况为 `"True"`
+      时设置对应的端点为 `serving: True`。
+      如果没有设置此字段，应被当做 `true` 来解释、处理。
+    type: boolean
+  terminating:
+    description: |
+      This indicates that this endpoint is terminating. A `nil` value should be interpreted as `false`.
+    x-kab-description-zh: |
+      此字段用来表明端点正在被终止。如果此字段未设置，应被视同 `false` 来解释处理。
+    type: boolean
+type: object
+

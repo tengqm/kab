@@ -1,0 +1,35 @@
+description: |
+  LeaseCandidate 为 Lease 对象定义一个候选者。
+  所创建的候选者能够参与协同式领导者选举，选举过程中从候选者中选择最合适者作为领导者。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+    - coordination.k8s.io/v1beta1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+    - LeaseCandidate
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.coordination.v1beta1.LeaseCandidateSpec'
+    description: This is the specification of the LeaseCandidate.
+    x-kab-description-zh: 此字段为 LeaseCandidate 的规约。
+required:
+- apiVersion
+- kind
+- metadata
+- spec
+type: object
+x-kubernetes-group-version-kind:
+- group: coordination.k8s.io
+  kind: LeaseCandidate
+  version: v1beta1
+

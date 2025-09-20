@@ -1,0 +1,19 @@
+description: AllocationResult contains attributes of an allocated resource.
+x-kab-description-zh: AllocationResult 包含所分配的某资源的属性。
+properties:
+  devices:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceAllocationResult'
+    description: |-
+      `devices` is the result of allocating devices.
+    x-kab-description-zh: |-
+      `devices` 是分配设备的结果。
+  nodeSelector:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |-
+      `nodeSelector` defines where the allocated resources are available.
+      If unset, they are available everywhere.
+    x-kab-description-zh: |-
+      `nodeSelector` 定义所分配的资源在哪里能够访问到。
+      如果没有设置，则表明资源可以在所有位置都可以访问到。
+type: object
+

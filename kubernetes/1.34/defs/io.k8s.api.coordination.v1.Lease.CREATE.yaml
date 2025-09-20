@@ -1,0 +1,33 @@
+description: Lease defines a lease concept.
+x-kab-description-zh: Lease 定义的是一个租约（Lease）的概念。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - coordination.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource..
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Lease
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata. The `name` must be a valid DNS subdomain.
+    x-kab-description-zh: 标准的对象元数据。其中的 `name` 字段值必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.coordination.v1.LeaseSpec'
+    description: Specification of the Lease.
+    x-kab-description-zh: Lease 的规约部分。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: coordination.k8s.io
+    kind: Lease
+    version: v1
+

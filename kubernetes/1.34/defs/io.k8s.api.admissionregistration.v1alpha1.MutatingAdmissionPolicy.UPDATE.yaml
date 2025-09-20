@@ -1,0 +1,33 @@
+description: MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
+x-kab-description-zh: MutatingAdmissionPolicy 所描述的是一个准入变更策略的定义，该策略会变更进入到准入链中的对象。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - admissionregistration.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - MutatingAdmissionPolicy
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.MutatingAdmissionPolicySpec'
+    description: Specification of the desired behavior of the MutatingAdmissionPolicy.
+    x-kab-description-zh: 对 MutatingAdmissionPolicy 预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: admissionregistration.k8s.io
+    kind: MutatingAdmissionPolicy
+    version: v1alpha1
+

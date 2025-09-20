@@ -1,0 +1,23 @@
+description: |
+  AvoidPods describes Pods that should avoid the node.
+  This is the value for a Node annotation with key
+  `"scheduler.alpha.kubernetes.io/preferAvoidPods"` and will eventually become a field
+  of NodeStatus. This is Alpha feature.
+x-kab-description-zh: |
+  AvoidPods 描述需要避免运行在此节点上的 Pod。
+  此结构是 Node 上注解 `"scheduler.alpha.kubernetes.io/preferAvoidPods"` 的值，
+  最终会成为 NodeStatus 上的一个字段。
+  此结构目前是一个 Alpha 特性。
+items:
+  description: |
+    Bounded-sized list of signatures of Pods that should avoid this node,
+    sorted in timestamp order from oldest to newest.
+    Size of the slice is unspecified.
+  x-kab-description-zh: |
+    由 Pod 签名构成的、空间有限的一个列表。
+    列表是的 Pod 都是要避免在此节点上运行的。
+    列表中的 Pod 是按时间戳排序的，从最老的 Pod 到最新的 Pod。
+    列表的大小是未做限制的。
+  $ref: '#/definitions/io.k8s.api.core.v1.PreferAvoidPodsEntry'
+type: array
+

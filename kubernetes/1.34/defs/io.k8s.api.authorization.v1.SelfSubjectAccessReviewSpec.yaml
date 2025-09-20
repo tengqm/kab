@@ -1,0 +1,17 @@
+description: |
+  A description of the access request. One and only one of `nonResourceAttributes`
+  and `resourceAttributes` should be specified.
+x-kab-description-zh: |
+  关于访问请求的描述。`nonResourceAttributes` 和 `resourceAttributes`
+  二者必须设置其一，且只能设置其一。
+properties:
+  nonResourceAttributes:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.NonResourceAttributes'
+    description: Information for a non-resource access request
+    x-kab-description-zh: 关于非资源访问请求的信息。
+  resourceAttributes:
+    $ref: '#/definitions/io.k8s.api.authorization.v1.ResourceAttributes'
+    description: Information for a resource access request
+    x-kab-description-zh: 关于资源访问请求的信息。
+type: object
+

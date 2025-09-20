@@ -1,0 +1,61 @@
+description: |
+  A rule mapping the paths under a specified `host` to the related backend Services.
+  Incoming requests are first evaluated for a `host` match, then routed
+  to the backend associated with the matching `http` backend.
+x-kab-description-zh: |
+  将指定 `host` 下的路径映射到对应的后端 Service 的规则。
+  入站的请求首先会作 `host` 层的匹配，之后会被路由到与匹配的 `http`
+  后端相关的后端。
+properties:
+  host:
+    description: |
+      The fully qualified domain name of a network host, as defined by RFC 3986.
+      Note the following deviations from the `"host"` part of the URI as defined in RFC 3986:
+
+      1. IPs are not allowed. Currently an entry in the `http` list can only apply to
+         the IP in the `spec` of the parent Ingress.
+      1. The `':'` delimiter is not respected because ports are not allowed.
+         The port of an Ingress is implicitly 80 for HTTP and 443 for HTTPS.
+
+      Both may change in the future.
+      Incoming requests are matched against the `host` before the `http`.
+      If the `host` is unspecified, the Ingress routes all traffic based on the specified `http` backend.
+      Host can be *precise* which is a domain name without the terminating dot of a network host
+      (e.g. `"foo.bar.com"`) or *wildcard*, which is a domain name prefixed with a single wildcard
+      label (e.g. `"*.foo.com"`).
+      The wildcard character `'*'` must appear by itself as the first DNS label and matches only
+      a single label.
+      You cannot have a wildcard label by itself (e.g. `host == "*"`).
+      Requests will be matched against the `host` field in the following way:
+      1. If `host` is precise, the request matches this rule if the HTTP `"host"` header is equal to
+         `host` value.
+      2. If `host` value is a wildcard, then the request matches this rule if the HTTP `"host"`
+         header is to equal to the suffix (removing the first label) of the wildcard rule.
+
+    x-kab-description-zh: |
+      网络主机的全限定域名，如 RFC 3986 所定义。
+      注意，这里有一些与 RFC 3986 中所定义的 URI 中的 `"host"` 部分不同的地方：
+
+      1. 不允许使用 IP 地址。目前，`http` 列表字段中的每一项仅适用于上级 Ingress 的 `spec`
+         中的 IP 地址。
+      1. 分隔符 `':'` 是不被接受的，因为 `host` 部分不允许有端口地址。
+         Ingress 对于 HTTP 而言默认端口是 80，对于 HTTPS 而言默认端口是 443。
+
+      这两项不同在将来都可能会变化。入站的请求先要通过 `host` 匹配，之后才作 `http` 规则处理。
+      如果未设置 `host`，则 Ingres 会将所有的流量基于所指定的 `http` 后端来路由。
+      `host` 部分可以是精确的、某个网络主机的没有结尾句点的域名（如 `"foo.bar.com"`），
+      或者也可以是通配符，给出一个带有唯一通配符的域名前缀（如 `"*.foo.bom"`）。
+      通配符字符 `'*'` 必须是第一个 DNS 标签，并且只能用来匹配一个 DNS 标签。
+      不可以直接使用 `"*"` 做通配符（例如 `host == "*"`）。
+
+      请求与 `host` 字段进行匹配时，按以下方式进行：
+
+      1. 如果 `host` 字段给的是精确的域名，则当请求的 HTTP `"host"` 头部与
+         `host` 字段值相同时，视为请求匹配。
+      2. 如果 `host` 字段的值包含通配符，则当请求的 HTTP `"host"` 头部与通配符规则的后缀部分
+         （去除第一个标签）相等，则视为请求匹配。
+    type: string
+  http:
+    $ref: '#/definitions/io.k8s.api.networking.v1.HTTPIngressRuleValue'
+type: object
+

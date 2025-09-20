@@ -1,0 +1,39 @@
+description: The configuration of a priority level.
+x-kab-description-zh: 优先级别配置。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - flowcontrol.apiserver.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PriorityLevelConfiguration
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata.
+    x-kab-description-zh: 标准的对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationSpec'
+    description: The desired behavior of a PriorityLevelConfiguration.
+    x-kab-description-zh: PriorityLevelConfiguration 的预期行为。
+  status:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.PriorityLevelConfigurationStatus'
+    description: The current status of a PriorityLevelConfiguration.
+    x-kab-description-zh: PriorityLevelConfiguration 的当前状态。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: flowcontrol.apiserver.k8s.io
+    kind: PriorityLevelConfiguration
+    version: v1
+

@@ -1,0 +1,90 @@
+description: This describes how a user wants their resource to appear.
+x-kab-description-zh: 此结构描述用户期望其资源呈现出来的样子。
+properties:
+  conversion:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceConversion'
+    description: The conversion settings for the CRD.
+    x-kab-description-zh: CRD 的版本转换设置。
+  group:
+    description: |
+      The API group of the defined custom resource.
+      The custom resources are served under `"/apis/<group>/..."`.
+      Must match the name of the CustomResourceDefinition (in the form `"<names.plural>.<group>"`).
+      The value must be a valid DNS subdomain and it must contain at least one dot.
+    x-kab-description-zh: |
+      所定义的自定义资源的 API 组名称。
+      自定义资源会在 `"/apis/<group>/..."` 路径下向用户提供。
+      必须与 CustomResourceDefinition 的名称相符（格式为 `"<names.plural>.<group>"`）。
+      字符串值必须是合法的 DNS 子域名，并且至少包含一个句点 `'.'`。
+    minLength: 1
+    type: string
+  names:
+    $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionNames'
+    description: The resource and kind names for the custom resource.
+    x-kab-description-zh: 自定义资源的资源与类别名称。
+  preserveUnknownFields:
+    default: false
+    description: |
+      This indicates that object fields which are not specified in the OpenAPI schema should be
+      preserved when persisting to storage.
+      `apiVersion`, `kind`, `metadata` and known fields inside `metadata` are always preserved.
+      This field is *DEPRECATED* in favor of setting `x-preserve-unknown-fields` to `true`
+      in `spec.versions[*].schema.openAPIV3Schema`.
+      If this field is set to `true`, the OpenAPI schema is mandatory.
+      If this field is nil or `false`, the OpenAPI schema is required for the served versions,
+      or else all fields may get pruned.
+      This field must be `false` in order to use defaults in the OpenAPI schema.
+    x-kab-description-zh: |
+      此字段用来表明对象被写入持久性存储时，需要保留其未在 OpenAPI 模式定义中给出规约的对象字段。
+      `apiVersion`、`kind`、`metadata` 以及 `metadata` 中已知的字段都总是会被保留。
+
+      此字段已**被弃用**，建议的做法是在 `spec.versions[*].schema.openAPIV3Schema` 中将
+      `x-preserve-unknown-fields` 设置为 `true`。
+      如果此字段被设置为 `true`，则 OpenAPI 模式定义是必需的。
+      如果此字段未设置或者为 `false`，则需要为服务支持的版本提供 OpenAPI 模式定义，
+      否则所有字段都会被裁剪掉。
+      此字段必须为 `false` 才能使用 OpenAPI 模式定义中给出的默认值。
+    type: boolean
+  scope:
+    description: This indicates whether the defined custom resource is cluster- or namespace-scoped.
+    x-kab-description-zh: 此字段表明所定义的自定义资源是集群作用域的还是名字空间作用域的。
+    enum:
+      - Cluster
+      - Namespaced
+    type: string
+  versions:
+    description: |
+      The list of all supported versions for this resource.
+      Version names are used to compute the order in which served versions are listed in API discovery.
+      If the version string is 'kube-like', it will sort above non 'kube-like' version strings,
+      which are ordered lexicographically.
+      A 'Kube-like' version starts with a '`v`', then are followed by a number (the major version),
+      then optionally the string '`alpha`' or '`beta`' and another number (the minor version).
+      These are sorted first by `GA > beta > alpha` (where `GA` is a version with no suffix such as
+      '`beta`' or '`alpha`'), and then by comparing major version, then minor version.
+      An example sorted list of versions:
+      `"v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10"`.
+    x-kab-description-zh: |
+      字段列举的是此自定义资源的所有被支持的版本。
+      版本名称用来决定在 API 发现时列举支持的版本时的顺序。
+      如果版本字符串与 Kubernetes 版本号形式类似，则对应的版本会被排在其他类型版本字符串之前。
+      其他字符串形式的版本号会按字典序排序。
+
+      Kubernetes 版本号形式以字母 `'v'` 开头，紧接一个数字（主版本号），后面可以根据选择接上字符串
+      `"alpha"` 或 `"beta"` 以及另一个数字（次版本号）。
+      这类版本号的排序首先按 `GA > beta > alpha` 的规则排序（其中 `GA` 是一个没有 `"alpha"` 或
+      `"beta"` 后缀的版本），之后再根据主版本和此版本编号排序。
+      版本列表的一个例子：
+      `"v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10"`。
+    items:
+      $ref: '#/definitions/io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.CustomResourceDefinitionVersion'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - group
+  - names
+  - scope
+  - versions
+type: object
+

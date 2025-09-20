@@ -1,0 +1,302 @@
+description: This describes how the Job execution will look like.
+x-kab-description-zh: 此结构描述 Job 的执行方式。
+properties:
+  activeDeadlineSeconds:
+    description: |
+      The duration in seconds relative to the `startTime` that the Job may be continuously
+      active before the system tries to terminate it.
+      If a Job is suspended (at creation or through an update), this timer will effectively
+      be stopped and reset when the Job is resumed again.
+    x-kab-description-zh: |
+      在系统尝试终止 Job 之前，Job 可以保持活跃的时长。计时起点为 Job 的 `startTIme`，以秒计。
+      如果某 Job（创建时或者通过更新操作）被挂起，此计时器会被停止，并在 Job 恢复执行时复位。
+    format: int64
+    minimum: 1
+    type: integer
+  backoffLimit:
+    default: 6
+    description: The number of retries before marking this Job as failed.
+    x-kab-description-zh: 在标记 Job 为失败状态之前 Job 可以进行的重试次数。
+    format: int32
+    minimum: 0
+    type: integer
+  backoffLimitPerIndex:
+    description: |
+      Specifies the limit for the number of retries within an index before marking this index
+      as failed. When enabled the number of failures per index is kept in the Pod's
+      `batch.kubernetes.io/job-index-failure-count` annotation.
+      It can only be set when Job's `completionMode=Indexed`, and the Pod's `restartPolicy`
+      is `"Never"`. The field is immutable.
+    x-kab-description-zh: |
+      在将某个索引标记为失败之前，对该索引可以进行的重试次数上限。
+      启用此特性之后，每个索引的失败次数会被保存在 Pod 的注解
+      `batch.kubernetes.io/job-index-failure-count` 中。
+      只有当 Job 的 `completionMode` 设置为 `"Indexed"`，并且 Pod 的 `restartPolicy`
+      为 `"Never"` 时才可以设置这个字段。
+      此字段是不可变更的。
+    format: int32
+    minimum: 0
+    type: integer
+  completionMode:
+    default: NonIndexed
+    description:
+      This specifies how Pod completions are tracked.
+      - `"NonIndexed"` means that the Job is considered complete when
+        there have been `.spec.completions` successfully completed Pods.
+        Each Pod completion is homologous to each other.
+      - `"Indexed"` means that the Pods of a Job get an associated completion index
+        from 0 to `(.spec.completions - 1)`, available in the annotation
+        `"batch.kubernetes.io/job-completion-index"`.
+      The Job is considered complete when there is one successfully completed Pod
+      for each index. When value is `"Indexed"`, `.spec.completions` must be specified
+      and `.spec.parallelism` must be less than or equal to 10^5.
+      In addition, the Pod name takes the form `<job-name>-<index>-<random-string>`
+      and the Pod host name takes the form `<job-name>-<index>`.
+
+      More completion modes can be added in the future.
+      If the Job controller observes a mode that it doesn't recognize, which is
+      possible during upgrades due to version skew, the controller skips
+      updates for the Job.
+    x-kab-description-zh: |
+      此字段用来设置如何跟踪 Pod 的完成情况。
+      - `"NonIndexed"` 意味着当 Job 中成功完成的 Pod 个数为 `.spec.completions`
+        时可以认为 Job 完成。所有 Pod 完成都是等价无差别的。
+      - `"Indexed"` 意味着 Job 的 Pod 都会获得一个介于 0 和 `(.spec.completions - 1)`
+        之间的完成索引，该索引值记录在 Pod 注解 `"batch.kubernetes.io/job-completion-index"`
+        中。当对应每个索引都有一个成功完成的 Pod 时，可以认为 Job 成功完成。
+        当字段值设置为 `"Indexed"` 时，必须为 Job 设置 `.spec.completions`，
+        并且 `.spec.parallelism` 必须小于等于 10^5。
+        此外，Pod 的名字格式也会变成 `<Job 名称>-<索引>-<随机字符串>` 形式，
+        而 Pod 的主机名也会变为 `<Job 名称>-<索引>` 格式。
+
+      在未来的 API 版本中，可能会有新的完成模式被添加进来。
+      如果 Job 控制器看到一个它无法识别或处理的模式（升级过程中可能因为版本偏差而导致这种情况），
+      控制器会略过对 Job 的更新。
+    enum:
+      - Indexed
+      - NonIndexed
+    type: string
+  completions:
+    description: |
+      The desired number of successfully finished Pods the Job should be run with.
+      Setting to `null` means that the success of any Pod signals the success of all Pods,
+      and allows `parallelism` to have any positive value.
+      Setting to `1` means that `parallelism` is limited to 1 and the success of
+      that Pod signals the success of the Job. This field cannot be updated.
+    x-kab-description-zh: |
+      Job 要运行的所有 Pod 中，预期成功完成的 Pod 个数。
+      字段值设为 `null` 意味着任何一个 Pod 成功完成都可以视为所有 Pod 都成功，
+      这时 `parallelism` 可以取任何正整数值。
+      字段值设置为 `1` 时意味着 `parallelism` 也只能设置为 `1`，并且 Pod
+      的成功完成意味着 Job 成功。
+      此字段不可更新。
+    format: int32
+    minimum: 0
+    type: integer
+  managedBy:
+    description: |
+      This field indicates the controller that manages a Job.
+      The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string
+      `"kubernetes.io/job-controller"`, but skips reconciling Jobs with a custom value for this field.
+      The value must be a valid domain-prefixed path (e.g. `"acme.io/foo"`) - all characters before the first `/` must be a valid subdomain
+      as defined by RFC 1123. All characters trailing the first `/` must be valid HTTP Path characters as defined by RFC 3986.
+      The value cannot exceed 64 characters.
+      This field is immutable.
+
+      This field is Alpha-level. The Job controller accepts setting the field when the feature gate `JobManagedBy` is enabled.
+    x-kab-description-zh: |
+      此字段给出用来管理 Job 的控制器。
+      如果 Job 未设置此字段，或者将此字段设置为字符串 `"kubernetes.io/job-controller"`，则 Kubernetes 内部的 Job 控制器会负责协调此 Job 的状态。
+      反之，如果此字段被设置为其他字符串值，则 Kubernetes 内部的 Job 控制器会忽略此 Job。
+      字段取值必须是合法的、带域名前缀的路径（例如，`"acme.io/foo"`）：第一个 `/` 之前的字符串必须构成符合 RFC 1123 规范的合法域名；
+      而第一个 `/` 之后的所有字符必须构成一个符合 RFC 3986 规范的合法 HTTP 路径。
+      此字段不可变更。
+
+      此字段目前处于 Alpha 状态。当特性门控 `JobManagedBy` 被启用时，Job 控制器会接受此字段的设置。
+    maxLength: 64
+    type: string
+  manualSelector:
+    description: |
+      This controls the generation of Pod labels and Pod selectors.
+      Leave `manualSelector` unset unless you are certain what you are doing.
+      When `false` or unset, the system pick labels unique to this Job and appends those labels to the Pod template.
+      When `true`, the user is responsible for picking unique labels and specifying the `selector`.
+      Failure to pick a unique label may cause this and other Jobs to not function correctly.
+      However, You may see `manualSelector=true` in Jobs that were created with the old `extensions/v1beta1` API.
+    x-kab-description-zh: |
+      此字段控制 Pod 标签与选择算符的生成逻辑。
+      如果你不清楚设置此字段的后果，可以不设置 `manualSelector`。
+      当此字段设置为 `false` 或者未设置时，系统会为字段选择一个对此 Job 唯一的标签，
+      并将这一标签追加到 Pod 模板中定义的标签之后。
+      当此字段值设置为 `true` 时，用户要负责选择唯一性的标签，并手动设置 `selector`。
+      如果未能成功地选择唯一标签，可能会导致当前 Job 以及其他 Job 无法正常工作。
+      不过，你也可能会看到使用老的 `extensions/v1beta1` API 所创建的 Job
+      中设置了 `manualSelector=true`。
+    type: boolean
+  maxFailedIndexes:
+    description: |
+      Specifies the maximal number of failed indexes before marking the Job as failed,
+      when `backoffLimitPerIndex` is set.
+      Once the number of failed indexes exceeds this number,
+      the entire Job is marked as `"Failed"` and its execution is terminated.
+      When left as null the Job continues execution of all of its indexes and is marked with the `Complete` Job condition.
+      It can only be specified when `backoffLimitPerIndex` is set.
+      It can be null or up to `completions`.
+      It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
+    x-kab-description-zh: |
+      对于设置了 `backoffLimitPerIndex` 的 Job 而言，此字段设置在标记 Job
+      失败之前可以失败的索引个数上限。
+      一旦失败的索引个数达到这里设置的数目，整个 Job 被标记为 `"Failed"` 并停止执行。
+      当此字段保持为 null 时，Job 会继续执行其所有索引，并且 Job 会被标记 `Complete` 状况。
+
+      只有设置了 `backoffLimitPerIndex` 的时候，才可以设置此字段。
+      字段的取值可以是 null，或者至多为 `completions`。
+      当 `completions` 大于 10^5 时，此字段必须设置，并且其取值必须小于等于 10^4。 
+    format: int32
+    type: integer
+  parallelism:
+    description: |
+      The maximum desired number of Pods the Job should run at any given time.
+      The actual number of Pods running in steady state will be less than this number when
+      `((.spec.completions - .status.successful) < .spec.parallelism)`,
+      i.e. when the work left to do is less than max `parallelism`.
+    x-kab-description-zh: |
+      在任一时刻 Job 中预期可以同时运行的 Pod 个数上限。
+      当 `((.spec.completions - .status.successful) < .spec.parallelism)` 时，
+      也就是剩下的需要运行的工作少于 `parallelism` 这一上限时，
+      实际处于稳定运行状态的 Pod 个数会低于此值。
+    format: int32
+    minimum: 0
+    type: integer
+  podFailurePolicy:
+    $ref: '#/definitions/io.k8s.api.batch.v1.PodFailurePolicy'
+    description: |
+      Specifies the policy of handling failed Pods.
+      In particular, it allows to specify the set of actions and conditions
+      which need to be satisfied to take the associated action.
+      If empty, the default behaviour applies - the counter of failed Pods,
+      represented by the Jobs's `.status.failed` field, is incremented and
+      it is checked against the `backoffLimit`.
+      This field cannot be used in combination with `restartPolicy=OnFailure`.
+    x-kab-description-zh: |
+      设置处理失败 Pod 的策略。
+      使用这一字段，可以设置处置动作以及采取相应动作之前需要满足的条件。
+      如果为空，则采用默认的行为 -- 用 Job 的 `.status.failed` 字段所代表的失败
+      Pod 计数会被增一，并且控制器会检查计数值是否超过 `backoffLimit`。
+      此字段不能在 `restartPolicy` 设置为 `"OnFailure"` 时使用。
+  podReplacementPolicy:
+    description: |
+      This specifies when to create replacement Pods. Possible values are:
+      - `"TerminatingOrFailed"`: means that we recreate pods when they are terminating
+        (has a `metadata.deletionTimestamp`) or failed.
+      - `"Failed"`: means to wait until a previously created Pod is fully terminated
+        (has phase `"Failed"` or `"Succeeded"`) before creating a replacement Pod.
+
+      When using `podFailurePolicy`, `"Failed"` is the the only allowed value.
+      `"TerminatingOrFailed"` and `"Failed"` are allowed values when `podFailurePolicy`
+      is not in use. This is an Beta field.
+      Enable the `JobPodReplacementPolicy` feature gate to be able to use this field.
+    x-kab-description-zh: |
+      此字段设置何时创建替代 Pod。可选值包括：
+      - `"TerminatingOrFailed"`：当现有 Pod 被终止（`metadata.deletionTimestamp` 非空）
+        或者失败时，要重新创建 Pod。
+      - `"Failed"`：要等待之前创建的 Pod 彻底终止（阶段为 `"Failed"` 或 `"Succeeded"`）
+        时才能创建替代 Pod。
+
+      设置了 `podFailurePolicy` 字段时，此字段只能设置为 `"Failed"`。
+      未设置 `podFailurePolicy` 时，可以选择 `"TerminatingOrFailed"` 和 `"Failed"` 之一。
+
+      此字段处于 Beta 阶段，需要启用 `JobPodReplacementPolicy` 特性门控（默认启用）。
+    enum:
+      - Failed
+      - TerminatingOrFailed
+    type: string
+  selector:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
+    description: |
+      A label query over Pods that should match the Pod count.
+      Normally, the system sets this field for you.
+      The `selector` must match the `labels` defined on the Pod template.
+      This field cannot be updated.
+    x-kab-description-zh: |
+      对 Pod 的标签查询算符，选中的 Pod 要与 Pod 计数匹配。通常，系统会自动设置此字段。
+      `selector` 的设置值必须与 Pod 模板中定义的 `labels` 匹配。
+
+      此字段不可更新。
+  successPolicy:
+    $ref: '#/definitions/io.k8s.api.batch.v1.SuccessPolicy'
+    description: |
+      successPolicy specifies the policy when the Job can be declared as succeeded.
+      If empty, the default behavior applies - the Job is declared as succeeded only
+      when the number of succeeded pods equals to the completions.
+      When the field is specified, it must be immutable and works only for the Indexed Jobs.
+      Once the Job meets the SuccessPolicy, the lingering pods are terminated.
+    x-kab-description-zh: |
+      此字段设置何时可以宣称 Job 成功。
+      此字段为空时，系统的默认行为是在 Job 中成功的 Pod 个数等于其 `completions` 字段设置时宣称 Job 成功。
+      此字段一旦设置则不能变更，并且字段仅对带索引的 Job 起作用。
+      一旦 Job 满足了 SuccessPolicy 策略所规定的条件，则剩余的 Pod 都会被终止。
+  suspend:
+    default: false
+    description: |
+      This specifies whether the Job controller should create Pods or not.
+      If a Job is created with `suspend` set to `true`, no Pods are created by the
+      Job controller.
+      If a Job is suspended after creation (i.e. the flag goes from `false` to `true`),
+      the Job controller will delete all active Pods associated with this Job.
+      Users must design their workload to gracefully handle this.
+      Suspending a Job will reset the `startTime` field of the Job,
+      effectively resetting the `activeDeadlineSeconds` timer too.
+    x-kab-description-zh: |
+      此字段设置是否 Job 控制器需要创建 Pod。
+      如果 Job 在创建时其 `suspend` 被设置为 `true`，Job 控制器不会为其创建 Pod。
+      如果 Job 在创建之后被挂起（即此字段取值从 `false` 变为 `true`），则
+      Job 控制器会删除与此 Job 相关的所有处于活跃状态的 Pod，
+      用户必须设计自己的工作负载以便能够让 Pod 体面地结束。
+      挂起 Job 的操作会重置 Job 的 `startTime` 字段值，
+      相当于也会重置 `activeDeadlineSeconds` 计时器。
+    type: boolean
+  template:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodTemplateSpec.GET'
+    description: |
+      Describes the Pod that will be created when executing a Job.
+      This field cannot be updated. For a Job, the `restartPolicy` must be explicitly
+      set because the default value `"Always"` is not acceptable.
+      The valid value is one of `"OnFailure"` and `"Never"`.
+      Also the `containers` field cannot be empty.
+    x-kab-description-zh: |
+      此字段描述执行 Job 时将被创建的 Pod。
+      对于 Job 而言，Pod 的 `restartPolicy` 必须被显式设置，因为默认值 `"Always"`
+      是不可接受的。合法值是 `"OnFailure"` 和 `"Never"` 之一。
+      此外，Pod 的 `containers` 字段不可以为空。
+      此字段不可变更。
+  ttlSecondsAfterFinished:
+    description: |
+      This limits the lifetime of a Job that has finished execution
+      (either `"Complete"` or `"Failed"`). If this field is set,
+      the specified seconds after the Job finishes, it is eligible to be
+      automatically deleted.
+      When the Job is being deleted, its lifecycle guarantees (e.g. `finalizers`)
+      will be honored. If this field is unset, the Job won't be automatically deleted.
+      If this field is set to zero, the Job becomes eligible to be deleted
+      immediately after it finishes.
+    x-kab-description-zh: |
+      此字段用来限制已经终止执行（`"Complete"` 或者 `"Failed"`）的 Job 的生命周期。
+      如果设置了此字段，在 Job 完成之后经过指定的秒数之后，Job 可以被自动删除。
+      当 Job 被删除时，控制器会关注到其生命周期保障（例如：`finalizers`）。
+      如果未设置 `ttsSecondsAfterFinished`，则 Job 不会被自动删除。
+      如果此字段被设置为零，Job 在结束之后立即可被删除。
+    format: int32
+    minimum: 0
+    type: integer
+required:
+  - activeDeadlineSeconds
+  - backoffLimit
+  - completions
+  - manualSelector
+  - parallelism
+  - selector
+  - template
+  - ttlSecondsAfterFinished
+type: object
+

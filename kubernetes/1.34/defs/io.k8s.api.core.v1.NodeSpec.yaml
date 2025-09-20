@@ -1,0 +1,63 @@
+description: The attributes a Node is created with.
+x-kab-description-zh: Node 创建时具有的属性。
+properties:
+  configSource:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeConfigSource'
+    description: |
+      **DEPRECATED** since v1.22.
+      If specified, the source to get Node configuration for the `DynamicKubeletConfig` feature.
+      The feature is removed.
+    x-kab-description-zh: |
+      从 v1.22 版本开始**已弃用**。
+      如果设置了此字段，则所给出的是启用 `DynamicKubeletConfig` 特性之后节点的配置信息源。
+      此特性已被移除。
+  podCIDR:
+    description: The Pod IP range assigned to the Node.
+    x-kab-description-zh: 分配给节点的 Pod IP 范围。
+    type: string
+  podCIDRs:
+    description: |
+      The IP ranges assigned to the Node for usage by Pods on that Node.
+      If this field is specified, the 0th entry must match the `podCIDR` field.
+      It may contain at most 1 value for each of IPv4 and IPv6.
+    x-kab-description-zh: |
+      分配给节点的、供节点上 Pod 使用的 IP 地址范围。
+      如果设置了此字段，则其中第一个条目必须与 `podCIDR` 字段匹配。
+      对于 IPv4 和 IPv6 而言，只能最多各包含一个条目。
+    items:
+      description: An IP range (IPv4 or IPv6).
+      x-kab-description-zh: 一个 IP 范围（可以是 IPv4 或者 IPv6）。
+      type: string
+    maxItems: 2
+    type: array
+    x-kubernetes-list-type: set
+    x-kubernetes-patch-strategy: merge
+  providerID:
+    description: |
+      ID of the Node assigned by the cloud provider in the format
+      `"<ProviderName>://<ProviderSpecificNodeID>"`.
+    x-kab-description-zh: |
+      云平台为节点分配的 ID，格式为 `"<平台名称>://<特定于平台的节点 ID>"`。
+    type: string
+  taints:
+    description: |
+      If specified, the Node's taints. The taints in the list must have `effect` specified.
+      The tuple of (`key`, `effect`) in the list must be unique.
+    x-kab-description-zh: |
+      如果设置了，则包含节点的污点。列表中的污点必须设置 `effect` 字段。
+      由 (`key`, `effect`) 构成的元组在整个列表中必须唯一。
+    items:
+      description: A taint for the node.
+      x-kab-description-zh: 节点的一个污点设置。
+      $ref: '#/definitions/io.k8s.api.core.v1.Taint'
+    type: array
+    x-kubernetes-list-type: atomic
+  unschedulable:
+    default: false
+    description: |
+      Unschedulable controls Node schedulability of new pods. By default, Node is schedulable.
+    x-kab-description-zh: |
+      此字段控制节点调度新 Pod 的能力。默认情况下，节点都是可调度的。
+    type: boolean
+type: object
+

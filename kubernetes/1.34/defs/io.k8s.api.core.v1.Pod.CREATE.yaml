@@ -1,0 +1,71 @@
+description: Pod is a collection of Containers that can run on a host.
+x-kab-description-zh: Pod 是一组可以运行在某个宿主系统上的容器。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - Pod
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: |
+      Standard object metadata. The name of must be a valid DNS subdomain name.
+      There are some special requirements for the `annotations` for a Pod:
+
+      - The kubelet sets the annotation key `"kubernetes.io/config.mirror"` when creating mirror Pods.
+        For mirror Pods, the `spec.nodeName` cannot be empty.
+      - The Pod can have `"scheduler.alpha.kubernetes.io/tolerations"` annotation set to a serialized
+        JSON data to represent its tolerations. The API server validates if the unmarshaled JSON is
+        a valid `Toleration` object.
+      - The Pod can have `"seccomp.security.alpha.kubernetes.io/pod"` annotation set to the seccomp
+        profile that is applied to all containers in the Pod. This annotation is deprecated
+        by the `securityContext.seccompProfile` field. This annotation, when specified,
+        is cross verified against the `securityContext.seccompProfile` of the Pod and the
+        `securityContext.seccompProfile` of all containers.
+      - The Pod can have annotation keys prefixed with
+        `"container.seccomp.security.alpha.kubernetes.io/"`.
+        These annoations are deprecated by the `seccompProfile` field on the container's
+        `securityContext`.
+      - The Pod can have annotation keys prefixed with
+        `"container.apparmor.security.beta.kubernetes.io/"` for specifying per-container
+        AppArmor profile.
+    x-kab-description-zh: |
+      标准的对象元数据。对象名称必须是合法的 DNS 子域名。
+      对于 Pod 的 `annotations` 字段，有一些额外的要求：
+
+      - 在创建镜像 Pod 时，kubelet 会为 Pod 设置注解键 `"kubernetes.io/config.mirror"`；
+        对于镜像 Pod，`.spec.nodeName` 不可以为空。
+      - Pod 上可以带有注解 `"scheduler.alpha.kubernetes.io/tolerations"`，其取值为一个序列化的
+        JSON 字符串，给出 Pod 对节点污点的容忍度设置。API 服务器会检查解析后的 JSON
+        内容是否是一个合法的 `Toleration` 对象。
+      - Pod 上可以带有 `"seccomp.security.alpha.kubernetes.io/pod"` 注解，
+        该注解值为适用于 Pod 中所有容器的一个 seccomp 配置。这一注解已经被启用，用户应该使用
+        `securityContext.seccompProfile` 字段。如果设置了这一注解，API 服务器会将注解值与
+        Pod 的 `securityContext.seccompProfile` 字段以及所有容器的 `securityContext.seccompProfile`
+        字段设置放在一起作交叉检查。
+      - Pod 上可以设置前缀为 `"container.seccomp.security.alpha.kubernetes.io/"` 的注解。
+        这些注解目前已经被容器的 `securityContext` 字段的 `seccompProfile` 替代。
+      - Pod 上可以设置前缀为 `"container.apparmor.security.beta.kubernetes.io/"` 的注解，
+        为每个容器指定 AppArmor 配置。
+  spec:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodSpec.CREATE'
+    description: Specification of the desired behavior of the Pod.
+    x-kab-description-zh: 关于 Pod 预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: Pod
+    version: v1
+

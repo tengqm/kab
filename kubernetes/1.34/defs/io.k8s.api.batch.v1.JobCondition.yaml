@@ -1,0 +1,50 @@
+description: JobCondition describes the current state of a Job.
+x-kab-description-zh: JobCondition 描述 Job 的当前状态。
+properties:
+  lastProbeTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition was checked.
+    x-kab-description-zh: 上次检查状况的时间。
+  lastTransitionTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: Last time the condition transit from one status to another.
+    x-kab-description-zh: 状况上次从一种状态转换为另一种状态的时间。
+  message:
+    description: Human readable message indicating details about last transition.
+    x-kab-description-zh: 人类可读的消息，给出上次状况转换的细节。
+    type: string
+  reason:
+    description: The (brief) reason for the condition's last transition.
+    x-kab-description-zh: 上次状况转换的（简短）原因。 
+    type: string
+  status:
+    description: Status of the condition.
+    x-kab-description-zh: 状况的状态。
+    enum:
+      - 'False'
+      - 'True'
+      - Unknown
+    minLength: 1
+    type: string
+  type:
+    description: |
+      Type of Job condition. Possible enum values:
+      - `"Complete"` means the Job has completed its execution.
+      - `"Failed"` means the Job has failed its execution.
+      - `"Suspended"` means the Job has been suspended.
+    x-kab-description-zh: |
+      Job 状况的类型。可能的取值包括：
+      - `"Complete"` 表示 Job 已经完成其执行；
+      - `"Failed"` 表示 Job 的执行失败；
+      - `"Suspended"` 表示 Job 已经被挂起。
+    enum:
+      - Compelte
+      - Failed
+      - Suspended
+    minLength: 1
+    type: string
+required:
+  - status
+  - type
+type: object
+

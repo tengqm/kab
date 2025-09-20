@@ -1,0 +1,27 @@
+description: |
+  A Glusterfs mount that lasts the lifetime of a Pod.
+  Glusterfs volumes do not support ownership management or SELinux relabeling.
+x-kab-description-zh:
+  在 Pod 的生命周期内一直存在且可用的 Glusterfs 卷挂载。
+  Glusterfs 卷不支持属主管理或者 SELinux 重新打标签操作。
+properties:
+  endpoints:
+    description: The endpoint name that details the Glusterfs topology.
+    x-kab-description-zh: 包含 Glusterfs 拓扑细节的端点名称。
+    minLength: 1
+    type: string
+  path:
+    description: The Glusterfs volume path.
+    x-kab-description-zh: Glusterfs 卷路径。
+    minLength: 1
+    type: string
+  readOnly:
+    default: false
+    description: Force the Glusterfs volume to be mounted with read-only permissions.
+    x-kab-description-zh: 强制以只读模式挂载 Glusterfs 卷。
+    type: boolean
+required:
+  - endpoints
+  - path
+type: object
+

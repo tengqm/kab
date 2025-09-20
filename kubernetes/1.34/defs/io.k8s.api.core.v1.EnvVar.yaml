@@ -1,0 +1,41 @@
+description: An environment variable present in a Container.
+x-kab-description-zh: 在容器中存在的一个环境变量。
+properties:
+  name:
+    description: |
+      Name of the environment variable.
+      The string must consists of alphanumeric characters, `'_'`, `'-'` or `'.'`.
+      It cannot be `"."`, `".."`, and it cannot start with `".."` or a digit.
+    x-kab-description-zh: |
+      环境变量的名称。
+      此字符串只能包含字母、数字、`'_'`、`'-'` 或 `'.'`。
+      字符串不可以是 `"."` 或者 `".."`，也不能以 `".."` 开头。
+    minLength: 1
+    pattern: '[-._a-zA-Z][-._a-zA-Z0-9]*'
+    type: string
+  value:
+    default: ''
+    description: |
+      Variable references `$(VAR_NAME)` are expanded using the already defined environment variables
+      in the container and any service environment variables.
+      If a variable cannot be resolved, the reference in the input string will be unchanged.
+      Double dollars (`$$`) are reduced to a single dollar (`$`), which allows for escaping the
+      `$(VAR_NAME)` syntax: i.e. "`$$(VAR_NAME)`" will produce the string literal "`$(VAR_NAME)`".
+      Escaped references will never be expanded, regardless of whether the variable exists or not.
+    x-kab-description-zh: |
+      类似 `$(VAR_NAME)` 这种变量引用会使用容器中已经定义的环境变量及服务环境变量来展开。
+      如果某个环境变量无法被解析，则输入字符串中的引用会被原样保留下来。
+      字符串 `"$$"` 会被处理成 `"$"，从而允许对 `$(VAR_NAME)` 语法进行转义。
+      换言之，`"$$(VAR_NAME)"` 会被处理成 `"$(VAR_NAME)"`。
+      已转义的引用不会被展开，无论所引用的变量是否存在。
+    type: string
+  valueFrom:
+    $ref: '#/definitions/io.k8s.api.core.v1.EnvVarSource'
+    description: |
+      Source for the environment variable's value. Cannot be used if `value` is not empty.
+    x-kab-description-zh: |
+      环境变量取值的来源。如果 `value` 不为空，不可以设置此字段。
+required:
+  - name
+type: object
+

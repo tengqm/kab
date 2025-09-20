@@ -1,0 +1,40 @@
+description: |-
+  CounterSet defines a named set of counters that are available to be used by devices defined in the ResourceSlice.
+
+  The counters are not allocatable by themselves, but can be referenced by devices.
+  When a device is allocated, the portion of counters it uses will no longer be available for use by other devices.
+x-kab-description-zh: |-
+  CounterSet 定义一个命名的集合，包含若干计数器，供 ResourceSlice 中定义的设备使用。
+
+  计数器自身不可分配，只能被设备通过引用方式来使用。
+  当某个设备被分配时，它所使用的计数器部分对于其他设备而言不再可用。
+properties:
+  counters:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.api.resource.v1alpha3.Counter'
+    description: |-
+      `counters` defines the counters that will be consumed by the device.
+      The name of each counter must be unique in that set and must be a DNS label.
+
+      To ensure this uniqueness, capacities defined by the vendor must be listed
+      without the driver name as domain prefix in their name.
+      All others must be listed with their domain prefix.
+
+      The maximum number of counters is 32.
+    x-kab-description-zh: |-
+      `counters` 定义可被设备消耗的计数器。
+      每个计数器的名称必须在集合中唯一，并且字符串是合法的 DNS 标签。
+
+      为了确保唯一性，列举供应商所定义的容量信息时，必须在其名字前面去掉域名前缀形式的驱动名称。
+
+      计数器个数上限为 32 个。
+    type: object
+  name:
+    description: The name of the set from which the counters defined will be consumed.
+    x-kab-description-zh: 计数器集合的名称，其中所定义的计数器将被设备耗用。
+    type: string
+required:
+  - counters
+  - name
+type: object
+

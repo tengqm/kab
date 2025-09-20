@@ -1,0 +1,108 @@
+description: The current state of a StatefulSet.
+x-kab-description-zh: StatefulSet 的当前状态。
+properties:
+  availableReplicas:
+    description: |
+      Total number of available Pods (ready for at least `minReadySeconds`) targeted by this StatefulSet.
+    x-kab-description-zh: |
+      此 StatefulSet 的处于可用状态下（持续 `minReadySeconds` 秒保持就绪）的副本个数。
+    format: int32
+    minimum: 0
+    type: integer
+  collisionCount:
+    description: |
+      The count of hash collisions for the StatefulSet.
+      The StatefulSet controller uses this field as a collision avoidance mechanism when
+      it needs to create the name for the newest `ControllerRevision`.
+      When updated, this field cannot be decremented.
+    x-kab-description-zh: |
+      StatefulSet 上发生的哈希冲突计数。
+      StatefulSet 控制器在为最新的 ControllerRevision 生成名字时，
+      使用此字段来作为一种冲突避免机制，
+      更新此字段时，字段值不可以减少。
+    format: int32
+    minimum: 0
+    type: integer
+  conditions:
+    description: The latest observations of a StatefulSet's state.
+    x-kab-description-zh: 关于 StatefulSet 状态的最新观测结果。
+    items:
+      $ref: '#/definitions/io.k8s.api.apps.v1.StatefulSetCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  currentReplicas:
+    description: |
+      The number of Pods created by the StatefulSet controller from the
+      StatefulSet version indicated by `currentRevision`.
+      Cannot be greater than `replicas`.
+    x-kab-description-zh: |
+      StatefulSet 控制器基于 `currentRevision` 所给出的 StatefulSet
+      版本所生成的 Pod 个数。
+      此字段值不可以大于 `replicas` 值。
+    format: int32
+    minimum: 0
+    type: integer
+  currentRevision:
+    description: |
+      If not empty, indicates the version of the StatefulSet used to generate
+      Pods in the sequence `[0, currentReplicas)`.
+    x-kab-description-zh: |
+      若此字段不为空，则其字段值给出的是 StatefulSet 用来生成序号为 `[0, currentReplicas)`
+      范围内的各个 Pod 时所用的版本。
+    type: string
+  observedGeneration:
+    description: |
+      The most recent generation observed by the StatefulSet controller.
+      It corresponds to the StatefulSet's generation, which is updated on mutation
+      by the API Server.
+    x-kab-description-zh: |
+      Deployment 控制器所观测到的最新的代数。
+      此值对应于 StatefulSet 的代数，由 API 服务器在变更时更新。
+    format: int64
+    minimum: 0
+    type: integer
+  readyReplicas:
+    description: |
+      The number of Pods created for the StatefulSet with a `"Ready"` condition.
+      Cannot be greater than `replicas`.
+    x-kab-description-zh: |
+      为 StatefulSet 所创建的 Pod 中，带有 `"Ready"` 状况标记的 Pod 个数。
+      此字段值不会大于 `replicas` 取值。
+    format: int32
+    minimum: 0
+    type: integer
+  replicas:
+    description: |
+      The number of Pods created by the StatefulSet controller.
+    x-kab-description-zh: |
+      StatefulSet 控制器所创建的 Pod 总数。
+    format: int32
+    minimum: 0
+    type: integer
+  updateRevision:
+    description: |
+      If not empty, indicates the version of the StatefulSet used to generate
+      Pods in the sequence `[replicas-updatedReplicas, replicas)`.
+    x-kab-description-zh: |
+      若此字段不为空，则其字段值给出的是 StatefulSet 用来生成序号为
+      `[replicas-updatedReplicas, replicas)` 范围内的各个 Pod 时所用的版本。
+    type: string
+  updatedReplicas:
+    description: |
+      The number of Pods created by the StatefulSet controller from the
+      StatefulSet version indicated by `updateRevision`. Cannot be greater than `replicas`.
+    x-kab-description-zh: |
+      StatefulSet 控制器基于 `updateRevision` 所给出的 StatefulSet
+      版本所生成的 Pod 个数。
+      此字段值不可以大于 `replicas` 值。
+    format: int32
+    minimum: 0
+    type: integer
+required:
+  - replicas
+type: object
+

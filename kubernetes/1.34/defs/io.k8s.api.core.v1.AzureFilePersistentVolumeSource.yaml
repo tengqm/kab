@@ -1,0 +1,31 @@
+description: An Azure File service mounted on the node and bind mount to the Pod.
+x-kab-description-zh: 挂接到节点上并被绑定挂载到 Pod 中的 Azure File 服务。
+properties:
+  readOnly:
+    default: false
+    description: Force the volume to be mounted in read-only mode.
+    x-kab-description-zh: 强制使用只读模式挂载此卷。
+    type: boolean
+  secretName:
+    description: Name of Secret that contains Azure storage account name and key.
+    x-kab-description-zh: 包含 Azure 存储账号名称和秘钥的 Secret 的名字。
+    minLength: 1
+    type: string
+  secretNamespace:
+    description: |
+      Namespace of the Secret that contains the Azure storage account name and key.
+      Default is the same as the Pod. Empty string is not allowed.
+    x-kab-description-zh: |
+      包含 Azure 存储账号名称和秘钥的 Secret 所在的名字空间。
+      默认为 Pod 所在的名字空间。空的字符串是不允许的。
+    type: string
+  shareName:
+    description: Share name.
+    x-kab-description-zh: Share 的名称。
+    minLength: 1
+    type: string
+required:
+  - secretName
+  - shareName
+type: object
+

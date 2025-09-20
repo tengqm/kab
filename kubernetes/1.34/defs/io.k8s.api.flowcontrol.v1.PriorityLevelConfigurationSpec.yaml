@@ -1,0 +1,57 @@
+description: The configuration for a priority level.
+x-kab-description-zh: 某个优先级别的配置。
+properties:
+  exempt:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.ExemptPriorityLevelConfiguration'
+    description: |
+      `exempt` specifies how requests are handled for an exempt priority level.
+      This field MUST be empty if `type` is `"Limited"`.
+      This field MAY be non-empty if `type` is `"Exempt"`.
+      If empty and `type` is `"Exempt"` then the default values for
+      `ExemptPriorityLevelConfiguration` apply.
+    x-kab-description-zh: |
+      `exempt` 设置如果处理豁免优先级别的请求。当 `type` 为 `"Limited"` 时，此字段必须为空。
+      当 `type` 为 `"Exempt"` 时，此字段可以不为空。
+      如果 `type` 为 `"Exempt"` 时，此字段为空，则使用 ExemptPriorityLevelConfiguration 的默认值。
+  limited:
+    $ref: '#/definitions/io.k8s.api.flowcontrol.v1.LimitedPriorityLevelConfiguration'
+    description: |
+      This specifies how requests are handled for a *limited* priority level.
+      This field must be non-empty if and only if `type` is `"Limited"`.
+    x-kab-description-zh: |
+      此字段设置如何处理 **Limited** 优先级别的请求。
+      `type` 为 `"Limited"` 时，必须设置此字段。其他情况下，不应设置此字段。
+  type:
+    description: |
+      This indicates whether this priority level is subject to limitation on request execution.
+
+      - `"Exempt"` means that requests of this priority level are not subject to a limit
+        (and thus are never queued) and do not detract from the capacity made available to
+        other priority levels.
+      - `"Limited"` means that (a) requests of this priority level *are* subject to limits and
+        (b) some of the server's limited capacity is made available exclusively to this priority level.
+
+      This field must be `"Exempt"` if the FlowoSchema's name is `"exempt"`.
+
+    x-kab-description-zh: |
+      此字段设置当前优先级别的请求执行是否有可能被限制。
+
+      - `"Exempt"`：意味着此优先级别的请求不会被受限制（因而也不会放入排队队列中），
+        并且此优先级别的请求不会参与其他优先级别的容量计算中。
+      - `"Limited"`：意味着 (a) 此优先级别的请求可能会收到限制；(b) 服务器端的有限容量中，
+        有一部分会是为此优先级别专门预留的。
+
+      如果 FlowoSchema 的名称为 `"exempt"`，则此字段值只能是 `"Exempt"`。
+    enum:
+      - Exempt
+      - Limited
+    minLength: 1
+    type: string
+required:
+  - type
+type: object
+x-kubernetes-unions:
+  - discriminator: type
+    fields-to-discriminateBy:
+      limited: Limited
+

@@ -1,0 +1,52 @@
+description: TableRow is an individual row in a Table.
+x-kab-description-zh: TableRow 是表格中的一个独立的列。
+properties:
+  cells:
+    description: |
+      `cells` is as wide as the column definitions array and may contain `string`, `number`
+      (`float64` or `int64`), `boolean`, `map`, `list`, or `null`.
+      See the `type` field of the column definition for a more detailed description.
+    x-kab-description-zh: |
+      `cells` 中的元素个数应该与列定义（TableColumnDefinition）中元素个数相同，
+      可以包含 `string`、`number`（`float64` 或者 `int64`）、`boolean`、`map`、`list` 或 `null` 值。
+      参见 TableColumnDefinition 中的 `type` 字段以获取详细描述。
+    items:
+      type: object
+    type: array
+  conditions:
+    description: |
+      This describes additional status of a row that are relevant for a human user.
+      These conditions apply to the row, not to the object, and will be specific to table output.
+      The only defined condition type is `"Completed"`, for a row that indicates a resource that
+      has run to completion and can be given less visual priority.
+    x-kab-description-zh: |
+      此字段描述一些对于普通用户而言比较有意义的额外状态。
+      这类撞到适用于整个行，而不是对象，并且与表格输出有直接关系。
+      目前唯一定义的状况类型为 `"Completed"`，用于标识已经运行至完成的资源的行。
+      对应的数据行可以赋予较低的可视化展示优先级。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.TableRowCondition'
+    type: array
+  object:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: |
+      This field contains the requested additional information about each object based on the
+      `includeObject` policy when requesting the Table.
+      If `"None"`, this field is empty, if `"Object"` this will be the default serialization of the object
+      for the current API version, and if `"Metadata"` (the default) will contain the object metadata.
+      Check the returned `kind` and `apiVersion` of the object before parsing.
+      The media type of the object will always match the enclosing list.
+      If this as a JSON table, these will be JSON encoded objects.
+    x-kab-description-zh: |
+      客户端请求 Table 数据时可以设置 `includeObject` 策略，基于这个策略，
+      服务器可以在此字段放入与每个对象相关的额外信息。
+      如果 `includeObject` 策略为 `"None"`，则此字段为空。
+      如果 `includeObject` 策略为 `"Object"`，则此字段包含对象用当前 API 版本序列化后的数据。
+      如果 `includeObject` 策略为 `"Metadata"`（默认值），则此字段包含对象的元数据。
+      在解析此字段之前，应该先检查返回的对象的 `kind` 和 `apiVersion`。
+      此对象的介质类型会与上层列表的一致。
+      如果列表是 JSON 表格，则此字段是 JSON 编码的对象。
+required:
+  - cells
+type: object
+

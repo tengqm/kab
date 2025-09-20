@@ -1,0 +1,21 @@
+description: The data the Job should have when created from a template
+x-kab-description-zh: 当基于某个模板来创建 Job 时，Job 应该具有的数据。
+properties:
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
+    description: Standard object metadata for Jobs created from this template.
+    x-kab-description-zh: 基于模板创建的 Job 的标准对象元数据。
+  spec:
+    $ref: '#/definitions/io.k8s.api.batch.v1.JobSpec.CREATE'
+    description: |
+      Specification of the desired behavior of the Job.
+      The `selector` will be auto-generated so must not be specified.
+      The `manualSelector` can be either nil or set to `false`.
+    x-kab-description-zh: |
+      对 Job 的预期行为的规约。
+      `selector` 是自动生成的，因此不可以设置。
+      `manualSelector` 可以为 nil 或者设置为 `false`。
+required:
+  - spec
+type: object
+

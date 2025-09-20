@@ -1,0 +1,20 @@
+description: |
+  EventSeries contain information on series of Events, i.e. thing that
+  was/is happening continuously for some time.
+x-kab-description-zh:
+  EventSeries 包含 Event 序列的信息，Event 序列是在一段时间内持续发生的事情。
+properties:
+  count:
+    description: Number of occurrences in this series up to the last heartbeat time
+    x-kab-description-zh: 到最近一次心跳时间为止序列中的事件个数。
+    format: int32
+    type: integer
+  lastObservedTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.MicroTime'
+    description: Time of the last occurrence observed.
+    x-kab-description-zh: 最近一次发生的时间。
+required:
+  - count
+  - lastObservedTime
+type: object
+

@@ -1,0 +1,23 @@
+description: DeviceTaintRuleSpec specifies the selector and one taint.
+x-kab-description-zh: DeviceTaintRuleSpec 设置设备选择算符和污点。
+properties:
+  deviceSelector:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceTaintSelector'
+    description: |-
+      `deviceSelector` defines which device(s) the taint is applied to.
+      All selector criteria must be satified for a device to match.
+      The empty selector matches all devices.
+      Without a selector, no devices are matches.
+    x-kab-description-zh: |-
+      `deviceSelector` 定义污点所适用的设备。
+      若要匹配某个设备，需要所有的选择算符条件都被满足。
+      选择算符为空时，会匹配所有的设备。
+      未指定选择算符时，则不会匹配任何设备。
+  taint:
+    $ref: '#/definitions/io.k8s.api.resource.v1alpha3.DeviceTaint'
+    description: The taint that gets applied to matching devices.
+    x-kab-description-zh: 将被应用到匹配设备之上的污点。
+required:
+  - taint
+type: object
+

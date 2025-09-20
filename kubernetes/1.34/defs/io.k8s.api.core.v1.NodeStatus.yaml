@@ -1,0 +1,130 @@
+description: Information about the current status of the Node.
+x-kab-description-zh: 关于节点当前状态的信息。
+properties:
+  addresses:
+    description: |
+      List of addresses reachable to the node. Queried from cloud provider, if available.
+      Callers should instead use a full-replacement patch.
+      Consumers should assume that addresses can change during the lifetime of a Node.
+      However, there are some exceptions where this may not be possible, such as Pods that inherit a
+      Node's address in its own status or consumers of the downward API (`status.hostIP`).
+
+      **Note**: This field is declared as mergeable, but the merge key is not sufficiently unique,
+      which can cause data corruption when it is merged.
+    x-kab-description-zh: |
+      此列表包含访问节点时可用的地址。如果云平台提供此信息，系统会咨询云平台来获得此信息。
+
+      用户应该假定 Node 的整个生命周期内这里的地址可能会发生变化。
+      不过，在有些场景中，变更节点的地址是不太可能的。例如，有可能存在 Pod 在其自身的状态中继承
+      Node 的地址，或者使用 Downward API 来访问 Node 的地址（`status.hostIP`）。
+
+      **注意**：此字段被声明为可合并，但是用来执行合并操作的主键并不总能保证唯一性，
+      因此可能导致执行合并操作时出现数据损坏的情况。调用者应该使用全替换形式的补丁操作。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeAddress'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  allocatable:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      The node resources that are available for scheduling.
+      All quantity values must be non-negative. Defaults to value in `capacity'.
+    x-kab-description-zh: |
+      可供调度的节点资源。所有量纲值都不能是负数。默认值为 `capacity` 中的取值。
+    type: object
+  capacity:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: The total resources on the node. All quantity values must be non-negative.
+    x-kab-description-zh: 节点上的资源总和。所有量纲值都必须是非负数。
+    type: object
+  conditions:
+    description: An array of current observed node conditions.
+    x-kab-description-zh: 关于节点状况的最新观测结果集合。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  config:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeConfigStatus'
+    description: |
+      **DEPRECATED**: Status of the config assigned to the node via the `DynamicKubeletConfig` feature.
+    x-kab-description-zh: |
+      **已弃用**: 通过 `DynamicKubeletConfig` 特性赋予给节点的配置状态。
+  daemonEndpoints:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeDaemonEndpoints'
+    description: Endpoints of daemons running on the Node.
+    x-kab-description-zh: 运行在节点上的后台服务的端点。
+  features:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeFeatures'
+    description: The set of features implemented by the CRI implementation.
+    x-kab-description-zh: 由 CRI 实现所支持的一组功能特性。
+  images:
+    description: |
+      List of container images on this node.
+      The number of images that are reported here can be set via the `--node-status-max-images`
+      flag for the kubelet.
+    x-kab-description-zh: |
+      节点上存在的容器镜像列表。这里报告的镜像数量可以通过 kubelet 的 `--node-status-max-images`
+      参数来设置。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerImage'
+    x-kubernetes-list-type: atomic
+    type: array
+  nodeInfo:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSystemInfo'
+    description: Set of IDs/UUIDs to uniquely identify the node.
+    x-kab-description-zh: 一组能够唯一性地标识节点的 ID 或者 UUID。
+  phase:
+    description: |
+      **DEPRECATED**: The recently observed lifecycle phase of the Node. The field is never populated.
+
+      Possible enum values:
+      - `"Pending"` means the node has been created/added by the system, but not configured.
+      - `"Running"` means the node has been configured and has Kubernetes components running.
+      - `"Terminated"` means the node has been removed from the cluster.
+    x-kab-description-zh: |
+      **已弃用**: 最近观测到的 Node 生命周期阶段。此字段几乎从未被填充。
+
+      可能存在的取值有：
+
+      - `"Pending"`：节点已经被系统创建或者添加，但尚未被配置；
+      - `"Running"`：节点已经被配置好，并且已经在运行 Kubernetes 组件。
+      - `"Terminated"`：节点已经被从集群中移除。
+    enum:
+      - Pending
+      - Running
+      - Terminated
+    type: string
+  runtimeHandlers:
+    description: The available runtime handlers.
+    x-kab-description-zh: 可用的运行时处理程序列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.NodeRuntimeHandler'
+    type: array
+    x-kubernetes-list-type: atomic
+  volumesAttached:
+    description: List of volumes that are attached to the node.
+    x-kab-description-zh: 挂接到节点上的卷的列表。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.AttachedVolume'
+    type: array
+    x-kubernetes-list-type: atomic
+  volumesInUse:
+    description: List of attachable volumes in use (mounted) by the node.
+    x-kab-description-zh: 节点上可挂接的、正在被使用（已被挂载）的卷的列表。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

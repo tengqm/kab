@@ -1,0 +1,45 @@
+description: |
+  Represents a Cinder volume resource in Openstack.
+  A Cinder volume must exist before mounting to a container.
+  The volume must also be in the same region as the kubelet.
+  Cinder volumes support ownership management and SELinux relabeling.
+x-kab-description-zh: |
+  代表 OpenStack 中的一个 Cinder 卷资源。
+  在被挂载到某个容器中之前，Cinder 卷必须已经存在。
+  卷必须与 kubelet 位于同一个地理区域。
+  Cinder 卷支持属主管理和 SELinux 重打标签。
+properties:
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount.
+      Must be a filesystem type supported by the host operating system,
+      e.g. `"ext4"`, `"xfs"`, `"ntfs"`.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。
+      必须是宿主操作系统所支持的文件系统类型。例如：`"ext4"`、`"xfs"`、`"ntfs"`。
+    type: string
+  readOnly:
+    default: false
+    description:
+      Defaults to `false` (read/write).
+      `readOnly` here will force the `readOnly` setting in `volumeMounts`.
+    x-kab-description-zh: |
+      默认为 `false`（用可读可写模式挂载）。
+      这里的 `readOnly` 设置会对 `volumeMounts` 中的 `readOnly` 设置起到强制作用。
+    type: boolean
+  secretRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.LocalObjectReference'
+    description: |
+      Reference to a Secret object containing parameters used to connect to OpenStack.
+    x-kab-description-zh: |
+      对某 Secret 对象的引用。该对象中包含用来连接到 OpenStack 所用的参数。
+  volumeID:
+    description: Volume ID used to identify the volume in Cinder.
+    x-kab-description-zh: 用来标识 Cinder 中数据卷的卷 ID。
+    minLength: 1
+    type: string
+required:
+  - volumeID
+type: object
+

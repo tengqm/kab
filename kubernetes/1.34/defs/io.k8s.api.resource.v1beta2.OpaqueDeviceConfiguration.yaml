@@ -1,0 +1,35 @@
+description: OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
+x-kab-description-zh: OpaqueDeviceConfiguration 以驱动厂商所定义的格式提供驱动的配置参数数据。
+properties:
+  driver:
+    description: |-
+      `driver` is used to determine which kubelet plugin needs to be passed these configuration parameters.
+
+      An admission policy provided by the driver developer could use this to decide whether it needs to validate them.
+
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+    x-kab-description-zh: |-
+      `driver` 用来确定要将此配置参数发送给哪个 kubelet 插件。
+      驱动开发人员所提供的准入策略可以使用此信息来判定是否需要执行合法性检查。
+
+      字段值必须是合法的 DNS 子域名，并且应该以驱动厂商所拥有的 DNS 域名结尾。
+    minLength: 1
+    type: string
+  parameters:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.runtime.RawExtension'
+    description: |-
+      `parameters` can contain arbitrary data.
+      It is the responsibility of the driver developer to handle validation and versioning.
+      Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types),
+      with conversion between different versions.
+      The length of the raw data must be smaller or equal to 10 Ki.
+    x-kab-description-zh: |-
+      `parameters` 可以包含任意的数据。驱动开发人员有责任对其中的内容进行合法性检查，为其提供版本化配置。
+      通常此字段包含自我标识信息以及版本信息（对于 Kubernetes 类别而言即 `kind` 和 `apiVersion`），
+      以及在不同版本之间进行转换的信息。
+      原始数据的长度必须小于等于 10 KiB。
+required:
+  - driver
+  - parameters
+type: object
+

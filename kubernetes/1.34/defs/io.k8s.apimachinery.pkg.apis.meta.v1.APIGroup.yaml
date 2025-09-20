@@ -1,0 +1,68 @@
+description: The information about an API group.
+x-kab-description-zh: 关于某个 API 组的信息。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - APIGroup
+    type: string
+  name:
+    description: The name of the group.
+    x-kab-description-zh: API 组的名称。
+    minLength: 1
+    type: string
+  preferredVersion:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.GroupVersionForDiscovery'
+    description: The version preferred by the API server, which probably is the storage version.
+    x-kab-description-zh: API 服务器偏好的版本，该版本可能是存储版本。
+  serverAddressByClientCIDRs:
+    description: |
+      A map of client CIDR to server address that is serving this group.
+      This is to help clients reach servers in the most network-efficient way possible.
+      Clients can use the appropriate server address as per the CIDR that they match.
+      In case of multiple matches, clients should use the longest matching CIDR.
+      The server returns only those CIDRs that it thinks that the client can match.
+      For example, the master will return an internal IP CIDR only, if the client reaches the server
+      using an internal IP.
+      Server looks at `X-Forwarded-For` header or `X-Real-Ip` header or `request.RemoteAddr`
+      (in that order) to get the client IP.
+    x-kab-description-zh: |
+      客户 CIDR 网段与服务器地址之间的映射，列举的是提供此 API 组的服务器。
+      提供这一信息是为了让客户端能够以最优的网络方式来访问服务器。
+      客户端可以根据自己匹配到的 CIDR 网段来使用最合适的服务器地址。
+      如果匹配的网段不止一个，则客户端应该选择匹配度最高的 CIDR 网段。
+      服务器只会返回它认为客户端可能匹配到的 CIDR 网段。
+      例如，如果客户端使用内部 IP 地址来访问服务器，服务器将只返回一个内部 IP 的 CIDR。
+      服务器会依次查看 `"X-Forwarded-For"` 头部、`"X-Real-IP"` 头部或者 `request.RemoteAddr`
+      字段，以获得客户端的 IP 地址。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ServerAddressByClientCIDR'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+  versions:
+    description: The versions supported in this API group.
+    x-kab-description-zh: 此 API 组中支持的版本列表。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.GroupVersionForDiscovery'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - apiVersion
+  - kind
+  - name
+  - versions
+type: object
+x-kubernetes-group-version-kind:
+  - group: ''
+    kind: APIGroup
+    version: v1
+

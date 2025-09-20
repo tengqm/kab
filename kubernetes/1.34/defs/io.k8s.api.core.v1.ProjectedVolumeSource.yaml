@@ -1,0 +1,34 @@
+description: A projected volume source.
+x-kab-description-zh: 一个投射卷的卷源。
+properties:
+  defaultMode:
+    description: |
+      Mode bits used to set permissions on created files by default.
+      Must be an octal value between `0` and `0777` or a decimal value between `0` and `511`.
+      YAML accepts both octal and decimal values, JSON requires decimal values for mode bits.
+      Directories within the path are not affected by this setting.
+      This might be in conflict with other options that affect the file mode, like `fsGroup`,
+      and the result can be other mode bits set.
+    x-kab-description-zh: |
+      默认为所创建的文件设置的访问权限位。
+      取值必须是介于 `0` 和 `0777` 之间的八进制数，或者 `0` 与 `511` 之间的十进制数。
+      YAML 既可接受八进制数，也可接受十进制数，JSON 需要使用十进制数来设置模式位。
+      路径中的目录部分不受此设置影响。
+      此设置可能与其他一些影响文件模式的选项（如 `fsGroup`）有冲突，
+      因而最终的模式设置可能会有不同。
+    format: int32
+    maximum: 511
+    minimum: 0
+    type: integer
+  sources:
+    description: List of VolumeProjection structs. Each entry in the list handles one source.
+    x-kab-description-zh: VolumeProjection 结构的列表。其中的每个条目处理一个卷源。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.VolumeProjection'
+    minItems: 1
+    type: array
+    x-kubernetes-list-type: atomic
+required:
+  - sources
+type: object
+

@@ -1,0 +1,86 @@
+description: Info contains versioning information.
+x-kab-description-zh: Info 包含版本信息。
+properties:
+  buildDate:
+    description: Build date in ISO8601 format. It is the output of `date -u +'%Y-%m-%dT%H:%M:%SZ'`
+    x-kab-description-zh: 用 ISO8601 给出的构造日期。字段值是 `date -u +'%Y-%m-%dT%H:%M:%SZ'` 的输出结果。
+    minLength: 1
+    type: string
+  compiler:
+    description: The compiler used as reported by GoLang `runtime.Compiler`.
+    x-kab-description-zh: 使用的编译器。数值来源是 GoLang `runtime.Compiler`。
+    minLength: 1
+    type: string
+  emulationMajor:
+    description: The major version of the emulation version.
+    x-kab-description-zh: 模拟版本的主版本。
+    minLength: 1
+    type: string
+  emulationMinor:
+    description: The minor version of the emulation version.
+    x-kab-description-zh: 模拟版本的次版本。
+    minLength: 1
+    type: string
+  gitCommit:
+    description: Set when building the binary by scripts. The content is the git HEAD hash code when build.
+    x-kab-description-zh: 使用脚本来构造可执行文件时设置。数据内容是构造时使用的 GIT HEAD 哈希编码。
+    minLength: 1
+    type: string
+  gitTreeState:
+    description: State of the git tree. Either `"clean"` or `"dirtry"`.
+    x-kab-description-zh: GIT 代码树的状态。取值为 `"clean"` 或 `"dirty"`。
+    minLength: 1
+    type: string
+  gitVersion:
+    description: Git tag name used for a release. E.g. `"1.17"`.
+    x-kab-description-zh: 用于发布版本的标签名称。例如 `"1.17"`。
+    minLength: 1
+    type: string
+  goVersion:
+    description: The GoLang version as returned by `runtime.Version()`.
+    x-kab-description-zh: GoLang 的版本。数值来源是 GoLang `runtime.Version()`。
+    minLength: 1
+    type: string
+  major:
+    description: The majore version of the binary version.
+    x-kab-description-zh: 可执行文件版本的主版本号。
+    minLength: 1
+    type: string
+  minCompatibilityMajor:
+    description: The major version of the minimum compatibility version.
+    x-kab-description-zh: 最低兼容版本的主版本号。
+    minLength: 1
+    type: string
+  minCompatibilityMinor:
+    description: The minor version of the minimum compatibility version.
+    x-kab-description-zh: 最低兼容版本的次版本号。
+    minLength: 1
+    type: string
+  minor:
+    description: The minor version of the binary version.
+    x-kab-description-zh: 可执行文件版本的次版本号。
+    minLength: 1
+    type: string
+  platform:
+    description: |
+      Platform for the binary.
+      It is of format `"<OS>/<ARCH>"`, where `"<OS>"` is the operating system name as returned by
+      `runtime.GOOS` and `"<ARCH>"` is the architecture as returned by `runtime.GOARCH`.
+    x-kab-description-zh: |
+      可执行文件所适用的平台。字段值的形式为 `"<OS>/<ARCH>"`。
+      其中 `<OS>` 是 `runtime.GOOS` 所返回的操作系统名称；
+      `"ARCH"` 是 `runtime.GOARCH` 所返回的体系结构名称。
+    minLength: 1
+    type: string
+required:
+  - buildDate
+  - compiler
+  - gitVersion
+  - gitCommit
+  - gitTreeState
+  - goVersion
+  - major
+  - minor
+  - platform
+type: object
+

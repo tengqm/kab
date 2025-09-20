@@ -1,0 +1,27 @@
+description: |
+  PartialObjectMetadata is a generic representation of any object with ObjectMeta.
+  It allows clients to get access to a particular ObjectMeta schema without knowing the details of the version.
+  This data is currently used in the response of a table request.
+x-kab-description-zh: |
+  PartialObjectMetadata 是所有带有 ObjectMeta 的对象的一种泛化表示形式。
+  此结构使得客户能够访问特定的 ObjectMeta 模式定义而不必知道版本细节。
+  此数据目前被用于表格式数据请求的响应中。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - meta.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PartialObjectMetadata
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata
+    x-kab-description-zh: 标准的对象元数据。
+type: object
+

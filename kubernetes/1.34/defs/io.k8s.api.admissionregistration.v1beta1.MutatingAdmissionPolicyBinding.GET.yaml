@@ -1,0 +1,49 @@
+description: |-
+  MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parameterized resources.
+  MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
+
+  For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params,
+  otherwise N is the number of parameters selected by the binding.
+
+  Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).
+  Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
+x-kab-description-zh: |-
+  MutatingAdmissionPolicyBinding 将指定 MutatingAdmissionPolicy 对象与通过参数匹配的资源绑定到一起。
+  MutatingAdmissionPolicyBinding 和可选的参数化资源一起为集群管理员定义集群的管理策略。
+
+  对于给定的准入请求，每个 MutatingAdmissionPolicyBinding 都会导致对应的 MutatingAdmissionPolicy 被求值 N 次。
+  当策略与绑定对象中不使用参数时，N 为 1；否则 N 为绑定所选择的参数资源个数。
+
+  每次求值都会受到[运行时资源预算](https://kubernetes.io/zh-cn/docs/reference/using-api/cel/#runtime-cost-budget)的约束。
+  添加或者删除 MutatingAdmissionPolicy、MutatingAdmissionPolicyBinding 或者参数时，都不会对影响（策略、绑定、参数）组合是否仍处于自己的 CEL 预算之内。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - admissionregistration.k8s.io/v1beta1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - MutatingAdmissionPolicyBinding
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingAdmissionPolicyBindingSpec'
+    description: 对 MutatingAdmissionPolicyBinding 预期行为的规约。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+type: object
+x-kubernetes-group-version-kind:
+  - group: admissionregistration.k8s.io
+    kind: MutatingAdmissionPolicyBinding
+    version: v1beta1
+

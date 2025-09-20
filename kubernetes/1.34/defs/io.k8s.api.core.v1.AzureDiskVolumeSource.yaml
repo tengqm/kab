@@ -1,0 +1,67 @@
+description: An Azure data disk mounted on the node and bind mount to the Pod.
+x-kab-description-zh: 一个被挂接到节点上并绑定挂载到 Pod 中的 Azure 数据盘。
+properties:
+  cachingMode:
+    description: Host caching mode.
+    x-kab-description-zh: 主机侧高速缓存模式。
+    enum:
+      - None
+      - ReadOnly
+      - ReadWrite
+    type: string
+  diskName:
+    description: The name of the data disk in the blob storage.
+    x-kab-description-zh: 数据盘在 BLOB 存储中的名字。
+    minLength: 1
+    type: string
+  diskURI:
+    description: The URI of the data disk in the blob storage.
+    x-kab-description-zh: 数据盘在 BLOB 存储中的 URI。
+    minLength: 1
+    type: string
+  fsType:
+    default: ext4
+    description: |
+      Filesystem type to mount. Must be a filesystem type supported by the host operating system.
+      For example, `"ext4"`, `"xfs"`, `"ntfs"`.
+    x-kab-description-zh: |
+      要挂载的文件系统类型。必须是一个宿主操作系统所支持的文件系统类型。
+      例如： `"ext4"`、`"xfs"`、`"ntfs"`。
+    type: string
+  kind:
+    default: Shared
+    description: |
+      Expected values are:
+      - `"Shared"`: multiple blob disks per storage account
+      - `"Dedicated"`: single blob disk per storage account
+      - `"Managed"`: Azure managed data disk (only in managed availability set).
+      The `diskURI` is of format
+      `"/subscriptions/<ID>/resourcegroups/<NAME>/providers/microsoft.compute/disks/<DISK-ID>"`
+      for managed disk. For other kinds, the `diskURI` should look like
+      `"https://<ACCOUNT>.blob.core.windows.net/<CONTAINER>/<DISK>.vhd"`.
+    x-kab-description-zh: |
+      可选的参数值包括：
+
+      - `"Shared"`：每个存储账户对应多个 BLOB 磁盘；
+      - `"Dedicated"`：每个存储账户对应一个 BLOB 磁盘；
+      - `"Managed"`：Azure 托管的数据盘（只在托管的可用性集合中存在）。
+
+      对于托管磁盘，其 `diskURI` 的格式为
+      `"/subscriptions/<ID>/resourcegroups/<NAME>/providers/microsoft.compute/disks/<DISK-ID>"`；
+      对于其他类型的磁盘，`diskURI` 的格式为
+      `"https://<ACCOUNT>.blob.core.windows.net/<CONTAINER>/<DISK>.vhd"`.
+    enum:
+      - Dedicated
+      - Managed
+      - Shared
+    type: string
+  readOnly:
+    default: false
+    description: Force the `readOnly` setting in `volumeMounts`.
+    x-kab-description-zh: 强制在 `volumeMounts` 中设置 `readOnly` 配置。
+    type: boolean
+required:
+  - diskName
+  - diskURI
+type: object
+

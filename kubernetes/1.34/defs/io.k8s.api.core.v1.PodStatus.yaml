@@ -1,0 +1,280 @@
+description: |
+  Information about the status of a Pod. Status may trail the actual state of a system,
+  especially if the node that hosts the Pod cannot contact the control plane.
+x-kab-description-zh: |
+  关于 Pod 当前状态的信息。此信息记录可能与系统的实际状态之间存在一定的滞后，
+  尤其是当托管 Pod 的节点无法联系控制面节点时。
+properties:
+  conditions:
+    description: Current service state of Pod.
+    x-kab-description-zh: Pod 的当前服务状态。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodCondition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+  containerStatuses:
+    description: |-
+      Statuses of containers in this Pod. Each container in the Pod should have at most one status in this list,
+      and all statuses should be for containers in the Pod. However this is not enforced.
+      If a status for a non-existent container is present in the list, or the list has duplicate names,
+      the behavior of various Kubernetes components is not defined and those statuses might be ignored.
+    x-kab-description-zh: |-
+      关于此 Pod 中容器的状态。Pod 中每个容器在列表中至多对应一个状态项，所有状态都应对应 Pod 中的容器。
+      但是这点并不是强制性的。如果列表中出现了不存在的容器的状态，或者列表中出现了重复的容器名称，
+      则 Kubernetes 组件的行为是不可预测的，这种状态会被忽略。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
+    type: array
+    x-kubernetes-list-type: atomic
+  ephemeralContainerStatuses:
+    description: |-
+      Status for any ephemeral containers that have run in this Pod.
+      Statuses for any ephemeral containers that have run in this Pod.
+      Each ephemeral container in the Pod should have at most one status in this list,
+      and all statuses should be for containers in the Pod. However this is not enforced.
+      If a status for a non-existent container is present in the list, or the list has duplicate names,
+      the behavior of various Kubernetes components is not defined and those statuses might be ignored.
+    x-kab-description-zh: |-
+      关于此 Pod 中曾经运行过的临时容器的状态。Pod 中每个临时容器在列表中至多对应一个状态项，所有状态都应对应 Pod 中的容器。
+      但是这点并不是强制性的。如果列表中出现了不存在的容器的状态，或者列表中出现了重复的容器名称，
+      则 Kubernetes 组件的行为是不可预测的，这种状态会被忽略。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
+    type: array
+    x-kubernetes-list-type: atomic
+  hostIP:
+    description: |
+      `hostIP` holds the IP address of the host to which the Pod is assigned.
+      Empty if the Pod has not started yet. A Pod can be assigned to a node that has
+      a problem in kubelet which in turns mean that `hostIP` will not be updated even
+      if there is a node is assigned to Pod.
+    x-kab-description-zh: |
+      `hostIP` 保存的是 Pod 当前被指派到的主机的 IP 地址。如果 Pod 尚未启动，此字段为空。
+      Pod 可能会被指派到一个 kubelet 有问题的节点，kubelet 有问题意味着意味着即使 Pod
+      被调度到该节点，`hostIP` 也不会被更新。
+    type: string
+  hostIPs:
+    description: |
+      `hostIPs` holds the IP addresses allocated to the host.
+      If this field is specified, the first entry must match the `hostIP` field.
+      This list is empty if the Pod has not started yet.
+      A Pod can be assigned to a node that has a problem in kubelet which in turns means that
+      `hostIPs` will not be updated even if there is a node is assigned to this Pod.
+    x-kab-description-zh: |
+      `hostIPs` 包含的是分配给节点的 IP 地址。
+      如果此字段被设置，则其中第一个元素必须与 `hostIP` 字段的取值相同。
+      如果 Pod 尚未启动，此列表为空。
+      Pod 可能会被指派到一个 kubelet 有问题的节点，kubelet 有问题意味着意味着即使 Pod
+      被调度到该节点，`hostIPs` 也不会被更新。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.HostIP'
+    type: array
+    x-kubernetes-list-type: atomic
+    x-kubernetes-patch-merge-key: ip
+    x-kubernetes-patch-strategy: merge
+  initContainerStatuses:
+    description: |
+      Statuses of init containers in this Pod.
+      The most recent successful non-restartable init container will have `ready: true`,
+      the most recently started container will have `startTime` set.
+      Each init container in the pod should have at most one status in this list,
+      and all statuses should be for containers in the Pod. However this is not enforced.
+      If a status for a non-existent container is present in the list, or the list has duplicate names,
+      the behavior of various Kubernetes components is not defined and those statuses might be ignored.
+
+    x-kab-description-zh: |
+      Pod 中初始化容器的状态。最近成功的、不可重启的初始化容器会被设置 `ready: true` 属性，
+      最近启动的容器会被设置 `startTime` 属性。
+      Pod 中每个初始化容器在列表中至多对应一个状态项，所有状态都应对应 Pod 中的容器。
+      但是这点并不是强制性的。如果列表中出现了不存在的容器的状态，或者列表中出现了重复的容器名称，
+      则 Kubernetes 组件的行为是不可预测的，这种状态会被忽略。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
+    type: array
+    x-kubernetes-list-type: atomic
+  message:
+    description: |
+      A human readable message indicating details about why the Pod is in this condition.
+    x-kab-description-zh: |
+      一条人类可读的消息，用来表明 Pod 为什么会处于当前的状况。
+    type: string
+  nominatedNodeName:
+    description: |
+      This is set only when this Pod preempts other Pods on the node, but it cannot be scheduled
+      right away as preemption victims receive their graceful termination periods.
+      This field does not guarantee that the Pod will be scheduled on this node.
+      Scheduler may decide to place the Pod elsewhere if other nodes become available sooner.
+      Scheduler may also decide to give the resources on this node to a higher priority Pod
+      that is created after preemption.
+      As a result, this field may be different than `spec.nodeName` when the Pod is scheduled.
+    x-kab-description-zh: |
+      如果此 Pod 抢占了节点上其他 Pod，但因为被抢占的 Pod 还存在终止宽限期，这一 Pod
+      当前还无法立即被调度，系统会设置此字段。
+      设置此字段并不意味着 Pod 就一定会被调度到对应的节点。调度器可能在其他节点更早变得可用时，
+      将 Pod 调度到其他位置。如果在发生抢占之后，有更高优先级的 Pod 被创建，
+      调度器也有可能会决定将节点上的资源分配给后来者。
+      因此，这个字段可能与 Pod 真正被调度后 `spec.nodeName` 中呈现的值不同。
+    type: string
+  observedGeneration:
+    description: |
+      If set, this represents the `.metadata.generation` that the Pod status was set based upon.
+
+      This is an Alpha field. Enable `PodObservedGenerationTracking` to be able to use this field.
+    x-kab-description-zh: |
+      如果此字段被设置，所表示的是 Pod 的状态被设置时，对应的 `.metadata.generation` 值。
+
+      此字段为 Alpha 状态，需要启用 `PodObservedGenerationTracking` 特性门控。
+    format: int64
+    type: integer
+  phase:
+    description: |
+      The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle.
+      The `conditions` array, the `reason` and `message` fields, and the individual container
+      status arrays contain more detail about the Pod's status.
+
+      Possible enum values:
+      - `"Failed"` means that all containers in the pod have terminated, and at least one container
+        has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+      - `"Pending"` means the pod has been accepted by the system, but one or more of the containers
+        has not been started.
+        This includes time before being scheduled as well as time spent downloading images over
+        the network, which could take a while.
+      - `"Running"` means the Pod has been bound to a node and all of the containers have been started.
+        At least one container is still running or is in the process of being restarted.
+      - `"Succeeded"` means that all containers in the pod have terminated n success, with
+        a container exit code of 0, and the system is not going to restart any of these containers.
+      - `"Unknown"` means that for some reason the state of the Pod could not be obtained,
+        typically due to an error in communicating with the host of the Pod.
+    x-kab-description-zh: |
+      Pod 的阶段（Phase）是对 Pod 在生命周期中所处的状态的一种简化的、高度抽象的概括。
+      关于 Pod 状态的进一步详细信息，可以查看数组 `conditions`、`reason` 和 `message` 字段，
+      以及包含各个容器状态的数组。
+
+      可能的枚举值包括：
+
+      - `"Failed"` 意味着 Pod 中的所有容器都已终止，并且至少一个容器以失败的状态终止
+        （其退出代码非零或者容器是被系统停止的）。
+      - `"Pending"` 意味着 Pod 已经被系统接受，但是其中一个或者多个容器尚未被启动。
+        这个状态包括 Pod 被调度的时间，以及通过网络下载镜像的时间（可能不是立即完成）。
+      - `"Running"` 表明 Pod 已经被绑定到某个节点，并且其中的所有容器都已经被启动。
+        至少一个容器仍然处于运行状态或者处于正在被重启的状态。
+      - `"Succeeded"` 表明 Pod 中所有容器都已经以成功的状态终止，即其容器退出代码为 0，
+        系统已经决定不再重新启动任何容器。
+      - `"Unknown"` 意味着出于某些原因，现在无法获知 Pod 的状态。可能的原因之一是
+        与 Pod 所在的节点通信时出现错误。
+    enum:
+      - Failed
+      - Pending
+      - Running
+      - Succeeded
+      - Unknown
+    type: string
+  podIP:
+    description: |
+      The IP address allocated to the Pod. Routable at least within the cluster.
+      Empty if not yet allocated.
+    x-kab-description-zh: |
+      分配给 Pod 的 IP 地址。此地址至少在集群内时可路由的。
+      如果尚未分配 IP 地址，此字段也可能为空。
+    type: string
+  podIPs:
+    description: |
+      The IP addresses allocated to the Pod.
+      If this field is specified, the 0th entry must match the `podIP` field.
+      Pods may be allocated at most 1 value for each of IPv4 and IPv6.
+      This list is empty if no IPs have been allocated yet.
+    x-kab-description-zh: |
+      分配给 Pod 的 IP 地址。
+      如果设置了此字段，则其中第一个元素一定与 `podIP` 字段值匹配。
+      Pod 至多可以分配一个 IPv4 地址和一个 IPv6 地址。
+      如果尚未分配 IP 地址，此列表也可能为空。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodIP'
+    type: array
+    x-kubernetes-list-map-keys:
+      - ip 
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: ip
+    x-kubernetes-patch-strategy: merge
+  qosClass:
+    description: |
+      The Quality of Service (QOS) classification assigned to the Pod based on resource requirements.
+
+      Possible enum values:
+
+      - `"BestEffort"`
+      - `"Burstable"`
+      - `"Guaranteed"`
+
+    x-kab-description-zh: |
+      基于资源需求给 Pod 分配的服务质量（QoS）类。可能的值有：
+
+      - `"BestEffort"`
+      - `"Burstable"`
+      - `"Guaranteed"`
+
+    enum:
+      - BestEffort
+      - Burstable
+      - Guaranteed
+    type: string
+  reason:
+    description: |
+      A brief CamelCase message indicating details about why the Pod is in this state. e.g. `"Evicted"`.
+    x-kab-description-zh: |
+      一个简短的、驼峰编码的字符串消息，给出 Pod 处于当前状态的原因，例如：`"Evicted"`。
+    type: string
+  resize:
+    description: |
+      Status of resources resize desired for Pod's containers.
+      It is empty if no resources resize is pending.
+      Any changes to container resources will automatically set this to "Proposed".
+
+      **DEPRECATED**
+      Resize status is moved to two Pod conditions `PodResizePending` and `PodResizeInProgress`.
+      `PodResizePending` will track states where the spec has been resized,
+      but the kubelet has not yet allocated the resources.
+      `PodResizeInProgress` will track in-progress resizes, and should be present
+      whenever allocated resources does not equal to the acknowledged resources.
+    x-kab-description-zh: |
+      对 Pod 中容器做资源规格变更时，变更所处的状态。
+      如果没有待定的变更操作，此字段为空。
+      只要发生对容器资源的变更，就会自动将此字段设置为 `"Proposed"`。
+
+      **DEPRECATED**
+      Pod 重设大小的状态信息已经被被移动到 `PodResizePending` `PodResizeInProgress` 这两个状况中。
+      `PodResizePending` 将被用来跟踪 Pod 规约的尺寸发生变更但 kubelet 尚未分配资源的状态；
+      `PodResizeInProgress` 用来跟踪 Pod 尺寸变化过程，并且当所分配的资源量与确认的量不同时，
+      此状况会一直存在。
+    type: string
+  resourceClaimStatuses:
+    description: Status of resource claims.
+    x-kab-description-zh: ResourceClaim 的状态。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.PodResourceClaimStatus'
+    type: array
+    x-kubernetes-list-map-keys:
+      - name
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: name
+    x-kubernetes-patch-strategy: merge,retainKeys
+  startTime:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      RFC 3339 date and time at which the Pod was acknowledged by the kubelet.
+      This is before the kubelet pulled the container image(s) for the Pod.
+    x-kab-description-zh: |
+      Pod 被 kubelet 认可接受的时间，以 RFC 3339 日期与时间格式给出。
+      这个时间戳早于 kubelet 开始为 Pod 拉取容器镜像的操作。
+required:
+  - conditions
+  - containerStatuses
+  - message
+  - phase
+  - reason
+type: object
+

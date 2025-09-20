@@ -1,0 +1,81 @@
+description: |
+  An object that describes a single port.
+
+  **DEPRECATED** This API is deprecated since v1.33.
+x-kab-description-zh: |
+  一个用来描述某个端口的对象。
+
+  **DEPRECATED** 此 API 从 v1.33 起被弃用。
+properties:
+  appProtocol:
+    description: |
+      The application protocol for this port. This is used as a hint for implementations
+      to offer richer behavior for protocols that they understand.
+      This field follows standard Kubernetes label syntax. Valid values are either:
+
+      - Un-prefixed protocol names: reserved for IANA standard service names
+        (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+      - Kubernetes-defined prefixed names.
+      - Other protocols should use implementation-defined prefixed names such as
+        `"mycompany.com/my-custom-protocol"`.
+
+      The Kubernetes-defined prefixed names can be one of:
+
+      - `"kubernetes.io/h2c"` - HTTP/2 prior knowledge over cleartext as described in
+        [RFC9113](https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-)
+      - `"kubernetes.io/ws"` - WebSocket over cleartext as described in
+        [RFC6455](https://www.rfc-editor.org/rfc/rfc6455)
+      - `"kubernetes.io/wss"` - WebSocket over TLS as described in
+        [RFC6455](https://www.rfc-editor.org/rfc/rfc6455)
+
+    x-kab-description-zh: |
+      端口对应的应用协议。端点的视线可以将此字段值视为一种提示信息，
+      从而提供它们所能够理解的协议的更丰富的行为。
+      此字段遵从标准的 Kubernetes 标签语法。合法的取值如下：
+
+      - 无前缀的协议名：保留给 IANA 标准服务名称
+        （参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
+      - Kubernetes 定义的、带前缀的名称。
+      - 其他协议则需要使用由实现所定义的、带前缀的名称，例如 `"mycompany.com/my-custom-protocol"`。
+
+      其中 Kubernetes 所定义的、带前缀的名称包括：
+
+      - `"kubernetes.io/h2c"` - 采用明文传输的 HTTP/2 先验知识版本，
+        如 [RFC9113](https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-) 所述。
+      - `"kubernetes.io/ws"` - 采用明文传输的 WebSocket，
+        如 [RFC6455](https://www.rfc-editor.org/rfc/rfc6455) 所述。
+      - `"kubernetes.io/wss"` - 采用 TLS 传输的WebSocket,
+        如 [RFC6455](https://www.rfc-editor.org/rfc/rfc6455) 所述。
+    type: string
+  name:
+    description: |
+      The name of this port. This must match the `name` field in the corresponding Service port.
+      Must be a valid DNS-1123 label.
+      Optional only if one `port` is defined, otherwise it is required.
+    x-kab-description-zh: |
+      端口的名称。此字段值必须与对应的 Service 端口的 `name` 字段匹配。
+      字段值必须是合法的 DNS-1123 标签。
+      如果定义的 `port` 只有一个，则此字段可选，否则必须设置。
+    type: string
+  port:
+    description: The port number of the endpoint.
+    x-kab-description-zh: 端点的端口号。
+    format: int32
+    maximum: 65535
+    minimum: 1
+    type: integer
+  protocol:
+    default: TCP
+    description: The IP protocol for this port.
+    x-kab-description-zh: 端口的 IP 协议。
+    enum:
+      - SCTP
+      - TCP
+      - UDP
+    type: string
+required:
+  - port
+  - protocol
+type: object
+x-kubernetes-map-type: atomic
+

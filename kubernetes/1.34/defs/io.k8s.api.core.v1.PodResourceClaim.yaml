@@ -1,0 +1,50 @@
+description: |
+  PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate
+  which is then turned into a ResourceClaim for the Pod.
+  It adds a name to it that uniquely identifies the ResourceClaim inside the Pod.
+  Containers that need access to the ResourceClaim can reference it with this name.
+x-kab-description-zh: |
+  PodResourceClaim 引用某个 ResourceClaim。这种引用可以是直接引用，也可以通过指定 ResourceClaimTemplate 来完成。
+  所指定的 ResourceClaimTemplate 会被转换为 Pod 可用的 ResourceClaim。
+  在引用的同时还为其设置一个在 Pod 之内唯一的名字作为标识。
+  需要访问 ResourceClaim 的容器可以使用这个名称来引用它。
+properties:
+  name:
+    description: |
+      Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+    x-kab-description-zh: |
+      在 Pod 内能够唯一地标识 ResourceClaim 的名字。字段值必须是合法的 DNS_LABEL。
+    minLength: 1
+    type: string
+  resourceClaimName:
+    description: |
+      The name of a ResourceClaim object in the same namespace as this Pod.
+      Exactly one of `resourceClaimName` and `resourceClaimTemplateName` must be set.
+    x-kab-description-zh: |
+      此字段给出 Pod 所在名字空间内的某个 ResourceClaim 的名字。
+      `resourceClaimName` 和 `resourceClaimTemplateName` 字段必须且只能设置一个。
+    type: string
+  resourceClaimTemplateName:
+    description: |
+      The name of a ResourceClaimTemplate object in the same namespace as this Pod.
+      The template will be used to create a new ResourceClaim, which will be bound to this Pod.
+      When this Pod is deleted, the ResourceClaim will also be deleted.
+      The Pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim,
+      which will be recorded in `resourceClaimStatuses` for the Pod status.
+
+      This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+
+      Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+    x-kab-description-zh: |
+      此字段给出 Pod 所在名字空间内的某个 ResourceClaimTemplate 的名字。
+      所指定的模板将被用来创建将来要绑定到 Pod 上的 ResourceClaim。
+      当 Pod 被删除时，所创建的 ResourceClaim 也会被删除。
+      ResourceClaim 的名称是唯一的，由 Pod 名称、资源名称以及随机生成的部分串接构成。
+      ResourceClaim 的名称会被记录在 Pod 状态的 `resourceClaimStatuses` 字段中。
+
+      `resourceClaimName` 和 `resourceClaimTemplateName` 字段必须且只能设置一个。
+    type: string
+required:
+  - name
+type: object
+

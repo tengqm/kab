@@ -1,0 +1,30 @@
+description: The specification of a VolumeAttachment request.
+x-kab-description-zh: VolumeAttachment 请求的规约。
+properties:
+  attacher:
+    description: |
+      The name of the volume driver that must handle this request.
+      This is the name returned by `GetPluginName()`. The value must be a valid DNS subdomain.
+    x-kab-description-zh: |
+      必须处理此请求的卷驱动的名称。
+      此名称由 `GetPluginName()` 调用返回，字符串必须是合法的 DNS 子域名。
+    maxLength: 63
+    minLength: 1
+    type: string
+  nodeName:
+    description: |
+      The node that the volume should be attached to. The value must be a valid DNS subdomain.
+    x-kab-description-zh: |
+      此卷要挂接到的节点的名称。字符串必须是合法的 DNS 子域名。
+    minLength: 1
+    type: string
+  source:
+    $ref: '#/definitions/io.k8s.api.storage.v1.VolumeAttachmentSource'
+    description: The volume that should be attached.
+    x-kab-description-zh: 要被挂接的卷。
+required:
+  - attacher
+  - nodeName
+  - source
+type: object
+

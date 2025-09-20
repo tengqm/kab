@@ -1,0 +1,54 @@
+description: MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
+x-kab-description-zh: MutatingAdmissionPolicyBindingSpec 是对 MutatingAdmissionPolicyBinding 的规约。
+properties:
+  matchResources:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.MatchResources'
+    description: |-
+      `matchResources` limits what resources match this binding and may be mutated by it.
+      Note that if `matchResources` matches a resource, the resource must also match a policy's `matchConstraints` and
+      `matchConditions` before the resource may be mutated.
+      When `matchResources` is unset, it does not constrain resource matching, and only the policy's `matchConstraints`
+      and `matchConditions` must match for the resource to be mutated.
+      Additionally, `matchResources.resourceRules` are optional and do not constraint matching when unset.
+      Note that this is differs from MutatingAdmissionPolicy `matchConstraints`, where `resourceRules` are required.
+      The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched.
+      '*' matches CREATE, UPDATE and CONNECT.
+    x-kab-description-zh: |-
+      `matchResources` 限制哪些资源可以与此绑定匹配，从而可以被对应的准入策略处理。
+      注意，如果 `matchResources` 与某个资源匹配，该资源必须与准入策略的 `matchConstraints` 和 `matchConditions`
+      匹配才能保证该资源被对应的策略处理。
+      如果没有设置 `matchResources`，则意味着策略绑定不对资源匹配作约束，只要资源满足策略的 `matchConstraints`
+      和 `matchConditions` 条件就可以被该策略处理。
+      此外，`matchResources.resourceRules` 字段是可选的，如果没有设置，不对匹配条件构成约束。
+      注意，这一点与 MutatingAdmissionPolicy 的 `matchConstraints` 不同，在后者中，`resourceRules` 是必须设置的。
+      策略可以应用到 CREATE、UPDATE 和 CONNECT 操作之上，但不能用来处理 DELETE 操作。
+      字符串 `"*"` 可以匹配所有 CREATE、UPDATE 和 CONNECT 操作。
+  paramRef:
+    $ref: '#/definitions/io.k8s.api.admissionregistration.v1alpha1.ParamRef'
+    description: |-
+      `paramRef` specifies the parameter resource used to configure the admission control policy.
+      It should point to a resource of the type specified in `spec.paramKind` of the bound MutatingAdmissionPolicy.
+      If the policy specifies a `paramKind` and the resource referred to by `paramRef` does not exist,
+      this binding is considered mis-configured and the `failurePolicy` of the MutatingAdmissionPolicy is applied.
+      If the policy does not specify a `paramKind` then this field is ignored, and the rules are evaluated without a param.
+    x-kab-description-zh: |-
+      `paramRef` 设置用来对此准入策略进行配置的参数资源。
+      所指向的应该是被绑定的 MutatingAdmissionPolicy 中 `spec.paramKind` 所指定的资源类别。
+      如果策略设置了 `paramKind`，而 `paramRef` 所引用的资源并不存在，则系统认为此绑定的配置是错误的，
+      因此会根据 MutatingAdmissionPolicy 的 `failurePolicy` 设置进行处理。
+      如果策略未设置 `paramKind` 字段，则此 `paramRef` 字段设置会被忽略，评估准入规则时不包含参数部分。
+  policyName:
+    description: |-
+      `policyName` references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to.
+      If the referenced resource does not exist, this binding is considered invalid and will be ignored.
+      The value for this field must be a valid DNS subdomain name.
+    x-kab-description-zh: |-
+      `policyName` 引用的是此 MutatingAdmissionPolicyBinding 所绑定的 MutatingAdmissionPolicy 的名称。
+      如果所引用的资源并不存在，则此绑定被认为是非法的，系统会忽略此绑定。
+      此字段的设置值必须是一个合法的 DNS 子域名。
+    minLength: 1
+    type: string
+required:
+  - policyName
+type: object
+

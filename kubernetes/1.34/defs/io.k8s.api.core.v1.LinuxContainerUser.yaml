@@ -1,0 +1,26 @@
+description: LinuxContainerUser represents user identity information in Linux containers.
+x-kab-description-zh: LinuxContainerUser 表示 Linux 容器中的用户标识信息。
+properties:
+  gid:
+    description: The primary GID initially attached to the first process in the container.
+    x-kab-description-zh: 最初关联到容器中第一个进程的主 GID。
+    format: int64
+    type: integer
+  supplementalGroups:
+    description: The supplemental groups initially attached to the first process in the container.
+    x-kab-description-zh: 与容器中第一个进程相关联的附加组。
+    items:
+      format: int64
+      type: integer
+    type: array
+    x-kubernetes-list-type: atomic
+  uid:
+    description: The primary UID initially attached to the first process in the container.
+    x-kab-description-zh: 与容器中第一个进程相关联的主 UID。
+    format: int64
+    type: integer
+required:
+- uid
+- gid
+type: object
+
