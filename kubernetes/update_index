@@ -504,8 +504,7 @@ def add_operation(version, name, op):
     if (current["type"] != op["type"] or
             current["op_type"] != op["op_type"] or
             current["target"] != op["target"] or
-            current["group_version"] != op["group_version"] or
-            current["description"] != op["description"]):
+            current["group_version"] != op["group_version"]):
         ERROR("  Operation %s changed.\n  %s\n  %s", name,
               str(current), str(op))
         return
