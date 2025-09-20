@@ -1,0 +1,22 @@
+{
+  "description": "PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA. It stores the generated name for the corresponding special ResourceClaim created by the scheduler.",
+  "properties": {
+    "requestMappings": {
+      "description": "RequestMappings identifies the mapping of <container, extended resource backed by DRA> to  device request in the generated ResourceClaim.",
+      "items": {
+        "$ref": "#/definitions/io.k8s.api.core.v1.ContainerExtendedResourceRequest"
+      },
+      "type": "array",
+      "x-kubernetes-list-type": "atomic"
+    },
+    "resourceClaimName": {
+      "description": "ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "requestMappings",
+    "resourceClaimName"
+  ],
+  "type": "object"
+}

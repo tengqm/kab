@@ -1,0 +1,51 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read the specified ValidatingWebhookConfiguration",
+  "operationId": "readAdmissionregistrationV1ValidatingWebhookConfiguration",
+  "parameters": [
+    {
+      "description": "name of the ValidatingWebhookConfiguration",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{name}",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingWebhookConfiguration"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "admissionregistration.k8s.io",
+    "kind": "ValidatingWebhookConfiguration",
+    "version": "v1"
+  }
+}

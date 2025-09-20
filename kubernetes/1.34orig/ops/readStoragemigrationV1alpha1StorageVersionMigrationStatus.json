@@ -1,0 +1,51 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "read status of the specified StorageVersionMigration",
+  "operationId": "readStoragemigrationV1alpha1StorageVersionMigrationStatus",
+  "parameters": [
+    {
+      "description": "name of the StorageVersionMigration",
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "uniqueItems": true
+    },
+    {
+      "$ref": "#/parameters/pretty"
+    }
+  ],
+  "path": "/apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}/status",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.storagemigration.v1alpha1.StorageVersionMigration"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "storagemigration_v1alpha1"
+  ],
+  "verb": "get",
+  "x-kubernetes-action": "get",
+  "x-kubernetes-group-version-kind": {
+    "group": "storagemigration.k8s.io",
+    "kind": "StorageVersionMigration",
+    "version": "v1alpha1"
+  }
+}

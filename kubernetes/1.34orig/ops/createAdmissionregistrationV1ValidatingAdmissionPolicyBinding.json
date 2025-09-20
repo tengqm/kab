@@ -1,0 +1,69 @@
+{
+  "consumes": [
+    "*/*"
+  ],
+  "description": "create a ValidatingAdmissionPolicyBinding",
+  "operationId": "createAdmissionregistrationV1ValidatingAdmissionPolicyBinding",
+  "parameters": [
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyBinding"
+      }
+    },
+    {
+      "$ref": "#/parameters/dryRun"
+    },
+    {
+      "$ref": "#/parameters/fieldManager"
+    },
+    {
+      "$ref": "#/parameters/fieldValidation"
+    }
+  ],
+  "path": "/apis/admissionregistration.k8s.io/v1/validatingadmissionpolicybindings",
+  "produces": [
+    "application/json",
+    "application/yaml",
+    "application/vnd.kubernetes.protobuf",
+    "application/cbor"
+  ],
+  "responses": {
+    "200": {
+      "description": "OK",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyBinding"
+      }
+    },
+    "201": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyBinding"
+      }
+    },
+    "202": {
+      "description": "Accepted",
+      "schema": {
+        "$ref": "#/definitions/io.k8s.api.admissionregistration.v1.ValidatingAdmissionPolicyBinding"
+      }
+    },
+    "401": {
+      "description": "Unauthorized"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    "admissionregistration_v1"
+  ],
+  "verb": "post",
+  "x-kubernetes-action": "post",
+  "x-kubernetes-group-version-kind": {
+    "group": "admissionregistration.k8s.io",
+    "kind": "ValidatingAdmissionPolicyBinding",
+    "version": "v1"
+  }
+}
