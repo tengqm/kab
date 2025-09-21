@@ -1,0 +1,43 @@
+description: |-
+  PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+  Kubelets use this API to implement podCertificate projected volumes
+x-kab-description-zh: |-
+  PodCertificateRequest 中包含 Pod 向给定的签名组件发出的证书申请。
+  kubelet 使用此 API 来实现 podCertificate 投射卷。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - certificates.k8s.io/v1alpha1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - PodCertificateRequest
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+  spec:
+    $ref: '#/definitions/io.k8s.api.certificates.v1alpha1.PodCertificateRequestSpec'
+    description: spec contains the details about the certificate being requested.
+    x-kab-description-zh: spec 中包含所请求证书的细节信息。
+  status:
+    $ref: '#/definitions/io.k8s.api.certificates.v1alpha1.PodCertificateRequestStatus'
+    description: status contains the issued certificate, and a standard set of conditions.
+    x-kab-description-zh: status 中包含所颁发的证书，以及一组标准的状况数据。
+required:
+  - apiVersion
+  - kind
+  - metadata
+  - spec
+  - status
+type: object
+x-kubernetes-group-version-kind:
+  - group: certificates.k8s.io
+    kind: PodCertificateRequest
+    version: v1alpha1
+

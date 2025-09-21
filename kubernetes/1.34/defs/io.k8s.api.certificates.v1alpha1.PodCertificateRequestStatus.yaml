@@ -1,0 +1,145 @@
+description: |-
+  PodCertificateRequestStatus describes the status of the request, and holds the certificate data
+  if the request is issued.
+  Once the request has a `"Denied"`, `"Failed"` or `"Issued"` condition set, the `status` becomes immutable.
+
+x-kab-description-zh: |-
+  PodCertificateRequestStatus 描述证书请求的状态，并且在所请求证书被签发时用来保存证书数据。
+  一旦证书请求的状态中包含 `"Denied"`、`"Failed"` 或 `"Issued"` 状况之一，则整个 `status` 部分不可再被变更。
+
+properties:
+  beginRefreshAt:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |-
+      This is the time at which the kubelet should begin trying to refresh the certificate.
+      This field is set via the `status` subresource, and must be set at the same time as `certificateChain`.
+      Once populated, this field is immutable.
+
+      The field value must be at least 10 minutes after `notBefore` and 10 minutes before `notAfter`.
+
+      This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+
+    x-kab-description-zh: |-
+      此字段值为 kubelet 应该尝试刷新证书的时间。
+      字段值通过 `status` 子资源来设置，必须和 `certificateChain` 一起设置（不可为空）。
+      字段一旦被写入，则不可再变更。
+
+      字段值必须至少在 `notBefore` 时间点的 10 分钟之后，在 `notAfter` 时间点的 10 分钟之前。
+
+      此字段应被视为一种提示性信息。`kubelet` 可能在必要时在所给时间之前或之后启动证书刷新动作。
+
+  certificateChain:
+    description: |-
+      This is populated with an issued certificate by the signer.
+      This field is set via the `status` subresource. Once populated, this field is immutable.
+
+      If the certificate signing request is denied, a condition of type "Denied" is added and
+      this field remains empty.
+      If the signer cannot issue the certificate, a condition of type "Failed" is added and
+      this field remains empty.
+
+      Validation requirements:
+
+      1. certificateChain must consist of one or more PEM-formatted certificates.
+      1. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+         described in section 4 of RFC5280.
+
+      If more than one block is present, and the definition of the requested `spec.signerName`
+      does not indicate otherwise, the first block is the issued certificate, and
+      the subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
+      When projecting the chain into a Pod volume, the kubelet will drop any data in-between the PEM blocks,
+      as well as any PEM block headers.
+
+    x-kab-description-zh: |-
+      此字段由签名组件负责填充，内容为所签发的证书。
+      字段是通过 `status` 子资源来设置的，并且一旦设置了则不可再变更。
+
+      如果证书签名请求被拒绝了，则签名请求对象会被添加 `"Denied"` 类型的状况，并且此字段保持为空。
+      如果签名组件无法签发证书，则签名请求对象会被添加 `"Failed"` 类型的状况，并且此字段保持为空。
+
+      执行合法性检查时，系统会考虑以下需求：
+
+      1. `certificateChain` 必须包含一个或者多个 PEM 格式的证书；
+      1. 证书列表中的每个条目都必须是一个 PEM 封装的、DER 编码的 ASN.1 证书，如 RFC5280 第 4 节所描述。
+
+      如果字段中包含多个数据块，并且请求的 `spec.signerName` 没有额外的要求，则第一个数据块为所签发的证书，
+      后续的数据块应被视为中间证书，用于 TLS 握手操作。
+      在将此证书链投射到 Pod 的数据卷中时，kubelet 会将 PEM 数据块之间的内容以及 PEM 块的头部部分丢弃。
+
+    maxLength: 102400
+    minLength: 0
+    type: string
+  conditions:
+    description: |-
+      The conditions applied to the request.
+
+      The types "Issued", "Denied", and "Failed" have special handling.
+      At most one of these conditions may be present, and they must have status "True".
+
+      If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that
+      will work in the `message` field.
+
+    x-kab-description-zh: |-
+      适用于此请求对象的各类状况。
+
+      类型 `"Issued"`、`"Denied"` 和 `"Failed"` 有特殊处理流程。
+      因此，这几类状况只能有一种出现在列表中，并且其状态应该为 `"True"`。
+
+      如果证书签名请求被拒绝，并且拒绝的原因为 `"UnsupportedKeyType"`，签名组件可以在 `message`
+      字段中向客户端建议应该使用的密钥类型。
+
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Condition'
+    type: array
+    x-kubernetes-list-map-keys:
+      - type
+    x-kubernetes-list-type: map
+    x-kubernetes-patch-merge-key: type
+    x-kubernetes-patch-strategy: merge
+
+  notAfter:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |-
+      This is the time at which the certificate expires.
+      The value must be the same as the `notAfter` value in the leaf certificate in `certificateChain`.
+      This field is set via the `status` subresource.  Once populated, it is immutable.
+      The signer must set this field at the same time it sets `certificateChain`.
+
+      The lifetime (`notAfter` - `notBefore`) must be longer than 1 hour, and
+      the lifetime cannot go beyond the `spec.maxExpirationSeconds` limit.
+
+    x-kab-description-zh: |-
+      此字段为证书到期的时间。
+      字段值必须与 `certificateChain` 中叶子证书的 `notAfter` 值相同。
+      字段通过 `status` 子资源来设置；一旦设置，字段不可再变更。
+      签名组件必须在设置 `certificateChain` 的同时设置此字段（不可为空）。
+
+      证书的生命期（`notAfter` - `notBefore`) 必须在 1 小时之上，
+      并且不可超出证书请求的 `spec.maxExpirationSeconds` 约束。
+
+  notBefore:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      This is the time at which the certificate becomes valid.
+      The value must be the same as the `notBefore` value in the leaf certificate in `certificateChain`.
+      This field is set via the `status` subresource. Once populated, it is immutable.
+      The signer must set this field at the same time it sets `certificateChain`.
+
+      The field value must be within 5 minutes of the current time of the `kube-apiserver`.
+
+      The lifetime (`notAfter` - `notBefore`) must be longer than 1 hour, and
+      the lifetime cannot go beyond the `spec.maxExpirationSeconds` limit.
+
+    x-kab-description-zh: |-
+      此字段为证书开始有效的时间。
+      字段值必须与 `certificateChain` 中叶子证书的 `notBefore` 值相同。
+      字段通过 `status` 子资源来设置；一旦设置，字段不可再变更。
+      签名组件必须在设置 `certificateChain` 的同时设置此字段（不可为空）。
+
+      字段值必须在 `kube-apiserver` 的当前时间的前后五分钟之内。
+
+      证书的生命期（`notAfter` - `notBefore`) 必须在 1 小时之上，
+      并且不可超出证书请求的 `spec.maxExpirationSeconds` 约束。
+
+type: object
+

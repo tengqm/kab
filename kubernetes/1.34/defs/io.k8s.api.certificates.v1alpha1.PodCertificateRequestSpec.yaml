@@ -1,0 +1,170 @@
+description: PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+x-kab-description-zh: |-
+  PodCertificateRequestSpec 描述证书请求。所有字段在请求被创建之后都是不可变更的。
+properties:
+  maxExpirationSeconds:
+    description: |-
+      `maxExpirationSeconds` is the maximum lifetime permitted for the certificate.
+
+      If omitted, `kube-apiserver` will set it to 86400(24 hours).
+      `kube-apiserver` will reject values shorter than 3600 (1 hour).
+
+      The signer implementation is then free to issue a certificate with any lifetime *shorter* than
+      `maxExpirationSeconds`, but no shorter than 3600 seconds (1 hour).
+      This constraint is enforced by the `kube-apiserver`. `"kubernetes.io"` signers will never
+      issue certificates with a lifetime longer than 24 hours.
+      Other issuers are restricted to a maximum of 91 day certificates.
+    x-kab-description-zh: |-
+      `maxExpirationSeconds` 是证书被允许使用的最长生命期。
+
+      如果没有设置此字段，则 `kube-apiserver` 会使用 86400（24 小时）作为默认值。
+      `kube-apiserver` 会拒绝短于一小时（3600）的设置值。
+
+      签名组件的实现可以签发生命期**短于**`maxExpirationSeconds` 但在一小时以上的证书。
+      相关的限制是由 `kube-apiserver` 来提供保障的。
+      `"kubernetes.io"` 域的签名组件不会签发超出 24 小时生命期的证书。
+      其他签名组件最多可以签发生命期为 91 天的证书。
+    format: int32
+    maximum: 7862400
+    minimum: 3600
+    type: integer
+  nodeName:
+    description: |
+      The name of the node the Pod is assigned to.
+      The field value must be a valid DNS subdomain name.
+    x-kab-description-zh: Pod 被指派的节点的名称。
+    maxLength: 253
+    minLength: 1
+    type: string
+  nodeUID:
+    description: The UID of the node the Pod is assigned to.
+    x-kab-description-zh: Pod 被指派的节点的 UID。
+    maxLength: 128
+    minLength: 1
+    type: string
+  pkixPublicKey:
+    description: |-
+      The PKIX-serialized public key the signer will issue the certificate to.
+
+      The key must be one of `"RSA3072"`, `"RSA4096"`, `"ECDSAP256"`, `"ECDSAP384"`, `"ECDSAP521"`,
+      or `"ED25519"`. Note that this list may be expanded in the future.
+
+      Signer implementations do not need to support all key types supported by the `kube-apiserver` and the `kubelet`.
+      If a signer does not support the key type used for a given PodCertificateRequest,
+      it must deny the request by setting a `status.conditions` entry with a type of `"Denied"`
+      and a reason of `"UnsupportedKeyType"`.
+      It may also suggest a key type that it does support in the `message` field.
+    x-kab-description-zh: |-
+      此字段为一个 PKIX 序列化的公钥。签名组件将针对此公钥签发证书。
+
+      公钥必须是 `"RSA3072"`、`"RSA4096"`、`"ECDSAP256"`、`"ECDSAP384"`、`"ECDSAP521"` 或 `"ED25519"` 之一。
+      注意，这里的格式集合将来可能会扩展。
+
+      签名组件的实现不必支持 `kube-apiserver` 和 `kubelet` 所支持的所有公钥类型。
+      如果签名组件不支持给定 PodCertificateRequest 所适用的公钥类型，它必须拒绝证书请求；
+      具体的方法是在请求的 `status.conditions` 中添加一项类型为 `"Deined"`、原因为 `"UnsupportedKeyType"` 的状况。
+      签名组件还可以在 `message` 字段中表明自己所支持的公钥类型。
+    format: byte
+    maxLength: 10240
+    type: string
+  podName:
+    description: The name of the Pod into which the certificate will be mounted.
+    x-kab-description-zh: |
+      字段为 Pod 名称，证书将被挂载到所引用的 Pod 中。
+    minLength: 1
+    type: string
+  podUID:
+    description: The UID of the pod into which the certificate will be mounted.
+    x-kab-description-zh: 字段为 Pod 的 UID，证书将被挂载到所引用的 Pod 中。
+    maxLength: 128
+    minLength: 1
+    type: string
+  proofOfPossession:
+    description: |-
+      This proves that the requesting kubelet holds the private key corresponding to `pkixPublicKey`.
+      It is contructed by signing the ASCII bytes of the Pod's UID using `pkixPublicKey`.
+
+      The `kube-apiserver` validates the proof of possession during creation of the PodCertificateRequest.
+
+      If the key is an RSA key, then the signature is over the ASCII bytes of the pod UID,
+      using RSASSA-PSS from RFC 8017
+      (as implemented by the golang function crypto/rsa.SignPSS with nil options).
+
+      If the key is an ECDSA key, then the signature is as described by
+      [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf)
+      (as implemented by the golang library function crypto/ecdsa.SignASN1)
+
+      If the key is an ED25519 key, then the signature is as described by the
+      [ED25519 Specification](https://ed25519.cr.yp.to/)
+      (as implemented by the golang library crypto/ed25519.Sign).
+    x-kab-description-zh: |-
+      此字段用来证明发起请求的 kubelet 确实拥有与 `pkixPublicKey` 对应的私钥。
+      字段的值是通过使用 `pkixPublicKey` 对 Pod 的 UID 的 ASCII 字节进行签名获得的。
+
+      `kube-apiserver` 会在创建 PodCertificateRequest 的时候对拥有私钥与否进行核查。
+
+      如果公钥是一个 RSA 密钥，则签名是使用 RFC 8017 中提及的 RSASSA-PSS 对 Pod 的 UID ASCII 字节进行加密得到
+      （参考 crypto/SignPSS 中的 Go 语言实现）。
+
+      如果公钥是一个 ECDSA 密钥，则签名是按 [SEC 1, Version 2.0](https://www.secg.org/sec1-v2.pdf)
+      所描述的方法生成的（参考 crypto/ecdsa.SignASN1 中的 Go 语言实现）。
+
+      如果公钥是一个 ED25519 密钥，则签名是按 [ED25519 规范](https://ed25519.cr.yp.to/)所描述的方式生成的
+      （参考 crypto/ed25519.Sign 中的 Go 语言实现）。
+    format: byte
+    maxLength: 10240
+    type: string
+  serviceAccountName:
+    description: |
+      The name of the service account the Pod is running as.
+      The field value must be a valid DNS subdomain name.
+    x-kab-description-zh: |
+      Pod 运行所使用的服务账号的名称。
+      字段值必须是合法的 DNS 子域名。
+    maxLength: 253
+    minLength: 1
+    type: string
+  serviceAccountUID:
+    description: The UID of the service account the Pod is running as.
+    x-kab-description-zh: Pod 运行所使用的服务账号的 UID。
+    maxLength: 128
+    minLength: 1
+    type: string
+  signerName:
+    description: |-
+      This indicates the requested signer.
+      The signer name is of the form `domain.com/something` for accommodating names like
+      `"<FQDN>/<namespace>.<name>"`. The maximum length of `<FQDN>` is 253 characters.
+      The maximum length of a namespace is 63 characters. The maximum length of a resource name is
+      263 characters.
+
+      All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.
+      There is currently one well-known signer documented by the Kubernetes project,
+      `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by
+      `kube-apiserver`. It is currently unimplemented.
+    x-kab-description-zh: |-
+      此字段表明所请求的签名组件。
+
+      签名组件的名称格式为 `domain.com/something`。其设计目的是为了容纳形如 `"<FQDN>/<namespace>.<name>"`
+      的名字字符串。`<FQDN>` 部分的最大长度为 253 个字符；名字空间部分最大长度为 63 字符；
+      资源名称部分最大长度为 253 字符。
+
+      所有以 `kubernetes.io` 开头的签名组件名称都被 Kubernetes 项目保留使用。
+      目前 Kubernetes 项目登记在案的签名组件只有一个，`kubernetes.io/kube-apiserver-client-pod`。
+      这个组件将负责签发 `kube-apiserver` 能够理解的客户证书。
+      这一组件目前还没实现。
+    maxLength: 571
+    minLength: 1
+    type: string
+required:
+  - nodeName
+  - nodeUID
+  - pkixPublicKey
+  - podName
+  - podUID
+  - proofOfPossession
+  - serviceAccountName
+  - serviceAccountUID
+  - signerName
+type: object
+
