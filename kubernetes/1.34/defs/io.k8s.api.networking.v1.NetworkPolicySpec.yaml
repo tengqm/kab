@@ -46,14 +46,16 @@ properties:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector'
     description: |
       Selects the Pods to which this NetworkPolicy object applies.
-      The array of `ingress` rules is applied to all Pods selected by this field.
+      The array of rules is applied to all Pods selected by this field.
       Multiple network policies can select the same set of Pods.
       In this case, the `ingress` rules for each are combined additively.
+      This field is optional. If it is not specified, it defaults to an empty selector.
       An empty `podSelector` matches all Pods in this namespace.
     x-kab-description-zh: |
       选择此 NetworkPolicy 所适用的 Pod 集合。
-      `ingress` 、`egress` 数组中的规则会被应用到此字段所选中的所有 Pod 之上。
+      规则数组会被应用到此字段所选中的所有 Pod 之上。
       多个 NetworkPolicy 对象可以选中同一组 Pod。这时，各个 NetworkPolicy 所定义的规则是叠加的。
+      此字段是可选的。如果未指定，则默认为空的选择算符。
       如果 `podSelector` 为空，则会匹配 NetworkPolicy 所在名字空间中的所有对象。
   policyTypes:
     description: |
@@ -87,7 +89,6 @@ properties:
       type: string
     type: array
     x-kubernetes-list-type: atomic
-required:
-  - podSelector
+required: []
 type: object
 
