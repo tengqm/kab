@@ -1,0 +1,27 @@
+description: |
+  PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA.
+  It stores the generated name for the corresponding special ResourceClaim created by the scheduler.
+x-kab-description-zh: |
+  PodExtendedResourceClaimStatus 存储于 PodStatus 结构中，用来表示通过 DRA 来请求的扩展资源。
+  结构中保存调度器所创建的特殊 ResourceClaim 的生成名称。
+properties:
+  requestMappings:
+    description: |
+      This identifies the mapping of <container, extended resource backed by DRA> to device request
+      in the generated ResourceClaim.
+    x-kab-description-zh: |
+      此字段用来表示从 &lt;容器，DRA 支持的扩展资源&gt; 与所生成的 ResourceClaim 中设备请求之间的映射。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerExtendedResourceRequest'
+    type: array
+    x-kubernetes-list-type: atomic
+  resourceClaimName:
+    description: The name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+    x-kab-description-zh: 在 Pod 所在的名字空间中为 Pod 生成的 ResourceClaim 的名称。
+    minLength: 1
+    type: string
+required:
+  - requestMappings
+  - resourceClaimName
+type: object
+

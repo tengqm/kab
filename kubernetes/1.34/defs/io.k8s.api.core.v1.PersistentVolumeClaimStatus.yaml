@@ -177,22 +177,18 @@ properties:
     description: |
       `currentVolumeAttributesClassName` is the current name of the VolumeAttributesClass the PVC is using.
       When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim.
-      This is an Beta field and requires enabling VolumeAttributesClass feature (off by default).
     x-kab-description-zh: |
       `currentVolumeAttributesClassName` 是此 PVC 所使用的 VolumeAttributesClass 的名称。
       未设置时表明没有 VolumeAttributeClass 被应用到此 PersistentVolumeClaim。
-      此字段处于 Beta 阶段，需要启用 VolumeAttributesClass 特性门控（默认禁用）。
     type: string
   modifyVolumeStatus:
     $ref: '#/definitions/io.k8s.api.core.v1.ModifyVolumeStatus'
     description: |
       `modifyVolumeStatus` represents the status object of ControllerModifyVolume operation.
       When this is unset, there is no ModifyVolume operation being attempted.
-      This is a Beta field and requires enabling VolumeAttributesClass feature (off by default).
     x-kab-description-zh: |
       此字段用来表示 ControllerModifyVolume 操作的状态对象。
       未设置此字段时，意味着未尝试 ModifyVolume 操作。
-      此字段处于 Beta 阶段，需要启用 VolumeAttributesClass 特性门控（默认禁用）。
   phase:
     description: |
       The current phase of PersistentVolumeClaim.

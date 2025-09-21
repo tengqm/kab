@@ -1,0 +1,111 @@
+description: PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
+x-kab-description-zh: PodCertificateProjection 用来在 Pod 的文件系统中为 Pod 提供私钥和 X.509 证书。
+properties:
+  certificateChainPath:
+    description: |-
+      Write the certificate chainat this path in the projected volume.
+
+      Most applications should use `credentialBundlePath`.
+      When using `keyPath` and `certificateChainPath`, your application needs to check that the key and
+      leaf certificate are consistent, because it is possible to read the files mid-rotation.
+    x-kab-description-zh: |-
+      在所投射的卷中将证书链写入到此路径。
+
+      大多数应用应该使用 `credentialBundlePath`。
+      使用 `keyPath` 和 `certificateChainPath` 时，你的应用需要检查密钥和叶子证书是一致的，
+      因为读数据操作期间可能正在进行证书轮换。
+    type: string
+
+  credentialBundlePath:
+    description: |-
+      Write the credential bundle at this path in the projected volume.
+
+      The credential bundle is a single file that contains multiple PEM blocks.
+      The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+
+      The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain
+      from the signer (leaf and any intermediates).
+
+      Using `credentialBundlePath` lets your Pod's application code make a single atomic read
+      that retrieves a consistent key and certificate chain.
+      If you project them to separate files, your application code will need to additionally check that
+      the leaf certificate was issued to the key.
+
+    x-kab-description-zh: |-
+      在所投射的卷中，将凭据包写入到此路径。
+
+      凭据包是一个文件，其中包含多个 PEM 块。
+      第一个 PEM 块是一个私钥（PRIVATE KEY）块，包含一个 PKCS#8 私钥。
+
+      其余的数据块都是证书（CERTIFICATE）块，包含签名组件所签发的证书链（包括叶子证书和中间证书）。
+
+      使用 `credentialBundlePath` 可以让你的 Pod 中的应用能够一次性地、原子性地完成凭据包读取动作，
+      所读取的是一致的密钥和证书链。
+      如果你将密钥和证书投射到不同的文件，你的应用就需要执行一些额外的检查操作，
+      确保证书是发放给所读到的密钥的。
+    type: string
+  keyPath:
+    description: |-
+      Write the key at this path in the projected volume.
+
+      Most applications should use `credentialBundlePath`.
+      When using `keyPath` and `certificateChainPath`, your application needs to check that the key and
+      leaf certificate are consistent, because it is possible to read the files mid-rotation.
+    x-kab-description-zh: |-
+      在所投射的卷中，将密钥写入到指定的路径。
+
+      大多数应用应该使用 `credentialBundlePath`。
+      使用 `keyPath` 和 `certificateChainPath` 时，你的应用需要检查密钥和叶子证书是一致的，
+      因为读数据操作期间可能正在进行证书轮换。
+    type: string
+  keyType:
+    description: |-
+      The type of keypair Kubelet will generate for the Pod.
+    x-kab-description-zh: |-
+      kubelet 将为 Pod 生成的密钥对的类型。
+    enum:
+      - ECDSAP256
+      - ECDSAP384
+      - ECDSAP521
+      - ED25519
+      - RSA3072
+      - RSA4096
+    type: string
+
+  maxExpirationSeconds:
+    description: |-
+      This is the maximum lifetime permitted for the certificate.
+
+      Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+
+      If omitted, the `kube-apiserver` will set it to 86400 (24 hours).
+      The `kube-apiserver` will reject values shorter than 3600 (1 hour).
+      The maximum allowable value is 7862400 (91 days).
+
+      The signer implementation is free to issue a certificate with any lifetime *shorter* than
+      `maxExpirationSeconds`, but no shorter than 3600 seconds (1 hour).
+      This constraint is enforced by the `kube-apiserver`.
+      `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+
+    x-kab-description-zh: |-
+      证书的可接受的最长的生命期。
+
+      kubelet 会忠实地将此值复制到为此投射卷所生成的 PodCertificateRequest 对象中。
+
+      如果不指定此字段，则 `kube-apiserver` 会将证书生命期设置为 86400 （24 小时）。
+      `kube-apiserver` 会拒绝小于 3600 （1 小时）的时长。最大合法值是 7862400 （91 天）。
+
+      签名组件实现可以选择发放生命期短于 `maxExpirationSeconds` 但大于 3600 秒的证书。
+      这一限制是由 `kube-apiserver` 来提供保证的。
+      名称前缀为 `kubernetes.io` 的签名组件不会发放生命期超过 24 小时的证书。
+    format: int32
+    type: integer
+  signerName:
+    description: Kubelet's generated CSRs will be addressed to this signer.
+    x-kab-description-zh: kubelet 所生成的证书签名请求（CSR）将会发送给这里所指定的签名组件。
+    type: string
+required:
+  - keyType
+  - signerName
+type: object
+

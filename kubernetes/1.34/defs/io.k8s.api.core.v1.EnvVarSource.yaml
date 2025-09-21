@@ -7,6 +7,10 @@ properties:
     $ref: '#/definitions/io.k8s.api.core.v1.ConfigMapKeySelector'
     description: Selects a key of a ConfigMap.
     x-kab-description-zh: 选择某个 ConfigMap 的一个主键。
+  fileKeyRef:
+    $ref: '#/definitions/io.k8s.api.core.v1.FileKeySelector'
+    description: This selects a key of the env file. It requires the `EnvFiles` feature gate to be enabled.
+    x-kab-description-zh: 此字段用来选择环境文件中的一个主键。使用此字段需要启用 `EnvFiles` 特性门控。
   fieldRef:
     $ref: '#/definitions/io.k8s.api.core.v1.ObjectFieldSelector'
     description: |

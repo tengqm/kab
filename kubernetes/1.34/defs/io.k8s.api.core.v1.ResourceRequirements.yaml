@@ -30,13 +30,10 @@ x-kab-description-zh:  |
 properties:
   claims:
     description: |
-      The names of resources, defined in `spec.resourceClaims`, that are used by
-      this container.
-      This is an Alpha field and requires enabling the `DynamicResourceAllocation`
-      feature gate. This field is immutable. It can only be set for containers.
+      The names of resources, defined in `spec.resourceClaims`, that are used by this container.
+      This field is immutable. It can only be set for containers.
     x-kab-description-zh: |
       在 `spec.resourceClaims` 中定义的资源的名称，当前容器要使用该资源。
-      此字段处于 Alpha 阶段，需要启用`DynamicResourceAllocation` 特性门控。
       此字段是不可变更的。此字段只能在容器层面设置。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.ResourceClaim'

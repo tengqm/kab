@@ -46,6 +46,10 @@ properties:
       $ref: '#/definitions/io.k8s.api.core.v1.ContainerStatus'
     type: array
     x-kubernetes-list-type: atomic
+  extendedResourceClaimStatus:
+    $ref: '#/definitions/io.k8s.api.core.v1.PodExtendedResourceClaimStatus'
+    description: Status of extended resource claim backed by DRA.
+    x-kab-description-zh: 用 DRA 来支持的扩展资源申领的状态。
   hostIP:
     description: |
       `hostIP` holds the IP address of the host to which the Pod is assigned.

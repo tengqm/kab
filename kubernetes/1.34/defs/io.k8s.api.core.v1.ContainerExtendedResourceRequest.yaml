@@ -1,0 +1,30 @@
+description: |
+  ContainerExtendedResourceRequest has the mapping of container name, extended resource name
+  to the device request name.
+x-kab-description-zh: |
+  ContainerExtendedResourceRequest 包含从容器名、扩展资源名到设备请求名称的映射。
+properties:
+  containerName:
+    description: |
+      The name of the container requesting resources.
+    x-kab-description: |
+      请求资源的容器的名称。
+    type: string
+  requestName:
+    description: |
+      The name of the request in the special ResourceClaim which corresponds to the extended resource.
+    x-kab-description: |
+      在特殊 ResourceClaim 中的请求的名称，与扩展资源相对应。
+    type: string
+  resourceName:
+    description: |
+      The name of the extended resource in that container which gets backed by DRA.
+    x-kab-description-zh: |
+      容器中由 DRA 负责供应的扩展资源的名称。
+    type: string
+required:
+  - containerName
+  - requestName
+  - resourceName
+type: object
+

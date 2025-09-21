@@ -4,12 +4,10 @@ properties:
   name:
     description: |
       Name of the environment variable.
-      The string must consists of alphanumeric characters, `'_'`, `'-'` or `'.'`.
-      It cannot be `"."`, `".."`, and it cannot start with `".."` or a digit.
+      May consist of any printable ASCII characters except for `=`.
     x-kab-description-zh: |
       环境变量的名称。
-      此字符串只能包含字母、数字、`'_'`、`'-'` 或 `'.'`。
-      字符串不可以是 `"."` 或者 `".."`，也不能以 `".."` 开头。
+      其中可以包含任何可打印的 ASCII 字符，除了 `=` 之外。
     minLength: 1
     pattern: '[-._a-zA-Z][-._a-zA-Z0-9]*'
     type: string

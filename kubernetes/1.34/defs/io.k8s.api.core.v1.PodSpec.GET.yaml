@@ -131,7 +131,7 @@ properties:
       $ref: '#/definitions/io.k8s.api.core.v1.HostAlias'
     type: array
     x-kubernetes-list-map-keys:
-      - ip 
+      - ip
     x-kubernetes-list-type: map
     x-kubernetes-patch-merge-key: ip
     x-kubernetes-patch-strategy: merge
@@ -144,10 +144,14 @@ properties:
     default: false
     description: |
       Host networking requested for this Pod. Use the host's network namespace.
-      If this option is set, the ports that will be used must be specified.
+      When using `hostNetwork`, you should specify ports so the scheduler is aware.
+      When `hostNetwork` is true, the specified `hostPort` fields in port definitions must match `containerPort`,
+      and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`.
     x-kab-description-zh: |
       此字段表明 Pod 要求访问主机网络，使用所在主机的 network 名字空间。
-      若设置了此字段，则必须指定要使用的端口。
+      启用了 `hostNetwork` 时，你需要设置端口号以便调度器可以感知。
+      当 `hostNetwork` 被设置为 true 时，端口定义中的 `hostPort` 字段必须与其 `containerPort` 匹配；
+      对于端口定义中未设置的 `hostPort`，其默认值是与 `containerPort` 相匹配。
     type: boolean
   hostPID:
     default: false
@@ -183,6 +187,33 @@ properties:
     x-kab-description-zh: |
       Pod 的主机名。如果设置了此字段，则字符串值必须是合法的 DNS 标签值。
       如果未设置此字段，则 Pod 的主机名会被设置为一个系统定义的值。
+    type: string
+  hostnameOverride:
+    description: |
+      This specifies an explicit override for the Pod's hostname as perceived by the Pod.
+      This field only specifies the Pod's hostname and does not affect its DNS records.
+      When this field is set to a non-empty string:
+
+      - It takes precedence over the values set in `hostname` and `subdomain`.
+      - The Pod's hostname will be set to this value.
+      - `setHostnameAsFQDN` must be nil or set to false.
+      - `hostNetwork` must be set to false.
+
+      This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
+      This field is at Alpha stage, it requires the `HostnameOverride` feature gate to be enabled.
+
+    x-kab-description-zh: |
+      此字段用来显式覆盖 Pod 可见的 Pod 主机名。
+      此字段只会影响 Pod 的主机名，不会影响其 DNS 记录。
+      当此字段被设置为非空字符串时：
+
+      - 此字段值会优先于 `hostname` 和 `subdomain` 字段中所设置的值起作用；
+      - Pod 的主机名会被设置为所给的字符串值；
+      - `setHostnameAsFQDN` 属性必须不设置或者设置为 false；
+      - `hostNetwork` 属性必须设置为 false。
+
+      字段值必须是一个符合 RFC 1123 规定的合法的 DNS 子域名，最长 64 个字符。
+      字段处于 Alpha 阶段，使用此字段需要启用 `HostnameOverride` 特性门控。
     type: string
   imagePullSecrets:
     description: |
@@ -276,6 +307,7 @@ properties:
       - `spec.hostPID`
       - `spec.hostIPC`
       - `spec.hostUser`
+      - `spec.resources`
       - `spec.securityContext.appArmorProfile`
       - `spec.securityContext.seLinuxOptions`
       - `spec.securityContext.seccompProfile`
@@ -328,6 +360,7 @@ properties:
       - `spec.containers[*].securityContext.procMount`
       - `spec.containers[*].securityContext.runAsUser`
       - `spec.containers[*].securityContext.runAsGroup`
+
   overhead:
     additionalProperties:
       $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
@@ -407,15 +440,16 @@ properties:
     "$ref": "#/definitions/io.k8s.api.core.v1.ResourceRequirements"
     description: |-
       `resources` is the total amount of CPU and Memory resources required by all containers in the pod.
-      It supports specifying `requests` and `limits` for `\"cpu\"` and `\"memory\"` resource names only.
-      `ResourceClaims are not supported.
+      It supports specifying `requests` and `limits` for `"cpu"`,`"memory"` and `"hugepages-"`
+      resource names only. ResourceClaims are not supported.
 
       This field enables fine-grained control over resource allocation for the entire pod,
       allowing resource sharing among containers in a pod.
       This is an Alpha field and requires enabling the `PodLevelResources` feature gate.
     x-kab-description-zh: |-
       `resources` 是 Pod 中所有容器所需要的 CPU 和内存资源的总量。
-      此字段仅支持设置 `\"cpu\"` 和 `\"memory\"` 作为 `requests` 和 `limits`，不支持 `resourceClaims`。
+      此字段仅支持设置 `"cpu"`、`"memory"` 和 `"hugepages-"` 作为 `requests` 和 `limits`，
+      不支持 `resourceClaims`。
 
       此字段用于为整个 Pod 作资源分配上的细粒度控制，允许 Pod 内的容器共享资源。
 

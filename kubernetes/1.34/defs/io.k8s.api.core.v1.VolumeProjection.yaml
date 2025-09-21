@@ -34,6 +34,59 @@ properties:
     $ref: '#/definitions/io.k8s.api.core.v1.DownwardAPIProjection'
     description: Information about the downwardAPI data to project.
     x-kab-description-zh: 关于要被投射的 DownwardAPI 数据的信息。
+  podCertificate:
+    ref: '#/definitions/io.k8s.api.core.v1.PodCertificateProjection'
+    description: |
+      Projects an auto-rotating credential bundle (private key and certificate chain) that
+      the Pod can use either as a TLS client or server.
+
+      The kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.
+      Once the signer approves the request and issues a certificate chain,
+      Kubelet writes the key and certificate chain to the Pod filesystem.
+      The Pod does not start until certificates have been issued
+      for each `podCertificate` projected volume source in its spec.
+
+      The kubelet will begin trying to rotate the certificate at the time indicated by the signer
+      using the `PodCertificateRequest.status.beginRefreshAt` timestamp.
+      The kubelet can write a single file, indicated by the `credentialBundlePath` field, or separate files,
+      indicated by the `keyPath` and `certificateChainPath` fields.
+
+      The credential bundle is a single file in PEM format.
+      The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are
+      the certificate chain issued by the signer (typically, signers will return their certificate chain in
+      leaf-to-root order).
+
+      Prefer using the credential bundle format, since your application code can read it atomically.
+      If you use `keyPath` and `certificateChainPath`, your application must make two separate file reads.
+      If these coincide with a certificate rotation, it is possible that the private key and leaf certificate
+      you read may not correspond to each other.
+      Your application will need to check for this condition, and re-read until they are consistent.
+
+      The named signer controls chooses the format of the certificate it issues;
+      consult the signer implementation's documentation to learn how to use the certificates it issues.
+
+    x-kab-description-zh: |
+      此类型数据卷可以投射一个自动轮换的凭据包（私钥和证书链）到 Pod 中，
+      Pod 可以使用它们来构造 TLS 客户端或服务器。
+
+      kubelet 会生成一个私钥，并使用它来向指定的签名组件发送一个 PodCertificateRequest。
+      一旦签名组件批准了请求并签发了一个证书链，kubelet 会将密钥和证书链写入到 Pod 的文件系统中。
+      在 Pod 的 spec 中定义的所有 `podCertificate` 投射卷源中的证书都已发放之前，Pod 不会启动。
+
+      从签名组件使用 `PodCertificateRequest。status.beginRefreshAt` 所表明的时间戳开始，
+      kubelet 会尝试刷新证书。
+      kubelet 可以根据 `credentialBundlePath` 所给的路径将凭据包写入一个文件中，
+      也可以根据 `keyPath` 和 `certificateChainPath` 字段的设置，将凭据数据写入多个文件中。
+
+      凭据包是一个 PEM 格式的文件。第一个 PEM 项是 PKCS#8 格式的私钥；
+      其余的 PEM 项是签名组件所签发的证书链（通常签名组件会按照从叶子到根的顺序返回其证书链）。
+
+      用户应该优选凭据包格式，因为你的应用代码可以原子性地读入整个包文件。
+      如果使用的是 `keyPath` 和 `certificateChainPath` 字段，则你的应用需要分开读入这两个文件。
+      如果多次文件读操作与证书轮换操作出现交错执行的情况，则有可能私钥信息与叶子证书之间会出现失配。
+      你的应用需要检查这种状况，并反复重读文件直到二者是一致的。
+
+      指定的签名组件控制它所签发的证书的格式；你需要参阅签名组件实现的文档，了解如何使用它所签发的证书。
   secret:
     $ref: '#/definitions/io.k8s.api.core.v1.SecretProjection'
     description: Information about a Secret whose data will be projected.

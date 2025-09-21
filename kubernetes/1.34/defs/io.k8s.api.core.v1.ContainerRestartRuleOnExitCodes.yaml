@@ -1,0 +1,38 @@
+description: |
+  ContainerRestartRuleOnExitCodes describes the condition for handling an exited container
+  based on its exit codes.
+x-kab-description-zh: |
+  ContainerRestartRuleOnExitCodes 描述根据容器退出代码来处理其退出事件的条件。
+properties:
+  operator:
+    description: |-
+      This represents the relationship between the container exit code(s) and the specified values.
+      Possible values are:
+      - `"In"`: the requirement is satisfied if the container exit code is in the set of specified values.
+      - `"NotIn"`: the requirement is satisfied if the container exit code is not in the set of specified values.
+
+    x-kab-description-zh: |-
+      此字段表示容器退出代码与所给检查值之间的关系。可选值包括：
+      - `"In"`：如果容器退出代码在所给的值集之内，则视为满足条件；
+      - `"NotIn"`：如果容器退出代码不在所给的值集之内，则视为满足条件。
+
+    enum:
+      - In
+      - NotIn
+    type: string
+  values:
+    description: |
+      This specifies the set of values to check for container exit codes.
+      At most 255 elements are allowed.
+    x-kab-description-zh: |
+      此字段给出用来比较检查的容器退出代码范围。最多可以包含 255 个元素。
+    items:
+      format: int32
+      type: integer
+    maxItems: 255
+    type: array
+    x-kubernetes-list-type: set
+required:
+  - operator
+type: object
+

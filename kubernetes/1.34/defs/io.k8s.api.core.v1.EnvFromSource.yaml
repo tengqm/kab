@@ -12,13 +12,11 @@ properties:
   prefix:
     description: |
       Optional text to prepend to the name of each environment valirable.
-      The string must consist of alphabetic characters, digits, `'_'`, `'-'`, or `'.'`,
-      and it must not start with a digit.
-      The string cannot be `"."`, `".."` and it cannot start with `".."`.
+      May consist of any printable ASCII charaters except for `=`.
+      
     x-kab-description-zh: |
       一个可选的标识符，将被添加到各个环境变量名上作为其前缀。
-      此字符串只能包含字母、数字、`'_'`、`'-'` 或 `'.'`，且不能以数字开头。
-      字符串不可以是 `"."` 或者 `".."`，也不能以 `".."` 开头。
+      此字符串可以包含任何可打印的 ASCII 字符，除了 `=`。
     type: string
   secretRef:
     $ref: '#/definitions/io.k8s.api.core.v1.SecretEnvSource'

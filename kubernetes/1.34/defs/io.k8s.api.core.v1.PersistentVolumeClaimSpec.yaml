@@ -140,29 +140,27 @@ properties:
 
       If specified, the CSI driver will create or update the volume with the attributes defined in
       the corresponding VolumeAttributesClass.
-      An empty string value means that no VolumeAttributesClass will be applied to the claim.
+      An empty string value or nil value means that no VolumeAttributesClass will be applied to the claim.
+      If the claim enters an `Infeasible` error state, this field can be reset to its previous value
+      (including nil) to cancel the modification.
       If the resource referred to by `volumeAttributesClassName` does not exist, this PersistentVolumeClaim will
       be set to a Pending state, as reflected by the `modifyVolumeStatus` field, until such as a resource exists.
 
-      This field is at Beta stage. Using this field requires the `VolumeAttributesClass` feature gate (off by default) to be enabled.
-      If the `VolumeAttributesClass` gate is not enabled, this field cannot be updated.
-      When updating this field, it's not allowed to update this field from a non-empty string to an empty string.
       The field value must be a valid DNS subdomain name.
 
       More info can be found at [official docs](https://kubernetes.io/docs/concepts/storage/volume-attributes-class/).
     x-kab-description-zh: |
       此字段用来设置对应 PVC 所使用的 VolumeAttributesClass。
       字段的用途与 `storageClassName` 不同；此字段可以在 PVC 已经被创建之后变更。
-      如果未指定此字段，并且 PersistentVolumeClaim 处于未绑定状态，则 PV 控制器会尝试设置默认的 VolumeAttributesClass（如果有的话）。
+      如果未指定此字段，并且 PersistentVolumeClaim 处于未绑定状态，则 PV 控制器会尝试设置默认的
+      VolumeAttributesClass（如果有的话）。
 
       如果设置了此字段，则 CSI 驱动会根据对应的 VolumeAttributesClass 中定义的属性来创建或更新存储卷。
-      字段为空字符串意味着没有 VolumeAttributesClass 适用于当前的 PVC。
-      如果 `volumeAttributesClassName` 所引用的资源尚不存在，则 PVC 会被设置为 Pending 状态，反映在 `modifyVolumeStatus` 中，
-      直到对应的资源存在为止。
+      字段为空字符串或者未设置意味着没有 VolumeAttributesClass 适用于当前的 PVC。
+      如果卷申领进入某种 `Infeasible` 错误状态，此字段可以被重设为之前的值（包括 nil）以取消所作修改。
+      如果 `volumeAttributesClassName` 所引用的资源尚不存在，则 PVC 会被设置为 Pending 状态，
+      反映在 `modifyVolumeStatus` 中，直到对应的资源存在为止。
 
-      此字段处于 Beta 阶段。使用此字段需要启用 `VolumeAttributesClass` 特性门控（默认禁用）。
-      如果未启用 `VolumeAttributesClass` 特性门控，则此字段不可被更新。
-      更新此字段时，不允许将字段值从非空字符串改为空字符串。
       字段值必须是合法的 DNS 子域名。
 
       参阅[官方文档](https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-class/)，

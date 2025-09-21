@@ -1,0 +1,23 @@
+description: ContainerRestartRule describes how a container exit is handled.
+x-kab-description-zh: ContainerRestartRule 描述如何处理容器退出事件。
+properties:
+  action:
+    description: |
+      Specifies the action taken on a container exit if the requirements are satisfied.
+      The only possible value is "Restart" to restart the container.
+    enum:
+      - Restart
+    x-kab-description-zh: |
+      字段设置满足条件时要针对容器退出事件采取的动作。
+      目前支持的唯一选项是 `"Restart"`，即重启容器。
+    type: string
+  exitCodes:
+    $ref: '#/definitions/io.k8s.api.core.v1.ContainerRestartRuleOnExitCodes'
+    description: |
+      This represents the exit codes to check on container exits.
+    x-kab-description-zh: |
+      此字段设置要在容器退出时检查的退出代码。
+required:
+  - action
+type: object
+

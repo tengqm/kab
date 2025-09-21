@@ -61,20 +61,16 @@ properties:
   envFrom:
     description: |
       List of sources to populate environment variables in the container.
-      The keys defined within a source must be a valid DNS subdomain name.
-      They must consist of alphanumeric characters, `'.'`, `'-'`, or `'_'`.
-      They cannot start with `".."` or a digit. They cannot be `"."` or `".."`.
-      All invalid keys will be reported as an event when the container is starting.
+      The keys defined within a source may consist of any printable ASCII characters except `=`.
       When a key exists in multiple sources, the value associated with the last source
       will take precedence.
       Values defined by an `env` with a duplicate key will take precedence.
       Cannot be updated.
     x-kab-description-zh: |
       此字段为一个列表，给出一组来源，用来为容器设置环境变量。
-      每个来源定义所使用的键名必须是合法的 DNS 子域名，其中只能包含字母、数字以及
-      `'.'`、`'-'` 或者 `'_'`。键名不能以 `".."` 或者数字开头，也不可以是 `"."` 或者 `".."`。
-      对于所有的非法键名，在容器启动时都会以事件形式形成报告。如果某个键名在多个来源中同时存在，
-      优先选择最后一个来源中的键值。如果 `env` 中存在重名的键名，以 `env` 中的定义为准。
+      每个来源定义所使用的键名可以包含任何可打印的 ASCII 码字符，除了 `=`。
+      如果某个键名在多个来源中同时存在，优先选择最后一个来源中的键值。
+      如果 `env` 中存在重名的键名，以 `env` 中的定义为准。
       此字段不可更新。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EnvFromSource'
@@ -189,31 +185,63 @@ properties:
   restartPolicy:
     description: |
       This defines the restart behavior of individual containers in a Pod.
-      This field may only be set for init containers, and the only allowed value is `"Always"`.
-      For non-init containers or when this field is not specified, the restart behavior is defined
-      by the Pod's restart policy and the container type.
-      Setting the `restartPolicy` to `"Always"` for an init container will have the following effect:
-      the init container will be continually restarted on exit until all regular containers have
-      terminated. Once all regular containers have completed, all init containers with restartPolicy
-      `"Always"` will be shut down.
-      This lifecycle differs from normal init containers and is often referred to as a \"sidecar\"
-      container. Although this init container still starts in the init container sequence,
+      This overrides the Pod-level restart policy.
+      When this field is not specified, the restart behavior is defined by the Pod's restart policy and
+      the container type. Additionally, setting the `restartPolicy` to \"Always\" for an Init container
+      will have the following effect:
+      the init container will be continually restarted on exit until all regular containers have terminated.
+      Once all regular containers have completed, all init containers with `restartPolicy` \"Always\"
+      will be shut down.
+      This lifecycle differs from normal init containers and is often referred to as a \"sidecar\" container.
+      Although this init container still starts in the init container sequence,
       it does not wait for the container to complete before proceeding to the next init container.
       Instead, the next init container starts immediately after this init container is started,
       or after any `startupProbe` has successfully completed.
     x-kab-description-zh: |
-      此字段用来设置 Pod 中各个容器的重启策略。这个字段只能应用在初始化容器（Init Container）之上，
-      并且合法的取值只能是 `"Always"`。
-      对于非初始化容器以及未设置 `restartPolicy` 的初始化容器，其重启策略是由 Pod 和容器类型来决定的。
-      将初始化容器的 `restartPolicy` 设置为 `"Always"` 会有以下效果：
-      这些初始化容器在退出之后会被持续重启，知道所有常规容器都已经结束为止。
-      当所有常规容器都已经结束退出时，`restartPolicy` 设置为 `"Always"` 的初始容器也会被停止。
-      这一生命周期行为与普通的初始化容器不同，通常被称作**边车（Sidecar）容器**。
-      尽管这类边车容器也是在初始化容器序列中被启动，但它们不会等待前面的容器结束才启动。
+      此字段用来设置 Pod 中各个容器的重启策略。此设置会覆盖 Pod 层面的 `restartPolicy` 设置。
+      如果此字段未设置，则容器的重启行为取决于 Pod 的重启策略设置和容器自身的类型。
+      将 Init 容器的 `restartPolicy` 设置为 `"Always"` 会有以下效果：
+      这些 Init 容器在退出之后会被持续重启，直到所有常规容器都已经结束为止。
+      当所有常规容器都已经结束退出时，`restartPolicy` 设置为 `"Always"` 的 Init 容器也会被停止。
+      这一生命周期行为与普通的 Init 容器不同，它们通常被称作**边车（Sidecar）容器**。
+      尽管这类边车容器也是在 Init 容器序列中被启动，但它们不会等待前面的容器结束才启动。
       各个边车容器是相继启动的。边车容器可以等待前序容器的 `startupProbe` 成功再启动。
     enum:
       - Always
     type: string
+  restartPolicyRules:
+    description: |-
+      This represents a list of rules to be checked to determine if the container should be restarted on exit.
+      The rules are evaluated in order. Once a rule matches a container exit condition,
+      the remaining rules are ignored.
+      If no rule matches the container exit condition, the Container-level `restartPolicy` determines
+      whether the container is restarted or not.
+
+      Constraints on the rules:
+
+      - At most 20 rules are allowed.
+      - Rules can have the same action.
+      - Identical rules are not forbidden in validations.
+
+      When rules are specified, container MUST set `restartPolicy` explicitly even if
+      it matches the Pod's RestartPolicy.
+    x-kab-description-zh: |-
+      此字段包含一个规则列表，系统会检查这些规则来确定容器退出时是否应该被重启。
+      列表中的规则按所定义的顺序被处理。一旦某条规则与容器的退出状况匹配，则剩余的规则会被忽略掉。
+      如果列表中没有规则与容器的退出状况匹配，则容器层面的 `restartPolicy` 设置会决定容器是否被重启。
+
+      规则列表存在一定的约束：
+
+      - 最多允许 20 条规则；
+      - 多条规则可以使用同一动作（action）；
+      - 规则可以重复，系统不会检查规则的唯一性。
+
+      当重启规则被设置时，即使容器的 `restartPolicy` 与 Pod 层面的重启策略完全一致，也需要被显式设置。
+    items:
+      $ref: '#/definitions/io.k8s.api.core.v1.ContainerRestartRule'
+    maxItems: 20
+    type: array
+    x-kubernetes-list-type: atomic
   securityContext:
     $ref: '#/definitions/io.k8s.api.core.v1.SecurityContext'
     description: |

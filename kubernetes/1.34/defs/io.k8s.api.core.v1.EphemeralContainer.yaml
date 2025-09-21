@@ -76,20 +76,16 @@ properties:
   envFrom:
     description: |
       List of sources to populate environment variables in the container.
-      The keys defined within a source must be a valid DNS subdomain name.
-      They must consist of alphanumeric characters, `'.'`, `'-'`, or `'_'`.
-      They cannot start with `".."` or a digit. They cannot be `"."` or `".."`.
-      All invalid keys will be reported as an event when the container is starting.
+      The keys defined within a source may consist of any printable ASCII characters except for `=`.
       When a key exists in multiple sources, the value associated with the last source
       will take precedence.
       Values defined by an `env` with a duplicate key will take precedence.
       Cannot be updated.
     x-kab-description-zh: |
       此字段为一个列表，给出一组来源，用来为容器设置环境变量。
-      每个来源定义所使用的键名必须是合法的 DNS 子域名，其中只能包含字母、数字以及
-      `'.'`、`'-'` 或者 `'_'`。键名不能以 `".."` 或者数字开头，也不可以是 `"."` 或者 `".."`。
-      对于所有的非法键名，在容器启动时都会以事件形式形成报告。如果某个键名在多个来源中同时存在，
-      优先选择最后一个来源中的键值。如果 `env` 中存在重名的键名，以 `env` 中的定义为准。
+      每个来源定义所使用的键名可以包含除 `=` 之外的所有可打印 ASCII 字符。
+      如果某个键名在多个来源中同时存在，优先选择最后一个来源中的键值。
+      如果 `env` 中存在重名的键名，以 `env` 中的定义为准。
       此字段不可更新。
     items:
       $ref: '#/definitions/io.k8s.api.core.v1.EnvFromSource'
