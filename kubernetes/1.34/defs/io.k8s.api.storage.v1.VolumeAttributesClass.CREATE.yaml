@@ -1,8 +1,8 @@
-description: |
+description: |-
   VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver.
   The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the
   PersistentVolumeClaim spec after provisioning.
-x-kab-description-zh: |
+x-kab-description-zh: |-
   VolumeAttributesClass 代表的是 CSI 驱动所定义的、可变更的存储卷属性规约。
   此信息可以在动态制备 PersistentVolumeClaim 对象时指定，并可以在制备之后更改 PersistentVolumeClaim 规约时变更。
 properties:
@@ -10,7 +10,7 @@ properties:
     description: The version of the schema for the object representation.
     x-kab-description-zh: 对象表示模式的版本。
     enum:
-      - storage.k8s.io/v1beta1
+    - storage.k8s.io/v1
     type: string
   driverName:
     description: Name of the CSI driver. This field is immutable. The value must be a valid qualified name.
@@ -24,20 +24,20 @@ properties:
       - VolumeAttributesClass
     type: string
   metadata:
-    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.GET'
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.CREATE'
     description: Standard object metadata. This name must be a valid DNS subdomain name.
     x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
   parameters:
     additionalProperties:
       type: string
-    description: |
+    description: |-
       `parameters` hold volume attributes defined by the CSI driver.
       These values are opaque to the Kubernetes and are passed directly to the CSI driver.
       The underlying storage provider supports changing these attributes on an existing volume,
       however the parameters field itself is immutable.
       To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and
       the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
-      
+
       This field is required and must contain at least one key/value pair.
       The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K.
       If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an `"Infeasible"`
@@ -65,5 +65,5 @@ type: object
 x-kubernetes-group-version-kind:
   - group: storage.k8s.io
     kind: VolumeAttributesClass
-    version: v1beta1
+    version: v1
 

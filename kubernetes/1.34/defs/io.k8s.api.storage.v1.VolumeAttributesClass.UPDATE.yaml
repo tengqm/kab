@@ -1,0 +1,34 @@
+description: |
+  VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver.
+  The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the
+  PersistentVolumeClaim spec after provisioning.
+x-kab-description-zh: |
+  VolumeAttributesClass 代表的是 CSI 驱动所定义的、可变更的存储卷属性规约。
+  此信息可以在动态制备 PersistentVolumeClaim 对象时指定，并可以在制备之后更改 PersistentVolumeClaim 规约时变更。
+properties:
+  apiVersion:
+    description: The version of the schema for the object representation.
+    x-kab-description-zh: 对象表示模式的版本。
+    enum:
+      - storage.k8s.io/v1
+    type: string
+  kind:
+    description: A string value representing the REST resource.
+    x-kab-description-zh: 代表 REST 资源的字符串值。
+    enum:
+      - VolumeAttributesClass
+    type: string
+  metadata:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.UPDATE'
+    description: Standard object metadata. This name must be a valid DNS subdomain name.
+    x-kab-description-zh: 标准的对象元数据。`name` 必须是合法的 DNS 子域名。
+required:
+  - apiVersion
+  - kind
+  - metadata
+type: object
+x-kubernetes-group-version-kind:
+  - group: storage.k8s.io
+    kind: VolumeAttributesClass
+    version: v1
+

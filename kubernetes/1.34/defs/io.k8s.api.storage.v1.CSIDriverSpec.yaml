@@ -10,8 +10,8 @@ properties:
       `volumeattachment` status and waits until the volume is attached before proceeding to mounting.
       The CSI `"external-attacher"` coordinates with CSI volume driver and updates the
       `volumeattachment` status when the `attach` operation is complete.
-      If the `CSIDriverRegistry` feature gate is enabled and the value is specified to `false`,
-      the `attach` operation will be skipped. Otherwise the `attach` operation will be called.
+      If the value is specified to `false`, the `attach` operation will be skipped.
+      Otherwise the `attach` operation will be called.
 
       This field is immutable.
     x-kab-description-zh: |
@@ -20,11 +20,11 @@ properties:
       并等待卷被挂接之后才继续执行挂载操作。
       CSI `"external-attacher"` 组件会与 CSI 卷驱动一起，在 `attach` 操作完成之后更新 `volumeattachment`
       的状态。
-      如果启用了 `CSIDriverRegistry` 特性门控，并且此字段值被设置为 `false`，则会略过 `attach` 操作。
-      否则会调用 `attach` 操作。
+      如果此字段值被设置为 `false`，则会略过 `attach` 操作。否则会调用 `attach` 操作。
 
       此字段是不可变更的。
     type: boolean
+
   fsGroupPolicy:
     default: ReadWriteOnceWithFSType
     description: |
@@ -80,7 +80,7 @@ properties:
       and the `allocatable.count` remains static.
       The minimum allowed value for this field is 10 seconds.
 
-      This is an Alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+      This is a Beta feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
 
       This field is mutable.
     x-kab-description-zh: |-
@@ -90,9 +90,9 @@ properties:
       字段 `allocatable.count` 的值因此会变成静态值。
       此字段的最小值是 10 秒钟。
 
-      此字段处于 Alpha 阶段，需要启用 MutableCSINodeAllocatableCount 特性门控才能使用。
+      此字段处于 Beta 阶段，需要启用 MutableCSINodeAllocatableCount 特性门控才能使用。
 
-      此字段是不可变更的。
+      此字段是可变更的。
     format: int64
     minimum: 10
     type: integer
