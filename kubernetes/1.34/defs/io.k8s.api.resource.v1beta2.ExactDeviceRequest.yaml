@@ -17,6 +17,7 @@ properties:
       此字段处于 Alpha 阶段，需要启用 `DRAAdminAccess` 特性门控。
       如果此字段未设置或者设置为 false，则禁用管理性访问，否则视为启用管理性访问。
     type: boolean
+
   allocationMode:
     description: |
       `allocationMode` and its related fields define how devices are allocated to satisfy this request.
@@ -45,6 +46,31 @@ properties:
 
       将来可能会添加新的模式值。客户必须拒绝处理模式无法识别的请求。
     type: string
+
+  capacity:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta2.CapacityRequirements'
+    description: |
+      `capacity` define resource requirements against each capacity.
+
+      If this field is unset and the device supports multiple allocations,
+      the default value will be applied to each capacity according to `requestPolicy`.
+      For the capacity that has no `requestPolicy`, default is the full capacity value.
+
+      Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices
+      that meet the requirements.
+      If `allocationMode` is set to `"All"`, the request fails if there are devices that
+      otherwise match the request, and have this capacity, with a value >= the requested amount,
+      but which cannot be allocated to this request.
+    x-kab-description-zh: |
+      `capacity` 定义针对每种容量的资源需求。
+
+      如果此字段未设置，并且设备支持多次分配，则默认值会基于 `requestPolicy` 来为每类容量设置。
+      对于没有 `requestPolicy` 的容量，默认值为全量的容量值。
+
+      此设置适用于每次设备分配。如果 `count > 1`，若设备数量无法满足需求，则请求会失败。
+      如果 `allocationMode` 被设置为 `"All"`，如果设备数量能够满足请求、容量也足够，
+      数量值大于所请求的数量，但无法分配给此请求，则请求会失败。
+
   count:
     description: |
       `count` is used only when the count mode is `"ExactCount"`. Must be greater than zero.
@@ -75,6 +101,7 @@ properties:
       管理员可能使用此字段来限制哪些设备可被请求，方法是仅为通过选择算符选定的可访问设备安装设备类。
       如果用户可以随意申请任何设备，不加限制，则管理员可以创建一个空的 DeviceClass 供用户来引用。
     type: string
+
   selectors:
     description: |
       `selectors` define criteria which must be satisfied by a specific device
@@ -87,6 +114,7 @@ properties:
       $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceSelector'
     type: array
     x-kubernetes-list-type: atomic
+
   tolerations:
     description: |-
       If specified, the request's tolerations.

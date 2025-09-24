@@ -1,0 +1,33 @@
+description: AllocationResult contains attributes of an allocated resource.
+x-kab-description-zh: AllocationResult 包含所分配的某资源的属性。
+properties:
+  allocationTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      This stores the time when the resources were allocated.
+      This field is not guaranteed to be set, in which case that time is unknown.
+
+      This is an Alpha field and requires enabling the `DRADeviceBindingConditions` and `DRAResourceClaimDeviceStatus` feature gate.
+    x-kab-description-zh: |
+      此字段保存资源被分配的时间。
+      系统不保证此字段一定会被设置，可能系统并不知道资源被分配的时间。
+
+      字段处于 Alpha 阶段，需要启用 `DRADeviceBindingConditions` 和
+      `DRAResourceClaimDeviceStatus` 特性门控。
+
+  devices:
+    $ref: '#/definitions/io.k8s.api.resource.v1.DeviceAllocationResult'
+    description: |-
+      `devices` is the result of allocating devices.
+    x-kab-description-zh: |-
+      `devices` 是分配设备的结果。
+  nodeSelector:
+    $ref: '#/definitions/io.k8s.api.core.v1.NodeSelector'
+    description: |-
+      `nodeSelector` defines where the allocated resources are available.
+      If unset, they are available everywhere.
+    x-kab-description-zh: |-
+      `nodeSelector` 定义所分配的资源在哪里能够访问到。
+      如果没有设置，则表明资源可以在所有位置都可以访问到。
+type: object
+

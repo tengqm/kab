@@ -1,0 +1,39 @@
+description: DeviceAllocationConfiguration gets embedded in an AllocationResult.
+x-kab-description: DeviceAllocationConfiguration 结构內嵌在 AllocationResult 中。
+properties:
+  opaque:
+    $ref: '#/definitions/io.k8s.api.resource.v1.OpaqueDeviceConfiguration'
+    description: |-
+      `opaque` provides driver-specific configuration parameters.
+    x-kab-description-zh: |-
+      `opaque` 提供特定于驱动的配置参数信息。
+  requests:
+    description: |-
+      `requests` lists the names of requests where the configuration applies.
+      If empty, its applies to all requests.
+
+      References to subrequests must include the name of the main request and
+      may include the subrequest using the format `<main request>[/<subrequest>]`.
+      If just the main request is given, the configuration applies to all subrequests.
+    x-kab-description-zh: |-
+      `requests` 列举配置所适用的请求的名称列表。如果此列表为空，则配置适用于所有请求。
+
+      对子请求的引用必须将主请求的名称包含在内，也可以使用 `<主请求>[/<子请求>]` 的形式包含子请求。
+      如果只给了主请求部分，则对应的配置适用于所有子请求。
+    items:
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+  source:
+    description: |
+      `source` records whether the configuration comes from a class and thus
+      is not something that a normal user would have been able to set or from a claim.
+    x-kab-description-zh: |
+      `source` 用来记录配置信息是否来自于某个设备类或来自某申领。
+      如果信息来自设备类，这个字段不是一般用户可以设置的。
+    minLength: 1
+    type: string
+required:
+  - source
+type: object
+

@@ -1,12 +1,39 @@
 description: DeviceCapacity describes a quantity associated with a device.
 x-kab-description-zh: DeviceCapacity 描述与某个设备相关的数量信息。
 properties:
+  requestPolicy:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.CapacityRequestPolicy'
+    description: |-
+      This defines how this DeviceCapacity must be consumed when the device is allowed to be shared
+      by multiple allocations.
+
+      The Device must have `allowMultipleAllocations` set to true in order to set a `requestPolicy`.
+
+      If unset, capacity requests are unconstrained.
+      Requests can consume any amount of capacity, as long as the total consumed across all allocations
+      does not exceed the device's defined capacity.
+      If request is also unset, default is the full capacity value.
+
+    x-kab-description-zh: |
+      此字段定义在设备可以被多例分配共享时如何耗用 DeviceCapacity。
+
+      对应的 Device 必须将 `allowMultipleAllocations` 设置为 True 才能设置 `requestPolicy`。
+
+      如果没有设置此字段，则容量请求是不受约束的。
+      设备请求可以耗用任意数量的设备容量，只要所有分配所好用的总量没有超过设备所定义的总容量就可以。
+      如果请求容量也未设置，则默认的请求容量是设备的总容量。
   value:
     $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
     description: |-
       `value` defines how much of a certain device capacity is available.
+
+      This field reflects the fixed total capacity and does not change.
+      The consumed amount is tracked separately by scheduler and does not affect this value.
     x-kab-description-zh: |-
       `value` 定义某个设备上有多少容量可用。
+
+      此字段反映的是设备上固定的总容量，其值不会发生变化。
+      设备被耗用的容量由调度器进行分别跟踪，不会影响此值。
 required:
   - value
 type: object

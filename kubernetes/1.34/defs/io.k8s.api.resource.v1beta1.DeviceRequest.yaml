@@ -27,6 +27,7 @@ properties:
       此字段处于 Alpha 阶段，需要启用 `DRAAdminAccess` 特性门控。
       如果此字段未设置或者设置为 false，则禁用管理性访问，否则视为启用管理性访问。
     type: boolean
+
   allocationMode:
     default: ExactCount
     description: |
@@ -65,6 +66,33 @@ properties:
 
       将来可能会添加新的模式值。客户必须拒绝处理模式无法识别的请求。
     type: string
+
+  capacity:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.CapacityRequirements'
+    description: |-
+      `capacity` define resource requirements against each capacity.
+
+      If this field is unset and the device supports multiple allocations,
+      the default value will be applied to each capacity according to `requestPolicy`.
+
+      For the capacity that has no `requestPolicy`, default is the full capacity value.
+      Applies to each device allocation.
+      If `count > 1`, the request fails if there aren't enough devices that meet the requirements.
+      If `allocationMode` is set to `"All"`, the request fails if there are devices that
+      otherwise match the request, and have this capacity, with a value >= the requested amount,
+      but which cannot be allocated to this request.
+
+    x-kabdescription-zh: |-
+      `capacity` 的作用是针对不同的容量定义资源需求。
+
+      如果此字段未设置并且设备支持多次分配，则依据 `requestPolicy` 来为每种容量应用默认值。
+
+      如果设备容量没有设置 `requestPolicy`，则默认请求值为设备的总体容量。
+      此设置适用于每例设备分配。
+      如果 `count > 1` 但没有足够的设备来满足需求，则设备请求会失败。
+      如果 `allocationMode` 被设置为 `"All"`，即使存在一些设备具备足够容量，其 `value` 大于请求的数量，
+      只不过无法分配给此请求，那么请求仍然会失败。
+
   count:
     description: |
       `count` is used only when the count mode is `"ExactCount"`. Must be greater than zero.
@@ -81,6 +109,7 @@ properties:
     format: int64
     minimum: 1
     type: integer
+
   deviceClassName:
     description: |
       `deviceClassName` references a specific DeviceClass,

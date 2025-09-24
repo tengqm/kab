@@ -13,6 +13,16 @@ properties:
       只有在 `spec.`perDeviceNodeSelection` 被设置为 `true` 时才能设置。
       `nodeName`、`nodeSelector` 和 `allNodes` 中只能设置其一。
     type: boolean
+  allowMultipleAllocations:
+    description: |
+      This marks whether the device is allowed to be allocated to multiple DeviceRequests.
+      If `allowMultipleAllocations` is set to true, the device can be allocated more than once,
+      and all of its capacity is consumable, regardless of whether the `requestPolicy` is defined or not.
+    x-kab-description-zh: |
+      此字段标记设备是否可以分配给多个 DeviceRequest。
+      如果 `allowMultipleAllocations` 被设置为 true，设备可以被多次分配；
+      其全部容量都是可利用的，无论是否定义了 `requestPolicy`。
+    type: boolean
   attributes:
     additionalProperties:
       $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceAttribute'
@@ -27,6 +37,75 @@ properties:
       `attributes` 及 `capacity` 的总数目不能超过 32 个。
     maxItems: 32
     type: object
+  bindingConditions:
+    description: |
+      This defines the conditions for proceeding with binding.
+      All of these conditions must be set in the per-device status conditions with a value of True
+      to proceed with binding the Pod to the node while scheduling the Pod.
+
+      The maximum number of binding conditions is 4.
+
+      The conditions must be a valid condition type string.
+
+      This is an Alpha field and requires enabling the `DRADeviceBindingConditions` and 
+      `DRAResourceClaimDeviceStatus` feature gates.
+    x-kab-description-zh: |
+      此字段定义要继续将 Pod 绑定到某节点时需要满足的条件状况。
+      在调度 Pod 时，需要将 Pod 绑定到节点。
+      此字段中列举的条件必须在对应设备的状态状况中都被设置，并且取值都为 True，才允许继续执行绑定动作。
+
+      所列举的字符串都是状况的类型（type），因此要符合状况类型约束。
+
+      此字段为 Alpha 阶段，需要启用 `DRADeviceBindingConditions` 和 `DRAResourceClaimDeviceStatus` 特性门控。
+
+    items:
+      minLength: 1
+      type: string
+    maxItems: 4
+    type: array
+    x-kubernetes-list-type: atomic
+  bindingFailureConditions:
+    description: |
+      This defines the conditions for binding failure.
+      They may be set in the per-device status conditions.  If any is true, a binding failure occurred.
+
+      The maximum number of binding failure conditions is 4.
+
+      The conditions must be a valid condition type string.
+
+      This is an Alpha field and requires enabling the `DRADeviceBindingConditions`
+      and `DRAResourceClaimDeviceStatus` feature gates.
+    x-kab-description-zh: |
+      此字段定义的是绑定操作失败的状况。
+      所列举的状况类型可以在各个设备的状态状况中设置。如果其中任何一个状况类型为 True，则绑定视为失败。
+
+      所列举的字符串都是状况的类型（type），因此要符合状况类型约束。
+
+      此字段为 Alpha 阶段，需要启用 `DRADeviceBindingConditions` 和 `DRAResourceClaimDeviceStatus` 特性门控。
+
+    items:
+      minLength: 1
+      type: string
+    maxItems: 4
+    type: array
+    x-kubernetes-list-type: atomic
+  bindsToNode:
+    description: |
+      This indicates if the usage of an allocation involving this device has to be limited to
+      exactly the node that was chosen when allocating the claim.
+      If set to true, the scheduler will set the `ResourceClaim.status.allocation.nodeSelector`
+      to match the node where the allocation was made.
+
+      This is an Alpha field and requires enabling the `DRADeviceBindingConditions` and
+      `DRAResourceClaimDeviceStatus` feature gates.
+    x-kab-description-zh: |
+      此字段用来表明是否与此设备相关的设备分配只能在分配申领时选定的节点上使用。
+      如果字段值为 True，则调度器会设置 ResourceClaim 的 `status.allocation.nodeSelector` 字段，
+      使之匹配设备分配时选定的节点。
+
+      此字段为 Alpha 阶段，需要启用 `DRADeviceBindingConditions` 和 `DRAResourceClaimDeviceStatus` 特性门控。
+
+    type: boolean
   capacity:
     additionalProperties:
       $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceCapacity'
@@ -61,13 +140,13 @@ properties:
     type: array
     x-kubernetes-list-type: atomic
   nodeName:
-    description: |
+    description: |-
       `nodeName` identifies the node where the device is available.
 
       Must only be set if `spec.perDeviceNodeSelection` is set to true.
       At most one of `nodeName`, `nodeSelector` and `allNodes` can be set.
-    x-kab-description-zh: |
-      `nodeName` 给出能够访问此设备的节点。
+    x-kab-description-zh: |-
+      `nodeName` 给出能访问此设备的节点。
 
       只有在 `spec.`perDeviceNodeSelection` 被设置为 `true` 时才能设置。
       `nodeName`、`nodeSelector` 和 `allNodes` 中只能设置其一。

@@ -1,0 +1,47 @@
+description: |-
+  CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+
+    - If the requested amount is less than `min`, it is rounded up to the `min` value.
+    - If `step` is set and the requested amount is between `min` and `max` but not aligned with `step`,
+      it will be rounded up to the next value equal to `min + (n * step)`.
+    - If `step` is not set, the requested amount is used as-is if it falls within the range `min` to
+      `max` (if set).
+    - If the requested or rounded amount exceeds `max` (if set), the request does not satisfy the policy,
+      and the device cannot be allocated.
+x-kab-description-zh: |-
+  CapacityRequestPolicyRange 定义可被耗用的数量值的一个范围。
+
+    - 如果请求的数量少于 `min`，则请求的数量会被舍进到 `min` 值。
+    - 如果设置了 `step` 并且请求的数量介于 `min` 和 `max` 之间，但没能与 `step` 对齐，
+      则请求值会被舍进为 `min + (n * step)` 序列中的下一个值。
+    - 如果没有设置 `step`，并且请求的数量介于 `min` 和 `max` （如果设置了的话）之间，
+      则直接使用请求的数量。
+    - 如果请求值或请求数量的舍进值超出了`max`（如果设置了的话）的范围，则请求无法满足策略要求，
+      设备无法被分配。
+
+properties:
+  max:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |-
+      此字段用来定义可被请求的数量的上限值。
+
+      `max` 必须小于等于设备的总量。
+      `min` 和 `requestPolicy.default` 必须小于等于 `max` 值。
+  min:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |-
+      此字段用来设置耗用设备的请求的最低数量。
+
+      `min` 值必须大于等于零值，小于等于设备总数量。
+      `requestPolicy.default` 必须大于等于 `min` 值。
+  step:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |-
+      此字段用来定义所给范围内合法的步长值。
+
+      `max` （如果设置了）和 `requestPolicy.default` 必须是 `step` 的整数倍。
+      `min + step` 必须小于等于设备的总量。
+required:
+  - min
+type: object
+

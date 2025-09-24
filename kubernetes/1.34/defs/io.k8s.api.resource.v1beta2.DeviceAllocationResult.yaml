@@ -1,6 +1,67 @@
 description: DeviceAllocationResult is the result of allocating devices.
 x-kab-description-zh: DeviceAllocationResult 封装设备分配的结果。
 properties:
+
+  bindingConditions:
+    description: |
+      This contains a copy of the `bindingConditions` from the corresponding ResourceSlice
+      at the time of allocation.
+
+      This is an Alpha field and requires enabling the DRADeviceBindingConditions and
+      DRAResourceClaimDeviceStatus feature gates.
+    x-kab-description-zh: |
+      此字段包含设备分配时来自对应的 ResourceSlice 的 `bindingConditions` 副本。
+
+      此字段处于 Alpha 阶段，需要启用 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 特性门控。
+    item:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+
+  bindingFailureConditions:
+    description: |
+      This contains a copy of the `bindingFailureConditions` from the corresponding ResourceSlice
+      at the time of allocation.
+
+      This is an Alpha field and requires enabling the DRADeviceBindingConditions and
+      DRAResourceClaimDeviceStatus feature gates.
+    x-kab-description-zh: |
+      此字段包含设备分配时来自对应的 ResourceSlice 的 `bindingFailureConditions` 副本。
+
+      此字段处于 Alpha 阶段，需要启用 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 特性门控。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+
+  consumedCapacity:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |-
+      This tracks the amount of capacity consumed per-device as part of the claim request.
+      The consumed amount may differ from the requested amount.
+      It is rounded up to the nearest valid value based on the device's `requestPolicy`
+      if applicable (i.e., may not be less than the requested amount).
+
+      The total consumed capacity for each device must not exceed the DeviceCapacity's `value`.
+
+      This field is populated only for devices that allow multiple allocations.
+      All capacity entries are included, even if the consumed amount is zero.
+
+    x-kab-description-zh: |-
+      此字段跟踪记录作为申领请求的一部分的个e个设备锁耗用的容量。
+      耗用的容量可能与请求的容量不同。
+      如果设备具有 `requestPolicy` 设置，则此值会被向上扩展至最接近的合法值
+      （也就是说，不会比请求的数量少）。
+
+      每个设备上耗用容量的总和一定不能超过 DeviceCapacity 的 `value` 值。
+
+      只有允许多次分配的设备才会填充此字段。
+      所有容量条目都会被涵盖，即便被耗用的数量为零。
+    type: object
+
   config:
     description: |-
       This field is a combination of all the claim and class configuration parameters.
@@ -27,5 +88,15 @@ properties:
       $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceRequestAllocationResult'
     type: array
     x-kubernetes-list-type: atomic
+
+  shareID:
+    description: |
+      `shareID` uniquely identifies an individual allocation share of the device,
+      used when the device supports multiple simultaneous allocations.
+      It serves as an additional map key to differentiate concurrent shares of the same device.
+    x-kab-description-zh: |
+      `shareID` 用来唯一性地标识设备的某一份分配，在设备支持多例同时发生的分配时使用。
+      字段的用途是作为一个附加的映射主键，对同一设备的多份分配进行区分。
+    type: string
 type: object
 

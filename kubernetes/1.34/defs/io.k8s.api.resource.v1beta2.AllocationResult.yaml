@@ -1,6 +1,20 @@
 description: AllocationResult contains attributes of an allocated resource.
 x-kab-description-zh: AllocationResult 包含所分配的某资源的属性。
 properties:
+  allocationTimestamp:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Time'
+    description: |
+      This stores the time when the resources were allocated.
+      This field is not guaranteed to be set, in which case that time is unknown.
+
+      This is an Alpha field and requires enabling the `DRADeviceBindingConditions` and `DRAResourceClaimDeviceStatus` feature gate.
+    x-kab-description-zh: |
+      此字段保存资源被分配的时间。
+      系统不保证此字段一定会被设置，可能系统并不知道资源被分配的时间。
+
+      字段处于 Alpha 阶段，需要启用 `DRADeviceBindingConditions` 和
+      `DRAResourceClaimDeviceStatus` 特性门控。
+
   devices:
     $ref: '#/definitions/io.k8s.api.resource.v1beta2.DeviceAllocationResult'
     description: |-

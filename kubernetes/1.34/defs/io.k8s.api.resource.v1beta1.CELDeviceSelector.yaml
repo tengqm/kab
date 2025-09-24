@@ -15,6 +15,8 @@ properties:
          (e.g. device.attributes["dra.example.com"] evaluates to an object with all
          of the attributes which were prefixed by "dra.example.com".
       - `capacity` (map[string]object): the device's capacities, grouped by prefix.
+      - `allowMultipleAllocations (bool)`: the `allowMultipleAllocations` property of the device
+        (v1.34+ with the DRAConsumableCapacity feature enabled)
 
       Example: Consider a `device` with `driver="dra.example.com"`, which exposes two attributes
       named `"model"` and `"ext.example.com/family"` and which exposes one capacity named `"modules"`.
@@ -61,6 +63,8 @@ properties:
       - `attributes` (map[string]object)：设备的属性集合，按前缀分组。
         例如，`device.attributes["dra.example.com"]` 的计算结果为对象的所有前缀为 `"dra.example.com"` 的属性。
       - `capacity` (map[string]object)：设备的容量信息，按容量名的前缀分组。
+      - `allowMultipleAllocations (bool)`：设备的 `allowMultipleAllocations` 属性
+        （v1.34+ 及以上版本，且启用 `DRAConsumableCapacity` 特性）。
 
       例如：假设某个 `device` 的 `driver` 为 `"dra.example.com"`，该设备公开两个属性 `"model"`
       和 `"ext.example.com/family"`，并且该设备公开一个名为 `"modules"` 容量信息。

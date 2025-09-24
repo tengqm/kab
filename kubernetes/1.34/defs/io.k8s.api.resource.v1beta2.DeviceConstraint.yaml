@@ -20,6 +20,32 @@ properties:
 
       字段值必须包含域名限定部分。
     type: string
+
+  distinctAttribute:
+    description: |-
+      This requires that all devices in question have this attribute and
+      that its type and value are unique across those devices.
+
+      This acts as the inverse of `matchAttribute`.
+
+      This constraint is used to avoid allocating multiple requests to the same device
+      by ensuring attribute-level differentiation.
+
+      This is useful for scenarios where resource requests must be fulfilled by separate physical devices.
+      For example, a container requests two network interfaces that must be allocated
+      from two different physical NICs.
+
+    x-kab-description-zh: |-
+      此字段的作用是要求所有目标设备都具有此属性，并且其类型和取值可以用来唯一性地标识设备。
+
+      此字段的工作方式与  `matchAttribute` 相反。
+
+      添加这一约束的目的是提供一种属性级别的设备区隔，避免将多个请求指派给同一设备。
+
+      对于资源需求需要由不同的物理设备来满足的场景，这个属性是很有用的。
+      例如，场景之一是某个容器要求两个网络接口，并且这两个网络接口必须分配自不同的物理网卡。
+    type: string
+
   requests:
     description: |-
       `requests` is a list of the one or more requests in this claim which must co-satisfy this constraint.
@@ -29,6 +55,7 @@ properties:
       References to subrequests must include the name of the main request and
       may include the subrequest using the format `<main request>[/<subrequest>]`.
       If just the main request is given, the constraint applies to all subrequests.
+
     x-kab-description-zh: |
       `requests` 是由一个或多个请求组成的列表，设备申领中的这些请求都必须满足此约束。
       如果某设备请求是由多个设备来满足的，则所有设备都必须满足这里所给的约束。
@@ -36,6 +63,7 @@ properties:
 
       对子请求的引用必须将主请求的名称包含在内，也可以使用 `<主请求>[/<子请求>]` 的形式包含子请求。
       如果只给了主请求部分，则对应的约束适用于所有子请求。
+
     items:
       type: string
     type: array

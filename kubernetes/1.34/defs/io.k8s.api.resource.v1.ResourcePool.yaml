@@ -1,0 +1,53 @@
+description: ResourcePool describes the pool that ResourceSlices belong to.
+x-kab-description-zh: ResourcePool 描述 ResourceSlice 所属的资源池。
+properties:
+  generation:
+    description: |
+      `generation` tracks the change in a pool over time.
+      Whenever a driver changes something about one or more of the resources in a pool, it must change the `generation`
+      in all ResourceSlices which are part of that pool.
+      Consumers of ResourceSlices should only consider resources from the pool with the highest `generation` number.
+      The `generation` may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool
+      are updated to match or deleted.
+
+      Combined with `resourceSliceCount`, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices
+      and are in an incomplete state.
+    x-kab-description-zh: |
+      `generation` 用来跟踪资源池随着时间发生的变化。
+      无论何时，当驱动变更了资源池中某个或某几个资源相关的信息，它必须变更作为该资源池的一部分的所有 ResourceSlice 的 `generation`。
+      ResourceSlice 的用户应该仅考察 `generation` 数字最大的资源池中的资源。
+      驱动可能会对 `generation` 值执行复位操作，而这一复位应该对于用户而言是可接受的，前提是池中所有 ResourceSlice 都被更新以匹配新值或者被删除。
+
+      与 `resourceSliceCount` 一起，这一机制让用户能够检测资源池是否包含多个 ResourceSlice，以及它们是否处于完整状态。
+    format: int64
+    minimum: 1
+    type: integer
+  name:
+    description: |-
+      `name` is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+
+      It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
+    x-kab-description-zh: |
+      `name` 用来标识资源池。对于节点本地的设备，字段值通常即是节点名称，不过系统不对此作严格要求。
+      字段值不可以超过 253 个字符，并且必须由用斜线分隔开的一个或多个 DNS 子域名构成。
+      此字段不可变更。
+    maxLength: 253
+    minLength: 1
+    type: string
+  resourceSliceCount:
+    description: |
+      `resourceSliceCount` is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
+
+      Consumers can use this to check whether they have seen all ResourceSlices belonging to the same pool.
+    x-kab-description-zh: |
+      `resourceSliceCount` 是资源池中 `generation` 数字匹配的 ResourceSlice 的总数目。字段值必须大于零。
+
+      用户可以使用此字段来检查自己是否已经看到归属于同一资源池的所有 ResourceSlice。
+    format: int64
+    type: integer
+required:
+- generation
+- name
+- resourceSliceCount
+type: object
+

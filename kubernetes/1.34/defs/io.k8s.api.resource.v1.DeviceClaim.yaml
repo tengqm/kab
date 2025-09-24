@@ -1,0 +1,36 @@
+description: DeviceClaim defines how to request devices with a ResourceClaim.
+x-kab-description-zh: DeviceClaim 定义如何使用 ResourceClaim 来请求设备。
+properties:
+  config:
+    description: |
+      This field holds configuration for multiple potential drivers which could satisfy requests in this claim.
+      It is ignored while allocating the claim.
+    x-kab-description-zh: |
+      字段包含配置数据，可供能够满足此申领请求的所有驱动使用。
+      在分配 ResourceClaim 时，字段内容被忽略。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1.DeviceClaimConfiguration'
+    type: array
+    x-kubernetes-list-type: atomic
+  constraints:
+    description: |
+      These constraints must be satisfied by the set of devices that get allocated for the claim.
+    x-kab-description-zh: |
+      为此 ResourceClaim 所分配的所有设备都必须满足这里设置的约束。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1.DeviceConstraint'
+    type: array
+    x-kubernetes-list-type: atomic
+  requests:
+    description: |
+      `requests` represent individual requests for distinct devices which must all be satisfied.
+      If empty, nothing needs to be allocated.
+    x-kab-description-zh: |
+      `requests` 代表必须被满足的针对不同设备的各个请求。
+      如果此字段为空，表示不需要分配设备。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1.DeviceRequest'
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

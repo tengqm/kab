@@ -1,0 +1,69 @@
+description: |
+  DeviceRequest is a request for devices required for a claim.
+  This is typically a request for a single resource like a device, but can also ask for several identical devices.
+  With `firstAvailable` it is also possible to provide a prioritized list of requests.
+x-kab-description-zh: |
+  DeviceRequest 是关于某个申领所需要的设备的请求。
+  设备请求通常是针对类似于设备这种单个资源的请求，不过也可以请求若干一模一样的设备。
+  利用 `firstAvailable`，也可以提供一个按优先级排序的请求列表。
+properties:
+  exactly:
+    $ref: '#/definitions/io.k8s.api.resource.v1.ExactDeviceRequest'
+    description: |-
+      `exactly` specifies the details for a single request that must be met exactly for the request to be satisfied.
+
+      One of `exactly` or `firstAvailable` must be set.
+    x-kab-description-zh: |-
+      `exactly` 给出某个特定请求的细节信息。满足请求的前提是要求满足所有这些需求细节。
+
+      `exactly` 和 `firstAvailable` 必须设置其一。
+  firstAvailable:
+    description: |-
+      `firstAvailable` contains subrequests, of which exactly one will be selected by the scheduler.
+      It tries to satisfy them in the order in which they are listed here.
+      So if there are two entries in the list, the scheduler will only check the second one
+      if it determines that the first one cannot be used.
+
+      DRA does not yet implement scoring, so the scheduler will select the first set of devices
+      that satisfies all the requests in the claim.
+      And if the requirements can be satisfied on more than one node,
+      other scheduling features will determine which node is chosen.
+      This means that the set of devices allocated to a claim might not be the optimal set available to the cluster.
+      Scoring will be implemented later.
+    x-kab-description-zh: |
+      `firstAvailable` 包含一些子请求，调度器会选择其中一个子请求且仅选中一个。
+      调度器会尝试按子请求的顺序来尝试满足它们。
+      如果列表中包含两个表项，调度器只有确定第一个表项无法被满足时才会去检查第二个表项。
+
+      动态资源分配（DRA）尚未实现设备评分机制，所以调度器会选择第一组满足申领中所有请求的设备。
+      如果在多个节点上申领的请求都能够被满足，则调度器的其他条件会决定要选择哪个节点。
+      这意味着分配给申领的设备集合可能不是集群中可用的最优选集合。
+      设备评分机制会在将来实现。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1.DeviceSubRequest'
+    type: array
+    x-kubernetes-list-type: atomic
+  name:
+    description: |-
+      `name` can be used to reference this request in a `pod.spec.containers[].resources.claims` entry
+      and in a constraint of the claim.
+
+      References using the name in the DeviceRequest will uniquely identify a request
+      when the Exactly field is set.
+      When the FirstAvailable field is set, a reference to the name of the DeviceRequest
+      will match whatever subrequest is chosen by the scheduler.
+
+      Must be a DNS label.
+    x-kab-description-zh: |-
+      `name` 可以被用来在 Pod 中容器规约的 `resources.claims` 字段以及设备申领的约束字段引用此请求。
+
+      通过引用 DeviceRequest 中 `name`，可以在设置了 `exactly` 字段时唯一地标识某个请求。
+      当设置了 `firstAvailable` 字段时，对 DeviceRequest 的 `name` 的引用会用来匹配调度器所选择的子请求。
+
+      此字段值必须是一个合法的 DNS 标签。
+    minLength: 1
+    type: string
+required:
+  - name
+type: object
+

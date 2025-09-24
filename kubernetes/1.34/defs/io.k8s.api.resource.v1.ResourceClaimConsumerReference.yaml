@@ -1,0 +1,36 @@
+description: |-
+  ResourceClaimConsumerReference contains enough information to let you locate the consumer of
+  a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+x-kab-description-zh: |
+  ResourceClaimConsumerReference 包含用来定位 ResourceClaim 的用户时需要的信息。
+  资源的用户一定是 ResourceClaim 所在名字空间的某个资源。
+properties:
+  apiGroup:
+    description: |
+      The group for the resource being referenced. It is empty for the core API.
+      This matches the group in the APIVersion that is used when creating the resources.
+    x-kab-description-zh: |
+      被引用的资源的 API 组。对于核心 API 组而言，此字段为空。
+      此字段要与对应资源被创建时所设置的 `apiVersion` 一致。
+    type: string
+  name:
+    description: The name of resource being referenced.
+    x-kab-description-zh: 被引用的资源的名称。
+    minLength: 1
+    type: string
+  resource:
+    description: The type of resource being referenced, for example "pods".
+    x-kab-description-zh: 被引用的资源的类别。
+    minLength: 1
+    type: string
+  uid:
+    description: This identifies exactly one incarnation of the resource.
+    x-kab-description-zh: 被引用的资源的唯一 ID。
+    minLength: 1
+    type: string
+required:
+  - name
+  - resource
+  - uid
+type: object
+

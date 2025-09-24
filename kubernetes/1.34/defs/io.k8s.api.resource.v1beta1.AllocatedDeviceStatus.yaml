@@ -1,9 +1,14 @@
 description: |-
   AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it.
   This may include driver-specific information.
+
+  The combination of `driver`, `pool`, `device` and `shareID` must match the corresponding key in
+  `status.allocation.devices`.
 x-kab-description-zh: |-
   AllocatedDeviceStatus 包含某个已分配设备的状态，前提是对应的驱动报告了这类信息。
   此结构中可能包含具体于驱动的信息。
+
+  `driver`、`pool`、`device` 和 `shareID` 的组合必须与 `status.allocation.devices` 中的对应主键匹配。
 properties:
   conditions:
     description: |-
@@ -63,6 +68,11 @@ properties:
       此字段值可以包含一个或多个用斜线分开的 DNS 子域名。
     maxLength: 253
     minLength: 1
+    type: string
+  shareID:
+    description: This uniquely identifies an individual allocation share of the device.
+    x-kab-description-zh: 此字段值用来对设备的某个分配份额进行唯一标识。
+    format: uuid
     type: string
 required:
   - device

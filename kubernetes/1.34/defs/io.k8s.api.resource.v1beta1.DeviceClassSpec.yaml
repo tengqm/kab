@@ -15,6 +15,31 @@ properties:
       $ref: '#/definitions/io.k8s.api.resource.v1beta1.DeviceClassConfiguration'
     type: array
     x-kubernetes-list-type: atomic
+
+  extendedResourceName:
+    description: |-
+      This is the extended resource name for the devices of this class.
+      The devices of this class can be used to satisfy a Pod's extended resource requests.
+      It has the same format as the name of a Pod's extended resource.
+      It should be unique among all the device classes in a cluster.
+      If two device classes have the same name, then the class created later is picked
+      to satisfy a Pod's extended resource requests.
+      If two classes are created at the same time, then the name of the class lexicographically
+      sorted first is picked.
+
+      This is an alpha field.
+
+    x-kab-description-zh: |-
+      此字段为设备类下各个设备的扩展资源名称。
+      设备类下的设备可以用来满足 Pod 对扩展资源的请求。
+      字段值与 Pod 的扩展资源的名称格式相同。
+      扩展资源名称对于集群中所有设备类而言应具有唯一性。
+      如果两个设备类的名称学生，则后创建的设备类会被用来满足 Pod 对扩展资源的请求。
+      如果两个设备类是同时创建的，则系统会对设备类进行字母排序，排在前面的会被选中。
+
+      此字段处于 Alpha 阶段。
+    type: string
+
   selectors:
     description: Each selector must be satisfied by a device which is claimed via this class.
     x-kab-description-zh: 通过此设备类来申领的设备必须满足所有算符条件。

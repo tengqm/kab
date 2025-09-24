@@ -1,0 +1,67 @@
+description: |-
+  CapacityRequestPolicy defines how requests consume device capacity.
+
+  Must not set more than one ValidRequestValues.
+x-kab-description-zh: |-
+  CapacityRequestPolicy 用来定义请求如何消耗设备总量。
+
+  `validValues` 和 `validRange` 只能设置其一。
+properties:
+  default:
+    $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |
+      This specifies how much of this capacity is consumed by a request that does not contain an entry for it
+      in DeviceRequest's Capacity.
+    x-kab-description-zh: |
+      对于在 DeviceRequest 的 `capacity` 中没有对应表项的一个请求而言，
+      此字段设置此请求会消耗多少设备量。
+  validRange:
+    $ref: '#/definitions/io.k8s.api.resource.v1beta1.CapacityRequestPolicyRange'
+    description: |-
+      This defines an acceptable quantity value range in consuming requests.
+
+      If this field is set, `default` must be defined and it must fall within the defined `validRange`.
+
+      If the requested amount does not fall within the defined range, the request violates the policy,
+      and this device cannot be allocated.
+
+      If the request doesn't contain this capacity entry, `default` value is used.
+    x-kab-description-zh: |-
+      此字段定义耗用设备的请求中可以接受的数量值范围。 
+
+      如果设置了此字段，则 `default` 字段必须设置，并且 `default` 的取值必须在 `validRange` 范围之内。
+
+      如果所请求的数量超出了这里定义的范围，请求即被视为违例，设备无法分配。
+
+      如果请求不包含此容量表项，则使用 `default` 字段所设置的值。
+  validValues:
+    description: |-
+      This defines a set of acceptable quantity values in consuming requests.
+
+      Must be sorted in ascending order.
+
+      If this field is set, `default` must be defined and it must be included in `validValues` list.
+
+      If the requested amount does not match any valid value but smaller than some valid values,
+      the scheduler calculates the smallest valid value that is greater than or equal to the request.
+      That is, min(ceil(requestedValue) ∈validValues), where requestedValue ≤max(validValues).
+
+      If the requested amount exceeds all valid values, the request violates the policy,
+      and this device cannot be allocated.
+    x-kab-description-zh: |-
+      此字段定义一组耗用资源的请求中可接受的数量值。
+      数值集合必须按升序排序。
+
+      若设置了此字段，则必须设置 `default` 并且其值必须在 `validValues` 列表范围之内。
+
+      如果所请求的数量无法与 `validValues` 中的数量值匹配，但比某些合法值还小，
+      则调度器会计算大于等于请求数量的最小合法值，也就是在 `validValues` 中寻找可满足请求数量的最小值。
+
+      如果请求的数量超出了所有合法值的数量，则请求会被视为违例，设备无法分配。
+    items:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    maxItems: 10
+    type: array
+    x-kubernetes-list-type: atomic
+type: object
+

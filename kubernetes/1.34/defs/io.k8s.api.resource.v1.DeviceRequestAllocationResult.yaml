@@ -1,0 +1,163 @@
+description: DeviceRequestAllocationResult contains the allocation result for one request.
+x-kab-description-zh: DeviceRequestAllocationResult 包含某个设备请求的分配结果。
+properties:
+  adminAccess:
+    description: |-
+      `adminAccess` indicates that this device was allocated for administrative access.
+      See the corresponding request field for a definition of mode.
+
+      This is an Alpha field and requires enabling the `DRAAdminAccess` feature gate.
+      Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
+    x-kab-description-zh: |-
+      `adminAccess 表明当前设备申领的意图是获得对设备的管理性访问。
+      参阅对应的请求字段了解关于申请模式的定义。
+
+      此字段处于 Alpha 阶段，需要启用 `DRAAdminAccess` 特性门控。
+      如果此字段未设置或者设置为 false，则禁用管理性访问，否则视为启用管理性访问。
+    type: boolean
+
+  bindingConditions:
+    description: |
+      This contains a copy of the `bindingConditions` from the corresponding ResourceSlice
+      at the time of allocation.
+
+      This is an Alpha field and requires enabling the DRADeviceBindingConditions and
+      DRAResourceClaimDeviceStatus feature gates.
+    x-kab-description-zh: |
+      此字段包含设备分配时来自对应的 ResourceSlice 的 `bindingConditions` 副本。
+
+      此字段处于 Alpha 阶段，需要启用 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 特性门控。
+    item:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+
+  bindingFailureConditions:
+    description: |
+      This contains a copy of the `bindingFailureConditions` from the corresponding ResourceSlice
+      at the time of allocation.
+
+      This is an Alpha field and requires enabling the DRADeviceBindingConditions and
+      DRAResourceClaimDeviceStatus feature gates.
+    x-kab-description-zh: |
+      此字段包含设备分配时来自对应的 ResourceSlice 的 `bindingFailureConditions` 副本。
+
+      此字段处于 Alpha 阶段，需要启用 DRADeviceBindingConditions 和 DRAResourceClaimDeviceStatus 特性门控。
+    items:
+      minLength: 1
+      type: string
+    type: array
+    x-kubernetes-list-type: atomic
+
+  consumedCapacity:
+    additionalProperties:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.api.resource.Quantity'
+    description: |-
+      This tracks the amount of capacity consumed per-device as part of the claim request.
+      The consumed amount may differ from the requested amount.
+      It is rounded up to the nearest valid value based on the device's `requestPolicy`
+      if applicable (i.e., may not be less than the requested amount).
+
+      The total consumed capacity for each device must not exceed the DeviceCapacity's `value`.
+
+      This field is populated only for devices that allow multiple allocations.
+      All capacity entries are included, even if the consumed amount is zero.
+
+    x-kab-description-zh: |-
+      此字段跟踪记录作为申领请求的一部分的个e个设备锁耗用的容量。
+      耗用的容量可能与请求的容量不同。
+      如果设备具有 `requestPolicy` 设置，则此值会被向上扩展至最接近的合法值
+      （也就是说，不会比请求的数量少）。
+
+      每个设备上耗用容量的总和一定不能超过 DeviceCapacity 的 `value` 值。
+
+      只有允许多次分配的设备才会填充此字段。
+      所有容量条目都会被涵盖，即便被耗用的数量为零。
+    type: object
+
+
+  device:
+    description: |
+      `device` references one device instance via its name in the driver's resource pool. It must be a DNS label.
+    x-kab-description-zh: |
+      `device` 通过名字引用驱动的资源池中的某个设备实例。字段值必须是一个合法的 DNS 标签。
+    minLength: 1
+    type: string
+  driver:
+    description: |
+      `driver` specifies the name of the DRA driver whose kubelet plugin should be invoked to process the allocation once the claim is needed on a node.
+
+      Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
+    x-kab-description-zh: |
+      `driver` 所给的是一个 DRA 驱动的名称。当在节点上需要分配申领时，系统将调用该驱动的 kubelet 插件处理分配动作。
+      
+      字段值必须是合法的 DNS 子域名，并且应该以驱动厂商所拥有的 DNS 域名结尾。
+    minLength: 1
+    type: string
+  pool:
+    description: |
+      This name together with the driver name and the device name field identify which device was allocated
+      (`<driver name>/<pool name>/<device name>`).
+
+      This field may contain one or more DNS sub-domains separated by slashes.
+    x-kab-description-zh: |
+      此字段给出资源池的名称。此名称和驱动名称、设备名称一起用来标识所分配的设备
+      （`<驱动名称>/<资源池名称>/<设备名称e>`）。
+
+      字段可以包含用斜线分割的一个或多个 DNS 子域名。
+    maxLength: 253
+    type: string
+  request:
+    description: |
+      `request` is the name of the request in the claim which caused this device to be allocated.
+      If it references a subrequest in the `firstAvailable` list on a DeviceRequest,
+      this field must include both the name of the main request and the subrequest
+      using the format `<main request>/<subrequest>`.
+
+      Multiple devices may have been allocated per request.
+    x-kab-description-zh: |
+      `request` 是设备申领中的请求名称，设备分配的触发者即这里所引用的请求。
+      如果此请求引用了 DeviceRequest 中 `firstAvailable` 列表中的某个子请求，
+      则此字段的取值必须以 `<主请求>/<子请求>` 的方式来给出主请求和子请求的名称。
+
+      每个请求可以分配多个设备。
+    minLength: 1
+    type: string
+
+  shareID:
+    description: |
+      `shareID` uniquely identifies an individual allocation share of the device,
+      used when the device supports multiple simultaneous allocations.
+      It serves as an additional map key to differentiate concurrent shares of the same device.
+    x-kab-description-zh: |
+      `shareID` 用来唯一性地标识设备的某一份分配，在设备支持多例同时发生的分配时使用。
+      字段的用途是作为一个附加的映射主键，对同一设备的多份分配进行区分。
+    type: string
+
+  tolerations:
+    description: |-
+      A copy of all tolerations specified in the request at the time when the device got allocated.
+
+      The maximum number of tolerations is 16.
+
+      This is an alpha field and requires enabling the DRADeviceTaints feature gate.
+    x-kab-description-zh: |-
+      此字段为设备分配时请求中所指定的容忍度的一个副本。
+
+      容忍度个数的上限为 16 个。
+
+      此字段为 Alpha 状态，需要启用 `DRADeviceTaints` 特性门控才能使用。
+    items:
+      $ref: '#/definitions/io.k8s.api.resource.v1.DeviceToleration'
+    maxItems: 16
+    type: array
+    x-kubernetes-list-type: atomic
+
+required:
+  - device
+  - driver
+  - pool
+  - request
+type: object
+
