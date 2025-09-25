@@ -1,0 +1,51 @@
+consumes:
+  - '*/*'
+description: delete collection of PodCertificateRequest
+x-kab-description-zh: 批量删除 PodCertificateRequest
+operationId: deleteCertificatesV1alpha1CollectionNamespacedPodCertificateRequest
+parameters:
+  - in: body
+    name: body
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.DeleteOptions'
+  - $ref: '#/parameters/continue'
+  - $ref: '#/parameters/dryRun'
+  - $ref: '#/parameters/fieldSelector'
+  - $ref: '#/parameters/gracePeriodSeconds'
+  - $ref: '#/parameters/ignoreStoreReadErrorWithClusterBreakingPotential'
+  - $ref: '#/parameters/labelSelector'
+  - $ref: '#/parameters/limit'
+  - $ref: '#/parameters/orphanDependents'
+  - $ref: '#/parameters/propagationPolicy'
+  - $ref: '#/parameters/resourceVersion'
+  - $ref: '#/parameters/resourceVersionMatch'
+  - $ref: '#/parameters/sendInitialEvents'
+  - $ref: '#/parameters/timeoutSeconds'
+  - $ref: '#/parameters/namespace'
+  - $ref: '#/parameters/pretty'
+path: /apis/certificates.k8s.io/v1alpha1/namespaces/{namespace}/podcertificaterequests
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+responses:
+  '200':
+    description: OK
+    x-kab-description-zh: 成功
+    schema:
+      $ref: '#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.Status'
+  '401':
+    description: Unauthorized
+    x-kab-description-zh: 请求未授权
+schemes:
+  - https
+tags:
+  - certificates_v1alpha1
+verb: delete
+x-kubernetes-action: deletecollection
+x-kubernetes-group-version-kind:
+  group: certificates.k8s.io
+  kind: PodCertificateRequest
+  version: v1alpha1
+

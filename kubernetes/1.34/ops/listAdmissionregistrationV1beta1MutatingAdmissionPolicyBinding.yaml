@@ -1,0 +1,44 @@
+consumes:
+  - '*/*'
+description: list or watch objects of kind MutatingAdmissionPolicyBinding
+x-kab-description-zh: 列举或监视 MutatingAdmissionPolicyBinding 类别的对象
+operationId: listAdmissionregistrationV1beta1MutatingAdmissionPolicyBinding
+parameters:
+  - $ref: '#/parameters/allowWatchBookmarks'
+  - $ref: '#/parameters/continue'
+  - $ref: '#/parameters/fieldSelector'
+  - $ref: '#/parameters/labelSelector'
+  - $ref: '#/parameters/limit'
+  - $ref: '#/parameters/resourceVersion'
+  - $ref: '#/parameters/resourceVersionMatch'
+  - $ref: '#/parameters/sendInitialEvents'
+  - $ref: '#/parameters/timeoutSeconds'
+  - $ref: '#/parameters/watch'
+  - $ref: '#/parameters/pretty'
+path: /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicybindings
+produces:
+  - application/json
+  - application/yaml
+  - application/vnd.kubernetes.protobuf
+  - application/cbor
+  - application/json;stream=watch
+  - application/vnd.kubernetes.protobuf;stream=watch
+  - application/cbor-seq
+responses:
+  '200':
+    description: OK
+    schema:
+      $ref: '#/definitions/io.k8s.api.admissionregistration.v1beta1.MutatingAdmissionPolicyBindingList'
+  '401':
+    description: Unauthorized
+schemes:
+  - https
+tags:
+  - admissionregistration_v1beta1
+verb: get
+x-kubernetes-action: list
+x-kubernetes-group-version-kind:
+  group: admissionregistration.k8s.io
+  kind: MutatingAdmissionPolicyBinding
+  version: v1beta1
+
