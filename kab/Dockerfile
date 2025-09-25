@@ -68,7 +68,7 @@ COPY kubernetes/1.30 $KAB_ROOT/data/1.34
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
-COPY kubernetes/features.json $KAB_ROOT/data
+COPY kubernetes/features.yaml $KAB_ROOT/data
 
 WORKDIR $KAB_ROOT
 
