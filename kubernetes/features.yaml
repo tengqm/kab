@@ -23,7 +23,7 @@ features:
       default: false
       from: '1.17'
       to: '1.19'
-    Beta:
+    Beta:`
       default: true
       from: '1.20'
       to: '1.28'
@@ -90,6 +90,10 @@ features:
     Beta:
       default: true
       from: '1.27'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: Enable distributed tracing in the API server.
     x-kab-description-zh: 在 API 服务器上启用分布式跟踪支持。
@@ -242,6 +246,10 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: Allow user.DefaultInfo.UID to be set from x509 certificate during certificate authentication.
     x-kab-description-zh: |
@@ -273,6 +281,10 @@ features:
     Beta:
       default: true
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: Allows to enable anonymous authentication/authorization for only certain apiserver endpoints.
     x-kab-description-zh: 允许仅对某些 API 服务器端点启用匿名的身份认证和鉴权操作。
@@ -357,6 +369,10 @@ features:
     Beta:
       default: true
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: This makes the Node authorizer limit requests from node API clients to get/list/watch its own Node or Pod
       API object. Clients using kubelet credentials to read other nodes or unrelated Pods must change their authentication
@@ -373,6 +389,10 @@ features:
     Beta:
       default: true
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: Allows the use of field selectors and label selectors in requests from Webhook authorization calls.
     x-kab-description-zh: 允许在 Webhook 鉴权调用的请求中使用字段选择算符和标签选择算符。
@@ -797,9 +817,7 @@ features:
       from: '1.25'
       to: '1.27'
     Removed:
-      default: true
       from: '1.28'
-      to: null
     description: Enables shims and translation logic to route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
       Supports falling back to in-tree GCE plugin if a node does not have PD CSI plugin installed and configured. Requires
       the `CSIMigration` feature flag enabled.
@@ -1105,6 +1123,19 @@ features:
       - kube-apiserver
       - kube-controller-manager
       - kubelet
+  ClearingNominatedNodeNameAfterBinding:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: |
+      Clear Pod `status.nominatedNodeName` when a Pod is bound to a Node.
+      This prevents stale information from affecting external scheduling components.
+    x-kab-description-zh: |
+      当 Pod 被绑定到某节点之后，清除 Pod 上的 `status.nominatedNodeName` 字段值。
+      这样做可以避免过时的信息影响外部的调度组件。
+    components:
+      - kube-scheduler
   ClientsAllowCBOR:
     Alpha:
       default: false
@@ -1168,7 +1199,8 @@ features:
       to: '1.31'
     Removed:
       from: '1.32'
-    description: Enables dual-stack `--node-ip` in kubelet with external cloud providers.
+    description: |
+      Enables dual-stack `--node-ip` in kubelet with external cloud providers.
     x-kab-description-zh: 对于使用外部云驱动的 kubelet，启用双栈的 `--node-ip` 设置。
     components:
       - kube-apiserver
@@ -1236,12 +1268,14 @@ features:
     Beta:
       default: true
       from: '1.27'
-      to: '1.31'
+      to: '1.28'
     GA:
       default: true
       locked: true
+      from: '1.29'
+      to: '1.31'
+    Removed:
       from: '1.32'
-      to: null
     description: Enables the support to component level SLI metrics.
     x-kab-description-zh: 启用对组件级别 SLI 度量值的支持。
     components:
@@ -1318,6 +1352,10 @@ features:
     Beta:
       default: true
       from: '1.31'
+      to: '1.32'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: Allow the API server to serve consistent lists from cache.
     x-kab-description-zh: 允许 API 服务器通过缓存来为一致性列表请求提供服务。
@@ -1336,6 +1374,19 @@ features:
     x-kab-description-zh: 在 kubelet 层面启用容器检查点（Checkpoint）操作支持。
     components:
       - kubelet
+  ContainerRestartRules:
+    Alpha:
+      default: false
+      from: 1.34
+      to: null
+    description: |
+      Supports container restart policy and container restart policy rules to override
+      the Pod level restart policy. Enable a single container to restart even if
+      the Pod has restart policy set to `"Never"`.
+    x-kab-description-zh: |
+      支持容器层面的重启策略（restartPolicy）和重启策略规则（restartPolicyRules），
+      覆盖 Pod 层面的重启策略设置。启用此特性之后，容器在 Pod 的 restartPolicy
+      被设置为 `"Never"` 时也可以重启。
   ContainerStopSignals:
     Alpha:
       default: false
@@ -1636,6 +1687,10 @@ features:
     Alpha:
       default: false
       from: '1.32'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: |
       Enables support for requesting admin access in a ResourceClaim. A ResourceClaim
@@ -1651,6 +1706,13 @@ features:
       - kube-apiserver
       - kube-controller-manager
       - kube-scheduler
+  DRAConsumableCapacity:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: Supports the consumable capacity feature in DRA.
+    x-kab-description-zh: 在 DRA 设备分配中支持可耗用的容量信息。
   DRAControlPlaneController:
     Alpha:
       default: false
@@ -1665,6 +1727,13 @@ features:
       - kube-apiserver
       - kube-controller-manager
       - kube-scheduler
+  DRADeviceBindingConditions:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: Enables support for delaying the binding of Pods which depend on devices with binding conditions.
+    x-kab-description-zh: 对于所依赖的设备具有绑定条件的 Pod，支持推迟这些 Pod 的绑定。
   DRADeviceTaints:
     Alpha:
       default: false
@@ -1685,6 +1754,13 @@ features:
       - kube-scheduler
       - kube-controller-manager
       - kubelet
+  DRAExtendedResource:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: Enables support for providing extended resource requests backed by DRA.
+    x-kab-description-zh: 支持将 DRA 管理的设备作为扩展资源进行请求。
   DRAPartitionableDevices:
     Alpha:
       default: false
@@ -1709,6 +1785,10 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: |
       Enables support for the prioritized list feature that makes it possible
@@ -1739,6 +1819,18 @@ features:
       启用对 ResourceClaim 对象的 `.status.devices` 字段的支持，同时允许 DRA 驱动设置此状态字段。
     components:
       - kube-apiserver
+  DRASchedulerFilterTimeout:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: |
+      Enables aborting the per-node filter operation in the scheduler after a certain
+      time (10 seconds by default, configurable in the DynamicResources scheduler
+      plugin configuration).
+    x-kab-description-zh: |
+      允许在调度器执行逐节点的过滤操作时，经过一段时间之后终止尝试。
+      默认超时值为 10 秒钟，可以在调度器的 DynamicResources 插件配置中设置。
   DaemonSetUpdateSurge:
     Alpha:
       default: false
@@ -1866,7 +1958,7 @@ features:
       的 `fsGroup` 的操作交给 CSI 驱动来实现。
     components:
       - kubelet
-  DeploymentReplicaSetTerminatingReplicas::
+  DeploymentReplicaSetTerminatingReplicas:
     Alpha:
       default: false 
       from: '1.33'
@@ -1876,6 +1968,15 @@ features:
     components:
       - kube-apiserver
       - kube-controller-manager
+  DetectCacheInconsistency:
+    Beta:
+      default: true
+      from: '1.34'
+      to: null
+    description: Enable cache inconsistency detection in API server.
+    x-kab-description-zh: 在 API 服务器中启用高速缓存一致性检测能力。
+    components:
+      - kube-apiserver
   DevicePluginCDIDevices:
     Alpha:
       default: false
@@ -1944,6 +2045,10 @@ features:
     Beta:
       default: false
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: The API server may enable the MultiCIDRServiceAllocator feature in order to support live migration from the
       old bitmap ClusterIP allocators to the new IPAddress allocators. The API server performs a dual-write on both allocators.
@@ -2154,6 +2259,11 @@ features:
     Beta:
       default: false
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
+      locked: false
       to: null
     description: Enables support for resources with custom parameters and a lifecycle that is independent of a Pod.
     x-kab-description-zh: 允许支持带有自定义参数并且生命周期与 Pod 独立的资源。
@@ -2328,6 +2438,24 @@ features:
       - kube-apiserver
       - kube-controller-manager
       - kube-proxy
+  EnvFiles:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: |
+      Allow containers to read environment variables from a file.
+      Environment variable files must be produced by an Init container and located
+      in an emptyDir volume. The kubelet will populate the environment variables
+      in the container from the specified file in the emptyDir volume, without mounting
+      the file.
+    x-kab-description-zh: |
+      允许容器从文件中读取环境变量。环境变量文件必须由某个 Init 容器来生成，
+      并放入一个 emptDir 卷中。kubelet 会根据 emptyDir 卷中指定的文件内容来为容器构造环境变量，
+      同时避免将文件挂载到容器中。
+    components:
+      - kube-apiserver
+      - kubelet
   EphemeralContainers:
     Alpha:
       default: false
@@ -2386,6 +2514,7 @@ features:
   ExecProbeTimeout:
     GA:
       default: true
+      locked: true
       from: '1.20'
       to: null
     description: Ensure kubelet respects exec probe timeouts.  This feature gate exists in case any of your existing workloads
@@ -2528,6 +2657,11 @@ features:
     Alpha:
       default: false
       from: '1.32'
+      to: '1.33'
+    Beta:
+      default: true
+      locked: false
+      from: '1.34'
       to: null
     description: |
       Enable setting `--service-account-signing-endpoint` to make the kube-apiserver use external signer
@@ -2700,6 +2834,16 @@ features:
     x-kab-description-zh: 当 PV 卷的回收策略为 `Delete` 时始终维持策略的行为定义，无论 PV 与对应的 PVC 的删除操作先后顺序如何。
     components:
       - kube-controller-manager
+  HostnameOverride:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: Allow setting any FQDN as the Pod's hostname.
+    x-kab-description-zh: 允许将任一全限定域名设置为 Pod 的主机名。
+    components:
+      - kube-apiserver
+      - kubelet
   HugePageStorageMediumSize:
     Alpha:
       default: false
@@ -2876,6 +3020,10 @@ features:
     Alpha:
       default: true
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: Force the informers to deliver watch stream events in order instead of out of order.
     x-kab-description-zh: 强制 Client-go 中的 Informer 按顺序给出监视事件流，而不是乱序。
@@ -2929,6 +3077,22 @@ features:
       对于 QoS 类别为 Guaranteed 的 Pod 中的容器，允许以整数 CPU 请求的方式进行资源大小扩缩。
       此特性仅适用于 `InPlacePodVerticalScaling` 与 `CPUManager` 特性被启用，且 CPU 管理器策略设置为 `static`
       的节点。
+    components:
+      - kubelet
+  InPlacePodVerticalScalingExclusiveMemory:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: |
+      Allow resource resize for containers in Guaranteed Pods when memory manager 
+      policy is set to `"Static"`.
+      Applies only in nodes with `InPlacePodVerticalScaling` and memory manager
+      features enabled.
+    x-kab-description-zh: |
+      对于 QoS 类别为 Guaranteed 的 Pod 中的容器，允许内存管理器策略设置为 `"Static"`。
+      时对资源进行扩缩。
+      此特性仅适用于 `InPlacePodVerticalScaling` 与内存管理器特性被启用的节点。
     components:
       - kubelet
   InTreePluginAWSUnregister:
@@ -3167,6 +3331,11 @@ features:
     Beta:
       default: true
       from: '1.29'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Allow users to specify recreating Pods of a Job only when Pods have fully terminated.
     x-kab-description-zh: 允许用户设置 Job 只能在 Pod 完全终止之后才能创建 Pod。
@@ -3315,6 +3484,11 @@ features:
     Beta:
       default: true
       from: '1.31'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
+      locked: true
       to: null
     description: Enable detection of the kubelet cgroup driver configuration option from the CRI. The CRI runtime also needs
       to support this feature in which case the kubelet will ignore the `cgroupDriver` (`--cgroup-driver`) configuration option.
@@ -3421,6 +3595,10 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.34'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: Enable kubelet to surface Pressure Stall Information (PSI) metrics in the Summary API and Prometheus metrics.
     x-kab-description-zh: 允许 kubelet 通过其 Summary API 和 Prometheus 度量指标向外公开压力阻滞信息（Pressure Stall Information，PSI）
@@ -3468,6 +3646,11 @@ features:
     Alpha:
       default: false
       from: '1.27'
+      to: '1.33'
+    Beta:
+      default: true
+      locked: false
+      from: '1.34'
       to: null
     description: Enable POD resources API to return resources allocated by Dynamic Resource Allocation.
     x-kab-description-zh: 允许通过 Pod 资源 API 返回通过动态资源分配（DRA）所分配的资源。
@@ -3477,6 +3660,11 @@ features:
     Alpha:
       default: false
       from: '1.27'
+      to: '1.33'
+    Beta:
+      default: true
+      locked: false
+      from: '1.34'
       to: null
     description: Enable POD resources API with Get method.
     x-kab-description-zh: 允许通过 GET 动词调用 Pod 资源 API。
@@ -3519,6 +3707,10 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: |
       Enable kubelet to send the ServiceAccount token bound to the Pod
@@ -3534,6 +3726,11 @@ features:
     Beta:
       default: true
       from: '1.27'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Add support for distributed tracing in the kubelet. When enabled, kubelet CRI interface and authenticated
       http servers are instrumented to generate OpenTelemetry trace spans.
@@ -3624,6 +3821,11 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      locked: false
+      from: '1.34'
       to: null
     description: Enables generating snapshots of watch cache store and using them to serve LIST requests.
     x-kab-description-zh: 允许为监视缓存存储生成快照版本，并使用快照版本来为 LIST 请求提供服务。
@@ -3757,6 +3959,17 @@ features:
     components:
       - kube-apiserver
       - kube-scheduler
+  MatchLabelKeysInPodTopologySpreadSelectorMerge:
+    Beta:
+      default: true
+      from: '1.34'
+      to: null
+    description: |
+      Enable merging key-value labels into `labelSelector` corresponding to
+      `matchLabelKeys` in PodTopologySpread.
+    x-kab-description-zh: |
+      允许将与 PodTopologySpread 中 `matchLabelKeys` 相对应的键值对合并到
+      `labelSelector` 中。
   MaxUnavailableStatefulSet:
     Alpha:
       default: false
@@ -3926,6 +4139,10 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: false
+      from: '1.34'
       to: null
     description: |
       When this feature gate is enabled, the `spec.drivers[*].allocatable.count` field for a CSINode object becomes mutable,
@@ -3945,6 +4162,10 @@ features:
     Alpha:
       default: false
       from: '1.32'
+      to: '1.33'
+    Beta:
+      default: false
+      from: '1.34'
       to: null
     description: Enables the MutatingAdmissionPolicy in admission chain.
     x-kab-description-zh: 启用准入插件链中的 MutatingAdmissionPolicy。
@@ -4143,12 +4364,37 @@ features:
     Beta1:
       default: true
       from: '1.30'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enable the kubelet to allocate swap memory for Kubernetes workloads on a node. Must be used with `KubeletConfiguration.failSwapOn`
       set to false.  For more details, please see [swap memory](https://k8s.io/docs/concepts/architecture/nodes/#swap-memory).
     x-kab-description-zh: 允许 kubelet 在节点上为 Kubernetes 负载分配交换内存。启用此门控时必须将 `KubeletConfiguration.failSwapOn` 设置为 false。相关的细节可参阅[交换内存](https://k8s.io/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
     components:
       - kubelet
+  NominatedNodeNameForExpectation:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: |
+      Extends the `nominatedNodeName` field to express expected Pod placement,
+      allowing both the scheduler and external components (e.g. Cluster AutoScaler,
+      Karpenter, Kueue) to share Pod placement intentions.
+      This enables better coordination between components, prevents inappropriate
+      node scale-downs, and helps the scheduler resume work after restarts.
+    x-kab-description-zh: |
+      扩展 Pod 的 `nominatedNodeName` 字段来表达期望的 Pod 放置决定，
+      从而使得调度器和外部组件（如 Cluster AutoScaler、Karpenter、Kueue 等）
+      之间能够共享 Pod 调度倾向。
+      启用此特性可以让各个组件之间更好地协调调度决定，避免节点不必要的节点减员，
+      同时可以帮助调度器在重启时恢复工作。
+    components:
+      - kube-apiserver
+      - kube-scheduler
   NonPreemptingPriority:
     Alpha:
       default: false
@@ -4209,6 +4455,11 @@ features:
     Beta1:
       default: true
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enables the Pods being deleted before the rest of resources while namespace deletion.
     x-kab-description-zh: 允许在删除名字空间时，在删除其他资源之前先删除其中的 Pod。
@@ -4335,6 +4586,20 @@ features:
     x-kab-description-zh: 配置 kubelet 从 CRI 容器运行时获得容器和 Pod 的状态信息，而不是从 cAdvisor 处收集。
     components:
       - kubelet
+  PodCertificateRequest:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: |
+      Enables the PodCertificateRequest API object and the
+      `podCertificate` projected volume source.
+    x-kab-description-zh: |
+      启用 PodCertificateRequest API 对象和 `podCertificate` 投射卷源。
+    components:
+      - kube-apiserver
+      - kube-controller-manager
+      - kubelet
   PodDeletionCost:
     Alpha:
       default: false
@@ -4451,6 +4716,10 @@ features:
     Alpha:
       default: false
       from: '1.32'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: |
       Enable Pod level resources which is the ability to specify resource requests and limits
@@ -4468,6 +4737,11 @@ features:
     Beta:
       default: true
       from: '1.30'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enable `sleep` in container lifecycle hooks (`postStart` and `preStop`).
     x-kab-description-zh: 允许在容器生命周期回调（`postStart` 与 `preStop`）中使用 `sleep` 作为动作。
@@ -4482,6 +4756,11 @@ features:
     Beta:
       default: true
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enables setting zero value for the `sleep` action in container lifecycle hooks.
     x-kab-description-zh: 允许在容器的生命周期回调中为 `sleep` 操作设置零值。
@@ -4503,6 +4782,10 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: |
       Enables the kubelet to set `observedGeneration` in the Pod status and
@@ -4706,6 +4989,11 @@ features:
     Alpha:
       default: false
       from: '1.33'
+      to: '1.33'
+    Beta:
+      default: true
+      locked: false
+      from: '1.34'
       to: null
     description: |
       Allows usage of the values `PreferSameZone` and `PreferSameNode` in the Service `trafficDistribution` field.
@@ -4715,6 +5003,17 @@ features:
       - kube-apiserver
       - kube-controller-manager
       - kube-proxy
+  PreventStaticPodAPIReferences:
+    Beta:
+      default: true
+      from: '1.34'
+      to: null
+    description: |
+      Denies Pod admission if static Pods reference other API objects.
+    x-kab-description-zh: |
+      如果静态 Pod 引用了其他 API 对象，则禁止启动这一 Pod。
+    components:
+      - kubelet
   ProbeTerminationGracePeriod:
     Alpha:
       default: false
@@ -4834,6 +5133,11 @@ features:
     Beta:
       default: true
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enables users to edit their PVCs to smaller sizes so as they can recover from previously issued volume expansion
       failures. See [Recovering from Failure when Expanding Volumes](https://k8s.io/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes).
@@ -4883,6 +5187,11 @@ features:
     Beta:
       default: true
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Relaxed DNS search string validation, e.g. including `_` in the DNS names.
     x-kab-description-zh: 放宽对 DNS search 字符串的合法性检查规则，例如在 DNS 名称中包含 `_`。
@@ -4896,9 +5205,24 @@ features:
     Beta:
       default: true
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Allow amost all printable ASCII characters in environment variables.
     x-kab-description-zh: 允许在容器环境变量中使用几乎所有的可打印 ASCII 字符。
+    components:
+      - kube-apiserver
+      - kubelet
+  RelaxedServiceNameValidation:
+    Alpha:
+      default: false
+      from: '1.34'
+      to: null
+    description: Relaxed DNS search string validation.
+    x-kab-description-zh: 放宽 DNS 搜索路径合法性检查。
     components:
       - kube-apiserver
       - kubelet
@@ -4992,6 +5316,11 @@ features:
     Beta:
       default: true
       from: '1.31'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enables resilient watch cache initialization to avoid control plane overload.
     x-kab-description-zh: 启用对监视缓存的弹性初始化，目的是避免控制面的过载。
@@ -5330,6 +5659,11 @@ features:
     Beta1:
       default: true
       from: '1.32'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enables the scheduler's enhancement called QueueingHints, which benefits to reduce the useless requeueing.
     x-kab-description-zh: 启用名为 QueueingHints 的调度器改进，从而减少不必要的重排队现象。
@@ -5408,6 +5742,11 @@ features:
     Beta:
       default: true
       from: '1.29'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Decouples taint eviction controller, performing taint-based Pod eviction, from Node lifecycle controller.
     x-kab-description-zh: 将负责基于污点的 Pod 驱逐逻辑的污点驱逐控制器从 Node 生命周期控制器中解耦出来。
@@ -5811,6 +6150,15 @@ features:
       - kube-controller-manager
       - kube-scheduler
       - kubelet
+  SizeBasedListCostEstimate:
+    Beta:
+      default: true
+      from: '1.34'
+      to: null
+    description: Enables APF to use size of objects for estimating request cost.
+    x-kab-description-zh: 允许 APF 组件使用对象的尺寸来估算请求的开销。
+    components:
+      - kube-apiserver
   SizeMemoryBackedVolumes:
     Alpha:
       default: false
@@ -5937,7 +6285,9 @@ features:
       default: true
       locked: true
       from: '1.31'
-      to: null
+      to: '1.33'
+    Removed:
+      from: '1.34'
     description: Allow configuration of the start ordinal in a StatefulSet. See [Start ordinal](https://k8s.io/docs/concepts/workloads/controllers/statefulset/#start-ordinal)
       for more details.
     x-kab-description-zh: 允许控制 StatefulSet 中的启动顺序。更多细节可参阅[启动顺序](https://k8s.io/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。
@@ -6027,9 +6377,14 @@ features:
       - kube-apiserver
       - kube-controller-manager
   StreamingCollectionEncodingToJSON:
-    Alpha:
+    Beta:
       default: true
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Allow API server JSON encoder to encode collections item by item, instead of all at once.
     x-kab-description-zh: 允许 API 服务器的 JSON 编码组件逐个条目地对集合进行编码，而不是对所有元素一次性完成编码。
@@ -6039,6 +6394,11 @@ features:
     Alpha:
       default: true
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Allow API server Protobuf encoder to encode collections item by item, instead of all at once.
     x-kab-description-zh: 允许 API 服务器的 Protobuf 编码组件逐个条目地对集合进行编码，而不是对所有元素一次性完成编码。
@@ -6130,10 +6490,25 @@ features:
     Beta:
       default: true
       from: '1.30'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Enables structured authentication configuration so that users can use any JWT-compliant tokens in addition
       to OIDC tokens. Multiple providers can be used simultaneously.
     x-kab-description-zh: 启用结构化的身份认证配置，从而使得用户可以使用任何与 JWT 兼容的令牌而不仅仅是 OIDC 令牌。用户可以同时使用多个认证驱动。
+    components:
+      - kube-apiserver
+
+  StructuredAuthenticationConfigurationEgressSelector:
+    Beta:
+      default: true
+      from: '1.34'
+      to: null
+    description: Enables Egress selector in structured authentication configuration.
+    x-kab-description-zh: 允许在结构化身份认证配置中使用离站路由选择算符。
     components:
       - kube-apiserver
   StructuredAuthorizationConfiguration:
@@ -6387,6 +6762,16 @@ features:
       - kube-apiserver
       - kube-controller-manager
       - kubelet
+
+  TokenRequestServiceAccountUIDValidation:
+    Beta:
+      default: true
+      from: '1.34'
+      to: null
+    description: |
+      This is used to ensure that the UID provided in the TokenRequest matches the UID of the ServiceAccount for which the token is being requested. It helps prevent misuse of the TokenRequest API by ensuring that tokens are only issued for the correct ServiceAccount.
+    x-kab-description-zh: |
+      此特性用来确保 TokenRequest API 对象中的 UID 与请求所对应的 ServiceAccount 中的 UID 是匹配的。这样做可以避免 TokenRequest API 的滥用，确保令牌会被发放给正确的服务账户。
   TopologyAwareHints:
     Alpha:
       default: false
@@ -6475,7 +6860,6 @@ features:
       to: '1.31'
     GA:
       default: true
-      locked: true
       from: '1.32'
       to: null
     description: Allow fine-tuning of topology manager policies,
@@ -6625,6 +7009,10 @@ features:
     Beta:
       default: false
       from: '1.31'
+      to: '1.33'
+    GA:
+      default: true
+      from: '1.34'
       to: null
     description: Enables user specified volume attributes for persistent volumes, like iops and throughput.
     x-kab-description-zh: 为持久卷启用用户指定的卷属性支持，例如 IOPS 和吞吐量等。
@@ -6804,6 +7192,7 @@ features:
       to: '1.32'
     Deprecated:
       default: false
+      locked: true
       from: '1.33'
       to: null
     description: Enables watches without `resourceVersion` to be served from storage.
@@ -6847,6 +7236,11 @@ features:
     Beta:
       default: true
       from: '1.33'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Allows kube-proxy to create DSR loadbalancers for Windows.
     x-kab-description-zh: 允许 kube-proxy 为 Windows 创建 DSR 负载均衡器。
@@ -6860,6 +7254,11 @@ features:
     Beta:
       default: true
       from: '1.20'
+      to: '1.33'
+    GA:
+      default: true
+      locked: true
+      from: '1.34'
       to: null
     description: Allows kube-proxy to run in overlay mode for Windows.
     x-kab-description-zh: 允许 kube-proxy 在 Windows 上以覆盖网络（Overlay）的形式运行。
@@ -6917,6 +7316,10 @@ features:
     Alpha:
       default: false
       from: '1.32'
+      to: '1.33'
+    Beta:
+      default: true
+      from: '1.34'
       to: null
     description: |
       Enables support for windows node graceful shutdown in kubelet.
