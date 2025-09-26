@@ -61,10 +61,10 @@ COPY kubernetes/1.27 $KAB_ROOT/data/1.27
 COPY kubernetes/1.28 $KAB_ROOT/data/1.28
 COPY kubernetes/1.29 $KAB_ROOT/data/1.29
 COPY kubernetes/1.30 $KAB_ROOT/data/1.30
-COPY kubernetes/1.30 $KAB_ROOT/data/1.31
-COPY kubernetes/1.30 $KAB_ROOT/data/1.32
-COPY kubernetes/1.30 $KAB_ROOT/data/1.33
-COPY kubernetes/1.30 $KAB_ROOT/data/1.34
+COPY kubernetes/1.31 $KAB_ROOT/data/1.31
+COPY kubernetes/1.32 $KAB_ROOT/data/1.32
+COPY kubernetes/1.33 $KAB_ROOT/data/1.33
+COPY kubernetes/1.34 $KAB_ROOT/data/1.34
 
 COPY kubernetes/index.json $KAB_ROOT/data
 COPY kubernetes/settings.json $KAB_ROOT/data
