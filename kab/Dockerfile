@@ -73,7 +73,7 @@ COPY kubernetes/features.yaml $KAB_ROOT/data
 WORKDIR $KAB_ROOT
 
 # Install KAB
-RUN pip3 install "setuptools>=67.6.1" && \
+RUN pip3 install "setuptools>=80.9.0" && \
     pip3 install dist/kab-*.whl && \
     rm -rf dist && \
     python3 manage.py collectstatic
