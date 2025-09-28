@@ -161,7 +161,7 @@
                 {% endif %}
 
                 {% if 'enum' in DATA %}
-                  {% if DATA.enum|length_is:"1" %}
+                  {% if DATA.enum|length == 1 %}
                     <br/>
                     <small><b>{% translate "const" %}</b></small>: <samp>{{ DATA.enum.0 }}</samp>
                   {% else %}

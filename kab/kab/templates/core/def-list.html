@@ -47,7 +47,7 @@
           <td style="word-break:break-word;">
             {# all items in the DDICT belong to the same group version #}
             {% for DNAME, DDATA in DDICT.items %}
-              {% if DDATA|length_is:"1" %}
+              {% if DDATA|length == 5 %}
                 {% dereference API GV.0 GV.1 DDATA.0 as LINK %}
                 <a class="btn btn-outline-dark btn-sm mb-1 deflink" role="button" href="/{{ LANG }}{{ LINK.0 }}">{{ LINK.1 }}</a>
               {% else %}
