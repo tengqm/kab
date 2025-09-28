@@ -20,5 +20,5 @@ except ImportError:
 
 setuptools.setup(
     packages = ["kab"],
-    setup_requires=['pbr>=5.11.0'],
+    setup_requires=['pbr>=6.1.0'],
     pbr=True)
