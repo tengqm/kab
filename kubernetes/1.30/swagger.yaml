@@ -16899,13 +16899,6 @@ definitions:
         },
       ]
       ```
-
-
-      Example:\n\n```\n  \"Name\": \"mysvc\",\n  \"Subsets\": [\n    {\n      \"Addresses\"\
-      : [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n      \"Ports\": [{\"name\"\
-      : \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n    },\n    {\n   \
-      \   \"Addresses\": [{\"ip\": \"10.10.3.3\"}],\n      \"Ports\": [{\"name\": \"a\"\
-      , \"port\": 93}, {\"name\": \"b\", \"port\": 76}]\n    },\n ]\n```\n"
     x-kubernetes-group-version-kind:
       - group: ''
         kind: Endpoints
@@ -22404,6 +22397,22 @@ definitions:
           如果此字段不为空，则调度器会直接将 Pod 调度到所指定的节点，假定节点可以满足其资源需求。
           只有所有的 `schedulingGates` 都被清除之后，才可以设置此字段。
           此字段值必须是一个合法的 DNS 子域名。
+      nodeSelector:
+        additionalProperties:
+          type: string
+        description: |-
+          A selector which must match a node's labels for the Pod to be scheduled on that node.
+          Each key in the map must be a qualified name.
+          Each value in the map must be no more than 63 characters.
+          It is either an empty string or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`,
+          and must start and end with an alphanumeric character.
+        type: object
+        x-kab-description-zh: |-
+          字段为选择算符，只有节点的标签与此算符匹配时，Pod 才会被调度到该节点。
+          此映射中的每个主键都必须是一个限定名称；映射中的所有值都必须不超过 63 个字符。
+          映射中的取值可以是空字符串，或者由字母、数字、`'-'`、`'_'` 或 `'.'` 字符组成，
+          并且必须以字母或者数字字符开头并结尾。
+        x-kubernetes-map-type: atomic
       os:
         $ref: '#/definitions/io.k8s.api.core.v1.PodOS'
         description: |-
@@ -26021,14 +26030,6 @@ definitions:
       When both are set, the values in container's `securityContext` take precedence.
     properties:
       allowPrivilegeEscalation:
-        appArmorProfile:
-          $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
-          description: |-
-            `appArmorProfile` is the AppArmor options to use by this container. If set, this profile overrides the pod's `appArmorProfile`.
-            Note that this field cannot be set when `.spec.os.name` is `"windows"`.
-          x-kab-description-zh: |-
-            `appArmorProfile` 是容器要使用的 AppArmor 选项。如果设置了此选项，则所给的配置会覆盖 Pod 的 `appArmorProfile` 设置。
-            注意，此字段在 `.spec.os.name` 值为 `"windows"` 时不可以设置。
         description: |-
           This controls whether a process can gain more privileges than its parent process.
           This bool directly controls if the `no_new_privs` flag will be set on the container process.
@@ -26036,6 +26037,7 @@ definitions:
           1) runs with as `securityContext.privileged` set to `true`,
           2) has `CAP_SYS_ADMIN` in its `securityContext.capabilities.add`.
           If `privileged` is set to `true`, this cannot be `false`.
+        type: boolean
         x-kab-description-zh: |-
           此字段控制一个进程是否可以获得比其父进程更多的特权。
           此布尔值直接控制是否会在容器的进程上设置 `no_new_privs` 标志。
@@ -26043,6 +26045,14 @@ definitions:
           1) 容器中设置了 `securityContext.privileged` 为 `true`；
           2) 容器在其 `securityContext.capabilities.add` 中包含了 `CAP_SYS_ADMIN`。
           如果 `privileged` 被设置为 `true`，则此字段不可设置为 `false`。
+      appArmorProfile:
+        $ref: '#/definitions/io.k8s.api.core.v1.AppArmorProfile'
+        description: |-
+          `appArmorProfile` is the AppArmor options to use by this container. If set, this profile overrides the pod's `appArmorProfile`.
+          Note that this field cannot be set when `.spec.os.name` is `"windows"`.
+        x-kab-description-zh: |-
+          `appArmorProfile` 是容器要使用的 AppArmor 选项。如果设置了此选项，则所给的配置会覆盖 Pod 的 `appArmorProfile` 设置。
+          注意，此字段在 `.spec.os.name` 值为 `"windows"` 时不可以设置。
       capabilities:
         $ref: '#/definitions/io.k8s.api.core.v1.Capabilities'
         description: |-
@@ -33880,23 +33890,23 @@ definitions:
           Valid policies are `"IfHealthyBudget"` and `"AlwaysAllow"`.
           If no policy is specified, the default behavior will be used, which corresponds to the
           `"IfHealthyBudget"` policy.
-          `"IfHealthyBudget"` policy means that running Pods (`status.phase="Running"`),
-          but not yet healthy can be evicted only if the guarded application is not disrupted
-          (`status.currentHealthy` is at least equal to `status.desiredHealthy`).
-          Healthy Pods will be subject to the PDB for eviction.
 
-          `"AlwaysAllow"` policy means that all running Pods (`status.phase="Running"`), but not yet healthy
-          are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met.
-          This means perspective running Pods of a disrupted application might not get a chance to become healthy.
-          Healthy Pods will be subject to the PDB for eviction.
+          - `"IfHealthyBudget"`: Running Pods (`status.phase="Running"`),
+            but not yet healthy can be evicted only if the guarded application is not disrupted
+            (`status.currentHealthy` is at least equal to `status.desiredHealthy`).
+            Healthy Pods will be subject to the PDB for eviction.
+
+          - `"AlwaysAllow"`: All running Pods (`status.phase="Running"`), but not yet healthy
+            are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met.
+            This means perspective running Pods of a disrupted application might not get a chance to become healthy.
+            Healthy Pods will be subject to the PDB for eviction.
 
           Additional policies may be added in the future.
           Clients making eviction decisions should disallow eviction of unhealthy Pods if they encounter
           an unrecognized policy in this field.
 
-          This field is Beta-level.
-          The eviction API uses this field when the feature gate `PDBUnhealthyPodEvictionPolicy`
-          is enabled (enabled by default).
+          This field is Beta-level. The eviction API uses this field when the feature gate
+          `PDBUnhealthyPodEvictionPolicy` is enabled (enabled by default).
         enum:
           - AlwaysAllow
           - IfHealthyBudget
@@ -33912,7 +33922,7 @@ definitions:
             大于等于 `status.desiredHealthy`）时，运行中的（`status.phase="Running"`）不健康的 Pod
             才可以被驱逐。是否要驱逐健康的 Pod，取决于 PDB 的约束条件。
 
-          - `"AlwaysAllow"`：运行中的（`status.phase="Running"`）不健康的 Pod 会被视为已经收到干扰了，
+          - `"AlwaysAllow"`：运行中的（`status.phase="Running"`）不健康的 Pod 会被视为已经受到干扰了，
             因此无论是否满足 PDB 中的约束，都可以被驱逐。
             这种策略可能会导致已经被干扰的应用很难有机会回到健康状态。
             PDB 的约束条件可以决定是有要驱逐健康的 Pod。
@@ -33920,8 +33930,8 @@ definitions:
           将来的版本中可能会添加新的策略。负责驱逐决策的客户端如果在此字段中看到无法识别的策略设置，
           应该禁止驱逐不健康的 Pod。
 
-          此字段处于 Beta 阶段。当启用了 `PDBUnhealthyPodEvictionPolicy` 特性门控之后，Eviction API
-          会检查此字段的设置。
+          此字段处于 Beta 级别。`eviction` API 在启用了 `PDBUnhealthyPodEvictionPolicy` 特性门控
+          （默认启用）之后会使用此字段。
     type: object
     x-kab-description-zh: PodDisruptionBudget 的规约。
   io.k8s.api.policy.v1.PodDisruptionBudgetStatus:
@@ -45501,7 +45511,7 @@ parameters:
     type: string
     uniqueItems: true
     x-kab-description-zh: |-
-      是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
+      是否执行垃圾收集以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
       默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。
       可接受的取值有：
 

@@ -9358,7 +9358,7 @@ definitions:
         description: |-
           `labelSelector` describes the limitation on access based on labels.  It can only limit access, not broaden it.
 
-          This field  is alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
+          This field is Alpha-level. To use this field, you must enable the `AuthorizeWithSelectors` feature gate (disabled by default).
         x-kab-description-zh: |-
           `labelSelector` 描述基于标签的访问限制。此字段只能限制访问，不能增加提升访问能力。
 
@@ -35599,7 +35599,7 @@ definitions:
         minLength: 1
         type: string
         x-kab-description-zh: |-
-          被尹苏云的对象的类别。
+          被引用对象的类别。
           如果鉴权组件无法识别 `kind` 字段的值，应该报告错误。
       name:
         description: |-
@@ -51803,7 +51803,7 @@ parameters:
     type: string
     uniqueItems: true
     x-kab-description-zh: |-
-      是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
+      是否执行垃圾收集以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
       默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。
       可接受的取值有：
 

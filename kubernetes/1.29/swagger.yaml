@@ -15103,13 +15103,6 @@ definitions:
         },
       ]
       ```
-
-
-      Example:\n\n```\n  \"Name\": \"mysvc\",\n  \"Subsets\": [\n    {\n      \"Addresses\"\
-      : [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n      \"Ports\": [{\"name\"\
-      : \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n    },\n    {\n   \
-      \   \"Addresses\": [{\"ip\": \"10.10.3.3\"}],\n      \"Ports\": [{\"name\": \"a\"\
-      , \"port\": 93}, {\"name\": \"b\", \"port\": 76}]\n    },\n ]\n```\n"
     x-kubernetes-group-version-kind:
       - group: ''
         kind: Endpoints
@@ -20506,6 +20499,22 @@ definitions:
           如果此字段不为空，则调度器会直接将 Pod 调度到所指定的节点，假定节点可以满足其资源需求。
           只有所有的 `schedulingGates` 都被清除之后，才可以设置此字段。
           此字段值必须是一个合法的 DNS 子域名。
+      nodeSelector:
+        additionalProperties:
+          type: string
+        description: |-
+          A selector which must match a node's labels for the Pod to be scheduled on that node.
+          Each key in the map must be a qualified name.
+          Each value in the map must be no more than 63 characters.
+          It is either an empty string or consists of alphanumeric characters, `'-'`, `'_'`, or `'.'`,
+          and must start and end with an alphanumeric character.
+        type: object
+        x-kab-description-zh: |-
+          字段为选择算符，只有节点的标签与此算符匹配时，Pod 才会被调度到该节点。
+          此映射中的每个主键都必须是一个限定名称；映射中的所有值都必须不超过 63 个字符。
+          映射中的取值可以是空字符串，或者由字母、数字、`'-'`、`'_'` 或 `'.'` 字符组成，
+          并且必须以字母或者数字字符开头并结尾。
+        x-kubernetes-map-type: atomic
       os:
         $ref: '#/definitions/io.k8s.api.core.v1.PodOS'
         description: |-
@@ -24087,6 +24096,7 @@ definitions:
           1) runs with as `securityContext.privileged` set to `true`,
           2) has `CAP_SYS_ADMIN` in its `securityContext.capabilities.add`.
           If `privileged` is set to `true`, this cannot be `false`.
+        type: boolean
         x-kab-description-zh: |-
           此字段控制一个进程是否可以获得比其父进程更多的特权。
           此布尔值直接控制是否会在容器的进程上设置 `no_new_privs` 标志。
@@ -42136,7 +42146,7 @@ parameters:
     type: string
     uniqueItems: true
     x-kab-description-zh: |-
-      是否执行垃圾手机以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
+      是否执行垃圾收集以及如何执行垃圾收集。此字段或者 `orphanDependents` 二者可以设置其一，但不能同时使用。
       默认策略取决于 `metadata.finalizers` 中的现有 `finalizers` 集合，以及特定于资源类型的策略。
       可接受的取值有：
 
