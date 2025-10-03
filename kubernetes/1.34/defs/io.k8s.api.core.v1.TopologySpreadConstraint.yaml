@@ -151,6 +151,7 @@ properties:
     format: int32
     type: integer
   nodeAffinityPolicy:
+    default: Honor
     description: |
       This indicates how we will treat Pod's `nodeAffinity.nodeSelector` when calculating Pod topology
       spread skew. Options are:
@@ -166,8 +167,12 @@ properties:
       - `"Ignore"`：忽略 `nodeAffinity.nodeSelector` 设置，所有节点都被纳入计算中。
 
       如果此字段未设置，默认行为是按照 `"Honor"` 策略处理。
+    enum:
+      - Honor
+      - Ignore
     type: string
   nodeTaintsPolicy:
+    default: Ignore
     description: |
       This indicates how we will treat node taints when calculating pod topology spread skew.
 
@@ -183,6 +188,9 @@ properties:
       - `"Ignore"`：忽略节点污点，将所有节点纳入计算。
 
       此字段未设置时，行为相当于 `"Ignore"` 策略。
+    enum:
+      - Honor
+      - Ignore
     type: string
   topologyKey:
     description: |

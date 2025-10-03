@@ -29,6 +29,12 @@ properties:
     x-kubernetes-list-type: atomic
   allocatedResourceStatuses:
     additionalProperties:
+      enum:
+        - ControllerResizeInProgress
+        - ControllerResizeInfeasible
+        - NodeResizeInProgress
+        - NodeResizeInfeasible
+        - NodeResizePending
       type: string
     description: |
       This stores status of resource being resized for the given PVC.
@@ -45,12 +51,12 @@ properties:
       The status of a claim resource can be in any of following states:
       - `"ControllerResizeInProgress"`: State set when the resize controller starts resizing
         the volume in control-plane.
-      - `"ControllerResizeFailed"`: State set when a resize has failed in the resize
+      - `"ControllerResizeInfeasible"`: State set when a resize has failed in the resize
         controller with a terminal error.
       - `"NodeResizePending"`: State set when the resize controller has finished resizing
         the volume but further resizing of the volume is needed on the node.
       - `"NodeResizeInProgress"`: State set when kubelet starts resizing the volume.
-      - `"NodeResizeFailed"`: State set when resizing has failed in kubelet with a terminal
+      - `"NodeResizeInfeasible"`: State set when resizing has failed in kubelet with a terminal
         error. Transient errors don't set `NodeResizeFailed`.
 
       When this field is not set, no resize operation is in progress for the given PVC.
@@ -75,12 +81,12 @@ properties:
       PVC 资源的状态可以是以下取值之一：
 
       - `"ControllerResizeInProgress"`：当控制面中的重设大小控制器开始调整大小时设置此状态。
-      - `"ControllerResizeFailed"`：当重设大小控制器以终结性错误终止时，
+      - `"ControllerResizeInfeasible"`：当重设大小控制器以终结性错误终止时，
         设置此状态表明调整大小失败。
       - `"NodeResizePending"`：当重设大小控制器已经完成了卷的大小变更，
         但需要在节点上执行对卷进行大小变更的进一步操作时，设置此状态。
       - `"NodeResizeInProgress"`：当 kubelet 开始调整卷的大小时设置此状态。
-      - `"NodeResizeFailed"`：当 kubelet 遇到终结性错误，进而无法完成调整大小的操作时，
+      - `"NodeResizeInfeasible"`：当 kubelet 遇到终结性错误，进而无法完成调整大小的操作时，
         设置为此状态。临时性的错误不会设置这个状态。
 
       如果这个字段没有被设置时，意味着对于给定的 PVC 没有正在被处理的大小调整操作。

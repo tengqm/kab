@@ -19,8 +19,17 @@ properties:
   patchType:
     description: |-
       `patchType` indicates the patch strategy used.
+      Possible enum values:
+
+      - `"ApplyConfiguration"` indicates that the mutation is using apply configuration to mutate the object.
+      - `"JSONPatch"` indicates that the object is mutated through JSON Patch.
     x-kab-description-zh: |-
       `patchType` 用来给出要使用的补丁策略。
+      可选的枚举值：
+
+      - `"ApplyConfiguration"` 表明变更会使用 `applyConfiguration` 的配置来变更对象；
+      - `"JSONPatch"` 表明对象会通过 `jsonPatch` 的配置来变更对象。
+ 
     enum:
       - ApplyConfiguration
       - JSONPatch

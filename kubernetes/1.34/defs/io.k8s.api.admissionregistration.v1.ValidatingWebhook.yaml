@@ -234,12 +234,38 @@ properties:
       Webhooks with side effects **MUST** implement a reconciliation system, since a request
       may be rejected by a future step in the admission change and the side effects therefore
       need to be undone.
+      Possible enum values:
+
+      - `"None"` means that calling the webhook will have no side effects.
+      - `"NoneOnDryRun"` means that calling the webhook will possibly have side effects,
+        but if the request being reviewed has the dry-run attribute,
+        the side effects will be suppressed.
+      - `"Some"` means that calling the webhook will possibly have side effects.
+        If a request with the dry-run attribute would trigger a call to this webhook,
+        the request will instead fail.
+      - `"Unknown"` means that no information is known about the side effects of calling the webhook.
+        If a request with the dry-run attribute would trigger a call to this webhook,
+        the request will instead fail.
+
     x-kab-description-zh: |
       用来标明此 Webhook 是否具有一定的副作用。带有副作用的 Webhook **必须** 实现一种协调机制，
       原因是某个请求可能会被准入判定链条中的下游插件所拒绝，这里产生的副作用需要被消除掉。
+
+      可选的枚举值：
+
+      - `"None"` 意味着调用此 Webhook 不会有副作用；
+      - `"NoneOnDryRun"` 意味着调用此 Webhook 可能会有副作用，不过如果请求是属于试运行（Dry-run）
+        类型的，对应的副作用会被压制；
+      - `"Some"` 意味着调用此 Webhook 可能会有副作用；如果某个请求设置了 `dry-run` 属性，
+        并且会触发对此 Webhook 的调用，则请求会失败；
+      - `"Unknown"` 意味着关于调用此 Webhook 是否会产生副作用是未知的。
+        如果某个请求设置了 `dry-run` 属性，并且会触发对此 Webhook 的调用，则请求会失败；
+
     enum:
       - None
       - NoneOnDryRun
+      - Some
+      - Unknown
     type: string
   timeoutSeconds:
     default: 10

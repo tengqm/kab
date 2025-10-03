@@ -32,6 +32,7 @@ properties:
       - `"NotTerminating"` matches all Pod objects where `spec.activeDeadlineSeconds` is null.
       - `"PriorityClass"` matches all Pod objects that have priority class mentioned.
       - `"Terminating"` matches all Pod objects where `spec.activeDeadlineSeconds >=0`.
+      - `"VolumeAttributeClass"` matches all Pod objects where `spec.VolumeAttributeClass` is set.
     x-kab-description-zh: |
       选择算符所使用的范围的名称。可选的取值包括：
 
@@ -42,6 +43,7 @@ properties:
       - `"NotTerminating"`：匹配所有 `spec.activeDeadlineSeconds` 为空的 Pod 对象。
       - `"PriorityClass"`：匹配所有与某优先级类关联的 Pod 对象。
       - `"Terminating"`：匹配所有 `spec.activeDeadlineSeconds >=0` 的 Pod 对象。
+      - `"VolumeAttributeClass"`：匹配所有 `spec.VolumeAttributeClass` 的 Pod 对象。
     enum:
       - BestEffort
       - CrossNamespacePodAffinity
@@ -49,6 +51,7 @@ properties:
       - NotTerminating
       - PriorityClass
       - Terminating
+      - VolumeAttributeClass
     minLength: 1
     type: string
   values:

@@ -238,9 +238,9 @@ properties:
       `clusterIPs` 和 `ipFamilies` 都受控于 `ipFamilyPolicy` 字段。
     items:
       enum:
+        - ""
         - IPV4
         - IPv6
-      minLength: 1
       type: string
     type: array
     x-kubernetes-list-type: atomic
