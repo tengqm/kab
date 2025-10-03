@@ -2,7 +2,11 @@
   "description": "The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.",
   "properties": {
     "effect": {
-      "description": "Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.",
+      "description": "Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.\n\n\nPossible enum values:\n - `\"NoExecute\"` Evict any already-running pods that do not tolerate the device taint.\n - `\"NoSchedule\"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.",
+      "enum": [
+        "NoExecute",
+        "NoSchedule"
+      ],
       "type": "string"
     },
     "key": {
@@ -10,7 +14,11 @@
       "type": "string"
     },
     "operator": {
-      "description": "Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.",
+      "description": "Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.\n\n\nPossible enum values:\n - `\"Equal\"`\n - `\"Exists\"`",
+      "enum": [
+        "Equal",
+        "Exists"
+      ],
       "type": "string"
     },
     "tolerationSeconds": {

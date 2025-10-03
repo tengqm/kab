@@ -10,7 +10,11 @@
       "type": "string"
     },
     "parameterNotFoundAction": {
-      "description": "`parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.\n\nAllowed values are `Allow` or `Deny` Default to `Deny`",
+      "description": "`parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.\n\nAllowed values are `Allow` or `Deny` Default to `Deny`\n\nPossible enum values:\n - `\"Allow\"` Ignore means that an error finding params for a binding is ignored\n - `\"Deny\"` Fail means that an error finding params for a binding is ignored",
+      "enum": [
+        "Allow",
+        "Deny"
+      ],
       "type": "string"
     },
     "selector": {

@@ -2,7 +2,11 @@
   "description": "The device this taint is attached to has the \"effect\" on any claim which does not tolerate the taint and, through the claim, to pods using the claim.",
   "properties": {
     "effect": {
-      "description": "The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.",
+      "description": "The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.\n\n\nPossible enum values:\n - `\"NoExecute\"` Evict any already-running pods that do not tolerate the device taint.\n - `\"NoSchedule\"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.",
+      "enum": [
+        "NoExecute",
+        "NoSchedule"
+      ],
       "type": "string"
     },
     "key": {

@@ -51,11 +51,20 @@
       "type": "string"
     },
     "reclaimPolicy": {
-      "description": "reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.",
+      "description": "reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.\n\nPossible enum values:\n - `\"Delete\"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.\n - `\"Recycle\"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.\n - `\"Retain\"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.",
+      "enum": [
+        "Delete",
+        "Recycle",
+        "Retain"
+      ],
       "type": "string"
     },
     "volumeBindingMode": {
-      "description": "volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.",
+      "description": "volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.\n\nPossible enum values:\n - `\"Immediate\"` indicates that PersistentVolumeClaims should be immediately provisioned and bound. This is the default mode.\n - `\"WaitForFirstConsumer\"` indicates that PersistentVolumeClaims should not be provisioned and bound until the first Pod is created that references the PeristentVolumeClaim. The volume provisioning and binding will occur during Pod scheduing.",
+      "enum": [
+        "Immediate",
+        "WaitForFirstConsumer"
+      ],
       "type": "string"
     }
   },

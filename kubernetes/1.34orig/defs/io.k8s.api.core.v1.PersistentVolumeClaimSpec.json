@@ -4,6 +4,12 @@
     "accessModes": {
       "description": "accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1",
       "items": {
+        "enum": [
+          "ReadOnlyMany",
+          "ReadWriteMany",
+          "ReadWriteOnce",
+          "ReadWriteOncePod"
+        ],
         "type": "string"
       },
       "type": "array",
@@ -34,7 +40,11 @@
       "type": "string"
     },
     "volumeMode": {
-      "description": "volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.",
+      "description": "volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.\n\nPossible enum values:\n - `\"Block\"` means the volume will not be formatted with a filesystem and will remain a raw block device.\n - `\"Filesystem\"` means the volume will be or is formatted with a filesystem.",
+      "enum": [
+        "Block",
+        "Filesystem"
+      ],
       "type": "string"
     },
     "volumeName": {

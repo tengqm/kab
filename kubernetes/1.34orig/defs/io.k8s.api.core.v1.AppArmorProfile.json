@@ -6,7 +6,12 @@
       "type": "string"
     },
     "type": {
-      "description": "type indicates which kind of AppArmor profile will be applied. Valid options are:\n  Localhost - a profile pre-loaded on the node.\n  RuntimeDefault - the container runtime's default profile.\n  Unconfined - no AppArmor enforcement.",
+      "description": "type indicates which kind of AppArmor profile will be applied. Valid options are:\n  Localhost - a profile pre-loaded on the node.\n  RuntimeDefault - the container runtime's default profile.\n  Unconfined - no AppArmor enforcement.\n\nPossible enum values:\n - `\"Localhost\"` indicates that a profile pre-loaded on the node should be used.\n - `\"RuntimeDefault\"` indicates that the container runtime's default AppArmor profile should be used.\n - `\"Unconfined\"` indicates that no AppArmor profile should be enforced.",
+      "enum": [
+        "Localhost",
+        "RuntimeDefault",
+        "Unconfined"
+      ],
       "type": "string"
     }
   },

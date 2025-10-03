@@ -10,7 +10,11 @@
       "description": "jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch."
     },
     "patchType": {
-      "description": "patchType indicates the patch strategy used. Allowed values are \"ApplyConfiguration\" and \"JSONPatch\". Required.",
+      "description": "patchType indicates the patch strategy used. Allowed values are \"ApplyConfiguration\" and \"JSONPatch\". Required.\n\n\nPossible enum values:\n - `\"ApplyConfiguration\"` ApplyConfiguration indicates that the mutation is using apply configuration to mutate the object.\n - `\"JSONPatch\"` JSONPatch indicates that the object is mutated through JSON Patch.",
+      "enum": [
+        "ApplyConfiguration",
+        "JSONPatch"
+      ],
       "type": "string"
     }
   },
