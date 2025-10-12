@@ -78,6 +78,16 @@ class Diff(object):
                 self.save("TYPE", msg)
                 return
 
+            # process empty lists
+            if len(first) == 0 or len(second) == 0:
+                LOG.warning("%s vs %s", first, second)
+                first = sorted(first)
+                second = sorted(second)
+                if first != second:
+                    msg = "%s;; %s||%s" % (path, first, second)
+                    self.save("VALUE", msg)
+                return
+
             # process simple type
             if not isinstance(first[0], (dict, list)):
                 first = sorted(first)
