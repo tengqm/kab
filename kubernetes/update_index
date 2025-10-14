@@ -419,6 +419,7 @@ def _handle_special_ops(version, fn):
             "target": "core",
             "group_version": "core/v1",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -430,6 +431,7 @@ def _handle_special_ops(version, fn):
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -441,6 +443,7 @@ def _handle_special_ops(version, fn):
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -452,6 +455,7 @@ def _handle_special_ops(version, fn):
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -463,6 +467,7 @@ def _handle_special_ops(version, fn):
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -474,6 +479,7 @@ def _handle_special_ops(version, fn):
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -485,6 +491,7 @@ def _handle_special_ops(version, fn):
             "target": "*",
             "group_version": "*",
             "description": opdata.get("description", ""),
+            "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
         }
         add_operation(version, fname, op_dict)
         return
@@ -567,7 +574,8 @@ def load_operations(version):
                         "op_type": otype,
                         "target": gname,
                         "group_version": group_version,
-                        "description": opdata.get("description", "")
+                        "description": opdata.get("description", ""),
+                        "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
                     }
                     add_operation(version, fname, op_dict)
                     found = True
@@ -618,6 +626,7 @@ def load_operations(version):
                     "group_version": res["group"] + "/" + gv,
                     "target": res_name,
                     "description": opdata.get("description", ""),
+                    "x-kab-description-zh": opdata.get("x-kab-description-zh", ""), 
                 }
                 add_operation(version, fname, op_dict)
                 break
