@@ -755,8 +755,9 @@ class StaticPage(generic.View):
             target = urls.reverse("list-apis")
             return http.HttpResponseRedirect(target)
 
+        lang = translation.get_language()
         path = os.path.join(settings.BASE_DIR, "kab", "templates", "static",
-                            page + ".md")
+                            lang, page + ".md")
         if not os.path.exists(path) or not os.path.isfile(path):
             target = urls.reverse("list-apis")
             return http.HttpResponseRedirect(target)
@@ -786,8 +787,9 @@ class HelpPage(generic.View):
         if page == "":
             raise exc.SuspiciousOperation("Invalid page specified")
 
+        lang = translation.get_language()
         path = os.path.join(settings.BASE_DIR, "kab", "templates", "static",
-                            page + ".md")
+                            lang, page + ".md")
         if not os.path.exists(path) or not os.path.isfile(path):
             raise exc.SuspiciousOperation("Page not found")
 
