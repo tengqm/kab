@@ -336,9 +336,9 @@ def operations(api_version, group_version):
         else:
             ops = opdict.get(op["target"], [])
 
-        if (translation.get_language() == 'zh' and
-            'x-kab-description-zh' in op):
-            op['description'] = op.get('x-kab-description-zh', '')
+        if (translation.get_language() == "zh" and
+            "x-kab-description-zh" in op):
+            op["description"] = op.get("x-kab-description-zh", "")
 
         ops.append({
             "op_type": op["op_type"],

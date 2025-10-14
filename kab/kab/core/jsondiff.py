@@ -17,6 +17,7 @@ import logging
 import os
 
 from django.conf import settings
+from django.utils import translation
 
 from kab import consts
 from kab.core import helpers
@@ -182,9 +183,16 @@ def compare_data(json1, json2):
             if keypath.endswith(".description"):
                 key = "DESCRIPTION"
                 keypath = keypath[:-12]
+            elif keypath.endswith(".x-kab-description-zh"):
+                key = "DESCRIPTION-ZH"
+                keypath = keypath[:-21]
             elif keypath == "description":
                 key = "DESCRIPTION"
                 keypath = "(The Resource)"
+            elif keypath == "x-kab-description-zh":
+                key = "DESCRIPTION-ZH"
+                keypath = "（当前资源）"
+
             value = {
                 keypath: {
                     "BEFORE": vals[0].strip(),
@@ -496,6 +504,11 @@ def _history(ver0, ver1):
             continue
 
         gv_list = v["group_version"].split("/")
+        op_desc = v["description"]
+        if (translation.get_language() == "zh" and
+            "x-kab-description-zh" in v):
+             op_desc = v.get("x-kab-description-zh", "")
+
         ops.append({
             "status": status,
             "id": k,
@@ -504,7 +517,7 @@ def _history(ver0, ver1):
             "op": v["op_type"],
             "target": v["target"],
             "type": v["type"],
-            "description": v["description"],
+            "description": op_desc,
         })
 
     # 2.2 sort ops by group and version
