@@ -10,7 +10,7 @@ properties:
     x-kab-description-zh: |
       `allNodes` 表明所有节点都能访问此设备。
 
-      只有在 `spec.`perDeviceNodeSelection` 被设置为 `true` 时才能设置。
+      只有在 `spec.perDeviceNodeSelection` 被设置为 `true` 时才能设置。
       `nodeName`、`nodeSelector` 和 `allNodes` 中只能设置其一。
     type: boolean
   attributes:
@@ -67,9 +67,9 @@ properties:
       Must only be set if `spec.perDeviceNodeSelection` is set to true.
       At most one of `nodeName`, `nodeSelector` and `allNodes` can be set.
     x-kab-description-zh: |
-      `nodeName` 给出能够访问此设备的节点。
+      `nodeName` 给出能访问此设备的节点。
 
-      只有在 `spec.`perDeviceNodeSelection` 被设置为 `true` 时才能设置。
+      只有在 `spec.perDeviceNodeSelection` 被设置为 `true` 时才能设置。
       `nodeName`、`nodeSelector` 和 `allNodes` 中只能设置其一。
     type: string
 
