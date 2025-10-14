@@ -35,8 +35,11 @@ p {
           <td {% if ITEM.status == "Added" %}class="text-success"
             {% elif ITEM.status == "Removed" %}class="text-danger"
             {% endif %}>
-
-            {{ ITEM.status }}<BR/>
+            {% if ITEM.status == "Added" %}{% translate "Added" %}
+            {% elif ITEM.status == "Removed" %}{% translate "Removed" %}
+            {% else %}{% translate "Changed" %}
+            {% endif %}
+            <BR/>
             {% if GVK.0 %}
               {% dereference APIV.0 GVK.0 GVK.1 GVK.2 as LINK0 %}
               {% dereference APIV.1 GVK.0 GVK.1 GVK.2 as LINK1 %}
@@ -89,8 +92,11 @@ p {
           <td {% if ITEM.status == "Added" %}class="text-success"
             {% elif ITEM.status == "Removed" %}class="text-danger"
             {% endif %}>
-
-            {{ ITEM.status }}<BR/>
+            {% if ITEM.status == "Added" %}{% translate "Added" %}
+            {% elif ITEM.status == "Removed" %}{% translate "Removed" %}
+            {% else %}{% translate "Changed" %}
+            {% endif %}
+            <BR/>
 
             {% if ITEM.status == "Changed" or ITEM.status == "Removed" %}
             <a class="badge bg-primary text-white" href="{% url 'view-operation' APIV.0 ITEM.id %}">{{ APIV.0 }}</a>
