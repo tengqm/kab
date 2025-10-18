@@ -1,7 +1,6 @@
-## Resource Deletion
+## 资源删除
 
-Kubernetes resources are deleted in two phases: 1) finalization, and 2)
-removal.
+Kubernetes 中资源的删除操作分为两个阶段：1）终止（Finalization）；2）移除（Removal）。
 
 ```json
 {
@@ -14,16 +13,16 @@ removal.
 }
 ```
 
-Once the last finalizer is removed, the resource is actually removed from etcd.
+当对象上最后一个终结器（Finalizer）也被去除时，对应的资源就会最终从 etcd 数据库中删除。
 
-### Deletion Timestamp
+### 删除时间戳
 
-When a client first deletes a resource, the `deletionTimestamp` is set to the
-current time. When the `deletionTimestamp` is set, controllers that are
-permitted to operate on `finalizers` can start performing their cleanup work
-at any time, in any order.
+当客户端第一次发出删除请求时，服务器会将对象上的 `deletionTimestamp` 字段设置为当前时间。
+当 `deletionTimestamp` 被设置时，可以操控对象上 `finalizers`
+字段的控制器可以在任何时候开始清理工作。
+如果存在多个控制器管理不同的 `finalizers` 成员，其执行顺序是不可预测的。
 
-The `deletionTimestamp` is also an indicator of whether an object is being
-deleted. When a deletion operation is started from the server side, this field
-is set to the current time. If this field is empty, the object is not being
-deleted.
+`deletionTimestamp` 字段也是一种标志，用来标明对象是否正在被删除。
+当服务器侧开始执行删除操作时，此字段被设置为当前时间。
+如果此字段为空，则意味着对象没有处于将被删除的状态。
+
