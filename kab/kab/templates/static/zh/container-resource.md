@@ -1,17 +1,15 @@
-## About Resources
+## 关于资源
 
-A resource name must be no more than 63 characters, consisting of alphanumeric
-characters, `'-'`, `'-'` and `'.'` characters allowed anywhere except for the
-first and the last character.
+资源的名称一般不可以超过 63 个字符；其中可以包含数字、字母、`'-'`、`'_'` 和 `'.'`，
+但是首字符和最末字符不可以是 `'-'`、`'_'` 或 `'.'` 之一。
 
-There are two kinds of resource names in Kubernetes:
+在 Kubernetes 中存在两种类型的资源名称：
 
-- standard resource name: one of the following strings one prefixed with
-  `"hugepages-"` or `"requests.hugepages-"`.
-- fully qualified resource name: is a name constructed from a DNS-style subdomain
-  name followed by a slash (`'/'`) and a resource name.
+- 标准的资源名称：即下面标准资源名称之一，或者带有 `"hugepages-"` 或 `"requests.hugepages-"`
+  前缀的名称；
+- 完全限定的资源名称：DNS 风格子域名后接一个斜线（`'/'`）再接一个资源名称。
 
-A standard resource name is one of the following:
+标准资源名称包括：
 
 - `"cpu"`
 - `"memory"`
@@ -34,26 +32,25 @@ A standard resource name is one of the following:
 - `"services.nodeports"`
 - `"services.loadbalancers"`
 
-### Standard Container Resource Names
+### 标准的容器资源名称
 
-When specifying resource requests or resource limits for a container, the
-resource name must be one of:
+在为容器设置资源请求或者资源限制值时，所指定的资源必须是如下之一：
 
-- a *standard container resource name*
-- a *non-native resource* for extended resources
+- 一个 *标准容器资源名称*
+- 或者一个用于表示扩展资源的 *非原生资源（Non-native Resource）*
 
-A *standard container resource name* here means one of:
+这里的 *标准容器资源名称* 意味着以下情形之一：
 
-- builtin container resource names: `"cpu"`, `"memory"` or `"ephemeral-storage"`
-- a hugepage resource, i.e. a string prefixed with `"hugepages-"`.
+- 内置的容器资源名称：`"cpu"`、`"memory"` 或者 `"ephemeral-storage"`
+- 带有 `"hugepages-"` 前缀的大页面资源
 
-A *native resource* is a resource in the `"kubernetes.io/"` namespace.
-Partially-qualified names (names without `'/'`) are implicitly in the
-`"kubernetes.io/"` namespace.
+*原生资源（native resource）* 指的是是处于 `"kubernetes.io/"` 名字空间内的资源。
+部分限定名（名字中不包含 `'/'` 的情况）都隐式地包含在 `"kubernetes.io/"` 名字空间内。
 
-An *extended resource name* is a name that meets the following requirements:
+*扩展资源名（Extended Resource Name）* 是一个满足如下需求的名称：
 
-- not in the `"kubernetes.io/"` namespace;
-- not prefixed with `"requests."`;
-- when prefixed with `"requests."`, it can form a qualified name.
+- 不在 `"kubernetes.io/"` 名字空间内；
+- 不带 `"requests."` 前缀；
+- 如果加上 `"requests."` 前缀，可以构造一个限定名称。
+
 
