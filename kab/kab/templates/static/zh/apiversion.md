@@ -4,51 +4,48 @@
 这样做的好处是能够确保整个 API 能够给出一种关于系统资源和行为的一致、清晰视图，
 同时便于控制 API 的生命周期以及实验性 API 的演进。
 
-The JSON and Protobuf serialization schemas follow the same guidelines for
-schema changes. The following descriptions cover both formats.
+JSON 和 Protobuf 这两种序列化模式都遵从相同的模式变更约定。
+下面的描述适用于 JSON 和 Protobuf 两种模式。
 
-The API versioning and software versioning are indirectly related. The
+API 的版本与软件的版本是彼此独立的。
+官方的
 <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/identifiers.md"
 target="_blank">API and release versioning proposal
 <i class='fa fa-external-link-alt'></i></a>
-describes the relationship between API versioning and software versioning.
+文档描述了 API 版本管理与软件版本管理之间的关系。
 
-Different API versions indicate different levels of stability and support. You
-can find more information about the criteria for each level in the
-API Changes documentation.
-
-Here's a summary of each level:
+不同的 API 版本意味着不同的成熟度、稳定程度和支持级别。
+用户可以在 API 变更文档中读到关于每种成熟度的具体条件。
+下面是对不同成熟度的一份总结：
 
 *Alpha*:
 
-  * The version names contain alpha (for example, `v1alpha1`).
-  * The software may contain bugs. Enabling a feature may expose bugs. A
-    feature may be disabled by default.
-  * The support for a feature may be dropped at any time without notice.
-  * The API may change in incompatible ways in a later software release
-    without notice.
-  * The software is recommended for use only in short-lived testing clusters,
-    due to increased risk of bugs and lack of long-term support.
+  * API 版本名称中包含 alpha  字样，例如 `v1alpha1`。
+  * Alpha 版本软件可能包含缺陷。启用这一版本的特性可能会向外界暴露缺陷。
+    Alpha 特性通常默认被禁用。
+  * 对 Alpha 版本特性的支持可能随时会终止，官方不会专门公告。
+  * Alpha 版本的 API 可以在后续的软件发布版本中引入各种不兼容的变更；
+    引入这类变更时也不会专门提醒。
+  * 因为 Alpha 阶段的特性通常有较大缺陷风险，且没有长期支持保障，
+    因此这类特性仅建议在短期使用的、测试性集群中使用。
 
 *Beta*:
 
-  * The version names contain `beta` (for example, `v2beta3`).
-  * The software is well tested. Enabling a feature is considered safe.
-    Features are enabled by default.
-  * The support for a feature will not be dropped, though the details may
-    change.
-  * The schema and/or semantics of objects may change in incompatible ways in
-    a subsequent beta or stable release. When this happens, migration
-    instructions are provided. Schema changes may require deleting, editing,
-    and re-creating API objects. The editing process may not be straightforward.
-    The migration may require downtime for applications that rely on the feature.
-  * The feature is not recommended for production uses. Subsequent releases
-    may introduce incompatible changes. If you have multiple clusters which
-    can be upgraded independently, you may be able to relax this restriction.
+  * API 版本名称中包含 `beta` 字样，例如 `v2beta3`。
+  * Beta 版本的软件已经过严格测试，因此启用这类特性一般而言是比较安全的。
+    默认情况下，Beta 版本的特性是被启用的。
+  * 对 Beta 版本的特性的支持不会终止，尽管具体细节可能会发生变化。
+  * 对象的模式和语义可能会在后续的 Beta 版本或稳定版本中发生不兼容的变化。
+    如果发生这类状况，社区会提供与迁移有关的指导。
+    如果发生了模式变更，则可能意味着用户需要删除、编辑并重新创建对应的 API 对象。
+    编辑的过程可能并不总是简单直接的。
+    迁移工作可能要求依赖该特性的应用被重启，因此会有服务中断的可能性。
+  * Beta 版本的特性依然不建议在生产环境中使用。
+    后续的发行版中可能会引入一些不兼容的变更。
+    如果用户拥有多个可以独立升级的集群，这一限制可以适当放宽一些。
 
-*Stable/GA*:
+*稳定版本/GA*:
 
-  * The version name is `vX` where `X` is an integer.
-  * The stable versions of features appear in released software for many
-    subsequent versions.
+  * 版本名称为 `vX` 形式，其中 `X` 是一个整数。
+  * 一个特性如果是稳定版本，则在后续的很多发行版本中都会一直存在。
 
