@@ -1,14 +1,14 @@
 ## About Resources
 
 A resource name must be no more than 63 characters, consisting of alphanumeric
-characters, `'-'`, `'-'` and `'.'` characters allowed anywhere except for the
+characters, `'-'`, `'_'` and `'.'` characters allowed anywhere except for the
 first and the last character.
 
 There are two kinds of resource names in Kubernetes:
 
-- standard resource name: one of the following strings one prefixed with
+- standard resource name: one of the following strings or one prefixed with
   `"hugepages-"` or `"requests.hugepages-"`.
-- fully qualified resource name: is a name constructed from a DNS-style subdomain
+- fully qualified resource name: a name constructed from a DNS-style subdomain
   name followed by a slash (`'/'`) and a resource name.
 
 A standard resource name is one of the following:

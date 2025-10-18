@@ -12,6 +12,9 @@ following formats:
   Protobuf <i class='fa fa-external-link-alt'></i></a> format.
   Not all resource types support the "Protobuf" encoding, specifically those
   defined via Custom Resource Definitions or those are API extensions.
+- `"application/cbor"`: A binary data format as defined by
+  <a href="https://www.rfc-editor.org/rfc/rfc8949" target="_blank">RFC8949
+  <i class='fa fa-external-link-alt'></i></a>.
 
 For PATCH requests, the content type can be one of the following:
 
@@ -31,6 +34,8 @@ For PATCH requests, the content type can be one of the following:
   please refer to the
   <a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/"
   target="_blank">official documentation <i class='fa fa-external-link-alt'></i></a>.
+- `"application/apply-patch+cbor"`: a media type for CBOR-encoded server-side apply
+  configuration.
 
 If the specified `"Content-Type"` is supported by the server, the same
 `"Content-Type"` header is returned; otherwise the server may return the
@@ -50,21 +55,23 @@ omit this header.
 
 The valid values for the `"Accept"` can be one of:
 
-  * `"application/com.github.proto-openapi.spec.v2@v1.0+protobuf"`:
-    This is mainly used for intra-cluster communnications.
-  * `"application/json"`: This is the default value indicating that the server
-    response is expecected to be JSON data.
-  * `"application/json;stream=watch"`: The server response is expecected to be
-    JSON data stream for watch operations.
-  * `"application/yaml"`: The server response are encoded in YAML format.
-  * `"application/vnd.kubernetes.protobuf"`: The server response are encoded in
-    [Protobuf](https://developers.google.com/protocol-buffers) format.
-  * `"application/vnd.kubernetes.protobuf;stream=watch"`: The same as
-    `"application/vnd.kubernetes.protobuf"` except that the response will be a
-    stream.
-  * `"application/json;as=Table;g=meta.k8s.io;v=v1beta1"`: Request the server
-    to return objects in the table content type.
-  * `*`: The server response is encoded in `"application/json"`.
+* `"application/com.github.proto-openapi.spec.v2@v1.0+protobuf"`:
+  This is mainly used for intra-cluster communnications.
+* `"application/json"`: This is the default value indicating that the server
+  response is expected to be JSON data.
+* `"application/json;stream=watch"`: The server response is expected to be
+  JSON data stream for watch operations.
+* `"application/yaml"`: The server response are encoded in YAML format.
+* `"application/vnd.kubernetes.protobuf"`: The server response are encoded in
+  [Protobuf](https://developers.google.com/protocol-buffers) format.
+* `"application/vnd.kubernetes.protobuf;stream=watch"`: The same as
+  `"application/vnd.kubernetes.protobuf"` except that the response will be a
+  stream.
+* `"application/json;as=Table;g=meta.k8s.io;v=v1beta1"`: Request the server
+  to return objects in the table content type.
+* `"application/cbor-seq"`: The server response is expected to be a sequence
+  of CBOR-encoded watch events.
+* `*`: The server response is encoded in `"application/json"`.
 
 In case there is the possibility a specify content type is not supported by
 the server, clients should specify multiple content types in their `"Accept"`
@@ -95,7 +102,7 @@ request that the server return objects in the "Table" content type.
 
 For example, list all the namespaces in a cluster in the Table format:
 
-```html
+```console
 GET /api/v1/pods
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1beta1
 ---
