@@ -23,7 +23,7 @@ The following labels are currently defined.
      <td><tt>"kubernetes.io/os"</tt></td>
      <td><tt>Node</tt></td>
      <td>The kubelet sets this with <tt>runtime.GOARCH</tt> as defined by GoLang.
-       The main use case is for a hybrid cluster where there areanodes running
+       The main use case is for a hybrid cluster where there are nodes running
        different operating systems (e.g. Linux and Windows). 
      </td>
     </tr>
