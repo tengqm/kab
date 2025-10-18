@@ -18,42 +18,38 @@ Kubernetes 中的 API 组有很多，主要使用以下两组 API 路径：
   并且需要在资源中给出组名和版本号 `apiVersion: $GROUP_NAME/$VERSION`。
   例如：`apiVersion: batch/v1`。
 
-Kubernetes reserves the use of empty group name (`""`), single word group
-names (e.g. `"apps"`) and group names ending with `".k8s.io"`. A group name
-must be lower case and be valid DNS subdomains.
+Kubernetes 保留空组名（`""`）、单个单词的组名（如 `"apps"`）
+以及以 `".k8s.io"` 结尾的组名。
+资源的 API 组名必须是小写字母，并且可以用作合法的 DNS 子域名。
 
-### Discovery of API Groups
+### API 组的发现
 
-API groups along with their supported versions can be discovered at the API path
-`"/apis/"`. This is referred to as the
-[getAPIVersions](/apis/operation/1.20/getAPIVersions/) operation.
+用户可以读取 `"/apis/"` API 路径来发现集群支持的 API 组及各自的版本。
+这一操作被称作 `getAPIVersions` 操作。
 
-For each API group, there is an API served at `"/apis/<group>/"` that allows
-you to list the API group versions supported. This operation is referred to as
-the `"get<Group>APIGroup"` operation, where `<Group>` is the CamelCase of the
-API group name. For example, the `"getAppsAPIGroup"`
-[operation](/apis/operation/1.20/getAppsAPIGroup/).
+对于每个 API 组，都存在一个位于端点  `"/apis/<group>/"` 的 API，
+用户可以读取这一 API 来列举 API 组所支持的版本列表。
+此操作被称作 `"get<Group>APIGroup"` 操作，其中 `<Group>` 是驼峰编码拼写形式的
+API 组名。例如 `"getAppsAPIGroup"`。
 
-For each API group version, there is an API served at
-`"/apis/<group>/<version>/"` that lists the API resources in that specific API
-group version. This operation is referred to as the
-`"get<Group><Version>APIResources"` operation, where `<Group>` is the
-CamelCase of the API group name and `<Version>` is the CamelCase API group
-version. For example, the `"getAppsV1APIResources"`
-[operation](/apis/operation/1.20/getAppsV1APIResources/).
+对于每个 API 组版本，在 API 路径 `"/apis/<group>/<version>/"`
+存在一个列举指定 API 组和版本的 API 资源类别的 API。
+此操作被称作 `"get<Group><Version>APIResources"` 操作，其中 `<Group>`
+是驼峰编码形式的 API 组名，而 `<Version>` 是驼峰编码的 API 版本字符串。
+例如 `"getAppsV1APIResources"`。
 
-### Enabling/Disabling API Groups
+### API 组的启用与禁止
 
-Certain resources and API groups are enabled by default. You can enable or
-disable them by setting `--runtime-config` on the API server.  The
-`--runtime-config` flag accepts comma separated `<key>[=<value>]` pairs
-describing the runtime configuration of the API server. If the `=<value>` part
-is omitted, it is treated as if `=true` is specified.  For example:
+某些资源和 API 组是默认被启用的。
+用户可以通过设置 API 服务器的 `--runtime-config` 命令行参数来启用或者禁止指定的
+API 组或资源。`--runtime-config` 参数支持用逗号分隔的键值对（`<key>[=<value>]`），
+用来设置 API 服务器的运行时配置。 
+如果 `=<value>` 部分被忽略，则服务器将其视为设置了 `=true`。
+例如：
 
-- to disable `batch/v1`, set `--runtime-config=batch/v1=false`;
-- to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
+- 要禁用 `batch/v1`，可以设置 `--runtime-config=batch/v1=false`；
+- 要启用 `batch/v2alpha1`，可以设置 `--runtime-config=batch/v2alpha1`。
 
-Note: When you enable or disable groups or resources, you need to restart the
-API server and controller manager to pick up the `--runtime-config` changes.
-
+**注意**：当用户启用或者禁用某 API 组或者资源时，需要重启 API 服务器以及控制器管理器组件，
+这样所作出的变更才会生效。
 
