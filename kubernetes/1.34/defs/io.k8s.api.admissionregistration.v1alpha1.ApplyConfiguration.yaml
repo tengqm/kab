@@ -3,14 +3,15 @@ x-kab-description-zh: ApplyConfiguration 定义某个对象的预期配置值。
 properties:
   expression:
     description: |
-      `expression` will be evaluated by CEL to create an apply configuration. refer to https://github.com/google/cel-spec
+      `expression` will be evaluated by CEL to create an apply configuration. refer to
+      [CEL spec](https://github.com/google/cel-spec).
       Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an
       apply configuration to set a single field.
 
       ```
       Object{
         spec: Object.spec{
-          serviceAccountName: \"example\"
+          serviceAccountName: "example"
         }
       }
       ```
@@ -47,13 +48,15 @@ properties:
       Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 
     x-kab-description-zh: |-
-      CEL 将对 `expression` 字段所给的表达式求值，以生成一个应用配置。可以参考 https://github.com/google/cel-spec。
-      应用配置是使用对象初始化来声明的，采用 CEL 语法。例如，此 CEL 表达式可以返回一个用来设置某个特定字段的应用配置。
+      CEL 将对 `expression` 字段所给的表达式求值，以生成一个应用配置。
+      可以参考 [CEL 规范](https://github.com/google/cel-spec)。
+      应用配置是使用对象初始化来声明的，采用 CEL 语法。
+      例如，此 CEL 表达式可以返回一个用来设置某个特定字段的应用配置。
 
       ```
       Object{
         spec: Object.spec{
-          serviceAccountName: \"example\"
+          serviceAccountName: "example"
         }
       }
       ```

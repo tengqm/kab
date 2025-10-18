@@ -1,5 +1,5 @@
 description: ApplyConfiguration defines the desired configuration values of an object.
-x-kab-description-zh: ApplyConfiguration 定义的是一个对象的预期配置值。
+x-kab-description-zh: ApplyConfiguration 定义某个对象的预期配置值。
 properties:
   expression:
     description: |
@@ -7,7 +7,7 @@ properties:
       to create an apply configuration.
       
       Apply configurations are declared in CEL using object initialization.
-      For example, this CEL expression returns an apply configuration to set a single field:
+      For example, this CEL expression returns an apply configuration to set a single field.
 
       ```
       Object {
@@ -16,11 +16,11 @@ properties:
         }
       }
       ```
-      
+
       Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion
       of values not included in the apply configuration.
 
-      CEL expressions have access to the object types needed to create apply configurations:
+      CEL expressions have access to the object types needed to create apply configurations.
 
       - `Object` - CEL type of the resource object.
       - `Object.<fieldName>` - CEL type of object field (such as `Object.spec`)
@@ -28,11 +28,11 @@ properties:
         (such as 'Object.spec.containers')
 
       CEL expressions have access to the contents of the API request, organized into CEL variables as well as
-      some other useful variables:
+      some other useful variables.
 
       - `object` - The object from the incoming request. The value is null for DELETE requests.
       - `oldObject` - The existing object. The value is null for CREATE requests.
-      - `request` - Attributes of the API request, including:
+      - `request` - Attributes of the API request, including
         - `uid` - An identifier for the request. It is used for tracking the round trip between the API server
           and a Webhook, not the user request.
         - `kind` - The fully-qualified type of the object being submitted (for example, `v1.Pod`).
@@ -83,7 +83,7 @@ properties:
 
       Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible.
 
-    x-kab-description-zh: |
+    x-kab-description-zh: |-
       系统会针对 `expression` 使用 [CEL](https://github.com/google/cel-spec) 来求值，得到一个可以用于
       apply 操作的配置。
       
@@ -92,7 +92,7 @@ properties:
 
       ```
       Object {
-        spec: Object.spec {
+      spec: Object.spec {
           serviceAccountName: "example"
         }
       }
@@ -155,7 +155,8 @@ properties:
 
       只有格式符合 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性名是可访问的。
     type: string
-  required:
-    - expression
+
+required:
+  - expression
 type: object
 
