@@ -1,55 +1,56 @@
-## Object Names
+## 对象名称
 
-Each object in a cluster has a name that is unique for that type of resources.
-Every object also has a UID that is unique across the cluster. Extra
-identifying information can be specified using labels and annotations.
+集群中的每个对象都有一个唯一的名称，唯一性的作用域指的是对应的资源类别范畴。
+每个对象也会有一个 UID（唯一标识符），标识符在集群范围内唯一。
+用户也可以使用标签（labels）和注解（annotations）为对象指定其他识别性信息。
 
-For API operations like **get**, **update**, **patch** and **delete**, the
-name of an object is encoded in the resource URL so must be provided.
-For example, `"/api/v1/pods/my-pod"`.
-There are 3 commonly used name constraints for objects. Some resource types
-have additional restrictions on their names.
+对于 **get**、**update**、**patch** 和 **delete** 这类 API 操作，
+对应的对象名称要编码到资源的 URL 中，因此是必需提供的。
+例如：`"/api/v1/namespaces/my-ns"`。
+对于对象名称，存在三种常见的约束；某些资源类别在此基础上可能还会对对象名称有额外的限制。
 
-### DNS Subdomain Names
+### DNS 子域名
 
-The name must be able to be used as a DNS subdomain name as defined in
+对象名称必须可以被用作 DNS 子域名
+（参考 <a href="https://tools.ietf.org/html/rfc1123" target="_blank">RFC 1123
+<i class='fa fa-external-link-alt'></i></a> 中定义）。
+这也意味着对象名称必须满足以下条件：
+
+- 长度不能超过 253 个字符；
+- 只能包含小写字母、数字、`'-'` 或 `'.'`；
+- 必须以字母或数字字符开头；
+- 必须以字母或数字字符结尾。
+
+### DNS 标签名
+
+对象名称必须遵从
 <a href="https://tools.ietf.org/html/rfc1123" target="_blank">RFC 1123
-<i class='fa fa-external-link-alt'></i></a>.
-This means that name must:
+<i class='fa fa-external-link-alt'></i></a>
+所定义的 DNS 标签标准。
+这就意味着对象名称必须满足以下条件：
 
-- contain at most 253 characters
-- contain only lowercase alphanumeric characters, `'-'` or `'.'`
-- start with an alphanumeric character
-- end with an alphanumeric character
+- 长度不能超过 63 个字符；
+- 只能包含小写字母、数字或 `'-'`；
+- 必须以字母或数字字符开头；
+- 必须以字母或数字字符结尾。
 
-### DNS Label Names
+### 路径区段名称
 
-The name must follow the DNS label standard as defined in
-<a href="https://tools.ietf.org/html/rfc1123" target="_blank">RFC 1123
-<i class='fa fa-external-link-alt'></i></a>.
-The means the name must:
+对象名称必须可以被用作 URL 路径上的一个区段。
+换言之，对象名称不可以是 `"."` or `".."`，并且对象名称中不能包含 `'/'` 或者 `'%'`。
 
-- contain at most 63 characters
-- contain only lowercase alphanumeric character or `'-'`
-- start with an alphanumeric character
-- end with an alphanumeric character
+### 端口名称
 
-### Path Segment Names
-
-The name must be able to be safely encoded as a path segment. In other words,
-the name may not be "`.`" or "`..`" and the name may not contain '`/`' or
-'`%`'.
-
-### Port Name
-
-An IANA\_SVC\_NAME as defined by
+Kubernetes 支持为端口设置名称，端口名称必须满足
 <a href="https://tools.ietf.org/rfc/rfc6335.txt" target="_blank">RFC6335
-<i class='fa fa-external-link-alt'></i></a>, suitable for naming a port. The
-requirements are:
+<i class='fa fa-external-link-alt'></i></a>
+所定义的 IANA\_SVC\_NAME 要求。
+对应的具体要求如下：
 
-- contain at most 15 characters
-- contain only lowercase alphanumeric characters and `'-'`
-- start with an alphanumeric character
-- end with an alphanumeric character
-- contain no adjacent `'-'` characters
-- contain at least one character (`a`-`z`)
+- 长度不超过 15 个字符；
+- 只能包含小写字母、数字 或 `'-'`；
+- 以字母或数字开头；
+- 以字母或数字结尾；
+- 不包含连续的 `'-'` 字符；
+- 至少包含一个字母（`a`-`z`）。
+
