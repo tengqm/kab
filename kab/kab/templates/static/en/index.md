@@ -74,7 +74,7 @@ The specification for each API contains the following components:
         <a href="{% url 'static-page' 'uid' %}">unique ID</a> and a
         <a href="{% url 'static-page' 'resource-version' %}">resource version</a>.
       </li>
-      <li>For some long running requestions, the data transferred between the
+      <li>For some long-running requests, the data transferred between the
         servers and the clients could be binary
         <a href="{% url 'static-page' 'stream' %}">streams</a>.
       </li>
@@ -99,7 +99,7 @@ The specification for each API contains the following components:
      <li><code>limit</code> and <code>continue</code> for splitting large
        response into <a href="{% url 'static-page' 'pagination' %}">chunks</a>.
      </li>
-     <li><a href="{% url 'static-page' 'watch' %}">pretty</a>: starts a
+     <li><a href="{% url 'static-page' 'watch' %}">watch</a>: starts a
        subscription on a specific resource to get notified when future changes
        are made.
      </li>
@@ -117,10 +117,13 @@ The specification for each API contains the following components:
 
 The official API specification is generated in the
 <a href="https://www.openapis.org/" target="_blank">OpenAPI V2
+<i class='fa fa-external-link-alt'></i></a> and
+<a href="https://www.openapis.org/" target="_blank">OpenAPI V3
 <i class='fa fa-external-link-alt'></i></a>
-format from the Go source code and published at the kubernetes
+formats from the Go source code and published at the kubernetes
 <a href="https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json"
-target="_blank">repo <i class='fa fa-external-link-alt'></i></a>.
+target="_blank">repo <i class='fa fa-external-link-alt'></i></a> and
+<a href="https://github.com/kubernetes/kubernetes/tree/master/api/openapi-spec/v3" target="_blank">a collection of individual APIs <i class='fa fa-external-link-alt'></i></a>, respectively.
 
 #### Working with the API
 
