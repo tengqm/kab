@@ -1,20 +1,19 @@
-## Kind
+## kind （类别）
 
-All resource types have a concrete schema defined in JSON, which is called a
-**kind**. The name of a kind is always in CamelCase and singular.
+所有的资源类型都有一个与之对应的模式定义，被称作资源的**类别（kind）**。
+一个资源类别的名称一般采用驼峰编码，并且使用单数形式。
 
-The *kind*s in Kubernetes are grouped into three categories:
+Kubernetes 中的 *kind* 可以分为三大类：
 
-- *Objects*: A persistent entity in the system. All API objects have common
-  metadata (i.e. `ObjectMeta`).
-  Each object may have multiple resources exposed for users to perform
-  specific actions.
-- *Lists*: A collection of resources of one (usually) or more (occasionally)
-  kinds. The name of the list kind must end with `List`. Lists have a limited
-  set of common metadata (i.e. `ListMeta`). All lists use the required `items`
-  field to contain the array of objects they return.
-- *Simple* kinds: Used for specific actions on objects and for non-persistent
-  entities. For instance, the `Status` kind is returned when errors occur and
-  is not persisted in the system.
-  Many simple resources are "subresources".
+- *对象*：系统后台数据库中保存的一个持久性实体。
+  所有 API 对象都有一个共同的元数据（metadata）不分，用`ObjectMeta` 结构定义。
+  每个对象一般会提供多个端点，供用户执行不同的操作。
+- *列表*：通常是一种资源对象的资源的一个集合。
+  列表类别的名称一定是以 `List` 结尾的。
+  所有列表类别都使用一组相同的元数据，用 `ListMeta` 来定义。
+  所有列表数据中都会包含一个 `items` 字段，用来封装所返回的对象数组。
+- *简单* 类别：用来描述对对象的某些特殊操作，或者对于非持久性实体的操作。
+  例如当执行某请求出错时，服务器会返回一种特殊的 `Status` 类别的对象，
+  而这类对象一般不会写入到系统的数据库中。
+  很多简单类别都是某个资源类别的“子资源（subresources）”。
 
