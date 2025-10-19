@@ -1,6 +1,6 @@
-## Exact
+## `exact` 参数
 
-`exact` is a query string of boolean type for specifying whether the `export`
-should maintain cluster-specific fields like `namespace`. 
+`exact` 是一个布尔值类型的查询参数，用来设置 `export` 动作是否应该保留特定于集群的字段的值
+（例如 `namespace`）。
 
-This parameter is removed in Kubernetes 1.21.
+此参数从 Kubernetes v1.21 版本开始被删除。
