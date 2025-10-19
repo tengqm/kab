@@ -1,42 +1,44 @@
-## Extensions
+## 扩展
 
-The OpenAPI specification allows for vendor specific extensions to the core
-specification. In kubernetes, the following extensions are defined and used.
+OpenAPI 规范允许厂商对核心规范进行一定程度的扩展。
+在 Kubernetes 项目中已经定义并使用的扩展如下：
 
 ### `x-kubernetes-embedded-resource`
 
-Type: *boolean*
+类型：*boolean*
 
-This flag indicates that the value is an embedded Kubernetes `runtime.Object`,
-with `TypeMeta` and `ObjectMeta`. The type must be `"object"`. It is allowed
-to further restrict the embedded object. `kind`, `apiVersion` and `metadata`
-are validated automatically. `x-kubernetes-preserve-unknown-fields` is allowed
-to be true, but does not have to be if the object is fully specified (up to
-`kind`, `apiVersion`, `metadata`).
+此属性用来标明字段值是一个嵌入的 Kubernetes `runtime.Object`，
+其中会包含 `TypeMeta` 和 `ObjectMeta`s 两个结构。
+对应的字段类型一定是 `"object"`。
+进一步为嵌入对象施加额外的限制也是可以的。
+系统会自动对 `kind`、`apiVersion` 和 `metadata` 字段进行合法性检查。
+`x-kubernetes-preserve-unknown-fields` 属性可以为真，
+但如果对象是完全规约的（最多包含 `apiVersion`、`kind` 和 `metadata`），也不是必须为真。
 
 ### `x-kubernetes-int-or-string`
 
-Type: *boolean*
+类型：*boolean*
 
-This flag indicates that this value is either an integer or a string. If this
-is `true`, an empty type is allowed and type as child of `"anyOf"` is
-permitted if following one of the following patterns:
+此属性用来标明字段的取值或者是一个整数，或者是一个字符串。
+如果属性值为 `true`，则允许略过 `type` 属性。
+同时，如果数据类型符合以下模式之一，`type` 属性的设置可以用 `"anyOf"` 形式设置。
 
 1. `"anyOf": [{"type": "integer"}, {"type": "string"}]`
 1. `"allOf": [{"anyOf": [{"type": "integer"}, {"type": "string"} ...]}]`
 
 ### `x-kubernetes-list-map-keys`
 
-Type: *array of string*
+类型：*string 数组*
 
-This annotates an array with the `x-kubernetes-list-type: map` by specifying
-the keys to index the map. This tag MUST only be used on lists that have the
-`x-kubernetes-list-type` extension property set to `"map"`. Also, the value
-specified for this property must be list of strings, where each element in the
-list must be a property that either is required or has a default value. The
-reason is to ensure those properties are present for all list items.
+此属性用来标注带有 `x-kubernetes-list-type: map` 标注的数组字段，
+给出将数组视为映射时使用哪个字段来作为映射鉴检索字段值。
+此属性只能用于设置了 `x-kubernetes-list-type` 扩展属性，且扩展属性值为 `"map"`
+的数组。
+此外，此属性的取值必须是一个字符串列表。对于数组中的每个元素而言，
+此列表中的每个字符串必须是其必须设置的属性或者具有默认值的属性。
+这一要求背后的原因是要确保列表中每个约束都具有这里所列举的属性。
 
-For example, the following is the `ports` definition for a `Container`:
+例如，下面是 `Container` 的 `ports` 属性定义：
 
 ```json
 {
@@ -58,61 +60,60 @@ For example, the following is the `ports` definition for a `Container`:
 
 ### `x-kubernetes-list-type`
 
-Type: *string*
+类型：*string*
 
-This annotates an array to further describe its topology. This extension must
-only be used on lists and may have 3 possible values:
+此属性用来为数组字段提供额外的拓扑结构描述。
+此属性只能用于数组字段，并且其取值只能是下面三种之一：
 
-1. `"atomic"`: The list is treated as a single entity, like a scalar. Atomic
-   lists will be entirely replaced when updated. This extension may be used on
-   any type of list (struct, scalar, ...).
-1. `"set"`: Sets are lists that must not have multiple items with the same
-   value. Each value must be a scalar, an object with
-   `x-kubernetes-map-type: atomic` or a list with
-   `x-kubernetes-list-type: atomic`.
-1. `"map"`: The list is treated as a map in that their elements have a non-index
-   key used to identify them. Order is preserved upon merge. The `"map"` tag
-   must only be used on a list with elements of type `"object"`.
+1. `"atomic"`：所标注的列表要被视为一个整体，也就是一个标量。
+   原子性的列表在被更新时会被整体替换掉。
+   此扩展属性可以用在任何类型的列表之上（结构列表、标量列表等）。
+1. `"set"`：集合是一种不允许包含多个相同值的列表。
+   每个元素都必须是一个标量、一个 `x-kubernetes-map-type: atomic` 的对象、
+   或者一个 `x-kubernetes-list-type: atomic` 的列表。
+1. `"map"`：列表会被视为一个映射，表中元素包含一个非索引的字段来标识元素自身。
+   这类列表在被合并时，元素的顺序是被保留的。
+   `"map"` 标签只能用在元素类型为 `"object"` 的列表之上。
 
-Defaults to `"atomic"` for lists.
+对于被标注的列表而言，此属性的默认值为 `"atomic"`。
 
 ### `x-kubernetes-map-type`
 
-Type: *string*
+类型：*string*
 
-This annotates an object/map to further describe its topology. This extension
-may only be used when `type` is `"object"` and may have 2 possible values:
+此扩展属性用来标注一个对象（映射），进一步描述其拓扑构成。
+此属性只能用在 `type` 为 `"object"` 的字段之上，并且此属性的合法值有二：
 
-1. `"granular"`: These maps are actual maps (key-value pairs) and each fields
-   are independent from each other (they can each be manipulated by separate
-   actors). This is the *default* behavior for all maps.
-1. `"atomic"`: The map is treated as a single entity. Atomic maps will be
-   entirely replaced when updated.
+1. `"granular"`：所标注的映射是真实的映射（键值对），
+   各个字段之间彼此独立（他们可以被不同的施动者进行操控）。
+   对于所有映射而言，这一取值是**默认**行为。
+1. `"atomic"`：整个映射会被视为一个整体。
+   映射被更新时，会执行整体替换操作。
 
 ### `x-kubernetes-preserve-unknown-fields`
 
-This flag stops the API server decoding step from pruning fields which are not
-specified in the validation schema. This affects fields recursively, but
-switches back to normal pruning behaviour if nested `properties` or
-`additionalProperties` are specified in the schema. This can either be `true` or
-undefined. A value of `false` means forbidden.
+类型：*boolean*
+
+设置了此扩展属性时，API 服务器不会去除合法性检查模式中没有规约的字段。
+这一属性对字段处理的影响是递归的，只有模式中嵌套的属性显示设置了
+`properties` 或者 `additionalProperties` 时才会回退到正常的剪除行为。
+
+此扩展属性的取值可以是 `true`，或者未设置。
+属性值为 `false` 时意味着禁止保留未规约（未知）字段。
 
 ### `x-kubernetes-unions`
 
-type: *list of maps*
+类型：*映射列表*
 
-This flag is an attempt to encode the "oneOf" semantics for map definitions.
-Each item in the list consists of the following fields:
+此扩展属性的设计目的是为映射定义提供 "oneOf" 语义支持。
+列表中的每个元素都包含以下字段。
 
-- `discriminator`: the name of the field that will be used as the
-  discriminator, if present.
-- `fields-to-discriminateBy`: A map of field names to values of discriminator.
+- `discriminator`：如果给出，则其含义为用来区分不同元素的字段名称。
+- `fields-to-discriminateBy`：映射值，包含从字段名到 `discriminator` 字段值之间的映射。
 
-For example, the following tag specifies that the current object has a field
-named `account` which can be used as a discriminator. When the `account` field
-is set to `Group`, the `group` field of the object must be specified; when the
-`account` field is set to `User`, the `user` field of the object must be
-specified.
+例如，下面的属性指定当前对象有一个 `account` 字段，可以用作区分不同的对象。
+当 `account` 字段被设置为 `"Group"` 时，必须设置对象的 `group` 字段；
+当 `account` 字段被设置为 `"User"` 时，必须设置对象的 `user` 字段。
 
 ```json
 {
@@ -134,32 +135,40 @@ specified.
   "required": [
     "account"
   ],
-  "type": "object"
+  "type": "object",
+  "x-kubernetes-unions": {
+    "discriminator": "account",
+    "fields-to-discriminateBy": {
+      "User": "user",
+      "Group": "group"
+    }
+  }
 }
 ```
 
+**注意**：到目前为止，Kubernetes 的 API 规范中还没有使用此扩展属性。
+
 ### `x-kubernetes-patch-strategy`
 
-type: *string*
+类型：*string*
 
-This property specifies the strategy for updating a list using strategic merge
-patch operations. The value is a comma separated list of strings where each
-string can be one of:
+此扩展属性用来设置使用**策略合并补丁（Strategic Merge Patch）**
+操作来更新当前列表时要使用的策略。
+属性值是一个用逗号分隔的字符串列表，每个字符串的值可以是如下字符串之一：
 
-- `"merge"`: When this string is contained in the property, the list of
-  objects will get merged. When this string is not found in the property
-  value, the default strategy will be replacing the whole list completely.
+- `"merge"`：当属性值中包含 `"merge"` 时，对象的列表会被合并。
+  如果属性值中不包含 `"merge"`，则默认策略是将整个列表替换掉。
 
-- `"retainKeys"`: this directive is for union types to clear mutual exclusive
-  fields. When this is specified, fields that are not inluded in a PATCH
-  operation will be cleared. The fields that are included in the `$retainKeys`
-  directive are merged with the object. All fields in the `$retainKeys`
-  directive must be a superset or the same as the fields present in the PATCH.
+- `"retainKeys"`：当属性值中包含 `"retainKeys"` 时，对于联合性质的结构，
+  会清除相互排斥的字段。设置了此值时，在 PATCH 操作中不包含的字段会被清除掉。
+  在 `"$retainKeys"` 中包含了的字段会被合并起来。
+  `"$retainKeys"` 中列举的字段必须是 PATCH 操作中包含的字段，
+  或者是后者集合的超集。
 
-For example, the following patch updates the `strategy` property of a
-Deployment from `"RollingUpdate"` to `"Recreate"`. Since the `"type"` is
-explicitly set in the `$retainKeys` directive, fields other than `type` are
-all purged, including the `rollingUpdate` property.
+例如，下面的 PATCH 操作会更新 Deployment 对象的 `strategy` 属性，
+将 `"RollingUpdate"` 替换为 `"Recreate"`。
+由于 `"type"` 字段是显式地列举在 `"$retainKeys"` 字段中，
+`"type"` 之外的其他字段都会被清除掉，包括原来的 `"rollingUpdate"` 属性。
 
 ```yaml
 spec:
@@ -171,20 +180,19 @@ spec:
 
 ### `x-kubernetes-patch-merge-key`
 
-type: *string*
+类型：*string*
 
-Used on lists that have the value `"merge"` contained in its extended property
-`x-kubernetes-patch-strategy`. It tells the API server which field is used as
-the key of an object in the list. Objects with same key value will get merged
-when a strategic merge patch is applied.
+用于设置了 `x-kuernetes-patch-strategy` 扩展属性，并且扩展属性值为 `"merge"`
+的列表。此扩展属性的作用是告诉 API 服务器，列表元素对象中的哪个字段被视为主键。
+在映射策略性合并补丁操作时，如果多个对象在主键字段上的取值相同，其内容会被合并。
 
 ### `x-kubernetes-group-version-kind`
 
-type: *list of maps*
+类型：*映射列表*
 
-This property can be used on operations and definitions that are
-associated with a Kubernetes resource. The map contains information about the
-specific group, version and kind of the resource. For example,
+此扩展属性可以用在与某个 Kubernetes 资源相关联的操作或定义之上。
+扩展属性值是一个映射，其中包含对应资源的组、版本和类别信息。
+例如：
 
 ```json
 {
@@ -198,9 +206,9 @@ specific group, version and kind of the resource. For example,
 
 ### `x-kubernetes-action`
 
-type: *string*
+类型：*string*
 
-This property can be used on operations that are associated with a Kubernetes
-resource. The action string can be one of `get`, `list`, `put`, `patch`,
-`post`, `delete`, `deletecollection`, `watch`, `watchlist`, `proxy` or
-`connect`.
+此扩展属性可以用在与某个 Kubernetes 资源相关联的操作定义之中。
+属性的取值可以是 `get`、`list`、`put`、`patch`、`post`、`delete`、
+`deletecollection`、`watch`、`watchlist`、`proxy` 或 `connect` 之一。
+

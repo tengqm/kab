@@ -91,6 +91,8 @@ may only be used when `type` is `"object"` and may have 2 possible values:
 
 ### `x-kubernetes-preserve-unknown-fields`
 
+Type: *boolean*
+
 This flag stops the API server decoding step from pruning fields which are not
 specified in the validation schema. This affects fields recursively, but
 switches back to normal pruning behaviour if nested `properties` or
@@ -134,7 +136,14 @@ specified.
   "required": [
     "account"
   ],
-  "type": "object"
+  "type": "object",
+  "x-kubernetes-unions": {
+    "discriminator": "account",
+    "fields-to-discriminateBy": {
+      "User": "user",
+      "Group": "group"
+    }
+  }
 }
 ```
 
