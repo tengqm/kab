@@ -1,32 +1,33 @@
-## About Labels
+## 关于标签
 
-### Requirements
+### 需求
 
-The label name must be a *qualified name*, which means:
+标签名称必须是是一个**限定名称（Qualified Name）**，
+也就是说：
 
-- It cannot be empty string.
-- It must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`.
-- It must start and end with a alphanumeric character.
-- It *may* have a prefix part, separated with the name with a `'/'`.
-  This prefix is also referred to as the *label namespace*.
-- The name may have at most 63 characters if there is no prefix;
-- If the name has a prefix, the prefix must be a valid DNS subdomain and the
-  rest of the name can have at most 63 characters.
+- 标签不可以是空字符串。
+- 标签名必须由字母、数字、`'-'`、`'_'` 或 `'.'` 组成。
+- 标签名必须以字母或数字开头，并以字母或数字结尾。
+- 标签名**可以**包含一个前缀，前缀与名称之间用 `'/'` 分隔。
+  前缀部分通常也称作**标签名字空间（Label Namespace）**。
+- 标签名在没有前缀的情况下最长可以是 63 个字符。
+- 如果标签名中包含前缀部分，则前缀部分必须是一个合法的 DNS 子域名，
+  并且名字的其余部分最长为 63 个字符。
 
-The label value must be meet some requirements as well.
+标签值也必须满足某些要求：
 
-- It can be at most 63 characters;
-- It must consist of alphanumeric characters, `'-'`, `'_'` or `'.'`;
-- It must start and end with a alphanumeric character.
+- 标签值最多 63 个字符。
+- 标签值只能包含字母、数字、`'-'`、`'_'` 或 `'.'`。
+- 标签值必须以字母、数字开头，且以字母、数字结尾。
 
-### Label Namespaces
+### 标签名字空间
 
-Kubernetes reserves all labels and annotations in the `"kubernetes.io"` namespace.
+Kubernetes 包开启所有位于 `"kubernetes.io"` 名字空间的标签和注解键。
 
-There are some namespaces reserved by Kubernetes. For example:
+Kubernetes 所保留的名字空间用来提供给系统组件使用。例如：
 
-- `"kubelet.kubernetes.io"`: a label namespace suffix for kubelet to self-set.
-  The kubelet can set labels like `"[*.]kubelet.kubernetes.io/*"`.
-- `"node.kubernetes.io"`: a label namespace suffix for kubelet to self-set.
-  The kubelet can set labels like `"[*.]node.kubernetes.io/*"`.
+- `"kubelet.kubernetes.io"`：提供给 kubelet 的一个名字空间，供后者自由使用。
+  kubelet 可以设置 `"[*.]kubelet.kubernetes.io/*"` 这类标签。
+- `"node.kubernetes.io"`：提供给 kubelet 的另一个名字空间，供后者自由使用。
+  kubelet 可以设置 `"[*.]node.kubernetes.io/*"` 这类标签。
 
