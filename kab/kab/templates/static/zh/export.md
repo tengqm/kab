@@ -1,6 +1,6 @@
-## Export
+## `export` 参数
 
-`export` is a boolean type query parameter for specifying whether the value
-should be exported. Export strips fields that a user cannot specify.
+`export` 是一个布尔值类型的查询参数，用来设置响应的数值是否要被导出。
+`export` 如果为 true，则用户无法更改的字段在输出时会被清除掉。
 
-This parameter is removed in Kubernetes 1.21.
+此参数从 Kubernetes v1.21 版本开始被删除。
