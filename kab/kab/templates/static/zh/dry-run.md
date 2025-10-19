@@ -1,58 +1,53 @@
-## Dry Run
+## 试运行（Dry Run）
 
-The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests
-in a dry run mode. Dry run mode helps to evaluate a request through the
-typical request stages (admission chain, validation, merge conflicts) up until
-persisting objects to storage. The response body for the request is as close
-as possible to a non-dry-run response. The system guarantees that dry-run
-requests will not be persisted in storage or have any other side effects.
+能够更改对象的动词（`POST`、`PUT`、`PATCH` 和 `DELETE`）都可以以*试运行（Dry-run）*模式接收请求。
+试运行模式可以帮助用户来评估请求，用户请求会完成典型请求处理的所有阶段
+（准入链、合法性检查、合并冲突处理等），只是最终结果不会被写入到集群状态数据库中。
+与请求对应的响应的主题部分会与非试运行场景下的请求尽可能接近。
+系统会确保试运行请求的结果不会被写入到存储中，也不会产生别的副作用。
 
-### Make a dry-run request
+### 发起试运行请求
 
-Dry-run is triggered by setting the `dryRun` query parameter. This parameter is
-a string. The valid value is either `"All"` or `""`.
+通过设置 `dryRun` 查询参数就可以触发试运行模式的请求。
+`dryRun` 的参数值是一个字符串；合法的取值是 `"All"` 或者 `""`。
 
-When `dryRun` is set to `"All"`, every stage runs as normal, except for the
-final storage stage. Admission controllers are run to check that the request
-is valid, mutating controllers mutate the request, merge is performed on
-`PATCH`, fields are defaulted, and schema validation occurs. The changes are
-not persisted to the underlying storage, but the final object which would have
-been persisted is still returned to the user, along with the normal status
-code.
+当 `dryRun` 被设置为 `"All"` 时，API 请求的所有处理流程都与正常请求相同，
+只是最终的存储落盘阶段有差别。这就意味着系统会运行准入控制机制，
+检查请求是否合法；运行变更性的控制器来更改请求；针对 `PATCH` 请求执行合并动作；
+为请求填充字段的默认值；检查请求的模式是否合法等等。
+最终的请求不会被写入底层的存储中，也就是不会被持久化，
+不过本来应该会写入数据库的最终对象仍然会被返回给用户，同样返回给用户的还有正常的状态码。
 
-If the request would trigger an admission controller which would have side
-effects, the request will fail rather than risk an unwanted side effect.
-All built-in admission control plugins support dry-run.
+如果请求可能会触发某个具有副作用的准入控制器，则请求会失败，
+而不是冒着引发不想要的副作用的风险继续执行。
+所有内置的准入控制插件都支持试运行操作。
 
-Additionally, admission webhooks can declare in their configuration object
-that they do not have side effects by setting the `sideEffects` field to
-`"None"`. If a webhook actually does have side effects, then the `sideEffects`
-field should be set to `"NoneOnDryRun"`, and the webhook should also be
-modified to understand the `dryRun` field in `AdmissionReview`, and prevent
-side effects on dry-run requests.
+此外，准入 Webhook 可以在其配置对象中将 `sideEffects` 字段设置为 `"None"`，
+进而标明该 Webhook 不会存在任何副作用。
+如果某个 Webhook 事实上确实存在一些副作用，那么 `sideEffects`
+字段可以被设置为 `"NoneOnDryRun"`，标明该 Webhook 能够理解 `AdmissionReview`
+中的 `dryRun` 字段，避免对试运行模式的请求执行有副作用的操作。
 
-The default value is empty string which means keeping the default modifying
-behavior.
+`dryRun` 查询参数的默认值是空字符串，也就是保持默认的请求修改行为。
 
-For example:
+例如：
 
-```html
+```console
 POST /api/v1/namespaces/test/pods?dryRun=All
 Content-Type: application/json
 Accept: application/json
 ```
 
-The response would look the same as for non-dry-run request, but the values of
-some generated fields may differ.
+这一请求的响应会与非试运行模式的请求看上去没有什么差别，不过某些生成的字段的值可能会有所不同。
 
-### Dry-run Authorization
+### 试运行的鉴权操作
 
-Authorization for dry-run and non-dry-run requests is identical. Thus, to make
-a dry-run request, the user must be authorized to make the non-dry-run
-request.
+对试运行以及非试运行的请求而言，鉴权操作是完全相同的。
+因此，要发起一个试运行请求，用户必须具有执行非试运行等价请求的权限。
 
-For example, to run a dry-run `PATCH` for Deployments, you must have the `PATCH`
-permission for `deployments`, as in the example of the RBAC rule below.
+例如，要以试运行模式发起对 Deployment 对象的 `PATCH` 操作，
+用户必须具有对 `deployments` 资源执行 `PATCH` 操作的权限。
+下面的 RBAC 规则是一个例子，展示如何为角色赋予这一权限。
 
 ```yaml
 rules:
@@ -61,7 +56,7 @@ rules:
   verbs: ["patch"]
 ```
 
-Some values of an object are typically generated before the object is
-persisted. It is important not to rely upon the values of these fields set by
-a dry-run request, since these values will likely be different in dry-run mode
-from when the real request is made.
+API 对象的某些字段取值通常是在对象被写入到数据库中时生成的。
+用户需要注意的是，不要依赖试运行模式请求所返回的这些字段值。
+在真实请求中这类字段的最终取值可能与试运行模式下的取值很可能不同。
+
