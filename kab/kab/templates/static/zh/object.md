@@ -1,24 +1,23 @@
-## Objects
+## 对象（Objects）
 
-Kubernetes objects are persistent entities that represent a concrete instance
-of a concept in the cluster. Collectively, these objects form the state of
-your cluster. Each object is a *record of intent*. Once an object is created,
-the system constantly works to ensure that object exists.
+Kubernetes 对象是一些持久性的实体，用来表达集群中某个概念的一个具体实例。
+作为一个整体，这些对象一起构成了集群的状态。
+每个对象都是关于**意图表达的记录**。
+一旦一个对象被创建，则系统会持续地工作以确保该对象是确实存在的。
 
-Most Kubernetes objects have following fields that govern the object's
-configuration:
+大多数 Kubernetes 对象都具有以下字段，共同管理对象的配置信息：
 
-- `apiVersion`: the [API group and version](#api-groups-and-versioning) used
-  for creating or updating the object.
-- `kind`: the kind of the object you want to operate on.
-- `metadata`: the data that helps uniquely identify an object, for example, a
-  `name` string, a `UID` and the `namespace` the object resides in.
-- `spec`: the *desired state* of the object, i.e. properties you want the
-  object to have. Objects whose state cannot vary from the user's desired
-  intent MAY have only `spec`, and may rename `spec` to a more appropriate name.
-- `status`: the *current state* of the object, as supplied and updated by the
-  system. The Kubernetes control plane actively and continually manages every
-  object's actual state to match the desired state you provided.
+- `apiVersion`：创建和更新对象时使用的 API 组和版本
+- `kind`：要操作的对象的类别
+- `metadata`: 可供唯一性标识对象的数据以及其他非功能性属性信息。
+  例如，对象的 `name`、`uid`、`namespace` 等等。
+- `spec`：关于对象的**预期状态**的描述，也就是用户期望具备的属性。
+  对于状态不会偏离用户的期望意图的对象，可以只包含 `spec` 字段，
+  甚至还可以将 `spec` 字段改为一个更为合适的名称。
+- `status`：由系统来提供并更新的对象**当前状态**信息。
+  Kubernetes 控制面会主动地并且连续性地管理对象的实际状态，
+  使之与你所提供的预期状态相匹配。
 
-Objects that contain both `spec` and `status` should NOT contain additional
-top-level fields other than the standard `metadata` fields.
+既包含 `spec` 也包含 `status` 字段的对象不可以包含 `metadata`
+之外的任何其他顶层字段。
+
