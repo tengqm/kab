@@ -1,73 +1,65 @@
-## Resource Version
+## resourceVersion
 
-Every Kubernetes object has a `resourceVersion` string field representing the
-version of that resource as stored in the underlying database. Clients can use
-this field to determine when objects have changed, or to express data
-consistency requirements when getting, listing and watching resources.
-A resource version is only valid within a single namespace on a single kind of
-resource. It is changed by the server every time an object is modified.
+每个 Kubernetes 对象都会有一个 `resourceVersion` 字段，
+用来标示该资源在下层数据库中的版本信息。
+客户端可以使用此字段来判定是否对象已经发生变更，
+或者使用此字段在读取、列举、监视资源时标示是否具有一致性方面的要求。
+资源版本（Resource Version）仅在给定名字空间内部针对某类别的资源合法。
+服务器端在对象被变更时会改变其资源版本信息。
 
-### Used in Requests
+### 在请求中使用资源版本
 
-Resource versions must be treated as opaque by clients and passed unmodified
-back to the server. For example, clients should not assume resource versions
-are numeric, and may not compare two resource versions to determine which
-version is greater than which one.
+客户端必须以不透明的方式来处理资源版本信息，将该字段原封不动地传回给服务器端。
+例如，客户端不能假定资源版本数据是数字形式的字符串，
+也不能通过算术运算来对两个资源版本值进行比较以确定哪个版本更高。
 
-The `resourceVersion` value can be used as a parameter for a *get*, *list* or
-*watch* operation. The exact meaning of this parameter depends on the
-operation and the value of the `resourceVersion`.
+`resourceVersion` 字段值可以用作 *get*、*list* 或 *watch* 操作的参数。
+此查询参数的确切含义取决于所执行的操作及 `resourceVersion` 的值。
 
-For a *get* operation:
+对于 *get* 操作而言：
 
-- If `resourceVersion` is not specified, it means returning the *most recent*
-  version of the target object. The returned data must be consistent, served
-  from etcd via a quorum read.
-- If `resourceVersion` is set to "0", it means returning *any* version of the
-  object. The newest available resource version is preferred but strong
-  consistency is not required. It is possible for the server to return data at
-  a much older version than the client has previously observed. In a HA
-  configuration, this may happen due to partitions or stale caches.
-- If `resourceVersion` is set to a value other than "0", it means returning a
-  version which is at least as new as the specified version. The newest
-  available data is preferred, but any data not older than the specified
-  version may be returned.
+- 如果未指定 `resourceVersion` 参数，则意味着请求服务器端返回目标对象的**最新**版本。
+  所返回的数据是一致的，是从下层 etcd 数据库中通过**票选读（Quorum Read）**得到的。
 
-For a *list* operation:
+- 如果 `resourceVersion` 被设置为 `"0"`，则意味着服务器端可以返回对象的**任一**版本。
+  服务器应该优先考虑返回对象的最新可用版本，但并不要求强一致性。
+  有时候，服务器很可能会返回一个老版本，甚至比客户端之前观测到的版本还老。
+  在高可用架构下，出现这种情况意味着数据库出现了分区（Partition）状况，
+  或者服务器上的高速缓存未被刷新。
+- 如果所设置的 `resourceVersion` 参数值是 `"0"` 之外的其他值，
+  则意味着服务器应该返回一个至少与所给版本一样新的版本。
+  服务器端应该优先考虑最新的可用版本，但不可以返回比所指定版本更老的版本。
 
-- If `resourceVersion` is not specified, it means returning the most recent
-  version of the object collection;
-- If `resourceVersion` is set to "0", it means returning _any_ version of the
-  object collection;
-- If `resourceVersion` is set to a value other than "0", it means returning an
-  object collection whose version is not older than the specified one.
 
-For a *put* or *patch* operation, the provided `resourceVersion` is compared
-to the current value. If it doesn't match, the update operation fails with a
-`"409 StatusConflict"`. This is to ensure that there have not been other
-successful mutations to the resource during a read/modify/write cycle.
-The client is expected to *get* the resource again, apply the changes afresh,
-and try submitting again.
+对于 *list* 操作而言：
 
-However, when the `resourceVersionMatch` parameter (added in v1.19) is
-specified, you have to specify `resourceVersion`.
+- 如果未设置 `resourceVersion` 参数，则意味着服务器端应该返回对象集合的最新版本。
+- 如果 `resourceVersion` 参数被设置为 `"0"`，则意味着服务器端可以返回对象集合的任一版本。
+- 如果 `resourceVersion` 参数被设置为 `"0"` 之外的任何其他值，
+  则服务器端应该返回至少和所给版本值一样新的对象集合版本。
 
-- If `resourceVersionMatch` is set to "`Exact`", then you have to provide a
-  non-zero value for `resourceVersion`, and the server returns exactly the
-  resource version of the object.
-- If `resourceVersionMatch` is set to "`NoLaterThan`", the `resourceVersion`
-  parameter must be provided as well. If `resourceVersion` is "`0`", then the
-  API server can return any resource version of the object. If the
-  `resourceVersion` has a non-zero value, the API server returns a version no
-  older than the specified version.
+对于 *put* 或 *patch* 操作，服务器端会将用户所给的 `resourceVersion`
+值与对象当前的资源版本值相比较。如果版本值不匹配，则更新操作失败并返回
+`"409 StatusConflict"`。
+这一设计的目的是确保在读、改、写的过程期间没有其他主体对资源执行了成功的变更操作。
+客户端这时应该再次执行 *get* 操作读取资源、重新应用意图的变更并再次提交变更请求。
 
-### Returned in Responses
+不过，当用户设置了 `resourceVersionMatch` 参数（v1.19 版本新增）时，
+就必须设置`resourceVersion` 参数：
 
-The resource version of a single object is contained in the `resourceVersion`
-field of the object's `metadata` section, representing the resource version
-the object was last modified at.
+- 如果 `resourceVersionMatch` 被设置为 `"Exact"`，则用户必须为 `resourceVersion`
+  设置一个非零值。这时服务器会返回所指定资源版本的对象。
+- 如果 `resourceVersionMatch` 被设置为 `"NoLaterThan"`，则用户同样必须设置
+  `resourceVersion` 参数。
+  如果 `resourceVersion` 被设置为 `"0"`，则 API 服务器可以返回对象的任一资源版本。
+  反之，如果 `resourceVersion` 的设置值为非零值，则 API 服务器只允许返回不比所给
+  `resourceVersion` 更老的资源版本。
 
-The resource version of a _collection_ of objects is also contained in the
-`resourceVersion` field of the list's `metadata`. However, it represents the
-resource version at which the list response was constructed.
+### 服务器响应中的资源版本
+
+当服务器返回单个资源对象时，资源版本信息在对象的 `metadata` 的 `resourceVersion` 字段给出。
+字段值为对象最近一次修改时所处的资源版本值。
+
+当服务器返回一个资源集合时，资源版本信息也包含在列表的 `metadata` 的 `resourceVersion`
+字段当中。不过，字段值的含义变成列表响应被构造时的资源版本。
 
