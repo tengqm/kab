@@ -1,48 +1,49 @@
-## Protobuf Encoding
+## Protobuf 编码
 
-Kubernetes uses an envelope wrapper to encode **Protobuf** responses. The
-wrapper starts with a 4 byte magic number to help identify content in disk or
-in etcd as **Protobuf** (as opposed to JSON), and then is followed by a
-Protobuf encoded wrapper message, which describes the encoding and type of the
-underlying object and then contains the object.
+Kubernetes 会使用一种封套格式来处理 *Protobuf* 格式的响应。
+封套部分用一个 4 字节的**魔数（Magic Number）**来标示磁盘或 etcd
+中的数据是 *Protobuf* 格式而非 JSON 格式的。
+其后是 Protobuf 协议编码的封套消息，给出内容的编码以及下层对象的类型；
+最后是对象本身的内容。
 
-The wrapper format is:
+封套的格式如下：
 
 ```
-// A four byte magic number prefix:
+// 四字节的魔数前缀
 Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
 
-// An encoded Protobuf message with the following IDL:
+// Protobuf 编码的消息，其内容使用下面的 IDL
 message Unknown {
-  // typeMeta should have the string values for "kind" and
-  // "apiVersion" as set on the JSON object
+  // typeMeta 应该包含 "apiVersion" 和 "kind" 的字符串值，
+  // 正如 JSON 对象中所设置的那样。
   optional TypeMeta typeMeta = 1;
 
-  // raw will hold the complete serialized object in protobuf.
-  // See the protobuf definitions in the client libraries for a given kind.
+  // raw 中包含 protobuf 格式序列化的完整对象。
+  // 针对不同资源类别，可参考客户端库中对应的 protobuf 定义。
   optional bytes raw = 2;
 
-  // contentEncoding is encoding used for the raw data.
-  // Unspecified means no encoding.
+  // contentEncoding 是对原始数据所施行的编码。
+  // 如果未设置，则标示没有施行额外的编码处理。
   optional string contentEncoding = 3;
 
-  // contentType is the serialization method used to serialize 'raw'.
-  // Unspecified means application/vnd.kubernetes.protobuf and is usually
-  // omitted.
+  // contentType 是对 'raw' 中数据进行序列化是所采用的方法。
+  // 如果未设置，则意味着采用 application/vnd.kubernetes.protobuf 编码。
+  // 此字段通常会被省略。
   optional string contentType = 4;
 }
 
 message TypeMeta {
-  // apiVersion is the group/version for this type
+  // apiVersion 是对应资源类别的 API 组与版本信息
   optional string apiVersion = 1;
 
-  // kind is the name of the object schema. A protobuf definition should exist for this object.
+  // kind 是对象模式（Schema）的名称。
+  // 每个对象都应该具有与之对应的 protobuf 定义。
   optional string kind = 2;
 }
 ```
 
-Clients that receive a response in `"application/vnd.kubernetes.protobuf"` that
-does not match the expected prefix should reject the response, as future
-versions may need to alter the serialization format in an incompatible way and
-will do so by changing the prefix.
+客户端接收到 `"application/vnd.kubernetes.protobuf"` 编码的响应消息时，
+如果消息前缀与所期望的前缀不匹配，应该拒绝处理该响应。
+这是因为将来的版本中可能会以某种不兼容的格式来执行序列化操作，
+格式变更时对应的前缀也会发生变化。
 
