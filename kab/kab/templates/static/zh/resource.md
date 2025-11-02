@@ -1,40 +1,41 @@
-## Resource
+## 资源（Resource）
 
-Most API resources are *object*s.  A small number of types of resources are
-"virtual" concepts. They represent operations rather than objects, such as a
-permission check.  All objects have a unique name to allow idempotent
-creation, but virtual resources may not have unique names if they are not
-retrievable or do not rely on idempotency.
+大多数 API 资源（Resource）都是**对象（Object）**。
+较少的一部分资源类型所呈现的是一些“虚拟的”概念。
+它们所代表的是某类操作而非对象，例如许可权限检查等等。
+每个对象都有一个唯一的名字，便于执行幂等性质的操作，
+不过虚拟资源可能不一定具有唯一的名字，尤其是当它们无法读取或者不要求幂等性时。
 
-API resources are distinguished by their API group, resource type, namespace
-(for namespaced resources), and name. The API server may serve the same
-underlying data through multiple API versions and handle the conversion
-between API versions transparently. All these different versions are actually
-representations of the same resource.
+所有 API 资源都通过其 API 组、类别（Kind）、名字空间
+（对于名字空间作用域的对象而言）及资源名字来综合辨识。
+API 服务器可能通过多个不同的 API 版本来向外提供同一份底层数据；
+它会透明地完成不同 API 版本之间的转换。
+所有这些不同的 API 版本实际上都是同一底层资源的不同呈现形式。
 
-For example, suppose there are two versions `v1` and `v1beta1` for the same
-resource. An object created by the `v1beta1` version can then be read,
-updated, and deleted by either the `v1beta1` or the `v1` versions.
+例如，假设同一资源存在 `"v1"` 和 `"v1beta1"` 两个版本。
+对于使用 `"v1beta1"` 版本创建的对象，可以使用 `"v1beta1"`、`"v1"`
+版本来执行读取、更新或删除操作。
 
-### Resource Scope
+### 资源作用域（Resource Scope）
 
-All resource types are either scoped by the cluster or to a namespace.
-A namespace-scoped resource type will be deleted when its namespace is deleted
-and access to that resource type is controlled by authorization checks on the
-namespace scope.
+所有资源类型要么是集群作用域的，要么是名字空间作用域的。
+名字空间作用域的对象在其所处的名字空间被删除时也会被删除。
+访问这类对象的权限是在名字空间范畴进行鉴权检查的。
 
-### Resource Types
+### 资源类型（Resource Types）
 
-A *resource type* is the name used in the API path. It is usually lower-cased
-plural noun. For example, `pods`, `namespaces`, and `services`.
+所谓资源类型，是指在 API 路径中使用的资源名称。
+资源类型通常以小写字母的复数形式给出，
+例如 `"pods"`、`"namespaces"` 和 `"services"` 等。
 
-All resource types have a concrete schema defined in JSON which is called a
-*kind*.
+所有资源类型都有一个用 JSON 形式定义的模式（Schema）。
+这一模式被称作资源的类别（Kind）。
 
-A list of instances of a resource type is known as a *collection*.
-A single instance of the resource type is called a *resource*.
+由某个资源类型的实例所构成的列表通常被称作**集合（Collection）**。
+某个资源类型的一个具体实例通常被称作一个**资源（Resource）**。
 
-### Sub-Resources
+### 子资源（Sub-Resources）
 
-Some resource types will have one or more *sub-resources*, represented as sub
-paths below the resource.
+某些资源类型可能支持一种或者多种**子资源（Subresource）**。
+子资源呈现为对应资源类型之下的子路径。
+
