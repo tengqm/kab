@@ -1,11 +1,13 @@
-## Server Side Apply
+## 服务器端应用（Server Side Apply，SSA）
 
-Starting from Kubernetes v1.18, you can enable the Server Side Apply feature
-so that the control plane tracks managed fields for all newly created objects.
-Server Side Apply provides a clear pattern for managing field conflicts,
-offers server-side Apply and Update operations, and replaces the client-side
-functionality of kubectl apply.
+从 Kubernetes v1.18 版本开始，用户可以启用**服务器端应用（SSA）**特性。
+启用此特性之后，控制面能够为所有新创建的对象跟踪其被托管的字段变化。
+服务器端应用的主要用途是处理字段变更冲突场景。
+API 服务器支持 Apply 和 Update 操作，进而可以替代客户端 `kubectl apply`
+所执行的操作。
 
-### Field Manager
+### 字段管理器（Field Manager）
 
-TBD
+字段管理器用来标识字段由哪个控制器或主体进行托管管理。
+通过标记不同字段对应的管理器，服务器端可以较容易地处理多个主体对同一资源的并发变更请求。
+

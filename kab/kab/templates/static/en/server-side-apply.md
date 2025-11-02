@@ -8,4 +8,8 @@ functionality of kubectl apply.
 
 ### Field Manager
 
-TBD
+A field manager represents the subject or controller that manages a specific
+set of fields. With field managers explicitly specified, the API server can
+better handle the conflicts that may arise when a resource is mutated
+concurrently by more than one subjects or controllers.
+
