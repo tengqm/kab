@@ -252,3 +252,8 @@ The following APIs are useful for debugging a cluster:
 - `/livez/<component>`: the `<component>` can be discovered using the
   `verbose` query string on `/livez`. If the component specified is not
   recognized by the API server, a 404 is returned.
+- `/statusz`: Enabled using the `ComponentStatusz` feature gate,
+  this endpoint displays the high level information about a component.
+- `/flagz`: Enabled using the `ComponentFlagz` feature gate,
+  this endpoint shows the command line arguments that were used
+  to start a component.
