@@ -1,10 +1,10 @@
-## Watch Bookmarks
+## 监视书签（Watch Bookmarks）
 
-To mitigate the impact of short history window, Kubernetes introduced a
-concept of `bookmark` watch event. It is a special kind of event to mark that
-all changes up to a given `resourceVersion` the client is requesting have
-already been sent. Object returned in that event is of the type requested by
-the request, but only `resourceVersion` field is set, e.g.:
+在监视特定资源或资源集合时，为了应对历史窗口过短带来的负面影响，Kubernetes
+引入了 `bookmark` 监视事件。这是一种特殊的事件，用来通知客户端，
+其所给的 `resourceVersion` 之前发生的所有变更已经发送完毕。
+在此事件中返回的对象的类型与所请求的类型相同，但只设置了 `resourceVersion` 字段。
+例如：
 
 ```console
 GET /api/v1/namespaces/test/pods?watch=1&amp;resourceVersion=10245&amp;allowWatchBookmarks=true
@@ -24,8 +24,7 @@ Content-Type: application/json
 }
 ```
 
-`Bookmark` events can be requested by `allowWatchBookmarks=true` option in
-**watch** requests, but clients shouldn't assume bookmarks are returned at any
-specific interval, nor may they assume the server will send any `bookmark`
-event.
+`Bookmark` 事件可以在 **watch** 请求中通过参数 `allowWatchBookmarks=true` 来设置，
+但是客户端不能假定服务器会在某个给定的时间间隔后会返回书签信息，
+也不可以假定服务器肯定会发送 `bookmark` 事件。
 
