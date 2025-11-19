@@ -23,8 +23,9 @@ DATA_DIR = os.path.join(APP_DIR, "data")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("KAB_KEY")
 
+# This has to be True for development environment
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,7 +100,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.path.dirname(__file__), 'static'),
+    os.path.join(os.path.dirname(__file__), 'static_files'),
 )
 
 # Path to hold the statics
